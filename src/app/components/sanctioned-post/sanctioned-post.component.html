@@ -1,0 +1,226 @@
+<div class="shadow-sm bg-white p-3 rounded">
+    <div class=" bg-profile-head">
+        <h5 class="mb-0 p-2 FontTitle  text-white">Sanctioned Post Mapping</h5>
+    </div>
+    <div class="d-flex flex-row  bd-highlight ">
+        <div class="p-1">
+          
+            <h2 class="titleSetSanction1 ">  {{regionName}}</h2>
+           
+            <!-- <label class="titleSet">Select Region Name</label>
+            <mat-select (selectionChange)="getStationList($event.value)" [disabled]="businessTypeId==3" [(value)]="selectedRegion" class="form-control" value="">
+                <mat-option value="">Select Region Name</mat-option>
+                <mat-option value="0">All</mat-option>
+                <mat-option *ngFor="let reg of regionList" [value]="reg.regionCode">{{reg.regionName}}({{reg.regionCode}})</mat-option>
+            </mat-select> -->
+        </div>
+        <div class="p-1 ">
+            <h2 class="titleSetSanction1 "> / {{stationName}}</h2>
+            <!-- <label class="titleSet">Select Station Name</label>
+            <mat-select (selectionChange)="getSchoolList($event)" class="form-control" value="">
+                <mat-option value="">Select Station Name</mat-option>
+               <ng-container *ngIf="regionSelection !=0">
+                    <mat-option value="0">All</mat-option>
+                </ng-container>
+                <mat-option *ngFor="let station of stationList" [value]="station.stationCode">
+                    {{station.stationName}}({{station.stationCode}})</mat-option>
+            </mat-select>
+            <span *ngIf="regionSelection ==0" style="color:red"> Please select Region</span> -->
+        </div>
+        <div class="p-1 ">
+            <h2 class="titleSetSanction1 "> / {{schoolName}}( {{schoolCode}})</h2>
+            <!-- <label class="titleSet">Select School Name</label>
+            <mat-select (selectionChange)="getSanctionPostList($event)" class="form-control" value="">
+                <mat-option value="">Select School Name</mat-option>
+                <mat-option *ngFor="let school of schoolList let i = index" [value]="i">
+                    {{school.schoolName}}({{school.schoolCode}})</mat-option>
+            </mat-select>
+            <span *ngIf="regionSelection ==0" style="color:red"> Please select Region</span> -->
+        </div>
+
+
+        
+        <div class="p-5 "></div>
+        <div class="p-5 "></div>
+        
+        <div class="p-1">
+            <button mat-raised-button color="primary"  class="float-end mt-2" (click)="sanctionedPostMappingPdf()">Download PDF</button>
+        </div>
+        <div class="p-1 ">
+            <button mat-raised-button class="float-end mt-2 btn-primary" (click)="exportexcel()">Download Excel</button>
+        </div>
+
+        <div class="p-1">
+            
+            <button mat-raised-button color="primary" class="float-end mt-2" (click)="backToList()" style="background-color: #145f11;" >Back to List</button>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- <div class="row">
+        <div class="col-md-2 form-group mt-3">
+            <label class="titleSet">Select Region Name</label>
+            <mat-select (selectionChange)="getStationList($event)" class="form-control" value="">
+                <mat-option value="">Select Region Name</mat-option>
+                <mat-option *ngFor="let reg of regionList" [value]="reg.regionCode">{{reg.regionName}}({{reg.regionCode}})</mat-option>
+            </mat-select>
+        </div>
+        <div class="col-md-2 form-group mt-3">
+            <label class="titleSet">Select Station Name</label>
+            <mat-select (selectionChange)="getSchoolList($event)" class="form-control" value="">
+                <mat-option value="">Select Station Name</mat-option>
+                <mat-option *ngFor="let station of stationList" [value]="station.stationCode">
+                    {{station.stationName}}({{station.stationCode}})</mat-option>
+            </mat-select>
+        </div>
+        <div class="col-md-2 form-group mt-3">
+            <label class="titleSet">Select School Name</label>
+            <mat-select (selectionChange)="getSanctionPostList($event)" class="form-control" value="">
+                <mat-option value="">Select School Name</mat-option>
+                <mat-option *ngFor="let school of schoolList" [value]="school.schoolCode">
+                    {{school.schoolName}}({{school.schoolCode}})</mat-option>
+            </mat-select>
+        </div>
+        <div class="col-md-2">
+            <button mat-raised-button color="primary" class="float-end mt-2" (click)="sanctionedPostMappingPdf()">Download PDF</button>
+        </div>
+        <div class="col-md-2">
+            <button mat-raised-button class="float-end mt-2 btn-primary" (click)="exportexcel()">Download Excel</button>
+        </div>
+    </div> -->
+
+</div>
+<div class="fieldSet card mt-4 p-3">
+    <form [formGroup]="sanctionedPost">
+        <fieldset>
+            <div class="form-card">
+                <!-- <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="titleSetSanction1 mb-0">Sanctioned Posts for : {{sanctionPostFor}}</h2>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table mt-1" formArrayName="sanctionedPostDetails">
+                            <thead style="font-size: 13px; font-weight: 400;">
+                                <tr>
+                                    <th>
+                                        S.No
+                                    </th>
+                                    <th *ngIf="stationSelection==1">
+                                        Station/School Name
+                                    </th>
+                                    <th>
+                                        Staff Type
+                                    </th>
+                                    <th width="10%">
+                                        Post Name
+                                    </th>
+                                    <th>
+                                        Post Code
+                                    </th>
+                                    <th width="15%">
+                                        Subject Name
+                                    </th>
+                                    <th width="8%">
+                                        Subject Code
+                                    </th>
+                                    <th *ngIf="shiftAvailable">
+                                        Shift
+                                    </th>
+                                    <th width="10%" class="text-center">
+                                        Sanctioned Post
+                                    </th>
+                                    <th class="text-center">
+                                        Occupied Post
+                                    </th>
+                                    <th class="text-center">
+                                        Vacant Post
+                                    </th>
+                                    <th class="text-center">
+                                        Surplus Post
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let quantity of sanctionedPostDetails().controls; let i=index" formGroupName="{{i}}">
+                                    <td>
+                                        <div class="input-group mb-3">
+                                            {{i+1}}
+                                        </div>
+                                    </td>
+                                    <td *ngIf="stationSelection==1">
+                                        <input type="text" style="width: 100%;" class="form-control form-control-sm " name="stationName" id="stationName" formControlName="stationName" disabled>
+                                    </td>
+                                    <td>
+                                        <input type="text" style="width: 100%;" class="form-control form-control-sm " name="staffType" id="staffType" formControlName="staffType" disabled>
+                                    </td>
+                                    <td>
+                                        <input type="text" style="width: 100%;" class="form-control form-control-sm " name="postName" id="postName" formControlName="postName" disabled>
+                                    </td>
+                                    <td>
+                                        <input type="text" style="width: 55px;" class="form-control form-control-sm " name="postCode" id="postCode" formControlName="postCode" disabled>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm " name="subjectName" id="subjectName" formControlName="subjectName" disabled>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm " name="subjectCode" id="subjectCode" formControlName="subjectCode" disabled>
+                                    </td>
+                                    <td *ngIf="shiftAvailable">
+                                        <input type="text" class="form-control form-control-sm " name="shiftYn" id="shiftYn" formControlName="shiftYn" disabled>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control form-control-sm text-center" name="sanctionedPost" id="sanctionedPost" formControlName="sanctionedPost" (blur)="calculateVacantPost($event,i,'S')" (keypress)="keyPressNumbers($event)" [attr.disabled]="nationalEdit==false?'':null">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control form-control-sm text-center" name="occupiedPost" id="occupiedPost" formControlName="occupiedPost" (blur)="calculateVacantPost($event,i,'O')" (keypress)="keyPressNumbers($event)" [attr.disabled]="isEdit==false?'':null">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control form-control-sm text-center" name="vacantPost" id="vacantPost" formControlName="vacantPost" disabled>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control form-control-sm text-center" name="surplusPost" id="surplusPost" formControlName="surplusPost" max="500" min="0" disabled>
+                                    </td>
+                                    <span class="help-block text-danger" *ngIf="quantity.controls.sanctionedPost.errors != null || quantity.controls.occupiedPost.errors != null">
+                                        Enter a valid number</span>
+                                </tr>
+                                <tr style="background-color: #e9f0ee;">
+                                    <td style="font-weight: 600;">
+                                        Total
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="font-weight: 600;text-align: center;">{{totalSanctionedPost}}</td>
+                                    <td style="font-weight: 600;text-align: center;">{{totalOccupiedPost}}</td>
+                                    <td style="font-weight: 600;text-align: center;">{{totalVacantPost}}</td>
+                                    <td style="font-weight: 600;text-align: center;">{{totalSurplusPost}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div style="text-align: center !important;">
+            <ng-container *ngIf="nationalEdit">
+                <button class="btn btn-green float-end" (click)="onSubmit()" type="submit">{{(isEdit==true)?'Update':'Save'}}</button>
+            </ng-container>
+           
+            <button [disabled]="!sanctionedPost.valid || businessTypeId !=3" class="btn btn-green float-end" (click)="onSubmit()" type="submit">{{(isEdit==true)?'Update':'Save'}}</button>
+            <button [disabled]="!sanctionedPost.valid || businessTypeId !=3" class="btn btn-green float-end" (click)="freezeSanctionPost()" style="margin-right: 1%;">Freeze</button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,58 @@
+<div class="cardSet50 px-4">
+    <form [formGroup]="staffTypeForm" (ngSubmit)="submit()">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="">
+                    <div class=" headingBack mb-4">
+                        <span class="fonttileHeading"> {{(isEdit)?'Edit Staff Type':'Add New Staff Type'}} </span>
+                    </div>
+                    
+
+                    <div class=" prof-fields bg-white shadow p-4 rounded-3">
+                        <div class="row">
+
+                            <div class="col-md-4 my-2form-group">
+                                <label class="titleSet">Staff Type Name</label>
+                                <input type="text" formControlName="staffType" class="form-control">
+                                <!-- <span class="help-block text-danger"
+                                    *ngIf="isSubmitted && !staffTypeForm.get('regionname').valid && staffTypeForm.get('regionname').touched">Please Enter Region Name !</span> -->
+                                <mat-error *ngIf="isSubmitted && errorHandling('staffType', 'required')">
+                                    Please Enter Staff Type Name!
+                                </mat-error>
+                                <mat-error *ngIf="isSubmitted && errorHandling('staffType','textField')">Pleae Enter a Valid Name!(Only white space is allowed.)
+                                </mat-error>
+                                <mat-error *ngIf="isSubmitted && errorHandling('staffType', 'minlength')">
+                                    Please Enter Minimum 3 characters word for Staff-Type Name!
+                                </mat-error>
+                            </div>
+                            <div class="col-md-4 my-2form-group">
+                                <!-- <mat-form-field style="width: 100%;"> -->
+                                <label class="titleSet">Select Status</label>
+                                <mat-select formControlName="status" class="form-control">
+                                    <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.status}}</mat-option>
+                                </mat-select>
+
+                                <!-- </mat-form-field> -->
+                                <mat-error *ngIf="isSubmitted && errorHandling('status', 'required')">
+                                    Please select the status!
+                                </mat-error>
+                                <!-- <span class="help-block text-danger"
+                                *ngIf="!regionForm.get('status').valid && regionForm.get('status').touched">Please select the status!</span> -->
+                            </div>
+                            <div class="mt-2 text-end">
+                                <button type="submit" class="btn btn-success mt-2">{{(isEdit)?'Update':'Add'}}</button>&nbsp;&nbsp;
+                                <button type="button" *ngIf="!isEdit" class="btn btn-primary mt-2" (click)="clear()">Clear</button>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary mt-2" (click)="redirectToList()">Cancel</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </form>
+</div>

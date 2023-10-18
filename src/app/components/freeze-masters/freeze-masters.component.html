@@ -1,0 +1,194 @@
+<div class="container-fluid px-4">
+
+    <div class=" cardSet shadow">
+
+        <h5 class="mb-0 p-2 FontTitle">Freeze Masters</h5>
+        <hr />
+        <div class>
+            <form [formGroup]="freezeForm" >
+                <ul class="freezeList">
+                 
+                    <li [class.is-done]="data">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser"> 
+                                1. Region/ZIET Master
+                            </div>
+                            <div class>  
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary" type="button"
+                                        formControlName="regionMaster"
+                                        (click)="onToggle(this.freezeForm.value,'regionMaster')"
+                                        ></mat-slide-toggle>
+                                </div></div>
+                        </div>
+                    </li>
+                    <li [class.is-done]="data1">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser">
+                                2. Station Master
+                            </div>
+                            <div class>
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary"
+                                        formControlName="stationMaster"
+                                        (click)="onToggle(this.freezeForm.value,'stationMaster')"></mat-slide-toggle>
+                                </div></div>
+                        </div>
+                    </li>
+                    <li [class.is-done]="data2">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser">
+                               3. School/Institution Master
+                            </div>
+                            <div class>
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary"
+                                        formControlName="schoolInstitutionMaster"
+                                        (click)="onToggle(this.freezeForm.value,'schoolInstitutionMaster')"></mat-slide-toggle>
+                                </div></div>
+                        </div>
+                    </li>
+                    <li [class.is-done]="data3">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser">
+                                4. Station Category Master
+                            </div>
+                            <div class>
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary"
+                                        formControlName="stationCategoryMaster"
+                                        (click)="onToggle(this.freezeForm.value,'stationCategoryMaster')"></mat-slide-toggle>
+                                </div></div>
+                        </div>
+                    </li>
+                    <li [class.is-done]="data4">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser">
+                              5. Staff Type Master
+                            </div>
+                            <div class>
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary"
+                                        formControlName="staffTypeMaster"
+                                        (click)="onToggle(this.freezeForm.value,'staffTypeMaster')"></mat-slide-toggle>
+                                </div></div>
+                        </div>
+                    </li>
+                    <li [class.is-done]="data5">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser">
+                              6. Designation Master
+                            </div>
+                            <div class>
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary"
+                                        formControlName="designationMaster"
+                                        (click)="onToggle(this.freezeForm.value,'designationMaster')"></mat-slide-toggle>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li [class.is-done]="data6">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser">
+                               7. Subject Master
+                            </div>
+                            <div class>
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary"
+                                        formControlName="subjectMaster"
+                                        (click)="onToggle(this.freezeForm.value,'subjectMaster')"></mat-slide-toggle>
+                                </div></div>
+                        </div>
+                    </li>
+                    <li [class.is-done]="data7">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser">
+                               8. Region Station Mapping
+                            </div>
+                            <div class>
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary"
+                                        formControlName="regionStationMapping"
+                                        (click)="onToggle(this.freezeForm.value,'regionStationMapping')"></mat-slide-toggle>
+                                </div></div>
+                        </div>
+                    </li>
+                    <li [class.is-done]="data8">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser">
+                               9. Station Category Mapping
+                            </div>
+                            <div class>
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary"
+                                        formControlName="stationCategoryMapping"
+                                        (click)="onToggle(this.freezeForm.value,'stationCategoryMapping')"></mat-slide-toggle>
+                                </div></div>
+                        </div>
+                    </li>
+                    <li [class.is-done]="data9">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser">
+                             10. Station School Mapping
+                            </div>
+                            <div class>
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary"
+                                        formControlName="stationSchoolMapping"
+                                        (click)="onToggle(this.freezeForm.value,'stationSchoolMapping')"></mat-slide-toggle>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li [class.is-done]="data10">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser">
+                                11. Staff-Type-Post Mapping
+                            </div>
+                            <div class>
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary"
+                                        formControlName="staffTypePostMapping"
+                                        (click)="onToggle(this.freezeForm.value,'staffTypePostMapping')"></mat-slide-toggle>
+                                </div></div>
+                        </div>
+                    </li>
+                    <li [class.is-done]="data11">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser">
+                               12. Post-Subject Mapping
+                            </div>
+                            <div class>
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary"
+                                        formControlName="postSubjectMapping"
+                                        (click)="onToggle(this.freezeForm.value,'postSubjectMapping')"></mat-slide-toggle>
+                                </div></div>
+                        </div>
+                    </li>
+                    <li [class.is-done]="data12">
+                        <div class="d-flex justify-content-between">
+                            <div class="fontUser">
+                                13. Sanctioned-Post Mapping
+                            </div>
+                            <div class>
+                                <div class="form-check">
+                                    <mat-slide-toggle color="primary"
+                                        formControlName="sanctionedPostMapping"
+                                        (click)="onToggle(this.freezeForm.value,'sanctionedPostMapping')"></mat-slide-toggle>
+                                </div></div>
+                        </div>
+                    </li>
+                </ul>
+                 <!-- <hr />
+                <div class="text-center">
+                    <button class="btn btn-primary" (click)="freezemaster(this.freezeForm.value)">
+                        Freeze Data</button>
+                </div>  -->
+            </form>
+
+        </div>
+    </div>
+
+</div>

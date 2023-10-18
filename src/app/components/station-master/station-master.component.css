@@ -1,0 +1,21 @@
+ 
+  table {
+    width: 100%;
+  }
+  th.mat-header-cell:first-of-type{
+    padding-left: 8px;
+  
+  }
+  th.mat-header-cell{
+    padding-left: 11px;
+  }
+  td.mat-cell{
+    padding-left: 11px;
+  }
+  .bg-1{
+    background-color: #fff;
+  }
+
+  .mat-column-sno {width: 15% !important; }
+  .mat-column-stationcode {width: 15% !important; }
+  .mat-column-stationname {width: 30% !important; }

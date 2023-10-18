@@ -1,0 +1,69 @@
+<div class="cardSet50 px-4">
+    <form [formGroup]="subjectForm" (ngSubmit)="submit()">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="">
+                    <div class=" headingBack mb-4">
+                        <span class="fonttileHeading">{{(isEdit)?'Edit Subject':'Add New Subject'}} </span>
+                    </div>
+                   
+                    <div class="prof-fields bg-white shadow p-4 rounded-3">
+                        <div class="row">
+
+                            <div class="col-md-4 my-2 form-group">
+                                <label class="titleSet">Subject Code</label>
+                                <input type="text" formControlName="subjectCode" maxlength="5" class="form-control">
+                                <!-- <span class="help-block text-danger"
+                                    *ngIf="!subjectForm.get('subjectCode').valid && subjectForm.get('subjectCode').touched">Please Enter Region Code !</span> -->
+                                <mat-error *ngIf="isSubmitted && errorHandling('subjectCode', 'required')">
+                                    Please Enter Subject Code!
+                                </mat-error>
+                                <mat-error *ngIf="isSubmitted && errorHandling('subjectCode','textField')">Please Enter a Valid Subject Code.
+                                </mat-error>
+                            </div>
+                            <div class="col-md-4 my-2 form-group">
+                                <label class="titleSet">Subject Name</label>
+                                <input type="text" formControlName="subjectName" class="form-control" maxlength="50">
+                                <!-- <span class="help-block text-danger"
+                                    *ngIf="isSubmitted && !subjectForm.get('subjectName').valid && subjectForm.get('subjectName').touched">Please Enter Region Name !</span> -->
+                                <mat-error *ngIf="isSubmitted && errorHandling('subjectName', 'required')">
+                                    Please Enter Subject Name!
+                                </mat-error>
+                                <mat-error *ngIf="isSubmitted && errorHandling('subjectName', 'minlength')">
+                                    Please Enter Minimum 3 characters word for Subject Name!
+                                </mat-error>
+                                <mat-error *ngIf="isSubmitted && errorHandling('subjectName','textField')">Pleae Enter a Valid Subject Name!(Only white space is allowed).
+                                </mat-error>
+                            </div>
+                            <div class="col-md-4 my-2 form-group ">
+                                <!-- <mat-form-field style="width: 100%;"> -->
+                                <label class="titleSet">Select Status</label>
+                                <mat-select formControlName="status" class="form-control">
+                                    <mat-option>Select Status</mat-option>
+                                    <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.status}}</mat-option>
+                                </mat-select>
+
+                                <!-- </mat-form-field> -->
+                                <mat-error *ngIf="isSubmitted && errorHandling('status', 'required')">
+                                    Please select the status!
+                                </mat-error>
+                                <!-- <span class="help-block text-danger"
+                                *ngIf="!subjectForm.get('status').valid && subjectForm.get('status').touched">Please select the status!</span> -->
+                            </div>
+                            <div class="mt-2 text-end">
+                                <button type="submit" class="btn btn-success mt-2">{{(isEdit)?'Update':'Add Subject'}}</button>&nbsp;&nbsp;
+                                <button type="button" *ngIf="!isEdit" class="btn btn-primary mt-2" (click)="clear()">Clear</button>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary mt-2" (click)="redirectToList()">Cancel</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </form>
+</div>

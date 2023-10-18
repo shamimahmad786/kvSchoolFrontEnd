@@ -1,0 +1,534 @@
+<!-- 
+<div class="clearfix">
+
+    <div class="float-end">
+        <ul class="StationRegion">
+            <li>
+
+                <mat-form-field>
+                    <mat-label>Select Region</mat-label>
+                    <mat-select (selectionChange)="getStationByRegionId($event.value)" [(ngModel)]="regionCode"
+                        disableOptionCentering>
+                        <mat-option value="all">All</mat-option>
+                        <mat-option *ngFor="let data of regionList" value="{{data.regionCode}}">{{data?.regionName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </li>
+            <li>
+                <mat-form-field>
+                    <mat-label>Select Station</mat-label>
+                    <mat-select (selectionChange)="getKvSchoolByStationId($event.value)" [(ngModel)]="stationCode1"
+                        disableOptionCentering>
+                        <mat-option *ngIf="stationList?.length>0" value="all">All</mat-option>
+                        <mat-option *ngFor="let data of stationList" value="{{data.statinCode}}">{{data?.stationName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </li>
+            <li>
+                <mat-form-field>
+                    <mat-label>Select School</mat-label>
+                    <mat-select (selectionChange)="onSchoolSelect($event.value)" [(ngModel)]="businessUnitTypeCode"
+                        disableOptionCentering>
+                        <mat-option *ngIf="kvSchoolList?.length>0" value="all">All</mat-option>
+                        <mat-option *ngFor="let data of kvSchoolList" value="{{data.udiseSchCode}}">{{data?.kvName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid ">
+    <div class='row'>
+        <div class="col-xl-4 xl-50 col-sm-6 box-col-6">
+            <h2 class="mb-0 p-2"> &nbsp;</h2>
+            <div class="shadow mb-4 bg-body rounded-3" style="min-height:235px;">
+                <div class="py-3 px-4 ">
+                    <div class="row">
+                        <div class="col-md-12 mb-2 " style="border-bottom: 1px solid #ccc; padding-bottom: 10px; ">
+                            <div class="d-flex align-items-center text-green " style="margin-bottom: 2px;">
+                                <div class="flex-shrink-0">
+                                    <img src="assets/assets/img/kvs-logo.png" alt="..." width="70px">
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h4 class="mb-0 KVid"> National Login</h4>
+                                    <h6 class="KVTt"></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="teacherStaff1">
+                           
+                                <li style="padding-top: 9px;">
+                                    <div class="clearfix">
+                                        <div class="float-start">
+                                            <h2 class="font896">Region:</h2>
+                                        </div>
+                                        <div class="float-end pt-2">
+                                            <span class="fontsize18px">
+                                                {{dashboardData?.no_of_region}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                         
+                                <li style="padding-top: 7px;">
+                                    <div class="clearfix">
+                                        <div class="float-start">
+                                            <h2 class="font896">Station:</h2>
+                                        </div>
+                                        <div class="float-end pt-2">
+                                            <span class="fontsize18px">
+                                                {{dashboardData?.no_of_station}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                          
+                                <li style="padding-top: 7px;">
+                                    <div class="clearfix">
+                                        <div class="float-start">
+                                            <h2 class="font896">School:</h2>
+                                        </div>
+                                        <div class="float-end pt-2">
+                                            <span class="fontsize18px">
+                                                {{dashboardData?.no_of_school}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="teacherStaff1">
+                                <li style="padding-top: 9px;">
+                                    <div class="clearfix">
+                                        <div class="float-start">
+                                            <h2 class="font896">Total Staff:</h2>
+                                        </div>
+                                        <div class="float-end pt-2">
+                                            <span class="fontsize18px">
+                                                {{dashboardData?.total_staff_all}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li style="padding-top: 7px;">
+                                    <div class="clearfix">
+                                        <div class="float-start">
+                                            <h2 class="font896">Male:</h2>
+                                        </div>
+                                        <div class="float-end pt-2">
+                                            <span class="fontsize18px">
+                                                {{dashboardData?.total_staff_all_m}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li style="padding-top: 7px;">
+                                    <div class="clearfix">
+                                        <div class="float-start">
+                                            <h2 class="font896">Female:</h2>
+                                        </div>
+                                        <div class="float-end pt-2">
+                                            <span class="fontsize18px">
+                                                {{dashboardData?.total_staff_all_f}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8 xl-100 box-col-12">
+            <h2 class="mb-0 text-end p-2">.
+                <span class="fw-bolder text-green font-weight-bold"></span>
+            </h2>
+            <div class="">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="shadow rounded-3 bg-white" style="min-height:235px;">
+                            <div class="bg12 clearfix p-3">
+                                <div class="float-start">
+                                    <h2 class="TotalValue text-white">{{dashboardData?.total_teacher_all}}</h2>
+                                    <h4 class="TotalContent text-white mb-0 ">
+                                        Total Teaching Staff</h4>
+                                </div>
+                                <div class="float-end">
+                                    <img src="assets/assets/img/tea12.png" alt="" srcset="" width="54px">
+                                </div>
+                            </div>
+                            <ul class="teacherStaff p-3">
+                                <li>
+                                    <div class="clearfix">
+                                        <div class="float-start">
+                                            <h2 class="font896">Male</h2>
+                                        </div>
+                                        <div class="float-end pt-2 CircleBlue">
+                                            <span class="circle ">
+                                                {{dashboardData?.total_teacher_m}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="clearfix">
+                                        <div class="float-start">
+                                            <h2 class="font896">Female</h2>
+                                        </div>
+                                        <div class="float-end pt-2 CircleBlue">
+                                            <span class="circle ">
+                                                {{dashboardData?.total_teacher_f}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="shadow rounded-3 bg-white" style="min-height:235px;">
+
+                            <div class="bg13 clearfix p-3">
+                                <div class="float-start">
+                                    <h2 class="TotalValue text-white">{{dashboardData?.total_non_teacher_all}}</h2>
+                                    <h4 class="TotalContent text-white mb-0 ">Total Non Teaching Staff</h4>
+                                </div>
+                                <div class="float-end">
+                                    <img src="assets/assets/img/tea13.png" alt="" srcset="" width="54px">
+                                </div>
+                            </div>
+                            <ul class="teacherStaff p-3">
+                                <li>
+                                    <div class="clearfix">
+                                        <div class="float-start">
+                                            <h2 class="font896">Male</h2>
+                                        </div>
+                                        <div class="float-end Circlegreen">
+                                            <span class="circle ">
+                                                {{dashboardData?.total_non_teacher_m}}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li>
+                                    <div class="clearfix">
+                                        <div class="float-start">
+                                            <h2 class="font896">Female</h2>
+                                        </div>
+                                        <div class="float-end Circlegreen">
+                                            <span class="circle ">
+                                                {{dashboardData?.total_non_teacher_f}}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12 ">
+            <h2 class="section-heading">Teaching Staff</h2>
+            <ul class="SchoolStatus">
+                <li class="hr-mar">
+                    <div>
+                        <img src="assets/assets/img/verified-staff.png" class="mb-2" />
+                        <h4 class="font26589 mb-1">Verified</h4>
+                        <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_school_approved_m*1 +
+                            dashboardData?.total_teacher_school_approved_f*1}}</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Male</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_school_approved_m}}</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Female</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_school_approved_f}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="hr-mar">
+                    <div>
+                        <img src="assets/assets/img/pending-school.png" class="mb-2" />
+                        <h4 class="font26589 mb-1">Pending at School </h4>
+                        <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_approved_m*1 +
+                            dashboardData?.total_teacher_approved_f*1 + dashboardData?.total_teacher_school_edited_f*1 +
+                            dashboardData?.total_teacher_school_edited_m*1 }}</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Male</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_approved_m*1 +
+                                    dashboardData?.total_teacher_school_edited_m*1}}</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Female</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_approved_f*1 +
+                                    dashboardData?.total_teacher_school_edited_f*1}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="hr-mar">
+                    <div>
+                        <img src="assets/assets/img/pending-staff.png" class="mb-2" />
+                        <h4 class="font26589 mb-1">Pending at Staff</h4>
+                        <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_initiated_m*1 +
+                            dashboardData?.total_teacher_initiated_f*1}}</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Male</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_initiated_m}}</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Female</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_initiated_f}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="hr-mar">
+                    <div>
+                        <img src="assets/assets/img/initiated-school.png" class="mb-2" />
+                        <h4 class="font26589 mb-1">Initiated by School </h4>
+                        <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_school_initiated_m*1 +
+                            dashboardData?.total_teacher_school_initiated_f*1}}</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Male</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_school_initiated_m}}</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Female</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_school_initiated_f}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="hr-mar">
+                    <div>
+                        <img src="assets/assets/img/not-initiated.png" class="mb-2" />
+                        <h4 class="font26589 mb-1">Not Initiated</h4>
+                        <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_not_initiatedat_any_level_m*1 +
+                            dashboardData?.total_teacher_not_initiatedat_any_level_f*1}}</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Male</h4>
+                                <h2 class="font64989985 mb-0">
+                                    {{dashboardData?.total_teacher_not_initiatedat_any_level_m}}</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Female</h4>
+                                <h2 class="font64989985 mb-0">
+                                    {{dashboardData?.total_teacher_not_initiatedat_any_level_f}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="hr-mar">
+                    <div>
+                        <img src="assets/assets/img/total-staff.png" class="mb-2" />
+                        <h4 class="font26589 mb-1">Dropbox</h4>
+                        <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_dropbox_teacher_m*1 +
+                            dashboardData?.total_teacher_dropbox_teacher_f*1}}</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Male</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_dropbox_teacher_m}}</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Female</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_teacher_dropbox_teacher_f}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 ">
+            <h2 class="section-heading pt-4">Non-Teaching Staff</h2>
+            <ul class="SchoolStatus">
+
+                <li class="hr-mar">
+                    <div>
+                        <img src="assets/assets/img/verified-staff.png" class="mb-2" />
+                        <h4 class="font26589 mb-1">Verified </h4>
+                        <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_school_approved_m*1 +
+                            dashboardData?.total_non_teacher_school_approved_f*1}}</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Male</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_school_approved_m}}
+                                </h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Female</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_school_approved_f}}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="hr-mar">
+                    <div>
+                        <img src="assets/assets/img/pending-school.png" class="mb-2" />
+                        <h4 class="font26589 mb-1">Pending at School </h4>
+                        <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_approved_m*1 +
+                            dashboardData?.total_non_teacher_approved_f*1 +
+                            dashboardData?.total_non_teacher_school_edited_f*1 +
+                            dashboardData?.total_non_teacher_school_edited_m*1 }}</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Male</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_approved_m*1 +
+                                    dashboardData?.total_non_teacher_school_edited_m*1}}</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Female</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_approved_f*1 +
+                                    dashboardData?.total_non_teacher_school_edited_f*1}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="hr-mar">
+                    <div>
+                        <img src="assets/assets/img/pending-staff.png" class="mb-2" />
+                        <h4 class="font26589 mb-1">Pending at Staff</h4>
+                        <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_initiated_m*1 +
+                            dashboardData?.total_non_teacher_initiated_f*1}}</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Male</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_initiated_m}}</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Female</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_initiated_f}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="hr-mar">
+                    <div>
+                        <img src="assets/assets/img/initiated-school.png" class="mb-2" />
+                        <h4 class="font26589 mb-1">Initiated by School </h4>
+                        <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_school_initiated_m*1 +
+                            dashboardData?.total_non_teacher_school_initiated_f*1}}</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Male</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_school_initiated_m}}
+                                </h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Female</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_school_initiated_f}}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="hr-mar">
+                    <div>
+                        <img src="assets/assets/img/not-initiated.png" class="mb-2" />
+                        <h4 class="font26589 mb-1">Not Initiated</h4>
+                        <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_not_initiatedat_any_level_m*1 +
+                            dashboardData?.total_non_teacher_not_initiatedat_any_level_f*1}}</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Male</h4>
+                                <h2 class="font64989985 mb-0">
+                                    {{dashboardData?.total_non_teacher_not_initiatedat_any_level_m}}</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Female</h4>
+                                <h2 class="font64989985 mb-0">
+                                    {{dashboardData?.total_non_teacher_not_initiatedat_any_level_f}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="hr-mar">
+                    <div>
+                        <img src="assets/assets/img/total-staff.png" class="mb-2" />
+                        <h4 class="font26589 mb-1">Dropbox</h4>
+                        <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_dropbox_teacher_m*1 +
+                            dashboardData?.total_non_teacher_dropbox_teacher_f*1}}</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Male</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_dropbox_teacher_m}}
+                                </h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="font26589 mb-1">Female</h4>
+                                <h2 class="font64989985 mb-0">{{dashboardData?.total_non_teacher_dropbox_teacher_f}}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <div style="text-align: right; " class="col-sm-12" (click)="showDiv.next = !showDiv.next; getDataOnMoreClick()">
+        <label
+            style="cursor: pointer; background:#24695c; color: #fff; letter-spacing: 1px; padding:2px 8px; margin-top: 5px; border-radius:4px;">Show
+            More</label></div>
+    <mat-card *ngIf="showDiv.next">
+        <mat-card-title></mat-card-title>
+        <div class="col-sm-12">
+            <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham" [rowData]="rowData"
+                [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [autoGroupColumnDef]="autoGroupColumnDef"
+                [groupDisplayType]="groupDisplayType" [showOpenedGroup]="true" [animateRows]="true"
+                [gridOptions]="gridOptions" (gridReady)="onGridReady($event)">
+            </ag-grid-angular>
+        </div>
+    </mat-card>
+
+</div>
+
+ -->
+
+
+<div>
+
+    Please fill all Masters
+
+</div>

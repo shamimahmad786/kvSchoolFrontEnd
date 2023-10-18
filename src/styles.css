@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+
+/*====Reset css=========*/
+img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+}
+@font-face {
+    font-family: 'PoppinsLight';
+    src: url('src/assets/fonts/PoppinsLight.eot');
+    src: url('src/assets/fonts/PoppinsLight.eot') format('embedded-opentype'),
+         url('src/assets/fonts/PoppinsLight.woff2') format('woff2'),
+         url('src/assets/fonts/PoppinsLight.woff') format('woff'),
+         url('src/assets/fonts/PoppinsLight.ttf') format('truetype'),
+         url('src/assets/fonts/PoppinsLight.svg#PoppinsLight') format('svg');
+  }
+  
+  @font-face {
+    font-family: 'PoppinsRegular';
+    src: url('src/assets/fonts/PoppinsRegular.eot');
+    src: url('src/assets/fonts/PoppinsRegular.eot') format('embedded-opentype'),
+         url('src/assets/fonts/PoppinsRegular.woff2') format('woff2'),
+         url('src/assets/fonts/PoppinsRegular.woff') format('woff'),
+         url('src/assets/fonts/PoppinsRegular.ttf') format('truetype'),
+         url('src/assets/fonts/PoppinsRegular.svg#PoppinsRegular') format('svg');
+  }
+  @font-face {
+    font-family: 'PoppinsMedium';
+    src: url('src/assets/fonts/PoppinsMedium.eot');
+    src: url('src/assets/fonts/PoppinsMedium.eot') format('embedded-opentype'),
+         url('src/assets/fonts/PoppinsMedium.woff2') format('woff2'),
+         url('src/assets/fonts/PoppinsMedium.woff') format('woff'),
+         url('src/assets/fonts/PoppinsMedium.ttf') format('truetype'),
+         url('src/assets/fonts/PoppinsMedium.svg#PoppinsMedium') format('svg');
+  }
+  @font-face {
+    font-family: 'PoppinsSemiBold';
+    src: url('src/assets/fonts/PoppinsSemiBold.eot');
+    src: url('src/assets/fonts/PoppinsSemiBold.eot') format('embedded-opentype'),
+         url('src/assets/fonts/PoppinsSemiBold.woff2') format('woff2'),
+         url('src/assets/fonts/PoppinsSemiBold.woff') format('woff'),
+         url('src/assets/fonts/PoppinsSemiBold.ttf') format('truetype'),
+         url('src/assets/fonts/PoppinsSemiBold.svg#PoppinsSemiBold') format('svg');
+  }
+  @font-face {
+    font-family: 'PoppinsBold';
+    src: url('src/assets/fonts/PoppinsBold.eot');
+    src: url('src/assets/fonts/PoppinsBold.eot') format('embedded-opentype'),
+         url('src/assets/fonts/PoppinsBold.woff2') format('woff2'),
+         url('src/assets/fonts/PoppinsBold.woff') format('woff'),
+         url('src/assets/fonts/PoppinsBold.ttf') format('truetype'),
+         url('src/assets/fonts/PoppinsBold.svg#PoppinsBold') format('svg');
+  }
+  
+
+
+/*====Reset css=========*/
+img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+}
+.login-wrap {position: relative;  font-family: 'PoppinsRegular'; 	font-size: 15px;
+	line-height: 1.6;}
+.login-wrap .login-bg {background-color:#632765; height: 100vh; padding-left: 40px !important; position: relative;}
+.login-bg h1, .login-bg h2 {color: #fff; text-transform: uppercase; }
+.login-bg h2 { font-family: 'PoppinsLight'; color: #fff; font-size: 26px; margin: 0;}
+.login-bg h1 { font-family: 'PoppinsBold'; font-size: 50px; line-height: 55px;}
+.login-bg h3 {color: #fff; font-family: 'PoppinsLight'; font-size: 26px; }
+.login-content {padding-top: 180px !important;}
+.login-img{position: absolute; right: 0; bottom:0; height: 400px;}
+.login-img-forgot{position: absolute; right: 25%; bottom:0; height: 450px;}
+.logo-left {height: 80px;}
+.logo-right {height: 100px; margin-right: 40px;}
+.login-form{height: calc(100vh - 250px); display: flex; justify-content: center; align-items: center; }
+.login-form .form-control {border: none; border-bottom: solid 1px #717171; border-radius: 0; padding-bottom:10px; padding-left: 30px; font-size: 18px;}
+.login-form .form-control:focus{outline: none; box-shadow: none;}
+.login-cnt .mb-4{margin-bottom: 30px !important;}
+.login-cnt{max-width:500px; width: 100%; }
+.login-cnt .sec-title { position: relative; line-height: 60px; text-align: center; margin-bottom: 50px !important; font-size: 2rem; color:#37338a;   font-family: 'PoppinsBold';}  
+.login-cnt .sec-title:after{width: 70px; background-color:#9c219e;  height: 4px; margin: auto; content: ""; display: block;}
+.login-cnt i {position: absolute; left: 0; top: 8px; font-size: 24px;}
+.login-cnt .btn {padding: 10px 12px; background:#37338a; border-color: #37338a; font-size: 16px;}
+.login-cnt a {color:#37338a;    font-family: 'PoppinsSemiBold';}
+.w-70{width: 70%;} 
+.login-wrap .button-group .btn {color: #fff; background: #dbdbdb; border-color: #dbdbdb; font-family: 'PoppinsSemiBold'; padding: 8px 12px;}
+.login-wrap .button-group .btn img {margin-top: -2px; height: 22px;}
+.login-wrap .button-group .btn.active {background:#37338a; border-color: #37338a;}
+
+@media (max-width:1600px) {
+
+    .login-bg h2 { font-size: 22px; }
+    .login-bg h1 { font-size: 40px;}
+    .login-bg h3 { font-size: 22px; }
+    .login-content {padding-top: 100px !important;}
+    .login-img{ height: 280px;}
+    .login-cnt{max-width:500px; width: 100%; }
+    .login-cnt i {position: absolute; left: 0; top: 10px; font-size:18px;}
+    .login-form .form-control {  padding-bottom:10px; padding-left: 20px; font-size:1rem;}
+    .login-cnt .btn {padding: 6px 12px; }
+}
+
+@media (max-width:1366px) {
+    .login-img{height: 200px;}
+}
+
+@media (max-width:1199px) {
+    .logo-left {height: 70px;}  
+    .logo-right {height: 90px;}
+    .login-cnt{max-width:400px; width: 100%; }
+}
+
+@media (max-width:991px) {
+
+    .login-cnt{max-width:80%; width: 100%; }
+
+    .pencil-bg{height: 70px;}
+}
+
+@media (max-width:767px) {
+   
+    .login-wrap .login-bg { padding-left: 20px !important; }
+    .logo-right {height: 70px; margin-right: 20px;}
+    .logo-left {height: 55px; margin-left:-20px !important;}
+    .login-head{text-align: center;}
+}
+
+@media (max-width:575px) {
+    .login-content{padding-top: 40px !important;}
+    .login-wrap .login-bg {height: auto; padding-left: 20px !important; }
+    .login-img{display: none;}
+    .logo-left {height: 60px; margin-left:0px !important;}
+    .login-head{text-align: left;}
+    .login-bg h3 {font-size:18px; }
+    .login-bg h1{font-size: 24px;}
+    .login-wrap .button-group .btn{font-size: 13px; padding: 6px 10px;}
+    .login-wrap .button-group .btn img {height: 20px;}
+}
+
+@media (max-width:360px) {
+    .logo-left {height: 55px;} 
+}

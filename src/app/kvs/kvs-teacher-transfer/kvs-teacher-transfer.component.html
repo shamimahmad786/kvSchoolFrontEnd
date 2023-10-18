@@ -1,0 +1,341 @@
+<div *ngIf="showNationalSelector" class="shadow-sm bg-white p-3 rounded">
+    <div class="row">
+        <div class="col-md-3"><span style="font-weight: bolder; color: #427e72;">Region Name :
+            </span>
+            <mat-form-field>
+                <mat-label>Select Region</mat-label>
+                <mat-select (selectionChange)="getStationByRegionId($event.value)" [(ngModel)]="regionCode">
+                    <!-- <mat-option value="">Select</mat-option> -->
+                    <mat-option *ngFor="let data of regionList" value="{{data.regionCode}}">{{data.regionName}}
+                    </mat-option>
+                    <!-- <mat-option value="NA">NA</mat-option> -->
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3"><span style="font-weight: bolder; color: #427e72;">Station Name :
+            </span>
+            <mat-form-field>
+                <mat-label>Select Station</mat-label>
+                <mat-select (selectionChange)="getKvSchoolByStationId($event.value)" [(ngModel)]="stationCode1">
+                    <!-- <mat-option value="">Select</mat-option> -->
+                    <mat-option *ngFor="let data of stationList" value="{{data.statinCode}}">{{data.stationName}}
+                    </mat-option>
+                    <!-- <mat-option value="NA">NA</mat-option> -->
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3"><span style="font-weight: bolder; color: #427e72;">School Name :
+            </span>
+            <mat-form-field>
+                <mat-label>Select School</mat-label>
+                <mat-select (selectionChange)="onSchoolSelect($event.value)" [(ngModel)]="businessUnitTypeCode">
+                    <!-- <mat-option value="Teaching">Select</mat-option> -->
+                    <mat-option *ngFor="let data of kvSchoolList" value="{{data.udiseSchCode}}-{{data.kvCode}}">
+                        {{data.kvName}}</mat-option>
+                    <!-- <mat-option value="NA">NA</mat-option> -->
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <div class="mt-3">
+                <span style="font-weight: bolder; color: #427e72;">Udise Code :
+                </span>{{kvSchoolDetails?.rowValue[0].udise_sch_code}}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="shadow-sm bg-white p-3 rounded mt-3">
+
+    <div class="example-header">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search here">
+        </mat-form-field>
+
+        <!-- below code is for select filter -->
+
+        <!-- &nbsp;&nbsp;
+        <mat-form-field>
+            <mat-label>Select Filter</mat-label>
+            <mat-select (selectionChange)="applyFilterOnSelect($event.value)">
+                <mat-option value="Teaching">Teaching</mat-option>
+                <mat-option value="Non-Teaching">Non-Teaching</mat-option>
+                <mat-option value="NA">NA</mat-option>
+            </mat-select>
+        </mat-form-field> -->
+
+    </div>
+
+    
+    <div class="example-container mat-elevation-z8">
+        <mat-table [dataSource]="dataSource1" matSort>
+            <ng-container matColumnDef="sno">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.sno}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="empcode">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Code </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"> </span>  {{row.empcode}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span>  {{row.name | titlecase}}</mat-cell>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="dob">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Date of Birth </mat-header-cell>
+                <mat-cell *matCellDef="let row"> <span class="mobile-label"> </span> {{row?.dob | date: 'dd-MM-YYYY'}} </mat-cell>
+            </ng-container> -->
+
+            <!-- <ng-container matColumnDef="staffType">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Staff Type </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.staffType}} </mat-cell>
+            </ng-container> -->
+
+            <ng-container matColumnDef="gender">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Gender </mat-header-cell>
+                <mat-cell *matCellDef="let row" [style.color]="row.color"> <span class="mobile-label"></span> {{row.gender}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                <mat-cell *matCellDef="let row" [style.color]="row.color" >
+                     <!-- <span class="mobile-label">{{row.status}}</span>  -->
+                    <!-- <span *ngIf="row.approved === 1" class=' bx-badge-check-initiated bxStyle1 mr-2'>Transfer
+                        Initiated</span>
+                    <span *ngIf="row.approved === 0 || row.approved === ''" class=' bx-badge-check-submitted bxStyle1 mr-2'></span>
+                    <span *ngIf="row.approved === 2" class=' bx-badge-check-verified bxStyle1 mr-2'>Transfer
+                        Verified</span>
+                    <span *ngIf="row.approved === 'TRR'" class=' bx-badge-check-rejected bxStyle1 mr-2'>Exempted</span>
+                    <span *ngIf="row.approved === 'TRE'" class=' bx-badge-check-edited bxStyle1 mr-2'>Transfer
+                        Edited</span> -->
+
+                        <span *ngIf="row.status === '1'" class=' bx-badge-check-initiated bxStyle1 mr-2'>Transfer Submitted  </span>
+                        <span *ngIf="row.status === '2' || row.approved === ''" class=' bx-badge-check-submitted bxStyle1 mr-2'>DC Submitted</span>
+                        <span *ngIf="row.status === '3'" class=' bx-badge-check-verified bxStyle1 mr-2'>Transfer Not Initiated</span>
+                       
+
+                </mat-cell>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="systchcode">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Transferss Id</mat-header-cell>
+                <mat-cell *matCellDef="let row"> <span class="mobile-label">Transferss Id : </span>
+                    <span *ngIf="row.systchcode != 'null' && row.systchcode != '' ">{{row.systchcode}}</span>
+                    <span *ngIf="row.systchcode == 'null' || row.systchcode == '' ">
+                        <button [disabled]="disabledCreateButton" type="button" class="btn btn12 btn-outline-primary"
+                            (click)="createUser(row.teacherId)">Create
+                            User</button>
+                    </span>
+                </mat-cell>
+            </ng-container> -->
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                <mat-cell *matCellDef="let row" [style.color]="row.color" class="IconBx">
+                    <!-- <span class="mobile-label">Action :{{row.teacherId}} </span> -->
+                    
+                    <!-- <i *ngIf="row.approved == 'TRS' || row.approved == 'TRA' || row.approved == 'TRE'" class='bx bx-message-square-check bxStyle1 mr-2' title="Verify" (click)="onVerifyClick(row.teacherId)">{{row.c}}</i>
+                    <i *ngIf="row.approved == 'TRS' || row.approved == 'TRA' || row.approved == 'TRE'" class='bx bx-box bxStyle1 dropbox-btn-transfer mr-2' title="Delete Transfer Application" (click)="deleteInitiatedTransfer(row.teacherId, row.systchcode)">{{row.c}}</i> -->
+                    <i *ngIf="row.action == 1"  class='bx bx-message-square-check bxStyle1 mr-2' title="Verify" (click)="onEdit(row.teacherId)">{{row.c}}</i>
+                    <!-- <i *ngIf="row.approved == 1" class='bx bx-message-square-check bxStyle1 mr-2' title="Verify" (click)="onVerifyClick(row.teacherId)">{{row.c}}</i> -->
+                    <!-- Commented by shamim <i *ngIf="row.approved == 1" class='bx bx-message-square-check bxStyle1 mr-2' title="Verify" (click)="onEdit(row.teacherId)">{{row.c}}</i> -->
+                    <!-- <i *ngIf="row.approved == 1" class='bx bx-box bxStyle1 dropbox-btn-transfer mr-2' title="Delete Transfer Application" (click)="deleteInitiatedTransfer(row.teacherId, row.systchcode)">{{row.c}}</i> -->
+
+
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;">
+            </mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+    </div>
+
+    <div class="mt-3 pb-4">
+        <!-- <h5 style="float: left;">Legend: </h5> -->
+        <div style="float: left;">
+            <!-- <i class='bx bx-show bxStyle1 view-btn' style="margin-right: 4px; margin-left: 10px;"></i>View -->
+            <!-- <i class='bx bx-edit-alt bxStyle1 edit-btn' style="margin-right: 4px; margin-left: 10px;"></i>Edit -->
+            <i class='bx bx-box bxStyle1 dropbox-btn-transfer' style="margin-right: 4px; margin-left: 10px;"></i>Delete initiated teacher transfer (For re-initiation, kindly login to teacher and initiate the transfer again)
+            <!-- <i class='bx bx-key bxStyle1 reset-btn' style="margin-right: 4px; margin-left: 10px;"></i>Reset Password -->
+            <i class='bx bx-message-square-check bxStyle1 ' style="margin-right: 4px; margin-left: 10px;"></i>Verify and Edit transfer submitted by teacher.
+        </div>
+    </div>
+</div>
+
+
+<div mat-dialog-content>
+    <ng-template #transferVerifyModal let-modal style="min-width: 100%;">
+
+        <div class="" style="min-width: 100%; ">
+
+            <div class="row">
+                <div class="table-responsive">
+
+                    <table class="table-striped">
+
+                        <h2 class="px-2 mt-2 text-green">Profile Details</h2>
+
+                        <tr>
+                            <th>Udise School Code</th>
+                            <td>{{teacherTransferDetails?.currentUdiseSchCode}}</td>
+
+                            <th>Present KV Name</th>
+                            <td>{{kvNameCode}}</td>
+
+                            <th>Employee Code</th>
+                            <td>{{teacherTransferDetails?.teacherEmployeeCode}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Employee Id</th>
+                            <td>{{teacherTransferDetails?.teacherId}}</td>
+
+                            <th>Name</th>
+                            <td>{{teacherTransferDetails?.teacherName | titlecase}}</td>
+
+                            <th>Gender</th>
+                            <td>{{teacherTransferDetails?.teacherGender | genderPipe}}</td>
+
+                        </tr>
+                        <tr>
+                            <th>Date of Birth</th>
+                            <td>{{teacherTransferDetails?.teacherDob | date: 'dd-MM-YYYY'}}</td>
+
+                            <th>Email</th>
+                            <td>{{teacherTransferDetails?.teacherEmail}}</td>
+
+                            <th>Mobile Number</th>
+                            <td>{{teacherTransferDetails?.teacherMobile}}</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <!-- <th>Nationality</th>
+                            <td>{{teacherTransferDetails.teacherNationality | nationality}}</td> -->
+
+                            <!-- <th>Marital Status</th>
+                            <td>{{teacherTransferDetails.maritalStatus | maritalStatus}}</td> -->
+
+                            <th>Present Station Name</th>
+                            <td>{{stationNameCode}}</td>
+
+                            <th>Present Station in Present Post Date</th>
+                            <td>{{teacherTransferDetails?.workExperiencePositionTypePresentStationStartDate | date: 'dd-MM-YYYY'}}</td>
+
+                            <th>Present KV in Present Post Date</th>
+                            <td>{{teacherTransferDetails?.workExperienceWorkStartDatePresentKv | date: 'dd-MM-YYYY'}}</td>
+
+                        </tr>
+                        <tr>
+
+
+
+                            <th>Present post name</th>
+                            <td>{{teacherTransferDetails?.lastPromotionPositionType}}</td>
+
+
+                            <th>Present post date</th>
+                            <td>{{teacherTransferDetails?.lastPromotionPositionDate | date: 'dd-MM-YYYY'}}</td>
+
+                            <th>Subject Name</th>
+                            <td>{{teacherTransferDetails?.workExperienceAppointedForSubject}}</td>
+
+                        </tr>
+
+                        <!-- <tr>
+
+
+                         
+
+                            <th>Nature of Appointment</th>
+                            <td>Regular</td>
+
+                        </tr> -->
+
+                        <tr>
+
+
+
+                        </tr>
+
+                    </table>
+                    <!-- <table class="table-striped poptbl">
+                        <h2 class="px-2 mt-2 text-green">Experience</h2>
+
+                        <tr>
+                            <th>KV Code</th>
+                            <th>School Name</th>
+                            <th>Shift</th>
+                            <th>Station Name</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Transfer Ground</th>
+                            <th>Station Type</th>
+                        </tr>
+                        <tr *ngFor="let data of teacherExperienceList">
+                            <td>{{data.kvCode}}</td>
+                            <td>{{data.udiseSchoolName}}</td>
+                            <td>{{data.shiftType}}</td>
+                            <td>{{data.stationName}}</td>
+                            <td>{{data?.workStartDate | date: 'dd-MM-YYYY'}}</td>
+                            <td>{{data?.workEndDate | date: 'dd-MM-YYYY'}}</td>
+                            <td>{{data.groundForTransfer}}</td>
+                            <td>{{data.stationType == '0'?'NA':'Hard'}}</td>
+                        </tr>
+                    </table> -->
+                    <!-- <h2 class="px-2 mt-2 text-green">Displacement Count</h2> -->
+                  
+        
+              
+                    <hr>
+                    <form [formGroup]="remarksForm">
+                        <div class="row mt-2 pb-5 mx-2">
+                            <!-- <div class="col-md-3">
+                                <label class="form-label form-label-custom">Select Exemption Type: <span
+                                        class="required-asterisk">*</span><span style="color: red;">(If
+                                        Exempted)</span></label>
+                                <fieldset [disabled]="!showNationalSelector">
+                                    <select class="form-select form-select-sm" aria-label="Default select example" formControlName="exemptionType" name="exemptionType" id="exemptionType">
+                                        <option value="" selected disabled>Select</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                    </select>
+                                </fieldset>
+                            </div> -->
+                            <!-- <div class="col-md-5">
+                                <label for="exampleFormControlTextarea1" class="form-label form-label-custom">Give
+                                    your remarks: <span class="required-asterisk">*</span><span style="color: red;">(If
+                                        Exempted)</span></label>
+                                <fieldset [disabled]="!showNationalSelector">
+                                    <textarea class="form-control" id="exemptionRemarks" formControlName="exemptionRemarks" name="exemptionRemarks" rows="1"></textarea>
+                                </fieldset>
+                            </div> -->
+                          
+                            <div class="col-md-4 mt-4">
+                                <div class="p-2 floatRight">
+                                    <button class="btn btn-secondary btn-sm" (click)="modal.dismiss('Cross click');">Cancel</button>
+                                    <button *ngIf="!showNationalSelector" class="btn btn-primary btn-sm" (click)="modal.dismiss('Cross click'); onEdit(teacherTransferDetails.teacherId)">Edit</button>
+                                    <button [disabled]="!remarksForm.valid" *ngIf="showNationalSelector" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click'); onApproved('R',teacherTransferDetails.teacherId)">Exempt</button>
+                                    <!-- <button *ngIf="!showNationalSelector" class="btn btn-success btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click'); onApproved('A',teacherTransferDetails.teacherId)">
+                                        Confirm & Verify</button> -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+
+        </div>
+    </ng-template>
+</div>

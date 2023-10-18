@@ -1,0 +1,77 @@
+<div class="dashboard">
+  <div class="sidebar">
+      <app-side-nav></app-side-nav>
+  </div>
+  <div class="dashboard--remaining--width" >
+      <div class="dashboard-main--wrapper">
+    
+        <div class="main-header">
+        <div class="header-top">
+          <div class="container-flued d-flex align-items-center justify-content-between">
+              <ul class="list-unstyled d-flex align-items-center mb-0 left-list mob-header">
+                  <li><a href="#">भारत सरकार
+                          <span>Government of India</span></a></li>
+                  <li><a href="#">
+                          शिक्षा मंत्रालय<span>
+                          Ministry of Education</span></a></li>
+                 
+              </ul>
+              <ul class="list-unstyled d-flex align-items-center mb-0 me-3">
+                  <li class="d-none d-lg-block">
+                      <a><i class="bi bi-house"></i>Home</a>
+                  </li>
+                  <li class="d-none d-lg-block">
+                      <a><i class="bi bi-arrow-down"></i>Skip To Navigation</a>
+                  </li>
+    
+                  <li class="d-none d-lg-block">
+                      <a><i class="bi bi-arrow-down"></i>Skip To Main Content</a>
+                  </li>
+    
+                  <li class="d-none d-lg-block">
+                      <a><i class="bi bi-volume-down"></i>
+                          Screen Reader Access</a>
+                  </li>
+    
+              </ul>
+          </div>
+      </div>
+     <!--close top-header-->
+    
+        <div class="dashboard-header">
+          <div class="dashboard-header--image">
+            <img src="assets/images/logo.svg" alt="logo" class="image-fluid" />
+          </div>
+          <div class="dashboard-header--info">
+            <div class="dashboard-header--notification">
+              <i class="bi bi-person"></i>
+            </div>
+            <div class="dashboard-header--details">
+              <p class="dashboard-header--hello">Welcome</p>
+              <p class="dashboard-header--name">{{loginUserNameForChild}}</p>
+              
+            </div>
+            <div class="dashboard-header--logo text-center">
+              <a (click)="authlogout()">
+                <img src="assets/images/log-out.svg">
+              <div>Logout</div> 
+              </a>
+               
+            </div>
+          </div>
+        </div><!--close bottom-header-->
+      </div>
+      <router-outlet></router-outlet>
+  </div>
+
+  <div class="dashboard-footer d-flex justify-content-between align-items-center">
+    <p class="mb-0">This site is designed, developed, maintained and hosted by National Informatics Centre (NIC), Ministry of Electronics & Information Technology.
+      This Website belongs to Department of School Education & Literacy, Ministry of Education, Government of India.</p>
+      <img src="assets/images/nic-logo.svg">
+  </div>
+</div>
+      <div class="dashboard-icon" title="Open Sidebar">
+          <i class="bi bi-chevron-right  dashboard-chevron-right"></i>
+        </div>
+
+</div>
