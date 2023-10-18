@@ -22,10 +22,8 @@
           <div class="row">
               <div class="col-md-6">
   
-                <button mat-raised-button class=" me-2 btn-primary">Download
-                  Excel</button>
-              <button mat-raised-button class="me-2 btn-secondary">Download
-                  PDF</button>
+                <!-- <button mat-raised-button class=" me-2 btn-primary">Download Excel</button>
+              <button mat-raised-button class="me-2 btn-secondary">Download PDF</button> -->
 
               </div>  
               <div class="col-md-6" style="
@@ -69,12 +67,6 @@
                     </mat-cell>
                 </ng-container>
       
-                  <ng-container matColumnDef="Created By">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Created By </mat-header-cell>
-                      <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.createdBy }}
-                      </mat-cell>
-                  </ng-container>
-      
                   <ng-container matColumnDef="Modified By">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>Modified By</mat-header-cell>
                       <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
@@ -87,11 +79,7 @@
                       </span> {{row.stateDate  | date: 'dd-MM-yyyy'}} </mat-cell>
                   </ng-container>
                  
-                  <ng-container matColumnDef="End Date">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> End Date  </mat-header-cell>
-                      <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
-                      </span> {{row.endDate}} </mat-cell>
-                  </ng-container>
+                
       
                   <ng-container matColumnDef="Status">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>

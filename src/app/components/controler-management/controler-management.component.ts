@@ -24,7 +24,7 @@ declare const srvTime: any;
 })
 export class ControlerManagementComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['Sno', 'Region Name','Employee Code', 'Employee name','Institution Name','Created By', 'Modified By','Start Date','End Date','Status','Action' ];
+  displayedColumns = ['Sno', 'Region Name','Employee Code', 'Employee name','Institution Name','Modified By','Start Date','Status','Action' ];
  
   hBSource : MatTableDataSource<any>;
 
@@ -33,7 +33,7 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
  @ViewChild('hBSort') hBSort: MatSort;
  @ViewChild('JoiningBox', { static: true }) JoiningBox: TemplateRef<any>;   
 
-  childUserData = { "sno": "","regionname": "","employeeCode": "", "employeeName": "","institutionName":"","createdBy": "","modifiedBy": "","stateDate":"","endDate": "","regionCode":"","status": ""}
+  childUserData = { "sno": "","regionname": "","employeeCode": "", "employeeName": "","institutionName":"","modifiedBy": "","stateDate":"","regionCode":"","status": ""}
   applicationId: any;
   loginUsername: any;
   userType: boolean = true;
@@ -123,14 +123,12 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
       this.childUserData.employeeCode =data[i].employee_code;
       this.childUserData.employeeName = data[i].employee_name;
       this.childUserData.institutionName = data[i].institutionname;
-      this.childUserData.createdBy = data[i].created_by;
       this.childUserData.modifiedBy = data[i].modified_by;  
       this.childUserData.stateDate =data[i].state_date;  
-      this.childUserData.endDate = data[i].end_date;  
       this.childUserData.regionCode = data[i].region_code;  
       this.childUserData.status = data[i].is_active;  
       this.controllerOfficeDataArray.push(this.childUserData);
-      this.childUserData = { "sno": "","regionname": "","employeeCode": "", "employeeName": "","institutionName":"","createdBy": "","modifiedBy": "","stateDate":"","endDate": "","regionCode":"","status": ""}
+      this.childUserData = { "sno": "","regionname": "","employeeCode": "", "employeeName": "","institutionName":"","modifiedBy": "","stateDate":"","regionCode":"","status": ""}
     }
     setTimeout(() => {
       this.hBSource  = new MatTableDataSource(this.controllerOfficeDataArray);

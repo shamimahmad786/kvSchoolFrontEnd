@@ -34,21 +34,28 @@ export class UserMappingComponent implements OnInit {
   controllerOfficeList: any;
   roOfficeCode: any;
   historyControllerOfficeDataArray: any = [];
-
+  heading:any;
+  businessUnitTypeId:any;
+  schoolType:any;
   constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private router: Router) { }
 
   ngOnInit(): void {
     $(document).ready(function () {
-   
-              $("#s_id").attr("readonly", "true");
-  
-  });
+   $("#s_id").attr("readonly", "true");
+   });
+    this.heading="Add/Edit User Mapping";
     this.route.queryParams.subscribe(params => {
       this.userMappingAction=params['action'];
       this.userMappingRegionCode=params['regionId'];
     });
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+      this.businessUnitTypeId= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id;
+    }
+    if(this.businessUnitTypeId=="2"){
+      this.schoolType="3";
+    } else if(this.businessUnitTypeId=="3"){
+      this.schoolType="1";
     }
     if(this.userMappingAction=="Add"){
     this.endDateStatus=false;
@@ -71,6 +78,7 @@ export class UserMappingComponent implements OnInit {
     });
   }
   if(this.userMappingAction=="view"){
+    this.heading="Controler History";
    this.viewControlerHeirechy();
   }
    this.getControllerOffice();
@@ -90,7 +98,8 @@ export class UserMappingComponent implements OnInit {
     this.regionEmployeeSchoolList=[];
     this.roOfficeList=[];
     var data={
-      "regionCode":event
+      "regionCode":event,
+       "schoolType":this.schoolType
     }
     this.outSideService.getregionSchool(data,this.loginUserNameForChild).subscribe(res => {
     debugger
@@ -146,7 +155,7 @@ export class UserMappingComponent implements OnInit {
       
     })
  }
- //***********************Add Controler  *************************************/
+ //***********************Add Controler Officer  *************************************/
   addControler(){
       this.getStationByRegionId();
       this.getRoOfficeByRegionId(this.userMappingRegionCode);
@@ -154,7 +163,7 @@ export class UserMappingComponent implements OnInit {
         region:this.userMappingRegionCode,
       })
     }
-
+ //***********************Edit Controler Officer  *************************************/
   editeControler(){
     for (let i = 0; i < this.controllerOfficeList.length; i++) {
         if(this.controllerOfficeList[i].region_code==this.userMappingRegionCode)
@@ -172,6 +181,7 @@ export class UserMappingComponent implements OnInit {
         startdate:this.duplicateregionCheck[0]['state_date']
       })
     }
+//***********************View Controler Officer  *************************************/
     viewControlerHeirechy(){
       var data={
         "regionCode":this.userMappingRegionCode,
@@ -203,6 +213,7 @@ export class UserMappingComponent implements OnInit {
         })
       });
     }
+  //*********************** Submit Form  *************************************/
   onSubmit(){
     this.addUserMappingFormubmitted=true
     const splittedArrayEmp = this.addUserMapping.value.empname.split("/");

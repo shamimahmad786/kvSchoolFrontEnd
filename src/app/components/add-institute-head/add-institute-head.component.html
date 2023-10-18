@@ -10,15 +10,11 @@
         </ol>
       </nav>
      
-      <div class="dashboard-main-content-info p-5">
-        
-        <div class="tab-content" id="myTabContent"> 
-           
-        <div class="row justify-content-center d-flex">
-            
-          <div class="col-lg-10">
-           
-            <div class="card p-3">
+      <div class="dashboard-main-content-info p-5">   
+        <div class="tab-content" id="myTabContent">     
+        <div class="row justify-content-center d-flex">          
+          <div class="col-lg-10"> 
+            <div class="card p-3" *ngIf="businessUnitTypeId!='5'">
                 <form id="msform" [formGroup]="addInstituteForm" (ngSubmit)="onSubmit()">
               <div class="pb-2 mt-2  row  m-0">
                 <label for="staticEmail" class="col-sm-2 col-form-label ps-0">Institution type</label>
@@ -33,18 +29,27 @@
                 </div>
 
                 <label for="staticEmail" class="col-sm-2 col-form-label ">Instituion List </label>
-                <div class="col-sm-3">   
+                <div class="col-sm-3" *ngIf="businessUnitTypeId!='3'">   
                     <select class="form-select " aria-label="Default select example" #institutelist (change)="getUserNameForInstitute(institutelist.value)" formControlName="instituteCode" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.instituteCode.errors }">
                         <option selected disabled>Select Institute List </option>
-                        <option *ngFor="let data of regionList; let i=index;" value="{{data.region_code}}/{{data.region_name}}">
-                            {{data.region_name}}
+                        <option *ngFor="let data of regionList; let i=index;" value="{{data.regionCode}}/{{data.regionName}}">
+                            {{data.regionName}}
                         </option>
                     </select>
                     <div *ngIf="addInstituteFormubmitted && f.instituteCode.errors" class="invalid-feedback">Institute list is required</div>
                 </div>
+
+                <div class="col-sm-3" *ngIf="businessUnitTypeId=='3'">   
+                  <select class="form-select " aria-label="Default select example" #institutelist (change)="getUserNameForSchool(institutelist.value)" formControlName="instituteCode" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.instituteCode.errors }">
+                      <option selected disabled>Select Institute List </option>
+                      <option *ngFor="let data of regionList; let i=index;" value="{{data.kvCode}}/{{data.kvName}}">
+                          {{data.kvName}}
+                      </option>
+                  </select>
+                  <div *ngIf="addInstituteFormubmitted && f.instituteCode.errors" class="invalid-feedback">Institute list is required</div>
+              </div>
               </div>
   
-
               <div class="pb-2 mt-2  row  m-0">
                <label for="staticEmail" class="col-sm-2 col-form-label ps-0">User Name</label>
                 <div class="col-sm-3">
@@ -63,13 +68,6 @@
   
      
               <div class="pb-2 mt-2  row  m-0">
-                <label for="staticEmail" class="col-sm-2 col-form-label ps-0">Name</label>
-                 <div class="col-sm-3">
- 
-                    <input type="text"   class="form-control" id="Name" formControlName="Name" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Name.errors }" >
-                    <div *ngIf="addInstituteFormubmitted && f.Name.errors" class="invalid-feedback">Name is required</div>
-                </div>
- 
                  <label for="staticEmail" class="col-sm-2 col-form-label ">Mobile</label>
                  <div class="col-sm-3">
  
@@ -79,12 +77,41 @@
                </div> 
                <div class="text-center my-2 "><button class="insitute-svae-button"  [disabled]="!this.addInstituteForm.get('instituteType').valid || 
                 !this.addInstituteForm.get('instituteCode').valid || 
-                !this.addInstituteForm.get('userName').valid || !this.addInstituteForm.get('Email').valid || 
-                !this.addInstituteForm.get('Name').valid || 
+                !this.addInstituteForm.get('userName').valid || !this.addInstituteForm.get('Email').valid ||  
                 !this.addInstituteForm.get('Mobile').valid">Save</button></div>
             </form>
             </div>
-      
+      <!---------------------------Form Open For school businessUnitTypeId ==5 ---------------------------->
+            <div class="card p-3" *ngIf="businessUnitTypeId=='5'">
+              <form id="msform" [formGroup]="addInstituteForm" (ngSubmit)="onSubmit()">
+            <div class="pb-2 mt-2  row  m-0">
+             <label for="staticEmail" class="col-sm-2 col-form-label ps-0">User Name</label>
+              <div class="col-sm-3">
+
+                  <input type="text"   class="form-control" id="userName"  formControlName="userName" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
+                  <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Institute name is required</div>
+              </div>
+
+              <label for="staticEmail" class="col-sm-2 col-form-label" >Email</label>
+              <div class="col-sm-3">
+
+                  <input type="text"   class="form-control" id="Email" formControlName="Email"  [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Email.errors }">
+                  <div *ngIf="addInstituteFormubmitted && f.Email.errors" class="invalid-feedback">Email is required</div>
+              </div>
+            </div>
+            <div class="pb-2 mt-2  row  m-0">
+            
+               <label for="staticEmail" class="col-sm-2 col-form-label ">Mobile</label>
+               <div class="col-sm-3">
+
+                   <input type="text"   class="form-control" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
+                   <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile is required</div>
+               </div>
+             </div> 
+             <div class="text-center my-2 "><button class="insitute-svae-button"  [disabled]="!this.addInstituteForm.get('userName').valid || !this.addInstituteForm.get('Email').valid ||  
+              !this.addInstituteForm.get('Mobile').valid">Save</button></div>
+          </form>
+          </div>
           </div>
         </div>
      </div>  

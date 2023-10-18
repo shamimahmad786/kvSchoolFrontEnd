@@ -22,11 +22,8 @@ declare const srvTime: any;
   styleUrls: ['./user-master.component.css']
 })
 export class UserMasterComponent implements OnInit, AfterViewInit {
-
-  displayedColumns = ['Sno', 'User Name', 'Email','Enabled', 'First Name','Mobile','Parent User','Action' ];
- 
+  displayedColumns = ['Sno', 'User Name', 'Email','Mobile','Parent User','Action' ];
   hBSource : MatTableDataSource<any>;
-
   remarksForm: FormGroup;
  @ViewChild('paginator') paginator: MatPaginator;
  @ViewChild('hBSort') hBSort: MatSort;
@@ -64,10 +61,8 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
-   
     this.applicationId = environment.applicationId;
     this.getLoginUserdetail();
-    
   }
   ngAfterViewInit(): void {
   }
@@ -91,12 +86,10 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
 
   //**********************   Logic for get  Data from Api  ******************************
   getChilduser() {
-    debugger
      this.childUserList = [];
      const data = {
       "username":this.loginUserNameForChild
   }
-debugger
   this.outSideService.getChilduserList(data,this.loginUserNameForService ).subscribe(res => {
       console.log(res)
       this.childUserList = res;
@@ -180,8 +173,6 @@ debugger
       this.staticUserMobile=false;
       this.userMobile=true;
     }
-   
-console.log(event)
   }
 
   editChildUser(userName:any,type:any){
@@ -272,7 +263,6 @@ this.outSideService.childActiveDeactiveAction(data,this.loginUserNameForService)
     'icon':'success',
     'text':res['response']
   })
-  
     this.getLoginUserdetail();
    },
    error => { 
