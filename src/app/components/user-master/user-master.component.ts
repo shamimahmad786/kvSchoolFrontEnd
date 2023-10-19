@@ -132,7 +132,6 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   }
   childActiveDeactive(action:any,userName:any)
   { 
-    debugger
     const data ={
     "updateType":"AD",
     "username":userName,
@@ -146,7 +145,6 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
         this.getLoginUserdetail();
        })
   }
-
   enableInputField(event:any){
     if(event=='staticUserEmail'){
       this.staticUserEmail=true;
@@ -174,7 +172,6 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
       this.userMobile=true;
     }
   }
-
   editChildUser(userName:any,type:any){
     this.showFirstButtonColor=false;
     this.showsecondButtonColor=true;

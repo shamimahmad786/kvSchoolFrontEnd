@@ -28,6 +28,7 @@ export class UserMappingComponent implements OnInit {
   roOfficeList: any=[];
   regionEmployeeSchoolList: any=[];
   duplicateregionCheck: any=[];
+  duplicateregiononeCheck: any=[];
   historyControlingOfficedata: any=[];
   userMappingAction: any;
   userMappingRegionCode: any;
@@ -37,12 +38,10 @@ export class UserMappingComponent implements OnInit {
   heading:any;
   businessUnitTypeId:any;
   schoolType:any;
+  controllerType:any;
   constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private router: Router) { }
 
   ngOnInit(): void {
-    $(document).ready(function () {
-   $("#s_id").attr("readonly", "true");
-   });
     this.heading="Add/Edit User Mapping";
     this.route.queryParams.subscribe(params => {
       this.userMappingAction=params['action'];
@@ -52,10 +51,13 @@ export class UserMappingComponent implements OnInit {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
       this.businessUnitTypeId= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id;
     }
+    alert(this.businessUnitTypeId)
     if(this.businessUnitTypeId=="2"){
       this.schoolType="3";
+      this.controllerType="R";
     } else if(this.businessUnitTypeId=="3"){
       this.schoolType="1";
+      this.controllerType="S";
     }
     if(this.userMappingAction=="Add"){
     this.endDateStatus=false;
@@ -82,15 +84,12 @@ export class UserMappingComponent implements OnInit {
    this.viewControlerHeirechy();
   }
    this.getControllerOffice();
-  
   }
   get f() { return this.addUserMapping.controls; }
   //***********************Get Region*************************************/
   getStationByRegionId(){
   this.outSideService.fetchKvRegion(1).subscribe((res) => {
     this.regionList = res.response.rowValue;
-    console.log("region list")
-    console.log(this.regionList) 
   })
   }
  //***********************Get RO Office *************************************/
@@ -152,7 +151,6 @@ export class UserMappingComponent implements OnInit {
       if(this.userMappingAction=="Add"){
         this.addControler();
         }
-      
     })
  }
  //***********************Add Controler Officer  *************************************/
@@ -183,6 +181,7 @@ export class UserMappingComponent implements OnInit {
     }
 //***********************View Controler Officer  *************************************/
     viewControlerHeirechy(){
+      this.historyControlingOfficedata=[];
       var data={
         "regionCode":this.userMappingRegionCode,
          "controllerType":"R"
@@ -216,6 +215,7 @@ export class UserMappingComponent implements OnInit {
   //*********************** Submit Form  *************************************/
   onSubmit(){
     this.addUserMappingFormubmitted=true
+    this.duplicateregiononeCheck=[];
     const splittedArrayEmp = this.addUserMapping.value.empname.split("/");
     var empCode= splittedArrayEmp[0];
     var empName= splittedArrayEmp[1];
@@ -224,11 +224,11 @@ export class UserMappingComponent implements OnInit {
     var institutionName= splittedArrayInstitution[1];
     if( this.userMappingAction=='Add' && this.addUserMapping.value.region ==  this.userMappingRegionCode){
     for (let i = 0; i < this.controllerOfficeList.length; i++) {
-      if(this.controllerOfficeList[i].regionCode==this.addUserMapping.value.region)
+      if(this.controllerOfficeList[i].region_code==this.addUserMapping.value.region)
       {
-        this.duplicateregionCheck.push(this.controllerOfficeList[i]);
+        this.duplicateregiononeCheck.push(this.controllerOfficeList[i]);
       }
-    if(this.duplicateregionCheck.length>0){
+    if(this.duplicateregiononeCheck.length>1){
       Swal.fire({
         'icon':'error',
         'text':"Please update the current controling officer end date.."
@@ -239,7 +239,7 @@ export class UserMappingComponent implements OnInit {
   const data = {
     "employeeCode":empCode,
     "employeeName":empName,
-    "controllerType":"R",
+    "controllerType":this.controllerType,
     "regionCode":this.addUserMapping.value.region,
     "stationCode":"",
     "institutionCode":institutionCode,
@@ -269,7 +269,7 @@ export class UserMappingComponent implements OnInit {
     const data = {
       "employeeCode":empCode,
       "employeeName":empName,
-      "controllerType":"R",
+      "controllerType":this.controllerType,
       "regionCode":this.addUserMapping.value.region,
       "stationCode":"",
       "institutionCode":institutionCode,

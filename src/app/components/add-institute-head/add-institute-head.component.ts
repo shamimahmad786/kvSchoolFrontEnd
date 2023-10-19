@@ -38,6 +38,7 @@ export class AddInstituteHeadComponent implements OnInit {
     if(this.businessUnitTypeId=="5"){
       this.addInstituteForm = new FormGroup({
         'userName': new FormControl('', Validators.required),
+        'firstname': new FormControl('', Validators.required),
         'Email': new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
         'Mobile': new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("[8976][0-9]{9}")]),
       });
@@ -128,6 +129,7 @@ export class AddInstituteHeadComponent implements OnInit {
         "username":this.addInstituteForm.controls['userName'].value,
         "email":this.addInstituteForm.controls['Email'].value,
         "mobile":this.addInstituteForm.controls['Mobile'].value,
+        "firstname":this.addInstituteForm.controls['firstname'].value,
         "parentuser": this.loginUserNameForChild,
         "businessUnitTypeId":this.childBussinessUnitTypeId,
         "businessUnitTypeCode":this.businessUnitTypeCode,
@@ -137,6 +139,7 @@ export class AddInstituteHeadComponent implements OnInit {
       var data ={
         "username":this.addInstituteForm.controls['userName'].value,
         "email":this.addInstituteForm.controls['Email'].value,
+        "firstname":this.addInstituteForm.controls['firstname'].value,
         "mobile":this.addInstituteForm.controls['Mobile'].value,
         "parentuser": this.loginUserNameForChild,
         "businessUnitTypeId":this.addInstituteForm.controls['instituteType'].value,

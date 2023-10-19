@@ -38,6 +38,7 @@ import { UserMasterComponent } from './components/user-master/user-master.compon
 import { AddInstituteHeadComponent } from './components/add-institute-head/add-institute-head.component';
 import { ControlerManagementComponent } from './components/controler-management/controler-management.component';
 import { UserMappingComponent } from './components/user-mapping/user-mapping.component';
+import { KvSchoolMappingComponent } from './components/kv-school-mapping/kv-school-mapping.component';
 const routes: Routes = [
   {path:'', component: MainPageComponent},
   {path:'mainPage', component: MainPageComponent},
@@ -77,6 +78,7 @@ const routes: Routes = [
       {path:'kvSanctionedPost', component:KvTchSanctionedPostComponent},
       {path:'addInstituteHead', component:AddInstituteHeadComponent},
       {path:'user-mapping', component:UserMappingComponent},
+      {path:'kv-mapping', component:KvSchoolMappingComponent},
       {path:'controler-management', component:ControlerManagementComponent},
       {path: 'regionMaster', loadChildren: () => import('./components/region-master/region-master.module').then(m => m.RegionMasterModule) },
       {path: 'stationMaster', loadChildren: () => import('./components/station-master/station-master.module').then(m => m.StationMasterModule) },

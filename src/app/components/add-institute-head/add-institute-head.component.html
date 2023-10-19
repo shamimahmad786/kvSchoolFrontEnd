@@ -87,20 +87,23 @@
             <div class="pb-2 mt-2  row  m-0">
              <label for="staticEmail" class="col-sm-2 col-form-label ps-0">User Name</label>
               <div class="col-sm-3">
-
                   <input type="text"   class="form-control" id="userName"  formControlName="userName" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
                   <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Institute name is required</div>
               </div>
-
+              <label for="staticEmail" class="col-sm-2 col-form-label ps-0">Employee Name</label>
+              <div class="col-sm-3">
+                  <input type="text"   class="form-control" id="userName"  formControlName="firstname" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
+                  <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Institute name is required</div>
+              </div>
+              
+            </div>
+            <div class="pb-2 mt-2  row  m-0">
               <label for="staticEmail" class="col-sm-2 col-form-label" >Email</label>
               <div class="col-sm-3">
 
                   <input type="text"   class="form-control" id="Email" formControlName="Email"  [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Email.errors }">
                   <div *ngIf="addInstituteFormubmitted && f.Email.errors" class="invalid-feedback">Email is required</div>
               </div>
-            </div>
-            <div class="pb-2 mt-2  row  m-0">
-            
                <label for="staticEmail" class="col-sm-2 col-form-label ">Mobile</label>
                <div class="col-sm-3">
 

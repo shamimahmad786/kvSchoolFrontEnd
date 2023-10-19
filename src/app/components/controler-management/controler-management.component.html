@@ -15,9 +15,7 @@
   <!------------------------------------------------- first tab start  here------------------------------->
   <div *ngIf="activePaneOne">
     <div class="row justify-content-center d-flex  profile-info">
-      <div class="col-lg-10">
-      
-      
+      <div class="col-lg-10" *ngIf="businessUnitTypeId!='3'">
          <div  class="shadow-sm bg-white p-3 rounded ">   
           <div class="row">
               <div class="col-md-6">
@@ -92,14 +90,100 @@
                     </span> <i class="fa fa-exchange" *ngIf="row.status == '1'"  (click)="addUpdateViewUserMapping(row.regionCode,'update')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>   <i class="fa fa-plus-circle" *ngIf="row.status != '1'"  (click)="addUpdateViewUserMapping(row.regionCode,'add')" style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i><i  class="bi bi-eye" (click)="addUpdateViewUserMapping(row.regionCode,'view')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;"></i> </mat-cell>
                 </ng-container>
                                  
-                  <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns;">
+                  <mat-header-row *matHeaderRowDef="displayedColumnsForNational; sticky:true; "></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumnsForNational;">
                   </mat-row>
               </mat-table>
               <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
           </div>
       </div>
       </div>
+
+
+
+
+      <div class="col-lg-10" *ngIf="businessUnitTypeId=='3'">
+        <div  class="shadow-sm bg-white p-3 rounded ">   
+         <div class="row">
+             <div class="col-md-6">
+               <!-- <button mat-raised-button class=" me-2 btn-primary">Download Excel</button>
+             <button mat-raised-button class="me-2 btn-secondary">Download PDF</button> -->
+             </div>  
+             <div class="col-md-6" style="
+             text-align: end;">
+               <div class="example-header">
+                 <mat-form-field appearance="outline" class=" searchInput me-4">
+                     <input matInput (keyup)="applyFilterHBSource($event.target.value)" placeholder="Search">
+                  
+                 </mat-form-field>      
+             </div>
+             </div>     
+         </div>
+         <div class="example-container mat-elevation-z8 " id="style-2">
+             <mat-table [dataSource]="hBSource" matSort #hBSort="matSort">
+                 <ng-container matColumnDef="Sno">
+                     <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
+                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.sno}} </mat-cell>
+                 </ng-container>
+     
+
+                 <ng-container matColumnDef="Kv Name">
+                   <mat-header-cell *matHeaderCellDef mat-sort-header>Kv Name </mat-header-cell>
+                   <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.kvname}} ({{row.kvcode}})
+                   </mat-cell>
+               </ng-container>
+
+                
+     
+                 <ng-container matColumnDef="Employee name">
+                     <mat-header-cell *matHeaderCellDef mat-sort-header> Employee name </mat-header-cell>
+                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.employeeName }}
+                     </mat-cell>
+                 </ng-container>
+                 <ng-container matColumnDef="Institution Name">
+                   <mat-header-cell *matHeaderCellDef mat-sort-header> Institution Name </mat-header-cell>
+                   <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.institutionName }}
+                   </mat-cell>
+               </ng-container>
+     
+                 <ng-container matColumnDef="Modified By">
+                     <mat-header-cell *matHeaderCellDef mat-sort-header>Modified By</mat-header-cell>
+                     <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
+                         </span> {{row.modifiedBy}} </mat-cell>
+                 </ng-container>
+     
+                 <ng-container matColumnDef="Start Date">
+                     <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date </mat-header-cell>
+                     <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
+                     </span> {{row.stateDate  | date: 'dd-MM-yyyy'}} </mat-cell>
+                 </ng-container>
+                
+               
+     
+                 <ng-container matColumnDef="Status">
+                   <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                   <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
+                   </span> <button  *ngIf="row.status == '1'" class="t-status-btn approved" >Mapped</button> <button   *ngIf="row.status != '1'"  class="t-status-btn not-initiated">Not Mapped</button> </mat-cell>
+               </ng-container>
+                 <ng-container matColumnDef="Action">
+                   <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                   <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
+                   </span> <i class="fa fa-exchange" *ngIf="row.status == '1'"  (click)="addUpdateViewSchoolMapping(row.kvcode,'update')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>   <i class="fa fa-plus-circle" *ngIf="row.status != '1'"  (click)="addUpdateViewSchoolMapping(row.kvcode,'add')" style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i><i  class="bi bi-eye" (click)="addUpdateViewSchoolMapping(row.kvcode,'view')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;"></i> </mat-cell>
+               </ng-container>
+                                
+                 <mat-header-row *matHeaderRowDef="displayedColumnsForRoSchool; sticky:true; "></mat-header-row>
+                 <mat-row *matRowDef="let row; columns: displayedColumnsForRoSchool;">
+                 </mat-row>
+             </mat-table>
+             <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+         </div>
+     </div>
+     </div>
+
+
+
+
+
     </div><!--close row-->
     </div> 
       
