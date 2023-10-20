@@ -116,7 +116,6 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
      })
   }
 //**********************   Logic for get controling office for RO Data from Api  ******************************
-
   getRoSchoolControllerOffice() { 
     var data={
       "regionCode":this.businessUnitTypeCode,

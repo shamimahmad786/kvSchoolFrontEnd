@@ -21,7 +21,6 @@ export class AddInstituteHeadComponent implements OnInit {
   constructor(private outSideService: OutsideServicesService,private router: Router) { }
 
   ngOnInit(): void {
-    debugger
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       console.log(JSON.parse(sessionStorage.getItem("authTeacherDetails")));
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;

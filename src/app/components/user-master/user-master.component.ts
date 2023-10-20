@@ -83,7 +83,6 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     filterValue = filterValue.toLowerCase(); 
     this.hBSource.filter = filterValue;
   }
-
   //**********************   Logic for get  Data from Api  ******************************
   getChilduser() {
      this.childUserList = [];
