@@ -80,7 +80,10 @@ export const environment = {
   // BASE_URL_REPORT:'https://demopgi.udiseplus.gov.in/MOE-KVS-PDF/api/kvsreport/',
   // BASE_URL_DATA_MASTER1:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/unee-api/v1/master/',
   // BASE_URL_DATA_MAPPING:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/unee-api/v1/mapping/',
-  //  BASE_URL_DATA_USERMANAGEMENT:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/usermanagement/',
+  //  BASE_URL_DATA_USERMANAGEMENT:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/usermanagement/',
+  //  BASE_URL_DATA_KVCONTROLER:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/kvscontroller/',
+  //  BASE_URL_DATA_USERMAPPING:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/usermapping/',
+
 
 
 
