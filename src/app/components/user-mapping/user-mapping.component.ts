@@ -28,27 +28,36 @@ export class UserMappingComponent implements OnInit {
   roOfficeList: any=[];
   regionEmployeeSchoolList: any=[];
   duplicateregionCheck: any=[];
+  duplicateregiononeCheck: any=[];
   historyControlingOfficedata: any=[];
   userMappingAction: any;
   userMappingRegionCode: any;
   controllerOfficeList: any;
   roOfficeCode: any;
   historyControllerOfficeDataArray: any = [];
-
+  heading:any;
+  businessUnitTypeId:any;
+  schoolType:any;
+  controllerType:any;
   constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private router: Router) { }
 
   ngOnInit(): void {
-    $(document).ready(function () {
-   
-              $("#s_id").attr("readonly", "true");
-  
-  });
+    this.heading="Add/Edit User Mapping";
     this.route.queryParams.subscribe(params => {
       this.userMappingAction=params['action'];
       this.userMappingRegionCode=params['regionId'];
     });
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+      this.businessUnitTypeId= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id;
+    }
+    alert(this.businessUnitTypeId)
+    if(this.businessUnitTypeId=="2"){
+      this.schoolType="3";
+      this.controllerType="R";
+    } else if(this.businessUnitTypeId=="3"){
+      this.schoolType="1";
+      this.controllerType="S";
     }
     if(this.userMappingAction=="Add"){
     this.endDateStatus=false;
@@ -71,18 +80,16 @@ export class UserMappingComponent implements OnInit {
     });
   }
   if(this.userMappingAction=="view"){
+    this.heading="Controler History";
    this.viewControlerHeirechy();
   }
    this.getControllerOffice();
-  
   }
   get f() { return this.addUserMapping.controls; }
   //***********************Get Region*************************************/
   getStationByRegionId(){
   this.outSideService.fetchKvRegion(1).subscribe((res) => {
     this.regionList = res.response.rowValue;
-    console.log("region list")
-    console.log(this.regionList) 
   })
   }
  //***********************Get RO Office *************************************/
@@ -90,7 +97,8 @@ export class UserMappingComponent implements OnInit {
     this.regionEmployeeSchoolList=[];
     this.roOfficeList=[];
     var data={
-      "regionCode":event
+      "regionCode":event,
+       "schoolType":this.schoolType
     }
     this.outSideService.getregionSchool(data,this.loginUserNameForChild).subscribe(res => {
     debugger
@@ -129,6 +137,7 @@ export class UserMappingComponent implements OnInit {
     this.userMappingSource.filter = filterValue;
   }
   //***********************Get Controller Officer  *************************************/
+  
   getControllerOffice() {
     this.controllerOfficeList = [];
     const data = {
@@ -143,10 +152,9 @@ export class UserMappingComponent implements OnInit {
       if(this.userMappingAction=="Add"){
         this.addControler();
         }
-      
     })
  }
- //***********************Add Controler  *************************************/
+ //***********************Add Controler Officer  *************************************/
   addControler(){
       this.getStationByRegionId();
       this.getRoOfficeByRegionId(this.userMappingRegionCode);
@@ -154,7 +162,7 @@ export class UserMappingComponent implements OnInit {
         region:this.userMappingRegionCode,
       })
     }
-
+ //***********************Edit Controler Officer  *************************************/
   editeControler(){
     for (let i = 0; i < this.controllerOfficeList.length; i++) {
         if(this.controllerOfficeList[i].region_code==this.userMappingRegionCode)
@@ -172,7 +180,9 @@ export class UserMappingComponent implements OnInit {
         startdate:this.duplicateregionCheck[0]['state_date']
       })
     }
+//***********************View Controler Officer  *************************************/
     viewControlerHeirechy(){
+      this.historyControlingOfficedata=[];
       var data={
         "regionCode":this.userMappingRegionCode,
          "controllerType":"R"
@@ -203,8 +213,10 @@ export class UserMappingComponent implements OnInit {
         })
       });
     }
+  //*********************** Submit Form  *************************************/
   onSubmit(){
     this.addUserMappingFormubmitted=true
+    this.duplicateregiononeCheck=[];
     const splittedArrayEmp = this.addUserMapping.value.empname.split("/");
     var empCode= splittedArrayEmp[0];
     var empName= splittedArrayEmp[1];
@@ -213,11 +225,11 @@ export class UserMappingComponent implements OnInit {
     var institutionName= splittedArrayInstitution[1];
     if( this.userMappingAction=='Add' && this.addUserMapping.value.region ==  this.userMappingRegionCode){
     for (let i = 0; i < this.controllerOfficeList.length; i++) {
-      if(this.controllerOfficeList[i].regionCode==this.addUserMapping.value.region)
+      if(this.controllerOfficeList[i].region_code==this.addUserMapping.value.region)
       {
-        this.duplicateregionCheck.push(this.controllerOfficeList[i]);
+        this.duplicateregiononeCheck.push(this.controllerOfficeList[i]);
       }
-    if(this.duplicateregionCheck.length>0){
+    if(this.duplicateregiononeCheck.length>1){
       Swal.fire({
         'icon':'error',
         'text':"Please update the current controling officer end date.."
@@ -228,7 +240,7 @@ export class UserMappingComponent implements OnInit {
   const data = {
     "employeeCode":empCode,
     "employeeName":empName,
-    "controllerType":"R",
+    "controllerType":this.controllerType,
     "regionCode":this.addUserMapping.value.region,
     "stationCode":"",
     "institutionCode":institutionCode,
@@ -258,7 +270,7 @@ export class UserMappingComponent implements OnInit {
     const data = {
       "employeeCode":empCode,
       "employeeName":empName,
-      "controllerType":"R",
+      "controllerType":this.controllerType,
       "regionCode":this.addUserMapping.value.region,
       "stationCode":"",
       "institutionCode":institutionCode,

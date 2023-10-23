@@ -1,11 +1,11 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
-      <h1>Add/Edit User Mapping</h1>
+      <h1>{{heading}}</h1>
     </div>
       <nav aria-label="breadcrumb" class="mt-1">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item"><a href="#">Institute Management</a></li>
+          <li class="breadcrumb-item"><a href="#">{{heading}}</a></li>
         </ol>
       </nav>
       <div class="dashboard-main-content-info p-5">  
@@ -21,8 +21,8 @@
 
                     <select class="form-select"   aria-label="Default select example" id="s_id" name="region"  #region formControlName="region" (change)="getRoOfficeByRegionId(region.value)" [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.region.errors }">
                         <option selected disabled>Select Region</option>
-                        <option *ngFor="let data of regionList; let i=index;" value="{{data.region_code}}">
-                            {{data.region_name}}
+                        <option *ngFor="let data of regionList; let i=index;" value="{{data.regionCode}}">
+                            {{data.regionName}}
                         </option>
                     </select>
                     <div *ngIf="addUserMappingFormubmitted && f.region.errors" class="invalid-feedback">Region is required</div>
@@ -80,10 +80,8 @@
     <div class="row">
         <div class="col-md-6">
 
-          <button mat-raised-button class=" me-2 btn-primary">Download
-            Excel</button>
-        <button mat-raised-button class="me-2 btn-secondary">Download
-            PDF</button>
+          <!-- <button mat-raised-button class=" me-2 btn-primary">Download Excel</button>
+          <button mat-raised-button class="me-2 btn-secondary">Download PDF</button> -->
 
         </div>  
         <div class="col-md-6" style="

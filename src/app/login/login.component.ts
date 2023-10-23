@@ -150,9 +150,9 @@ export class LoginComponent implements OnInit {
        sessionStorage.setItem("authTeacherDetails", JSON.stringify(res));
        this.businessUnitTypeId= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id;
         if(this.businessUnitTypeId=="2"){
-          this.router.navigate(['/teacher/userMaster']);
+          this.router.navigate(['/teacher/regionDashboard']);
         }else if(this.businessUnitTypeId=="3"){
-          this.router.navigate(['/teacher/regionStationMapping']);  
+          this.router.navigate(['/teacher/regionDashboard']);  
         }else if(this.businessUnitTypeId=="4"){
           this.router.navigate(['/teacher/stationDashboard']);
         }else if(this.businessUnitTypeId=="5"){

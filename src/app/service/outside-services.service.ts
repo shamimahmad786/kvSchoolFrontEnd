@@ -520,7 +520,7 @@ export class OutsideServicesService {
 
     });
     
-    return this._http.post<any>(environment.BASE_URL_DATA_MASTER+ "getKVRegion", data, {headers})
+    return this._http.post<any>(environment.BASE_URL_DATA_MASTER+ "getKVRegions", data, {headers})
   }
 
   fetchStationByRegionId(data){

@@ -89,6 +89,7 @@ import { UserMasterComponent } from './components/user-master/user-master.compon
 import { AddInstituteHeadComponent } from './components/add-institute-head/add-institute-head.component';
 import { ControlerManagementComponent } from './components/controler-management/controler-management.component';
 import { UserMappingComponent } from './components/user-mapping/user-mapping.component';
+import { KvSchoolMappingComponent } from './components/kv-school-mapping/kv-school-mapping.component';
 // import { MAT_DATE_FORMATS } from '@angular/material/';
 // import { DatePickerModule } from 'angular-material-datepicker';
 
@@ -170,7 +171,8 @@ import { UserMappingComponent } from './components/user-mapping/user-mapping.com
     UserMasterComponent,
     AddInstituteHeadComponent,
     ControlerManagementComponent,
-    UserMappingComponent
+    UserMappingComponent,
+    KvSchoolMappingComponent
    
     
   ],

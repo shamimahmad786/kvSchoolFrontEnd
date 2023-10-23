@@ -24,8 +24,8 @@ declare const srvTime: any;
 })
 export class ControlerManagementComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['Sno', 'Region Name','Employee Code', 'Employee name','Institution Name','Created By', 'Modified By','Start Date','End Date','Status','Action' ];
- 
+  displayedColumnsForNational = ['Sno', 'Region Name','Employee Code', 'Employee name','Institution Name','Modified By','Start Date','Status','Action' ];
+  displayedColumnsForRoSchool = ['Sno', 'Kv Name', 'Employee name','Modified By','Start Date','Status','Action' ];
   hBSource : MatTableDataSource<any>;
 
   remarksForm: FormGroup;
@@ -33,7 +33,8 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
  @ViewChild('hBSort') hBSort: MatSort;
  @ViewChild('JoiningBox', { static: true }) JoiningBox: TemplateRef<any>;   
 
-  childUserData = { "sno": "","regionname": "","employeeCode": "", "employeeName": "","institutionName":"","createdBy": "","modifiedBy": "","stateDate":"","endDate": "","regionCode":"","status": ""}
+  childUserDataForNational = { "sno": "","regionname": "","employeeCode": "", "employeeName": "","institutionName":"","modifiedBy": "","stateDate":"","regionCode":"","status": ""}
+  childUserDataForRoSchool = { "sno": "","kvname": "","kvcode": "", "employeeName": "","modifiedBy": "","stateDate":"","regionCode":"","status": ""}
   applicationId: any;
   loginUsername: any;
   userType: boolean = true;
@@ -62,6 +63,9 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
   password: any;
   confirmpassword: any;
   loginUserNameForService: any;
+  controllerType:any;
+  schoolType: any;
+  businessUnitTypeCode: any;
   constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -79,8 +83,18 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
       this.loginUserMobile=JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].mobile;
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
       this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+      this.businessUnitTypeId= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id;
+      this.businessUnitTypeCode= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_code;
     }
-    this.getControllerOffice();
+    if(this.businessUnitTypeId=="2"){
+      this.controllerType="R";
+      this.getNationalControllerOffice();
+    } else if(this.businessUnitTypeId=="3"){
+      this.controllerType="S";
+      this.schoolType="1";
+      this.getRoSchoolControllerOffice();
+    }
+
   }
   applyFilterHBSource(filterValue: string) {
     filterValue = filterValue.trim(); 
@@ -88,18 +102,39 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
     this.hBSource.filter = filterValue;
   }
 
-  //**********************   Logic for get  Data from Api  ******************************
-  getControllerOffice() {
+  //**********************   Logic for get controling office for national Data from Api  ******************************
+  getNationalControllerOffice() {
      this.controllerOfficeList = [];
      const data = {
-      "controllerType":"R"
+      "controllerType":this.controllerType
   }
   this.outSideService.getControllerOffice(data,this.loginUserNameForService ).subscribe(res => {
+    console.log("ro    list------------------------")
       console.log(res)
       this.controllerOfficeList = res['response']['rowValue'];
       this.setToJoingMatTable(this.controllerOfficeList);
      })
   }
+//**********************   Logic for get controling office for RO Data from Api  ******************************
+  getRoSchoolControllerOffice() { 
+    var data={
+      "regionCode":this.businessUnitTypeCode,
+      "controllerType":this.controllerType
+    }
+    this.outSideService.getControllerOffice(data,this.loginUserNameForChild).subscribe(res => {
+
+    this.controllerOfficeList = res['response']['rowValue'];
+    console.log("school-----------detail---------------")
+    console.log(this.controllerOfficeList)
+      this.setToJoingRoSchoolMatTable(this.controllerOfficeList);
+    },
+    error => { 
+      Swal.fire({
+        'icon':'error',
+        'text':'You are not Authorized.'
+      })
+    });
+ }
   navColor(nav:any){
     if(nav=='transferin')
     {
@@ -118,19 +153,17 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
    setToJoingMatTable(data:any) {
     this.controllerOfficeDataArray = [];
     for (let i = 0; i < data.length; i++) {
-      this.childUserData.sno = '' + (i + 1) + '';
-      this.childUserData.regionname =data[i].region_name;
-      this.childUserData.employeeCode =data[i].employee_code;
-      this.childUserData.employeeName = data[i].employee_name;
-      this.childUserData.institutionName = data[i].institutionname;
-      this.childUserData.createdBy = data[i].created_by;
-      this.childUserData.modifiedBy = data[i].modified_by;  
-      this.childUserData.stateDate =data[i].state_date;  
-      this.childUserData.endDate = data[i].end_date;  
-      this.childUserData.regionCode = data[i].region_code;  
-      this.childUserData.status = data[i].is_active;  
-      this.controllerOfficeDataArray.push(this.childUserData);
-      this.childUserData = { "sno": "","regionname": "","employeeCode": "", "employeeName": "","institutionName":"","createdBy": "","modifiedBy": "","stateDate":"","endDate": "","regionCode":"","status": ""}
+      this.childUserDataForNational.sno = '' + (i + 1) + '';
+      this.childUserDataForNational.regionname =data[i].region_name;
+      this.childUserDataForNational.employeeCode =data[i].employee_code;
+      this.childUserDataForNational.employeeName = data[i].employee_name;
+      this.childUserDataForNational.institutionName = data[i].institutionname;
+      this.childUserDataForNational.modifiedBy = data[i].modified_by;  
+      this.childUserDataForNational.stateDate =data[i].state_date;  
+      this.childUserDataForNational.regionCode = data[i].region_code;  
+      this.childUserDataForNational.status = data[i].is_active;  
+      this.controllerOfficeDataArray.push(this.childUserDataForNational);
+      this.childUserDataForNational = { "sno": "","regionname": "","employeeCode": "", "employeeName": "","institutionName":"","modifiedBy": "","stateDate":"","regionCode":"","status": ""}
     }
     setTimeout(() => {
       this.hBSource  = new MatTableDataSource(this.controllerOfficeDataArray);
@@ -138,6 +171,30 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
       this.hBSource .sort = this.hBSort;  
     }, 100)
   }
+  setToJoingRoSchoolMatTable(data:any) {
+    this.controllerOfficeDataArray = [];
+    for (let i = 0; i < data.length; i++) {
+      this.childUserDataForRoSchool.sno = '' + (i + 1) + '';
+      this.childUserDataForRoSchool.kvname =data[i].kv_name;
+      this.childUserDataForRoSchool.kvcode =data[i].kv_code;
+      this.childUserDataForRoSchool.employeeName = data[i].employee_name;
+      this.childUserDataForRoSchool.modifiedBy = data[i].modified_by;  
+      this.childUserDataForRoSchool.stateDate =data[i].state_date;  
+      this.childUserDataForRoSchool.regionCode = data[i].regionCode;  
+      this.childUserDataForRoSchool.status = data[i].is_active;  
+      this.controllerOfficeDataArray.push(this.childUserDataForRoSchool);
+      this.childUserDataForRoSchool = { "sno": "","kvname": "","kvcode": "", "employeeName": "","modifiedBy": "","stateDate":"","regionCode":"","status": ""}
+    console.log("kv  detail")
+    console.log(this.childUserDataForRoSchool)
+    }
+   
+    setTimeout(() => {
+      this.hBSource  = new MatTableDataSource(this.controllerOfficeDataArray);
+      this.hBSource .paginator = this.paginator;
+      this.hBSource .sort = this.hBSort;  
+    }, 100)
+  }
+
   childActiveDeactive(action:any,userName:any)
   { 
     debugger
@@ -155,7 +212,6 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
        })
   }
   addUpdateViewUserMapping(regionId:any,event:any){
-    debugger
     if(event=='add'){
       this.router.navigate(['/teacher/user-mapping'], { queryParams: { action: 'Add',regionId :regionId } });  
     }
@@ -166,7 +222,17 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/teacher/user-mapping'], { queryParams: { action: 'view',regionId :regionId } });  
     }
   }
-
+  addUpdateViewSchoolMapping(regionId:any,event:any){
+    if(event=='add'){
+      this.router.navigate(['/teacher/kv-mapping'], { queryParams: { action: 'Add',regionId :regionId } });  
+    }
+    if(event=='update'){
+      this.router.navigate(['/teacher/kv-mapping'], { queryParams: { action: 'update',regionId :regionId} });  
+    }
+    if(event=='view'){
+      this.router.navigate(['/teacher/kv-mapping'], { queryParams: { action: 'view',regionId :regionId } });  
+    }
+  }
   enableInputField(event:any){
     if(event=='staticUserEmail'){
       this.staticUserEmail=true;
