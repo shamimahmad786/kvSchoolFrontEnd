@@ -1,211 +1,261 @@
-<!-- <div class="clearfix">
-    <h3 class="float-start LoginName">Region Login</h3>
-    <div class="float-end">
- 
-         <ul class="StationRegion">
-            <li>
-
-                <mat-form-field>
-                    <mat-label>Select Region</mat-label>
-                    <mat-select (selectionChange)="getStationByRegionId($event.value)" [(ngModel)]="regionCode">
-                        
-                        <mat-option *ngFor="let data of regionList" value="{{data.regionCode}}">{{data.regionName}}</mat-option>
-                        
-                    </mat-select>
-                </mat-form-field>
-               
-            </li>
-            <li>
-                <mat-form-field>
-                    <mat-label>Select Station</mat-label>
-                    <mat-select (selectionChange)="getKvSchoolByStationId($event.value)" [(ngModel)]="stationCode1">
-                        
-                        <mat-option *ngFor="let data of stationList" value="{{data.statinCode}}">{{data.stationName}}</mat-option>
-                        
-                    </mat-select>
-                </mat-form-field>
-                
-            </li>
-            <li>
-                <mat-form-field>
-                    <mat-label>Select School</mat-label>
-                    <mat-select (selectionChange)="onSchoolSelect($event.value)" [(ngModel)]="businessUnitTypeCode">
-                        
-                        <mat-option *ngFor="let data of kvSchoolList" value="{{data.udiseSchCode}}">{{data.kvName}}</mat-option>
-                        
-                    </mat-select>
-                </mat-form-field>
-            </li>
-        </ul> 
+<div class="dashboard-main-content" style="min-height: 600px;">
+    <div class="dashboard-main-content__header">
+      <h1>Dashboard</h1>
     </div>
-</div>
-
-<div class="shadow-sm bg-white border-3">
-    <ul class="stationUL">
+      <nav aria-label="breadcrumb" class="mt-1">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">dashboard</a></li>
+        </ol>
+      </nav>
+   
     
-        <li>
-            <h3>Region Name :
-                <span class="StationValue">{{kvSchoolDetails.region_name}}</span>
-            </h3>
+      
+
+
+    <!-- <ul class="display-inline mt-5">
+        <li class="p-4 green-bg rounded-3">
+           
+             <div >
+                <div class=" d-flex align-items-center justify-content-center">
+                    <div class="flex-grow-1">
+                        <h2 class="TolTeacherValue text-white"></h2>
+                        <h3 class="mb-0 TotName text-white">Total School's</h3>
+                    </div>
+                    <div class="flex-shrink-0 ms-3">
+                        <img src="assets/assets/img/total-school-icon.png" alt="...">
+                    </div>
+                </div>
+            </div> 
         </li>
-        <li>
-            <h3>Region Code :
-                <span class="StationValue">{{kvSchoolDetails.region_code}}</span>
-            </h3>
+    
+        <li class="card p-4 blue-bg rounded-3">
+            
+             <div >
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h2 class="TolTeacherValue text-white"></h2>
+                        <h3 class="mb-0 TotName text-white">Total Staff</h3>
+                    </div>
+                    <div class="flex-shrink-0 ms-3">
+                        <img src="assets/assets/img/total-teacher-icon.png" alt="...">
+                    </div>
+                </div>
+            </div> 
+        </li>
+    
+        <li class="card p-4 blue-bg rounded-3">
+            
+            <div >
+               <div class="d-flex align-items-center">
+                   <div class="flex-grow-1">
+                       <h2 class="TolTeacherValue text-white"></h2>
+                       <h3 class="mb-0 TotName text-white">Total Staff</h3>
+                   </div>
+                   <div class="flex-shrink-0 ms-3">
+                       <img src="assets/assets/img/total-teacher-icon.png" alt="...">
+                   </div>
+               </div>
+           </div> 
+       </li>
+    
+       <li class="card p-4 blue-bg rounded-3">
+            
+        <div >
+           <div class="d-flex align-items-center">
+               <div class="flex-grow-1">
+                   <h2 class="TolTeacherValue text-white"></h2>
+                   <h3 class="mb-0 TotName text-white">Total Staff</h3>
+               </div>
+               <div class="flex-shrink-0 ms-3">
+                   <img src="assets/assets/img/total-teacher-icon.png" alt="...">
+               </div>
+           </div>
+       </div> 
+   </li>
+    </ul> -->
+    <ul class="display-inline ">
+        <li class="card p-4 rounded-3 " >
+            <h2 class="TolTeacherValue mb-2  card-text-color text-center">Station Total</h2>
+            <div class="row " style=" margin-top: 51px;">
+                <div class="col-2 text-center border-end">
+                    <h4 class="Verified mb-0 card-text-color">Normal </h4>
+                    <h2 class="mt-4">212121</h2>
+                </div>
+                <div class="col-2 text-center border-end">
+                    <h4 class="Verified mb-0 card-text-color">Priority </h4>
+                    <h2 class="mt-4">212121</h2>
+                </div>
+                <div class="col-2 text-center border-end">
+                    <h4 class="Verified mb-0 card-text-color">Hard </h4>
+                    <h2 class="mt-4">21212</h2>  
+                </div>
+                <div class="col-2 text-center border-end">
+                    <h4 class="Verified mb-0 card-text-color">Very Hard </h4>
+                    <h2 class="mt-4">21212</h2>
+                </div>
+                <div class="col-2 text-center border-end ">
+                    <h4 class="Verified mb-0 card-text-color">NER</h4>
+                    <h2 class="mt-4">2121</h2>
+                </div>
+                <div class="col-2 text-center ">
+                    <h4 class="Verified mb-0 card-text-color">Total</h4>
+                    <h2 class="mt-4">2121</h2>
+                </div>
+              
+            </div>
+            <div class="pattern">
+                <i class='bx bx-user-circle imgRotate'></i>
+            </div>
+        </li>
+        <li class="card p-4 rounded-3 ">
+            <h2 class="TolTeacherValue mb-2 card-text-color text-center ">Total Staff</h2>
+            <div class="row mt-2">
+                <div class="row " >
+                    <div class="col-6 ">
+                        <div class="row ">
+                            <h2 class="TolTeacherValue mb-2 card-text-color text-center border-end border-top border-bottom ">Teaching</h2>
+                        <div class="col-4 text-center border-end">
+                            <h4 class="Verified mb-0 card-text-color">Male </h4>
+                            <h2 class="mt-4">212121</h2>
+                        </div>
+                        <div class="col-4 text-center border-end"> 
+                            <h4 class="Verified mb-0 card-text-color">FeMale </h4>
+                            <h2 class="mt-4">21212</h2>  
+                        </div>
+                        <div class="col-4 text-center border-end">
+                            <h4 class="Verified mb-0 card-text-color">Total</h4>
+                            <h2 class="mt-4">21212</h2>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row ">
+                            <h2 class="TolTeacherValue mb-2 card-text-color text-center  border-top border-bottom  ">Non-teaching</h2>
+                        <div class="col-4 text-center border-end">
+                            <h4 class="Verified mb-0 card-text-color">Male </h4>
+                            <h2 class="mt-4">212121</h2>
+                        </div>
+                        <div class="col-4 text-center border-end">
+                            <h4 class="Verified mb-0 card-text-color">FeMale </h4>
+                            <h2 class="mt-4">21212</h2>  
+                        </div>
+                        <div class="col-4 text-center ">
+                            <h4 class="Verified mb-0 card-text-color">Total </h4>
+                            <h2 class="mt-4">21212</h2>
+                        </div>
+                      </div>
+                    </div>
+                    More--
+                </div>
+            </div>
+            <div class="pattern">
+                <i class='bx bx-user-circle imgRotate'></i>
+            </div>
         </li>
     </ul>
-</div>
+    <ul class="display-inline-one mt-3">
+        <li class="card p-4  rounded-3">
+             <div>
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <!-- <h2 class="TolTeacherValue mb-2 blue-text">212121</h2> -->
+                        <h3 class="mb-0 blue-text TotalTeachingStaff">Sanction Posts : Total
+                        </h3>
+                    </div>
+                </div>
+            </div> 
+        </li>
+      
 
-<ul class="display-inline mt-5">
-    <li class="p-4 green-bg rounded-3">
-       
-         <div >
-            <div class=" d-flex align-items-center justify-content-center">
-                <div class="flex-grow-1">
-                    <h2 class="TolTeacherValue text-white">{{dashboardData.noOfSchool}}</h2>
-                    <h3 class="mb-0 TotName text-white">Total School's</h3>
-                </div>
-                <div class="flex-shrink-0 ms-3">
-                    <img src="assets/assets/img/total-school-icon.png" alt="...">
-                </div>
-            </div>
-        </div> 
-    </li>
-
-    <li class="card p-4 blue-bg rounded-3">
-        
-         <div >
-            <div class="d-flex align-items-center">
-                <div class="flex-grow-1">
-                    <h2 class="TolTeacherValue text-white">{{dashboardData.totalTeacher}}</h2>
-                    <h3 class="mb-0 TotName text-white">Total Staff</h3>
-                </div>
-                <div class="flex-shrink-0 ms-3">
-                    <img src="assets/assets/img/total-teacher-icon.png" alt="...">
-                </div>
-            </div>
-        </div> 
-    </li>
-
-    <li class="card p-4  rounded-3">
-       
-         <div>
-            <div class="d-flex align-items-center">
-                <div class="flex-grow-1">
-                    <h2 class="TolTeacherValue mb-2 blue-text">{{totalTeachingStaff}}</h2>
-                    <h3 class="mb-0 blue-text TotalTeachingStaff">Total Teaching Staff</h3>
-                </div>
-
-            </div>
-            <div class="clearfix mt45">
-                <div class="float-start">
-                    <h3 class="mb-0">Regular Staff</h3>
-                </div>
-                <div class="float-end">
-                    <span class="fontb">{{dashboardData.teachingRegular}}</span>
-                </div>
-            </div>
+       <li class="card p-4 rounded-3 " >
+        <h2 class="TolTeacherValue mb-2  card-text-color text-center">Station Type</h2>
+        <div class="row " >
+            <table class="table">
+                <tbody>
+                  <tr>
+                    <th>Station Type</th>
+                    <th>Teachingss</th>
+                    <th>Non Teaching</th>
+                    <th>Total</th>
+                  </tr>
+                  <tr>
+                    <th>Normal</th>
+                    <td>priority</td>
+                    <td>Peter</td>
+                    <td>John</td>
+                  </tr>
+                  <tr>
+                    <th>priority</th>
+                    <td>Hard Station</td>
+                    <td>Parker</td>
+                    <td>Rambo</td>
+                  </tr>
+                  <tr>
+                    <th>Hard Station</th>
+                    <td>Very Hard</td>
+                    <td>peterparker@mail.com</td>
+                    <td>johnrambo@mail.com</td>
+                  </tr>
+                  <tr>
+                    <th>Very Hard </th>
+                    <td>Very Hard</td>
+                    <td>peterparker@mail.com</td>
+                    <td>johnrambo@mail.com</td>
+                  </tr>
+                  <tr>
+                    <th>NER</th>
+                    <td>Very Hard</td>
+                    <td>peterparker@mail.com</td>
+                    <td>johnrambo@mail.com</td>
+                  </tr>
+                </tbody>
+              </table>
           
-        </div> 
+        </div>
+        <div class="pattern">
+            <i class='bx bx-user-circle imgRotate'></i>
+        </div>
     </li>
+    </ul>
+    <ul class="display-inline mt-3">
 
-    <li class="card p-4 rounded-3">
-        
-         <div >
-            <div class="d-flex align-items-center">
-                <div class="flex-grow-1">
-                    <h2 class="TolTeacherValue mb-2 green-text">{{nontotalTeachingStaff}}</h2>
-                    <h3 class="mb-0 green-text TotalTeachingStaff1">Total Non-Teaching Staff</h3>
-                </div>
+  <li class="card p-4  rounded-3">
+            <div>
+               <div class="d-flex align-items-center">
+                   <div class="flex-grow-1">
+                     
+                       <h3 class="mb-0 blue-text TotalTeachingStaff">School : Total
+                       </h3>
+                   </div>
+               </div>
+           </div> 
+       </li>
 
-            </div>
-            <div class="clearfix mt45">
-                <div class="float-start">
-                    <h3 class="mb-0">Regular Staff</h3>
+        <li class="card p-4  rounded-3">
+             <div >
+                <div class=" d-flex align-items-center justify-content-center">
+                    <div class="flex-grow-1">
+                        <h3 class="mb-0 blue-text TotalTeachingStaff">Transfer Details: </h3>
+                        <h3 class="TolTeacherValue  line-space mt-4">(1). No of Employees Eligible for Transfer  :</h3>
+                        <h3 class="TolTeacherValue  line-space ">(2). No. of Employees participation in the Transfer Cycle:</h3>
+                        <h3 class="TolTeacherValue  line-space ">(3). No. of Employees submitted Transfer Application:</h3>
+                        <h3 class="TolTeacherValue  line-space">(4). No. of Employees Transferred :</h3>
+                        <h3 class="TolTeacherValue  line-space ">(5). No. of Employees Transfer order Halted:</h3>
+                        <h3 class="TolTeacherValue  line-space">(6). No. of Employees Transferred on Administrative ground:
+                        </h3>
+                    </div>
                 </div>
-                <div class="float-end">
-                    <span class="fontb">{{dashboardData.nonteachingRegular}}</span>
-                </div>
-            </div>
+            </div> 
+        </li>
+
+
        
-        </div> 
-    </li>
-</ul>
+
+    </ul>
 
 
-<ul class="display-inline mt-2">
-    <li class="card p-4 rounded-3 ">
-        <h2 class="TolTeacherValue mb-2 blue-text text-center">Teaching Staff</h2>
-        <div class="row mt-2">
-            <div class="col-6 text-center border-end">
-                <div class="round-box bg-blue"> <i class='bx bx-user-circle iconBlue '></i></div>
-                <h4 class="Verified mb-0">Verified </h4>
-                <h2 class="mb-0">{{dashboardData.teachingSa}}</h2>
-            </div>
-            <div class="col-6 text-center">
-                <div class="round-box bg-blue"> <i class='bx bx-user-circle iconBlue '></i></div>
-                <h4 class="Verified mb-0">Not-Verified </h4>
-                <h2 class="mb-0">{{teachingNotVerified}}</h2>
-            </div>
-        </div>
-        <div class="pattern">
-            <i class='bx bx-user-circle imgRotate'></i>
-        </div>
-    </li>
-    <li class="card p-4 rounded-3 ">
-        <h2 class="TolTeacherValue mb-2 silver-text text-center">Non-Teaching Staff</h2>
-        <div class="row mt-2">
-            <div class="col-6 text-center border-end">
-                <div class="round-box bg-sil"> <i class='bx bx-user-circle iconsilver '></i></div>
-                <h4 class="Verified mb-0">Verified </h4>
-                <h2 class="mb-0">{{dashboardData.nonteachingSa}}</h2>
-            </div>
-            <div class="col-6 text-center">
-                <div class="round-box bg-sil">  <i class='bx bx-user-circle iconsilver '></i></div>
-                <h4 class="Verified mb-0">Not-Verified </h4>
-                <h2 class="mb-0">{{nonteachingNotVerified}}</h2>
-            </div>
-        </div>
-        <div class="pattern">
-            <i class='bx bx-user-circle imgRotate'></i>
-        </div>
-    </li>
+    
 
-    <li class="card p-4 rounded-3 ">
-        <h2 class="TolTeacherValue mb-2 blue-text text-center">Transfer(Teaching Staff)</h2>
-        <div class="row mt-2">
-            <div class="col-6 text-center border-end">
-                <div class="round-box bg-blue"> <i class='bx bx-rocket iconBlue '></i></div> 
-                <h4 class="Verified mb-0">Initiated </h4>
-                <h2 class="mb-0">0</h2>
-            </div>
-            <div class="col-6 text-center">
-                <div class="round-box bg-blue"><i class='bx bx-rocket iconBlue '></i></div> 
-                <h4 class="Verified mb-0">Not-Initiated</h4>
-                <h2 class="mb-0">0</h2>
-            </div>
-        </div>
-        <div class="pattern">
-            <i class='bx bx-rocket imgRotate'></i>
-        </div>
-    </li>
-    <li class="card p-4 rounded-3 ">
-        <h2 class="TolTeacherValue mb-2 silver-text text-center">Transfer(Non-Teaching Staff)</h2>
-        <div class="row mt-2">
-            <div class="col-6 text-center border-end">
-                <div class="round-box bg-sil"> <i class='bx bx-rocket iconsilver '></i></div>
-                <h4 class="Verified mb-0">Initiated </h4>
-                <h2 class="mb-0">0</h2>
-            </div>
-            <div class="col-6 text-center">
-                <div class="round-box bg-sil"> <i class='bx bx-rocket iconsilver '></i></div> 
-                <h4 class="Verified mb-0">Not-Initiated </h4>
-                <h2 class="mb-0">0</h2>
-            </div>
-        </div>
-        <div class="pattern">
-            <i class='bx bx-rocket imgRotate'></i>
-        </div>
-    </li>
-
-</ul> -->
+  </div><!--close dashboard-main-content-->
+  

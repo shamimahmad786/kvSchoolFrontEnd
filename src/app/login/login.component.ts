@@ -152,7 +152,7 @@ export class LoginComponent implements OnInit {
         if(this.businessUnitTypeId=="2"){
           this.router.navigate(['/teacher/regionDashboard']);
         }else if(this.businessUnitTypeId=="3"){
-          this.router.navigate(['/teacher/regionStationMapping']);  
+          this.router.navigate(['/teacher/regionDashboard']);  
         }else if(this.businessUnitTypeId=="4"){
           this.router.navigate(['/teacher/stationDashboard']);
         }else if(this.businessUnitTypeId=="5"){
