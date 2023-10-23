@@ -22,9 +22,9 @@ const ELEMENT_DATA: any = [];
 export class RegionMasterComponent implements OnInit,AfterViewInit {
   
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  displayedColumns:any = ['sno', 'regioncode', 'regionname', 'status','action'];
+  displayedColumns:any = ['sno', 'regioncode', 'regionname', 'regionaddress', 'status','action'];
 
-  testData = { "sno": "", "regioncode": "", "regionname": "", "status": "","statusType": "","id":"" }
+  testData = { "sno": "", "regioncode": "", "regionname": "","regionaddress":"", "status": "","statusType": "","id":"" }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -57,6 +57,7 @@ export class RegionMasterComponent implements OnInit,AfterViewInit {
             this.testData.sno = '' + (i + 1) + '';
             this.testData.regioncode = res[i].regionCode;
             this.testData.regionname = res[i].regionName;
+            this.testData.regionaddress = res[i].regionAddress;
             this.testData.status = res[i].isActive;
             if(res[i].isActive ==true )
             {
@@ -68,7 +69,7 @@ export class RegionMasterComponent implements OnInit,AfterViewInit {
             }      
           this.testData.id = res[i].id;
           this.listRegion.push(this.testData);
-          this.testData = { "sno": "", "regioncode": "", "regionname": "", "status": "","statusType": "","id":"" };
+          this.testData = { "sno": "", "regioncode": "", "regionname": "", "regionaddress":"","status": "","statusType": "","id":"" };
    
           }
     console.log( this.listRegion)

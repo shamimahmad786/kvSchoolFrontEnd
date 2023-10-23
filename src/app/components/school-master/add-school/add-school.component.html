@@ -35,6 +35,9 @@
                                 <mat-error *ngIf="isSubmitted && errorHandling('schoolName','textField')">Pleae Enter a Valid Name!(Only dot, white space,() & numbers are allowed.)
                                 </mat-error>
                             </div>
+
+
+
                             <div class="col-md-4 form-group my-2 ">
                                 <!-- <mat-form-field style="width: 100%;"> -->
                                 <label class="titleSet">Select Status</label>
@@ -67,7 +70,13 @@
 
 
                             </div>
-                            <div class="mt-2 text-end">
+
+                            <div class="col-md-4 form-group my-2 ">
+                                <label class="titleSet">Address</label><br>
+                                <textarea type="text" formControlName="schoolAddress" class="form-control"></textarea>
+                            </div>
+
+                            <div class="mt-2 " style="text-align: center;">
                                 <button type="submit" class="btn btn-success mt-2">{{isEdit?'Update ':'Add School'}}</button>&nbsp;&nbsp;
                                 <button type="button" *ngIf="!isEdit" class="btn btn-primary mt-2" (click)="clear()">Clear</button>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-primary mt-2" (click)="redirectToList()">Cancel</button>

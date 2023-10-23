@@ -30,6 +30,7 @@ export class AddSchoolComponent implements OnInit,OnDestroy{
     this.schoolForm = this.fb.group({
       schoolCode: ['', [Validators.required,Validators.pattern(/^[1-9][0-9]{3}$/)]],
       schoolName: ['',[Validators.required,CustomValidator.IsTextSchool,Validators.minLength(3)]],
+      schoolAddress:[''],
       status:[true,[Validators.required]],
       schoolType:[''],
       shift:['SHIFT1'],
@@ -41,6 +42,7 @@ export class AddSchoolComponent implements OnInit,OnDestroy{
     this.schoolForm.get('schoolCode').setValue(data.schoolcode);
     this.schoolForm.get('schoolName').setValue(data.schoolname);
     this.schoolForm.get('schoolType').setValue(data.schooltype);
+    this.schoolForm.get('schoolAddress').setValue(data.schoolAddress);
     this.schoolForm.get('schoolCode').disable();
   }
 
@@ -59,13 +61,15 @@ export class AddSchoolComponent implements OnInit,OnDestroy{
         schoolName: payload.schoolName,
         status:payload.status,
         shift:payload.shift,
+        schoolAddress:payload.schoolAddress,
         schoolType:payload.schoolType,
         id:payload.id
       }
 
-      // alert(JSON.stringify(request));
+  
 
       if(this.isEdit){
+            
         this.outSideService.editSchoolMaster(request).subscribe((res)=>{
           if(res=="SUCCESS"){
             Swal.fire(

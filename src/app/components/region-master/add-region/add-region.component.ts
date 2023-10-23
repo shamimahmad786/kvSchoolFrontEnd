@@ -28,6 +28,7 @@ export class AddRegionComponent implements OnInit,OnDestroy {
   buildregionForm(){
     this.regionForm = this.fb.group({
       regioncode: ['', [Validators.required,Validators.pattern(/^[1-9][0-9]{1}$/)]],
+      regionaddress:['',[Validators.required]],
       regionname: ['',[Validators.required,CustomValidator.IsText1,Validators.minLength(3)]],
       status:[true,[Validators.required]],
       id:['']
@@ -46,10 +47,13 @@ export class AddRegionComponent implements OnInit,OnDestroy {
       let payload=this.regionForm.getRawValue();
       let request:any={
         regionCode: payload.regioncode,
+        regionAddress:payload.regionaddress,
         regionName: payload.regionname,
         status:payload.status,
       }
+
       if(this.isEdit){
+        
         //Edit region
         request.id=payload.id;
         this.outSideService.editRegionMaster(request).subscribe((res)=>{
