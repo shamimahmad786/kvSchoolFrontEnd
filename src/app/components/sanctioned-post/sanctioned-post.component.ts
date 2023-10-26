@@ -31,6 +31,7 @@ export class SanctionedPostComponent implements OnInit {
   totalSanctionedPost:number = 0;
   totalSurplusPost:number = 0;
   totalOccupiedPost:number = 0;
+  totalSystemOccupiedPost:number=0;
   totalVacantPost:number = 0;
   regionSelection:any=1;
   stationSelection:any;
@@ -46,7 +47,7 @@ sanctionPostFor:any;
 shift:any;
 
 
-  testData = {sno: '',stationName:'', staffType: '', postName: '', postCode: '',subjectName:'',subjectCode:'',sanctionedPost:'',occupiedPost:'',vacant:'',surplus:''};
+  testData = {sno: '',stationName:'', staffType: '', postName: '', postCode: '',subjectName:'',subjectCode:'',sanctionedPost:'',occupiedPost:'',systemOccupiedPost:'',vacant:'',surplus:''};
   ngOnInit(): void {
     this.regionName =localStorage.getItem('regionName');
     this.stationName =localStorage.getItem('stationName');
@@ -127,10 +128,11 @@ shift:any;
               this.testData.subjectCode =  JSON.parse(JSON.stringify(res)).rowValue[i].subject_code;
               this.testData.sanctionedPost =  JSON.parse(JSON.stringify(res)).rowValue[i].sanctioned_post;
               this.testData.occupiedPost =  JSON.parse(JSON.stringify(res)).rowValue[i].occupied_post;
+              this.testData.systemOccupiedPost=JSON.parse(JSON.stringify(res)).rowValue[i].post_system;
               this.testData.vacant =  JSON.parse(JSON.stringify(res)).rowValue[i].vacant;
               this.testData.surplus =  JSON.parse(JSON.stringify(res)).rowValue[i].surplus;
               this.sanctionPostMappingDataListArray.push(this.testData);
-              this.testData = {sno: '',stationName:'', staffType: '', postName: '', postCode: '',subjectName:'',subjectCode:'',sanctionedPost:'',occupiedPost:'',vacant:'',surplus:''};
+              this.testData = {sno: '',stationName:'', staffType: '', postName: '', postCode: '',subjectName:'',subjectCode:'',sanctionedPost:'',occupiedPost:'',systemOccupiedPost:'',vacant:'',surplus:''};
             }
 
             
@@ -158,6 +160,20 @@ shift:any;
 
 
 
+}
+
+
+isTotalSanctionDiff(){
+  if(this.totalOccupiedPost !=this.totalSystemOccupiedPost){
+    return true;
+  }
+}
+
+isSanctionDiff(i){
+  // alert(this.sanctionPostMappingDataListArray[i].systemOccupiedPost);
+  if(this.sanctionPostMappingDataListArray[i].systemOccupiedPost !=this.sanctionPostMappingDataListArray[i].occupiedPost){
+    return true
+  }
 }
 
 
@@ -349,6 +365,7 @@ this.schoolName=this.schoolList[i].schoolName;
       this.totalSanctionedPost += (data[i].sanctioned_post)?data[i].sanctioned_post:0;
       this.totalVacantPost += (data[i].vacant)?data[i].vacant:0;
       this.totalOccupiedPost += (data[i].occupied_post)?data[i].occupied_post:0;
+      this.totalSystemOccupiedPost +=(data[i].occupied_post)?data[i].post_system:0;
       this.totalSurplusPost += (data[i].surplus)?data[i].surplus:0;
       this.addQuantity(data[i])
     }
@@ -372,6 +389,7 @@ this.schoolName=this.schoolList[i].schoolName;
       subjectCode: data?.subject_code,
       sanctionedPost: [data.sanctioned_post > 0 ? data.sanctioned_post : 0, [Validators.required, Validators.min(0), Validators.max(20000), Validators.pattern("[0-9]*$")]],
       occupiedPost: [data.occupied_post > 0 ? data.occupied_post : 0, [Validators.required, Validators.min(0), Validators.max(20000), Validators.pattern("[0-9]*$")]],
+      systemOccupiedPost:data?.post_system,
       vacantPost: [data.vacant > 0 ? data.vacant : 0],
       surplusPost: [data.surplus > 0 ? data.surplus : 0],
       postId:data?.post_id,

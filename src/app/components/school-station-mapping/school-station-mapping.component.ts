@@ -176,7 +176,7 @@ export class SchoolStationMappingComponent implements OnInit {
     this.listRegionStation=[];
       if(res.length>0){
           for (let i = 0; i < res.length; i++) {
-       debugger
+       
             this.testData.sno = '' + (i + 1) + '';
             this.testData.stationname = res[i].stationName+"("+res[i].stationCode+")";
             this.testData.schoolname = res[i].schoolName+"("+res[i].schoolCode+")";
