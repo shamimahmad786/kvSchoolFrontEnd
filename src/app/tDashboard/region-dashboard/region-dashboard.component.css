@@ -29,10 +29,10 @@
     .fontb{font-size:1.3em; font-weight:600; color:#434a52; font-family:'Montserrat', sans-serif;}
     .mt45{ margin-top:30px;}
     ul.display-inline{padding: 0px; margin:0px; list-style: none;}
-    ul.display-inline li{display: inline-table; margin-right: 15px; width:45.2%; min-height: 248px; line-height: 20px; overflow: hidden;}
+    ul.display-inline li{display: inline-table; margin-right: 15px; width:49.2%; min-height: 248px; line-height: 20px; overflow: hidden;}
    
-    ul.display-inline-one li{display: inline-table; margin-right: 15px; width:45.2%; line-height: 20px; overflow: hidden;}
-   
+    ul.display-inline-one li{display: inline-table; margin-right: 15px; width:49.2%; line-height: 20px; overflow: hidden;}
+    ul.display-inline-one li:last-child{margin-right: 0px;}
     ul.display-inline li:last-child{margin-right: 0px;}
     .Verified{ font-size: 1rem; color: #4c4c4c; font-weight: 400;}
     .mtop-3 { padding-top: 28px;}
@@ -242,5 +242,5 @@
     ul.display-inline li:hover .bg-sil{background-color:#858585;} 
     }
     .line-space{
-        line-height: 6px;
+        line-height: 22px;
     }

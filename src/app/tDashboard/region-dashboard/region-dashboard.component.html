@@ -8,73 +8,23 @@
             <li class="breadcrumb-item"><a href="#">dashboard</a></li>
         </ol>
     </nav>
-
-
-
-
-
-    <!-- <ul class="display-inline mt-5">
-        <li class="p-4 green-bg rounded-3">
-           
-             <div >
-                <div class=" d-flex align-items-center justify-content-center">
-                    <div class="flex-grow-1">
-                        <h2 class="TolTeacherValue text-white"></h2>
-                        <h3 class="mb-0 TotName text-white">Total School's</h3>
-                    </div>
-                    <div class="flex-shrink-0 ms-3">
-                        <img src="assets/assets/img/total-school-icon.png" alt="...">
-                    </div>
-                </div>
-            </div> 
-        </li>
-    
-        <li class="card p-4 blue-bg rounded-3">
-            
-             <div >
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <h2 class="TolTeacherValue text-white"></h2>
-                        <h3 class="mb-0 TotName text-white">Total Staff</h3>
-                    </div>
-                    <div class="flex-shrink-0 ms-3">
-                        <img src="assets/assets/img/total-teacher-icon.png" alt="...">
-                    </div>
-                </div>
-            </div> 
-        </li>
-    
-        <li class="card p-4 blue-bg rounded-3">
-            
-            <div >
-               <div class="d-flex align-items-center">
-                   <div class="flex-grow-1">
-                       <h2 class="TolTeacherValue text-white"></h2>
-                       <h3 class="mb-0 TotName text-white">Total Staff</h3>
-                   </div>
-                   <div class="flex-shrink-0 ms-3">
-                       <img src="assets/assets/img/total-teacher-icon.png" alt="...">
-                   </div>
-               </div>
-           </div> 
-       </li>
-    
-       <li class="card p-4 blue-bg rounded-3">
-            
-        <div >
-           <div class="d-flex align-items-center">
-               <div class="flex-grow-1">
-                   <h2 class="TolTeacherValue text-white"></h2>
-                   <h3 class="mb-0 TotName text-white">Total Staff</h3>
-               </div>
-               <div class="flex-shrink-0 ms-3">
-                   <img src="assets/assets/img/total-teacher-icon.png" alt="...">
-               </div>
-           </div>
-       </div> 
-   </li>
-    </ul> -->
-    <ul class="display-inline ">
+    <div class="shadow-sm bg-white border-3" style="margin-bottom: 9px; border-radius: 7px;">
+        <ul class="stationUL">
+        
+            <li>
+                <h3>Region Name :
+                    <span class="StationValue">{{kvSchoolDetails?.region_name}}</span>
+                </h3>
+            </li>
+            <li>
+                <h3>Region Code :
+                    <span class="StationValue">{{kvSchoolDetails?.region_code}}</span>
+                </h3>
+            </li>
+        </ul>
+    </div>
+    <div class="dashboard-main-content-info p-5">
+    <ul class="display-inline">
         <li class="card p-4 rounded-3 ">
             <h2 class="TolTeacherValue mb-2  card-text-color text-center">Station Total</h2>
             <div class="row " style=" margin-top: 51px;">
@@ -159,7 +109,7 @@
             <div>
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1">
-                        <!-- <h2 class="TolTeacherValue mb-2 blue-text">212121</h2> -->
+                     
                         <h3 class="mb-0 blue-text TotalTeachingStaff">Sanction Posts : Total
                         </h3>
                     </div>
@@ -167,7 +117,19 @@
             </div>
         </li>
 
+        <li class="card p-4  rounded-3">
+            <div>
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
 
+                        <h3 class="mb-0 blue-text TotalTeachingStaff">School : Total
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul class="display-inline mt-3">
         <li class="card p-4 rounded-3 ">
             <h2 class="TolTeacherValue mb-2  card-text-color text-center">Station Type</h2>
             <div class="row ">
@@ -203,12 +165,7 @@
                             <td>peterparker@mail.com</td>
                             <td>johnrambo@mail.com</td>
                         </tr>
-                        <tr>
-                            <th>NER</th>
-                            <td>Very Hard</td>
-                            <td>peterparker@mail.com</td>
-                            <td>johnrambo@mail.com</td>
-                        </tr>
+                       
                     </tbody>
                 </table>
 
@@ -217,21 +174,6 @@
                 <i class='bx bx-user-circle imgRotate'></i>
             </div>
         </li>
-    </ul>
-    <ul class="display-inline mt-3">
-
-        <li class="card p-4  rounded-3">
-            <div>
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-
-                        <h3 class="mb-0 blue-text TotalTeachingStaff">School : Total
-                        </h3>
-                    </div>
-                </div>
-            </div>
-        </li>
-
         <li class="card p-4  rounded-3">
             <div>
                 <div class=" d-flex align-items-center justify-content-center">
@@ -248,14 +190,7 @@
                 </div>
             </div>
         </li>
-
-
-
-
     </ul>
-
-
-
-
+</div>
 </div>
 <!--close dashboard-main-content-->

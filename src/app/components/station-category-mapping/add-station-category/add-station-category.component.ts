@@ -1,8 +1,12 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormGroupDirective, FormBuilder, Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
-import { Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
 
@@ -12,33 +16,99 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-station-category.component.css']
 })
 export class AddStationCategoryComponent implements OnInit {
+  displayedColumns = ['Sno', 'Station Name', 'Category name', 'From date','To Date'];
+  userMappingSource : MatTableDataSource<any>;
+  @ViewChild('paginator') paginator: MatPaginator;
+  @ViewChild('hBSort') hBSort: MatSort;
+  @ViewChild('JoiningBox', { static: true }) JoiningBox: TemplateRef<any>;   
+  childUserData = { "sno": "","station_name": "","category_name": "","from_date": "","to_date": ""}
   stationCategoryMForm: FormGroup;
   isSubmitted: boolean = false;
- 
+  showTodate: boolean = true;
   stationList: any=[];
   dropdownStationList = [];
   selectedStationItems = [];
   dropdownStationSettings = {};
-
+  historyControlingOfficedata: any=[];
   categoryList: any=[];
   dropdownCategoryList:any=[];
   selectedCategoryItems = [];
   dropdownCategorySettings = {};
-
+  userMappingAction:any;
+  userMappingRegionCode:any;
+  loginUserNameForService:any;
+  userMappingRegionName:any;
+  historyControllerOfficeDataArray: any = [];
   statusList=[{'value':true,'status':'Active'},{'value':false,'status':'InActive'}]
 
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
-  constructor(private fb: FormBuilder,private outSideService: OutsideServicesService, private router: Router,private dateAdapter: DateAdapter<Date>,private datePipe:DatePipe) { 
+  constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private route: ActivatedRoute, private router: Router,private dateAdapter: DateAdapter<Date>,private datePipe:DatePipe) { 
     this.dateAdapter.setLocale('en-GB');
     this.settingCategoryDropDown();
     this.settingStationDropDown();
   }
   @ViewChild('multiStation') multiStation;
   ngOnInit(): void {
+ 
+    for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
+ 
+   
+      this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+    }
+    this.route.queryParams.subscribe(params => {
+      this.userMappingAction=params['action'];   
+      this.userMappingRegionCode=params['regionId'];
+      this.userMappingRegionName=params['regionName'];
+    });
+
+   if(this.userMappingAction=='Add'){
+    this.showTodate=false
+   }
     this.buildRegionMappingForm();
     this.getCategoryList();
     this.getStationList();
+    this.stationCategoryMappingListByStationCode();
   }
+
+stationCategoryMappingListByStationCode(){
+ var data={
+    "stationCode": this.userMappingRegionCode
+}
+  
+  this.outSideService.stationCategoryMappingListByStationCode(data,this.loginUserNameForService).subscribe(res => {
+    console.log(res)
+    this.historyControlingOfficedata=res.rowValue;
+    this.historyControllerOfficeDataArray = [];
+    for (let i = 0; i < this.historyControlingOfficedata.length; i++) {
+      this.childUserData.sno = '' + (i + 1) + '';
+      this.childUserData.station_name =this.historyControlingOfficedata[i].station_name;
+      this.childUserData.category_name =this.historyControlingOfficedata[i].category_name;
+      this.childUserData.from_date = this.historyControlingOfficedata[i].from_date;
+      this.childUserData.to_date = this.historyControlingOfficedata[i].to_date;
+      this.historyControllerOfficeDataArray.push(this.childUserData);
+      this.childUserData = { "sno": "","station_name": "","category_name": "","from_date": "","to_date": ""}
+    }
+    setTimeout(() => {
+      this.userMappingSource  = new MatTableDataSource(this.historyControllerOfficeDataArray);
+      this.userMappingSource .paginator = this.paginator;
+      this.userMappingSource .sort = this.hBSort;  
+    }, 100)
+  },
+  error => { 
+    Swal.fire({
+      'icon':'error',
+      'text':'You are not Authorized.'
+    })
+  });
+
+}
+
+applyFilterHBSource(filterValue: string) {
+  filterValue = filterValue.trim(); 
+  filterValue = filterValue.toLowerCase(); 
+  this.userMappingSource.filter = filterValue;
+}
+
   settingStationDropDown(){
     this.dropdownStationSettings = {
       singleSelection: true,
@@ -50,6 +120,7 @@ export class AddStationCategoryComponent implements OnInit {
       allowSearchFilter: true
     };
   }
+
   settingCategoryDropDown(){
     this.dropdownCategorySettings = {
       singleSelection: true,
@@ -82,24 +153,31 @@ export class AddStationCategoryComponent implements OnInit {
           }
         });
          this.dropdownCategoryList=this.categoryList;
-  
+        
       }
     })
   }
   getStationList(){
     let request={};
-    this.outSideService.fetchStationList(request).subscribe((res)=>{
-      if(res.length>0){
-        res.forEach(element => {
-          if(element.isActive){
-            this.stationList.push({ stationCode: element.stationCode, stationName: element.stationName+"("+element.stationCode+")" })
+    this.outSideService.searchStationCategoryMList(request,this.loginUserNameForService).subscribe((res)=>{
+      debugger
+      if(res.rowValue.length>0){
+        res.rowValue.forEach(element => {
+          if(element.is_active){
+            this.stationList.push({ stationCode: element.station_code, stationName: element.station_name })
           }
         });
         this.dropdownStationList=this.stationList;
+        console.log(this.dropdownStationList)
+        alert(this.userMappingRegionCode)
+        this.selectedStationItems = [
+          { stationCode: Number(this.userMappingRegionCode), stationName: this.userMappingRegionName  }
+        ];
       }
-
     })
   }
+
+
   submit(){
     if (this.stationCategoryMForm.invalid) {
       this.isSubmitted = true;

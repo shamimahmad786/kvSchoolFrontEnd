@@ -2,7 +2,6 @@
   <div class="dashboard-main-content__header">
     <h1>User Management</h1>
   </div>
- 
     <nav aria-label="breadcrumb" class="mt-1">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -10,9 +9,6 @@
       </ol>
     </nav>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-
-
-     
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" style="width: 730px; border: solid 0.2px #d6d6d6; background-color: white; color:black" (click)="navColor('transferin')" id="home-tab" [class.myClass]="showFirstButtonColor" type="button" role="tab" aria-controls="profile" aria-selected="false">User List </button>
       </li>
@@ -21,30 +17,23 @@
       </li>
     </ul>
     <div class="dashboard-main-content-info p-5">
-      <div class="tab-content" id="myTabContent">
+    <div class="tab-content" id="myTabContent">
 <!------------------------------------------------- first tab start  here------------------------------->
 <div *ngIf="activePaneOne">
   <div class="row justify-content-center d-flex  profile-info">
     <div class="col-lg-9">
-    
-    
        <div  class="shadow-sm bg-white p-3 rounded ">   
         <div class="row">
             <div class="col-md-6">
-
               <!-- <button mat-raised-button class=" me-2 btn-primary">Download Excel</button>
               <button mat-raised-button class="me-2 btn-secondary">Download PDF</button> -->
-               
-                <button mat-raised-button class="me-2 btn-secondary"  routerLinkActive="active" routerLink="/teacher/addInstituteHead" >Add User</button>
-
-              
+             <button mat-raised-button class="me-2 btn-secondary"  routerLinkActive="active" routerLink="/teacher/addInstituteHead" >Add User</button>
             </div>  
             <div class="col-md-6" style="
             text-align: end;">
               <div class="example-header">
                 <mat-form-field appearance="outline" class=" searchInput me-4">
                     <input matInput (keyup)="applyFilterHBSource($event.target.value)" placeholder="Search">
-                 
                 </mat-form-field>      
             </div>
             </div>     
@@ -67,9 +56,7 @@
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.email }}
                     </mat-cell>
                 </ng-container>
-    
-              
-    
+
                 <ng-container matColumnDef="Mobile">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Mobile </mat-header-cell>
                     <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
@@ -87,7 +74,6 @@
                   <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
                   </span> <button  *ngIf="row.enabled == '1'" class="t-status-btn approved" (click)="childActiveDeactive(0,row.username)">Active</button> <button   *ngIf="row.enabled != '1'" (click)="childActiveDeactive(1,row.username)" class="t-status-btn not-initiated">Deactivate</button>&nbsp;&nbsp;<i  (click)="editChildUser(row.username,'edite')"class="bi bi-eye" style="font-size: 1.5rem; color: #7e4880;"></i> </mat-cell>
               </ng-container>
-               
                
                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;">
@@ -167,19 +153,12 @@
           </div>
         </div>
       </div><!--close row-->
-      </div>  <!--close first  tab-->
+   </div>  <!--close first  tab-->
 <!------------------------------------------------- first tab end  here---------------------------------->
 
 <!------------------------------------------------- secand tab start  here------------------------------->
      
 <!------------------------------close secand  tab-------------------------------------------------------->
-
-
-
-           </div>  
-           
-           
-
+        </div>  
     </div><!--close main-content-info-->
- 
 </div><!--close dashboard-main-content-->

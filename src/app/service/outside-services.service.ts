@@ -1209,14 +1209,15 @@ searchRegionStationMList(data){
 
   return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/region-station-mapping-list", data, {headers})
 }
-searchStationCategoryMList(data){
+searchStationCategoryMList(data,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({
     'Authorization':token,
     'Content-Type': 'text/plain; charset=utf-8',
+    'username':userName,
   }); 
 
-  return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/station-category-mapping-list", data, {headers})
+  return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/all-station-category-mapping-list", data, {headers})
 }
 
 searchSchoolStationMList(data){
@@ -1623,6 +1624,15 @@ getControllerOfficeHistory(data:any,userName:any){
     'Content-Type': 'text/plain; charset=utf-8',
   }); 
   return this._http.post(environment.BASE_URL_DATA_KVCONTROLER+ "getControllerOfficeHistory",data,{headers})
+}
+stationCategoryMappingListByStationCode(data:any,userName:any){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'username':userName,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });
+  return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/station-category-mapping-list-by-station-code", data, {headers}) 
 }
 // exportToPdf(data:any){
 //   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
