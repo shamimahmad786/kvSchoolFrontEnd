@@ -42,6 +42,8 @@ export class StationCategoryMappingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // alert("called");
+    debugger;
     this.getFreezeStatus();
     this.businessTypeId=JSON.parse(sessionStorage.getItem('authTeacherDetails')).applicationDetails[0].business_unit_type_id;
     this.businessTypeCode=JSON.parse(sessionStorage.getItem('authTeacherDetails')).applicationDetails[0].business_unit_type_code;
@@ -145,6 +147,9 @@ this.getStationCategoryByRegion();
     })
   }
   getRegionStationList(res:any){
+
+    // alert("Get region station list--->"+JSON.stringify(res));
+
     this.listRegionStation=[];
     debugger
       if(res.length>0){

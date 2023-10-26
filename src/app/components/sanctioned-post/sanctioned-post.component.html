@@ -4,9 +4,9 @@
     </div>
     <div class="d-flex flex-row  bd-highlight ">
         <div class="p-1">
-          
-            <h2 class="titleSetSanction1 ">  {{regionName}}</h2>
-           
+
+            <h2 class="titleSetSanction1 "> {{regionName}}</h2>
+
             <!-- <label class="titleSet">Select Region Name</label>
             <mat-select (selectionChange)="getStationList($event.value)" [disabled]="businessTypeId==3" [(value)]="selectedRegion" class="form-control" value="">
                 <mat-option value="">Select Region Name</mat-option>
@@ -39,20 +39,20 @@
         </div>
 
 
-        
+
         <div class="p-5 "></div>
         <div class="p-5 "></div>
-        
+
         <div class="p-1">
-            <button mat-raised-button color="primary"  class="float-end mt-2" (click)="sanctionedPostMappingPdf()">Download PDF</button>
+            <button mat-raised-button color="primary" class="float-end mt-2" (click)="sanctionedPostMappingPdf()">Download PDF</button>
         </div>
         <div class="p-1 ">
             <button mat-raised-button class="float-end mt-2 btn-primary" (click)="exportexcel()">Download Excel</button>
         </div>
 
         <div class="p-1">
-            
-            <button mat-raised-button color="primary" class="float-end mt-2" (click)="backToList()" style="background-color: #145f11;" >Back to List</button>
+
+            <button mat-raised-button color="primary" class="float-end mt-2" (click)="backToList()" style="background-color: #145f11;">Back to List</button>
         </div>
 
 
@@ -142,6 +142,9 @@
                                         Occupied Post
                                     </th>
                                     <th class="text-center">
+                                        System Occupied Post
+                                    </th>
+                                    <th class="text-center">
                                         Vacant Post
                                     </th>
                                     <th class="text-center">
@@ -185,6 +188,9 @@
                                         <input type="number" class="form-control form-control-sm text-center" name="occupiedPost" id="occupiedPost" formControlName="occupiedPost" (blur)="calculateVacantPost($event,i,'O')" (keypress)="keyPressNumbers($event)" [attr.disabled]="isEdit==false?'':null">
                                     </td>
                                     <td>
+                                        <input style="font-size: medium;" [ngStyle]="{color: isSanctionDiff(i) ? 'red' : 'black'}" type="number" class="form-control form-control-sm text-center" formControlName="systemOccupiedPost" name="occupiedPost" id="occupiedPost" disabled>
+                                    </td>
+                                    <td>
                                         <input type="number" class="form-control form-control-sm text-center" name="vacantPost" id="vacantPost" formControlName="vacantPost" disabled>
                                     </td>
                                     <td>
@@ -204,6 +210,7 @@
                                     <td></td>
                                     <td style="font-weight: 600;text-align: center;">{{totalSanctionedPost}}</td>
                                     <td style="font-weight: 600;text-align: center;">{{totalOccupiedPost}}</td>
+                                    <td style="font-weight: 600;text-align: center;" [ngStyle]="{color: isTotalSanctionDiff() ? 'red' : 'black'}">{{totalSystemOccupiedPost}}</td>
                                     <td style="font-weight: 600;text-align: center;">{{totalVacantPost}}</td>
                                     <td style="font-weight: 600;text-align: center;">{{totalSurplusPost}}</td>
                                 </tr>
@@ -217,7 +224,7 @@
             <ng-container *ngIf="nationalEdit">
                 <button class="btn btn-green float-end" (click)="onSubmit()" type="submit">{{(isEdit==true)?'Update':'Save'}}</button>
             </ng-container>
-           
+
             <button [disabled]="!sanctionedPost.valid || businessTypeId !=3" class="btn btn-green float-end" (click)="onSubmit()" type="submit">{{(isEdit==true)?'Update':'Save'}}</button>
             <button [disabled]="!sanctionedPost.valid || businessTypeId !=3" class="btn btn-green float-end" (click)="freezeSanctionPost()" style="margin-right: 1%;">Freeze</button>
         </div>
