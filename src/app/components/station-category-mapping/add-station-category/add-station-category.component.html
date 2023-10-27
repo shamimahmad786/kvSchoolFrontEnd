@@ -5,6 +5,7 @@
     <nav aria-label="breadcrumb" class="mt-1">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Add</a></li>
           <li class="breadcrumb-item"><a href="#">Station-Category Mapping</a></li>
         </ol>
       </nav>
@@ -67,7 +68,7 @@
                                         <mat-datepicker-toggle mdSuffix [for]="pickers"></mat-datepicker-toggle>
                                         <mat-datepicker #pickers></mat-datepicker>
                                     </div>
-                                    <input class="form-control" [matDatepicker]="pickers" placeholder="Date"  (click)="pickers.open()"
+                                    <input class="form-control"  id="wordStartDate" (dateChange)="checkDatelieBeetwenFromTo($event,1)" [matDatepicker]="pickers" placeholder="Date"  (click)="pickers.open()"
                                         formControlName="fromDate" >
                                 </div>
                                 <span class="help-block text-danger"
@@ -81,7 +82,7 @@
                                         <mat-datepicker-toggle mdSuffix [for]="pickers1"></mat-datepicker-toggle>
                                         <mat-datepicker #pickers1></mat-datepicker>
                                     </div>
-                                    <input class="form-control" [matDatepicker]="pickers1" placeholder="To Date(DD/MM/YYYY)"
+                                    <input class="form-control" id="wordEndDate"  (dateChange)="checkDatelieBeetwenFromTo($event,2)" [matDatepicker]="pickers1" placeholder="To Date(DD/MM/YYYY)"
                                         formControlName="toDate" [min]="stationCategoryMForm.get('fromDate').value"  [max]="currentDate()"  (click)="pickers1.open()">
                                 </div>
                                 <span class="help-block text-danger"
@@ -164,14 +165,14 @@
 
             <ng-container matColumnDef="From date">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> From date </mat-header-cell>
-                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.from_date }}
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.from_date | date: 'dd-MM-yyyy' }}
                 </mat-cell>
             </ng-container>
       
 
             <ng-container matColumnDef="To Date">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> From date </mat-header-cell>
-                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.to_date }}
+                <mat-header-cell *matHeaderCellDef mat-sort-header> To date </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.to_date | date: 'dd-MM-yyyy' }}
                 </mat-cell>
           </ng-container>
           

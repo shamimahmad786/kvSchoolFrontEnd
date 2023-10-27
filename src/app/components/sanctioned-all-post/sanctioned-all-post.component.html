@@ -1,15 +1,17 @@
-<div class="shadow-sm bg-white p-3 rounded">
-    <div class=" bg-profile-head">
-        <h5 class="mb-0 p-2 FontTitle  text-white">Sanctioned Post Mapping</h5>
+<div class="dashboard-main-content" style="min-height: 600px;">
+    <div class="dashboard-main-content__header">
+      <h1>Sanctioned Post Mapping</h1>
     </div>
+    <nav aria-label="breadcrumb" class="mt-1">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Sanctioned Post Mapping</a></li>
+        </ol>
+      </nav>
 
-
-
-
-
-
-
-
+<div class="dashboard-main-content-info p-5">
+<div class="shadow-sm bg-white p-3 rounded">
+    
     <div class="row">
         <div class="col-md-4 form-group mt-3 mb-3">
             <label class="titleSet">Select Region Name</label>
@@ -107,4 +109,5 @@
 
             <mat-paginator [pageSizeOptions]="[10,20, 25]"> </mat-paginator>
         </div>
+    </div>
     </div>

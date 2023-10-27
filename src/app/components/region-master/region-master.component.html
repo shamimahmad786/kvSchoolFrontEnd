@@ -1,8 +1,17 @@
-<div class="cardSet px-4">
-    <div class="d-flex justify-content-between headingBack mb-4">
-        <div class="mt-3">
-            <span class="fonttileHeading">Region/ZIET Master</span>
-        </div>
+<div class="dashboard-main-content" style="min-height: 600px;">
+    <div class="dashboard-main-content__header">
+      <h1>Region/ZIET Master</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="mt-1">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Region/ZIET Master</a></li>
+        </ol>
+      </nav>
+
+
+      <div class="d-flex flex-row-reverse bd-highlight mb-3">
+       
         <div class="d-flex d-flex-row">
             <div class="p-1" *ngIf="!freezeStatus">
                 <button mat-raised-button class="float-end  btn-success" (click)="redirectto()"><i class="bi bi-plus-circle me-1"></i> Add</button>
@@ -18,6 +27,12 @@
         </div>
 
     </div>
+
+
+
+    <div class="dashboard-main-content-info p-5">
+<div class="cardSet px-4">
+   
     <div class="shadow bg-white rounded-3">
 
         <!-- <div style="text-align: right;">
@@ -92,4 +107,6 @@
             <mat-paginator [pageSizeOptions]="[10,20, 25]"> </mat-paginator>
         </div>
     </div>
+</div>
+</div>
 </div>

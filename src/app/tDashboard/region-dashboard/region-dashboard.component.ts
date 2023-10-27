@@ -8,8 +8,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./region-dashboard.component.css']
 })
 export class RegionDashboardComponent implements OnInit {
-
-  
   kvicons: any;
   businessUnitTypeId: any;
   businessUnitTypeCode: any;
@@ -19,29 +17,20 @@ export class RegionDashboardComponent implements OnInit {
   teachingNotVerified: any;
   nonteachingNotVerified:any;
   kvSchoolDetails:any;
-
   kvCode:any;
-
-  
   kvSchoolList:any;
   stationCode1:any;
   regionCode:any;
   regionList:any;
   stationList:any;
-
   constructor(public outSideService: OutsideServicesService) { }
-
   ngOnInit(): void {
-
-    
-
+    debugger
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
-      
       this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
       this.businessUnitTypeId = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_id;
       this.businessUnitTypeCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
-    
       if (JSON.parse(sessionStorage.getItem("authTeacherDetails")).applicationDetails[i].application_id == environment.applicationId) {
         const data: any = {
           "extcall": "MOE_EXT_REGIONMAPPINGDATA",
@@ -124,7 +113,7 @@ export class RegionDashboardComponent implements OnInit {
   }
 
   getMaster(data, business_unit_type_id) {
-    
+    debugger
       this.outSideService.getMasterData(data).subscribe((res) => {
         
         var data1 = { 'business_unit_type_id': business_unit_type_id, "mappingData": JSON.parse(JSON.stringify(res.response)).rowValue }
