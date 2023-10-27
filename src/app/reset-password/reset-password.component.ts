@@ -88,7 +88,7 @@ export class ResetPasswordComponent implements OnInit {
       mode: crypto.mode.ECB,
       padding: crypto.pad.Pkcs7
      });
-    this.auth.resetPassword(encrypted.toString(),this.paramSessionId).subscribe((res) => {
+    this.auth.resetPassword(data,this.paramSessionId).subscribe((res) => {
       this.generate()
     if(res.message="Password Changed Successfully"){
       Swal.fire(

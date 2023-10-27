@@ -72,8 +72,8 @@ export class AddInstituteHeadComponent implements OnInit {
   getStationByRegionId(event:any){
     console.log(event.target.value)
 
-  if(event.target.value=="3"){
-  this.outSideService.fetchKvRegion(1).subscribe(res => {
+  if(event.target.value=="3" || event.target.value=="2"){
+  this.outSideService.fetchKvRegion(event.target.value).subscribe(res => {
     this.regionList = res.response.rowValue;
     console.log("region list")
     console.log(this.regionList)
@@ -105,17 +105,25 @@ export class AddInstituteHeadComponent implements OnInit {
       })
     });
     }
+    this.addInstituteForm.patchValue({
+      userName:'',
+    })
   }
   //***************** make User Name On Basis Of Station name*******************************************/
   getUserNameForInstitute(event:any){
+    // alert(event);
       var instituteUserNameSplit = event.split("/")
       var instituteUserName ='ro_'+instituteUserNameSplit[1].toLowerCase();
+      if(instituteUserName.indexOf('ziet') !=-1){
+       var zietUserNameSplit= instituteUserName.split(" ");
+       instituteUserName=zietUserNameSplit[0]+"_"+zietUserNameSplit[1];
+      }
+      alert(instituteUserName)
       this.addInstituteForm.patchValue({
         userName:instituteUserName,
       })
   }
   getUserNameForSchool(event:any){
- 
     var schoolUserNameSplit = event.split("/")
     var schoolUserName ='kv_'+schoolUserNameSplit[0].toLowerCase();
     this.addInstituteForm.patchValue({

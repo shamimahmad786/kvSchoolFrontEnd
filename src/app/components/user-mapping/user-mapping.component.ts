@@ -51,7 +51,7 @@ export class UserMappingComponent implements OnInit {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
       this.businessUnitTypeId= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id;
     }
-    alert(this.businessUnitTypeId)
+    // alert(this.businessUnitTypeId)
     if(this.businessUnitTypeId=="2"){
       this.schoolType="3";
       this.controllerType="R";

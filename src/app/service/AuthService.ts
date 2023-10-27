@@ -37,6 +37,7 @@ export class AuthService {
     var headers = new HttpHeaders({
       'Content-Type': 'text/plain; charset=utf-8',
     }); 
+    
     return this.http.post<any>(environment.LOGIN_URL_JWT + "forgetPasswordMail", data,{headers});
   }
   resetPassword(data:any,paramSesId:any){

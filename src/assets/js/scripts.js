@@ -19,8 +19,8 @@
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    window.addEventListener('scroll', function () {
+document.addEventListener("DOMContentLoaded", function() {
+    window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
             document.getElementById('navbar_top').classList.add('fixed-top');
             // add padding top to show content behind navbar
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function callMethod() {
-    setTimeout(function () {
+    setTimeout(function() {
         $('#example').DataTable();
     }, 500);
 }
@@ -47,17 +47,17 @@ function getCredential() {
     // const data = { 'authcode': authCode, 'authcredential': btoa("teacher:pin"),'redirectUrl': 'https://kvsonlinetransfer.kvs.gov.in/school/teacher/profile' }
     // const data = { 'authcode': authCode, 'authcredential': btoa("teacher:pin"),'redirectUrl': 'https://pgi.udiseplus.gov.in/school/teacher/profile' }
     const data = { 'authcode': authCode, 'authcredential': btoa("teacher:pin"), 'redirectUrl': 'http://localhost:4200/teacher/profile' }
-    // alert("get credential");
+        // alert("get credential");
     debugger;
     $.ajax({
-                  url: "http://10.25.26.251:8014/meuser/api/userCradential/get-usercradential", 
-               //  url: "https://kvsonlinetransfer.kvs.gov.in/UserService/api/userCradential/get-usercradential",
-               //  url: "https://demopgi.udiseplus.gov.in/UserService/api/userCradential/get-usercradential",
+        // url: "http://10.25.26.251:8014/meuser/api/userCradential/get-usercradential",
+        //  url: "https://kvsonlinetransfer.kvs.gov.in/UserService/api/userCradential/get-usercradential",
+        url: "https://demopgi.udiseplus.gov.in/UserService/api/userCradential/get-usercradential",
         type: 'post',
         async: false,
         contentType: "text/plain",
         data: JSON.stringify(data),
-        success: function (res) {
+        success: function(res) {
             sessionStorage.setItem("authTeacherDetails", JSON.stringify(res));
         }
 
@@ -70,13 +70,13 @@ var publcKey;
 
 function getKey() {
     $.ajax({
-          //  url: "https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER/api/login/getKey",
-           url: "http://10.25.26.251:8014/api/login/getKey",
-            //    url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/getKey",
+        //  url: "https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER/api/login/getKey",
+        //    url: "http://10.25.26.251:8014/api/login/getKey",
+        url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/getKey",
         type: "POST",
         cache: false,
         async: false,
-        success: function (data) {
+        success: function(data) {
             publcKey = data.key
 
 
@@ -99,15 +99,15 @@ function changePassword(userId, password, newPassword, confirmPassword) {
     var data = { "userId": encrypt.encrypt(userId), "oldPassword": encrypt.encrypt(password), "newPassword": encrypt.encrypt(newPassword), "confirmPassword": encrypt.encrypt(confirmPassword) }
 
     $.ajax({
-            //  url: "https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER/api/login/renamePassword",
-            url: "http://10.25.26.251:8014/api/login/renamePassword",
-           //  url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/renamePassword",
+        //  url: "https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER/api/login/renamePassword",
+        // url: "http://10.25.26.251:8014/api/login/renamePassword",
+        url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/renamePassword",
         type: "POST",
         async: false,
         contentType: "text/plain; charset=utf-8",
 
         data: JSON.stringify(data),
-        success: function (data) {
+        success: function(data) {
 
             returnData = data.message;
 
@@ -123,14 +123,14 @@ function changePassword(userId, password, newPassword, confirmPassword) {
 
 function getUdiseCode() {
     $.ajax({
-          url: "http://kvsonlinetransfer.kvs.gov.in/meuser/api/userCradential/get-usercradential",
-         //  url: "https://demopgi.udiseplus.gov.in/UserService/api/userCradential/get-usercradential",
-        // url: "https://demopgi.udiseplus.gov.in/meuser/api/userCradential/get-usercradential",
+        //   url: "http://kvsonlinetransfer.kvs.gov.in/meuser/api/userCradential/get-usercradential",
+        //  url: "https://demopgi.udiseplus.gov.in/UserService/api/userCradential/get-usercradential",
+        url: "https://demopgi.udiseplus.gov.in/meuser/api/userCradential/get-usercradential",
         type: 'post',
         async: false,
         contentType: "text/plain",
         data: JSON.stringify(data),
-        success: function (res) {
+        success: function(res) {
             sessionStorage.setItem("authTeacherDetails", JSON.stringify(res));
         }
     });
@@ -151,7 +151,7 @@ function encriptedText(userId, password) {
 
 //old
 "use strict";
-$(document).ready(function () {
+$(document).ready(function() {
     loadScroller();
 });
 
@@ -162,17 +162,14 @@ function srvTime() {
     try {
         //FF, Opera, Safari, Chrome
         xmlHttp = new XMLHttpRequest();
-    }
-    catch (err1) {
+    } catch (err1) {
         //IE
         try {
             xmlHttp = new ActiveXObject('Msxml2.XMLHTTP');
-        }
-        catch (err2) {
+        } catch (err2) {
             try {
                 xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
-            }
-            catch (eerr3) {
+            } catch (eerr3) {
                 //AJAX not supported, use CPU time.
                 alert("AJAX not supported");
             }
@@ -197,7 +194,7 @@ function loadScroller() {
     var steps = $("fieldset").length;
     setProgressBar(current);
 
-    $(".action-save").click(function () {
+    $(".action-save").click(function() {
 
         current_fs = $(this).parent();
         next_fs = $(this).parent().next();
@@ -207,7 +204,7 @@ function loadScroller() {
         next_fs.show();
         //hide the current fieldset with style
         current_fs.animate({ opacity: 0 }, {
-            step: function (now) {
+            step: function(now) {
                 // for making fielset appear animation
                 opacity = 1 - now;
                 current_fs.css({
@@ -220,7 +217,7 @@ function loadScroller() {
         });
         setProgressBar(++current);
     });
-    $(".next").click(function () {
+    $(".next").click(function() {
 
         current_fs = $(this).parent();
         next_fs = $(this).parent().next();
@@ -230,7 +227,7 @@ function loadScroller() {
         next_fs.show();
         //hide the current fieldset with style
         current_fs.animate({ opacity: 0 }, {
-            step: function (now) {
+            step: function(now) {
                 // for making fielset appear animation
                 opacity = 1 - now;
                 current_fs.css({
@@ -247,7 +244,7 @@ function loadScroller() {
 
     });
 
-    $(".previous").click(function () {
+    $(".previous").click(function() {
         current_fs = $(this).parent();
         previous_fs = $(this).parent().prev();
         //Remove class active
@@ -256,7 +253,7 @@ function loadScroller() {
         previous_fs.show();
         //hide the current fieldset with style
         current_fs.animate({ opacity: 0 }, {
-            step: function (now) {
+            step: function(now) {
                 // for making fielset appear animation
                 opacity = 1 - now;
                 current_fs.css({
@@ -276,14 +273,13 @@ function loadScroller() {
         $(".progress-bar")
             .css("width", percent + "%");
     }
-    $(".submit").click(function () {
+    $(".submit").click(function() {
         return false;
     });
 
 }
 
-function setProgressBar(curStep) {
-    ;
+function setProgressBar(curStep) {;
     var percent = parseFloat(100 / steps) * curStep;
     percent = percent.toFixed();
     $(".progress-bar")
@@ -296,8 +292,8 @@ function setProgressBar(curStep) {
 //new
 
 var steps
-// var current "use strict";
-$(document).ready(function () {
+    // var current "use strict";
+$(document).ready(function() {
 
 
     var current_fs, next_fs, previous_fs; //fieldsets
@@ -343,7 +339,7 @@ $(document).ready(function () {
     //     setProgressBar(--current);
     // });
 
-    $(".submit").click(function () {
+    $(".submit").click(function() {
         return false;
     });
 
@@ -376,7 +372,7 @@ function onPreviousClick(current) {
     // current_fs.hide();
     //hide the current fieldset with style
     prev_fs.animate({ opacity: 0 }, {
-        step: function (now) {
+        step: function(now) {
             // for making fielset appear animation
             opacity = 1 - now;
             prev_fs.css({
@@ -388,7 +384,7 @@ function onPreviousClick(current) {
         duration: 500
     });
 
-    $(".submit").click(function () {
+    $(".submit").click(function() {
         return false;
     });
 
@@ -406,6 +402,7 @@ function nextClickCalled(index) {
     current = index;
     setProgressBar(current);
 }
+
 function onNextClick(current) {
     debugger
     var current_fs, next_fs, previous_fs; //fieldsets
@@ -421,7 +418,7 @@ function onNextClick(current) {
     }
     next_fs.show();
     current_fs.animate({ opacity: 0 }, {
-        step: function (now) {
+        step: function(now) {
             opacity = 1 - now;
             current_fs.css({
                 'display': 'none',
@@ -432,7 +429,7 @@ function onNextClick(current) {
         duration: 500
     });
 
-    $(".submit").click(function () {
+    $(".submit").click(function() {
         return false;
     });
 
@@ -456,7 +453,7 @@ function onNextButtonClick(current) {
     }
     next_fs.show();
     current_fs.animate({ opacity: 0 }, {
-        step: function (now) {
+        step: function(now) {
             opacity = 1 - now;
             current_fs.css({
                 'display': 'none',
@@ -467,17 +464,18 @@ function onNextButtonClick(current) {
         duration: 500
     });
 
-    $(".submit").click(function () {
+    $(".submit").click(function() {
         return false;
     });
 
     setProgressBar(current);
 
 }
+
 function nextClik() {
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
-    $(".next").on("click", function () {
+    $(".next").on("click", function() {
         event.preventDefault()
         current_fs = $(this).parent();
         next_fs = $(this).parent().next();
@@ -485,7 +483,7 @@ function nextClik() {
         next_fs.show();
         setProgressBar(current);
         current_fs.animate({ opacity: 0 }, {
-            step: function (now) {
+            step: function(now) {
                 opacity = 1 - now;
                 current_fs.css({
                     'display': 'none',
@@ -498,14 +496,14 @@ function nextClik() {
 
     });
 
-    $(".previous").on("click", function () {
+    $(".previous").on("click", function() {
         current_fs = $(this).parent();
         previous_fs = $(this).parent().prev();
         $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
         previous_fs.show();
         setProgressBar(current);
         current_fs.animate({ opacity: 0 }, {
-            step: function (now) {
+            step: function(now) {
                 opacity = 1 - now;
                 current_fs.css({
                     'display': 'none',
@@ -535,7 +533,7 @@ function nextClickCalled(index) {
 // });
 
 "use strict";
-$(document).ready(function () {
+$(document).ready(function() {
     owlScroller();
 });
 
