@@ -22,7 +22,7 @@ const ELEMENT_DATA: any = [
 })
 export class SchoolMasterComponent implements OnInit {
   dataSource = ELEMENT_DATA;
-  displayedColumns:any = ['sno', 'schoolcode', 'schoolname', 'schooltype', 'status','shift','schooladdress','action'];
+  displayedColumns:any = ['sno', 'schoolcode', 'schoolname', 'institutetype', 'status','shift','schooladdress','action'];
   testData = {sno: '', schoolcode: '', schoolname: '', status: '', statusType: '',schooltype:'',shiftType:'',shift:'',schooladdress:'',id:''};
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

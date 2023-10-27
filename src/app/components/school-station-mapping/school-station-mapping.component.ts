@@ -25,7 +25,7 @@ export class SchoolStationMappingComponent implements OnInit {
 
   dataSource:any;
   // displayedColumns:any = ['sno','stationname','schoolname','shift','fromdate','todate','status'];
-  displayedColumns:any = ['sno','stationname','schoolname','shift','status','Action'];
+  displayedColumns:any = ['sno','stationname','schoolname','shift','fromdate', 'todate','status','Action'];
 
   testData = { "sno": "", "stationname": "", "schoolname": "","schoolnames": "","stationCodes":"","kvCode":"","shiftType":"","shift":"" ,"fromdate": "","todate":"","status":"","statusType":"","buttonstatusType":""}
   @ViewChild(MatPaginator) paginator: MatPaginator; 
@@ -204,8 +204,8 @@ export class SchoolStationMappingComponent implements OnInit {
             this.testData.shiftType ='Second Shift';
            }
             this.testData.shift=res[i].shift;
-            this.testData.fromdate = res[i].from_date;
-            this.testData.todate = res[i].to_date;
+            this.testData.fromdate = res[i].fromdate;
+            this.testData.todate = res[i].todate;
             this.testData.status = res[i].is_active;
 
             if((this.testData.schoolnames!='' && this.testData.schoolnames!=null ) && (this.testData.fromdate!='' && this.testData.fromdate!=null) && (this.testData.todate!='' && this.testData.todate!=null)){
@@ -231,6 +231,7 @@ export class SchoolStationMappingComponent implements OnInit {
             this.listRegionStation.push(this.testData);
             this.testData = { "sno": "", "stationname": "", "schoolname": "",  "schoolnames": "","stationCodes":"","kvCode":"","shiftType":"","shift":"", "fromdate": "","todate":"","status":"","statusType":"","buttonstatusType":"" };
           }
+          console.log("----all  data-------------------")
           console.log(this.listRegionStation)
       }
       setTimeout(() => {

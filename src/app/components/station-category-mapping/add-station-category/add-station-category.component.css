@@ -1,0 +1,15 @@
+.dropdown-list input[type="checkbox"]+div:before {
+    display: none;
+    }
+    
+    .dropdown-list  input[type="checkbox"]+div:after {
+    display: none;
+    }
+    
+    .dropdown-list input[type="checkbox"]+div {
+    padding: 6px 10px !important;
+    }
+    .dropdown-list  input[type="checkbox"]:checked+div {
+    background-color: #337ab7 !important;
+    color: #fff !important;
+    }

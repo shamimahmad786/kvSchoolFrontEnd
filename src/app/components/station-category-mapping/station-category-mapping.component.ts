@@ -42,8 +42,6 @@ export class StationCategoryMappingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // alert("called");
-    debugger;
     this.getFreezeStatus();
     this.businessTypeId=JSON.parse(sessionStorage.getItem('authTeacherDetails')).applicationDetails[0].business_unit_type_id;
     this.businessTypeCode=JSON.parse(sessionStorage.getItem('authTeacherDetails')).applicationDetails[0].business_unit_type_code;
@@ -61,8 +59,6 @@ export class StationCategoryMappingComponent implements OnInit {
       this.getStationList();
       this.searchList();
     }
-
-    
   }
 
   buildSchoolStationMappingForm(){
@@ -296,7 +292,22 @@ export class StationCategoryMappingComponent implements OnInit {
             this.testData.fromdate = this.stationCategoryRes[i].from_date;
             this.testData.todate = this.stationCategoryRes[i].to_date;
             this.testData.status = this.stationCategoryRes[i].is_active;
+            this.testData.stationnames =  this.stationCategoryRes[i].station_name;
+            this.testData.stationcode = this.stationCategoryRes[i].station_code;
            
+            if((this.testData.categoryname!='' && this.testData.categoryname!=null ) && (this.testData.fromdate!='' && this.testData.fromdate!=null) && (this.testData.todate!='' && this.testData.todate!=null)){
+              this.testData.buttonstatusType='Add'; 
+            }
+            if((this.testData.categoryname!='' && this.testData.categoryname!=null) && (this.testData.fromdate!='' && this.testData.fromdate!=null ) && (this.testData.todate=='' || this.testData.todate==null)){
+              this.testData.buttonstatusType='Update'; 
+            }
+            if((this.testData.categoryname==null &&  this.testData.fromdate==null  && this.testData.todate==null)){
+              this.testData.buttonstatusType='Add'; 
+            }
+            if(((this.testData.categoryname!=null)  &&  this.testData.fromdate==null  && this.testData.todate==null)){
+              this.testData.buttonstatusType='Update'; 
+            }
+
             if(this.stationCategoryRes[i].active ==true )
             {
             this.testData.statusType = 'Active';

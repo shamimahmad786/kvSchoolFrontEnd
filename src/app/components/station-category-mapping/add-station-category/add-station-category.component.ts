@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
@@ -62,7 +63,7 @@ export class AddStationCategoryComponent implements OnInit {
     });
 
    if(this.userMappingAction=='Add'){
-    this.showTodate=false
+    this.showTodate=true
    }
     this.buildRegionMappingForm();
     this.getCategoryList();
@@ -135,7 +136,7 @@ applyFilterHBSource(filterValue: string) {
     this.stationCategoryMForm = this.fb.group({
       category: ['', [Validators.required]],
       stationCode: ['',[Validators.required]],
-      fromDate:[new Date(),[Validators.required]],
+      fromDate:['',[Validators.required]],
       toDate:[''],
       status:['',[Validators.required]]
     });
@@ -177,7 +178,84 @@ applyFilterHBSource(filterValue: string) {
     })
   }
 
+  checkDatelieBeetwenFromTo(event:any,type:any){
+    console.log( this.historyControllerOfficeDataArray)
+    debugger
+    for (let i = 0; i < this.historyControllerOfficeDataArray.length; i++) {
+      var dateFrom = this.historyControllerOfficeDataArray[i].from_date;
+      var dateTo = this.historyControllerOfficeDataArray[i].to_date;
+      var dateCheck;
+      if((dateTo == null || dateTo == 'null') && (dateFrom == null || dateFrom == 'null') ){
+        return;
+      }
+      if(event.target.value =='undefined'){
+    
+        dateCheck =event.target.value;
+      }else{
+        dateCheck = moment(event.target.value).format("YYYY-MM-DD");
+      }
+      var returnType
+      if (dateTo == null || dateTo == 'null') {
+        returnType = this.dateGreater(dateFrom, dateCheck,type);
+      } else {
+        returnType = this.dateCheck(dateFrom, dateTo, dateCheck,type);
+      }
+      if (returnType == 0) {
+        Swal.fire(
+          'Date lies between previous date !',
+          '',
+          'error'
+        );
+        setTimeout(() => {
+          (<HTMLInputElement>document.getElementById("wordStartDate")).value = "";
+          (<HTMLInputElement>document.getElementById("wordEndDate")).value = "";
+          this.stationCategoryMForm.patchValue({
+            fromDate:'',
+          })
+          this.stationCategoryMForm.patchValue({
+            toDate:'',
+          })
+        }, 200);
+      }
+    }
+  }
 
+  dateGreater(dateFrom, dateCheck,type) {
+    var from =  Math.round((new Date(dateFrom).getTime())/(3600000*24));
+    var check = Math.round((new Date(dateCheck).getTime())/(3600000*24));
+    if(type==1){
+    if (check >= from) {
+      return 0
+    } else {
+      return 1;
+    }
+    }else if(type==2){
+      if (check > from) {
+        return 1
+      } else {
+        return 0;
+      }
+    }
+   }
+
+  dateCheck(dateFrom, dateTo, dateCheck,type) {
+    var from = Math.round((new Date(dateFrom).getTime())/(3600000*24));
+    var to = Math.round((new Date(dateTo).getTime())/(3600000*24));
+    var check = Math.round((new Date(dateCheck).getTime())/(3600000*24));
+    if(type==1){
+      if (check >= from && check < to) {
+        return 0
+      } else {
+        return 1;
+      }
+    }else if(type==2){
+      if (check > from && check <= to) {
+        return 0
+      } else {
+        return 1;
+      }
+    }
+  }
   addCategoryMapping(){
     for (let i = 0; i <  this.getCategoryMappingListData.length; i++) {
       if(this.getCategoryMappingListData[i].station_code==this.userMappingRegionCode)
@@ -259,7 +337,7 @@ applyFilterHBSource(filterValue: string) {
         stationCode: payload.stationCode[0].stationCode,
         // stationName: payload.stationCode[0].stationName,
         fromDate:this.datePipe.transform(payload.fromDate ,'yyyy-MM-dd'),
-       // toDate:this.datePipe.transform(payload.toDate ,'yyyy-MM-dd'),
+        toDate:this.datePipe.transform(payload.toDate ,'yyyy-MM-dd'),
         status:payload.status,
       }
 

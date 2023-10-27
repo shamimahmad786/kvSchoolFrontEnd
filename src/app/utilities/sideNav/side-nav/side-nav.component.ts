@@ -39,8 +39,6 @@ export class SideNavComponent implements OnInit {
     }else{
       this.kvIfConditions = false;
     }
-    debugger
-alert(this.businessUnitTypeId)
     if(this.businessUnitTypeId == '2'){
       this.showNational = true;
     }else if(this.businessUnitTypeId == '3'){

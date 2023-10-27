@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
 
@@ -62,7 +63,7 @@ export class AddSchoolStationComponent implements OnInit {
     });
 
    if(this.userMappingAction=='Add'){
-    this.showTodate=false
+    this.showTodate=true
    }
     this.buildRegionMappingForm();
     this.getSchoolList();
@@ -100,7 +101,7 @@ export class AddSchoolStationComponent implements OnInit {
     this.schoolStationMForm = this.fb.group({
       schoolCode: ['', [Validators.required]],
       stationCode: ['',[Validators.required]],
-      fromDate:[new Date(),[Validators.required]],
+      fromDate:['',[Validators.required]],
       toDate:[''],
       status:['',[Validators.required]],
     });
@@ -140,7 +141,84 @@ export class AddSchoolStationComponent implements OnInit {
       }
     })
   }
+  checkDatelieBeetwenFromTo(event:any,type:any){
+    console.log( this.historyControllerOfficeDataArray)
+    debugger
+    for (let i = 0; i < this.historyControllerOfficeDataArray.length; i++) {
+      var dateFrom = this.historyControllerOfficeDataArray[i].from_date;
+      var dateTo = this.historyControllerOfficeDataArray[i].to_date;
+      var dateCheck;
+      if((dateTo == null || dateTo == 'null') && (dateFrom == null || dateFrom == 'null') ){
+        return;
+      }
+      if(event.target.value =='undefined'){
+    
+        dateCheck =event.target.value;
+      }else{
+        dateCheck = moment(event.target.value).format("YYYY-MM-DD");
+      }
+      var returnType
+      if (dateTo == null || dateTo == 'null') {
+        returnType = this.dateGreater(dateFrom, dateCheck,type);
+      } else {
+        returnType = this.dateCheck(dateFrom, dateTo, dateCheck,type);
+      }
+      if (returnType == 0) {
+        Swal.fire(
+          'Date lies between previous date !',
+          '',
+          'error'
+        );
+        setTimeout(() => {
+          (<HTMLInputElement>document.getElementById("wordStartDate")).value = "";
+          (<HTMLInputElement>document.getElementById("wordEndDate")).value = "";
+          this.schoolStationMForm.patchValue({
+            fromDate:'',
+          })
+          this.schoolStationMForm.patchValue({
+            toDate:'',
+          })
+        }, 200);
+      }
+    }
+  }
 
+  dateGreater(dateFrom, dateCheck,type) {
+    var from =  Math.round((new Date(dateFrom).getTime())/(3600000*24));
+    var check = Math.round((new Date(dateCheck).getTime())/(3600000*24));
+    if(type==1){
+    if (check >= from) {
+      return 0
+    } else {
+      return 1;
+    }
+    }else if(type==2){
+      if (check > from) {
+        return 1
+      } else {
+        return 0;
+      }
+    }
+   }
+
+  dateCheck(dateFrom, dateTo, dateCheck,type) {
+    var from = Math.round((new Date(dateFrom).getTime())/(3600000*24));
+    var to = Math.round((new Date(dateTo).getTime())/(3600000*24));
+    var check = Math.round((new Date(dateCheck).getTime())/(3600000*24));
+    if(type==1){
+      if (check >= from && check < to) {
+        return 0
+      } else {
+        return 1;
+      }
+    }else if(type==2){
+      if (check > from && check <= to) {
+        return 0
+      } else {
+        return 1;
+      }
+    }
+  }
   addSchoolMapping(){
     this.duplicateSchoolCheck=[];
     for (let i = 0; i <  this.getSchoolMappingListData.length; i++) {
@@ -310,7 +388,7 @@ export class AddSchoolStationComponent implements OnInit {
     this.schoolStationMForm.get('schoolCode').setValue('');
     this.isSubmitted=false;
     this.schoolStationMForm.reset();
-    this.schoolStationMForm.get('fromDate').setValue(new Date());
+    this.schoolStationMForm.get('fromDate').setValue('');
     this.schoolStationMForm.get('toDate').setValue('');
     this.schoolStationMForm.get('status').setValue('');
   }
