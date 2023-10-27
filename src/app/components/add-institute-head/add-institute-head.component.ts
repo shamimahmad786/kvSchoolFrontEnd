@@ -46,6 +46,7 @@ export class AddInstituteHeadComponent implements OnInit {
       this.addInstituteForm = new FormGroup({
         'instituteType': new FormControl('', Validators.required),
         'instituteCode': new FormControl('', Validators.required),
+        'firstname': new FormControl('', Validators.required),
         'userName': new FormControl('', Validators.required),
         'Email': new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
         'Mobile': new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("[8976][0-9]{9}")]),
@@ -145,7 +146,7 @@ export class AddInstituteHeadComponent implements OnInit {
         "businessUnitTypeCode":this.addInstituteForm.controls['instituteCode'].value,
        }
     }
-          
+       debugger   
       this.outSideService.createInstitutionUser(data,this.loginUserNameForChild).subscribe(res => {
         console.log(res)
         if(res['success']){

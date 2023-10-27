@@ -79,7 +79,7 @@ export class StationCategoryMappingComponent implements OnInit {
   getStationList(){
 
     let req={}
-    this.outSideService.fetchStationList(req).subscribe((res)=>{
+    this.outSideService.fetchStationList(req,this.loginUserNameForService).subscribe((res)=>{
       if(res){
         res.forEach(element => {
           if(element.isActive){
@@ -102,7 +102,7 @@ export class StationCategoryMappingComponent implements OnInit {
   search(){
     let payload=this.stationCategoryMF.getRawValue();
     if(payload.stationCode=='All'){
-this.getStationCategoryByRegion();
+   this.getStationCategoryByRegion();
     }else{
     if (this.stationCategoryMF.invalid) {
       this.isSubmitted = true;
@@ -199,7 +199,6 @@ this.getStationCategoryByRegion();
     
   }
   addUpdateViewstationCategoryMapping(regionId:any,regionName:any,event:any){
-    debugger
     if(event=='Add'){
       this.router.navigate(['/teacher/stationCategoryMapping/add'], { queryParams: { action: 'Add',regionId :regionId,regionName:regionName } });  
     }

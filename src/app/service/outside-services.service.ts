@@ -1138,15 +1138,26 @@ fetchRegionList(){
   return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/list-of-all-region", {headers})
 
 }
-fetchStationList(data){
+fetchStationList(data,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({
     'Authorization':token,
     'Content-Type': 'text/plain; charset=utf-8',
+    'username':userName,
   }); 
 
-  return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/list-of-all-station", data, {headers})
+  return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/get-all-school-station-list", data, {headers})
 
+}
+getSchoolStationHistory(data,userName:any){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+    'username':userName,
+  }); 
+
+  return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/get-school-station-histor", data, {headers})
 }
 checkPasswordChanged(data)
 {
@@ -1181,11 +1192,12 @@ fetchSchoolList(data){
 
   return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/list-of-all-school", data, {headers})
 }
-fetchSchoolUnmappedList(data){
+fetchSchoolUnmappedList(data,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({
     'Authorization':token,
     'Content-Type': 'text/plain; charset=utf-8',
+    'username':userName,
   }); 
   return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/list-of-all-unmapped-school", data, {headers})
 }
@@ -1227,7 +1239,7 @@ searchSchoolStationMList(data){
     'Content-Type': 'text/plain; charset=utf-8',
   }); 
 
-  return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/school-sation-mapping-list", data, {headers})
+  return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/get-all-school-station-list", data, {headers})
 }
 
 

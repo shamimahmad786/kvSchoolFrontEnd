@@ -33,6 +33,8 @@ export class AddStationCategoryComponent implements OnInit {
   categoryList: any=[];
   dropdownCategoryList:any=[];
   selectedCategoryItems = [];
+  duplicateregionCheck = [];
+  getCategoryMappingListData:any=[];
   dropdownCategorySettings = {};
   userMappingAction:any;
   userMappingRegionCode:any;
@@ -51,8 +53,6 @@ export class AddStationCategoryComponent implements OnInit {
   ngOnInit(): void {
  
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
- 
-   
       this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
     }
     this.route.queryParams.subscribe(params => {
@@ -71,12 +71,10 @@ export class AddStationCategoryComponent implements OnInit {
   }
 
 stationCategoryMappingListByStationCode(){
- var data={
-    "stationCode": this.userMappingRegionCode
-}
-  
+  var data={
+      "stationCode": this.userMappingRegionCode
+  }
   this.outSideService.stationCategoryMappingListByStationCode(data,this.loginUserNameForService).subscribe(res => {
-    console.log(res)
     this.historyControlingOfficedata=res.rowValue;
     this.historyControllerOfficeDataArray = [];
     for (let i = 0; i < this.historyControlingOfficedata.length; i++) {
@@ -100,7 +98,6 @@ stationCategoryMappingListByStationCode(){
       'text':'You are not Authorized.'
     })
   });
-
 }
 
 applyFilterHBSource(filterValue: string) {
@@ -153,14 +150,16 @@ applyFilterHBSource(filterValue: string) {
           }
         });
          this.dropdownCategoryList=this.categoryList;
-        
       }
     })
   }
   getStationList(){
     let request={};
+    this.getCategoryMappingListData=[];
     this.outSideService.searchStationCategoryMList(request,this.loginUserNameForService).subscribe((res)=>{
       debugger
+     this.getCategoryMappingListData=res.rowValue
+
       if(res.rowValue.length>0){
         res.rowValue.forEach(element => {
           if(element.is_active){
@@ -168,31 +167,99 @@ applyFilterHBSource(filterValue: string) {
           }
         });
         this.dropdownStationList=this.stationList;
-        console.log(this.dropdownStationList)
-        alert(this.userMappingRegionCode)
-        this.selectedStationItems = [
-          { stationCode: Number(this.userMappingRegionCode), stationName: this.userMappingRegionName  }
-        ];
+      }
+      if(this.userMappingAction=='update'){
+        this.updateCategoryMapping();
+      }
+      if(this.userMappingAction=='Add'){
+        this.addCategoryMapping();
       }
     })
   }
 
+
+  addCategoryMapping(){
+    for (let i = 0; i <  this.getCategoryMappingListData.length; i++) {
+      if(this.getCategoryMappingListData[i].station_code==this.userMappingRegionCode)
+      {
+        this.duplicateregionCheck.push(this.getCategoryMappingListData[i]); 
+      }
+    }
+    this.selectedStationItems = [
+      { stationCode: Number(this.userMappingRegionCode), stationName: this.userMappingRegionName  }
+    ];
+  }
+
+  updateCategoryMapping(){
+    for (let i = 0; i <  this.getCategoryMappingListData.length; i++) {
+      if(this.getCategoryMappingListData[i].station_code==this.userMappingRegionCode)
+      {
+        this.duplicateregionCheck.push(this.getCategoryMappingListData[i]); 
+      }
+    }
+    this.selectedStationItems = [
+      { stationCode: Number(this.userMappingRegionCode), stationName: this.userMappingRegionName  }
+    ];
+    this.selectedCategoryItems = [
+      { id: Number(this.duplicateregionCheck[0]['category_id']), category: this.duplicateregionCheck[0]['category_name']  }
+    ]; 
+    this.stationCategoryMForm.patchValue({
+      fromDate:this.duplicateregionCheck[0]['from_date'],
+    })
+  }
 
   submit(){
     if (this.stationCategoryMForm.invalid) {
       this.isSubmitted = true;
      this.stationCategoryMForm.markAllAsTouched();
     }else{
+
+      if(this.userMappingAction=='update'){
       this.isSubmitted = false;
       let payload=this.stationCategoryMForm.getRawValue();
+      debugger
       let request={
-        // id: payload.category[0].id,
+        id: this.duplicateregionCheck[0]['mid'],
         categoryName: payload.category[0].category,
         categoryId: payload.category[0].id,
         stationCode: payload.stationCode[0].stationCode,
         // stationName: payload.stationCode[0].stationName,
         fromDate:this.datePipe.transform(payload.fromDate ,'yyyy-MM-dd'),
         toDate:this.datePipe.transform(payload.toDate ,'yyyy-MM-dd'),
+        status:payload.status,
+      }
+
+
+      this.outSideService.addStationCategoryMapping(request).subscribe((res)=>{
+        if(res=="SUCCESS"){
+          Swal.fire(
+            'New Station-Category Mapped Successfully!',
+            '',
+            'success'
+          )
+          this.router.navigate(['/teacher/stationCategoryMapping']);
+        }
+      },
+      error => {
+        console.log(error);
+        Swal.fire({
+          'icon':'error',
+           'text':error.error
+        }
+        )
+      })
+    }
+    if(this.userMappingAction=='Add'){
+      this.isSubmitted = false;
+      let payload=this.stationCategoryMForm.getRawValue();
+      let request={
+     //   id: this.duplicateregionCheck[0]['id'],
+        categoryName: payload.category[0].category,
+        categoryId: payload.category[0].id,
+        stationCode: payload.stationCode[0].stationCode,
+        // stationName: payload.stationCode[0].stationName,
+        fromDate:this.datePipe.transform(payload.fromDate ,'yyyy-MM-dd'),
+       // toDate:this.datePipe.transform(payload.toDate ,'yyyy-MM-dd'),
         status:payload.status,
       }
 
@@ -214,6 +281,7 @@ applyFilterHBSource(filterValue: string) {
         }
         )
       })
+    }
     }
     
   }

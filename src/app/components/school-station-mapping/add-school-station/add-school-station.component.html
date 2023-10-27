@@ -1,3 +1,16 @@
+<div class="dashboard-main-content" style="min-height: 600px;">
+    <div class="dashboard-main-content__header">
+      <h1>Station-Category Mapping</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="mt-1">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Station-Category Mapping</a></li>
+        </ol>
+      </nav>
+
+
+<div class="dashboard-main-content-info p-5">
 <div class="container-fluid px-4">
     <form [formGroup]="schoolStationMForm" (ngSubmit)="submit()">
 
@@ -37,7 +50,7 @@
                                 <span class="help-block text-danger" *ngIf="!schoolStationMForm.get('fromDate').valid && schoolStationMForm.get('fromDate').touched">Please Select From Date!</span>
 
                             </div>
-                            <div class="col-md-6 form-group mt-2">
+                            <div class="col-md-6 form-group mt-2" *ngIf="showTodate">
                                 <label class="titleSet">To Date</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -77,4 +90,67 @@
             </div>
         </div>
     </form>
+</div>
+
+
+<div  class="shadow-sm bg-white p-3 rounded ">   
+    <div class="row">
+        <div class="col-md-6">
+
+          <!-- <button mat-raised-button class=" me-2 btn-primary">Download Excel</button>
+          <button mat-raised-button class="me-2 btn-secondary">Download PDF</button> -->
+
+        </div>  
+        <div class="col-md-6" style="
+        text-align: end;">
+          <div class="example-header">
+            <mat-form-field appearance="outline" class=" searchInput me-4">
+                <input matInput (keyup)="applyFilterHBSource($event.target.value)" placeholder="Search">
+             
+            </mat-form-field>      
+        </div>
+        </div>     
+    </div>
+    <div class="example-container mat-elevation-z8 " id="style-2">
+        <mat-table [dataSource]="userMappingSource" >
+            <ng-container matColumnDef="Sno">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.sno}} </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Station Name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Station Name </mat-header-cell>
+              <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.station_name}}
+              </mat-cell>
+          </ng-container>
+
+            <ng-container matColumnDef="School Name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>School Name </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.school_name}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="From date">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> From date </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.from_date }}
+                </mat-cell>
+            </ng-container>
+      
+
+            <ng-container matColumnDef="To Date">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> To Date</mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.to_date }}
+                </mat-cell>
+          </ng-container>
+          
+                           
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;">
+            </mat-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+    </div>
+</div>
+</div>
 </div>

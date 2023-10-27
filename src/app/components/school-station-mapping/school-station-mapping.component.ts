@@ -25,17 +25,17 @@ export class SchoolStationMappingComponent implements OnInit {
 
   dataSource:any;
   // displayedColumns:any = ['sno','stationname','schoolname','shift','fromdate','todate','status'];
-  displayedColumns:any = ['sno','stationname','schoolname','shift','status'];
+  displayedColumns:any = ['sno','stationname','schoolname','shift','status','Action'];
 
-  testData = { "sno": "", "stationname": "", "schoolname": "","shiftType":"","shift":"" ,"fromdate": "","todate":"","status":"","statusType":""}
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  testData = { "sno": "", "stationname": "", "schoolname": "","schoolnames": "","stationCodes":"","kvCode":"","shiftType":"","shift":"" ,"fromdate": "","todate":"","status":"","statusType":"","buttonstatusType":""}
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
   @ViewChild(MatSort) sort: MatSort;
 
   listRegionStation: any=[];
  
   stationList: any=[];
   filteredOptions: Observable<string[]>;
- 
+  loginUserNameForService:any;
 
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
   returnTypeSrvTime: any;
@@ -46,6 +46,11 @@ export class SchoolStationMappingComponent implements OnInit {
   ngOnInit(): void {
     this.businessUnitId=JSON.parse(sessionStorage.authTeacherDetails).applicationDetails[0].business_unit_type_id;
     this.businessUnitTypeCode=JSON.parse(sessionStorage.authTeacherDetails).applicationDetails[0].business_unit_type_code;
+    for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
+ 
+   
+      this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+    }
     this.buildSchoolStationMappingForm();
  debugger;
     if(this.businessUnitId=="2"){
@@ -66,7 +71,7 @@ export class SchoolStationMappingComponent implements OnInit {
 
   getStationList(){
     let req={}
-    this.outSideService.fetchStationList(req).subscribe((res)=>{
+    this.outSideService.fetchStationList(req,this.loginUserNameForService).subscribe((res)=>{
       if(res){
         res.forEach(element => {
           if(element.isActive){
@@ -158,7 +163,10 @@ export class SchoolStationMappingComponent implements OnInit {
     }
 
     this.outSideService.searchSchoolStationMList(req).subscribe((res)=>{
-      this.getSchoolStationList(res.content)
+      console.log("--------all station school list------------------")
+      console.log(res)
+      debugger
+      this.getSchoolStationList(res.rowValue)
         },
         error => {
           console.log(error);
@@ -178,8 +186,11 @@ export class SchoolStationMappingComponent implements OnInit {
           for (let i = 0; i < res.length; i++) {
        
             this.testData.sno = '' + (i + 1) + '';
-            this.testData.stationname = res[i].stationName+"("+res[i].stationCode+")";
-            this.testData.schoolname = res[i].schoolName+"("+res[i].schoolCode+")";
+            this.testData.stationname = res[i].station_name+"("+res[i].station_code+")";
+            this.testData.schoolname = res[i].school_name+"("+res[i].kv_code+")";
+            this.testData.schoolnames = res[i].school_name;
+            this.testData.stationCodes = res[i].station_code;
+            this.testData.kvCode = res[i].kv_code
             if(res[i].shift =='0' || res[i].shift ==0 )
             {
             this.testData.shiftType = 'Not Applicable';
@@ -193,20 +204,32 @@ export class SchoolStationMappingComponent implements OnInit {
             this.testData.shiftType ='Second Shift';
            }
             this.testData.shift=res[i].shift;
-            this.testData.fromdate = res[i].fromDate;
-            this.testData.todate = res[i].toDate;
-            this.testData.status = res[i].active;
-            if(res[i].active == true )
+            this.testData.fromdate = res[i].from_date;
+            this.testData.todate = res[i].to_date;
+            this.testData.status = res[i].is_active;
+
+            if((this.testData.schoolnames!='' && this.testData.schoolnames!=null ) && (this.testData.fromdate!='' && this.testData.fromdate!=null) && (this.testData.todate!='' && this.testData.todate!=null)){
+              this.testData.buttonstatusType='Add'; 
+            }
+            if((this.testData.schoolnames!='' && this.testData.schoolnames!=null) && (this.testData.fromdate!='' && this.testData.fromdate!=null ) && (this.testData.todate=='' || this.testData.todate==null)){
+              this.testData.buttonstatusType='Update'; 
+            }
+            if((this.testData.schoolnames==null &&  this.testData.fromdate==null  && this.testData.todate==null)){
+              this.testData.buttonstatusType='Add'; 
+            }
+            if(((this.testData.schoolnames!=null)  &&  this.testData.fromdate==null  && this.testData.todate==null)){
+              this.testData.buttonstatusType='Update'; 
+            }
+            if(res[i].is_active == true )
             {
             this.testData.statusType = 'Active';
             }
-
-           if(res[i].active == false )
+           if(res[i].is_active == false )
             {
             this.testData.statusType ='InActive';
             } 
             this.listRegionStation.push(this.testData);
-            this.testData = { "sno": "", "stationname": "", "schoolname": "","shiftType":"","shift":"", "fromdate": "","todate":"","status":"","statusType":"" };
+            this.testData = { "sno": "", "stationname": "", "schoolname": "",  "schoolnames": "","stationCodes":"","kvCode":"","shiftType":"","shift":"", "fromdate": "","todate":"","status":"","statusType":"","buttonstatusType":"" };
           }
           console.log(this.listRegionStation)
       }
@@ -217,6 +240,18 @@ export class SchoolStationMappingComponent implements OnInit {
       }, 100)
       // this.schoolStationMF.get('stationName').setValue('');
       // this.formDirective.resetForm();
+  }
+
+  addUpdateViewSchoolStationMapping(regionId:any,event:any,kvCode:any){
+    if(event=='Add'){
+      this.router.navigate(['/teacher/schoolStationMapping/add'], { queryParams: { action: 'Add',regionId :regionId,kvcode:kvCode } });  
+    }
+    if(event=='Update'){
+      this.router.navigate(['/teacher/schoolStationMapping/add'], { queryParams: { action: 'update',regionId :regionId,kvcode:kvCode} });  
+    }
+    if(event=='view'){
+      this.router.navigate(['/teacher/schoolStationMapping/add'], { queryParams: { action: 'view',regionId :regionId,kvcode:kvCode } });  
+    }
   }
   ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;

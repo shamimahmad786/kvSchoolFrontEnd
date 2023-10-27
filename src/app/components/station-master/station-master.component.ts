@@ -30,9 +30,13 @@ export class StationMasterComponent implements OnInit {
   stationList: any=[];
   returnTypeSrvTime: any;
   freezeStatus = false;
+  loginUserNameForService: any;
   constructor(private pdfService: MasterReportPdfService, private date: DatePipe,private outSideService: OutsideServicesService, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit(): void {
+    for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
+      this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+    }
     this.getFreezeStatus();
    this.getStationMaterList();
   }
@@ -47,7 +51,7 @@ export class StationMasterComponent implements OnInit {
   }
   getStationMaterList(){
     let request={};
-    this.outSideService.fetchStationList(request).subscribe((res)=>{
+    this.outSideService.fetchStationList(request,this.loginUserNameForService).subscribe((res)=>{
       if(res.length>0){
         for (let i = 0; i < res.length; i++) {
        
