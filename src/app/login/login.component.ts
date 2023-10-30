@@ -144,6 +144,7 @@ export class LoginComponent implements OnInit {
       var encriptedPassword=encriptedText(this.loginForm.controls.passwordForm.value['username'],this.loginForm.controls.passwordForm.value['password']);
       this.auth.login(encriptedPassword,this.loginForm.controls.passwordForm.value['username']).subscribe(res => {
       sessionStorage.setItem("loginType","jwt");
+      console.log(JSON.stringify(res))
      //alert(JSON.stringify("login response---->"+JSON.stringify(res)))
       console.log(res)
        if (res.token) {

@@ -251,7 +251,10 @@ export class AddSchoolStationComponent implements OnInit {
 
     this.selectedSchoolItems = [
       { schoolCode: Number(this.schoolKvcode), schoolName: this.duplicateSchoolCheck[0]['school_name']  }
-    ];  
+    ]; 
+    this.schoolStationMForm.patchValue({
+      fromDate:this.duplicateSchoolCheck[0]['from_date'],
+    }) 
   }
 
   stationSchoolMappingListByStationCode(){

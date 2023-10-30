@@ -118,7 +118,6 @@ export class AddInstituteHeadComponent implements OnInit {
        var zietUserNameSplit= instituteUserName.split(" ");
        instituteUserName=zietUserNameSplit[0]+"_"+zietUserNameSplit[1];
       }
-      alert(instituteUserName)
       this.addInstituteForm.patchValue({
         userName:instituteUserName,
       })

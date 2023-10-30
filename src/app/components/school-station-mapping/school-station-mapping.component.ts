@@ -117,10 +117,6 @@ export class SchoolStationMappingComponent implements OnInit {
    this.schoolStationMF.get('stationCode').setValue(val);
   }
   search(){
-
-  
-
-    debugger;
     if (this.schoolStationMF.invalid) {
       this.isSubmitted = true;
      this.schoolStationMF.markAllAsTouched();
@@ -130,9 +126,6 @@ export class SchoolStationMappingComponent implements OnInit {
       let request={
         stationCode: payload.stationCode,
       }
-
-
-      
       if(this.businessUnitId==3 && payload.stationCode==0){
         this.searchList();
       }else{
@@ -158,23 +151,25 @@ export class SchoolStationMappingComponent implements OnInit {
 
   searchList(){
     let req={};
-
     if(this.businessUnitId=="3"){
       req={"regionCode":this.businessUnitTypeCode};
+      this.outSideService.getAllSchoolStationlistbyRegion(req,this.loginUserNameForService).subscribe((res)=>{
+        this.getSchoolStationList(res.rowValue)
+          },
+          error => {
+            console.log(error);
+          })
     }
+    else{
+      this.outSideService.searchSchoolStationMList(req,this.loginUserNameForService).subscribe((res)=>{
 
-    this.outSideService.searchSchoolStationMList(req,this.loginUserNameForService).subscribe((res)=>{
-      console.log("--------all station school list------------------")
-      console.log(res)
-      debugger
-      this.getSchoolStationList(res.rowValue)
-        },
-        error => {
-          console.log(error);
-        })
+        this.getSchoolStationList(res.rowValue)
+          },
+          error => {
+            console.log(error);
+          })
+    }
   }
-
-
   errorHandling(controlName: string, errorName: string) {
     return this.schoolStationMF.controls[controlName].hasError(errorName);
   }

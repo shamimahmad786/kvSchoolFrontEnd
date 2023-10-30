@@ -1243,6 +1243,16 @@ searchSchoolStationMList(data,userName:any){
   return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/get-all-school-station-list", data, {headers})
 }
 
+getAllSchoolStationlistbyRegion(data,userName:any){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+    'username':userName,
+  }); 
+
+  return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/get-all-school-station-list-by-region", data, {headers})
+}
 
 
 addStaffTypeMaster(data){
