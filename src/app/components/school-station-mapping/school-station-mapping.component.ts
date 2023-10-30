@@ -204,8 +204,8 @@ export class SchoolStationMappingComponent implements OnInit {
             this.testData.shiftType ='Second Shift';
            }
             this.testData.shift=res[i].shift;
-            this.testData.fromdate = res[i].fromdate;
-            this.testData.todate = res[i].todate;
+            this.testData.fromdate = res[i].from_date;
+            this.testData.todate = res[i].to_date;
             this.testData.status = res[i].is_active;
 
             if((this.testData.schoolnames!='' && this.testData.schoolnames!=null ) && (this.testData.fromdate!='' && this.testData.fromdate!=null) && (this.testData.todate!='' && this.testData.todate!=null)){
