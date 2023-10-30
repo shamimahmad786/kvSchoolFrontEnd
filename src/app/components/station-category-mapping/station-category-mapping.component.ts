@@ -50,7 +50,7 @@ export class StationCategoryMappingComponent implements OnInit {
    
       this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
     }
-    alert(this.businessTypeId)
+   // alert(this.businessTypeId)
     if(this.businessTypeId==3){
       this.buildSchoolStationMappingForm();
       this.getStationListByRegion();
