@@ -23,6 +23,7 @@ export class SanctionedPostComponent implements OnInit {
   sanctionPostMappingDataListArray: any=[];
   returnTypeSrvTime: any;
   regionNameCode: any;
+  loginUserNameForService: any;
   constructor(private pdfService: MasterReportPdfService,private fb: FormBuilder,private outSideService: OutsideServicesService, public route:Router,
     private router: ActivatedRoute) { }
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
@@ -49,6 +50,9 @@ shift:any;
 
   testData = {sno: '',stationName:'', staffType: '', postName: '', postCode: '',subjectName:'',subjectCode:'',sanctionedPost:'',occupiedPost:'',systemOccupiedPost:'',vacant:'',surplus:''};
   ngOnInit(): void {
+    for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
+      this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+    }
     this.regionName =localStorage.getItem('regionName');
     this.stationName =localStorage.getItem('stationName');
     this.schoolName = localStorage.getItem('schoolName');
@@ -539,7 +543,7 @@ this.regionName=this.regionList[i].regionName;
    let request={
      stationCode:stationCode.value
    }
-   this.outSideService.searchSchoolStationMList(request).subscribe((res)=>{
+   this.outSideService.searchSchoolStationMList(request,this.loginUserNameForService).subscribe((res)=>{
     // alert(JSON.stringify(res))
     this.schoolList=[];
      if (res.content.length > 0) {

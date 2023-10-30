@@ -51,6 +51,7 @@ export class SchoolStationMappingComponent implements OnInit {
    
       this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
     }
+    
     this.buildSchoolStationMappingForm();
  debugger;
     if(this.businessUnitId=="2"){
@@ -135,7 +136,7 @@ export class SchoolStationMappingComponent implements OnInit {
       if(this.businessUnitId==3 && payload.stationCode==0){
         this.searchList();
       }else{
-        this.outSideService.searchSchoolStationMList(request).subscribe((res)=>{
+        this.outSideService.searchSchoolStationMList(request,this.loginUserNameForService).subscribe((res)=>{
           this.getSchoolStationList(res.content)
      },
      error => {
@@ -162,7 +163,7 @@ export class SchoolStationMappingComponent implements OnInit {
       req={"regionCode":this.businessUnitTypeCode};
     }
 
-    this.outSideService.searchSchoolStationMList(req).subscribe((res)=>{
+    this.outSideService.searchSchoolStationMList(req,this.loginUserNameForService).subscribe((res)=>{
       console.log("--------all station school list------------------")
       console.log(res)
       debugger
@@ -181,6 +182,7 @@ export class SchoolStationMappingComponent implements OnInit {
     this.router.navigate(['/teacher/schoolStationMapping/add']);
   }
   getSchoolStationList(res:any){
+    debugger
     this.listRegionStation=[];
       if(res.length>0){
           for (let i = 0; i < res.length; i++) {
@@ -204,8 +206,8 @@ export class SchoolStationMappingComponent implements OnInit {
             this.testData.shiftType ='Second Shift';
            }
             this.testData.shift=res[i].shift;
-            this.testData.fromdate = res[i].fromdate;
-            this.testData.todate = res[i].todate;
+            this.testData.fromdate = res[i].from_date;
+            this.testData.todate = res[i].to_date;
             this.testData.status = res[i].is_active;
 
             if((this.testData.schoolnames!='' && this.testData.schoolnames!=null ) && (this.testData.fromdate!='' && this.testData.fromdate!=null) && (this.testData.todate!='' && this.testData.todate!=null)){

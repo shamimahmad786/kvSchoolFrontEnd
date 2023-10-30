@@ -124,7 +124,7 @@ export class AddSchoolStationComponent implements OnInit {
   getStationList(){
     let request={};
     this.getSchoolMappingListData=[];
-    this.outSideService.fetchStationList(request,this.loginUserNameForService).subscribe((res)=>{
+    this.outSideService.searchSchoolStationMList(request,this.loginUserNameForService).subscribe((res)=>{
       debugger
       this.getSchoolMappingListData=res.rowValue
       if(res.rowValue.length>0){
@@ -235,7 +235,8 @@ export class AddSchoolStationComponent implements OnInit {
       { schoolCode: Number(this.schoolKvcode), schoolName: this.duplicateSchoolCheck[0]['school_name']  }
     ];  
   }
-  updateSchoolMapping(){    
+  updateSchoolMapping(){ 
+    debugger   
     this.duplicateSchoolCheck=[];
     for (let i = 0; i <  this.getSchoolMappingListData.length; i++) {
       if(this.getSchoolMappingListData[i].kv_code==this.schoolKvcode)
