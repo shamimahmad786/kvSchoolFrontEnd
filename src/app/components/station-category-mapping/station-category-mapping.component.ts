@@ -50,6 +50,7 @@ export class StationCategoryMappingComponent implements OnInit {
    
       this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
     }
+   // alert(this.businessTypeId)
     if(this.businessTypeId==3){
       this.buildSchoolStationMappingForm();
       this.getStationListByRegion();
@@ -273,7 +274,7 @@ export class StationCategoryMappingComponent implements OnInit {
 
     // alert(JSON.stringify(request));
 
-    this.outSideService.getStationCategoryByRegion(request).subscribe((res)=>{
+    this.outSideService.getStationCategoryByRegion(request,this.loginUserNameForService).subscribe((res)=>{
       // alert("Station Category Mapping--->"+JSON.stringify(res));
       debugger;
       // this.getRegionStationList(res.content);

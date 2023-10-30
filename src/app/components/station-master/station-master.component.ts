@@ -50,6 +50,7 @@ export class StationMasterComponent implements OnInit {
     })
   }
   getStationMaterList(){
+    debugger
     let request={};
     this.outSideService.fetchStationList(request,this.loginUserNameForService).subscribe((res)=>{
       if(res.length>0){

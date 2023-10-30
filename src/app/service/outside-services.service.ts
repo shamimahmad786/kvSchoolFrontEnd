@@ -1146,7 +1146,7 @@ fetchStationList(data,userName:any){
     'username':userName,
   }); 
 
-  return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/get-all-school-station-list", data, {headers})
+  return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/list-of-all-station", data, {headers})
 
 }
 getSchoolStationHistory(data,userName:any){
@@ -1232,11 +1232,12 @@ searchStationCategoryMList(data,userName:any){
   return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/all-station-category-mapping-list", data, {headers})
 }
 
-searchSchoolStationMList(data){
+searchSchoolStationMList(data,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({
     'Authorization':token,
     'Content-Type': 'text/plain; charset=utf-8',
+    'username':userName,
   }); 
 
   return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/get-all-school-station-list", data, {headers})
@@ -1491,11 +1492,12 @@ fetchSanctionPost(data){
   return this._http.post(environment.BASE_URL_DATA_MASTER1+ "fetchSanctionPost",data,{headers})
 }
 
-getStationCategoryByRegion(data){
+getStationCategoryByRegion(data,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({
     'Authorization':token,
     'Content-Type': 'text/plain; charset=utf-8',
+    'username':userName,
   }); 
   return this._http.post(environment.BASE_URL_DATA_MASTER1+ "fetch/get-station-category-by-region",data,{headers})
 }
