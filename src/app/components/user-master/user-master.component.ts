@@ -58,15 +58,19 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   password: any;
   confirmpassword: any;
   loginUserNameForService: any;
+  clickType:any
   constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.applicationId = environment.applicationId;
-    this.getLoginUserdetail();
+    this.getLoginUserdetail("self");
+    this.getChilduser();
   }
   ngAfterViewInit(): void {
   }
-  getLoginUserdetail(){
+  getLoginUserdetail(clickType:any){
+    console.log(clickType)
+    this.clickType=clickType;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       console.log(JSON.parse(sessionStorage.getItem("authTeacherDetails")));
       this.loginUsername=JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].firstname + " "+ JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].lastname;
@@ -76,7 +80,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
       this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
     }
-    this.getChilduser();
+   
   }
   applyFilterHBSource(filterValue: string) {
     filterValue = filterValue.trim(); 
@@ -85,9 +89,10 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   }
   //**********************   Logic for get  Data from Api  ******************************
   getChilduser() {
+    debugger
      this.childUserList = [];
      const data = {
-      "username":this.loginUserNameForChild
+      "username":this.loginUserNameForService
   }
   this.outSideService.getChilduserList(data,this.loginUserNameForService ).subscribe(res => {
       console.log(res)
@@ -141,7 +146,6 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
         'icon':'success',
         'text':res['response']
       })
-        this.getLoginUserdetail();
        })
   }
   enableInputField(event:any){
@@ -172,6 +176,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     }
   }
   editChildUser(userName:any,type:any){
+    this.clickType='';
     this.showFirstButtonColor=false;
     this.showsecondButtonColor=true;
     this.activePaneOne=false;
@@ -192,7 +197,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   saveProfileData(val:any,userName:any,type:any){
     debugger
   if(type=='email'){
-    var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,2}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (!filter.test(val)) {
     Swal.fire({
       'icon':'error',
@@ -208,6 +213,12 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
         "username":userName,
         "value":val
     }
+    if(this.clickType=='self'){
+      var sessioStoragValue = JSON.parse(sessionStorage.getItem("authTeacherDetails"))
+      sessioStoragValue['applicationDetails'][0].email = val;
+      sessionStorage.setItem("authTeacherDetails", JSON.stringify(sessioStoragValue));
+    }
+  
     }
   }
   if(type=='mobile'){
@@ -227,39 +238,55 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
         "username":userName,
         "value":val
     }
+    if(this.clickType=='self'){
+    var sessioStoragValue = JSON.parse(sessionStorage.getItem("authTeacherDetails"))
+        sessioStoragValue['applicationDetails'][0].mobile = val;
+        sessionStorage.setItem("authTeacherDetails", JSON.stringify(sessioStoragValue));
+    }
     }
   }
-  if(type=='password'){
-    this.password= (<HTMLInputElement>document.getElementById("staticChangePassword")).value;
-    this.confirmpassword = (<HTMLInputElement>document.getElementById("staticConfirmChangePassword")).value;
+  // if(type=='password'){
+  //   this.password= (<HTMLInputElement>document.getElementById("staticChangePassword")).value;
+  //   this.confirmpassword = (<HTMLInputElement>document.getElementById("staticConfirmChangePassword")).value;
 
-  if (this.password!=this.confirmpassword) {
-    Swal.fire({
-      'icon':'error',
-      'text':'New password and confirm password are not same.....'
-    })
-    return false;
-    }
-    else{
-      this.staticChangePassword=false;
-      this.changePassword=true;
-      var data = {
-        "updateType":"p",
-        "username":userName,
-        "value":this.confirmpassword
-    }
-    }
-  }
+  // if (this.password!=this.confirmpassword) {
+  //   Swal.fire({
+  //     'icon':'error',
+  //     'text':'New password and confirm password are not same.....'
+  //   })
+  //   return false;
+  //   }
+  //   else{
+  //     this.staticChangePassword=false;
+  //     this.changePassword=true;
+  //     var data = {
+  //       "updateType":"p",
+  //       "username":userName,
+  //       "value":this.confirmpassword
+  //   }
+  //   }
+  // }
+ 
+  
 this.outSideService.childActiveDeactiveAction(data,this.loginUserNameForService).subscribe(res => {
     this.showFirstButtonColor=true;
     this.showsecondButtonColor=false;
     this.activePaneOne=true;
     this.activePaneTwo=false;
-  Swal.fire({
-    'icon':'success',
-    'text':res['response']
-  })
-    this.getLoginUserdetail();
+    if(res['success']){
+      Swal.fire({
+        'icon':'success',
+        'text':res['response']
+      })
+     
+    }
+    if(!res['success']){
+      Swal.fire({
+        'icon':'error',
+        'text':res['errorMessage']
+      })
+    }
+    this.getChilduser();
    },
    error => { 
     Swal.fire({
