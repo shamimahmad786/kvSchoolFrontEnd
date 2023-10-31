@@ -47,13 +47,10 @@ export class SchoolStationMappingComponent implements OnInit {
     this.businessUnitId=JSON.parse(sessionStorage.authTeacherDetails).applicationDetails[0].business_unit_type_id;
     this.businessUnitTypeCode=JSON.parse(sessionStorage.authTeacherDetails).applicationDetails[0].business_unit_type_code;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
- 
-   
       this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
     }
     
     this.buildSchoolStationMappingForm();
- debugger;
     if(this.businessUnitId=="2"){
       this.searchList();
     this.getStationList();
@@ -136,10 +133,6 @@ export class SchoolStationMappingComponent implements OnInit {
        console.log(error);
      })
       }
-
-      // alert("called-->"+JSON.stringify(request));
-
-    
     } 
   }
 
@@ -228,16 +221,12 @@ export class SchoolStationMappingComponent implements OnInit {
             this.listRegionStation.push(this.testData);
             this.testData = { "sno": "", "stationname": "", "schoolname": "",  "schoolnames": "","stationCodes":"","kvCode":"","shiftType":"","shift":"", "fromdate": "","todate":"","status":"","statusType":"","buttonstatusType":"" };
           }
-          console.log("----all  data-------------------")
-          console.log(this.listRegionStation)
       }
       setTimeout(() => {
         this.dataSource = new MatTableDataSource(this.listRegionStation);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }, 100)
-      // this.schoolStationMF.get('stationName').setValue('');
-      // this.formDirective.resetForm();
   }
 
   addUpdateViewSchoolStationMapping(regionId:any,event:any,kvCode:any){

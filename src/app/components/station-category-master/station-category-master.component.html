@@ -1,11 +1,16 @@
-<div class="cardSet px-4">
-    <div class="d-flex justify-content-between headingBack mb-4">
-        <div class="mt-3">
-            <span class="fonttileHeading">Station-Category Master</span>
-        </div>
+<div class="dashboard-main-content" style="min-height: 600px;">
+    <div class="dashboard-main-content__header">
+      <h1>Station-Category Master</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="mt-1">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Station-Category Master</a></li>
+        </ol>
+      </nav>
+      <div class="d-flex flex-row-reverse bd-highlight mb-3">
+       
         <div class="d-flex d-flex-row">
-    
-    
         <div class="p-1" *ngIf="!freezeStatus">
             <button mat-raised-button class="float-end mt-2 btn-success" (click)="redirectto()"> <i class="bi bi-plus-circle me-1"></i> Add</button>
         </div>
@@ -17,11 +22,13 @@
         </div>        
     </div>
     </div>
+    <div class="dashboard-main-content-info p-5">
+<div class="cardSet px-4">
     <div class="shadow bg-white rounded-3"> 
         <div *ngIf="dataSource">
             <mat-form-field appearance="outline" class="px-4 py-2 searchInput">
                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Category Name">
-                <mat-icon matSuffix>search</mat-icon>
+                <mat-icon matSuffix></mat-icon>
             </mat-form-field>
         </div>
         <div class="mat-elevation-z8 table-responsive">
@@ -61,7 +68,7 @@
                     <td class="mat-cell" colspan="4">No data Found</td>
                 </tr>
             </table>
-
+           </div>
             <!-- <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
         </div>
     </div>

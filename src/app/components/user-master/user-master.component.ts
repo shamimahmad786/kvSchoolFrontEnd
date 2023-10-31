@@ -136,6 +136,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   }
   childActiveDeactive(action:any,userName:any)
   { 
+    debugger
     const data ={
     "updateType":"AD",
     "username":userName,
@@ -147,6 +148,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
         'text':res['response']
       })
        })
+      this.getChilduser();
   }
   enableInputField(event:any){
     if(event=='staticUserEmail'){
@@ -213,12 +215,6 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
         "username":userName,
         "value":val
     }
-    if(this.clickType=='self'){
-      var sessioStoragValue = JSON.parse(sessionStorage.getItem("authTeacherDetails"))
-      sessioStoragValue['applicationDetails'][0].email = val;
-      sessionStorage.setItem("authTeacherDetails", JSON.stringify(sessioStoragValue));
-    }
-  
     }
   }
   if(type=='mobile'){
@@ -237,11 +233,6 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
         "updateType":"M",
         "username":userName,
         "value":val
-    }
-    if(this.clickType=='self'){
-    var sessioStoragValue = JSON.parse(sessionStorage.getItem("authTeacherDetails"))
-        sessioStoragValue['applicationDetails'][0].mobile = val;
-        sessionStorage.setItem("authTeacherDetails", JSON.stringify(sessioStoragValue));
     }
     }
   }
@@ -274,6 +265,16 @@ this.outSideService.childActiveDeactiveAction(data,this.loginUserNameForService)
     this.activePaneOne=true;
     this.activePaneTwo=false;
     if(res['success']){
+      if(type=='email' && this.clickType=='self' ){
+        var sessioStoragValue = JSON.parse(sessionStorage.getItem("authTeacherDetails"))
+        sessioStoragValue['applicationDetails'][0].email = val;
+        sessionStorage.setItem("authTeacherDetails", JSON.stringify(sessioStoragValue));
+      }
+      if(type=='mobile' && this.clickType=='self' ){
+        var sessioStoragValue = JSON.parse(sessionStorage.getItem("authTeacherDetails"))
+        sessioStoragValue['applicationDetails'][0].email = val;
+        sessionStorage.setItem("authTeacherDetails", JSON.stringify(sessioStoragValue));
+      }
       Swal.fire({
         'icon':'success',
         'text':res['response']
