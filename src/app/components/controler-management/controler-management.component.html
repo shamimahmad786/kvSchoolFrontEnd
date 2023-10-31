@@ -3,33 +3,27 @@
       <h1>User Mapping</h1>
     </div>
    
-      <nav aria-label="breadcrumb" class="mt-1">
+      <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
           <li class="breadcrumb-item"><a href="#">User Mapping</a></li>
         </ol>
       </nav>
       
-      <div class="dashboard-main-content-info p-5">
-        <div class="tab-content" id="myTabContent">
+      <div class="dashboard-main-content-info">
   <!------------------------------------------------- first tab start  here------------------------------->
   <div *ngIf="activePaneOne">
-    <div class="row justify-content-center d-flex  profile-info">
+    <div class="row">
       <div class="col-lg-12" *ngIf="businessUnitTypeId!='3'">
-         <div  class="shadow-sm bg-white p-3 rounded ">   
           <div class="row">
               <div class="col-md-6">
-  
                 <!-- <button mat-raised-button class=" me-2 btn-primary">Download Excel</button>
               <button mat-raised-button class="me-2 btn-secondary">Download PDF</button> -->
-
               </div>  
-              <div class="col-md-6" style="
-              text-align: end;">
+              <div class="col-md-6" style="text-align: end;">
                 <div class="example-header">
-                  <mat-form-field appearance="outline" class=" searchInput me-4">
+                  <mat-form-field appearance="outline" class=" searchInput">
                       <input matInput (keyup)="applyFilterHBSource($event.target.value)" placeholder="Search">
-                   
                   </mat-form-field>      
               </div>
               </div>     
@@ -40,7 +34,6 @@
                       <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
                       <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.sno}} </mat-cell>
                   </ng-container>
-      
 
                   <ng-container matColumnDef="Region Name">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Region Name </mat-header-cell>
@@ -77,8 +70,6 @@
                       </span> {{row.stateDate  | date: 'dd-MM-yyyy'}} </mat-cell>
                   </ng-container>
                  
-                
-      
                   <ng-container matColumnDef="Status">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
                     <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
@@ -87,7 +78,7 @@
                   <ng-container matColumnDef="Action">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                     <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
-                    </span> <i class="fa fa-exchange" *ngIf="row.status == '1'"  (click)="addUpdateViewUserMapping(row.regionCode,'update')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>   <i class="fa fa-plus-circle" *ngIf="row.status != '1'"  (click)="addUpdateViewUserMapping(row.regionCode,'add')" style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i><i  class="bi bi-eye" (click)="addUpdateViewUserMapping(row.regionCode,'view')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;"></i> </mat-cell>
+                    </span> <i class="fa fa-edit" *ngIf="row.status == '1'"  (click)="addUpdateViewUserMapping(row.regionCode,'update')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>   <i class="fa fa-plus-circle" *ngIf="row.status != '1'"  (click)="addUpdateViewUserMapping(row.regionCode,'add')" style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i><i  class="bi bi-eye" (click)="addUpdateViewUserMapping(row.regionCode,'view')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;"></i> </mat-cell>
                 </ng-container>
                                  
                   <mat-header-row *matHeaderRowDef="displayedColumnsForNational; sticky:true; "></mat-header-row>
@@ -96,11 +87,8 @@
               </mat-table>
               <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
           </div>
-      </div>
-      </div>
-
-
-
+ 
+    </div>
 
       <div class="col-lg-10" *ngIf="businessUnitTypeId=='3'">
         <div  class="shadow-sm bg-white p-3 rounded ">   
@@ -157,9 +145,7 @@
                      <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
                      </span> {{row.stateDate  | date: 'dd-MM-yyyy'}} </mat-cell>
                  </ng-container>
-                
-               
-     
+
                  <ng-container matColumnDef="Status">
                    <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
                    <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
@@ -168,7 +154,7 @@
                  <ng-container matColumnDef="Action">
                    <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                    <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
-                   </span> <i class="fa fa-exchange" *ngIf="row.status == '1'"  (click)="addUpdateViewSchoolMapping(row.kvcode,'update')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>   <i class="fa fa-plus-circle" *ngIf="row.status != '1'"  (click)="addUpdateViewSchoolMapping(row.kvcode,'add')" style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i><i  class="bi bi-eye" (click)="addUpdateViewSchoolMapping(row.kvcode,'view')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;"></i> </mat-cell>
+                   </span> <i class="fa fa-edit" *ngIf="row.status == '1'"  (click)="addUpdateViewSchoolMapping(row.kvcode,'update')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>   <i class="fa fa-plus-circle" *ngIf="row.status != '1'"  (click)="addUpdateViewSchoolMapping(row.kvcode,'add')" style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i><i  class="bi bi-eye" (click)="addUpdateViewSchoolMapping(row.kvcode,'view')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;"></i> </mat-cell>
                </ng-container>
                                 
                  <mat-header-row *matHeaderRowDef="displayedColumnsForRoSchool; sticky:true; "></mat-header-row>
@@ -179,27 +165,9 @@
          </div>
      </div>
      </div>
-
-
-
-
-
     </div><!--close row-->
-    </div> 
-      
-  <!------------------------------------------------- first tab end  here---------------------------------->
-  
-  <!------------------------------------------------- secand tab start  here------------------------------->
-       
-  <!------------------------------close secand  tab-------------------------------------------------------->
-  
-  
-  
-             </div>  
-             
-             
-  
-      </div><!--close main-content-info-->
+    </div>  
+  </div><!--close main-content-info-->
    
-  </div><!--close dashboard-main-content-->
+</div><!--close dashboard-main-content-->
   

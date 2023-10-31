@@ -2,43 +2,44 @@
   <div class="dashboard-main-content__header">
     <h1>User Management</h1>
   </div>
-    <nav aria-label="breadcrumb" class="mt-1">
+    <nav aria-label="breadcrumb" class="mt-0">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
         <li class="breadcrumb-item"><a href="#">Institute Admin Management</a></li>
       </ol>
     </nav>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <ul class="nav nav-tabs " id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" style="width: 730px; border: solid 0.2px #d6d6d6; background-color: white; color:black" (click)="navColor('transferin')" id="home-tab" [class.myClass]="showFirstButtonColor" type="button" role="tab" aria-controls="profile" aria-selected="false">User List </button>
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"  (click)="navColor('transferin')" id="home-tab" [class.myClass]="showFirstButtonColor" type="button" role="tab" aria-controls="profile" aria-selected="false">User List </button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" style="width: 744px; border: solid 0.2px #d6d6d6; background-color: white; color:black" (click)="navColor('transferout');getLoginUserdetail('self')" [class.myClass]="showsecondButtonColor"   data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"> My Profile</button>
+        <button class="nav-link active"  (click)="navColor('transferout');getLoginUserdetail('self')" [class.myClass]="showsecondButtonColor"   data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"> My Profile</button>
       </li>
     </ul>
-    <div class="dashboard-main-content-info p-5">
+    <div class="dashboard-main-content-info ">
     <div class="tab-content" id="myTabContent">
 <!------------------------------------------------- first tab start  here------------------------------->
 <div *ngIf="activePaneOne">
-  <div class="row justify-content-center d-flex  profile-info">
-    <div class="col-lg-9">
-       <div  class="shadow-sm bg-white p-3 rounded ">   
-        <div class="row">
-            <div class="col-md-6">
+  <div class="row  profile-info">
+    <div class="col-lg-12"> 
+        <div class="row ">
+            <div class="col-md-6 position-relative">
               <!-- <button mat-raised-button class=" me-2 btn-primary">Download Excel</button>
               <button mat-raised-button class="me-2 btn-secondary">Download PDF</button> -->
-             <button mat-raised-button class="me-2 btn-secondary"  routerLinkActive="active" routerLink="/teacher/addInstituteHead" >Add User</button>
+
+
+             <button mat-raised-button class="btn-secondary add-user"  routerLinkActive="active" routerLink="/teacher/addInstituteHead" ><i class="bi bi-plus-circle me-2"></i>Add User</button>
             </div>  
             <div class="col-md-6" style="
             text-align: end;">
               <div class="example-header">
-                <mat-form-field appearance="outline" class=" searchInput me-4">
+                <mat-form-field appearance="outline" class=" searchInput ">
                     <input matInput (keyup)="applyFilterHBSource($event.target.value)" placeholder="Search">
                 </mat-form-field>      
             </div>
             </div>     
         </div>
-        <div class="example-container mat-elevation-z8 " id="style-2">
+        <div class="example-container mat-elevation-z8 " >
             <mat-table [dataSource]="hBSource" matSort #hBSort="matSort">
                 <ng-container matColumnDef="Sno">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
@@ -81,14 +82,14 @@
             </mat-table>
             <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
         </div>
-    </div>
+  
     </div>
   </div><!--close row-->
   </div> 
-      <div *ngIf="activePaneTwo">
+      <div *ngIf="activePaneTwo ">
       <div class="row justify-content-center d-flex  profile-info">
-        <div class="col-lg-9">
-          <div class="row">
+        <div class="col-lg-11">
+          <div class="row ">
               <div class="col-lg-9">
                 <h2>Your profile info</h2>
                 <!-- <p>Personal info and options to manage it. You can make<br> some of this info, like your contact details, visible to<br> others so they can reach you easily. You can also see<br> a summary of your profiles.</p> -->
@@ -98,7 +99,7 @@
               </div> -->
           </div>
          
-          <div class="card p-3">
+          <div class="card p-3 ">
 
             <!-- <div class="pb-2 mt-2 row border-bottom m-0">
               <label for="staticEmail" class="col-sm-3 col-form-label ps-0">Profile Picture</label>

@@ -5,7 +5,7 @@
     <nav aria-label="breadcrumb" class="mt-1">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item"><a href="#">Add</a></li>
+          <li class="breadcrumb-item"><a href="#">{{(isEdit)?'Edit ':'Add'}}</a></li>
           <li class="breadcrumb-item"><a href="#">Region/ZIET Master</a></li>
         </ol>
       </nav>
@@ -16,10 +16,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="">
-                    <div class=" headingBack mb-4">
-                        <span class="fonttileHeading">{{(isEdit)?'Edit Region':'Add New Region'}}</span>
-                    </div>
-
                     <div class=" prof-fields bg-white shadow p-4 rounded-3">
                         <div class="row">
 

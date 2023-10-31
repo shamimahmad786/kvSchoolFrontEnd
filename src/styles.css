@@ -40,12 +40,12 @@ img {
 
 .dashboard-footer {
     padding: 0 30px 20px 30px;
-    background: #d7d7d7;
+    /* background: #d7d7d7; */
 }
 
-.dashboard {
+/* .dashboard {
     min-height: calc(100vh - 77px) !important;
-}
+} */
 
 .sidebar {
     background-color: #632765;
@@ -56,11 +56,17 @@ img {
     position: absolute;
     top: 0;
     left: 0;
-    height: calc(100% - 1px) !important;
+    height: calc(100% - 90px) !important;
     transition: all .5s ease !important;
 }
 
+.green {
+    background: green;
+    color: #fff;
+}
 
+.red {background: #cf3737;
+    color: #fff;}
 /*====Reset css=========*/
 
 img {
@@ -224,6 +230,14 @@ img {
     background: #37338a;
     border-color: #37338a;
 }
+
+/*****************************/
+
+.searchInput .mat-form-field-infix{width: 300px !important;}
+
+ th.mat-header-cell{background-color:#E5EEFF ; color: #353535 !important; font-weight: 600 !important; font-size: 15px; font-family: 'PoppinsRegular';}
+ 
+ .example-container {padding: 0;}
 
 @media (max-width:1600px) {
     .login-bg h2 {
