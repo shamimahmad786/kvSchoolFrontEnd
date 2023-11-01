@@ -428,7 +428,9 @@ body {
         font-size: 14px;
       text-align: center;}
     .profile-info .bi-pencil-fill.active {border-color: #632765; color: #632765;}
-    
+    ::ng-deep .mat-header-cell{background-color:#E5EEFF ; color: #353535; font-weight: 600 !important; font-size: 15px; font-family: 'PoppinsRegular';}
+    .dashboard-main-content-info{ border-top-left-radius:0 !important}
+   
     @media screen and (max-width: 767px) {
       .dashboard-main-content-info {
         padding: 20px !important;

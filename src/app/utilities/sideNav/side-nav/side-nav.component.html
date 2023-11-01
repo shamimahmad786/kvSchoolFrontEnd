@@ -6,21 +6,21 @@
 <!-----------------------------------------------show National on busnis id 2  and 3------------------------->
 <div class="accordion" id="accordionExample" *ngIf="showNational || showRegion">
   <div class="accordion-item" >
-    <h2 class="accordion-header">
+    <div class="accordion-header m-0">
       <button class="accordion-button aa" routerLinkActive="" routerLink="/teacher/regionDashboard" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
         <i class="bi bi-eye me-2"></i> Dashboard
       </button>
-    </h2>
+    </div>
     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
     </div>
   </div>
 
   <div class="accordion-item" >
-    <h2 class="accordion-header">
+    <div class="accordion-header m-0">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
         <i class="bi bi-pencil me-2"></i> User Management
       </button>
-    </h2>
+    </div>
     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body p-0 pt-3 pb-3">
         <ul>
@@ -32,15 +32,15 @@
     </div>
   </div>
   <div class="accordion-item" *ngIf="showNational" >
-    <h2 class="accordion-header">
+    <div class="accordion-header m-0">
       <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
         <i class="bi bi-book me-2"></i>Master
       </button>
-    </h2>
+    </div>
     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <ul>
-          <li class="active"><a routerLinkActive="active" routerLink="/teacher/regionMaster"><i class="bi bi-dot"></i>Region/ZIET Master</a></li>
+          <li ><a routerLinkActive="active" routerLink="/teacher/regionMaster"><i class="bi bi-dot"></i>Region/ZIET Master</a></li>
           <li><a routerLinkActive="active" routerLink="/teacher/stationMaster"><i class="bi bi-dot"></i>Station Master</a></li>
           <li><a routerLinkActive="active" routerLink="/teacher/schoolMaster"><i class="bi bi-dot"></i>School/Institution Master</a></li>
           <li><a routerLinkActive="active" routerLink="/teacher/stationCategoryMaster"><i class="bi bi-dot"></i>Station Category Master</a></li>
@@ -52,15 +52,15 @@
     </div>
   </div>
   <div class="accordion-item">
-    <h2 class="accordion-header">
+    <div class="accordion-header m-0">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
         <i class="bi bi-person-video3 me-2"></i>Mapping
       </button>
-    </h2>
+    </div>
     <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <ul>
-          <li class="active"><a  routerLinkActive="active" routerLink="/teacher/regionStationMapping"><i class="bi bi-dot"></i>Region Station Mapping</a></li>
+          <li ><a  routerLinkActive="active" routerLink="/teacher/regionStationMapping"><i class="bi bi-dot"></i>Region Station Mapping</a></li>
           <li><a routerLinkActive="active" routerLink="/teacher/stationCategoryMapping"><i class="bi bi-dot"></i>Station Category Mapping</a></li>
           <li><a routerLinkActive="active" routerLink="/teacher/schoolStationMapping"><i class="bi bi-dot"></i>Station School Mapping</a></li>
           <li><a routerLinkActive="active" routerLink="/teacher/stafftypePostMapping"><i class="bi bi-dot"></i>Staff-Type-Post Mapping</a></li>

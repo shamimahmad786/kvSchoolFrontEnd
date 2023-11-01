@@ -57,7 +57,7 @@
 }
 
 body {
-font-family: 'PoppinsRegular';
+font-family: 'PoppinsRegular' !important;
 color: #000;
 font-size: 15px;
 line-height: 1.6;
@@ -210,8 +210,9 @@ svg>#Layer_2 #Layer_1>#Path_82280 {
 .accordion-body li { font-family: 'PoppinsMedium'; margin:0 0 3px; list-style: none; position: relative;}
 
 .accordion-body li a {color: #fff; padding:7px 10px 7px 25px; display: block; }
-.accordion-body li a i {font-size: 30px; position: absolute; left: 0px; top: -5px;}
+.accordion-body li a i {font-size: 30px; position: absolute; left: 0px; top: 1px;}
 .accordion-body li a:hover, .accordion-body li.active a{background-color: #804E82; border-radius: 4px;} 
+.accordion-body li a:hover, .accordion-body li a.active {background-color: #804E82; border-radius: 4px;} 
 .dashboard--img {
   padding-right: 18px;
   vertical-align: middle;
@@ -328,6 +329,7 @@ svg>#Layer_2 #Layer_1>#Path_82280 {
   font-size: 15px;
   font-weight: 500;
  line-height: 18px;
+ margin: 0 0 5px !important;
 }
 
 .dashboard-header--name {
@@ -346,14 +348,14 @@ svg>#Layer_2 #Layer_1>#Path_82280 {
 .dashboard-header--logo a {color: #323232;}
 
 .dashboard-main-content {
-  padding:30px;
+  padding:15px 30px;
 }
 
 .dashboard-main-content__header h1 {
   font-size: 22px;
   margin: 0;
   color: #061045;
-  font-family: 'PoppinsSemiBold';
+  font-family: 'PoppinsSemiBold' !important;
 }
 .breadcrumb-item{font-size: 13px;}
 .breadcrumb-item a {

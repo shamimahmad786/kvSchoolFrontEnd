@@ -19,6 +19,7 @@ export class ResetPasswordComponent implements OnInit {
    msg:any;
    captcharest:any;
    paramSessionId: any;
+   paramUrlType:any;
    constructor(private formBuilder: FormBuilder,private route: ActivatedRoute,private router: Router, private auth :AuthService) { }
   ngOnInit(): void {
     this.generate()
@@ -28,7 +29,8 @@ export class ResetPasswordComponent implements OnInit {
         'otpCaptcha': new FormControl('', Validators.required),
       });
       this.route.queryParams.subscribe(params => {
-      this.paramSessionId = params['sessionId']; 
+      this.paramSessionId = params['sessionId'];
+      this.paramUrlType= params['type']
     });
      
     }
