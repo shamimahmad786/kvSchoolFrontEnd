@@ -59,13 +59,14 @@ export class AddInstituteHeadComponent implements OnInit {
      },{
     "name": "ZIET",
     "value": "2"
-    },]
+    }]
    }
   if(this.businessUnitTypeId=="3"){
   this.instituteType=[{
   "name": "School",
   "value": "5"
-  }]}
+  },{"name":"RO Office","value":"31"}]
+}
 }
   get f() { return this.addInstituteForm.controls; }
   //***************** Get Region*******************************************/
@@ -85,7 +86,13 @@ export class AddInstituteHeadComponent implements OnInit {
     })
   });
   }
-  if(event.target.value=="5"){
+  if(event.target.value=="5" || event.target.value=="31"){
+
+    if(event.target.value=="31"){
+      this.schoolType="3";
+    }else{
+      this.schoolType="1";
+    }
     this.regionList=[];
     this.addInstituteForm.patchValue({
       userName:'',
