@@ -72,11 +72,16 @@
                                 <mat-error *ngIf="isSubmitted && errorHandling('status', 'required')">
                                     Please select the status!
                                 </mat-error> -->
+
+                         
                                 <div class="mt-1">
                                     <mat-radio-group formControlName="shift">
                                         <mat-radio-button [value]="shift.value" style="padding: 5px;" *ngFor="let shift of shiftList">{{shift.type}}</mat-radio-button>
                                         <!-- <mat-radio-button value="2">Second Shift</mat-radio-button> -->
                                     </mat-radio-group>
+                                    <mat-error *ngIf="isSubmitted && errorHandling('shift', 'required')">
+                                        Please select the shift!
+                                    </mat-error>
                                 </div>
 
 
@@ -85,6 +90,9 @@
                             <div class="col-md-4 form-group my-2 ">
                                 <label class="titleSet">Address</label><br>
                                 <textarea type="text" formControlName="schoolAddress" class="form-control"></textarea>
+                                <mat-error *ngIf="isSubmitted && errorHandling('schoolAddress', 'required')">
+                                    Please provide address!
+                                </mat-error>
                             </div>
 
                             <div class="mt-2 " style="text-align: center;">

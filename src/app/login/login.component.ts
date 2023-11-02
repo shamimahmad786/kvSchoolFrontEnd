@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   mobileNo:any;
   captcha:any;
   businessUnitTypeId:any;
-  timeLeft: number = 120;
+  timeLeft: number = 300;
   interval;
   isDisabled: boolean = false;
   showTimer: boolean = false;
@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
         return false;
     }
     else{
-     this.timeLeft = 120;
+     this.timeLeft = 300;
      this.isDisabled=true
      this.showTimer=true;
      this.interval = setInterval(() => {
@@ -198,6 +198,7 @@ export class LoginComponent implements OnInit {
     sessionStorage.removeItem('systemTeacherCode')
     var data = {"mobile":this.loginForm.controls.otpForm.value['mobileNo'],"otp":this.loginForm.controls.otpForm.value['OTP']}
     this.auth.otpLogin(data).subscribe((res) => {
+      debugger
       console.log(res)
       if (res.token) {
         sessionStorage.setItem("authTeacherDetails", JSON.stringify(res));
@@ -214,7 +215,7 @@ export class LoginComponent implements OnInit {
            this.router.navigate(['/teacher/profile']);
          }
        }
-       if(res.errorMessage='User is not active'){
+       if(res.errorMessage=='User is not active'){
         Swal.fire({
           'icon':'error',
            'text':'User is not active.'
