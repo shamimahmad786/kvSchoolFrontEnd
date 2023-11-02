@@ -1,18 +1,21 @@
-<div class="cardSet50 px-4">
+<div class="dashboard-main-content" style="min-height: 600px;">
+    <div class="dashboard-main-content__header">
+        <h1 class="mb-1">Region-Station Mapping</h1>
+      </div>
+      <nav aria-label="breadcrumb" class="mt-0">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Region-Station Mapping</a></li>
+          </ol>
+        </nav>
+<div class="dashboard-main-content-info ">
+<div class="cardSet50">
     <form [formGroup]="regionMForm" (ngSubmit)="submit()">
-
         <div class="row">
             <div class="col-md-12">
                 <div class="">
-                   
-                    <div class=" headingBack mb-4">
-                        <span class="fonttileHeading">Region-Station Mapping</span>
-                    </div>
-
                     <div class=" prof-fields bg-white shadow p-4 rounded-3">
                         <div class="row">
-
-
                             <div class="col-md-4 my-2 form-group">
                                 <label class="titleSet">Select Region</label>
                                 <ng-multiselect-dropdown [placeholder]="'Select Region'" [settings]="dropdownRegionSettings" [data]="dropdownRegionList" [(ngModel)]="selectedRegionItems" formControlName="regionCode">
@@ -74,9 +77,8 @@
 
                     </div>
                 </div>
-
-
             </div>
         </div>
     </form>
+    </div>
 </div>

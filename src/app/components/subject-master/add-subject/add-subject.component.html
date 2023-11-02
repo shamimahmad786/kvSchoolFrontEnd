@@ -1,16 +1,16 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
-        <h1>Subject</h1>
+        <h1 class="mb-1">Subject</h1>
       </div>
-      <nav aria-label="breadcrumb" class="mt-1">
+      <nav aria-label="breadcrumb" class="mt-0">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">{{(isEdit)?'Edit ':'Add'}}</a></li>
             <li class="breadcrumb-item"><a href="#">Subject</a></li>
           </ol>
         </nav>
-<div class="dashboard-main-content-info p-5">
-<div class="cardSet50 px-4">
+<div class="dashboard-main-content-info">
+<div class="cardSet50">
     <form [formGroup]="subjectForm" (ngSubmit)="submit()">
 
         <div class="row">
