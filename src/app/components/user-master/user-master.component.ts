@@ -272,7 +272,7 @@ this.outSideService.childActiveDeactiveAction(data,this.loginUserNameForService)
       }
       if(type=='mobile' && this.clickType=='self' ){
         var sessioStoragValue = JSON.parse(sessionStorage.getItem("authTeacherDetails"))
-        sessioStoragValue['applicationDetails'][0].email = val;
+        sessioStoragValue['applicationDetails'][0].mobile = val;
         sessionStorage.setItem("authTeacherDetails", JSON.stringify(sessioStoragValue));
       }
       Swal.fire({
