@@ -92,6 +92,7 @@ export class StationCategoryMappingComponent implements OnInit {
     return this.stationList.filter(option => option.stationName.toLowerCase().includes(filterValue));
   }
   search(){
+    debugger
     let payload=this.stationCategoryMF.getRawValue();
     if(payload.stationCode=='All'){
    this.getStationCategoryByRegion();
