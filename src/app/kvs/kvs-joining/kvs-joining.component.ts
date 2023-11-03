@@ -46,6 +46,8 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
   userName: any;
   businessUnitTypeCode: any;
   stationNameCode: any = null;
+  activePaneOne: boolean = true;
+  activePaneTwo: boolean = false;
   stationCode: any;
   kvNameCode: any = null;
   udiseSchCode: any;
@@ -144,9 +146,13 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
     {
       this.showFirstButtonColor=true;
       this.showsecondButtonColor=false;
+      this.activePaneOne=true;
+      this.activePaneTwo=false;
     }else{
       this.showFirstButtonColor=false;
       this.showsecondButtonColor=true;
+      this.activePaneOne=false;
+      this.activePaneTwo=true;
     } 
   }
   //********************** Joining Data Set in to Table ******************************

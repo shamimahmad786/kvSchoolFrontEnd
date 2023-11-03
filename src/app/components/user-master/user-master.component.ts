@@ -59,9 +59,11 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   confirmpassword: any;
   loginUserNameForService: any;
   clickType:any
+  pfofileUser:any;
   constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
+   
     this.applicationId = environment.applicationId;
     this.getLoginUserdetail("self");
     this.getChilduser();
@@ -69,7 +71,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
   }
   getLoginUserdetail(clickType:any){
-    console.log(clickType)
+    this.pfofileUser='My';
     this.clickType=clickType;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       console.log(JSON.parse(sessionStorage.getItem("authTeacherDetails")));
@@ -89,7 +91,6 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   }
   //**********************   Logic for get  Data from Api  ******************************
   getChilduser() {
-    debugger
      this.childUserList = [];
      const data = {
       "username":this.loginUserNameForService
@@ -204,6 +205,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     }
   }
   editChildUser(userName:any,type:any){
+    this.pfofileUser="User";
     this.clickType='';
     this.showFirstButtonColor=false;
     this.showsecondButtonColor=true;

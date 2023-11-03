@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   captchaotp: any;
   constructor(private formBuilder: FormBuilder,private route: ActivatedRoute,private router: Router, private auth :AuthService,private outSideService: OutsideServicesService) { }
   ngOnInit(): void {
+    sessionStorage.clear();
       this.loginForm = new FormGroup({
       passwordForm: new FormGroup({
        'username': new FormControl('', Validators.required),

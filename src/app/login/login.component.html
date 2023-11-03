@@ -20,12 +20,12 @@
                     <div class="login-cnt">`
                         <h2 class="sec-title">Login Here</h2>
                         <div class="button-group d-flex justify-content-center mb-5">
-                            <button class="btn me-3 password"><img src="assets/images/password.svg" class="me-2">Password</button>
-                            <button class="btn mobile active"><img src="assets/images/mobile.svg" class="me-2">Mobile OTP</button>
+                            <button class="btn me-3 password active"><img src="assets/images/password.svg" class="me-2">Password</button>
+                            <button class="btn mobile "><img src="assets/images/mobile.svg" class="me-2">Mobile OTP</button>
                         </div>
                         <form id="msform" [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
        <!-----------------------Password Form---------------------------------------------->                   
-                         <div class="login-with-pass d-none">
+                         <div class="login-with-pass ">
                             <div class="fieldSet " formGroupName="passwordForm">
                             <div class="mb-4 position-relative">
                             
@@ -59,7 +59,7 @@
                      </div>
                         </div>
         <!-----------------------otp Form---------------------------------------------->  
-                        <div class="login-with-otp">
+                        <div class="login-with-otp d-none">
                           <div class="fieldSet" formGroupName="otpForm">
                               <div class="mb-1 position-relative">
                               
