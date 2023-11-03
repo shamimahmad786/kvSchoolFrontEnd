@@ -112,6 +112,7 @@ export class ResetPasswordComponent implements OnInit {
         '',
         'success'
         )
+        this.router.navigate(['/login']); 
     }
       },
       error => { 

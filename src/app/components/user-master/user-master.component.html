@@ -16,7 +16,7 @@
         <button class="nav-link active"  (click)="navColor('transferout');getLoginUserdetail('self')" [class.myClass]="showsecondButtonColor"   data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"> My Profile</button>
       </li>
     </ul>
-    <div class="dashboard-main-content-info ">
+    <div class="dashboard-main-content-info">
     <div class="tab-content" id="myTabContent">
 <!------------------------------------------------- first tab start  here------------------------------->
 <div *ngIf="activePaneOne">
@@ -90,7 +90,7 @@
         <div class="col-lg-11">
           <div class="row ">
               <div class="col-lg-9">
-                <h2>Your profile info</h2>
+                <h2>{{pfofileUser}} profile info</h2>
                 <!-- <p>Personal info and options to manage it. You can make<br> some of this info, like your contact details, visible to<br> others so they can reach you easily. You can also see<br> a summary of your profiles.</p> -->
               </div>
               <!-- <div class="col-lg-3">
