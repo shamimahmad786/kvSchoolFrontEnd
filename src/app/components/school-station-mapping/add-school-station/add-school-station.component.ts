@@ -192,7 +192,13 @@ export class AddSchoolStationComponent implements OnInit {
     } else {
       return 1;
     }
-    }else if(type==2){
+    }else if(type==2 && this.userMappingAction=='Add'){
+      if (check > from) {
+        return 0
+      } else {
+        return 1;
+      }
+    }else if(type==2 && this.userMappingAction=='update'){
       if (check > from) {
         return 1
       } else {

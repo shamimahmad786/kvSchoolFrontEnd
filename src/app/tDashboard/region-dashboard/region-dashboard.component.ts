@@ -82,27 +82,18 @@ export class RegionDashboardComponent implements OnInit {
         "businessUnitTypeId": this.businessUnitTypeId,
         "businessUnitTypeCode": this.businessUnitTypeCode
       }
-      
       this.outSideService.fetchDashboardData(data).subscribe((res) => {
-        
         this.dashboardData = res.response;
-
         this.totalTeachingStaff = this.dashboardData.teachingRegular * 1 + this.dashboardData.teachingContractual * 1
         this.nontotalTeachingStaff = this.dashboardData.nonteachingContractual * 1 + this.dashboardData.nonteachingRegular * 1
-
-        this.teachingNotVerified = this.dashboardData.teachingTi * 1 +
+         this.teachingNotVerified = this.dashboardData.teachingTi * 1 +
           this.dashboardData.teachingTa * 1 +
           this.dashboardData.teachingSi * 1 +
           this.dashboardData.teachingNi * 1
-
-        this.nonteachingNotVerified = this.dashboardData.nonteachingNi * 1 +
+         this.nonteachingNotVerified = this.dashboardData.nonteachingNi * 1 +
           this.dashboardData.nonteachingSi * 1 +
           this.dashboardData.nonteachingTa * 1 +
           this.dashboardData.nonteachingTi * 1
-
-
-
-
       })
     } else if (this.businessUnitTypeId == '4') {
       // this.showStation = true

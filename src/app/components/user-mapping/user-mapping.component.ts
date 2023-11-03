@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
 declare var $: any;
@@ -81,8 +82,8 @@ export class UserMappingComponent implements OnInit {
   }
   if(this.userMappingAction=="view"){
     this.heading="Controler History";
-   this.viewControlerHeirechy();
   }
+  this.viewControlerHeirechy();
    this.getControllerOffice();
   }
   get f() { return this.addUserMapping.controls; }
@@ -101,7 +102,7 @@ export class UserMappingComponent implements OnInit {
        "schoolType":this.schoolType
     }
     this.outSideService.getregionSchool(data,this.loginUserNameForChild).subscribe(res => {
-    debugger
+
     this.roOfficeList=res
     console.log(res)
     },
@@ -180,6 +181,94 @@ export class UserMappingComponent implements OnInit {
         startdate:this.duplicateregionCheck[0]['state_date']
       })
     }
+
+    checkDatelieBeetwenFromTo(event:any,type:any){
+      console.log( this.historyControllerOfficeDataArray)
+      debugger
+      for (let i = 0; i < this.historyControllerOfficeDataArray.length; i++) {
+        var dateFrom = this.historyControllerOfficeDataArray[i].fromdate;
+        var dateTo = this.historyControllerOfficeDataArray[i].todate;
+        var dateCheck;
+        if((dateTo == null || dateTo == 'null') && (dateFrom == null || dateFrom == 'null') ){
+          return;
+        }
+        if(event.target.value =='undefined'){
+      
+          dateCheck =event.target.value;
+        }else{
+          dateCheck = moment(event.target.value).format("YYYY-MM-DD");
+        }
+        var returnType
+        if (dateTo == null || dateTo == 'null') {
+          returnType = this.dateGreater(dateFrom, dateCheck,type);
+        } else {
+          returnType = this.dateCheck(dateFrom, dateTo, dateCheck,type);
+        }
+        if (returnType == 0) {
+          Swal.fire(
+            'Date lies between previous date !',
+            '',
+            'error'
+          );
+          setTimeout(() => {
+            (<HTMLInputElement>document.getElementById("wordStartDate")).value = "";
+            (<HTMLInputElement>document.getElementById("wordEndDate")).value = "";
+            this.addUserMapping.patchValue({
+              startdate:'',
+            })
+            this.addUserMapping.patchValue({
+              enddate:'',
+            })
+          }, 200);
+        }
+      }
+    }
+  
+    dateGreater(dateFrom, dateCheck,type) {
+      var from =  Math.round((new Date(dateFrom).getTime())/(3600000*24));
+      var check = Math.round((new Date(dateCheck).getTime())/(3600000*24));
+      if(type==1){
+      if (check >= from) {
+        return 0
+      } else {
+        return 1;
+      }
+      }else if(type==2 && this.userMappingAction=='Add'){
+        if (check > from) {
+          return 0
+        } else {
+          return 1;
+        }
+      }else if(type==2 && this.userMappingAction=='update'){
+        if (check > from) {
+          return 1
+        } else {
+          return 0;
+        }
+      }
+     }
+  
+    dateCheck(dateFrom, dateTo, dateCheck,type) {
+      var from = Math.round((new Date(dateFrom).getTime())/(3600000*24));
+      var to = Math.round((new Date(dateTo).getTime())/(3600000*24));
+      var check = Math.round((new Date(dateCheck).getTime())/(3600000*24));
+      if(type==1){
+        if (check >= from && check < to) {
+          return 0
+        } else {
+          return 1;
+        }
+      }else if(type==2){
+        if (check > from && check <= to) {
+          return 0
+        } else {
+          return 1;
+        }
+      }
+    }
+
+
+
 //***********************View Controler Officer  *************************************/
     viewControlerHeirechy(){
       this.historyControlingOfficedata=[];
@@ -188,6 +277,7 @@ export class UserMappingComponent implements OnInit {
          "controllerType":"R"
       }
       this.outSideService.getControllerOfficeHistory(data,this.loginUserNameForChild).subscribe(res => {
+        debugger
         this.historyControlingOfficedata=res['response'];
         this.historyControllerOfficeDataArray = [];
         for (let i = 0; i < this.historyControlingOfficedata.length; i++) {
@@ -214,6 +304,7 @@ export class UserMappingComponent implements OnInit {
         })
       });
     }
+    
   //*********************** Submit Form  *************************************/
   onSubmit(){
     this.addUserMappingFormubmitted=true

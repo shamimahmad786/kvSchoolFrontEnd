@@ -229,7 +229,13 @@ applyFilterHBSource(filterValue: string) {
     } else {
       return 1;
     }
-    }else if(type==2){
+    }else if(type==2 && this.userMappingAction=='Add'){
+      if (check > from) {
+        return 0
+      } else {
+        return 1;
+      }
+    }else if(type==2 && this.userMappingAction=='update'){
       if (check > from) {
         return 1
       } else {
@@ -291,7 +297,7 @@ applyFilterHBSource(filterValue: string) {
       this.isSubmitted = true;
      this.stationCategoryMForm.markAllAsTouched();
     }else{
-
+debugger
       if(this.userMappingAction=='update'){
       this.isSubmitted = false;
       let payload=this.stationCategoryMForm.getRawValue();

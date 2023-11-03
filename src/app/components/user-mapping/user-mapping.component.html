@@ -18,7 +18,6 @@
               <div class="pb-2 mt-2  row  m-0">
                 <label for="staticEmail" class="col-sm-2 col-form-label ps-0">Region</label>
                 <div class="col-sm-3">
-
                     <select class="form-select"   aria-label="Default select example" id="s_id" name="region"  #region formControlName="region" (change)="getRoOfficeByRegionId(region.value)" [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.region.errors }">
                         <option selected disabled>Select Region</option>
                         <option *ngFor="let data of regionList; let i=index;" value="{{data.regionCode}}">
@@ -55,15 +54,15 @@
 
                 <label for="staticEmail" class="col-sm-2 col-form-label" >Start Date</label>
                 <div class="col-sm-3">
-                    <input type="date"   class="form-control" id="startdate" formControlName="startdate"  [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.startdate.errors }">
+                    <input type="date"   class="form-control" id="startdate" formControlName="startdate" (change)="checkDatelieBeetwenFromTo($event,1)"  [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.startdate.errors }">
                     <div *ngIf="addUserMappingFormubmitted && f.startdate.errors" class="invalid-feedback">Start Date is required</div>
                 </div>
               </div>
 
-              <div class="pb-2 mt-2  row  m-0" *ngIf="endDateStatus">
+              <div class="pb-2 mt-2  row  m-0">
                 <label for="staticEmail" class="col-sm-2 col-form-label ps-0">End Date</label>
                  <div class="col-sm-3">
-                    <input type="date"   class="form-control" id="enddate" formControlName="enddate" [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.enddate.errors }" >
+                    <input type="date"   class="form-control" id="enddate" formControlName="enddate" (change)="checkDatelieBeetwenFromTo($event,2)" [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.enddate.errors }" >
                     <div *ngIf="addUserMappingFormubmitted && f.enddate.errors" class="invalid-feedback">End Date is required</div>
                 </div>
  
@@ -75,7 +74,7 @@
             </form>
             </div>
 
-<div *ngIf="userMappingAction=='view'">
+<div >
   <div  class="shadow-sm bg-white p-3 rounded ">   
     <div class="row">
         <div class="col-md-6">
@@ -122,13 +121,13 @@
 
             <ng-container matColumnDef="fromdate">
               <mat-header-cell *matHeaderCellDef mat-sort-header> From Date</mat-header-cell>
-              <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.fromdate | date:"dd-MM-YYYY" }}
+              <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.fromdate | date: 'dd-MM-yyyy' }}
               </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="todate">
             <mat-header-cell *matHeaderCellDef mat-sort-header> To Date </mat-header-cell>
-            <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.todate | date:"dd-MM-YYYY" }}
+            <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.todate | date: 'dd-MM-yyyy' }}
             </mat-cell>
          </ng-container>
 
