@@ -55,6 +55,20 @@ export class ResetPasswordComponent implements OnInit {
     let output = document.getElementById('output');
     output.innerHTML = "";
     }
+    onBlur(){
+      this.msg='';
+      if(this.changePasswordForm.controls['newPassword'].value!=this.changePasswordForm.controls['confirmPassword'].value){
+        this.changePasswordForm.patchValue({
+          newPassword: '',
+          confirmPassword:'',
+          otp:'',
+          otpCaptcha:'',
+        })
+        this.generate();
+        this.msg="New Password and Confirm Password are not same....";
+        return;
+      }
+    }
   //********************************  Change Password Form Submit  ******************************/
   onSubmit() {
       this.changePasswordFormsubmitted = true;
