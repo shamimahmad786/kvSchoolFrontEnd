@@ -364,9 +364,7 @@ body {
     
     .dashboard-header--logo a {color: #323232;}
     
-    .dashboard-main-content {
-      padding:30px;
-    }
+   
     
     .dashboard-main-content__header h1 {
       font-size: 22px;
@@ -523,9 +521,7 @@ body {
         font-size: 24px;
       }
     
-      .dashboard-main-content {
-        padding: 30px;
-      }
+  
     
       
     
@@ -541,9 +537,7 @@ body {
         font-size: 24px;
       }
     
-      .dashboard-main-content {
-        padding: 30px;
-      }
+   
     
     
       .dashboard--remaining--width {
