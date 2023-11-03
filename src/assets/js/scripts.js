@@ -125,7 +125,7 @@ function getUdiseCode() {
     $.ajax({
         //   url: "http://kvsonlinetransfer.kvs.gov.in/meuser/api/userCradential/get-usercradential",
         //  url: "https://demopgi.udiseplus.gov.in/UserService/api/userCradential/get-usercradential",
-        url: "https://demopgi.udiseplus.gov.in/meuser/api/userCradential/get-usercradential",
+        //  url: "https://demopgi.udiseplus.gov.in/meuser/api/userCradential/get-usercradential",
         type: 'post',
         async: false,
         contentType: "text/plain",
