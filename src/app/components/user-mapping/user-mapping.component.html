@@ -119,7 +119,18 @@
                 <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.modifiedBy }}
                 </mat-cell>
             </ng-container>
-      
+
+            <ng-container matColumnDef="fromdate">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> From Date</mat-header-cell>
+              <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.fromdate | date:"dd-MM-YYYY" }}
+              </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="todate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> To Date </mat-header-cell>
+            <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.todate | date:"dd-MM-YYYY" }}
+            </mat-cell>
+         </ng-container>
 
             <ng-container matColumnDef="Status">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>

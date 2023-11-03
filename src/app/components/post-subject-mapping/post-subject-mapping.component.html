@@ -1,8 +1,8 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
-      <h1>School Station Mapping</h1>
+      <h1 class="mb-1">School Station Mapping</h1>
     </div>
-    <nav aria-label="breadcrumb" class="mt-1">
+    <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
           <li class="breadcrumb-item"><a href="#">School-Station Mapping</a></li>
@@ -20,14 +20,30 @@
             <button mat-raised-button class="float-end mt-2 btn-primary" (click)="exportexcel()">Download Excel</button>
         </div>        
     </div>
-    <div class="dashboard-main-content-info p-5">
-        <div class="row" style="background-color:#fff ;">
+    <div class="dashboard-main-content-info">
+        <div class="row">
             <div class="col-lg-12">
-        <div *ngIf="dataSource">
-            <mat-form-field style="width: 30%;">
-                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Post Code or Post Name or Subject Code or Subject Name">
-            </mat-form-field>
-        </div>
+                <div class="row ">              
+                    <div class="col-md-6 " *ngIf="dataSource">
+                        <mat-form-field  appearance="outline" class="searchInput" >
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Post Code or Post Name or Subject Code or Subject Name">
+                            <mat-icon matSuffix></mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex flex-row-reverse bd-highlight ">
+                            <div class="p-1" *ngIf="!freezeStatus">
+                                <button mat-raised-button class="float-end mt-2 btn-success voilet"  (click)="redirectto()"><i class="bi bi-plus-circle me-1"></i> Add</button>
+                            </div>
+                            <div class="p-1">
+                                <button mat-raised-button class="float-end mt-2 btn-secondary green" (click)="postSubjectMapping()"><i class="bi bi-file-pdf me-1"></i> Download PDF</button>
+                            </div>
+                            <div class="p-1">
+                                <button mat-raised-button class="float-end mt-2 btn-primary red" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>
+                            </div>
+                        </div>
+                    </div>   
+            </div>
         <div class="example-container mat-elevation-z8">
             <table mat-table *ngIf="dataSource?.data?.length > 0" [dataSource]="dataSource" matSort class="mat-elevation-z8 demo-table">
 

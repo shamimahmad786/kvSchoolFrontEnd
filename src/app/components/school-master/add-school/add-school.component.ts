@@ -15,7 +15,7 @@ export class AddSchoolComponent implements OnInit,OnDestroy{
   isSubmitted: boolean = false;
   isEdit: boolean=false;
   statusList=[{'value':true,'status':'Active'},{'value':false,'status':'InActive'}];
-  shiftList=[{'value':'SHIFT1','type':'First Shift'},{'value':'SHIFT2','type':'Second Shift'}];
+  shiftList=[{'value':'0','type':'Not Applicable'},{'value':'1','type':'First Shift'},{'value':'2','type':'Second Shift'}];
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService, private router: Router) { }
 
   ngOnInit(): void {
@@ -30,32 +30,42 @@ export class AddSchoolComponent implements OnInit,OnDestroy{
     this.schoolForm = this.fb.group({
       schoolCode: ['', [Validators.required,Validators.pattern(/^[1-9][0-9]{3}$/)]],
       schoolName: ['',[Validators.required,CustomValidator.IsTextSchool,Validators.minLength(3)]],
-      schoolAddress:[''],
+      schoolAddress:['',[Validators.required]],
       status:[true,[Validators.required]],
       schoolType:[''],
-      shift:['SHIFT1'],
+      shift:[true,[Validators.required]],
       id:['']
     });
   }
   updateData(data){
+    debugger
     this.schoolForm.patchValue(data);
     this.schoolForm.get('schoolCode').setValue(data.schoolcode);
     this.schoolForm.get('schoolName').setValue(data.schoolname);
     this.schoolForm.get('schoolType').setValue(data.schooltype);
-    this.schoolForm.get('schoolAddress').setValue(data.schoolAddress);
+    if(data.shiftType=='Not Applicable'){
+      this.schoolForm.get('shift').setValue('0');
+    }
+    if(data.shiftType=='First Shift'){
+      this.schoolForm.get('shift').setValue('1');
+    }
+    if(data.shiftType=='Second Shift'){
+      this.schoolForm.get('shift').setValue('2');
+    } 
+    this.schoolForm.get('schoolAddress').setValue(data.schooladdress);
     this.schoolForm.get('schoolCode').disable();
   }
 
   submit(){
+    debugger
     if (this.schoolForm.invalid) {
       this.isSubmitted = true;
      this.schoolForm.markAllAsTouched();
     }else{
       this.isSubmitted = false;
       let payload=this.schoolForm.getRawValue();
-
       // alert(JSON.stringify(payload));
-
+      debugger
       let request={
         schoolCode: payload.schoolCode,
         schoolName: payload.schoolName,
@@ -65,9 +75,6 @@ export class AddSchoolComponent implements OnInit,OnDestroy{
         schoolType:payload.schoolType,
         id:payload.id
       }
-
-  
-
       if(this.isEdit){
             
         this.outSideService.editSchoolMaster(request).subscribe((res)=>{
@@ -108,10 +115,7 @@ export class AddSchoolComponent implements OnInit,OnDestroy{
           )
         })
       }
-
     }
-
-    
   }
   redirectToList(){
     sessionStorage.removeItem('schoolEdit');

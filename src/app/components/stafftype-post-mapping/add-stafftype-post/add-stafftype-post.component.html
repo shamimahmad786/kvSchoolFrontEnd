@@ -1,27 +1,22 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
-      <h1>Staff-Type-Post</h1>
+      <h1 class="mb-1">Staff-Type-Post</h1>
     </div>
-    <nav aria-label="breadcrumb" class="mt-1">
+    <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
           <li class="breadcrumb-item"><a href="#">Add</a></li>
           <li class="breadcrumb-item"><a href="#">Staff-Type-Post Mapping</a></li>
         </ol>
       </nav>
-      <div class="dashboard-main-content-info p-5">
-<div class="cardSet50 px-4">
+      <div class="dashboard-main-content-info">
+<div class="cardSet50">
     <form [formGroup]="stafftypePostForm" (ngSubmit)="submit()">
-        
         <div class="row">
             <div class="col-md-12">
                 <div class="">
-                    
-
                     <div class=" prof-fields bg-white shadow p-4 rounded-3">
-                   
-                        <div class="row">
-                                   
+                        <div class="row">          
                             <div class="col-md-4 form-group my-2">
                                     <label class="titleSet">Select Staff-Type</label>
                                     <mat-select formControlName="staffType"  class="form-control">

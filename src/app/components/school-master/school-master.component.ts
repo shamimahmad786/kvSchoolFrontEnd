@@ -46,8 +46,11 @@ export class SchoolMasterComponent implements OnInit {
     })
   }
   getSchoolMaterList(){
+    debugger
     let request={};
     this.outSideService.fetchSchoolList(request).subscribe((res)=>{
+      console.log("-------school master-----------")
+      console.log(res)
       if(res.length>0){
         for (let i = 0; i < res.length; i++) {
        

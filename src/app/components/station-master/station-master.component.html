@@ -1,6 +1,6 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
-      <h1>Station Master</h1>
+      <h1 class="mb-1">Station Master</h1>
     </div>
     <nav aria-label="breadcrumb" class="mt-1">
         <ol class="breadcrumb">
@@ -8,46 +8,29 @@
           <li class="breadcrumb-item"><a href="#">Station Master</a></li>
         </ol>
       </nav>
-      <div class="d-flex flex-row-reverse bd-highlight mb-3">
-        <!-- <div class="p-1">
-            <button mat-raised-button class="float-end mt-2 btn-success" (click)="redirectto()">Add</button>
-        </div> -->
-        <div class="d-flex d-flex-row">
-            <div class="p-1" *ngIf="!freezeStatus">
-                <button mat-raised-button class="float-end mt-2 btn-success"  (click)="redirectto()"><i class="bi bi-plus-circle me-1"></i> Add</button>
-            </div>
-            <div class="p-1">
-                <button mat-raised-button class="float-end mt-2 btn-secondary" (click)="stationMasterPdf()"><i class="bi bi-file-pdf me-1"></i> Download PDF</button>
-            </div>
-            <div class="p-1">
-                <button mat-raised-button class="float-end mt-2 btn-primary" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>
-            </div>        
-        </div>
-    </div>
-<div class="cardSet px-4">
-    
-    <!-- <div class=" bg-profile-head">
-        <h5 class="mb-0 p-2 FontTitle  text-white">Station Master</h5>
-    </div>
-
-    <div class="d-flex flex-row-reverse bd-highlight mb-3">
-        <div class="p-1" *ngIf="!freezeStatus">
-            <button mat-raised-button class="float-end mt-2 btn-success"  (click)="redirectto()">Add</button>
-        </div>
-        <div class="p-1">
-            <button mat-raised-button class="float-end mt-2 btn-secondary" (click)="stationMasterPdf()">Download PDF</button>
-        </div>
-        <div class="p-1">
-            <button mat-raised-button class="float-end mt-2 btn-primary" (click)="exportexcel()">Download Excel</button>
-        </div>        
-    </div> -->
-    <div class="dashboard-main-content-info p-5">
-    <div class="shadow bg-white rounded-3">
-        <div *ngIf="dataSource" >
-            <mat-form-field  appearance="outline" class="px-4 py-2 searchInput" >
-                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Station Code or Station Name">
-                <mat-icon matSuffix></mat-icon>
-            </mat-form-field>
+    <div class="dashboard-main-content-info">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row ">              
+                <div class="col-md-6 " *ngIf="dataSource">
+                    <mat-form-field  appearance="outline" class="searchInput" >
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Station Code or Station Name">
+                        <mat-icon matSuffix></mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                    <div class="d-flex flex-row-reverse bd-highlight ">
+                        <div class="p-1" *ngIf="!freezeStatus">
+                            <button mat-raised-button class="float-end mt-2 btn-success voilet"  (click)="redirectto()"><i class="bi bi-plus-circle me-1"></i> Add</button>
+                        </div>
+                        <div class="p-1">
+                            <button mat-raised-button class="float-end mt-2 btn-secondary green" (click)="stationMasterPdf()"><i class="bi bi-file-pdf me-1"></i> Download PDF</button>
+                        </div>
+                        <div class="p-1">
+                            <button mat-raised-button class="float-end mt-2 btn-primary red" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>
+                        </div>
+                    </div>
+                </div>   
         </div>
         <div class="example-container mat-elevation-z8 table-responsive">
             <table mat-table matSort *ngIf="dataSource?.data?.length > 0" [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
@@ -73,28 +56,27 @@
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                     <td mat-cell *matCellDef="let element">
-                        <span [ngClass]="element.status==true ?'green':'red'">  {{(element.status==true)?'Active':'Inactive'}} </span></td>
+                        <span>  {{(element.status==true)?'Active':'Inactive'}} </span></td>
                 </ng-container>
 
                 <ng-container matColumnDef="action" *ngIf="freezeStatus">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-                    <td mat-cell *matCellDef="let element"><i class="bx bx-edit" matTooltip="Edit" style="font-size: 23px;margin-left: 8px;opacity: 0.35;"></i></td>
+                    <td mat-cell *matCellDef="let element"><i class="fa fa-edit edite_buttun" matTooltip="Edit"></i></td>
                 </ng-container>
 
                 <ng-container matColumnDef="action" *ngIf="!freezeStatus">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-                    <td mat-cell *matCellDef="let element"><i class="bx bx-edit" matTooltip="Edit" style="font-size: 23px;margin-left: 8px;" (click)="edit(element)"></i></td>
+                    <td mat-cell *matCellDef="let element"><i class="fa fa-edit edite_buttun" matTooltip="Edit"  (click)="edit(element)"></i></td>
                 </ng-container>
 
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-
-
             <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
         </div>
     </div>
     </div>
-</div>
+    </div>
+
 </div>

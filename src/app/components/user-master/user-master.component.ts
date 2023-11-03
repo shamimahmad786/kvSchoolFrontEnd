@@ -143,12 +143,38 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     "value":action
    }
     this.outSideService.childActiveDeactiveAction(data,this.loginUserNameForService).subscribe(res => {
+      if(res['success']){
+        if(action=='0')
+        {
+        Swal.fire({
+          'icon':'success',
+          'text':'User('+userName+')'+' deactivated succesfully'
+        })
+      }
+      if(action=='1')
+      {
       Swal.fire({
         'icon':'success',
-        'text':res['response']
+        'text':'User('+userName+')'+' activated succesfully'
       })
+    }
+      }
+      if(!res['success']){
+        Swal.fire({
+          'icon':'error',
+          'text':res['response']
+        })
+      }
+
+
+
+      console.log(res)
+     
        })
-      this.getChilduser();
+       setTimeout(() => {
+        this.getChilduser();
+      }, 100)
+     
   }
   enableInputField(event:any){
     if(event=='staticUserEmail'){

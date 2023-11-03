@@ -13,12 +13,12 @@ declare var $: any;
   styleUrls: ['./user-mapping.component.css']
 })
 export class UserMappingComponent implements OnInit {
-  displayedColumns = ['Sno', 'Institution Name', 'Employee name', 'Modified By','Status'];
+  displayedColumns = ['Sno', 'Institution Name', 'Employee name', 'Modified By','fromdate','todate','Status'];
   userMappingSource : MatTableDataSource<any>;
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild('userMappingSort') userMappingSort: MatSort;
   @ViewChild('JoiningBox', { static: true }) JoiningBox: TemplateRef<any>; 
-  childUserData = { "sno": "","institutionName": "","employeeName": "","modifiedBy": "","status": ""}
+  childUserData = { "sno": "","institutionName": "","employeeName": "","modifiedBy": "","fromdate":"","todate":"","status": ""}
   addUserMapping: FormGroup;
   addUserMappingFormubmitted=false;
   regionReadOnly=false;
@@ -188,7 +188,6 @@ export class UserMappingComponent implements OnInit {
          "controllerType":"R"
       }
       this.outSideService.getControllerOfficeHistory(data,this.loginUserNameForChild).subscribe(res => {
-        console.log(res)
         this.historyControlingOfficedata=res['response'];
         this.historyControllerOfficeDataArray = [];
         for (let i = 0; i < this.historyControlingOfficedata.length; i++) {
@@ -196,9 +195,11 @@ export class UserMappingComponent implements OnInit {
           this.childUserData.institutionName =this.historyControlingOfficedata[i].institutionName;
           this.childUserData.employeeName =this.historyControlingOfficedata[i].employeeName;
           this.childUserData.modifiedBy = this.historyControlingOfficedata[i].modifiedBy;
+          this.childUserData.fromdate = this.historyControlingOfficedata[i].stateDate;
+          this.childUserData.todate = this.historyControlingOfficedata[i].endDate;
           this.childUserData.status = this.historyControlingOfficedata[i].isActive;
           this.historyControllerOfficeDataArray.push(this.childUserData);
-          this.childUserData = { "sno": "","institutionName": "","employeeName": "","modifiedBy": "","status": ""}
+          this.childUserData = { "sno": "","institutionName": "","employeeName": "","modifiedBy": "","fromdate":"","todate":"","status": ""}
         }
         setTimeout(() => {
           this.userMappingSource  = new MatTableDataSource(this.historyControllerOfficeDataArray);
