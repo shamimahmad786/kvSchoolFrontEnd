@@ -66,11 +66,11 @@
     letter-spacing: 0.3px;
 }
 
-.IconBx i {
+/* .IconBx i {
     font-size: 20px;
     color: #545e7d;
     cursor: pointer;
-}
+} */
 
 tr {
     border-bottom: 1px solid rgba(0, 0, 0, .12);
@@ -275,7 +275,7 @@ button.btn.btn12.btn-outline-primary {
 }
 
 .mat-table {
-    overflow: auto;
+  /*  overflow: auto; */
     max-height: 500px;
 }
 
@@ -438,4 +438,14 @@ button.btn.btn12.btn-outline-primary {
 @keyframes marqueeimg {
     0%   { text-indent: 100%; }
     100% { text-indent: -70%; }
+}
+.small-buton{
+    font-size: 27px; color: #7e4880; margin-left: 10px;
+}
+.mat-header-cell {
+    background-color: #E5EEFF;
+    color: #353535;
+    font-weight: 600 !important;
+    font-size: 15px;
+    font-family: 'PoppinsRegular';
 }

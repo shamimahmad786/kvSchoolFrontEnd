@@ -1,27 +1,23 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
-        <h1>Dashboard</h1>
+        <h1 class="mb-1">Dashboard</h1>
     </div>
-    <nav aria-label="breadcrumb" class="mt-1">
+    <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">dashboard</a></li>
         </ol>
     </nav>
+    
     <div class="shadow-sm bg-white border-3" style="margin-bottom: 9px; border-radius: 7px;">
         <ul class="stationUL">
         
             <li>
                 <h3>Region Name :
-                    <span class="StationValue">{{dashboardDetails?.region_name}}</span>
+                    <span class="StationValue">{{dashboardDetails?.region_name}} ({{dashboardDetails?.region_code}}) </span>
                 </h3>
             </li>
-            <li>
-                <h3>Region Code :
-                    <span class="StationValue">{{dashboardDetails?.region_code}}</span>
-                </h3>
-
-            </li>
+            
             <li>
                 <h3>Address :
                     <span class="StationValue">{{dashboardDetails?.region_address}}</span>
@@ -40,6 +36,12 @@
                 </h3>
 
             </li>
+            <li>
+                <h3>Mobile :
+                    <span class="StationValue">{{dashboardDetails?.teacher_mobile}}</span>
+                </h3>
+
+            </li>
         </ul>
     </div>
     <div class="dashboard-main-content-info p-5">
@@ -49,7 +51,7 @@
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
                          
-                            <h3 class="mb-0 blue-text TotalTeachingStaff">Sanction Posts : Total
+                            <h3 class="mb-0 blue-text TotalTeachingStaff">Sanction Posts : Total  {{dashboardDetails?.total_sanction_post}}
                             </h3>
                         </div>
                     </div>
@@ -61,7 +63,7 @@
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
     
-                            <h3 class="mb-0 blue-text TotalTeachingStaff">School : Total
+                            <h3 class="mb-0 blue-text TotalTeachingStaff">School : Total  {{dashboardDetails?.total_school}}
                             </h3>
                         </div>
                     </div>
