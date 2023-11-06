@@ -163,9 +163,9 @@ applyFilterHBSource(filterValue: string) {
 
       if(res.rowValue.length>0){
         res.rowValue.forEach(element => {
-          if(element.is_active){
+       
             this.stationList.push({ stationCode: element.station_code, stationName: element.station_name })
-          }
+      
         });
         this.dropdownStationList=this.stationList;
       }

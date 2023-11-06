@@ -27,6 +27,9 @@ export class RegionDashboardComponent implements OnInit {
   stationList:any;
   loginUserNameForChild:any;
   dashboardDetails:any;
+  stationTotal:any;
+  teachingMaleFemaleTotal: any;
+  nonTeachingMaleFemaleTotal: any;
   constructor(public outSideService: OutsideServicesService,private router: Router) { }
   ngOnInit(): void {
     debugger
@@ -90,9 +93,14 @@ export class RegionDashboardComponent implements OnInit {
         "dashboardType":"R"
       }
       this.outSideService.getRoDashboard(dashBoardData,this.loginUserNameForChild).subscribe(res => {
-        this.dashboardDetails=res['rowValue']['0']
+        debugger
+        this.dashboardDetails=res;
         console.log(res)
-    //  this.router.navigate(['/teacher/controler-management'])
+        this.stationTotal= res['totalNormalStation']+res['totalPriorityStation']+res['totalHardStation']+res['totalVeryHardStation']+res['totalNerStation'];
+        this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
+        this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
+   
+        //  this.router.navigate(['/teacher/controler-management'])
       },
       error => { 
         Swal.fire({
