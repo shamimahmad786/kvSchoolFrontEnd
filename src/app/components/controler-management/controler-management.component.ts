@@ -184,8 +184,6 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
       this.childUserDataForRoSchool.status = data[i].is_active;  
       this.controllerOfficeDataArray.push(this.childUserDataForRoSchool);
       this.childUserDataForRoSchool = { "sno": "","kvname": "","kvcode": "", "employeeName": "","modifiedBy": "","stateDate":"","regionCode":"","status": ""}
-    console.log("kv  detail")
-    console.log(this.childUserDataForRoSchool)
     }
    
     setTimeout(() => {
@@ -197,7 +195,6 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
 
   childActiveDeactive(action:any,userName:any)
   { 
-    debugger
     const data ={
     "updateType":"AD",
     "username":userName,
@@ -259,8 +256,6 @@ export class ControlerManagementComponent implements OnInit, AfterViewInit {
       this.staticUserMobile=false;
       this.userMobile=true;
     }
-   
-console.log(event)
   }
 
   editChildUser(userName:any,type:any){
@@ -269,7 +264,6 @@ console.log(event)
     this.activePaneOne=false;
     this.activePaneTwo=true;
     this.newChildUserListArr=[];
-    debugger
     for (let i = 0; i < this.controllerOfficeList.length; i++) {
       if ( this.controllerOfficeList[i]['username']== userName) {
         this.newChildUserListArr.push(this.controllerOfficeList[i]);
@@ -282,13 +276,11 @@ console.log(event)
     
   }
   changeDateFormat(date: any){
-    console.log(date)
     if(date!='' && date!=null){
       return moment(date).format('DD-MM-YYYY')
     }
   }
   saveProfileData(val:any,userName:any,type:any){
-    debugger
   if(type=='email'){
     var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (!filter.test(val)) {

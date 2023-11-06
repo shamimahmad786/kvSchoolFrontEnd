@@ -54,18 +54,33 @@
 
                 <label for="staticEmail" class="col-sm-2 col-form-label" >Start Date</label>
                 <div class="col-sm-3">
-                    <input type="date"   class="form-control" id="startdate" formControlName="startdate" (change)="checkDatelieBeetwenFromTo($event,1)"  [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.startdate.errors }">
-                    <div *ngIf="addUserMappingFormubmitted && f.startdate.errors" class="invalid-feedback">Start Date is required</div>
+                  <div class="input-group">
+                      <div class="input-group-addon">
+                          <mat-datepicker-toggle mdSuffix [for]="pickers"></mat-datepicker-toggle>
+                          <mat-datepicker #pickers></mat-datepicker>
+                      </div>
+                      <input class="form-control"  id="wordStartDate" (dateChange)="checkDatelieBeetwenFromTo($event,1)" [matDatepicker]="pickers" placeholder="Date"  (click)="pickers.open()"
+                          formControlName="startdate" >
+                  </div>
+                  <span class="help-block text-danger"
+                  *ngIf="!addUserMapping.get('startdate').valid && addUserMapping.get('startdate').touched">Please Select From Date!</span>
                 </div>
               </div>
 
               <div class="pb-2 mt-2  row  m-0">
                 <label for="staticEmail" class="col-sm-2 col-form-label ps-0">End Date</label>
                  <div class="col-sm-3">
-                    <input type="date"   class="form-control" id="enddate" formControlName="enddate" (change)="checkDatelieBeetwenFromTo($event,2)" [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.enddate.errors }" >
-                    <div *ngIf="addUserMappingFormubmitted && f.enddate.errors" class="invalid-feedback">End Date is required</div>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                        <mat-datepicker-toggle mdSuffix [for]="pickers1"></mat-datepicker-toggle>
+                        <mat-datepicker #pickers1></mat-datepicker>
+                    </div>
+                    <input class="form-control" id="wordEndDate"  (dateChange)="checkDatelieBeetwenFromTo($event,2)" [matDatepicker]="pickers1" placeholder="To Date(DD/MM/YYYY)"
+                        formControlName="enddate" [min]="addUserMapping.get('startdate').value"  [max]="currentDate()"  (click)="pickers1.open()">
                 </div>
- 
+                <span class="help-block text-danger"
+                *ngIf="!addUserMapping.get('enddate').valid && addUserMapping.get('enddate').touched">Please Select To Date!</span>
+                </div>
                </div> 
                <div class="text-center my-2 "><button class="insitute-svae-button"  [disabled]="!this.addUserMapping.get('region').valid || 
                 !this.addUserMapping.get('rooffice').valid || 

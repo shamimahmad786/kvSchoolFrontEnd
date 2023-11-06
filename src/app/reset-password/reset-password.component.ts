@@ -69,7 +69,7 @@ export class ResetPasswordComponent implements OnInit {
         return;
       }
     }
-  //********************************  Change Password Form Submit  ******************************/
+  //********************************  Change Password and Reset Password Form Submit  ******************************/
   onSubmit() {
       this.changePasswordFormsubmitted = true;
       this.msg='';
@@ -104,23 +104,58 @@ export class ResetPasswordComponent implements OnInit {
       mode: crypto.mode.ECB,
       padding: crypto.pad.Pkcs7
      });
-    this.auth.resetPassword(data,this.paramSessionId).subscribe((res) => {
-      this.generate()
-    if(res.message="Password Changed Successfully"){
-      Swal.fire(
-        'Password Changed Successfully',
-        '',
-        'success'
-        )
-        this.router.navigate(['/login']); 
-    }
-      },
-      error => { 
+
+     if(this.paramUrlType!='' && this.paramUrlType=='cp')
+     {
+      this.auth.generatePassword(data,this.paramSessionId).subscribe((res) => {
         this.generate()
+      if(res['success']){
         Swal.fire({
           'icon':'error',
-          'text':'You are not Authorized.'
+          'text':'Password Created Successfully.'
         })
-    });
+          this.router.navigate(['/login']); 
+      }
+      if(!res['success']){
+        Swal.fire({
+          'icon':'error',
+          'text':res['errorMessage']
+        })
+      }
+        },
+        error => { 
+          this.generate()
+          Swal.fire({
+            'icon':'error',
+            'text':'You are not Authorized.'
+          })
+      });
+     }
+    else{
+      this.auth.resetPassword(data,this.paramSessionId).subscribe((res) => {
+        this.generate()
+
+        if(res['success']){
+          Swal.fire({
+            'icon':'error',
+            'text':'Password Changed Successfully.'
+          })
+            this.router.navigate(['/login']); 
+        }
+        if(!res['success']){
+          Swal.fire({
+            'icon':'error',
+            'text':res['errorMessage']
+          })
+        }
+        },
+        error => { 
+          this.generate()
+          Swal.fire({
+            'icon':'error',
+            'text':'You are not Authorized.'
+          })
+      });
+    }
   }
 }

@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { DateAdapter } from '@angular/material/core';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
 declare var $: any;
@@ -40,7 +41,9 @@ export class UserMappingComponent implements OnInit {
   businessUnitTypeId:any;
   schoolType:any;
   controllerType:any;
-  constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private router: Router) { }
+  constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>,private router: Router) {
+    this.dateAdapter.setLocale('en-GB');
+   }
 
   ngOnInit(): void {
     this.heading="Add/Edit User Mapping";
@@ -162,6 +165,9 @@ export class UserMappingComponent implements OnInit {
       this.addUserMapping.patchValue({
         region:this.userMappingRegionCode,
       })
+    }
+    currentDate():Date{
+      return new Date();
     }
  //***********************Edit Controler Officer  *************************************/
   editeControler(){
