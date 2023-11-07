@@ -11,31 +11,51 @@ img {
 @font-face {
     font-family: 'PoppinsLight';
     src: url('src/assets/fonts/PoppinsLight.eot');
-    src: url('src/assets/fonts/PoppinsLight.eot') format('embedded-opentype'), url('src/assets/fonts/PoppinsLight.woff2') format('woff2'), url('src/assets/fonts/PoppinsLight.woff') format('woff'), url('src/assets/fonts/PoppinsLight.ttf') format('truetype'), url('src/assets/fonts/PoppinsLight.svg#PoppinsLight') format('svg');
+    src: url('src/assets/fonts/PoppinsLight.eot') format('embedded-opentype'),
+     url('src/assets/fonts/PoppinsLight.woff2') format('woff2'),
+      url('src/assets/fonts/PoppinsLight.woff') format('woff'), 
+      url('src/assets/fonts/PoppinsLight.ttf') format('truetype'),
+       url('src/assets/fonts/PoppinsLight.svg#PoppinsLight') format('svg');
 }
 
 @font-face {
     font-family: 'PoppinsRegular';
     src: url('src/assets/fonts/PoppinsRegular.eot');
-    src: url('src/assets/fonts/PoppinsRegular.eot') format('embedded-opentype'), url('src/assets/fonts/PoppinsRegular.woff2') format('woff2'), url('src/assets/fonts/PoppinsRegular.woff') format('woff'), url('src/assets/fonts/PoppinsRegular.ttf') format('truetype'), url('src/assets/fonts/PoppinsRegular.svg#PoppinsRegular') format('svg');
+    src: url('src/assets/fonts/PoppinsRegular.eot') format('embedded-opentype'),
+     url('src/assets/fonts/PoppinsRegular.woff2') format('woff2'),
+      url('src/assets/fonts/PoppinsRegular.woff') format('woff'),
+       url('src/assets/fonts/PoppinsRegular.ttf') format('truetype'), 
+       url('src/assets/fonts/PoppinsRegular.svg#PoppinsRegular') format('svg');
 }
 
 @font-face {
     font-family: 'PoppinsMedium';
     src: url('src/assets/fonts/PoppinsMedium.eot');
-    src: url('src/assets/fonts/PoppinsMedium.eot') format('embedded-opentype'), url('src/assets/fonts/PoppinsMedium.woff2') format('woff2'), url('src/assets/fonts/PoppinsMedium.woff') format('woff'), url('src/assets/fonts/PoppinsMedium.ttf') format('truetype'), url('src/assets/fonts/PoppinsMedium.svg#PoppinsMedium') format('svg');
+    src: url('src/assets/fonts/PoppinsMedium.eot') format('embedded-opentype'),
+     url('src/assets/fonts/PoppinsMedium.woff2') format('woff2'), 
+     url('src/assets/fonts/PoppinsMedium.woff') format('woff'),
+      url('src/assets/fonts/PoppinsMedium.ttf') format('truetype'),
+       url('src/assets/fonts/PoppinsMedium.svg#PoppinsMedium') format('svg');
 }
 
 @font-face {
     font-family: 'PoppinsSemiBold';
     src: url('src/assets/fonts/PoppinsSemiBold.eot');
-    src: url('src/assets/fonts/PoppinsSemiBold.eot') format('embedded-opentype'), url('src/assets/fonts/PoppinsSemiBold.woff2') format('woff2'), url('src/assets/fonts/PoppinsSemiBold.woff') format('woff'), url('src/assets/fonts/PoppinsSemiBold.ttf') format('truetype'), url('src/assets/fonts/PoppinsSemiBold.svg#PoppinsSemiBold') format('svg');
+    src: url('src/assets/fonts/PoppinsSemiBold.eot') format('embedded-opentype'),
+     url('src/assets/fonts/PoppinsSemiBold.woff2') format('woff2'),
+      url('src/assets/fonts/PoppinsSemiBold.woff') format('woff'),
+       url('src/assets/fonts/PoppinsSemiBold.ttf') format('truetype'),
+        url('src/assets/fonts/PoppinsSemiBold.svg#PoppinsSemiBold') format('svg');
 }
 
 @font-face {
     font-family: 'PoppinsBold';
     src: url('src/assets/fonts/PoppinsBold.eot');
-    src: url('src/assets/fonts/PoppinsBold.eot') format('embedded-opentype'), url('src/assets/fonts/PoppinsBold.woff2') format('woff2'), url('src/assets/fonts/PoppinsBold.woff') format('woff'), url('src/assets/fonts/PoppinsBold.ttf') format('truetype'), url('src/assets/fonts/PoppinsBold.svg#PoppinsBold') format('svg');
+    src: url('src/assets/fonts/PoppinsBold.eot') format('embedded-opentype'),
+     url('src/assets/fonts/PoppinsBold.woff2') format('woff2'), 
+     url('src/assets/fonts/PoppinsBold.woff') format('woff'),
+      url('src/assets/fonts/PoppinsBold.ttf') format('truetype'), 
+      url('src/assets/fonts/PoppinsBold.svg#PoppinsBold') format('svg');
 }
 
 .dashboard-footer {

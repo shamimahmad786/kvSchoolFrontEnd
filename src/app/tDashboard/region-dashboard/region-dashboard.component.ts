@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-region-dashboard',
@@ -23,13 +25,19 @@ export class RegionDashboardComponent implements OnInit {
   regionCode:any;
   regionList:any;
   stationList:any;
-  constructor(public outSideService: OutsideServicesService) { }
+  loginUserNameForChild:any;
+  dashboardDetails:any;
+  stationTotal:any;
+  teachingMaleFemaleTotal: any;
+  nonTeachingMaleFemaleTotal: any;
+  constructor(public outSideService: OutsideServicesService,private router: Router) { }
   ngOnInit(): void {
     debugger
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
       this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
       this.businessUnitTypeId = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_id;
+      this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
       this.businessUnitTypeCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
       if (JSON.parse(sessionStorage.getItem("authTeacherDetails")).applicationDetails[i].application_id == environment.applicationId) {
         const data: any = {
@@ -39,7 +47,6 @@ export class RegionDashboardComponent implements OnInit {
         this.getMaster(data, this.businessUnitTypeId);
       }
     }
-
     this.getKvRegion();
 
     // if (this.kvicons?.includes(this.applicationId)) {
@@ -49,6 +56,9 @@ export class RegionDashboardComponent implements OnInit {
     // }
 
     if (this.businessUnitTypeId == '2') {
+
+
+
       // var data = {
       //   "businessUnitTypeId": this.businessUnitTypeId,
       //   "businessUnitTypeCode": this.businessUnitTypeCode
@@ -77,6 +87,32 @@ export class RegionDashboardComponent implements OnInit {
       // })
       // this.showNational = true;
     } else if (this.businessUnitTypeId == '3') {
+
+      var dashBoardData={
+        "regionCode":this.businessUnitTypeCode,
+        "dashboardType":"R"
+      }
+      this.outSideService.getRoDashboard(dashBoardData,this.loginUserNameForChild).subscribe(res => {
+        debugger
+        this.dashboardDetails=res;
+        console.log(res)
+        this.stationTotal= res['totalNormalStation']+res['totalPriorityStation']+res['totalHardStation']+res['totalVeryHardStation']+res['totalNerStation'];
+        this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
+        this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
+   
+        //  this.router.navigate(['/teacher/controler-management'])
+      },
+      error => { 
+        Swal.fire({
+          'icon':'error',
+          'text':'You are not Authorized.'
+        })
+      });
+
+
+
+
+
       // this.showRegion = true;
       var data = {
         "businessUnitTypeId": this.businessUnitTypeId,

@@ -41,11 +41,16 @@ export class AuthService {
     return this.http.post<any>(environment.LOGIN_URL_JWT + "forgetPasswordMail", data,{headers});
   }
   resetPassword(data:any,paramSesId:any){
-    console.log(paramSesId)
     var headers = new HttpHeaders({
       'Content-Type': 'text/plain; charset=utf-8',
     }); 
     return this.http.post<any>(environment.LOGIN_URL_JWT + "changePassword", data,{headers,params: {sessionId: paramSesId}});
+  }
+  generatePassword(data:any,paramSesId:any){
+    var headers = new HttpHeaders({
+      'Content-Type': 'text/plain; charset=utf-8',
+    }); 
+    return this.http.post<any>(environment.LOGIN_URL_JWT + "generatePassword", data,{headers,params: {sessionId: paramSesId}});
   }
 //   getRoles()
 //   {

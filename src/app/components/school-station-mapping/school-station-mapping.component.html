@@ -80,12 +80,12 @@
 
                 <ng-container matColumnDef="fromdate">
                     <th mat-header-cell *matHeaderCellDef> From Date</th>
-                    <td mat-cell *matCellDef="let element"> {{element.fromdate|date:"dd/MM/YYYY"}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.fromdate|date:"dd-MM-yyyy"}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="todate">
                     <th mat-header-cell *matHeaderCellDef> To Date </th>
-                    <td mat-cell *matCellDef="let element"> {{element.todate|date:"dd/MM/YYYY"}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.todate|date:"dd-MM-yyyy"}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
