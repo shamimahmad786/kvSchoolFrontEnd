@@ -8,39 +8,46 @@
             <li class="breadcrumb-item"><a href="#">dashboard</a></li>
         </ol>
     </nav>
-
-    <div class="shadow-sm bg-white border-3" style="margin-bottom: 9px; border-radius: 7px;">
+    <div class="shadow-sm bg-white border-3" style="margin-bottom: 9px; border-radius: 7px;" *ngIf="businessUnitTypeId=='3'">
         <ul class="stationUL">
-
             <li>
                 <h3>Region Name :
                     <span class="StationValue">{{dashboardDetails?.regionName}} ({{dashboardDetails?.regionCode}}) </span>
                 </h3>
             </li>
-
             <li>
                 <h3>Address :
                     <span class="StationValue">{{dashboardDetails?.regionAddress}}</span>
                 </h3>
-
             </li>
             <li>
                 <h3>Controlling Officer :
                     <span class="StationValue">{{dashboardDetails?.employeeName}}</span>
                 </h3>
-
             </li>
             <li>
                 <h3>Email :
                     <span class="StationValue">{{dashboardDetails?.teacherEmail}}</span>
                 </h3>
-
             </li>
             <li>
                 <h3>Mobile :
                     <span class="StationValue">{{dashboardDetails?.teacherMobile}}</span>
                 </h3>
-
+            </li>
+        </ul>
+    </div>
+    <div class="shadow-sm bg-white border-3" style="margin-bottom: 9px; border-radius: 7px;" *ngIf="businessUnitTypeId=='2'">
+        <ul class="stationUL">
+            <li>
+                <h3>Total Regions :
+                    <span class="StationValue">{{dashboardDetails?.totalRegion}}</span>
+                </h3>
+            </li>
+            <li>
+                <h3>Total Ziets :
+                    <span class="StationValue">{{dashboardDetails?.totalZiet}}</span>
+                </h3>
             </li>
         </ul>
     </div>
@@ -76,23 +83,23 @@
                 <div class="row " style=" margin-top: 51px;">
                     <div class="col-2 text-center border-end">
                         <h4 class="Verified mb-0 card-text-color">Normal </h4>
-                        <h2 class="mt-4">{{dashboardDetails?.totalNormalStation}}</h2>
+                        <h2 class="mt-4">{{dashboardDetails?.totalNormalStation === null ?'0':dashboardDetails?.totalNormalStation}}</h2>
                     </div>
                     <div class="col-2 text-center border-end">
                         <h4 class="Verified mb-0 card-text-color">Priority </h4>
-                        <h2 class="mt-4">{{dashboardDetails?.totalPriorityStation}}</h2>
+                        <h2 class="mt-4"> {{dashboardDetails?.totalPriorityStation === null ?'0':dashboardDetails?.totalPriorityStation}}</h2>
                     </div>
                     <div class="col-2 text-center border-end">
                         <h4 class="Verified mb-0 card-text-color">Hard </h4>
-                        <h2 class="mt-4">{{dashboardDetails?.totalHardStation}}</h2>
+                        <h2 class="mt-4">{{dashboardDetails?.totalHardStation === null ?'0':dashboardDetails?.totalHardStation}}</h2>
                     </div>
                     <div class="col-2 text-center border-end">
                         <h4 class="Verified mb-0 card-text-color">Very Hard </h4>
-                        <h2 class="mt-4">{{dashboardDetails?.totalVeryHardStation}}</h2>
+                        <h2 class="mt-4">{{dashboardDetails?.totalVeryHardStation === null ?'0':dashboardDetails?.totalVeryHardStation}}</h2>
                     </div>
                     <div class="col-2 text-center border-end ">
                         <h4 class="Verified mb-0 card-text-color">NER</h4>
-                        <h2 class="mt-4">{{dashboardDetails?.totalNerStation}}</h2>
+                        <h2 class="mt-4">{{dashboardDetails?.totalNerStation === null ?'0':dashboardDetails?.totalNerStation}}</h2>
                     </div>
                     <div class="col-2 text-center ">
                         <h4 class="Verified mb-0 card-text-color">Total</h4>
@@ -113,11 +120,11 @@
                                 <h2 class="TolTeacherValue mb-2 card-text-color text-center border-end border-top border-bottom ">Teaching</h2>
                                 <div class="col-4 text-center border-end">
                                     <h4 class="Verified mb-0 card-text-color">Male </h4>
-                                    <h2 class="mt-4">{{dashboardDetails?.teachingMale}}</h2>
+                                    <h2 class="mt-4">{{dashboardDetails?.teachingMale === null ?'0':dashboardDetails?.teachingMale}}</h2>
                                 </div>
                                 <div class="col-4 text-center border-end">
                                     <h4 class="Verified mb-0 card-text-color">FeMale </h4>
-                                    <h2 class="mt-4">{{dashboardDetails?.teachingFemale}}</h2>
+                                    <h2 class="mt-4">{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</h2>
                                 </div>
                                 <div class="col-4 text-center border-end">
                                     <h4 class="Verified mb-0 card-text-color">Total</h4>
@@ -130,11 +137,11 @@
                                 <h2 class="TolTeacherValue mb-2 card-text-color text-center  border-top border-bottom  ">Non-teaching</h2>
                                 <div class="col-4 text-center border-end">
                                     <h4 class="Verified mb-0 card-text-color">Male </h4>
-                                    <h2 class="mt-4">{{dashboardDetails?.nonTeachingMale}}</h2>
+                                    <h2 class="mt-4">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</h2>
                                 </div>
                                 <div class="col-4 text-center border-end">
                                     <h4 class="Verified mb-0 card-text-color">FeMale </h4>
-                                    <h2 class="mt-4">{{dashboardDetails?.nonTeachingFeMale}}</h2>
+                                    <h2 class="mt-4">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</h2>
                                 </div>
                                 <div class="col-4 text-center ">
                                     <h4 class="Verified mb-0 card-text-color">Total </h4>

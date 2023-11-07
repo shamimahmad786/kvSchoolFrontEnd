@@ -15,6 +15,7 @@ export class AddDesignationComponent implements OnInit,OnDestroy {
   isSubmitted: boolean = false;
   statusList=[{'value':true,'status':'Active'},{'value':false,'status':'InActive'}];
   isEdit: boolean=false;
+  poscodeStatus:boolean=false;
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService, private router: Router) { }
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
 
@@ -22,6 +23,7 @@ export class AddDesignationComponent implements OnInit,OnDestroy {
     this.buildregionForm();
     if(sessionStorage.getItem('designationEdit')!=null){
       this.isEdit=true;
+      this.poscodeStatus=true;
       let data= JSON.parse(sessionStorage.getItem('designationEdit'));
       this.updateData(data);
     }

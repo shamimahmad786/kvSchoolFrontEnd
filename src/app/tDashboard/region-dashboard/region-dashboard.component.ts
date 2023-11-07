@@ -32,7 +32,6 @@ export class RegionDashboardComponent implements OnInit {
   nonTeachingMaleFemaleTotal: any;
   constructor(public outSideService: OutsideServicesService,private router: Router) { }
   ngOnInit(): void {
-    debugger
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
       this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
@@ -54,10 +53,28 @@ export class RegionDashboardComponent implements OnInit {
     // }else{
     //   this.kvIfConditions = false;
     // }
-
     if (this.businessUnitTypeId == '2') {
 
-
+      var dashBoardDataNationtion={
+        "regionCode":'',
+        "dashboardType":"N"
+      }
+      this.outSideService.getRoDashboard(dashBoardDataNationtion,this.loginUserNameForChild).subscribe(res => {
+        debugger
+        this.dashboardDetails=res;
+        console.log(res)
+        this.stationTotal= res['totalNormalStation']+res['totalPriorityStation']+res['totalHardStation']+res['totalVeryHardStation']+res['totalNerStation'];
+        this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
+        this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
+   
+        //  this.router.navigate(['/teacher/controler-management'])
+      },
+      error => { 
+        Swal.fire({
+          'icon':'error',
+          'text':'You are not Authorized.'
+        })
+      });
 
       // var data = {
       //   "businessUnitTypeId": this.businessUnitTypeId,
@@ -88,11 +105,11 @@ export class RegionDashboardComponent implements OnInit {
       // this.showNational = true;
     } else if (this.businessUnitTypeId == '3') {
 
-      var dashBoardData={
+      var dashBoardDataRo={
         "regionCode":this.businessUnitTypeCode,
         "dashboardType":"R"
       }
-      this.outSideService.getRoDashboard(dashBoardData,this.loginUserNameForChild).subscribe(res => {
+      this.outSideService.getRoDashboard(dashBoardDataRo,this.loginUserNameForChild).subscribe(res => {
         debugger
         this.dashboardDetails=res;
         console.log(res)
