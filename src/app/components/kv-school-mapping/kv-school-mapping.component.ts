@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
+import { DateAdapter } from '@angular/material/core';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
 declare var $: any;
@@ -13,12 +15,12 @@ declare var $: any;
   styleUrls: ['./kv-school-mapping.component.css']
 })
 export class KvSchoolMappingComponent implements OnInit {
-  displayedColumns = ['Sno', 'Institution Name', 'Employee name', 'Modified By','Status'];
+  displayedColumns = ['Sno', 'Institution Name', 'Employee name', 'Modified By','fromdate','todate','Status'];
   userMappingSource : MatTableDataSource<any>;
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild('userMappingSort') userMappingSort: MatSort;
   @ViewChild('JoiningBox', { static: true }) JoiningBox: TemplateRef<any>; 
-  schoolChildUserData = { "sno": "","institutionName": "","employeeName": "","modifiedBy": "","status": ""}
+  schoolChildUserData = { "sno": "","institutionName": "","employeeName": "","modifiedBy": "","fromdate":"","todate":"","status": ""}
   addSchoolMapping: FormGroup;
   loginUserNameForChild: any;
   businessUnitTypeId: any;
@@ -41,7 +43,9 @@ export class KvSchoolMappingComponent implements OnInit {
   schoolMappingEmpCode:any;
   historySchoolControlingOfficedata:any=[];
   historySchoolControllerOfficeDataArray:any=[];
-  constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private router: Router) { }
+  constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>,private router: Router) { 
+    this.dateAdapter.setLocale('en-GB');
+  }
 
   ngOnInit(): void {
     this.heading="Add/Edit User Mapping";
@@ -86,11 +90,12 @@ export class KvSchoolMappingComponent implements OnInit {
     }
     if(this.userMappingAction=="view"){
       this.heading="Controler History";
-     this.viewSchoolControlerHeirechy();
     }
+    this.viewSchoolControlerHeirechy();
     this.getRoSchoolControllerOffice();
   }
   get f() { return this.addSchoolMapping.controls; }
+  
   //***********************Get Region*************************************/
 
 
@@ -111,7 +116,96 @@ export class KvSchoolMappingComponent implements OnInit {
       }
     })
     }
+    applyFilterHBSource(filterValue: string) {
+      filterValue = filterValue.trim(); 
+      filterValue = filterValue.toLowerCase(); 
+      this.userMappingSource.filter = filterValue;
+    }
 
+    checkDatelieBeetwenFromTo(event:any,type:any){
+      console.log( this.historySchoolControllerOfficeDataArray)
+      debugger
+      for (let i = 0; i < this.historySchoolControllerOfficeDataArray.length; i++) {
+        var dateFrom = this.historySchoolControllerOfficeDataArray[i].fromdate;
+        var dateTo = this.historySchoolControllerOfficeDataArray[i].todate;
+        var dateCheck;
+        if((dateTo == null || dateTo == 'null') && (dateFrom == null || dateFrom == 'null') ){
+          return;
+        }
+        if(event.target.value =='undefined'){
+      
+          dateCheck =event.target.value;
+        }else{
+          dateCheck = moment(event.target.value).format("YYYY-MM-DD");
+        }
+        var returnType
+        if (dateTo == null || dateTo == 'null') {
+          returnType = this.dateGreater(dateFrom, dateCheck,type);
+        } else {
+          returnType = this.dateCheck(dateFrom, dateTo, dateCheck,type);
+        }
+        if (returnType == 0) {
+          Swal.fire(
+            'Date lies between previous date !',
+            '',
+            'error'
+          );
+          setTimeout(() => {
+            (<HTMLInputElement>document.getElementById("wordStartDate")).value = "";
+            (<HTMLInputElement>document.getElementById("wordEndDate")).value = "";
+            this.addSchoolMapping.patchValue({
+              startdate:'',
+            })
+            this.addSchoolMapping.patchValue({
+              enddate:'',
+            })
+          }, 200);
+        }
+      }
+    }
+  
+    dateGreater(dateFrom, dateCheck,type) {
+      var from =  Math.round((new Date(dateFrom).getTime())/(3600000*24));
+      var check = Math.round((new Date(dateCheck).getTime())/(3600000*24));
+      if(type==1){
+      if (check >= from) {
+        return 0
+      } else {
+        return 1;
+      }
+      }else if(type==2 && this.userMappingAction=='Add'){
+        if (check > from) {
+          return 0
+        } else {
+          return 1;
+        }
+      }else if(type==2 && this.userMappingAction=='update'){
+        if (check > from) {
+          return 1
+        } else {
+          return 0;
+        }
+      }
+     }
+  
+    dateCheck(dateFrom, dateTo, dateCheck,type) {
+      var from = Math.round((new Date(dateFrom).getTime())/(3600000*24));
+      var to = Math.round((new Date(dateTo).getTime())/(3600000*24));
+      var check = Math.round((new Date(dateCheck).getTime())/(3600000*24));
+      if(type==1){
+        if (check >= from && check < to) {
+          return 0
+        } else {
+          return 1;
+        }
+      }else if(type==2){
+        if (check > from && check <= to) {
+          return 0
+        } else {
+          return 1;
+        }
+      }
+    }
  //***********************Get RO Office *************************************/
  getRoOfficeByRegionId(){
 
@@ -121,7 +215,7 @@ export class KvSchoolMappingComponent implements OnInit {
      "schoolType":this.schoolType
   }
   this.outSideService.getregionSchool(data,this.loginUserNameForChild).subscribe(res => {
-  debugger
+
   this.roOSchoolList=res
   for (let i = 0; i <  this.roOSchoolList.length; i++) {
     if(this.roOSchoolList[i].kvCode==this.schoolMappingKvCode)
@@ -194,14 +288,12 @@ getRoSchoolControllerOffice() {
 
 //***********************Edit Controler Officer  *************************************/
 editeControler(){
-  debugger
 for (let i = 0; i < this.controllerOfficeList.length; i++) {
     if(this.controllerOfficeList[i].kv_code==this.schoolMappingKvCode)
     {
       this.duplicateKvCheck.push(this.controllerOfficeList[i]); 
     }
   }
-  debugger
   this.getStationByRegionId();
   this.getRoOfficeByRegionId();
   this.getRoEmpByRegionOfficeId();
@@ -218,7 +310,6 @@ viewSchoolControlerHeirechy(){
      "controllerType":"S"
   }
   this.outSideService.getControllerOfficeHistory(data,this.loginUserNameForChild).subscribe(res => {
-    console.log(res)
     this.historySchoolControlingOfficedata=res['response'];
     this.historySchoolControllerOfficeDataArray = [];
     for (let i = 0; i < this.historySchoolControlingOfficedata.length; i++) {
@@ -227,9 +318,13 @@ viewSchoolControlerHeirechy(){
       this.schoolChildUserData.employeeName =this.historySchoolControlingOfficedata[i].employeeName;
       this.schoolChildUserData.modifiedBy = this.historySchoolControlingOfficedata[i].modifiedBy;
       this.schoolChildUserData.status = this.historySchoolControlingOfficedata[i].isActive;
+      this.schoolChildUserData.fromdate = this.historySchoolControlingOfficedata[i].stateDate;
+      this.schoolChildUserData.todate = this.historySchoolControlingOfficedata[i].endDate;
       this.historySchoolControllerOfficeDataArray.push(this.schoolChildUserData);
-      this.schoolChildUserData = { "sno": "","institutionName": "","employeeName": "","modifiedBy": "","status": ""}
+      this.schoolChildUserData = { "sno": "","institutionName": "","employeeName": "","modifiedBy": "","fromdate":"","todate":"","status": ""}
     }
+    console.log("---school  mapping------------")
+    console.log(this.historySchoolControllerOfficeDataArray)
     setTimeout(() => {
       this.userMappingSource  = new MatTableDataSource(this.historySchoolControllerOfficeDataArray);
       this.userMappingSource .paginator = this.paginator;
@@ -244,7 +339,9 @@ viewSchoolControlerHeirechy(){
   });
 }
 
-
+currentDate():Date{
+  return new Date();
+}
   onSubmit(){
     this.addUserMappingFormubmitted=true
     this.duplicateKOneCheck=[];
