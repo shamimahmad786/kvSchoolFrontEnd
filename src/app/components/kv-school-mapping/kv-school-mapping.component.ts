@@ -43,6 +43,7 @@ export class KvSchoolMappingComponent implements OnInit {
   schoolMappingEmpCode:any;
   historySchoolControlingOfficedata:any=[];
   historySchoolControllerOfficeDataArray:any=[];
+  activeStatus:any;
   constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>,private router: Router) { 
     this.dateAdapter.setLocale('en-GB');
   }
@@ -350,6 +351,30 @@ currentDate():Date{
     var empName= splittedArrayEmp[1];
     var institutionCode= this.schoolMappingKvCode;
     var institutionName= this.addSchoolMapping.value.rooffice;
+    this.activeStatus=0;
+      if(this.addSchoolMapping.value.enddate ==null || this.addSchoolMapping.value.enddate=='undefined' || this.addSchoolMapping.value.enddate==""){
+        this.activeStatus=1;
+      for (let i = 0; i < this.historySchoolControllerOfficeDataArray.length; i++) {
+        var dateFrom = this.historySchoolControllerOfficeDataArray[i].fromdate;
+        var dateTo = this.historySchoolControllerOfficeDataArray[i].todate;
+    if(dateTo==null || dateTo=='undefined'){
+      (<HTMLInputElement>document.getElementById("wordStartDate")).value = "";
+      (<HTMLInputElement>document.getElementById("wordEndDate")).value = "";
+      this.addSchoolMapping.patchValue({
+        startdate:'',
+      })
+      this.addSchoolMapping.patchValue({
+        enddate:'',
+      })
+      Swal.fire(
+        'Mapped user exist without to date',
+        '',
+        'error'
+      );
+      return;
+    }
+      }
+    }
     if( this.userMappingAction=='Add'){
     for (let i = 0; i < this.controllerOfficeList.length; i++) {
       if(this.controllerOfficeList[i].kv_code==this.schoolMappingKvCode)
@@ -373,9 +398,9 @@ currentDate():Date{
     "stationCode":"",
     "institutionCode":institutionCode,
     "institutionName":institutionName,
-    "isActive":"1",
+    "isActive":this.activeStatus,
     "stateDate":this.addSchoolMapping.value.startdate,
-    "endDate":"",
+    "endDate":this.addSchoolMapping.value.enddate,
     "createdBy":this.loginUserNameForChild,
     "modifiedBy":this.loginUserNameForChild,
   }
@@ -405,7 +430,7 @@ currentDate():Date{
       "stationCode":"",
       "institutionCode":institutionCode,
       "institutionName":institutionName,
-      "isActive":"0",
+      "isActive":this.activeStatus,
       "stateDate":this.addSchoolMapping.value.startdate,
       "endDate":this.addSchoolMapping.value.enddate,
       "id":this.duplicateKvCheck[0]['id'],

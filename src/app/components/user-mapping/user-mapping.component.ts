@@ -41,6 +41,7 @@ export class UserMappingComponent implements OnInit {
   businessUnitTypeId:any;
   schoolType:any;
   controllerType:any;
+  activeStatus: any;
   constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>,private router: Router) {
     this.dateAdapter.setLocale('en-GB');
    }
@@ -195,14 +196,14 @@ export class UserMappingComponent implements OnInit {
         var dateFrom = this.historyControllerOfficeDataArray[i].fromdate;
         var dateTo = this.historyControllerOfficeDataArray[i].todate;
         var dateCheck;
-        if((dateTo == null || dateTo == 'null') && (dateFrom == null || dateFrom == 'null') ){
-          return;
-        }
         if(event.target.value =='undefined'){
-      
           dateCheck =event.target.value;
         }else{
           dateCheck = moment(event.target.value).format("YYYY-MM-DD");
+        }
+
+        if((dateTo == null || dateTo == 'null') && (dateFrom == null || dateFrom == 'null') ){
+          return;
         }
         var returnType
         if (dateTo == null || dateTo == 'null') {
@@ -297,6 +298,7 @@ export class UserMappingComponent implements OnInit {
           this.historyControllerOfficeDataArray.push(this.childUserData);
           this.childUserData = { "sno": "","institutionName": "","employeeName": "","modifiedBy": "","fromdate":"","todate":"","status": ""}
         }
+        console.log( this.historyControllerOfficeDataArray)
         setTimeout(() => {
           this.userMappingSource  = new MatTableDataSource(this.historyControllerOfficeDataArray);
           this.userMappingSource .paginator = this.paginator;
@@ -321,6 +323,30 @@ export class UserMappingComponent implements OnInit {
     const splittedArrayInstitution = this.addUserMapping.value.rooffice.split("/");
     var institutionCode= splittedArrayInstitution[0];
     var institutionName= splittedArrayInstitution[1];
+    this.activeStatus=0;
+      if(this.addUserMapping.value.enddate ==null || this.addUserMapping.value.enddate=='undefined' || this.addUserMapping.value.enddate==""){
+        this.activeStatus=1;
+      for (let i = 0; i < this.historyControllerOfficeDataArray.length; i++) {
+        var dateFrom = this.historyControllerOfficeDataArray[i].fromdate;
+        var dateTo = this.historyControllerOfficeDataArray[i].todate;
+    if(dateTo==null || dateTo=='undefined'){
+      (<HTMLInputElement>document.getElementById("wordStartDate")).value = "";
+      (<HTMLInputElement>document.getElementById("wordEndDate")).value = "";
+      this.addUserMapping.patchValue({
+        startdate:'',
+      })
+      this.addUserMapping.patchValue({
+        enddate:'',
+      })
+      Swal.fire(
+        'Mapped user exist without to date',
+        '',
+        'error'
+      );
+      return;
+    }
+      }
+    }
     if( this.userMappingAction=='Add' && this.addUserMapping.value.region ==  this.userMappingRegionCode){
     for (let i = 0; i < this.controllerOfficeList.length; i++) {
       if(this.controllerOfficeList[i].region_code==this.addUserMapping.value.region)
@@ -343,9 +369,9 @@ export class UserMappingComponent implements OnInit {
     "stationCode":"",
     "institutionCode":institutionCode,
     "institutionName":institutionName,
-    "isActive":"1",
+    "isActive":this.activeStatus,
     "stateDate":this.addUserMapping.value.startdate,
-    "endDate":"",
+    "endDate":this.addUserMapping.value.enddate,
     "createdBy":this.loginUserNameForChild,
     "modifiedBy":this.loginUserNameForChild,
   }
@@ -373,7 +399,7 @@ export class UserMappingComponent implements OnInit {
       "stationCode":"",
       "institutionCode":institutionCode,
       "institutionName":institutionName,
-      "isActive":"0",
+      "isActive":this.activeStatus,
       "stateDate":this.addUserMapping.value.startdate,
       "endDate":this.addUserMapping.value.enddate,
       "id":this.duplicateregionCheck[0]['id'],
