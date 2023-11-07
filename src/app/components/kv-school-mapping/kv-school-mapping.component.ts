@@ -357,6 +357,8 @@ currentDate():Date{
       for (let i = 0; i < this.historySchoolControllerOfficeDataArray.length; i++) {
         var dateFrom = this.historySchoolControllerOfficeDataArray[i].fromdate;
         var dateTo = this.historySchoolControllerOfficeDataArray[i].todate;
+   if(dateFrom!=null && dateTo!=null )
+   {
     if(dateTo==null || dateTo=='undefined'){
       (<HTMLInputElement>document.getElementById("wordStartDate")).value = "";
       (<HTMLInputElement>document.getElementById("wordEndDate")).value = "";
@@ -373,6 +375,7 @@ currentDate():Date{
       );
       return;
     }
+  }
       }
     }
     if( this.userMappingAction=='Add'){

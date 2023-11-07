@@ -168,9 +168,6 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
     this.remarksForm = new FormGroup({
       'schoolRemarks': new FormControl('', Validators.required)
     })
-
-  
-
   }
 
   ngAfterViewInit(): void {
@@ -340,12 +337,12 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       // (data[i].teachingNonteaching == '1') ? 'Teaching' : 'Non-Teaching';
       this.testData.postName = data[i].postName;
       this.users.push(this.testData);
-      console.log("---------------user detail----------")
-      console.log(this.users)
+    
       this.testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus": "", "approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "" }
     }
 
-
+    console.log("---------------user detail----------")
+    console.log(this.users)
 
     setTimeout(() => {
       this.dataSource = new MatTableDataSource(this.users);

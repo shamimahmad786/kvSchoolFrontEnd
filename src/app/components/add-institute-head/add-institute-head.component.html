@@ -70,7 +70,7 @@
                                 <label for="staticEmail" class="col-sm-2 col-form-label ">Mobile</label>
                                 <div class="col-sm-3">
 
-                                    <input type="text" class="form-control" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
+                                    <input type="number" class="form-control" onKeyPress="if(this.value.length==10) return false;"  id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile is required</div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                                 <label for="staticEmail" class="col-sm-2 col-form-label ">Mobile</label>
                                 <div class="col-sm-3">
 
-                                    <input type="text" class="form-control" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
+                                    <input type="number" class="form-control" onKeyPress="if(this.value.length==10) return false;" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile is required</div>
                                 </div>
                             </div>
