@@ -302,7 +302,9 @@ applyFilterHBSource(filterValue: string) {
       for (let i = 0; i < this.historyControllerOfficeDataArray.length; i++) {
         var dateFrom = this.historyControllerOfficeDataArray[i].from_date;
         var dateTo = this.historyControllerOfficeDataArray[i].to_date;
-    if(dateTo==null || dateTo=='undefined'){
+       if(dateFrom!=null && dateTo!=null )
+       {
+      if(dateTo==null || dateTo=='undefined'){
       (<HTMLInputElement>document.getElementById("wordStartDate")).value = "";
       (<HTMLInputElement>document.getElementById("wordEndDate")).value = "";
       this.stationCategoryMForm.patchValue({
@@ -316,8 +318,9 @@ applyFilterHBSource(filterValue: string) {
         '',
         'error'
       );
-      return;
+       return;
     }
+   }
       }
     }
 

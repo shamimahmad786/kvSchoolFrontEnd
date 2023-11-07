@@ -298,8 +298,6 @@ export class AddSchoolStationComponent implements OnInit {
   }
 
 
-
-
   submit(){
     if (this.schoolStationMForm.invalid) {
       this.isSubmitted = true;
@@ -310,6 +308,8 @@ export class AddSchoolStationComponent implements OnInit {
         for (let i = 0; i < this.historyControllerOfficeDataArray.length; i++) {
           var dateFrom = this.historyControllerOfficeDataArray[i].from_date;
           var dateTo = this.historyControllerOfficeDataArray[i].to_date;
+      if(dateFrom!=null && dateTo!=null )
+      {
       if(dateTo==null || dateTo=='undefined'){
         (<HTMLInputElement>document.getElementById("wordStartDate")).value = "";
         (<HTMLInputElement>document.getElementById("wordEndDate")).value = "";
@@ -325,9 +325,10 @@ export class AddSchoolStationComponent implements OnInit {
           'error'
         );
         return;
+       }
       }
-        }
-      }
+    }
+   }
       if(this.userMappingAction=='update'){
       this.isSubmitted = false;
       let payload=this.schoolStationMForm.getRawValue();
