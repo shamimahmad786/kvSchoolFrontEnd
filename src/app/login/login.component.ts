@@ -169,7 +169,7 @@ export class LoginComponent implements OnInit {
         this.generate();
         Swal.fire({
           'icon':'error',
-           'text':'You are not Authorized.'
+           'text':'Please enter correct credentials.. '
         })
     });
    }
@@ -228,7 +228,7 @@ export class LoginComponent implements OnInit {
         this.generate();
         Swal.fire({
           'icon':'error',
-           'text':'You are not Authorized.'
+           'text':'Please enter correct credentials..'
         })
     });
    }
