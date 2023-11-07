@@ -1,25 +1,13 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
-      <h1 class="mb-1">School Station Mapping</h1>
+      <h1 class="mb-1">Post Subject Mapping</h1>
     </div>
     <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item"><a href="#">School-Station Mapping</a></li>
+          <li class="breadcrumb-item"><a href="#">Post Subject Mapping</a></li>
         </ol>
       </nav>
-
-      <div class="d-flex flex-row-reverse bd-highlight mb-3">
-        <div class="p-1" *ngIf="!freezeStatus">
-            <button mat-raised-button class="float-end mt-2 btn-success" (click)="redirectto()">Add</button>
-        </div>
-        <div class="p-1">
-            <button mat-raised-button class="float-end mt-2 btn-secondary" (click)="postSubjectMapping()">Download PDF</button>
-        </div>
-        <div class="p-1">
-            <button mat-raised-button class="float-end mt-2 btn-primary" (click)="exportexcel()">Download Excel</button>
-        </div>        
-    </div>
     <div class="dashboard-main-content-info">
         <div class="row">
             <div class="col-lg-12">

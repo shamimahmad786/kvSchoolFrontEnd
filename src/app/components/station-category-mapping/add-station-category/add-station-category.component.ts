@@ -297,6 +297,30 @@ applyFilterHBSource(filterValue: string) {
       this.isSubmitted = true;
      this.stationCategoryMForm.markAllAsTouched();
     }else{
+      debugger
+      if(this.stationCategoryMForm.value.toDate ==null || this.stationCategoryMForm.value.toDate=='undefined' || this.stationCategoryMForm.value.toDate==""){
+      for (let i = 0; i < this.historyControllerOfficeDataArray.length; i++) {
+        var dateFrom = this.historyControllerOfficeDataArray[i].from_date;
+        var dateTo = this.historyControllerOfficeDataArray[i].to_date;
+    if(dateTo==null || dateTo=='undefined'){
+      (<HTMLInputElement>document.getElementById("wordStartDate")).value = "";
+      (<HTMLInputElement>document.getElementById("wordEndDate")).value = "";
+      this.stationCategoryMForm.patchValue({
+        fromDate:'',
+      })
+      this.stationCategoryMForm.patchValue({
+        toDate:'',
+      })
+      Swal.fire(
+        'Station category mapping  exist without to date',
+        '',
+        'error'
+      );
+      return;
+    }
+      }
+    }
+
 debugger
       if(this.userMappingAction=='update'){
       this.isSubmitted = false;

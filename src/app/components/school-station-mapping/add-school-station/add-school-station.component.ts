@@ -305,6 +305,29 @@ export class AddSchoolStationComponent implements OnInit {
       this.isSubmitted = true;
      this.schoolStationMForm.markAllAsTouched();
     }else{
+      debugger
+      if(this.schoolStationMForm.value.toDate ==null || this.schoolStationMForm.value.toDate=='undefined' || this.schoolStationMForm.value.toDate==""){
+        for (let i = 0; i < this.historyControllerOfficeDataArray.length; i++) {
+          var dateFrom = this.historyControllerOfficeDataArray[i].from_date;
+          var dateTo = this.historyControllerOfficeDataArray[i].to_date;
+      if(dateTo==null || dateTo=='undefined'){
+        (<HTMLInputElement>document.getElementById("wordStartDate")).value = "";
+        (<HTMLInputElement>document.getElementById("wordEndDate")).value = "";
+        this.schoolStationMForm.patchValue({
+          fromDate:'',
+        })
+        this.schoolStationMForm.patchValue({
+          toDate:'',
+        })
+        Swal.fire(
+          'Station school mapping  exist without to date',
+          '',
+          'error'
+        );
+        return;
+      }
+        }
+      }
       if(this.userMappingAction=='update'){
       this.isSubmitted = false;
       let payload=this.schoolStationMForm.getRawValue();
