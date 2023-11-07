@@ -9,7 +9,7 @@
           <li class="breadcrumb-item"><a href="#">User Mapping</a></li>
         </ol>
       </nav>
-      
+      {{businessUnitTypeId}}
   <div class="dashboard-main-content-info">
   <!------------------------------------------------- first tab start  here------------------------------->
   <div *ngIf="activePaneOne">
@@ -157,7 +157,11 @@
                  <ng-container matColumnDef="Action">
                    <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                    <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">
-                   </span> <i class="fa fa-edit" *ngIf="row.status == '1'"  (click)="addUpdateViewSchoolMapping(row.kvcode,'update')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>   <i class="fa fa-plus-circle" *ngIf="row.status != '1'"  (click)="addUpdateViewSchoolMapping(row.kvcode,'add')" style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i><i  class="bi bi-eye" (click)="addUpdateViewSchoolMapping(row.kvcode,'view')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;"></i> </mat-cell>
+                   </span>
+                    <i class="fa fa-edit" *ngIf="row.status == '1'"  (click)="addUpdateViewSchoolMapping(row.kvcode,'update')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>  
+                    <i class="fa fa-plus-circle" *ngIf="row.status == '1'"  (click)="addUpdateViewSchoolMapping(row.regionCode,'add')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
+                    <i class="fa fa-plus-circle" *ngIf="row.status != '1'"  (click)="addUpdateViewSchoolMapping(row.kvcode,'add')" style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
+                    <i  class="bi bi-eye" (click)="addUpdateViewSchoolMapping(row.kvcode,'view')"  style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;"></i> </mat-cell>
                </ng-container>
                                 
                  <mat-header-row *matHeaderRowDef="displayedColumnsForRoSchool; sticky:true; "></mat-header-row>
