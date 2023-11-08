@@ -169,7 +169,7 @@ export class LoginComponent implements OnInit {
         this.generate();
         Swal.fire({
           'icon':'error',
-           'text':'Please enter correct credentials.. '
+           'text':'Please enter correct credentials.'
         })
     });
    }

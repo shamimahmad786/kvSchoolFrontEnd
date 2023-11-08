@@ -39,6 +39,7 @@ import { AddInstituteHeadComponent } from './components/add-institute-head/add-i
 import { ControlerManagementComponent } from './components/controler-management/controler-management.component';
 import { UserMappingComponent } from './components/user-mapping/user-mapping.component';
 import { KvSchoolMappingComponent } from './components/kv-school-mapping/kv-school-mapping.component';
+import { RegionWiseSchoolComponent } from './reports/region-wise-school/region-wise-school.component';
 const routes: Routes = [
   {path:'', component: MainPageComponent},
   {path:'mainPage', component: MainPageComponent},
@@ -70,6 +71,7 @@ const routes: Routes = [
       {path: 'identifySurplus', component:KvsIdentifySurplusComponent},
       {path: 'surplusStaff', component:KvsSurplusStaffComponent},
       {path: 'nationalReport', component:NationalReportComponent},
+      {path: 'regionWiseSchool', component:RegionWiseSchoolComponent},
       {path: 'schoolReport', component:SchoolReportComponent},
       {path:'changePassword', component:ChangePasswordComponent},
       {path:'freezeMaster', component:FreezeMastersComponent},

@@ -90,6 +90,7 @@ import { AddInstituteHeadComponent } from './components/add-institute-head/add-i
 import { ControlerManagementComponent } from './components/controler-management/controler-management.component';
 import { UserMappingComponent } from './components/user-mapping/user-mapping.component';
 import { KvSchoolMappingComponent } from './components/kv-school-mapping/kv-school-mapping.component';
+import { RegionWiseSchoolComponent } from './reports/region-wise-school/region-wise-school.component';
 // import { MAT_DATE_FORMATS } from '@angular/material/';
 // import { DatePickerModule } from 'angular-material-datepicker';
 
@@ -172,7 +173,8 @@ import { KvSchoolMappingComponent } from './components/kv-school-mapping/kv-scho
     AddInstituteHeadComponent,
     ControlerManagementComponent,
     UserMappingComponent,
-    KvSchoolMappingComponent
+    KvSchoolMappingComponent,
+    RegionWiseSchoolComponent
    
     
   ],

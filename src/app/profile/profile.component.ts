@@ -17,6 +17,9 @@ export class ProfileComponent implements OnInit {
   @ViewChild('resetPasswordModal', { static: true }) resetPasswordModal: TemplateRef<any>;
   user_name: any;
   dialogRef: any;
+  businessUnitTypeCode: any;
+  teachingMaleFemaleTotal: any;
+  nonTeachingMaleFemaleTotal: any;
   constructor(private dataService: DataService, private outSideService: OutsideServicesService,  private modalService: NgbModal) { }
   schoolProfile: any;
   teacherList:any;
@@ -51,7 +54,8 @@ export class ProfileComponent implements OnInit {
   teachingFemale: any;
 
   shiftAvailable: any;
-
+  loginUserNameForChild:any;
+  dashboardDetails:any;
   ngOnInit(): void {
     this.user_name = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.user_name;
     setTimeout(() => {
@@ -77,6 +81,8 @@ export class ProfileComponent implements OnInit {
 
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails")).applicationDetails.length; i++) {
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
+      this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+      this.businessUnitTypeCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
       this.businessUnitTypeId = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_id;
       if (JSON.parse(sessionStorage.getItem("authTeacherDetails")).applicationDetails[i].business_unit_type_id == 5) {
         if (JSON.parse(sessionStorage.getItem("authTeacherDetails")).applicationDetails[i].application_id == environment.applicationId) {
@@ -97,9 +103,41 @@ export class ProfileComponent implements OnInit {
     })
     // this.getSchoolDetailsByKvCode();
 
-
+this.getdashboarData();
 
   }
+
+
+
+getdashboarData(){
+  console.log()
+  var dashBoardDataNationtion={
+    "kvCode": this.businessUnitTypeCode,
+    "dashboardType":"S"
+  }
+  this.outSideService.getRoDashboard(dashBoardDataNationtion,this.loginUserNameForChild).subscribe(res => {
+    debugger
+    this.dashboardDetails=res;
+    console.log(res)
+    this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
+    this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
+    //this.stationTotal= res['totalNormalStation']+res['totalPriorityStation']+res['totalHardStation']+res['totalVeryHardStation']+res['totalNerStation'];
+    // this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
+    // this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
+
+    //  this.router.navigate(['/teacher/controler-management'])
+  },
+  error => { 
+    Swal.fire({
+      'icon':'error',
+      'text':'You are not Authorized.'
+    })
+  });
+}
+
+
+
+
   // userIdCheck(event) {
   //   var userIdTemp = event.target.value;
   //   if (userIdTemp == JSON.parse(sessionStorage.getItem('authTeacherDetails')).user_name) {
