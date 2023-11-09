@@ -328,7 +328,7 @@ export class UserMappingComponent implements OnInit {
         var dateFrom = this.historyControllerOfficeDataArray[i].fromdate;
         var dateTo = this.historyControllerOfficeDataArray[i].todate;
 
-   if(dateFrom!=null && dateTo!=null )
+   if(dateFrom!=null && (dateTo==null || dateTo=='undefined') )
    {
     if(dateTo==null || dateTo=='undefined'){
       (<HTMLInputElement>document.getElementById("wordStartDate")).value = "";

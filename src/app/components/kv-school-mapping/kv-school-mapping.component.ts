@@ -90,7 +90,7 @@ export class KvSchoolMappingComponent implements OnInit {
       this.controllerType="S";
     }
     if(this.userMappingAction=="view"){
-      this.heading="Controler History";
+      this.heading="Controller History";
     }
     this.viewSchoolControlerHeirechy();
     this.getRoSchoolControllerOffice();

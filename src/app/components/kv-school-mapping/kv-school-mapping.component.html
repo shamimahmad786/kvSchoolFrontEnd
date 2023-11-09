@@ -1,6 +1,6 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
-      <h1>{{heading}}</h1>
+      <h1 class="mb-0">{{heading}}</h1>
     </div>
       <nav aria-label="breadcrumb" class="mt-1">
         <ol class="breadcrumb">
@@ -8,10 +8,10 @@
           <li class="breadcrumb-item"><a href="#">{{heading}}</a></li>
         </ol>
       </nav>
-      <div class="dashboard-main-content-info p-5">  
+      <div class="dashboard-main-content-info">  
         <div class="tab-content" id="myTabContent">  
         <div class="row justify-content-center d-flex">
-          <div class="col-lg-10">
+          <div class="col-lg-11">
             <div class="card p-3">
               <div *ngIf="userMappingAction=='Add' || userMappingAction=='update'">
                 <form id="msform" [formGroup]="addSchoolMapping" (ngSubmit)="onSubmit()">

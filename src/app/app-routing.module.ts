@@ -28,7 +28,7 @@ import { TeachersDetailComponent } from './teacherEntryForm/teachersDetail/teach
 import { UpdateMobileEmailComponent } from './teacherEntryForm/teacherUpdateMobileEmail/update-mobile-email/update-mobile-email.component';
 import { ReportGridComponent } from './reports/report-grid/report-grid.component';
 import { KvTchSanctionedPostComponent } from './kvs/sanctionedPost/kv-tch-sanctioned-post/kv-tch-sanctioned-post.component';
-import {LoginComponent} from './login/login.component';
+import { LoginComponent } from './login/login.component';
 import { FreezeMastersComponent } from './components/freeze-masters/freeze-masters.component';
 import { SchoolReviewComponent } from './kvs/school-review/school-review/school-review.component';
 import { KvsJoiningComponent } from './kvs/kvs-joining/kvs-joining.component';
@@ -40,6 +40,9 @@ import { ControlerManagementComponent } from './components/controler-management/
 import { UserMappingComponent } from './components/user-mapping/user-mapping.component';
 import { KvSchoolMappingComponent } from './components/kv-school-mapping/kv-school-mapping.component';
 import { RegionWiseSchoolComponent } from './reports/region-wise-school/region-wise-school.component';
+import { StationWiseSchoolDetailComponent } from './reports/station-wise-school-detail/station-wise-school-detail.component';
+import { RegionWiseStationDetailComponent } from './reports/region-wise-station-detail/region-wise-station-detail.component';
+import { SchoolDetailComponent } from './reports/school-detail/school-detail.component';
 const routes: Routes = [
   {path:'', component: MainPageComponent},
   {path:'mainPage', component: MainPageComponent},
@@ -72,6 +75,9 @@ const routes: Routes = [
       {path: 'surplusStaff', component:KvsSurplusStaffComponent},
       {path: 'nationalReport', component:NationalReportComponent},
       {path: 'regionWiseSchool', component:RegionWiseSchoolComponent},
+      {path: 'stationWiseSchool', component:StationWiseSchoolDetailComponent},
+      {path: 'regionWiseStationDetail', component:RegionWiseStationDetailComponent},
+      {path: 'schoolDetail', component:SchoolDetailComponent},
       {path: 'schoolReport', component:SchoolReportComponent},
       {path:'changePassword', component:ChangePasswordComponent},
       {path:'freezeMaster', component:FreezeMastersComponent},

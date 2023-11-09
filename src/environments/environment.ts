@@ -33,6 +33,7 @@ BASE_URL_DATA_TEACHER: 'http://10.25.26.251:8014/api/teacher/',
   BASE_URL_DATA_USERMANAGEMENT:'http://10.25.26.251:8014/api/usermanagement/',
   BASE_URL_DATA_USERMAPPING:'http://10.25.26.251:8014/api/usermapping/',  
   BASE_URL_DATA_KVCONTROLER:'http://10.25.26.251:8014/api/kvscontroller/',
+  BASE_URL_DATA_REPORTCONTROLER:'http://10.25.26.251:8014/api/reportcontroller/',
 
 
   

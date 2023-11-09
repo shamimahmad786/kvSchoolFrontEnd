@@ -30,6 +30,7 @@ export class RegionDashboardComponent implements OnInit {
   stationTotal:any;
   teachingMaleFemaleTotal: any;
   nonTeachingMaleFemaleTotal: any;
+  inPositionTotal: any;
   constructor(public outSideService: OutsideServicesService,private router: Router) { }
   ngOnInit(): void {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
@@ -66,7 +67,7 @@ export class RegionDashboardComponent implements OnInit {
         this.stationTotal= res['totalNormalStation']+res['totalPriorityStation']+res['totalHardStation']+res['totalVeryHardStation']+res['totalNerStation'];
         this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
         this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
-   
+        this.inPositionTotal=this.teachingMaleFemaleTotal+this.nonTeachingMaleFemaleTotal
         //  this.router.navigate(['/teacher/controler-management'])
       },
       error => { 
@@ -110,13 +111,12 @@ export class RegionDashboardComponent implements OnInit {
         "dashboardType":"R"
       }
       this.outSideService.getRoDashboard(dashBoardDataRo,this.loginUserNameForChild).subscribe(res => {
-        debugger
         this.dashboardDetails=res;
         console.log(res)
         this.stationTotal= res['totalNormalStation']+res['totalPriorityStation']+res['totalHardStation']+res['totalVeryHardStation']+res['totalNerStation'];
         this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
         this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
-   
+        this.inPositionTotal=this.teachingMaleFemaleTotal+this.nonTeachingMaleFemaleTotal;
         //  this.router.navigate(['/teacher/controler-management'])
       },
       error => { 
@@ -157,7 +157,6 @@ export class RegionDashboardComponent implements OnInit {
   }
 
   getMaster(data, business_unit_type_id) {
-    debugger
       this.outSideService.getMasterData(data).subscribe((res) => {
         
         var data1 = { 'business_unit_type_id': business_unit_type_id, "mappingData": JSON.parse(JSON.stringify(res.response)).rowValue }

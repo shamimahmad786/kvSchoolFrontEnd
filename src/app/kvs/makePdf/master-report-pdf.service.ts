@@ -17,6 +17,7 @@ export class MasterReportPdfService {
   designationlistArray:any;
   subjectMasterListArray:any;
   regionStationMappingListArray:any;
+  regionSchoolMappingListArray:any;
   stationCategoryMappingListArray:any;
   schoolStationMappingListArray:any;
   stafftypePostMappingListArray:any;
@@ -33,6 +34,7 @@ export class MasterReportPdfService {
   designationHead = [['S.No', 'Designation Code','Designation Name', 'Status']]
   subjectHead = [['S.No', 'Subject Code','Subject Name', 'Status']]
   regionStationMappingHead = [['S.No', 'Region Name','Station Name','Status']]
+  regionSchoolMappingHead = [['S.No', 'Region Name','Station Name','School Name','Adress']]
   stationCategoryMappingHead = [['S.No', 'Station Name','Category Name','From Date','To Date','Status']]
   schoolStationMappingHead = [['S.No', 'Station Name','School Name','shift','status']]
   staffTypePostMappingHead = [['S.No', 'Staff-Type','Post Code','Post Name']]
@@ -782,7 +784,99 @@ console.log(this.regionStationMappingListArray)
      }
 
 
-     
+     regionSchoolMappingList(regionStationMappingList:any,servTime:any){
+      this.regionSchoolMappingListArray = [];
+      var k =1;
+      for(let i=0; i<regionStationMappingList.length; i++){
+        var regionStationMappinglistTemp = [];
+        //   var regionStationMappinglistsTemp = [];
+           regionStationMappinglistTemp.push(regionStationMappingList[i][0])
+      
+        for(let j=0; j<regionStationMappingList[i][1].length; j++){ 
+          var regionStationMappinglistsTemp = []
+          regionStationMappinglistsTemp.push(k)
+          if(j==0)
+          {
+            regionStationMappinglistsTemp.push(regionStationMappingList[i][0])
+          }else{
+            regionStationMappinglistsTemp.push('')
+          }
+          regionStationMappinglistsTemp.push(regionStationMappingList[i][1][j]?.stationname)
+           regionStationMappinglistsTemp.push(regionStationMappingList[i][1][j]?.schoolname)
+        regionStationMappinglistsTemp.push(regionStationMappingList[i][1][j]?.schooladdress)
+        this.regionSchoolMappingListArray.push(regionStationMappinglistsTemp)
+        k++;
+        }
+      }
+console.log(this.regionSchoolMappingListArray)
+
+
+      this.currentDate = "(" + servTime + ")"
+      // var tchId = "" + teacherProfile.teacherId + ""
+      const doc = new jsPDF('l', 'mm', 'a4');
+      doc.setTextColor(138, 24, 34);
+      doc.setFontSize(14);
+      doc.setFont('Times-Roman', 'bold');
+      doc.text('Region Wise School', 130, 45);    
+  
+      
+      (doc as any).autoTable({
+        head: this.regionSchoolMappingHead,
+        body: this.regionSchoolMappingListArray,
+        theme: 'grid',
+        startY: 40,
+        didDrawPage: function (data) {
+         const currentDate = servTime.toString();
+         var index = currentDate.lastIndexOf(':') +3
+         const convtCurrentDate = "(" + currentDate.substring(0, index) + ")"
+          // Header
+          doc.addImage("assets/assets/img/kvslogo1.jpg", "JPG", 100, 4, 100, 20);
+          doc.setDrawColor(0, 0, 0);
+          doc.setTextColor(0, 0, 0);
+          doc.setLineWidth(1);
+          doc.line(15, 35, 280, 35);
+  
+          doc.setTextColor(138, 24, 34);
+          doc.setFontSize(14);
+          doc.setFont('Times-Roman', 'bold');
+          doc.text('Report : Region Wise School', 15, 28);
+  
+          // Footer
+          var str = "Page " + data.doc.internal.getNumberOfPages();
+  
+          doc.setFontSize(10);
+          // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+          var pageSize = doc.internal.pageSize;
+          var pageHeight = pageSize.height
+            ? pageSize.height
+            : pageSize.getHeight();
+          doc.text(str,130, pageHeight - 7);
+          doc.addImage("assets/assets/img/nic-logo.png", "png", 13, 198, 0, 0);
+          doc.setTextColor(0, 0, 0);
+          doc.setFontSize(12);
+          doc.setFont('Times-Roman', 'bold');
+          doc.text('Report Generation Date & Time',  data.settings.margin.left+210, pageHeight - 10)
+      
+          doc.setTextColor(0, 0, 0);
+          doc.setFontSize(12);
+          doc.setFont('Times-Roman', 'normal');
+          doc.text(convtCurrentDate,  data.settings.margin.left+210, pageHeight - 5)       
+        },
+  
+        didDrawCell: data => {
+          this.yPoint = data.cursor.y
+        },
+        headStyles: { fillColor: [255, 228, 181], textColor: 0, fontStyle: 'bold' },
+        alternateRowStyles: { fillColor: [255, 251, 245] },
+        valign: 'top',
+        margin: {
+          top: 40,
+          bottom: 15,
+        },
+      })
+      doc.save('regionWiseSchoolReport.pdf')
+     }
+
 // -------------------------------------Station Category mapping Mapping------------------------------------
 
    stationCategoryMappingList(stationCategoryMappingList:any){

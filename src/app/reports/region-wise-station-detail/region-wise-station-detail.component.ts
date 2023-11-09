@@ -15,24 +15,21 @@ import { Workbook } from 'exceljs';
 import { saveAs } from 'file-saver';
 declare const srvTime: any;
 @Component({
-  selector: 'app-region-wise-school',
-  templateUrl: './region-wise-school.component.html',
-  styleUrls: ['./region-wise-school.component.css']
+  selector: 'app-region-wise-station-detail',
+  templateUrl: './region-wise-station-detail.component.html',
+  styleUrls: ['./region-wise-station-detail.component.css']
 })
-export class RegionWiseSchoolComponent implements OnInit {
-  regionSchoolMF: FormGroup;
-  isSubmitted: boolean = false;
+export class RegionWiseStationDetailComponent implements OnInit {
   mdoDateResultArray: any = new Array()
   dataSource:any;
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
-  displayedColumns:any = ['sno','regionname','stationname','schoolname','schooladdress'];
+  displayedColumns:any = ['sno','regionname','regionaddress','stationcount','schoolcount','controllername','controllermobile','controlleremail'];
 
-  testData = { "sno": "", "regionname": "", "stationname": "", "schoolname": "","schooladdress":""}
+  testData = { "sno": "", "regionname": "", "regionaddress":"" ,"stationcount": "", "schoolcount": "","controllername":"","controllermobile":"","controlleremail":""}
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  listRegionSchool: any=[];
-  regionList: any=[];
+  stationSchoolCountByRegion: any=[];
   businessUnitId:any;
   businessTypeCode:any;
   freezeStatus:false;
@@ -48,8 +45,6 @@ export class RegionWiseSchoolComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFreezeStatus();
-    this.buildRegionMappingForm();
-    this.getRegionList();
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
     }
@@ -59,78 +54,16 @@ export class RegionWiseSchoolComponent implements OnInit {
 
   }
 
-  buildRegionMappingForm(){
-    this.regionSchoolMF = this.fb.group({
-      regionCode: ['', [Validators.required]],
-    });
-  }
   getFreezeStatus()
   {
     this.outSideService.fetchFreezeStatus(8).subscribe((res)=>{  
     this.freezeStatus=res['status'];
     })
   }
-  getRegionList(){
-    this.outSideService.fetchRegionList().subscribe((res)=>{
-      if(res){
-        this.regionList.push({ regionCode: 'All', regionName: ''})
-        res.forEach(element => {
-         
-          if(element.isActive){
-          
-            this.regionList.push({ regionCode: element.regionCode, regionName: element.regionName})
-          }
-        });
-        this.filteredOptions = this.regionSchoolMF['controls'].regionCode.valueChanges.pipe(
-          startWith(''),
-          map(value => this._filter(value || '')),
-        );
-       
-      }
-    })
-  }
-  private _filter(value: string): string[] {
-    debugger
-    const filterValue = value.toLowerCase();
-    return this.regionList.filter(option => option.regionName.toLowerCase().includes(filterValue));
-  }
-  submit(){
-    debugger
-    if (this.regionSchoolMF.invalid) {
-      this.isSubmitted = true;
-     this.regionSchoolMF.markAllAsTouched();
-    }else{
-      this.isSubmitted = false;
-      let payload=this.regionSchoolMF.getRawValue();
-      // alert(payload.regionCode);
-      var regionStationValue = payload.regionCode.split("(")
-      var regionCodeValue = regionStationValue[1].split(")")
-      if(regionCodeValue[0]=='All')
-      {
-        this.search();
-      }
-      else{
-        let request={
-          "regionCode": regionCodeValue[0],
-          "reportType":"R"
-         }
-         this.outSideService.getSchoolListByRegion(request,this.loginUserNameForService).subscribe((res)=>{
-             this.getRegionStationList(res.rowValue)
-        },
-        error => {
-          console.log(error);
-        })
-      }
-    }
-  }
+ 
   search(){
     let request={};
-    if(this.businessUnitId=="2"){
-      request={
-        "reportType":"N"
-    };
-    }
-    this.outSideService.getSchoolListByRegion(request,this.loginUserNameForService).subscribe((res)=>{
+    this.outSideService.getStationSchoolCountByRegion(request,this.loginUserNameForService).subscribe((res)=>{
       this.getRegionStationList(res.rowValue)
       },
       error => {
@@ -138,36 +71,29 @@ export class RegionWiseSchoolComponent implements OnInit {
       })
   }
 
-  clear(){
-    this.formDirective.resetForm();
-    this.isSubmitted=false;
-    this.regionSchoolMF.reset();
-  }
-  errorHandling(controlName: string, errorName: string) {
-    return this.regionSchoolMF.controls[controlName].hasError(errorName);
-  }
   getRegionStationList(res:any){
-    this.listRegionSchool=[];
+    debugger
+    this.stationSchoolCountByRegion=[];
       if(res.length>0){
           for (let i = 0; i < res.length; i++) {
             this.testData.sno = '' + (i + 1) + '';
             this.testData.regionname = res[i].region_name+" ("+res[i].region_code+")";
-            this.testData.stationname = res[i].station_name+"("+ res[i].station_code+")";
-            this.testData.schoolname = res[i].school_name+" ("+ res[i].kv_code+")";;
-            this.testData.schooladdress = res[i].schooladdress;
-            this.listRegionSchool.push(this.testData);
-            this.testData = { "sno": "", "regionname": "", "stationname": "", "schoolname": "","schooladdress":"" };
-   
+            this.testData.regionaddress = res[i].region_address;
+            this.testData.stationcount = res[i].station_count;
+            this.testData.schoolcount = res[i].school_count;
+            this.testData.controllername = res[i].controller_name;
+            this.testData.controllermobile = res[i].controller_mobile;
+            this.testData.controlleremail = res[i].controller_email;
+            this.stationSchoolCountByRegion.push(this.testData);
+            this.testData = { "sno": "", "regionname": "", "regionaddress":"" ,"stationcount": "", "schoolcount": "","controllername":"","controllermobile":"","controlleremail":""};
           }
-        console.log(this.listRegionSchool)
+        console.log(this.stationSchoolCountByRegion)
       }
       setTimeout(() => {
-        this.dataSource = new MatTableDataSource(this.listRegionSchool);
+        this.dataSource = new MatTableDataSource(this.stationSchoolCountByRegion);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }, 100)
-      // this.regionStationMF.get('regionCode').setValue('');
-      // this.formDirective.resetForm();
   }
   ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;
@@ -187,7 +113,7 @@ export class RegionWiseSchoolComponent implements OnInit {
         return rv;
       }, {});
     };
-    var groubedByEnrolmentDateResult=groupByEnrolementDate(this.listRegionSchool, 'regionname')
+    var groubedByEnrolmentDateResult=groupByEnrolementDate(this.stationSchoolCountByRegion, 'regionname')
     this. mdoDateResultArray = Object.entries(groubedByEnrolmentDateResult)
   // console.log(groubedByEnrolmentDateResult)
     console.log(this.mdoDateResultArray)
@@ -197,7 +123,7 @@ export class RegionWiseSchoolComponent implements OnInit {
     // }, 1000);
   }
   exportexcel(){
-    console.log(this.listRegionSchool)
+    console.log(this.stationSchoolCountByRegion)
     const workBook = new Workbook();
     const workSheet = workBook.addWorksheet('RegionStationMapping');
     const excelData = [];
@@ -231,7 +157,7 @@ export class RegionWiseSchoolComponent implements OnInit {
         };
       }
       
-    this.listRegionSchool.forEach((item) => {
+    this.stationSchoolCountByRegion.forEach((item) => {
       const row = workSheet.addRow([item.regionname, item.stationname,item.schoolname,item.schooladdress]);
     });
     workBook.xlsx.writeBuffer().then((data) => {
