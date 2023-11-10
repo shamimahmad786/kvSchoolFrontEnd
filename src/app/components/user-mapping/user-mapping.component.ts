@@ -85,7 +85,7 @@ export class UserMappingComponent implements OnInit {
     });
   }
   if(this.userMappingAction=="view"){
-    this.heading="Controler History";
+    this.heading="Controller History";
   }
   this.viewControlerHeirechy();
    this.getControllerOffice();
