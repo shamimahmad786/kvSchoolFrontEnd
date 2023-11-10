@@ -1230,6 +1230,28 @@ searchRegionStationMList(data){
 
   return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/region-station-mapping-list", data, {headers})
 }
+
+getSchoolListByRegion(data,userName:any){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+    'username':userName,
+  }); 
+
+  return this._http.post<any>(environment.BASE_URL_DATA_REPORTCONTROLER+ "getSchoolListByRegion", data, {headers})
+}
+getStationSchoolCountByRegion(data,userName:any){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+    'username':userName,
+  }); 
+
+  return this._http.post<any>(environment.BASE_URL_DATA_REPORTCONTROLER+ "getStationSchoolCountByRegion", data, {headers})
+}
+
 searchStationCategoryMList(data,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({

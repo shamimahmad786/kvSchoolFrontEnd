@@ -53,7 +53,7 @@ export class SanctionedAllPostComponent implements OnInit {
   allList:any;
   listDesignation: any=[];
   displayedColumns:any = ['sno', 'regionName', 'stationName', 'schoolName','shift','status','action'];
-  testData = {sno: '',regionName:'',regionCode:'',stationCode:'', stationName: '', schoolName: '',schoolCode:'',shift:'',shiftType:'', status: ''};
+  testData = {sno: '',regionName:'',regionCode:'',stationCode:'', stationName: '',schoolShowName:'', schoolName: '',schoolCode:'',shift:'',shiftType:'', status: ''};
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   ngOnInit(): void { 
@@ -94,6 +94,7 @@ export class SanctionedAllPostComponent implements OnInit {
           this.testData.stationName =this.allList[i].station_name;
           this.testData.stationCode =this.allList[i].station_code;
           this.testData.schoolName =this.allList[i].kv_name;
+          this.testData.schoolShowName =this.allList[i].kv_name+' ('+this.allList[i].school_code+')';
           this.testData.schoolCode =this.allList[i].school_code;
           this.testData.shift =this.allList[i].shift;
           if(this.allList[i].shift==0){
@@ -113,7 +114,7 @@ export class SanctionedAllPostComponent implements OnInit {
           this.testData.status ='UnFreezed';
           }        
           this.listDesignation.push(this.testData);
-          this.testData = { "sno": "", "regionName": "","regionCode":"" ,"stationCode":"","stationName": "", "schoolName": "","schoolCode":"","shift":"","shiftType":"","status": "" };
+          this.testData = { "sno": "", "regionName": "","regionCode":"" ,"stationCode":"","stationName": "","schoolShowName":"", "schoolName": "","schoolCode":"","shift":"","shiftType":"","status": "" };
          }
          console.log(this.listDesignation)
         setTimeout(() => {
@@ -144,6 +145,7 @@ export class SanctionedAllPostComponent implements OnInit {
      
       }
       applyFilter(filterValue: string) {
+        debugger
         filterValue = filterValue.trim(); 
         filterValue = filterValue.toLowerCase();
         this.dataSource.filter = filterValue;
