@@ -71,7 +71,8 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
   }
   getLoginUserdetail(clickType:any){
-    this.pfofileUser='My';
+   
+    this.pfofileUser='My Profile';
     this.clickType=clickType;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       console.log(JSON.parse(sessionStorage.getItem("authTeacherDetails")));
@@ -104,6 +105,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   navColor(nav:any){
     if(nav=='transferin')
     {
+      this.pfofileUser='My Profile';
       this.showFirstButtonColor=true;
       this.showsecondButtonColor=false;
       this.activePaneOne=true;
@@ -114,6 +116,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
       this.activePaneOne=false;
       this.activePaneTwo=true;
     } 
+    this.getChilduser();
   }
   //********************** Joining Data Set in to Table ******************************
    setToJoingMatTable(data:any) {
@@ -131,13 +134,12 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     }
     setTimeout(() => {
       this.hBSource  = new MatTableDataSource(this.childuserDataArray);
-      this.hBSource .paginator = this.paginator;
-      this.hBSource .sort = this.hBSort;  
+      this.hBSource.paginator = this.paginator;
+      this.hBSource.sort = this.hBSort;  
     }, 100)
   }
   childActiveDeactive(action:any,userName:any)
   { 
-    debugger
     const data ={
     "updateType":"AD",
     "username":userName,
@@ -166,11 +168,6 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
           'text':res['response']
         })
       }
-
-
-
-      console.log(res)
-     
        })
        setTimeout(() => {
         this.getChilduser();
@@ -205,7 +202,8 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     }
   }
   editChildUser(userName:any,type:any){
-    this.pfofileUser="User";
+   var key = userName.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function(key) { return key.toUpperCase()});
+    this.pfofileUser="Profile ("+key+")";
     this.clickType='';
     this.showFirstButtonColor=false;
     this.showsecondButtonColor=true;
@@ -224,7 +222,17 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     this.loginUserEmail=this.newChildUserListArr[0]['email']
     
   }
+  backButtonClick(){
+    this.pfofileUser='My Profile';
+    this.clickType='';
+    this.showFirstButtonColor=true;
+    this.showsecondButtonColor=false;
+    this.activePaneOne=true;
+    this.activePaneTwo=false;
+    this.getChilduser();
+  }
   saveProfileData(val:any,userName:any,type:any){
+
     debugger
   if(type=='email'){
     var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,2}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -264,34 +272,13 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     }
     }
   }
-  // if(type=='password'){
-  //   this.password= (<HTMLInputElement>document.getElementById("staticChangePassword")).value;
-  //   this.confirmpassword = (<HTMLInputElement>document.getElementById("staticConfirmChangePassword")).value;
-
-  // if (this.password!=this.confirmpassword) {
-  //   Swal.fire({
-  //     'icon':'error',
-  //     'text':'New password and confirm password are not same.....'
-  //   })
-  //   return false;
-  //   }
-  //   else{
-  //     this.staticChangePassword=false;
-  //     this.changePassword=true;
-  //     var data = {
-  //       "updateType":"p",
-  //       "username":userName,
-  //       "value":this.confirmpassword
-  //   }
-  //   }
-  // }
  
-  
 this.outSideService.childActiveDeactiveAction(data,this.loginUserNameForService).subscribe(res => {
     this.showFirstButtonColor=true;
     this.showsecondButtonColor=false;
     this.activePaneOne=true;
     this.activePaneTwo=false;
+    this.pfofileUser='My Profile';
     if(res['success']){
       if(type=='email' && this.clickType=='self' ){
         var sessioStoragValue = JSON.parse(sessionStorage.getItem("authTeacherDetails"))

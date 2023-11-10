@@ -13,7 +13,7 @@
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"  (click)="navColor('transferin')" id="home-tab" [class.myClass]="showFirstButtonColor" type="button" role="tab" aria-controls="profile" aria-selected="false">User List </button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link active"  (click)="navColor('transferout');getLoginUserdetail('self')" [class.myClass]="showsecondButtonColor"   data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Profile</button>
+        <button class="nav-link active"  (click)="navColor('transferout');getLoginUserdetail('self')" [class.myClass]="showsecondButtonColor"   data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"> {{pfofileUser}}</button>
       </li>
     </ul>
     <div class="dashboard-main-content-info">
@@ -90,8 +90,11 @@
         <div class="col-lg-11">
           <div class="row ">
               <div class="col-lg-9">
-                <h2>{{pfofileUser}} profile info</h2>
+                <h2>{{pfofileUser}}  info</h2>
                 <!-- <p>Personal info and options to manage it. You can make<br> some of this info, like your contact details, visible to<br> others so they can reach you easily. You can also see<br> a summary of your profiles.</p> -->
+              </div>
+              <div class="col-lg-3" style="text-align: end;">
+                <button class=" mat-raised-button btn-secondary add-user"  (click)="backButtonClick()" >Back</button>
               </div>
               <!-- <div class="col-lg-3">
                 <img src="assets/images/add-user.svg">
@@ -113,14 +116,14 @@
             <div class="pb-2 mt-2  row border-bottom m-0">
               <label for="staticEmail" class="col-sm-3 col-form-label ps-0">User Name</label>
               <div class="col-sm-9">
-                <input type="text" [readonly]="userName" [(ngModel)]="loginUserNameForChild" class="form-control-plaintext w-50 " id="staticUserType" id="staticUserName" value="Aswani Kumar">
+                <input type="text" [readonly]="userName" [(ngModel)]="loginUserNameForChild" class="form-control-plaintext w-50 " id="staticUserType" id="staticUserName" >
               </div>
             </div>
 
             <div class="pb-2 mt-2  row border-bottom m-0">
               <label for="staticEmail" class="col-sm-3 col-form-label ps-0">Email</label>
               <div class="col-sm-9">
-                <input type="email" [readonly]="userEmail" [(ngModel)]="loginUserEmail" class="{{userEmail ? 'form-control-plaintext w-50 float-start' : 'form-control w-50 float-start'}}" id="staticUserEmail" value="">
+                <input type="email" [readonly]="userEmail" [(ngModel)]="loginUserEmail" class="{{userEmail ? 'form-control-plaintext w-50 float-start' : 'form-control w-50 float-start'}}" id="staticUserEmail" >
                 <div *ngIf="staticUserEmail"><button class="btn-save" (click)="saveProfileData(loginUserEmail,loginUserNameForChild,'email')">Save</button></div>
                 <i class="{{staticUserEmail ? 'bi bi-pencil-fill active' : 'bi bi-pencil-fill '}}" (click)="enableInputField('staticUserEmail')"></i>
                 
@@ -130,7 +133,7 @@
             <div class="pb-2 mt-2  row border-bottom m-0">
               <label  class="col-sm-3 col-form-label ps-0">Mobile</label>
               <div class="col-sm-9">
-                <input type="text" [readonly]="userMobile" autocomplete="new-password" onKeyPress="if(this.value.length==10) return false;" [(ngModel)]="loginUserMobile" id="staticUserMobile" class="{{userMobile ? 'form-control-plaintext w-50 float-start' : 'form-control w-50 float-start'}}"  value="">
+                <input type="text" [readonly]="userMobile" autocomplete="new-password" onKeyPress="if(this.value.length==10) return false;" [(ngModel)]="loginUserMobile" id="staticUserMobile" class="{{userMobile ? 'form-control-plaintext w-50 float-start' : 'form-control w-50 float-start'}}"  >
                 <div *ngIf="staticUserMobile"><button class="btn-save"  (click)="saveProfileData(loginUserMobile,loginUserNameForChild,'mobile')">Save</button></div>
                 <i class="{{staticUserMobile ? 'bi bi-pencil-fill active' : 'bi bi-pencil-fill '}}" (click)="enableInputField('staticUserMobile')"></i>
               </div>

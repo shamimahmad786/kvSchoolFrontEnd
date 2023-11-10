@@ -75,10 +75,7 @@
                                     <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile is required</div>
                                 </div>
                             </div>
-                            <div class="text-center my-2 "><button class="insitute-svae-button" [disabled]="!this.addInstituteForm.get('instituteType').valid || 
-                !this.addInstituteForm.get('instituteCode').valid || 
-                !this.addInstituteForm.get('userName').valid || !this.addInstituteForm.get('Email').valid ||  
-                !this.addInstituteForm.get('Mobile').valid">Save</button></div>
+                            <div class="text-center my-2 "><button class="insitute-svae-button" >Save</button></div>
                         </form>
                     </div>
                     <!---------------------------Form Open For school businessUnitTypeId ==5 ---------------------------->
@@ -111,8 +108,7 @@
                                     <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile is required</div>
                                 </div>
                             </div>
-                            <div class="text-center my-2 "><button class="insitute-svae-button" [disabled]="!this.addInstituteForm.get('userName').valid || !this.addInstituteForm.get('Email').valid ||  
-              !this.addInstituteForm.get('Mobile').valid">Save</button></div>
+                            <div class="text-center my-2 "><button class="insitute-svae-button">Save</button></div>
                         </form>
                     </div>
                 </div>

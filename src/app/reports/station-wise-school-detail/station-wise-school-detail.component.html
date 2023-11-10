@@ -1,1 +1,52 @@
-<p>station-wise-school-detail works!</p>
+<div class="dashboard-main-content" style="min-height: 600px;">
+    <div class="dashboard-main-content__header">
+      <h1 clas="mb-1" style="margin-bottom: 2px;">Region and Station Wise School Details</h1>
+    </div>
+      <nav aria-label="breadcrumb" class="mt-0">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Region and Station Wise School Details</a></li>
+        </ol>
+      </nav>
+      <div class="dashboard-main-content-info">
+        <div class="row">
+            <div class="offset-md-2  offset-lg-2 offset-sm-2 col-lg-8">
+
+                <mat-accordion multi="true">
+                  
+                    <mat-expansion-panel *ngFor="let data of stationWiseSchoolArray">
+                      <mat-expansion-panel-header >Region Name - <span style="color:#7E4880; margin-left: 4px; font-size: medium;"><b>{{data[0]}}</b></span> </mat-expansion-panel-header>
+                
+                    <table class="table table-strip">
+                        <thead>
+                            <tr>
+                            <th scope="col" style="width: 50%;">Station Name</th>
+                            <th scope="col" style="width: 50%;">Number of School</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let datas of data[1]">
+                            <tr>
+                                <td>{{datas.station_name}}</td>
+                                <td>{{datas.count}}</td>
+                              
+                                    </tr>
+                                </ng-container>
+                           
+                        </tbody>
+                      </table>
+                    
+                </mat-expansion-panel>
+                    
+               
+                  </mat-accordion>
+
+
+           
+            
+          
+        </div>
+    </div>
+  </div><!--close main-content-info-->
+</div><!--close dashboard-main-content-->
+  

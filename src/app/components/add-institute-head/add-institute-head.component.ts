@@ -46,7 +46,7 @@ export class AddInstituteHeadComponent implements OnInit {
       this.addInstituteForm = new FormGroup({
         'instituteType': new FormControl('', Validators.required),
         'instituteCode': new FormControl('', Validators.required),
-        'firstname': new FormControl('', Validators.required),
+      //  'firstname': new FormControl('', Validators.required),
         'userName': new FormControl('', Validators.required),
         'Email': new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
         'Mobile': new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("[8976][0-9]{9}")]),
@@ -137,6 +137,11 @@ export class AddInstituteHeadComponent implements OnInit {
     })
   }
   onSubmit(){
+    debugger
+    if (this.addInstituteForm.invalid) {
+      this.addInstituteFormubmitted = true;
+     this.addInstituteForm.markAllAsTouched();
+    }else{
     this.addInstituteFormubmitted=true
     if(this.businessUnitTypeId=="5"){
       var data ={
@@ -148,20 +153,7 @@ export class AddInstituteHeadComponent implements OnInit {
         "businessUnitTypeId":this.childBussinessUnitTypeId,
         "businessUnitTypeCode":this.businessUnitTypeCode,
        }
-    }
-    else{
-      var data ={
-        "username":this.addInstituteForm.controls['userName'].value,
-        "email":this.addInstituteForm.controls['Email'].value,
-        "firstname":this.addInstituteForm.controls['firstname'].value,
-        "mobile":this.addInstituteForm.controls['Mobile'].value,
-        "parentuser": this.loginUserNameForChild,
-        "businessUnitTypeId":this.addInstituteForm.controls['instituteType'].value,
-        "businessUnitTypeCode":this.addInstituteForm.controls['instituteCode'].value,
-       }
-    }
-       debugger   
-      this.outSideService.createInstitutionUser(data,this.loginUserNameForChild).subscribe(res => {
+       this.outSideService.createInstitutionUser(data,this.loginUserNameForChild).subscribe(res => {
         console.log(res)
         if(res['success']){
           Swal.fire({
@@ -183,7 +175,40 @@ export class AddInstituteHeadComponent implements OnInit {
            'text':'You are not Authorized.'
         })
        });
-
+    }
+    else{
+      var datas ={
+        "username":this.addInstituteForm.controls['userName'].value,
+        "email":this.addInstituteForm.controls['Email'].value,
+        "firstname":'',
+        "mobile":this.addInstituteForm.controls['Mobile'].value,
+        "parentuser": this.loginUserNameForChild,
+        "businessUnitTypeId":this.addInstituteForm.controls['instituteType'].value,
+        "businessUnitTypeCode":this.addInstituteForm.controls['instituteCode'].value,
+       }
+       this.outSideService.createInstitutionUser(datas,this.loginUserNameForChild).subscribe(res => {
+        console.log(res)
+        if(res['success']){
+          Swal.fire({
+        'icon':'success',
+        'text':res['message']
+      })
+      this.router.navigate(['/teacher/userMaster'])
+      }
+      if(!res['success']){
+        Swal.fire({
+      'icon':'error',
+      'text':res['errorMessage']
+       })
+        }
+       },
+       error => { 
+        Swal.fire({
+          'icon':'error',
+           'text':'You are not Authorized.'
+        })
+       });
+    }
   }
-
+  }
 }

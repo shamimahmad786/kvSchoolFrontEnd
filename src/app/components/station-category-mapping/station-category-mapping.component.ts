@@ -285,17 +285,17 @@ export class StationCategoryMappingComponent implements OnInit {
               this.testData.buttonstatusType='Update'; 
             }
 
-            if(this.stationCategoryRes[i].active ==true )
+            if(this.stationCategoryRes[i].is_active ==true )
             {
             this.testData.statusType = 'Active';
             }
-           if(this.stationCategoryRes[i].active ==false )
+           if(this.stationCategoryRes[i].is_active ==false )
             {
             this.testData.statusType ='InActive';
             } 
             this.listRegionStation.push(this.testData);
             this.testData = { "sno": "", "stationname": "","stationnames": "","stationcode":"", "categoryname": "", "fromdate": "","todate":"","status":"","statusType":"","buttonstatusType":""};
-   
+   console.log( this.listRegionStation)
           }
     console.log( this.listRegionStation)
       }
