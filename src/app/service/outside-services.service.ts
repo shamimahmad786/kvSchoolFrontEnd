@@ -1676,6 +1676,16 @@ saveControllerOffice(data:any,userName:any){
   }); 
   return this._http.post(environment.BASE_URL_DATA_KVCONTROLER+ "saveControllerOffice",data,{headers})
 }
+searchEmployeeForTransfer(data:any,userName:any){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'username':userName,
+    'Content-Type': 'text/plain; charset=utf-8',
+  }); 
+  return this._http.post(environment.BASE_URL_DATA_TRANSFERPROCESS+ "searchEmployeeForTransfer",data,{headers})
+}
+
 getControllerOffice(data:any,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({

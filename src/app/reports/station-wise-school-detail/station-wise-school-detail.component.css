@@ -1,5 +1,4 @@
- 
-  table {
+table {
     width: 100%;
   }
   th.mat-header-cell:first-of-type{
@@ -15,3 +14,10 @@
   .mat_label{
       font-weight: 500;
   }
+  .mat-header-cell {
+    background-color: #E5EEFF;
+    color: #353535 !important;
+    font-weight: 600 !important;
+    font-size: 15px;
+    font-family: 'PoppinsRegular';
+}
