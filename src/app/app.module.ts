@@ -94,6 +94,7 @@ import { RegionWiseSchoolComponent } from './reports/region-wise-school/region-w
 import { RegionWiseStationDetailComponent } from './reports/region-wise-station-detail/region-wise-station-detail.component';
 import { StationWiseSchoolDetailComponent } from './reports/station-wise-school-detail/station-wise-school-detail.component';
 import { SchoolDetailComponent } from './reports/school-detail/school-detail.component';
+import { AdminTransferModuleComponent } from './components/admin-transfer-module/admin-transfer-module.component';
 // import { MAT_DATE_FORMATS } from '@angular/material/';
 // import { DatePickerModule } from 'angular-material-datepicker';
 
@@ -180,7 +181,8 @@ import { SchoolDetailComponent } from './reports/school-detail/school-detail.com
     RegionWiseSchoolComponent,
     RegionWiseStationDetailComponent,
     StationWiseSchoolDetailComponent,
-    SchoolDetailComponent
+    SchoolDetailComponent,
+    AdminTransferModuleComponent
    
     
   ],
