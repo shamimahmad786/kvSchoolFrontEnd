@@ -32,3 +32,17 @@
     line-height: normal;
     border: none;
   }
+  .trasnfer-save:disabled {
+    color: #fff;
+    position: relative;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #996a9a;
+    height: 34px;
+    line-height: normal;
+    border: none;
+}
+
+.table tr:nth-child(even) {
+  background: none; 
+}

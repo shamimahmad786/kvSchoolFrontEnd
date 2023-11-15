@@ -71,8 +71,8 @@ var publcKey;
 function getKey() {
     $.ajax({
         //  url: "https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER/api/login/getKey",
-         url: "http://10.25.26.251:8014/api/login/getKey",
-       // url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/getKey",
+        // url: "http://10.25.26.251:8014/api/login/getKey",
+        url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/getKey",
         type: "POST",
         cache: false,
         async: false,
@@ -100,8 +100,8 @@ function changePassword(userId, password, newPassword, confirmPassword) {
 
     $.ajax({
         //  url: "https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER/api/login/renamePassword",
-        url: "http://10.25.26.251:8014/api/login/renamePassword",
-        //  url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/renamePassword",
+        // url: "http://10.25.26.251:8014/api/login/renamePassword",
+        url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/renamePassword",
         type: "POST",
         async: false,
         contentType: "text/plain; charset=utf-8",

@@ -83,7 +83,7 @@ export const environment = {
    BASE_URL_DATA_USERMANAGEMENT:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/usermanagement/',
    BASE_URL_DATA_KVCONTROLER:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/kvscontroller/',
    BASE_URL_DATA_USERMAPPING:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/usermapping/',
-
+   BASE_URL_DATA_REPORTCONTROLER:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/reportcontroller/',
 
 
 

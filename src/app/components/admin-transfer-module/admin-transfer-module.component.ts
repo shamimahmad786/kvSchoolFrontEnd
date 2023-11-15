@@ -25,6 +25,7 @@ export class AdminTransferModuleComponent implements OnInit {
   shiftList=[{'value':'0','type':'Modification in Transfer'},{'value':'1','type':'Administrative Transfer'},{'value':'2','type':'Cancel Transfer'}];
   loginUserNameForChild: any;
   adminTransferMangement: any=[];
+  allRegionStationDeatils: any=[];
   businessUnitTypeId: any;
   editEmpName: any;
   editEmpCode: any;
@@ -34,7 +35,8 @@ export class AdminTransferModuleComponent implements OnInit {
   stationList: any;
   kvSchoolList: any;
   kvSchoolName: any;
- 
+  public checkBoxClick:boolean;
+  dob: any;
   
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal) { }
 
@@ -44,9 +46,9 @@ export class AdminTransferModuleComponent implements OnInit {
       this.businessUnitTypeId= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id;
     }
     this.adminTransferEditForm = new FormGroup({
-      'transferRegion': new FormControl(''),
-      "transferStation": new FormControl(''),
-      "transferSchool": new FormControl(''),
+      'transferRegion':  new FormControl('', Validators.required),
+      "transferStation":  new FormControl('', Validators.required),
+      "transferSchool":  new FormControl('', Validators.required),
     });
 
     this.adminTransferForm = new FormGroup({
@@ -66,16 +68,34 @@ export class AdminTransferModuleComponent implements OnInit {
 
 
  //********************** Function Use for Admin Transfer Modal*****************************
-  openRelivingmodal(empName:any,empCode:any,email:any,kvCode:any) {
+  openRelivingmodal(empName:any,empCode:any,email:any,kvCode:any,dob:any) {
   console.log(empCode)
   this.editEmpName=empName;
   this.editEmpCode=empCode;
   this.email=email;
   this.kvCode=kvCode;
+  this.dob=dob;
   this.modalService.open(this.AdminTransferBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
   }
-
-
+   onCheckBoxClick(value:boolean){
+    this.checkBoxClick = value;
+    this.kvSchoolName='';
+    if(this.checkBoxClick==false){
+      this.adminTransferEditForm.patchValue({
+        transferStation:'',
+        transferSchool:'',
+      })
+      this.stationList='';
+      this.kvSchoolList=''; 
+    }
+    console.log(this.checkBoxClick)
+}
+cleceModal(){
+  this.checkBoxClick=false;
+  this.stationList='';
+  this.kvSchoolList=''; 
+  this.modalService.dismissAll();
+}
   getMaster() {
     debugger
     const data: any = {
@@ -109,8 +129,60 @@ export class AdminTransferModuleComponent implements OnInit {
     })
   }
   setUdiseCode(event){
-console.log(event.target.value)
-this.kvSchoolName=event.target.value
+  this.kvSchoolName=event.target.value
+    }
+  submitForm(){
+    this.allRegionStationDeatils=[];
+    const myArray =  this.kvSchoolName.split("(");
+    const schoolCode=myArray[1].split(")")
+    
+    for (let i = 0; i < this.kvSchoolList.length; i++) {
+     if(this.kvSchoolList[i]['kvCode']==schoolCode[0]){
+      this.allRegionStationDeatils.push(this.kvSchoolList[i]);
+     }  
+    }
+    console.log(this.allRegionStationDeatils)
+
+//this.empTransferStatus=6 for admin
+  //   this.editEmpName=empName;
+  //   this.editEmpCode=empCode;
+  //   this.email=email;
+  //   this.kvCode=kvCode;
+
+   var data =  {
+      "empName":this.editEmpName,
+      "empCode":this.editEmpCode,
+      "empTransferStatus":'6',
+      "regionNameAlloted":this.allRegionStationDeatils[0]['regionName'],
+      "regionCodeAlloted":this.allRegionStationDeatils[0]['regionCode'],
+      "allotStnCode":this.allRegionStationDeatils[0]['stationCode'],
+      "stationNameAlloted":this.allRegionStationDeatils[0]['stationName'],
+      "allotShift":this.allRegionStationDeatils[0]['shiftYn'],
+      "allotKvCode":this.allRegionStationDeatils[0]['kvCode'],
+      "kvNameAlloted":this.allRegionStationDeatils[0]['kvName'],
+  }
+console.log(data)
+  this.outSideService.adminTransfer(data,this.loginUserNameForChild).subscribe((res)=>{
+    console.log(res)
+    if(res=="SUCCESS"){
+      Swal.fire(
+        'New Region Added Successfully!',
+        '',
+        'success'
+      )
+    }
+  },
+  error => {
+    // console.log(error);
+    Swal.fire({
+      'icon':'error',
+       'text':error.error
+    }
+    )
+  })
+
+
+    console.log("sasa")
   }
   submit(){
     console.log(this.adminTransferForm.value) 

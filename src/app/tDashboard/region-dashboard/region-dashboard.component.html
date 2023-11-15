@@ -40,7 +40,7 @@
     <div class="shadow-sm bg-white border-3" style="margin-bottom: 9px; border-radius: 7px;" *ngIf="businessUnitTypeId=='2'">
         <ul class="stationUL">
             <li>
-                <h3>Total Regions  :
+                <h3>Total Regions :
                     <span class="StationValue">{{dashboardDetails?.totalRegion}}</span>
                 </h3>
             </li>
@@ -56,119 +56,119 @@
             <li class="card p-4  rounded-3">
                 <div class="row ">
                     <div class="col-7">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0 blue-text TotalTeachingStaff">Sanction Posts : Total  {{dashboardDetails?.totalSanctionPost}}
-                            </h3>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <h3 class="mb-0 blue-text TotalTeachingStaff">Sanction Posts : Total {{dashboardDetails?.totalSanctionPost}}
+                                </h3>
+                            </div>
                         </div>
-                    </div>
                     </div>
 
                     <div class="col-5">
                         <div class="d-flex align-items-right">
                             <div class="flex-grow-1">
-                                <h3 class="mb-0 blue-text TotalTeachingStaff" >In Position : Total  {{inPositionTotal}}
+                                <h3 class="mb-0 blue-text TotalTeachingStaff">In Position : Total {{inPositionTotal}}
                                 </h3>
                             </div>
                         </div>
-                        </div>
+                    </div>
                 </div>
             </li>
-    
+
             <li class="card p-4  rounded-3">
                 <div>
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
-    
-                            <h3 class="mb-0 blue-text TotalTeachingStaff">School : Total  {{dashboardDetails?.totalSchool}}
+
+                            <h3 class="mb-0 blue-text TotalTeachingStaff">School : Total {{dashboardDetails?.totalSchool}}
                             </h3>
                         </div>
                     </div>
                 </div>
             </li>
         </ul>
-    <ul class="display-inline mt-3">
-        <li class="card p-4 rounded-3 ">
-            <h2 class="TolTeacherValue mb-2  card-text-color text-center">Station Total</h2>
-            <div class="row " style=" margin-top: 51px;">
-                <div class="col-2 text-center border-end">
-                    <h4 class="Verified mb-0 card-text-color">Normal </h4>
-                    <h2 class="mt-4">{{dashboardDetails?.totalNormalStation === null ?'0':dashboardDetails?.totalNormalStation}}</h2>
-                </div>
-                <div class="col-2 text-center border-end">
-                    <h4 class="Verified mb-0 card-text-color">Priority </h4>
-                    <h2 class="mt-4"> {{dashboardDetails?.totalPriorityStation === null ?'0':dashboardDetails?.totalPriorityStation}}</h2>
-                </div>
-                <div class="col-2 text-center border-end">
-                    <h4 class="Verified mb-0 card-text-color">Hard </h4>
-                    <h2 class="mt-4">{{dashboardDetails?.totalHardStation === null ?'0':dashboardDetails?.totalHardStation}}</h2>
-                </div>
-                <div class="col-2 text-center border-end">
-                    <h4 class="Verified mb-0 card-text-color">Very Hard </h4>
-                    <h2 class="mt-4">{{dashboardDetails?.totalVeryHardStation === null ?'0':dashboardDetails?.totalVeryHardStation}}</h2>
-                </div>
-                <div class="col-2 text-center border-end ">
-                    <h4 class="Verified mb-0 card-text-color">NER</h4>
-                    <h2 class="mt-4">{{dashboardDetails?.totalNerStation === null ?'0':dashboardDetails?.totalNerStation}}</h2>
-                </div>
-                <div class="col-2 text-center ">
-                    <h4 class="Verified mb-0 card-text-color">Total</h4>
-                    <h2 class="mt-4">{{stationTotal}}</h2>
-                </div>
+        <ul class="display-inline mt-3">
+            <li class="card p-4 rounded-3 ">
+                <h2 class="TolTeacherValue mb-2  card-text-color text-center">Station Total</h2>
+                <div class="row " style=" margin-top: 51px;">
+                    <div class="col-2 text-center border-end">
+                        <h4 class="Verified mb-0 card-text-color">Normal </h4>
+                        <h2 class="mt-4">{{dashboardDetails?.totalNormalStation === null ?'0':dashboardDetails?.totalNormalStation}}</h2>
+                    </div>
+                    <div class="col-2 text-center border-end">
+                        <h4 class="Verified mb-0 card-text-color">Priority </h4>
+                        <h2 class="mt-4"> {{dashboardDetails?.totalPriorityStation === null ?'0':dashboardDetails?.totalPriorityStation}}</h2>
+                    </div>
+                    <div class="col-2 text-center border-end">
+                        <h4 class="Verified mb-0 card-text-color">Hard </h4>
+                        <h2 class="mt-4">{{dashboardDetails?.totalHardStation === null ?'0':dashboardDetails?.totalHardStation}}</h2>
+                    </div>
+                    <div class="col-2 text-center border-end">
+                        <h4 class="Verified mb-0 card-text-color">Very Hard </h4>
+                        <h2 class="mt-4">{{dashboardDetails?.totalVeryHardStation === null ?'0':dashboardDetails?.totalVeryHardStation}}</h2>
+                    </div>
+                    <div class="col-2 text-center border-end ">
+                        <h4 class="Verified mb-0 card-text-color">NER</h4>
+                        <h2 class="mt-4">{{dashboardDetails?.totalNerStation === null ?'0':dashboardDetails?.totalNerStation}}</h2>
+                    </div>
+                    <div class="col-2 text-center ">
+                        <h4 class="Verified mb-0 card-text-color">Total</h4>
+                        <h2 class="mt-4">{{stationTotal}}</h2>
+                    </div>
 
-            </div>
-            <div class="pattern">
-                <i class='bx bx-user-circle imgRotate'></i>
-            </div>
-        </li>
-        <li class="card p-4 rounded-3 ">
-            <h2 class="TolTeacherValue mb-2 card-text-color text-center ">Total Staff</h2>
-            <div class="row mt-2">
-                <div class="row ">
-                    <div class="col-6 ">
-                        <div class="row ">
-                            <h2 class="TolTeacherValue mb-2 card-text-color text-center border-end border-top border-bottom ">Teaching</h2>
-                            <div class="col-4 text-center border-end">
-                                <h4 class="Verified mb-0 card-text-color">Male </h4>
-                                <h2 class="mt-4">{{dashboardDetails?.teachingMale === null ?'0':dashboardDetails?.teachingMale}}</h2>
-                            </div>
-                            <div class="col-4 text-center border-end">
-                                <h4 class="Verified mb-0 card-text-color">FeMale </h4>
-                                <h2 class="mt-4">{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</h2>
-                            </div>
-                            <div class="col-4 text-center border-end">
-                                <h4 class="Verified mb-0 card-text-color">Total</h4>
-                                <h2 class="mt-4">{{teachingMaleFemaleTotal}}</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="row ">
-                            <h2 class="TolTeacherValue mb-2 card-text-color text-center  border-top border-bottom  ">Non-teaching</h2>
-                            <div class="col-4 text-center border-end">
-                                <h4 class="Verified mb-0 card-text-color">Male </h4>
-                                <h2 class="mt-4">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</h2>
-                            </div>
-                            <div class="col-4 text-center border-end">
-                                <h4 class="Verified mb-0 card-text-color">FeMale </h4>
-                                <h2 class="mt-4">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</h2>
-                            </div>
-                            <div class="col-4 text-center ">
-                                <h4 class="Verified mb-0 card-text-color">Total </h4>
-                                <h2 class="mt-4">{{nonTeachingMaleFemaleTotal}}</h2>
-                            </div>
-                        </div>
-                    </div>
-                  
                 </div>
-            </div>
-            <div class="pattern">
-                <i class='bx bx-user-circle imgRotate'></i>
-            </div>
-        </li>
-    </ul>
-  
-    <!-- <ul class="display-inline mt-3">
+                <div class="pattern">
+                    <i class='bx bx-user-circle imgRotate'></i>
+                </div>
+            </li>
+            <li class="card p-4 rounded-3 ">
+                <h2 class="TolTeacherValue mb-2 card-text-color text-center ">Total Staff</h2>
+                <div class="row mt-2">
+                    <div class="row ">
+                        <div class="col-6 ">
+                            <div class="row ">
+                                <h2 class="TolTeacherValue mb-2 card-text-color text-center border-end border-top border-bottom ">Teaching</h2>
+                                <div class="col-4 text-center border-end">
+                                    <h4 class="Verified mb-0 card-text-color">Male </h4>
+                                    <h2 class="mt-4">{{dashboardDetails?.teachingMale === null ?'0':dashboardDetails?.teachingMale}}</h2>
+                                </div>
+                                <div class="col-4 text-center border-end">
+                                    <h4 class="Verified mb-0 card-text-color">FeMale </h4>
+                                    <h2 class="mt-4">{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</h2>
+                                </div>
+                                <div class="col-4 text-center border-end">
+                                    <h4 class="Verified mb-0 card-text-color">Total</h4>
+                                    <h2 class="mt-4">{{teachingMaleFemaleTotal}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row ">
+                                <h2 class="TolTeacherValue mb-2 card-text-color text-center  border-top border-bottom  ">Non-teaching</h2>
+                                <div class="col-4 text-center border-end">
+                                    <h4 class="Verified mb-0 card-text-color">Male </h4>
+                                    <h2 class="mt-4">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</h2>
+                                </div>
+                                <div class="col-4 text-center border-end">
+                                    <h4 class="Verified mb-0 card-text-color">FeMale </h4>
+                                    <h2 class="mt-4">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</h2>
+                                </div>
+                                <div class="col-4 text-center ">
+                                    <h4 class="Verified mb-0 card-text-color">Total </h4>
+                                    <h2 class="mt-4">{{nonTeachingMaleFemaleTotal}}</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="pattern">
+                    <i class='bx bx-user-circle imgRotate'></i>
+                </div>
+            </li>
+        </ul>
+
+        <!-- <ul class="display-inline mt-3">
         <li class="card p-4 rounded-3 ">
             <h2 class="TolTeacherValue mb-2  card-text-color text-center">Station Type</h2>
             <div class="row ">
@@ -230,6 +230,6 @@
             </div>
         </li>
     </ul> -->
-</div>
+    </div>
 </div>
 <!--close dashboard-main-content-->
