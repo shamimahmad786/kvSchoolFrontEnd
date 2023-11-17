@@ -1,11 +1,11 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
-        <h1 class="mb-1">Admin Transfer Management</h1>
+        <h1 class="mb-1">Admin Transfer</h1>
     </div>
     <nav aria-label="breadcrumb" class="mt-1">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Admin Transfer Management</a></li>
+            <li class="breadcrumb-item"><a href="#">Admin Transfer </a></li>
         </ol>
     </nav>
     <div class="dashboard-main-content-info">
@@ -68,7 +68,7 @@
         text-align: end;">
                 <div class="example-header">
                     <mat-form-field appearance="outline" class=" searchInput me-4">
-                        <input matInput (keyup)="applyFilterHBSource($event.target.value)" placeholder="Search">
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
 
                     </mat-form-field>
                 </div>
@@ -110,6 +110,12 @@
                 <ng-container matColumnDef="kv_code">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> KV Code </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.kv_code}}
+                    </mat-cell>
+                </ng-container>  
+
+                <ng-container matColumnDef="transfer_type">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Type </mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transfer_type}}
                     </mat-cell>
                 </ng-container>
 
@@ -167,14 +173,14 @@
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span>
                         <span *ngIf="row.transferStatusAction =='transfer' ">
                             <i class="fa fa-exchange"
-                                (click)="openRelivingmodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob)"
+                                (click)="openTransfermodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob,'1')"
                                 style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
                         </span>
                         <span *ngIf="row.transferStatusAction =='modificationcancel' ">
-                            <i class="fa fa-edit" style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
+                            <i class="fa fa-edit"  (click)="openModificationmodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob,row.join_date,row.relieve_date,'2')"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
                                 aria-hidden="true"></i>
                             <i class="fa fa-times-circle-o"
-                                style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
+                                 (click)="openCancelmodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob,'2')" style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
                         </span>
                     </mat-cell>
                 </ng-container>
@@ -221,13 +227,30 @@
                                     <th class="text-start">D.O.B </th>
                                     <td class="text-start"> {{dob}}</td>
                                 </tr>
+                              
+                            </tbody>
+                        </table>
+
+                        <table class="table table-bordered text-start">
+                            <thead>
                                 <tr>
-                                    <th class="text-start">Transfer To (School) </th>
-                                    <td class="text-start" colspan="3">{{kvSchoolName}} </td>
+                                    <th colspan="4" class="text-start">
+                                        Employee Transfer Details
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              
+                                <tr>
+                                    <th class="text-start w-25">Transfer To (School) </th>
+                                    <td class="text-start"  style="background: #f5f5dc91; "><b>{{kvSchoolName}} </b></td>
 
                                 </tr>
                             </tbody>
                         </table>
+
+
+
                     </div>
                 <div class="card pt-3 mt-3">
                     <form [formGroup]="adminTransferEditForm" (ngSubmit)="submitForm()">
@@ -236,7 +259,22 @@
                                 <div class="px-3">
                                     <div class="row">
 
-                                        <div class="col-md-4 mb-2">
+                                        <div class="pb-2 mt-2  row  m-0">
+                                            <label for="staticEmail" class="col-sm-3 col-form-label ps-0">Select Category</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-select ms-2" formControlName="transferGround" aria-label="Default select example" id="s_id">
+                                                    <option selected disabled> Select Category</option>
+                                                <option *ngFor="let data of transferGroundValue; let i=index;"
+                                                    value="{{data.categoriesId}}">
+                                                    {{data.categoriesName}}
+                                                </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-md-4 mt-2">
                                             <label class="mb-1"> Select Region</label>
                                             <select class="form-select form-select-sm" formControlName="transferRegion"
                                                 aria-label="Default select example"
@@ -250,7 +288,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-4 mb-2">
+                                        <div class="col-md-4 mt-2">
                                             <label class="mb-1"> Select Station</label>
                                             <select class="form-select form-select-sm" formControlName="transferStation"
                                                 aria-label="Default select example"
@@ -264,10 +302,10 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-4 mb-2">
+                                        <div class="col-md-4 mt-2">
                                             <label class="mb-1"> Select School</label>
                                             <select class="form-select form-select-sm" formControlName="transferSchool"
-                                                aria-label="Default select example" [(ngModel)]="selectedUdiseCode"
+                                                aria-label="Default select example" 
                                                 (change)="setUdiseCode($event)">
                                                 <option selected disabled> Select School</option>
                                                 <option *ngFor="let data of kvSchoolList; let i=index;"
@@ -278,22 +316,221 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="p-3" style="text-align: right;">
+                                    <div class="p-3" style="text-align: center;">
                                         <input
-                                            [disabled]="!adminTransferEditForm.get('transferRegion').valid  || !adminTransferEditForm.get('transferStation').valid ||  !adminTransferEditForm.get('transferSchool').valid"
+                                            [disabled]="!adminTransferEditForm.get('transferRegion').valid  || !adminTransferEditForm.get('transferStation').valid || !adminTransferEditForm.get('transferSchool').valid || !adminTransferEditForm.get('transferGround').valid"
                                             class="mat-raised-button btn-secondary trasnfer-save ms-2" type="submit"
-                                            id="submit1" value="submit" />
+                                            id="submit1" value="Transfer" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                <p class="mt-2">
+                <p class="mt-2" style="text-align: left;">
                     <strong style="font-weight: bolder; color: #632765;">Note :</strong> Select school by region and station. 
                 </p>
             </div>
             </ng-template>
         </div>
+        <div mat-dialog-content>
+            <ng-template #AdminCancelBox let-modal style="min-width: 100%;">
+                <div class="modal-header">
+                    <div class="d-flex justify-content-between w-100">
+                        <h1 class="mb-0 " >Employee Transfer Cancel </h1>
+                        <i class="fa fa-times" (click)="cleceModal()"
+                            style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="p-3">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-start">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" class="text-start">
+                                        Employee Details
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="w-25 text-start"> Employee Name(Code)</th>
+                                    <td class="text-start"> {{editCancelEmpName}}
+                                        ({{editCancelEmpCode}})</td>
+                                    <th class="text-start">Email </th>
+                                    <td class="text-start">{{cancelEmail | uppercase}} </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-start">Present School Name </th>
+                                    <td class="text-start"> {{cancelkvCode}}</td>
+                                    <th class="text-start">D.O.B </th>
+                                    <td class="text-start"> {{canceldob}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                   <div class="row"  style=" text-align: center; ">
+                    <div class="col-md-12">
+                        <div class=" pt-3  w-100">
+                            <input class="mat-raised-button btn-secondary trasnfer-save ms-2" type="submit"
+                            id="submit1" value="Cancel Transfer" (click)="cancelTransfer()" />
+                        </div>
+                    </div>
+                   </div> 
+            </div>
+            </ng-template>
+        </div>
+
+        <div mat-dialog-content>
+            <ng-template #AdminMdificationBox let-modal style="min-width: 100%; min-height: 500px;">
+                <div class="modal-header">
+                    <div class="d-flex justify-content-between w-100">
+                        <h1 class="mb-0 " >Employee Transfer Modification </h1>
+                        <i class="fa fa-times" (click)="cleceModal()"
+                            style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="p-3"  style="min-height: 286px;">
+                   
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-start">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" class="text-start">
+                                        Employee Details
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="w-25 text-start"> Employee Name(Code)</th>
+                                    <td class="text-start"> {{editCancelEmpName}}
+                                        ({{editCancelEmpCode}})</td>
+                                    <th class="text-start">Email </th>
+                                    <td class="text-start">{{cancelEmail | uppercase}} </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-start">Present School Name </th>
+                                    <td class="text-start"> {{cancelkvCode}}</td>
+                                    <th class="text-start">D.O.B </th>
+                                    <td class="text-start"> {{canceldob}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pb-2 mt-2  row  m-0">
+                        <label for="staticEmail" class="col-sm-6 col-form-label ps-0">Whether employee join to KV alooted school</label>
+                        <div class="col-sm-6">
+                            <select class="form-select"   (change)="employeeJoinKValloted($event)"  aria-label="Default select example" id="s_id">
+                                <option selected disabled>Select </option>
+                                <option  value="YES">
+                                 YES
+                                </option>
+                                <option  value="NO">
+                                    NO
+                                   </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="pb-2 mt-2  row  m-0" *ngIf="employeeJoinKVallotedYN=='YES'">
+                       
+                        <label for="staticEmail" class="col-sm-6 col-form-label ps-0 mt-2 ">Raise query to  present school  </label>
+                        <div class="col-sm-6  mt-2">     
+                            <textarea class="form-control" rows="2" [(ngModel)] = "str" id="comment"></textarea>
+                      </div>
+                      <div class="row"  style=" text-align: center; ">
+                        <div class="col-md-12">
+                            <div class=" pt-3  w-100">
+                                <input class="mat-raised-button btn-secondary trasnfer-save ms-2" type="submit"
+                                id="submit1" value="Modify Transfer" (click)="modificationTransfer()" />
+                            </div>
+                        </div>
+                       </div> 
+                    </div>
+                
+
+                    <div class="card pt-3 mt-3"  *ngIf="employeeJoinKVallotedYN=='NO'">
+                        <form [formGroup]="adminTransferEditForm" (ngSubmit)="submitForm()">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="px-3">
+                                        <div class="row">
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label class="mb-1"> Select Region</label>
+                                                <select class="form-select form-select-sm" formControlName="transferRegion"
+                                                    aria-label="Default select example"
+                                                    (change)="getStationByRegionId($event)">
+                                                    <option selected disabled> Select Region</option>
+                                                    <option *ngFor="let data of selectRegionList"
+                                                        value="{{data.region_code}}">
+                                                        {{data.region_name}}
+                                                    </option>
+    
+                                                </select>
+                                            </div>
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label class="mb-1"> Select Station</label>
+                                                <select class="form-select form-select-sm" formControlName="transferStation"
+                                                    aria-label="Default select example"
+                                                    (change)="getKvSchoolByStationId($event)">
+                                                    <option selected disabled> Select Station</option>
+                                                    <option *ngFor="let data of stationList; let i=index;"
+                                                        value="{{data.station_code}}">
+                                                        {{data.station_name}}
+                                                    </option>
+    
+                                                </select>
+                                            </div>
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label class="mb-1"> Select School</label>
+                                                <select class="form-select form-select-sm" formControlName="transferSchool"
+                                                    aria-label="Default select example" 
+                                                    (change)="setUdiseCode($event)">
+                                                    <option selected disabled> Select School</option>
+                                                    <option *ngFor="let data of kvSchoolList; let i=index;"
+                                                        value="{{data.kvName}}({{data.udiseSchCode}})">
+                                                        {{data.kvName}}
+                                                    </option>
+    
+                                                </select>
+                                            </div>
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label class="mb-1"> Select Category</label>
+                                                <select class="form-select form-select-sm" formControlName="transferGround"
+                                                    aria-label="Default select example">
+                                                    <option selected disabled> Select School</option>
+                                                    <option *ngFor="let data of transferGroundValue; let i=index;"
+                                                        value="{{data.categoriesId}}">
+                                                        {{data.categoriesName}}
+                                                    </option>
+    
+                                                </select>
+                                            </div>
+    
+    
+                                        </div>
+                                        <div class="p-3" style="text-align: center;">
+                                            <input
+                                                [disabled]="!adminTransferEditForm.get('transferRegion').valid  || !adminTransferEditForm.get('transferStation').valid || !adminTransferEditForm.get('transferSchool').valid || !adminTransferEditForm.get('transferGround').valid"
+                                                class="mat-raised-button btn-secondary trasnfer-save ms-2" type="submit"
+                                                id="submit1" value="Modify Transfer" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+            </div>
+            </ng-template>
+        </div>
+
+
+
     </div>
 </div>

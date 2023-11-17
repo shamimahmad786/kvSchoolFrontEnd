@@ -66,15 +66,19 @@ export class AddSchoolComponent implements OnInit,OnDestroy{
       let payload=this.schoolForm.getRawValue();
       // alert(JSON.stringify(payload));
       debugger
+      // schoolType:payload.schoolType,
       let request={
         schoolCode: payload.schoolCode,
         schoolName: payload.schoolName,
         status:payload.status,
         shift:payload.shift,
         schoolAddress:payload.schoolAddress,
-        schoolType:payload.schoolType,
+        schoolType:1,
         id:payload.id
       }
+
+      
+
       if(this.isEdit){
             
         this.outSideService.editSchoolMaster(request).subscribe((res)=>{

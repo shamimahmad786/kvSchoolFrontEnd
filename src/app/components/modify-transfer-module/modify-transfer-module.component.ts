@@ -8,11 +8,11 @@ import Swal from 'sweetalert2';
 import { FormDataService } from 'src/app/teacherEntryForm/service/internalService/form-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
-  selector: 'app-admin-transfer-module',
-  templateUrl: './admin-transfer-module.component.html',
-  styleUrls: ['./admin-transfer-module.component.css']
+  selector: 'app-modify-transfer-module',
+  templateUrl: './modify-transfer-module.component.html',
+  styleUrls: ['./modify-transfer-module.component.css']
 })
-export class AdminTransferModuleComponent implements OnInit {
+export class ModifyTransferModuleComponent implements OnInit {
   
   displayedColumns = ['Sno', 'employeecode', 'name', 'email','teacher_dob','kv_code','transfer_type','kv_name_alloted','join_date','work_experience_appointed_for_subject','last_promotion_position_type','relieve_date','transfer_under_cat','Action'];
   testData = { "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"","join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "","relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":""}
@@ -40,7 +40,7 @@ export class AdminTransferModuleComponent implements OnInit {
   kvSchoolName: any;
   public checkBoxClick:boolean;
   dob: any;
-  transferType: any;
+  transferType: any = [];
   formDataList:any;
   transferGroundList: any;
   transferGroundValue: any;
@@ -50,10 +50,20 @@ export class AdminTransferModuleComponent implements OnInit {
   cancelkvCode: any;
   canceldob: any;
   employeeJoinKVallotedYN: any;
+  selectTransferType:any
   
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
   ngOnInit(): void {
+   
+    this.transferType=[{
+      "transType": "Automated",
+      "transCode": "S"
+     },{
+    "transType": "Admin",
+    "transCode": "A"
+    }]
+    this.selectTransferType="Automated";
     this.formDataList = this.formData.formData();
     this.transferGroundList = this.formDataList.transferGround
     console.log(this.formDataList)
@@ -79,12 +89,17 @@ export class AdminTransferModuleComponent implements OnInit {
     this.getMaster()
     this.getTransferGround();
   }
+  getTransferListType(event:any){
+console.log(event);
+  }
   applyFilterHBSource(filterValue: string) {
     filterValue = filterValue.trim(); 
     filterValue = filterValue.toLowerCase(); 
     this.userMappingSource.filter = filterValue;
   }
-
+  getAllRegionStationSchoolList(event:any){
+console.log(event)
+  }
 
  //********************** Function Use for Admin Transfer Modal*****************************
   openTransfermodal(empName:any,empCode:any,email:any,kvCode:any,dob:any,transferType:any) {

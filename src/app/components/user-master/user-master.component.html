@@ -24,10 +24,6 @@
     <div class="col-lg-12"> 
         <div class="row ">
             <div class="col-md-6 position-relative">
-              <!-- <button mat-raised-button class=" me-2 btn-primary">Download Excel</button>
-              <button mat-raised-button class="me-2 btn-secondary">Download PDF</button> -->
-
-
              <button mat-raised-button class="btn-secondary add-user"  routerLinkActive="active" routerLink="/teacher/addInstituteHead" ><i class="bi bi-plus-circle me-2"></i>Add User</button>
             </div>  
             <div class="col-md-6" style=" text-align: end;">
@@ -81,7 +77,6 @@
             </mat-table>
             <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
         </div>
-  
     </div>
   </div><!--close row-->
   </div> 
@@ -96,23 +91,9 @@
               <div class="col-lg-3" style="text-align: end;">
                 <button class=" mat-raised-button btn-secondary add-user"  (click)="backButtonClick()" >Back</button>
               </div>
-              <!-- <div class="col-lg-3">
-                <img src="assets/images/add-user.svg">
-              </div> -->
           </div>
          
           <div class="card p-3 ">
-
-            <!-- <div class="pb-2 mt-2 row border-bottom m-0">
-              <label for="staticEmail" class="col-sm-3 col-form-label ps-0">Profile Picture</label>
-              <div class="col-sm-9 text-end">
-                <div class="profile-user">
-                  <p class="profile-user-inner"><i class="bi bi-person-fill"></i></p>
-                  <i class="bi bi-camera-fill"></i>
-                </div>
-              </div>
-            </div> -->
-
             <div class="pb-2 mt-2  row border-bottom m-0">
               <label for="staticEmail" class="col-sm-3 col-form-label ps-0">User Name</label>
               <div class="col-sm-9">
@@ -138,21 +119,6 @@
                 <i class="{{staticUserMobile ? 'bi bi-pencil-fill active' : 'bi bi-pencil-fill '}}" (click)="enableInputField('staticUserMobile')"></i>
               </div>
             </div>
-
-            <!-- <div class="pb-2 mt-2 row m-0">
-              <label class="col-sm-3 col-form-label ps-0">New Password</label>
-              <div class="col-sm-9">
-                <input type="text" [readonly]="changePassword" onKeyPress="if(this.value.length==10) return false;"  id="staticChangePassword" class="{{changePassword ? 'form-control-plaintext w-50 float-start' : 'form-control w-50 float-start'}}" placeholder="Password" > 
-              
-                <i class="{{staticChangePassword ? 'bi bi-pencil-fill active' : 'bi bi-pencil-fill '}}" (click)="enableInputField('staticChangePassword')"></i>
-              </div>
-              <label class="col-sm-3 col-form-label ps-0 mt-2">Confirm Password</label>
-              <div class="col-sm-9 mt-2">
-                <input type="text" [readonly]="changePassword" onKeyPress="if(this.value.length==10) return false;"  id="staticConfirmChangePassword" class="{{changePassword ? 'form-control-plaintext w-50 float-start' : 'form-control w-50 float-start'}}"  placeholder="Confirm Password" > 
-                <br style="clear: both;">
-                <div *ngIf="staticChangePassword" class="mt-1"><button class="btn-save" (click)="saveProfileData('',loginUserNameForChild,'password')">Save</button></div>
-              </div> 
-            </div> -->
           </div>
         </div>
       </div><!--close row-->

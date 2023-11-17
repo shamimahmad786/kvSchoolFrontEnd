@@ -1,0 +1,38 @@
+<div class="dashboard-main-content" style="min-height: 600px;">
+    <div class="dashboard-main-content__header">
+        <h1 class="mb-1">Transfer List (Modify)</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="mt-1">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Transfer List(Modify)</a></li>
+        </ol>
+    </nav>
+    <div class="dashboard-main-content-info">
+        <div class="row">
+            <div class="col-lg-12">
+        <div class="row">
+            <div class="col-md-4 form-group mt-3 mb-3">
+                <label class="titleSet">Transfer List Type</label>
+                <mat-select    class="form-control" >
+                    <mat-option value="">Select Region Name</mat-option>
+                    <mat-option *ngFor="let reg of transferType" [value]="reg.transCode">{{reg.transType}}</mat-option>
+                </mat-select>
+            </div>
+         
+    
+          
+    
+        </div>
+     
+       
+
+    
+     
+
+      
+</div>
+</div>
+
+    </div>
+</div>

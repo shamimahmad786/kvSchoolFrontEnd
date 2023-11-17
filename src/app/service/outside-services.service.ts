@@ -1685,7 +1685,15 @@ searchEmployeeForTransfer(data:any,userName:any){
   }); 
   return this._http.post(environment.BASE_URL_DATA_TRANSFERPROCESS+ "searchEmployeeForTransfer",data,{headers})
 }
-
+getTransferGround(data:any,userName:any){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'username':userName,
+    'Content-Type': 'text/plain; charset=utf-8',
+  }); 
+  return this._http.post(environment.BASE_URL_DATA_MASTER+ "getTransferGround",data,{headers})
+}
 adminTransfer(data:any,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({
@@ -1695,7 +1703,25 @@ adminTransfer(data:any,userName:any){
   }); 
   return this._http.post(environment.BASE_URL_DATA_TRANSFERPROCESS+ "adminTransfer",data,{headers})
 }
+transferCancelation(data:any,userName:any){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'username':userName,
+    'Content-Type': 'text/plain; charset=utf-8',
+  }); 
+  return this._http.post(environment.BASE_URL_DATA_TRANSFERPROCESS+ "transferCancelation",data,{headers})
+}
 
+getTransferedList(data:any,userName:any){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'username':userName,
+    'Content-Type': 'text/plain; charset=utf-8',
+  }); 
+  return this._http.post(environment.BASE_URL_DATA_TRANSFERPROCESS+ "getTransferedList",data,{headers})
+}
 
 getControllerOffice(data:any,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
