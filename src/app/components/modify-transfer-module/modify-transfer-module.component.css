@@ -1,5 +1,5 @@
 
-.mat-header-row {
+  .mat-header-row {
     background-color: #E5EEFF;
    
 }
@@ -47,21 +47,3 @@
   background: none; 
 }
 
-    .nav-tabs {border-bottom: none;}
-    .nav-tabs li {min-width: 200px;}
-    .nav-tabs li button {width: 100%;}
-    .nav-tabs li .nav-link{background-color: #fff; color: #333; border: #ccc;}
-
-.dashboard-main-content-info{ border-top-left-radius:0 !important}
-  .mat-focus-indicator {position: absolute; top:12px}
-
-
-::ng-deep .mat-header-cell{background-color:#E5EEFF ; color: #353535; font-weight: 600 !important; font-size: 15px; font-family: 'PoppinsRegular';}
-
-
-  
-    .myClass{
-      border: solid 0.2px #542555 !important;;
-      background-color: #4A1C4B !important;;
-      color: white !important;;
-    }

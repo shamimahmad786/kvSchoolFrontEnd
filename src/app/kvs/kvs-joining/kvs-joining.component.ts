@@ -38,7 +38,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
  @ViewChild('JoiningBox', { static: true }) JoiningBox: TemplateRef<any>;   
  @ViewChild('RelivingBox', { static: true }) RelivingBox: TemplateRef<any>;
   relevingData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","join_relieve_flag":"","transferGround":"","relivingdate": "","teacher_id":"","From":"","allot_kv_code":"","To":""}
-  joiningData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","transferGround":"","relivingdate": "","joiningdate": "","join_relieve_flag":"","teacher_id":"","from_kv":"","From":"","To":""}
+  joiningData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","transferGround":"","relivingdate": "","joiningdate": "","join_relieve_flag":"","teacher_id":"","from_kv":"","From":"","allot_kv_code":"","To":"","transfer_type":""}
   relevingDataArray: any = [];
   joiningDataArray: any = [];
   teacherJoiningArray: any;
@@ -80,6 +80,8 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
   returnTypeSrvTime: any;
   maxDate: any;
   teacherRelName: any;
+  transferType: any;
+  allotedKvCode: any;
   constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -92,6 +94,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
     console.log("server dataaat--"+ [date.getFullYear(), mnth, day].join("-"))
     this.employeeTransferIn = new FormGroup({
       JoiningDate: new FormControl('', Validators.required),
+      joinConfermation: new FormControl('', Validators.required),
     });   
     this.employeeTransferOut = new FormGroup({
        relievingDate: new FormControl('', Validators.required),
@@ -135,10 +138,14 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
       };
       this.result = groupBy(this.teacherList['rowValue'], 'trans_type');
       console.log( this.result)
-      this.teacherReliveArray = this.result[2]
-      this.teacherJoiningArray = this.result[1]
-      this.setToRelivingMatTable(this.teacherReliveArray);
-      this.setToJoingMatTable(this.teacherJoiningArray);
+      if(this.result[1]){
+        this.teacherJoiningArray = this.result[1];
+        this.setToJoingMatTable(this.teacherJoiningArray);
+      }
+      if(this.result[2]){
+        this.teacherReliveArray = this.result[2]
+        this.setToRelivingMatTable(this.teacherReliveArray);
+      }
      })
   }
   navColor(nav:any){
@@ -172,9 +179,11 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
       this.joiningData.teacher_id= data[i].teacher_id;    
       this.joiningData.from_kv= data[i].from_kv;
       this.joiningData.From= data[i].from_kv_name;
-      this.joiningData.To= data[i].kv_name_alloted;
+      this.joiningData.To= data[i].kv_name_alloted;      
+      this.joiningData.allot_kv_code= data[i].allot_kv_code;
+      this.joiningData.transfer_type= data[i].transfer_type;
       this.joiningDataArray.push(this.joiningData);
-      this.joiningData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","transferGround":"","relivingdate": "","joiningdate":"","join_relieve_flag":"","teacher_id":"","from_kv":"","From":"","To":""}
+      this.joiningData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","transferGround":"","relivingdate": "","joiningdate":"","join_relieve_flag":"","teacher_id":"","from_kv":"","From":"","To":"","allot_kv_code":"","transfer_type":""}
     }
     setTimeout(() => {
       this.hBSource  = new MatTableDataSource(this.joiningDataArray);
@@ -211,11 +220,13 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
   }
  
   //********************** Function Use for Open Joing Modal *****************************
-    openJoiningmodal(joinId:any,emplCode:any,fromKvCode:any,name:any) {
+    openJoiningmodal(joinId:any,emplCode:any,fromKvCode:any,name:any,transferType:any,allotedKvCode:any) {
         this.teacherName=name;
         this.fromKvCode = fromKvCode;
         this.onClickEmplCode =emplCode;
         this.onClickJoiningTeacherId =joinId;
+        this.transferType=transferType;
+        this.allotedKvCode=allotedKvCode
         this.modalService.open(this.JoiningBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
       }
   //********************** Function Use for Open Releving Modal*****************************
@@ -361,19 +372,35 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
   //********************** Function Use for Save joining Data ******************************
   onEmployeeTransferFormSubmit(event: Event){
     console.log(this.fromKvCode)
-     const data={"kvCode":this.fromKvCode,"emp_code":this.onClickEmplCode,"teacherId":this.onClickJoiningTeacherId,"doj":this.employeeTransferIn.value.JoiningDate};
+     const data={
+      "kvCode":this.fromKvCode,
+     "emp_code":this.onClickEmplCode,
+     "teacherId":this.onClickJoiningTeacherId,
+     "is_joined_allocated_school":this.employeeTransferIn.value.joinConfermation,
+     "transfer_type": this.transferType,
+     "allot_kv_code":this.allotedKvCode,
+     "doj":this.employeeTransferIn.value.JoiningDate
+    };
      console.log(data)
+   
      this.outSideService.sendEmplooyeeJoiningDate(data).subscribe((res) => {
        console.log(res);
-       this.flagUpdatedList = res.responseCode;
+       this.flagUpdatedList = res['response']['status'];
        this.modalService.dismissAll() 
-       if( this.flagUpdatedList =='200 OK')
+       if( this.flagUpdatedList =='0')
        {
-         Swal.fire(
-           'Your Data has been saved Successfully!',
-           '',
-           'success'
-         )
+        Swal.fire({
+          'icon':'error',
+          'text':res['response']['message']
+        }
+        )
+       }
+       else{
+        Swal.fire(
+          'Transfer  Successfully!',
+          '',
+          'success'
+        )
        }
      })
     }

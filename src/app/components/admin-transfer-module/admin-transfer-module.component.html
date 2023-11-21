@@ -33,9 +33,9 @@
                                                 <mat-datepicker-toggle mdSuffix [for]="pickers"></mat-datepicker-toggle>
                                                 <mat-datepicker #pickers></mat-datepicker>
                                             </div>
-                                            <input class="form-control" id="wordStartDate" [matDatepicker]="pickers"
+                                     <input class="form-control" id="wordStartDate" [matDatepicker]="pickers"
                                                 placeholder="Date" (click)="pickers.open()" formControlName="dob">
-                                        </div>
+                                    </div>
                                     </div>
 
                                     <div class="col-md-4 form-group my-2">
@@ -52,7 +52,6 @@
                                     <div class="mt-2 " style="text-align: center;">
                                         <button type="submit" class="btn btn-success mt-2">Search</button>&nbsp;&nbsp;
                                         <button type="button" class="btn btn-primary mt-2">Clear</button>&nbsp;&nbsp;
-
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +98,6 @@
                     </mat-cell>
                 </ng-container>
 
-
                 <ng-container matColumnDef="teacher_dob">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> D.O.B </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.teacher_dob
@@ -125,13 +123,11 @@
                     </mat-cell>
                 </ng-container>
 
-
                 <ng-container matColumnDef="transfer_under_cat">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Under Category</mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferred_under_cat}}
                     </mat-cell>
                 </ng-container>
-
 
                 <ng-container matColumnDef="join_date">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Join Date </mat-header-cell>
@@ -191,7 +187,6 @@
             </mat-table>
             <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
         </div>
-
         <div mat-dialog-content>
             <ng-template #AdminTransferBox let-modal style="min-width: 100%;">
                 <div class="modal-header">
@@ -239,8 +234,7 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
-                              
+                            <tbody>                            
                                 <tr>
                                     <th class="text-start w-25">Transfer To (School) </th>
                                     <td class="text-start"  style="background: #f5f5dc91; "><b>{{kvSchoolName}} </b></td>
@@ -248,9 +242,6 @@
                                 </tr>
                             </tbody>
                         </table>
-
-
-
                     </div>
                 <div class="card pt-3 mt-3">
                     <form [formGroup]="adminTransferEditForm" (ngSubmit)="submitForm()">

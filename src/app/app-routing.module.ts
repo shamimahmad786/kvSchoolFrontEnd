@@ -55,7 +55,7 @@ const routes: Routes = [
   {path: 'teacher', component:TeacherComponent,canActivate: [AuthGuard], children:[
       {path:'', component: ProfileComponent},
       {path:'profile', component: ProfileComponent},
-      {path:'adminTransferModule', component: AdminTransferModuleComponent},
+      {path:'globalTransferModule', component: AdminTransferModuleComponent},
       {path:'modifyTransferModule', component: ModifyTransferModuleComponent},
       {path:'nationalDashboard', component: NationalDashboardComponent},
       {path:'regionDashboard', component: RegionDashboardComponent},
