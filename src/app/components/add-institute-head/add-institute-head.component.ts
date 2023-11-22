@@ -16,8 +16,9 @@ export class AddInstituteHeadComponent implements OnInit {
   loginUserNameForChild: any;
   businessUnitTypeId: any;
   schoolType:any;
-  childBussinessUnitTypeId:any;
   businessUnitTypeCode:any;
+  childBussinessUnitTypeId:any;
+  childBussinessUnitTypeCode:any;
   constructor(private outSideService: OutsideServicesService,private router: Router) { }
 
   ngOnInit(): void {
@@ -53,7 +54,12 @@ export class AddInstituteHeadComponent implements OnInit {
       });
     }
   if(this.businessUnitTypeId=="2"){
-    this.instituteType=[{
+    this.instituteType=[
+    {
+        "name": "Head Office",
+        "value": "4"
+     }, 
+     {
       "name": "Region Office(RO)",
       "value": "3"
      },{
@@ -71,11 +77,14 @@ export class AddInstituteHeadComponent implements OnInit {
   get f() { return this.addInstituteForm.controls; }
   //***************** Get Region*******************************************/
   getStationByRegionId(event:any){
-    console.log(event.target.value)
+    console.log(event.target.value);
+    debugger;
+    this.schoolType="";
 
-  if(event.target.value=="3" || event.target.value=="2"){
+  if(event.target.value=="3" || event.target.value=="2" ){
   this.outSideService.fetchKvRegion(event.target.value).subscribe(res => {
     this.regionList = res.response.rowValue;
+    // alert(this.businessUnitTypeId);
     console.log("region list")
     console.log(this.regionList)
   },
@@ -86,10 +95,12 @@ export class AddInstituteHeadComponent implements OnInit {
     })
   });
   }
-  if(event.target.value=="5" || event.target.value=="31"){
+  if(event.target.value=="5" || event.target.value=="31" || event.target.value=="4"){
 
     if(event.target.value=="31"){
       this.schoolType="3";
+    }else if(event.target.value=="4"){
+      this.schoolType="4";
     }else{
       this.schoolType="1";
     }
@@ -101,7 +112,9 @@ export class AddInstituteHeadComponent implements OnInit {
       "regionCode":this.businessUnitTypeCode,
       "schoolType":this.schoolType
     }
+
     this.outSideService.getregionSchool(data,this.loginUserNameForChild).subscribe(res => {
+      alert(JSON.stringify(res));
     this.regionList=res
     console.log(res)
     },
@@ -118,20 +131,26 @@ export class AddInstituteHeadComponent implements OnInit {
   }
   //***************** make User Name On Basis Of Station name*******************************************/
   getUserNameForInstitute(event:any){
-    // alert(event);
+
+
       var instituteUserNameSplit = event.split("/")
       var instituteUserName ='ro_'+instituteUserNameSplit[1].toLowerCase();
       if(instituteUserName.indexOf('ziet') !=-1){
        var zietUserNameSplit= instituteUserName.split(" ");
-       instituteUserName=zietUserNameSplit[0]+"_"+zietUserNameSplit[1];
+      //  instituteUserName=zietUserNameSplit[0]+"_"+zietUserNameSplit[1];
+      var instituteUserName ='ziet_'+instituteUserNameSplit[2].toLowerCase();
       }
       this.addInstituteForm.patchValue({
         userName:instituteUserName,
       })
   }
   getUserNameForSchool(event:any){
+  
     var schoolUserNameSplit = event.split("/")
     var schoolUserName ='kv_'+schoolUserNameSplit[0].toLowerCase();
+    if(schoolUserNameSplit[1].indexOf("HQ") !=-1){
+       schoolUserName ='hq_'+schoolUserNameSplit[0].toLowerCase();
+    }
     this.addInstituteForm.patchValue({
       userName:schoolUserName,
     })
@@ -139,7 +158,7 @@ export class AddInstituteHeadComponent implements OnInit {
   onSubmit(){
     debugger
     if (this.addInstituteForm.invalid) {
-      this.addInstituteFormubmitted = true;
+     this.addInstituteFormubmitted = true;
      this.addInstituteForm.markAllAsTouched();
     }else{
     this.addInstituteFormubmitted=true
@@ -153,6 +172,8 @@ export class AddInstituteHeadComponent implements OnInit {
         "businessUnitTypeId":this.childBussinessUnitTypeId,
         "businessUnitTypeCode":this.businessUnitTypeCode,
        }
+
+
        this.outSideService.createInstitutionUser(data,this.loginUserNameForChild).subscribe(res => {
         console.log(res)
         if(res['success']){
@@ -175,17 +196,24 @@ export class AddInstituteHeadComponent implements OnInit {
            'text':'You are not Authorized.'
         })
        });
-    }
-    else{
+    }else{
+     
+
+      if(this.addInstituteForm.controls['instituteCode'].value.indexOf("ZIET") !=-1){
+           this.childBussinessUnitTypeId=5
+           this.childBussinessUnitTypeCode=this.addInstituteForm.controls['instituteCode'].value.split("/")[2];
+      }
+
       var datas ={
         "username":this.addInstituteForm.controls['userName'].value,
         "email":this.addInstituteForm.controls['Email'].value,
         "firstname":'',
         "mobile":this.addInstituteForm.controls['Mobile'].value,
         "parentuser": this.loginUserNameForChild,
-        "businessUnitTypeId":this.addInstituteForm.controls['instituteType'].value,
-        "businessUnitTypeCode":this.addInstituteForm.controls['instituteCode'].value,
+        "businessUnitTypeId":this.childBussinessUnitTypeId,
+        "businessUnitTypeCode":this.childBussinessUnitTypeCode,
        }
+
        this.outSideService.createInstitutionUser(datas,this.loginUserNameForChild).subscribe(res => {
         console.log(res)
         if(res['success']){

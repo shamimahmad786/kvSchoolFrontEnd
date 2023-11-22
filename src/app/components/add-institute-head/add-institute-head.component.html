@@ -29,17 +29,17 @@
                                 </div>
 
                                 <label for="staticEmail" class="col-sm-2 col-form-label ">Instituion List </label>
-                                <div class="col-sm-3" *ngIf="businessUnitTypeId!='3'">
+                                <div class="col-sm-3" *ngIf="(businessUnitTypeId =='2' || businessUnitTypeId =='5')   && schoolType !='4'">
                                     <select class="form-select " aria-label="Default select example" #institutelist (change)="getUserNameForInstitute(institutelist.value)" formControlName="instituteCode" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.instituteCode.errors }">
-                        <option selected >Select Institute List </option>
-                        <option *ngFor="let data of regionList; let i=index;" value="{{data.regionCode}}/{{data.regionName}}">
+                        <option selected >Select Institute Lists </option>
+                        <option *ngFor="let data of regionList; let i=index;" value="{{data.regionCode}}/{{data.regionName}}/{{data.kvCode}}">
                             {{data.regionName}}
                         </option>
                     </select>
                                     <div *ngIf="addInstituteFormubmitted && f.instituteCode.errors" class="invalid-feedback">Institute list is required</div>
                                 </div>
 
-                                <div class="col-sm-3" *ngIf="businessUnitTypeId=='3'">
+                                <div class="col-sm-3" *ngIf="businessUnitTypeId=='3'  || (businessUnitTypeId=='2' && schoolType =='4') ">
                                     <select class="form-select " aria-label="Default select example" #institutelist (change)="getUserNameForSchool(institutelist.value)" formControlName="instituteCode" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.instituteCode.errors }">
                       <option selected >Select Institute List </option>
                       <option *ngFor="let data of regionList; let i=index;" value="{{data.kvCode}}/{{data.kvName}}">
@@ -71,11 +71,11 @@
                                 <label for="staticEmail" class="col-sm-2 col-form-label ">Mobile</label>
                                 <div class="col-sm-3">
 
-                                    <input type="number" class="form-control" onKeyPress="if(this.value.length==10) return false;"  id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
+                                    <input type="number" class="form-control" onKeyPress="if(this.value.length==10) return false;" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile is required</div>
                                 </div>
                             </div>
-                            <div class="text-center my-2 "><button class="insitute-svae-button" >Save</button></div>
+                            <div class="text-center my-2 "><button class="insitute-svae-button">Save</button></div>
                         </form>
                     </div>
                     <!---------------------------Form Open For school businessUnitTypeId ==5 ---------------------------->
