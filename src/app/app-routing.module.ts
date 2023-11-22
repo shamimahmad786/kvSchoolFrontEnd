@@ -44,6 +44,7 @@ import { StationWiseSchoolDetailComponent } from './reports/station-wise-school-
 import { RegionWiseStationDetailComponent } from './reports/region-wise-station-detail/region-wise-station-detail.component';
 import { SchoolDetailComponent } from './reports/school-detail/school-detail.component';
 import { AdminTransferModuleComponent } from './components/admin-transfer-module/admin-transfer-module.component';
+import { ModifyTransferModuleComponent } from './components/modify-transfer-module/modify-transfer-module.component';
 const routes: Routes = [
   {path:'', component: MainPageComponent},
   {path:'mainPage', component: MainPageComponent},
@@ -54,7 +55,8 @@ const routes: Routes = [
   {path: 'teacher', component:TeacherComponent,canActivate: [AuthGuard], children:[
       {path:'', component: ProfileComponent},
       {path:'profile', component: ProfileComponent},
-      {path:'adminTransferModule', component: AdminTransferModuleComponent},
+      {path:'globalTransferModule', component: AdminTransferModuleComponent},
+      {path:'modifyTransferModule', component: ModifyTransferModuleComponent},
       {path:'nationalDashboard', component: NationalDashboardComponent},
       {path:'regionDashboard', component: RegionDashboardComponent},
       {path:'stationDashboard', component: StationDashboardComponent},
