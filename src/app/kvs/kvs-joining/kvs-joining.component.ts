@@ -82,6 +82,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
   teacherRelName: any;
   transferType: any;
   allotedKvCode: any;
+  
   constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -129,6 +130,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
      this.teacherList = [];
      const data={"kvCode":this.kvCode};
      this.outSideService.getEmployeetransferDetails(data).subscribe((res) => {
+      // alert(JSON.stringify(res));
        this.teacherList = res.response;
        var groupBy = function(xs, key) {
         return xs.reduce(function(rv, x) {
@@ -226,14 +228,15 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
         this.onClickEmplCode =emplCode;
         this.onClickJoiningTeacherId =joinId;
         this.transferType=transferType;
-        this.allotedKvCode=allotedKvCode
+        this.allotedKvCode=allotedKvCode;
         this.modalService.open(this.JoiningBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
       }
   //********************** Function Use for Open Releving Modal*****************************
-     openRelivingmodal(relId:any,emplCode:any,name:any) {
+     openRelivingmodal(relId:any,emplCode:any,name:any,allotKvCode:any) {
         this.teacherRelName=name;
         this.onClickRelevingTeacherId =relId
         this.onClickRelEmplCode =emplCode;
+        this.allotedKvCode=allotKvCode;
         this.modalService.open(this.RelivingBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
       }
   //********************** show date in dd-mm-yyyy format in table **************************
@@ -408,8 +411,10 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
     onEmployeeTransferOutFormSubmit(event: Event){
     console.log(event)
     console.log(this.employeeTransferOut)
-    const data={"emp_code":this.onClickRelEmplCode,"doj":this.employeeTransferOut.value.relievingDate};
+    const data={"emp_code":this.onClickRelEmplCode,"doj":this.employeeTransferOut.value.relievingDate,"allotedKvCode":this.allotedKvCode};
     console.log(data)
+    alert(JSON.stringify(data));
+    return 
     this.outSideService.sendEmplooyeeRelevingDate(data).subscribe((res) => {
       console.log(res);
       this.modalService.dismissAll() 

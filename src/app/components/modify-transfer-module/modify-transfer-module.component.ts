@@ -333,10 +333,12 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.modalService.open(this.AdminCancelBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
   }
 
-  openModificationmodal(empCode:any){
+  openModificationmodal(empCode:any,empName:any){
     debugger
     this.kvRegionSchoolZietHqName='';
     this.showTransferEditForm=false;
+    this.editEmpName=empName;
+  this.editEmpCode=empCode;
     this.showRegion=false;
     this.showSchool=false;
     this.showZiet=false;
@@ -463,7 +465,7 @@ export class ModifyTransferModuleComponent implements OnInit {
      getTransferGround(){
       let req={};
       this.outSideService.getTransferGround(req,this.loginUserNameForChild).subscribe((res) => {
-      this.transferGroundValue=res['response']
+      this.transferGroundValue=res['response'];
     })
   }
     getMaster(data, schoolType) {
@@ -541,6 +543,8 @@ export class ModifyTransferModuleComponent implements OnInit {
     }
   }
     submitForm(){
+
+
       this.selecttedRegionName='';
       this.selecttedRegionCode='';
       this.selectStationCode='';
@@ -756,6 +760,10 @@ export class ModifyTransferModuleComponent implements OnInit {
   "isAdminTransfer":true,
   "kvNameAlloted": this.selectedKvname
 }
+
+debugger;
+console.log(data);
+
   Swal.fire({
     'icon':'warning',
     'text': "Do you want to proceed?",
