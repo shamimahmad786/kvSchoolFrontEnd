@@ -14,7 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ModifyTransferModuleComponent implements OnInit {
   
-  displayedColumns = ['Sno', 'employeecode', 'name', 'email','teacher_dob','kv_code','is_admin_transfer','kv_name_alloted','join_date','work_experience_appointed_for_subject','last_promotion_position_type','relieve_date','transfer_under_cat','Action'];
+  displayedColumns = ['Sno', 'employeecode', 'name','kv_code','is_admin_transfer','kv_name_alloted','join_date','relieve_date','transfer_under_cat','Action'];
   testData = { "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"","join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "","relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":""}
   dataSource:any;
   userMappingSource : MatTableDataSource<any>;
@@ -35,10 +35,10 @@ export class ModifyTransferModuleComponent implements OnInit {
   editEmpCode: any;
   email: any;
   kvCode: any;
-  selectRegionList: any;
+  selectRegionList: any=[];
   stationList: any;
   kvSchoolList: any;
-  kvSchoolName: any;
+  kvRegionSchoolZietHqName: any;
   public checkBoxClick:boolean;
   dob: any;
   transferType: any;
@@ -77,27 +77,41 @@ export class ModifyTransferModuleComponent implements OnInit {
   showZiet:boolean = false;
   showHq:boolean = false;
   showCategory:boolean = false;
+  showTransferEditForm:boolean = false;
+  selectHeadQuaterZoneRegion:boolean = false;
   selectSchoolType: any;
   headQuaterList: any = [];
   zoneList: any = [];
   institute_id: string;
+  totalLength: any;
+  selectStationName: string;
+  selectedKvCode: any;
+  selectedKvname: any;
+  selecttedRegionName: any;
+  selecttedRegionCode: any;
+  selectStationCode: any;
+  school_id: string;
+  selectedShiftYN: string;
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
   ngOnInit(): void {
-    this.transferType='S'
+    this.selectTransferType='S';
     console.log(this.transferType)
     this.formDataList = this.formData.formData();
-    this.transferGroundList = this.formDataList.transferGround
+    this.transferGroundList = this.formDataList.transferGround;
     console.log(this.formDataList)
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
       this.businessUnitTypeId= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id;
     }
     this.adminTransferEditForm = new FormGroup({
-      'transferRegion':  new FormControl('', Validators.required),
-      "transferStation":  new FormControl('', Validators.required),
-      "transferSchool":  new FormControl('', Validators.required),
-      "transferGround":  new FormControl('', Validators.required),
+      'transferRegion': new FormControl(''),
+      "transferStation":  new FormControl(''),
+      "transferSchool": new FormControl(''),
+      "transferGround": new FormControl(''),
+      "TransferZiet": new FormControl(''),
+      "TransferHeadquater": new FormControl(''),
+      "TransferRegionZietHq": new FormControl(''),
 
     });
     this.modificationEditForm = new FormGroup({
@@ -107,6 +121,7 @@ export class ModifyTransferModuleComponent implements OnInit {
       "modifyTransferGround":  new FormControl(''),
       "modifyTransferZiet":new FormControl(''),
       "modifyTransferHeadquater":new FormControl(''),
+      "ModifyTransferRegionZietHq": new FormControl(''),
 
     });
     this.adminTransferForm = new FormGroup({
@@ -116,17 +131,11 @@ export class ModifyTransferModuleComponent implements OnInit {
       'mobileNo':new FormControl(''),
       'email': new FormControl(''),
     });
-    this.getTransferGround();
     this.getTransferedList();
   }
-  getTransferGround(){
-    let req={};
-    this.outSideService.getTransferGround(req,this.loginUserNameForChild).subscribe((res) => {
-     this.transferGroundValue=res['response']
-    })
-  }
+
   getTransferedList(){
-    let req={"type":this.transferType};
+    let req={"type":this.selectTransferType};
      this.adminTransferMangement=[];
      this.outSideService.getTransferedList(req,this.loginUserNameForChild).subscribe(res => {
        console.log("emp transfer  data---------------")
@@ -277,6 +286,7 @@ export class ModifyTransferModuleComponent implements OnInit {
              }
  //--------------------Transfer under Cat end------------------------------------------------------
              this.adminTransferMangement.push(this.testData);
+             this.totalLength = this.adminTransferMangement.length;
              this.testData = {  "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"",
              "join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "",
              "relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":""};
@@ -285,6 +295,7 @@ export class ModifyTransferModuleComponent implements OnInit {
        }
        setTimeout(() => {
          this.dataSource = new MatTableDataSource(this.adminTransferMangement);
+     
          this.dataSource.paginator = this.paginator;
          this.dataSource.sort = this.userMappingSort;
        }, 100)
@@ -301,11 +312,10 @@ export class ModifyTransferModuleComponent implements OnInit {
   this.getTransferedList()
     }
 
-
-    
  //********************** Function Use for Admin Transfer Modal*****************************
   openTransfermodal(empName:any,empCode:any,email:any,kvCode:any,dob:any,) {
-  this.kvSchoolName='';
+  this.showTransferEditForm=false;
+  this.kvRegionSchoolZietHqName='';
   this.editEmpName=empName;
   this.editEmpCode=empCode;
   this.email=email;
@@ -325,17 +335,18 @@ export class ModifyTransferModuleComponent implements OnInit {
 
   openModificationmodal(empCode:any){
     debugger
+    this.kvRegionSchoolZietHqName='';
+    this.showTransferEditForm=false;
     this.showRegion=false;
     this.showSchool=false;
     this.showZiet=false;
     this.showHq=false;
     this.showCategory=false;
     this.modiFYTransferType='';
+    this.transferType=9999;
      this.editModifyEmpCode=empCode;
     let req={"empCode":this.editModifyEmpCode};
     this.outSideService.getModifiedTransferDetails(req,this.loginUserNameForChild).subscribe((res) => {
-      console.log(res)
-      debugger
       if((res['rowValue'].length)>1){
         if(res['rowValue'][0]['transfer_type']=='S'){
           this.editeModifyTransferType='Automated';
@@ -386,10 +397,19 @@ export class ModifyTransferModuleComponent implements OnInit {
         this.reliveDate =res['rowValue'][0]['relieve_date'];
       }
     })
-    this.modalService.open(this.AdminMdificationBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
+    this.modalService.open(this.AdminMdificationBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
 
   selectInstituteType(event:any){
+   this. headQuaterList=[];
+   this.zoneList=[];
+   this.kvSchoolList=[];
+   this.stationList=[];
+   this.selectRegionList=[];
+   this.transferGroundValue=[];
+  this.kvRegionSchoolZietHqName='';
+  this.showTransferEditForm=true;
+  this.employeeInstituteType='';
   this.employeeInstituteType=event.target.value;
   this.showCategory=true;
   //Region
@@ -398,6 +418,7 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.showSchool=false;
     this.showZiet=false;
     this.showHq=false;
+    this.selectHeadQuaterZoneRegion = true
   }
   //School
   if(this.employeeInstituteType=='1'){
@@ -405,6 +426,7 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.showSchool=true;
     this.showZiet=false;
     this.showHq=false;
+    this.selectHeadQuaterZoneRegion = false
   }
   //Ziet
   if(this.employeeInstituteType=='2'){
@@ -412,6 +434,7 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.showSchool=false;
     this.showZiet=true;
     this.showHq=false;
+    this.selectHeadQuaterZoneRegion = true
   }
   //Hq
   if(this.employeeInstituteType=='4'){
@@ -419,17 +442,32 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.showSchool=false;
     this.showZiet=false;
     this.showHq=true;
+    this.selectHeadQuaterZoneRegion = true
   }
-  
-  const data: any = {
-    "extcall": "MOE_EXT_GET_HQ_REG_ZN",
-    "conditionvalue": [event.target.value]
+  if(this.employeeInstituteType=='1')
+  {
+    var data: any = {
+      "extcall": "MOE_EXT_GET_HQ_REG_ZN",
+      "conditionvalue": [3]
+    }
   }
-  debugger
+  else{
+    var data: any = {
+      "extcall": "MOE_EXT_GET_HQ_REG_ZN",
+      "conditionvalue": [event.target.value]
+    }
+  }
+  this.getTransferGround();
   this.getMaster(data, event.target.value);
   }
-  getMaster(data, schoolType) {
-    debugger
+     getTransferGround(){
+      let req={};
+      this.outSideService.getTransferGround(req,this.loginUserNameForChild).subscribe((res) => {
+      this.transferGroundValue=res['response']
+    })
+  }
+    getMaster(data, schoolType) {
+    this.selectRegionList=[];
     this.selectSchoolType = schoolType;
     this.outSideService.getMasterData(data).subscribe((res: any) => {
       if (schoolType == 4) {
@@ -442,36 +480,153 @@ export class ModifyTransferModuleComponent implements OnInit {
       } else if (schoolType == 1) {
         this.selectRegionList = res.response.rowValue;
       }
-
       console.log(this.selectRegionList)
     })
   }
 
 
-  submitForm(){
-    this.allRegionStationDeatils=[];
-    const myArray =  this.kvSchoolName.split("(");
-    const schoolCode=myArray[1].split(")")
-    
-    for (let i = 0; i < this.kvSchoolList.length; i++) {
-     if(this.kvSchoolList[i]['kvCode']==schoolCode[0]){
-      this.allRegionStationDeatils.push(this.kvSchoolList[i]);
-     }  
+  getStationByHqId(id: any) {
+        this.kvRegionSchoolZietHqName = '';
+        this.selecttedRegionName='';
+        this.selecttedRegionCode='';
+        this.selectStationCode='';
+        this.selectStationName='';
+        this.selectedKvCode='';
+        this.selectedKvname='';
+        this.selectedShiftYN='';
+    if (this.selectSchoolType == 4) {
+
+      for (let i = 0; i < this.headQuaterList.length; i++) {
+        if (this.headQuaterList[i].kv_code == id.target.value) {
+          this.selecttedRegionName =this.headQuaterList[i].region_name
+          this.selecttedRegionCode =this.headQuaterList[i].region_code
+          this.selectStationCode =this.headQuaterList[i].station_code
+          this.selectStationName =this.headQuaterList[i].station_name
+          this.selectedKvCode = this.headQuaterList[i].kv_code
+          this.selectedKvname = this.headQuaterList[i].kv_name
+          this.selectedShiftYN='';
+          this.kvRegionSchoolZietHqName = this.headQuaterList[i].station_name
+        }
+      }
     }
-    console.log(this.allRegionStationDeatils)
+    else if (this.selectSchoolType == 2) {
+      for (let i = 0; i < this.zoneList.length; i++) {
+        if (this.zoneList[i].kv_code == id.target.value) {
+
+          this.selecttedRegionName =this.zoneList[i].region_name
+          this.selecttedRegionCode =this.zoneList[i].region_code
+          this.selectStationCode =this.zoneList[i].station_code
+          this.selectStationName =this.zoneList[i].station_name
+          this.selectedKvCode = this.zoneList[i].kv_code
+          this.selectedKvname = this.zoneList[i].kv_name
+          this.selectedShiftYN='';
+          this.kvRegionSchoolZietHqName = this.zoneList[i].station_name
+        }
+      }
+    }
+    else if (this.selectSchoolType == 3) {
+      for (let i = 0; i < this.selectRegionList.length; i++) {
+        debugger
+        if (this.selectRegionList[i].region_code == id.target.value) {
+          this.selecttedRegionName =this.selectRegionList[i].region_name
+          this.selecttedRegionCode =this.selectRegionList[i].region_code
+          this.selectStationCode =this.selectRegionList[i].station_code
+          this.selectStationName =this.selectRegionList[i].station_name
+          this.selectedKvCode = this.selectRegionList[i].kv_code
+          this.selectedKvname = this.selectRegionList[i].kv_name
+          this.selectedShiftYN='';
+          this.kvRegionSchoolZietHqName = this.selectRegionList[i].region_name
+        }
+      }
+    }
+  }
+    submitForm(){
+      this.selecttedRegionName='';
+      this.selecttedRegionCode='';
+      this.selectStationCode='';
+      this.selectStationName='';
+      this.selectedKvCode='';
+      this.selectedKvname='';
+      this.selectedShiftYN='';
+    if(this.selectSchoolType=='Select'){
+      Swal.fire({
+        'icon':'error',
+        'text':'Please select Institute Type.'
+       } )
+       return false;
+   }
+    if(this.adminTransferEditForm.value.transferGround==''){
+      Swal.fire({
+        'icon':'error',
+        'text':'Please select Category.'
+       } )
+       return false;
+   }
+   if(this.selectSchoolType=='3'){
+    if(this.adminTransferEditForm.value.transferRegion==''){
+      Swal.fire({
+        'icon':'error',
+        'text':'Please select region.'
+       } )
+       return false;
+    }
+   }
+   if(this.selectSchoolType=='1'){
+    if(this.adminTransferEditForm.value.transferSchool==''){
+      Swal.fire({
+        'icon':'error',
+        'text':'Please select School.'
+       } )
+       return false;
+    }
+    else{
+      this.school_id =this.adminTransferEditForm.value.transferSchool;
+      const myArray =  this.school_id.split("(");
+      const schoolCode=myArray[1].split(")")
+    for (let i = 0; i < this.kvSchoolList.length; i++) {
+      if(this.kvSchoolList[i]['kvCode']==schoolCode[0]){
+        this.selecttedRegionName =this.kvSchoolList[i].regionName;
+        this.selecttedRegionCode =this.kvSchoolList[i].regionCode;
+        this.selectStationCode =this.kvSchoolList[i].stationCode;
+        this.selectStationName =this.kvSchoolList[i].stationName;
+        this.selectedKvCode = this.kvSchoolList[i].kvCode;
+        this.selectedKvname = this.kvSchoolList[i].kvName ;  
+        this.selectedShiftYN=this.kvSchoolList[i].shiftYn;
+     }  
+   }
+  }
+}
+   if(this.selectSchoolType=='2'){
+    if(this.adminTransferEditForm.value.TransferZiet==''){
+      Swal.fire({
+        'icon':'error',
+        'text':'Please select Ziet.'
+       } )
+       return false;
+    }
+   }
+   if(this.selectSchoolType=='4'){
+    if(this.adminTransferEditForm.value.TransferHeadquater==''){
+      Swal.fire({
+        'icon':'error',
+        'text':'Please select Head Quater.'
+       } )
+       return false;
+    }
+   }
    var data =  {
       "empName":this.editEmpName,
       "empCode":this.editEmpCode,
       "empTransferStatus":this.transferType,
       "transferredUnderCat":this.transferType,
       "transferredUnderCatId":this.adminTransferEditForm.value.transferGround,
-      "regionNameAlloted":this.allRegionStationDeatils[0]['regionName'],
-      "regionCodeAlloted":this.allRegionStationDeatils[0]['regionCode'],
-      "allotStnCode":this.allRegionStationDeatils[0]['stationCode'],
-      "stationNameAlloted":this.allRegionStationDeatils[0]['stationName'],
-      "allotShift":this.allRegionStationDeatils[0]['shiftYn'],
-      "allotKvCode":this.allRegionStationDeatils[0]['kvCode'],
-      "kvNameAlloted":this.allRegionStationDeatils[0]['kvName'],
+      "regionNameAlloted":this.selecttedRegionName, 
+      "regionCodeAlloted": this.selecttedRegionCode,
+      "allotStnCode": this.selectStationCode,
+      "stationNameAlloted": this.selectStationName,
+      "allotShift": this.selectedShiftYN,
+      "allotKvCode":this.selectedKvCode,
+      "kvNameAlloted": this.selectedKvname
   }
     Swal.fire({
       'icon':'warning',
@@ -512,10 +667,15 @@ export class ModifyTransferModuleComponent implements OnInit {
 
   }
 
-submitModificationForm(){
-  debugger
-  this.institute_id =(<HTMLInputElement>document.getElementById("institute_id")).value
-  if(this.institute_id=='Select'){
+  submitModificationForm(){
+    this.selecttedRegionName='';
+    this.selecttedRegionCode='';
+    this.selectStationCode='';
+    this.selectStationName='';
+    this.selectedKvCode='';
+    this.selectedKvname='';
+    this.selectedShiftYN='';
+  if(this.selectSchoolType=='Select'){
     Swal.fire({
       'icon':'error',
       'text':'Please select Institute Type.'
@@ -529,25 +689,41 @@ submitModificationForm(){
      } )
      return false;
  }
- if(this.institute_id=='3'){
-  if(this.modificationEditForm.value.modifyTransferRegion==''){
-    Swal.fire({
+   if(this.selectSchoolType=='3'){
+      if(this.modificationEditForm.value.modifyTransferRegion==''){
+       Swal.fire({
       'icon':'error',
       'text':'Please select region.'
      } )
      return false;
   }
  }
- if(this.institute_id=='1'){
-  if(this.modificationEditForm.value.modifyTransferSchool==''){
-    Swal.fire({
+  if(this.selectSchoolType=='1'){
+    if(this.modificationEditForm.value.modifyTransferSchool==''){
+     Swal.fire({
       'icon':'error',
       'text':'Please select School.'
      } )
      return false;
   }
- }
- if(this.institute_id=='2'){
+  else{
+    this.school_id =this.modificationEditForm.value.modifyTransferSchool;
+    const myArray =  this.school_id.split("(");
+    const schoolCode=myArray[1].split(")")
+    for (let i = 0; i < this.kvSchoolList.length; i++) {
+    if(this.kvSchoolList[i]['kvCode']==schoolCode[0]){
+        this.selecttedRegionName =this.kvSchoolList[i].regionName;
+        this.selecttedRegionCode =this.kvSchoolList[i].regionCode;
+        this.selectStationCode =this.kvSchoolList[i].stationCode;
+        this.selectStationName =this.kvSchoolList[i].stationName;
+        this.selectedKvCode = this.kvSchoolList[i].kvCode;
+        this.selectedKvname = this.kvSchoolList[i].kvName ;  
+        this.selectedShiftYN=this.kvSchoolList[i].shiftYn;
+     }  
+    }
+  }
+}
+ if(this.selectSchoolType=='2'){
   if(this.modificationEditForm.value.modifyTransferZiet==''){
     Swal.fire({
       'icon':'error',
@@ -556,7 +732,7 @@ submitModificationForm(){
      return false;
   }
  }
- if(this.institute_id=='4'){
+ if(this.selectSchoolType=='4'){
   if(this.modificationEditForm.value.modifyTransferHeadquater==''){
     Swal.fire({
       'icon':'error',
@@ -565,33 +741,20 @@ submitModificationForm(){
      return false;
   }
  }
-
-
-  this.allRegionStationDeatils=[];
-  const myArray =  this.kvSchoolName.split("(");
-  const schoolCode=myArray[1].split(")")
-  
-  for (let i = 0; i < this.kvSchoolList.length; i++) {
-   if(this.kvSchoolList[i]['kvCode']==schoolCode[0]){
-    this.allRegionStationDeatils.push(this.kvSchoolList[i]);
-   }  
-  }
-  console.log(this.allRegionStationDeatils)
-
  var data =  {
-    "empName":this.editModifyEmpName,
-    "empCode":this.editModifyEmpCode,
-    "empTransferStatus":'',
-    "transferredUnderCat":'',
-    "transferredUnderCatId":this.modificationEditForm.value.modifyTransferGround,
-    "regionNameAlloted":this.allRegionStationDeatils[0]['regionName'],
-    "regionCodeAlloted":this.allRegionStationDeatils[0]['regionCode'],
-    "allotStnCode":this.allRegionStationDeatils[0]['stationCode'],
-    "stationNameAlloted":this.allRegionStationDeatils[0]['stationName'],
-    "allotShift":this.allRegionStationDeatils[0]['shiftYn'],
-    "allotKvCode":this.allRegionStationDeatils[0]['kvCode'],
-    "isAdminTransfer":true,
-    "kvNameAlloted":this.allRegionStationDeatils[0]['kvName'],
+  "empName":this.editEmpName,
+  "empCode":this.editEmpCode,
+  "empTransferStatus":'',
+  "transferredUnderCat":'',
+  "transferredUnderCatId":this.modificationEditForm.value.modifyTransferGround,
+  "regionNameAlloted":this.selecttedRegionName, 
+  "regionCodeAlloted": this.selecttedRegionCode,
+  "allotStnCode": this.selectStationCode,
+  "stationNameAlloted": this.selectStationName,
+  "allotShift": this.selectedShiftYN,
+  "allotKvCode":this.selectedKvCode,
+  "isAdminTransfer":true,
+  "kvNameAlloted": this.selectedKvname
 }
   Swal.fire({
     'icon':'warning',
@@ -636,9 +799,6 @@ submitModificationForm(){
 return false;
 });
 }
-
-
-
   cancelTransfer(){
       var data={
         "empCode":this.editCancelEmpCode,
@@ -684,6 +844,7 @@ return false;
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase(); 
     this.dataSource.filter = filterValue;
+    this.totalLength = this.dataSource.filteredData.length;
   }
   cleceModal(){
     this.checkBoxClick=false;
@@ -692,21 +853,23 @@ return false;
     this.modalService.dismissAll();
   }
 
-
   getStationByRegionId(event) {
     const data = { "regionCode": event.target.value };
     this.outSideService.fetchStationByRegionId(data).subscribe((res) => {
-      this.stationList = res.rowValue
+    this.stationList = res.rowValue
     })
   }
 
   getKvSchoolByStationId(event) {
     this.outSideService.fetchKvSchoolByStationCode(event.target.value).subscribe((res) => {
-      this.kvSchoolList = res.response;
+    this.kvSchoolList = res.response;
     })
   }
-  setUdiseCode(event){
-    this.kvSchoolName='';
-  this.kvSchoolName=event.target.value
-    }
+  setRegionSchoolZietHq(event){
+    this.kvRegionSchoolZietHqName='';
+    this.kvRegionSchoolZietHqName=event.target.value
+  }
+  setUdiseCode(event:any){
+    this.kvRegionSchoolZietHqName=event.target.value;
+  }
 }

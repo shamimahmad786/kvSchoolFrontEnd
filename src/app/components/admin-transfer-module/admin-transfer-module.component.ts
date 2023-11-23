@@ -14,7 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AdminTransferModuleComponent implements OnInit {
   
-  displayedColumns = ['Sno', 'employeecode', 'name', 'email','teacher_dob','kv_code','transfer_type','kv_name_alloted','join_date','work_experience_appointed_for_subject','last_promotion_position_type','relieve_date','transfer_under_cat','Action'];
+  displayedColumns = ['Sno', 'employeecode', 'name', 'kv_code','transfer_type','kv_name_alloted','join_date','relieve_date','transfer_under_cat','Action'];
   testData = { "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"","join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "","relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":""}
   dataSource:any;
   userMappingSource : MatTableDataSource<any>;
@@ -50,6 +50,7 @@ export class AdminTransferModuleComponent implements OnInit {
   cancelkvCode: any;
   canceldob: any;
   employeeJoinKVallotedYN: any;
+  totalLength: number;
   
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
@@ -83,6 +84,7 @@ export class AdminTransferModuleComponent implements OnInit {
     filterValue = filterValue.trim(); 
     filterValue = filterValue.toLowerCase(); 
     this.userMappingSource.filter = filterValue;
+    this.totalLength = this.userMappingSource.filteredData.length;
   }
 
 
@@ -430,6 +432,7 @@ export class AdminTransferModuleComponent implements OnInit {
             }
 //--------------------Transfer under Cat end------------------------------------------------------
             this.adminTransferMangement.push(this.testData);
+            this.totalLength = this.adminTransferMangement.length;
             this.testData = {  "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"",
             "join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "",
             "relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":""};
