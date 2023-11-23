@@ -345,6 +345,8 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.PresentStationName = PresentStationName;
     this.PresentRegionName = PresentRegionName;
     this.showTransferEditForm=false;
+    this.editEmpName=empName;
+  this.editEmpCode=empCode;
     this.showRegion=false;
     this.showSchool=false;
     this.showZiet=false;
@@ -550,6 +552,8 @@ export class ModifyTransferModuleComponent implements OnInit {
     }
   }
     submitForm(){
+
+
       this.selecttedRegionName='';
       this.selecttedRegionCode='';
       this.selectStationCode='';
@@ -764,6 +768,10 @@ export class ModifyTransferModuleComponent implements OnInit {
   "isAdminTransfer":true,
   "kvNameAlloted": this.selectedKvname
 }
+
+debugger;
+console.log(data);
+
   Swal.fire({
     'icon':'warning',
     'text': "Do you want to proceed?",
