@@ -13,15 +13,23 @@
             <div class="col-lg-12">
 
         <div class="row">
+            <div class="col-md-2 form-group  mb-3">
+                <label class="titleSet">Year</label>
+                <mat-select    class="form-control" [(ngModel)]="selectYear" >
+                    <mat-option value="">Select Year</mat-option>
+                    <mat-option  value="2023">2023</mat-option>
+                </mat-select>
+            </div>
+
             <div class="col-md-4 form-group  mb-3">
                 <label class="titleSet">Transfer List Type</label>
                 <mat-select    class="form-control" (selectionChange)="getAllModifyTransferAsTypeList($event.value)" [(ngModel)]="selectTransferType" >
                     <mat-option value="">Select Region Name</mat-option>
-                    <mat-option  value="S">Automated</mat-option>
+                    <mat-option  value="S">Transfer Cycle - 2023</mat-option>
                     <mat-option  value="A">Admin</mat-option>
                 </mat-select>
             </div>
-            <div class="col-md-8 form-group ">
+            <div class="col-md-6 form-group ">
                 <div class="float-end">
                     <div *ngIf="dataSource">
                         <span class="me-2">Show Results : <strong>  {{totalLength}}</strong></span>
@@ -51,21 +59,6 @@
                     <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.name}}
                     </mat-cell>
                 </ng-container>
-
-                <!-- <ng-container matColumnDef="email">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.email}}
-                    </mat-cell>
-                </ng-container> -->
-
-
-                <!-- <ng-container matColumnDef="teacher_dob">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> D.O.B </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.teacher_dob
-                        |date:"dd-MM-yyyy"}}
-                    </mat-cell>
-                </ng-container> -->
-
                 <ng-container matColumnDef="kv_code">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> KV Code </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.kv_code}}
@@ -111,31 +104,16 @@
                     </mat-cell>
                 </ng-container>
 
-                <!-- <ng-container matColumnDef="work_experience_appointed_for_subject">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Work Experience Appointed For Subject
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span>
-                        {{row.work_experience_appointed_for_subject}}
-                    </mat-cell>
-                </ng-container> -->
-
-                <!-- <ng-container matColumnDef="last_promotion_position_type">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Lat Promotion Position Type</mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span
-                            class="mobile-label"></span>{{row.last_promotion_position_type}}
-                    </mat-cell>
-                </ng-container> -->
-
                 <ng-container matColumnDef="Action">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span>
                         <span *ngIf="row.transferStatusAction =='transfer' ">
                             <i class="fa fa-exchange"
-                                (click)="openTransfermodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob)"
+                                (click)="openTransfermodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName)"
                                 style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
                         </span>
                         <span *ngIf="row.transferStatusAction =='modificationcancel' ">
-                            <i class="fa fa-edit"  (click)="openModificationmodal(row.employeecode)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
+                            <i class="fa fa-edit"  (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
                                 aria-hidden="true"></i>
                             <i class="fa fa-times-circle-o"
                                  (click)="openCancelmodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob)" style="font-size: 1.8rem; color: #dc1301e3; margin-left: 10px;" aria-hidden="true"></i>
@@ -151,10 +129,6 @@
         </div>  
     </div>
  </div>
-
-
-
-
  <div mat-dialog-content>
     <ng-template #AdminTransferBox let-modal style="min-width: 100%;">
         <div class="modal-header">
@@ -166,7 +140,6 @@
         </div>
         <div class="p-3">
             <div class="table-responsive">
-
                 <table class="table table-bordered text-start">
                     <thead>
                         <tr>
@@ -178,22 +151,24 @@
                     <tbody>
                         <tr>
                             <th class="w-25 text-start"> Employee Name(Code)</th>
-                            <td class="text-start"> {{editEmpName}}
-                                ({{editEmpCode}})</td>
+                            <td class="text-start"> {{editModifyEmpName}}({{editModifyEmpCode}})</td>
                             <th class="text-start">Email </th>
-                            <td class="text-start">{{email | uppercase}} </td>
+                            <td class="text-start">{{ModifyEmail | uppercase}} </td>
                         </tr>
-
                         <tr>
-                            <th class="text-start">Present School Name </th>
-                            <td class="text-start"> {{kvCode}}</td>
                             <th class="text-start">D.O.B </th>
-                            <td class="text-start"> {{dob}}</td>
+                            <td class="text-start"> {{dob|date:"dd-MM-yyyy"}}</td>
+                            <th class="text-start">Present Region Name </th>
+                            <td class="text-start"> {{PresentRegionName}} </td> 
                         </tr>
-                      
+                        <tr>
+                            <th class="text-start">Present Station name</th>
+                            <td class="text-start"> {{PresentStationName}}</td>
+                            <th class="text-start">Present School Name(Code) </th>
+                            <td class="text-start"> {{presentKvName}} ({{presentKvCode}})</td>
+                        </tr>
                     </tbody>
                 </table>
-
                 <table class="table table-bordered text-start">
                     <thead>
                         <tr>
@@ -206,7 +181,6 @@
                         <tr>
                             <th class="text-start w-50">Transfer To Region/School/ZIET/HQ </th>
                             <td class="text-start"  style="background: #f5f5dc91; "><b>{{kvRegionSchoolZietHqName}} </b></td>
-
                         </tr>
                     </tbody>
                 </table>
@@ -239,10 +213,8 @@
                                             value="{{data.region_code}}">
                                             {{data.region_name}}
                                        </option>
-
                                     </select>
                                 </div>
-
                                 <div class="col-md-4 mb-2" *ngIf="showSchool">
                                     <label class="mb-1"> Select Station</label>
                                     <select class="form-select form-select-sm" formControlName="transferStation"
@@ -253,10 +225,8 @@
                                             value="{{data.station_code}}">
                                             {{data.station_name}}
                                         </option>
-
                                     </select>
                                 </div>
-
                                 <div class="col-md-4 mb-2" *ngIf="showSchool">
                                     <label class="mb-1"> Select School</label>
                                     <select class="form-select form-select-sm"  formControlName="transferSchool"
@@ -267,7 +237,6 @@
                                             value="{{data.kvName}}({{data.udiseSchCode}})">
                                             {{data.kvName}}
                                         </option>
-
                                     </select>
                                 </div>
 
@@ -278,10 +247,8 @@
                                         <option *ngFor="let data of zoneList; let i=index;" value="{{data.kv_code}}">
                                             {{data.kv_name}}
                                         </option>
-            
                                     </select>
                                 </div>
-
                                 <div class="col-md-3 " *ngIf="showHq">
                                     <label class="mb-1"> Select HeadQuater</label>
                                     <select class="form-select form-select-sm" aria-label="Default select example" formControlName="TransferHeadquater"  (change)="getStationByHqId($event)" >
@@ -289,10 +256,8 @@
                                         <option *ngFor="let data of headQuaterList; let i=index;" value="{{data.kv_code}}">
                                             {{data.kv_name}}
                                         </option>
-            
                                     </select>
                                 </div>
-
                                 <div class="col-md-4 mb-2" *ngIf="showCategory">
                                     <label class="mb-1"> Select Category</label>
                                     <select class="form-select form-select-sm" formControlName="transferGround"
@@ -302,7 +267,6 @@
                                             value="{{data.categoriesId}}">
                                             {{data.categoriesName}}
                                         </option>
-
                                     </select>
                                 </div>
                                 <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
@@ -339,36 +303,51 @@
                     <thead>
                         <tr>
                             <th colspan="4" class="text-start">
-                               Designated Institute Details
+                                Employee Details
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th class="w-25 text-start"> Employee Name(Code)</th>
-                            <td class="text-start"> {{editModifyEmpName}}
-                                ({{editModifyEmpCode}})</td>
+                            <td class="text-start"> {{editModifyEmpName}}({{editModifyEmpCode}})</td>
                             <th class="text-start">Email </th>
                             <td class="text-start">{{ModifyEmail | uppercase}} </td>
                         </tr>
                         <tr>
-                            <th class="text-start">Designated Institute Name </th>
-                            <td class="text-start"> {{ModifykvName}} ({{ModifykvCode}})</td>
                             <th class="text-start">D.O.B </th>
-                            <td class="text-start"> {{Modifydob}}</td>
+                            <td class="text-start"> {{Modifydob|date:"dd-MM-yyyy"}}</td>
+                            <th class="text-start">Present Region Name </th>
+                            <td class="text-start"> {{PresentRegionName}} </td> 
                         </tr>
                         <tr>
+                            <th class="text-start">Present Station name</th>
+                            <td class="text-start"> {{PresentStationName}}</td>
+                            <th class="text-start">Present School Name(Code) </th>
+                            <td class="text-start"> {{presentKvName}} ({{presentKvCode}})</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered text-start">
+                    <thead>
+                        <tr>
+                            <th colspan="4" class="text-start">
+                              Transfer Cycle - I Details
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="text-start " style="width:269px">Designated Institute Name </th>
+                            <td class="text-start"> {{ModifykvName}} ({{ModifykvCode}})</td>
                             <th class="text-start">Joining Date </th>
                             <td class="text-start"> {{joinDate}}</td>
-                            <th class="text-start">Reliving Date </th>
-                            <td class="text-start"> {{reliveDate}} </td>
-                           
                         </tr>
                         <tr>
+                            <th class="text-start">Reliving Date </th>
+                            <td class="text-start"> {{reliveDate}} </td>
                             <th class="text-start">Transfer Type </th>
                             <td class="text-start"> {{editeModifyTransferType}} </td>
-                            <th class="text-start">Institute Type </th>
-                            <td class="text-start"> Institute Type </td>
                         </tr>
                     </tbody>
                 </table>
@@ -376,37 +355,23 @@
                     <thead>
                         <tr>
                             <th colspan="4" class="text-start">
-                               Modified Institute Details
+                             Transfer By Admin transfer
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th class="w-25 text-start"> Employee Name(Code)</th>
-                            <td class="text-start"> {{editAllotedModifyEmpName}}
-                                ({{editAllotedModifyEmpCode}})</td>
-                            <th class="text-start">Email </th>
-                            <td class="text-start">{{editAllotedModifyEmail | uppercase}} </td>
-                        </tr>
-                        <tr>
-                            <th class="text-start">Alloted Institute Name </th>
-                            <td class="text-start"> {{editAllotedModifykvName}} ({{editAllotedModifykvCode}})</td>
-                            <th class="text-start">D.O.B </th>
-                            <td class="text-start"> {{editAllotedModifydob}}</td>
-                        </tr>
-                        <tr>
+                            <th class="text-start" style="width:269px">Alloted Institute Name </th>
+                            <td class="text-start"  style="width: 426px;"> {{editAllotedModifykvName}} ({{editAllotedModifykvCode}})</td>
                             <th class="text-start">Joining Date </th>
                             <td class="text-start"> {{editAllotedModifyJoindate}}</td>
-                            <th class="text-start">Reliving Date </th>
-                            <td class="text-start"> {{editAllotedModifyrelivedate}} </td>
-                           
                         </tr>
                         <tr>
+                            <th class="text-start">Reliving Date </th>
+                            <td class="text-start"> {{editAllotedModifyrelivedate}} </td>
                             <th class="text-start">Transfer Type </th>
                             <td class="text-start"> {{editeAllotedTransferType}} </td>
-                            <th class="text-start">Institute Type </th>
-                            <td class="text-start"> Institute Type </td>
-                        </tr>
+                        </tr> 
                     </tbody>
                 </table>
 
@@ -457,7 +422,6 @@
                                            </option>
                                         </select>
                                     </div>
-    
                                     <div class="col-md-4 mb-2" *ngIf="showSchool">
                                         <label class="mb-1"> Select Station</label>
                                         <select class="form-select form-select-sm" formControlName="modifyTransferStation"
@@ -470,7 +434,6 @@
                                             </option>
                                         </select>
                                     </div>
-    
                                     <div class="col-md-4 mb-2" *ngIf="showSchool">
                                         <label class="mb-1"> Select School</label>
                                         <select class="form-select form-select-sm"  formControlName="modifyTransferSchool"
@@ -483,7 +446,6 @@
                                             </option>
                                         </select>
                                     </div>
-    
                                     <div class="col-md-4 mb-2" *ngIf="showZiet">
                                         <label class="mb-1"> Select ZIET</label>
                                         <select class="form-select form-select-sm" aria-label="Default select example" formControlName="modifyTransferZiet"  (change)="getStationByHqId($event)">
@@ -493,7 +455,6 @@
                                             </option>
                                         </select>
                                     </div>
-    
                                     <div class="col-md-3 " *ngIf="showHq">
                                         <label class="mb-1"> Select HeadQuater</label>
                                         <select class="form-select form-select-sm" aria-label="Default select example" formControlName="modifyTransferHeadquater"  (change)="getStationByHqId($event)" >
@@ -503,10 +464,9 @@
                                             </option>
                                         </select>
                                     </div>
-    
                                     <div class="col-md-4 mb-2" *ngIf="showCategory">
                                         <label class="mb-1"> Select Category</label>
-                                        <select class="form-select form-select-sm" formControlName="modifyTransferHeadquater"
+                                        <select class="form-select form-select-sm" formControlName="modifyTransferGround"
                                             aria-label="Default select example">
                                             <option selected disabled> Select Category</option>
                                             <option *ngFor="let data of transferGroundValue; let i=index;"
@@ -535,6 +495,7 @@
     </div>
     </ng-template>
 </div>
+
  <div mat-dialog-content>
     <ng-template #AdminCancelBox let-modal style="min-width: 100%;">
         <div class="modal-header">
@@ -582,7 +543,5 @@
     </div>
     </ng-template>
 </div>
-
-
 </div>
 </div>
