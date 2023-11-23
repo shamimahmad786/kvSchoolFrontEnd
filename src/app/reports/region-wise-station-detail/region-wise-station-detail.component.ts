@@ -23,7 +23,7 @@ export class RegionWiseStationDetailComponent implements OnInit {
   mdoDateResultArray: any = new Array()
   dataSource:any;
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
-  displayedColumns:any = ['sno','regionname','regionaddress','stationcount','schoolcount','controllername','controllermobile','controlleremail'];
+  displayedColumns:any = ['sno','regionname','regionaddress','stationcount','schoolcount','controllername'];
 
   testData = { "sno": "", "regionname": "", "regionaddress":"" ,"stationcount": "", "schoolcount": "","controllername":"","controllermobile":"","controlleremail":""}
   @ViewChild(MatPaginator) paginator: MatPaginator;

@@ -9,12 +9,12 @@
         </ol>
     </nav>
     <div class="dashboard-main-content-info">
-        <div class="cardSet50 ">
+        <div class=" ">
             <form [formGroup]="adminTransferForm" (ngSubmit)="submit()">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="">
-                            <div class=" prof-fields bg-white shadow p-4 rounded-3">
+                            <div class=" prof-fields  p-4 ">
                                 <div class="row">
 
                                     <div class="col-md-4 form-group my-2">
@@ -63,10 +63,10 @@
         <div class="row">
             <div class="col-md-6">
             </div>
-            <div class="col-md-6" style="
-        text-align: end;">
+            <div class="col-md-6" style="text-align: end;">
                 <div class="example-header">
-                    <mat-form-field appearance="outline" class=" searchInput me-4">
+                     <span class="me-2">Show Results : <strong>  {{totalLength}}</strong></span>
+                    <mat-form-field appearance="outline" class=" searchInput ">
                         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
 
                     </mat-form-field>
@@ -92,18 +92,18 @@
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="email">
+                <!-- <ng-container matColumnDef="email">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.email}}
                     </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
-                <ng-container matColumnDef="teacher_dob">
+                <!-- <ng-container matColumnDef="teacher_dob">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> D.O.B </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.teacher_dob
                         |date:"dd-MM-yyyy"}}
                     </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
                 <ng-container matColumnDef="kv_code">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> KV Code </mat-header-cell>
@@ -149,20 +149,20 @@
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="work_experience_appointed_for_subject">
+                <!-- <ng-container matColumnDef="work_experience_appointed_for_subject">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Work Experience Appointed For Subject
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span>
                         {{row.work_experience_appointed_for_subject}}
                     </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
-                <ng-container matColumnDef="last_promotion_position_type">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Lat Promotion Position Type</mat-header-cell>
+                <!-- <ng-container matColumnDef="last_promotion_position_type">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Last Promotion Position Type</mat-header-cell>
                     <mat-cell *matCellDef="let row"><span
                             class="mobile-label"></span>{{row.last_promotion_position_type}}
                     </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
                 <ng-container matColumnDef="Action">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>

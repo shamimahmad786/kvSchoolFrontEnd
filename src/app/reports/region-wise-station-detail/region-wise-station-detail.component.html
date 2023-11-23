@@ -52,32 +52,32 @@
                     </ng-container>
 
                     <ng-container matColumnDef="regionaddress">
-                        <th mat-header-cell *matHeaderCellDef> region Address </th>
+                        <th mat-header-cell *matHeaderCellDef> Region Address </th>
                         <td mat-cell *matCellDef="let element">
                             {{element.regionaddress|titlecase}} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="stationcount">
-                        <th mat-header-cell *matHeaderCellDef> Station Count </th>
+                        <th mat-header-cell *matHeaderCellDef> No.of Station  </th>
                         <td mat-cell *matCellDef="let element">
                             {{element.stationcount}} </td>
                     </ng-container>
 
 
                     <ng-container matColumnDef="schoolcount">
-                        <th mat-header-cell *matHeaderCellDef> School Count </th>
+                        <th mat-header-cell *matHeaderCellDef> No.of School  </th>
                         <td mat-cell *matCellDef="let element">
                             {{element.schoolcount}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="controllername">
-                        <th mat-header-cell *matHeaderCellDef> Controller Name </th>
+                        <th mat-header-cell *matHeaderCellDef> Region Head </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.controllername|uppercase}} </td>
+                            {{element.controllername|uppercase}} {{element.controllermobile}}  {{element.controlleremail|uppercase}}</td>
                     </ng-container>
 
 
-                    <ng-container matColumnDef="controllermobile">
+                    <!-- <ng-container matColumnDef="controllermobile">
                         <th mat-header-cell *matHeaderCellDef>  Mobile </th>
                         <td mat-cell *matCellDef="let element">
                             {{element.controllermobile}} </td>
@@ -87,7 +87,7 @@
                         <th mat-header-cell *matHeaderCellDef> Controller Email </th>
                         <td mat-cell *matCellDef="let element">
                             {{element.controlleremail|uppercase}} </td>
-                    </ng-container>
+                    </ng-container> -->
     
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
