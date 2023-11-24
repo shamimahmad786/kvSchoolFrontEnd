@@ -100,7 +100,7 @@
                                     <ng-container matColumnDef="action">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                                         <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Action :
-                        </span> <button type="button" *ngIf="row.join_relieve_flag != '2'" class="btn btn-success btn-sm" (click)="openRelivingmodal(row.teacher_id,row.empcode,row.name,row.allot_kv_code)">Relieving</button> </mat-cell>
+                        </span> <button type="button" *ngIf="row.join_relieve_flag != '2'" class="btn btn-success btn-sm" (click)="openRelivingmodal(row.teacher_id,row.empcode,row.name,row.allot_kv_code)">Relieve</button> </mat-cell>
                                     </ng-container>
                                     <mat-header-row *matHeaderRowDef="displayedColumnsOut; sticky:true; "></mat-header-row>
                                     <mat-row *matRowDef="let row; columns: displayedColumnsOut;">
@@ -211,7 +211,7 @@
                                 <ng-container matColumnDef="action">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                                     <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Action :
-                        </span> <button *ngIf="row.join_relieve_flag != '1'" type="button" class="btn btn-success  btn-sm" (click)="openJoiningmodal(row.teacher_id,row.empcode,row.from_kv,row.name,row.transfer_type,row.allot_kv_code)">Joining </button>                                        </mat-cell>
+                        </span> <button *ngIf="row.join_relieve_flag != '1'" type="button" class="btn btn-success  btn-sm" (click)="openJoiningmodal(row.teacher_id,row.empcode,row.from_kv,row.name,row.transfer_type,row.allot_kv_code)">Join </button>                                        </mat-cell>
                                 </ng-container>
                                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
                                 <mat-row *matRowDef="let row; columns: displayedColumns;">

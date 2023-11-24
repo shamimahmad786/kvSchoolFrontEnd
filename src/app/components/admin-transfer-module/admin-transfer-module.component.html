@@ -91,29 +91,15 @@
                     <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.name}}
                     </mat-cell>
                 </ng-container>
-
-                <!-- <ng-container matColumnDef="email">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.email}}
-                    </mat-cell>
-                </ng-container> -->
-
-                <!-- <ng-container matColumnDef="teacher_dob">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> D.O.B </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.teacher_dob
-                        |date:"dd-MM-yyyy"}}
-                    </mat-cell>
-                </ng-container> -->
-
                 <ng-container matColumnDef="kv_code">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> KV Code </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.kv_code}}
                     </mat-cell>
                 </ng-container>  
 
-                <ng-container matColumnDef="transfer_type">
+                <ng-container matColumnDef="is_admin_transfer">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Type </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transfer_type}}
+                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.is_admin_transfer}}
                     </mat-cell>
                 </ng-container>
 
@@ -128,6 +114,7 @@
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferred_under_cat}}
                     </mat-cell>
                 </ng-container>
+
 
                 <ng-container matColumnDef="join_date">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Join Date </mat-header-cell>
@@ -149,34 +136,19 @@
                     </mat-cell>
                 </ng-container>
 
-                <!-- <ng-container matColumnDef="work_experience_appointed_for_subject">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Work Experience Appointed For Subject
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span>
-                        {{row.work_experience_appointed_for_subject}}
-                    </mat-cell>
-                </ng-container> -->
-
-                <!-- <ng-container matColumnDef="last_promotion_position_type">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Last Promotion Position Type</mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span
-                            class="mobile-label"></span>{{row.last_promotion_position_type}}
-                    </mat-cell>
-                </ng-container> -->
-
                 <ng-container matColumnDef="Action">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span>
                         <span *ngIf="row.transferStatusAction =='transfer' ">
                             <i class="fa fa-exchange"
-                                (click)="openTransfermodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob,'1')"
+                                (click)="openTransfermodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName)"
                                 style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
                         </span>
                         <span *ngIf="row.transferStatusAction =='modificationcancel' ">
-                            <i class="fa fa-edit"  (click)="openModificationmodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob,row.join_date,row.relieve_date,'2')"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
+                            <i class="fa fa-edit"  (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
                                 aria-hidden="true"></i>
                             <i class="fa fa-times-circle-o"
-                                 (click)="openCancelmodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob,'2')" style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
+                                 (click)="openCancelmodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob)" style="font-size: 1.8rem; color: #dc1301e3; margin-left: 10px;" aria-hidden="true"></i>
                         </span>
                     </mat-cell>
                 </ng-container>
@@ -186,7 +158,7 @@
                 </mat-row>
             </mat-table>
             <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
-        </div>
+        </div> 
         <div mat-dialog-content>
             <ng-template #AdminTransferBox let-modal style="min-width: 100%;">
                 <div class="modal-header">
@@ -198,7 +170,6 @@
                 </div>
                 <div class="p-3">
                     <div class="table-responsive">
-
                         <table class="table table-bordered text-start">
                             <thead>
                                 <tr>
@@ -210,22 +181,24 @@
                             <tbody>
                                 <tr>
                                     <th class="w-25 text-start"> Employee Name(Code)</th>
-                                    <td class="text-start"> {{editEmpName}}
-                                        ({{editEmpCode}})</td>
+                                    <td class="text-start"> {{editModifyEmpName}}({{editModifyEmpCode}})</td>
                                     <th class="text-start">Email </th>
-                                    <td class="text-start">{{email | uppercase}} </td>
+                                    <td class="text-start">{{ModifyEmail | uppercase}} </td>
                                 </tr>
-
                                 <tr>
-                                    <th class="text-start">Present School Name </th>
-                                    <td class="text-start"> {{kvCode}}</td>
                                     <th class="text-start">D.O.B </th>
-                                    <td class="text-start"> {{dob}}</td>
+                                    <td class="text-start"> {{dob|date:"dd-MM-yyyy"}}</td>
+                                    <th class="text-start">Present Region Name </th>
+                                    <td class="text-start"> {{PresentRegionName}} </td> 
                                 </tr>
-                              
+                                <tr>
+                                    <th class="text-start">Present Station name</th>
+                                    <td class="text-start"> {{PresentStationName}}</td>
+                                    <th class="text-start">Present School Name(Code) </th>
+                                    <td class="text-start"> {{presentKvName}} ({{presentKvCode}})</td>
+                                </tr>
                             </tbody>
                         </table>
-
                         <table class="table table-bordered text-start">
                             <thead>
                                 <tr>
@@ -236,50 +209,43 @@
                             </thead>
                             <tbody>                            
                                 <tr>
-                                    <th class="text-start w-25">Transfer To (School) </th>
-                                    <td class="text-start"  style="background: #f5f5dc91; "><b>{{kvSchoolName}} </b></td>
-
+                                    <th class="text-start w-50">Transfer To Region/School/ZIET/HQ </th>
+                                    <td class="text-start"  style="background: #f5f5dc91; "><b>{{kvRegionSchoolZietHqName}} </b></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                <div class="card pt-3 mt-3">
+                    <div class="pb-2 mt-2  row  m-0">
+                        <label for="staticEmail" class="col-sm-6 col-form-label ps-0">Select Institute Type</label>
+                        <div class="col-sm-6">
+                            <select class="form-select"   (change)="selectInstituteType($event)"  aria-label="Default select example" id="institute_id">
+                                <option selected disabled>Select </option>
+                                <option  value="3"> REGION</option>
+                                <option  value="1"> SCHOOL</option>
+                                <option  value="2"> ZIET</option>
+                                <option  value="4"> HQ</option>
+                            </select>
+                        </div>
+                    </div>
+                <div class="card pt-3 mt-3" *ngIf="showTransferEditForm">
                     <form [formGroup]="adminTransferEditForm" (ngSubmit)="submitForm()">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="px-3">
                                     <div class="row">
-
-                                        <div class="pb-2 mt-2  row  m-0">
-                                            <label for="staticEmail" class="col-sm-3 col-form-label ps-0">Select Category</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-select ms-2" formControlName="transferGround" aria-label="Default select example" id="s_id">
-                                                    <option selected disabled> Select Category</option>
-                                                <option *ngFor="let data of transferGroundValue; let i=index;"
-                                                    value="{{data.categoriesId}}">
-                                                    {{data.categoriesName}}
-                                                </option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="col-md-4 mt-2">
+                                        <div class="col-md-4 mb-2" *ngIf="showRegion || showSchool ">
                                             <label class="mb-1"> Select Region</label>
                                             <select class="form-select form-select-sm" formControlName="transferRegion"
                                                 aria-label="Default select example"
-                                                (change)="getStationByRegionId($event)">
+                                                (change)="getStationByHqId($event);getStationByRegionId($event)">
                                                 <option selected disabled> Select Region</option>
-                                                <option *ngFor="let data of selectRegionList"
+                                                <option *ngFor="let data of selectRegionList" 
                                                     value="{{data.region_code}}">
                                                     {{data.region_name}}
-                                                </option>
-
+                                               </option>
                                             </select>
                                         </div>
-
-                                        <div class="col-md-4 mt-2">
+                                        <div class="col-md-4 mb-2" *ngIf="showSchool">
                                             <label class="mb-1"> Select Station</label>
                                             <select class="form-select form-select-sm" formControlName="transferStation"
                                                 aria-label="Default select example"
@@ -289,29 +255,57 @@
                                                     value="{{data.station_code}}">
                                                     {{data.station_name}}
                                                 </option>
-
                                             </select>
                                         </div>
-
-                                        <div class="col-md-4 mt-2">
+                                        <div class="col-md-4 mb-2" *ngIf="showSchool">
                                             <label class="mb-1"> Select School</label>
-                                            <select class="form-select form-select-sm" formControlName="transferSchool"
+                                            <select class="form-select form-select-sm"  formControlName="transferSchool"
                                                 aria-label="Default select example" 
                                                 (change)="setUdiseCode($event)">
-                                                <option selected disabled> Select School</option>
+                                                <option selected > Select School</option>
                                                 <option *ngFor="let data of kvSchoolList; let i=index;"
                                                     value="{{data.kvName}}({{data.udiseSchCode}})">
                                                     {{data.kvName}}
                                                 </option>
-
                                             </select>
+                                        </div>
+        
+                                        <div class="col-md-4 mb-2" *ngIf="showZiet">
+                                            <label class="mb-1"> Select ZIET</label>
+                                            <select class="form-select form-select-sm" aria-label="Default select example" formControlName="TransferZiet"  (change)="getStationByHqId($event)">
+                                                <option selected disabled> Select ZITE</option>
+                                                <option *ngFor="let data of zoneList; let i=index;" value="{{data.kv_code}}">
+                                                    {{data.kv_name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 " *ngIf="showHq">
+                                            <label class="mb-1"> Select HeadQuater</label>
+                                            <select class="form-select form-select-sm" aria-label="Default select example" formControlName="TransferHeadquater"  (change)="getStationByHqId($event)" >
+                                                <option selected disabled> Select HQ</option>
+                                                <option *ngFor="let data of headQuaterList; let i=index;" value="{{data.kv_code}}">
+                                                    {{data.kv_name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2" *ngIf="showCategory">
+                                            <label class="mb-1"> Select Category</label>
+                                            <select class="form-select form-select-sm" formControlName="transferGround"
+                                                aria-label="Default select example">
+                                                <option selected disabled> Select Category</option>
+                                                <option *ngFor="let data of transferGroundValue; let i=index;"
+                                                    value="{{data.categoriesId}}">
+                                                    {{data.categoriesName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
+                                            <input type="text" readonly="true" class="form-control form-control-sm" name="udiseSchoolName" formControlName="TransferRegionZietHq" value="{{kvRegionSchoolZietHqName}}">
                                         </div>
                                     </div>
                                     <div class="p-3" style="text-align: center;">
-                                        <input
-                                            [disabled]="!adminTransferEditForm.get('transferRegion').valid  || !adminTransferEditForm.get('transferStation').valid || !adminTransferEditForm.get('transferSchool').valid || !adminTransferEditForm.get('transferGround').valid"
-                                            class="mat-raised-button btn-secondary trasnfer-save ms-2" type="submit"
-                                            id="submit1" value="Transfer" />
+                                        <input class="mat-raised-button btn-secondary trasnfer-save ms-2" type="submit"
+                                            id="submit1" value="Modify Transfer" />
                                     </div>
                                 </div>
                             </div>
@@ -324,6 +318,219 @@
             </div>
             </ng-template>
         </div>
+
+
+
+
+
+        <div mat-dialog-content>
+            <ng-template #AdminMdificationBox let-modal >
+                <div class="modal-header">
+                    <div class="d-flex justify-content-between w-100">
+                        <h1 class="mb-0 " >Employee Transfer Modification </h1>
+                        <i class="fa fa-times" (click)="cleceModal()"
+                            style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="p-3"  style="min-height: 286px;">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-start">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" class="text-start">
+                                        Employee Details
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="w-25 text-start"> Employee Name(Code)</th>
+                                    <td class="text-start"> {{editModifyEmpName}}({{editModifyEmpCode}})</td>
+                                    <th class="text-start">Email </th>
+                                    <td class="text-start">{{ModifyEmail | uppercase}} </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-start">D.O.B </th>
+                                    <td class="text-start"> {{Modifydob|date:"dd-MM-yyyy"}}</td>
+                                    <th class="text-start">Present Region Name </th>
+                                    <td class="text-start"> {{PresentRegionName}} </td> 
+                                </tr>
+                                <tr>
+                                    <th class="text-start">Present Station name</th>
+                                    <td class="text-start"> {{PresentStationName}}</td>
+                                    <th class="text-start">Present School Name(Code) </th>
+                                    <td class="text-start"> {{presentKvName}} ({{presentKvCode}})</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered text-start">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" class="text-start">
+                                      Transfer Cycle - I Details
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="text-start " style="width:269px">Designated Institute Name </th>
+                                    <td class="text-start"> {{ModifykvName}} ({{ModifykvCode}})</td>
+                                    <th class="text-start">Joining Date </th>
+                                    <td class="text-start"> {{joinDate}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-start">Reliving Date </th>
+                                    <td class="text-start"> {{reliveDate}} </td>
+                                    <th class="text-start">Transfer Type </th>
+                                    <td class="text-start"> {{editeModifyTransferType}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered text-start" *ngIf="modiFYTransferType=='S' || modiFYTransferType=='AM'">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" class="text-start">
+                                     Transfer By Admin transfer
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="text-start" style="width:269px">Alloted Institute Name </th>
+                                    <td class="text-start"  style="width: 426px;"> {{editAllotedModifykvName}} ({{editAllotedModifykvCode}})</td>
+                                    <th class="text-start">Joining Date </th>
+                                    <td class="text-start"> {{editAllotedModifyJoindate}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-start">Reliving Date </th>
+                                    <td class="text-start"> {{editAllotedModifyrelivedate}} </td>
+                                    <th class="text-start">Transfer Type </th>
+                                    <td class="text-start"> {{editeAllotedTransferType}} </td>
+                                </tr> 
+                            </tbody>
+                        </table>
+        
+                        <table class="table table-bordered text-start" *ngIf="modiFYTransferType=='' || modiFYTransferType=='A'">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" class="text-start">
+                                        Employee Transfer Details
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>                            
+                                <tr>
+                                    <th class="text-start w-50">Transfer To Region/School/ZIET/HQ </th>
+                                    <td class="text-start"  style="background: #f5f5dc91; "><b>{{kvRegionSchoolZietHqName}} </b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                <div *ngIf="modiFYTransferType=='' || modiFYTransferType=='A'">
+                    <div class="pb-2 mt-2  row  m-0">
+                        <label for="staticEmail" class="col-sm-6 col-form-label ps-0">Select Institute Type</label>
+                        <div class="col-sm-6">
+                            <select class="form-select"   (change)="selectInstituteType($event)"  aria-label="Default select example" id="institute_id">
+                                <option selected disabled>Select </option>
+                                <option  value="3"> REGION</option>
+                                <option  value="1"> SCHOOL</option>
+                                <option  value="2"> ZIET</option>
+                                <option  value="4"> HQ</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card pt-3 mt-3" *ngIf="showTransferEditForm"  >
+                        <form [formGroup]="modificationEditForm" (ngSubmit)="submitModificationForm()">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="px-3">
+                                        <div class="row">
+                                            <div class="col-md-4 mb-2" *ngIf="showRegion || showSchool ">
+                                                <label class="mb-1"> Select Region</label>
+                                                <select class="form-select form-select-sm" formControlName="modifyTransferRegion"
+                                                    aria-label="Default select example"
+                                                    (change)="getStationByHqId($event);getStationByRegionId($event)">
+                                                    <option selected disabled> Select Region</option>
+                                                    <option *ngFor="let data of selectRegionList" 
+                                                        value="{{data.region_code}}">
+                                                        {{data.region_name}}
+                                                   </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 mb-2" *ngIf="showSchool">
+                                                <label class="mb-1"> Select Station</label>
+                                                <select class="form-select form-select-sm" formControlName="modifyTransferStation"
+                                                    aria-label="Default select example"
+                                                    (change)="getKvSchoolByStationId($event)">
+                                                    <option selected disabled> Select Station</option>
+                                                    <option *ngFor="let data of stationList; let i=index;"
+                                                        value="{{data.station_code}}">
+                                                        {{data.station_name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 mb-2" *ngIf="showSchool">
+                                                <label class="mb-1"> Select School</label>
+                                                <select class="form-select form-select-sm"  formControlName="modifyTransferSchool"
+                                                    aria-label="Default select example" 
+                                                    (change)="setUdiseCode($event)">
+                                                    <option selected > Select School</option>
+                                                    <option *ngFor="let data of kvSchoolList; let i=index;"
+                                                        value="{{data.kvName}}({{data.udiseSchCode}})">
+                                                        {{data.kvName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 mb-2" *ngIf="showZiet">
+                                                <label class="mb-1"> Select ZIET</label>
+                                                <select class="form-select form-select-sm" aria-label="Default select example" formControlName="modifyTransferZiet"  (change)="getStationByHqId($event)">
+                                                    <option selected disabled> Select ZITE</option>
+                                                    <option *ngFor="let data of zoneList; let i=index;" value="{{data.kv_code}}">
+                                                        {{data.kv_name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3 " *ngIf="showHq">
+                                                <label class="mb-1"> Select HeadQuater</label>
+                                                <select class="form-select form-select-sm" aria-label="Default select example" formControlName="modifyTransferHeadquater"  (change)="getStationByHqId($event)" >
+                                                    <option selected disabled> Select HQ</option>
+                                                    <option *ngFor="let data of headQuaterList; let i=index;" value="{{data.kv_code}}">
+                                                        {{data.kv_name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 mb-2" *ngIf="showCategory">
+                                                <label class="mb-1"> Select Category</label>
+                                                <select class="form-select form-select-sm" formControlName="modifyTransferGround"
+                                                    aria-label="Default select example">
+                                                    <option selected disabled> Select Category</option>
+                                                    <option *ngFor="let data of transferGroundValue; let i=index;"
+                                                        value="{{data.categoriesId}}">
+                                                        {{data.categoriesName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
+                                                <input type="text" readonly="true" class="form-control form-control-sm" name="udiseSchoolName" formControlName="ModifyTransferRegionZietHq" value="{{kvRegionSchoolZietHqName}}">
+                                            </div>
+                                        </div>
+                                        <div class="p-3" style="text-align: center;">
+                                            <input class="mat-raised-button btn-secondary trasnfer-save ms-2" type="submit"
+                                                id="submit1" value="Modify Transfer" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <p class="mt-2" style="text-align: left;">
+                        <strong style="font-weight: bolder; color: #632765;">Note :</strong> Select school by region and station. 
+                    </p>
+                    </div>
+            </div>
+            </ng-template>
+        </div>
+
         <div mat-dialog-content>
             <ng-template #AdminCancelBox let-modal style="min-width: 100%;">
                 <div class="modal-header">
@@ -371,157 +578,5 @@
             </div>
             </ng-template>
         </div>
-
-        <div mat-dialog-content>
-            <ng-template #AdminMdificationBox let-modal style="min-width: 100%; min-height: 500px;">
-                <div class="modal-header">
-                    <div class="d-flex justify-content-between w-100">
-                        <h1 class="mb-0 " >Employee Transfer Modification </h1>
-                        <i class="fa fa-times" (click)="cleceModal()"
-                            style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <div class="p-3"  style="min-height: 286px;">
-                   
-                    <div class="table-responsive">
-                        <table class="table table-bordered text-start">
-                            <thead>
-                                <tr>
-                                    <th colspan="4" class="text-start">
-                                        Employee Details
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th class="w-25 text-start"> Employee Name(Code)</th>
-                                    <td class="text-start"> {{editCancelEmpName}}
-                                        ({{editCancelEmpCode}})</td>
-                                    <th class="text-start">Email </th>
-                                    <td class="text-start">{{cancelEmail | uppercase}} </td>
-                                </tr>
-                                <tr>
-                                    <th class="text-start">Present School Name </th>
-                                    <td class="text-start"> {{cancelkvCode}}</td>
-                                    <th class="text-start">D.O.B </th>
-                                    <td class="text-start"> {{canceldob}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="pb-2 mt-2  row  m-0">
-                        <label for="staticEmail" class="col-sm-6 col-form-label ps-0">Whether employee join to KV alooted school</label>
-                        <div class="col-sm-6">
-                            <select class="form-select"   (change)="employeeJoinKValloted($event)"  aria-label="Default select example" id="s_id">
-                                <option selected disabled>Select </option>
-                                <option  value="YES">
-                                 YES
-                                </option>
-                                <option  value="NO">
-                                    NO
-                                   </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="pb-2 mt-2  row  m-0" *ngIf="employeeJoinKVallotedYN=='YES'">
-                       
-                        <label for="staticEmail" class="col-sm-6 col-form-label ps-0 mt-2 ">Raise query to  present school  </label>
-                        <div class="col-sm-6  mt-2">     
-                            <textarea class="form-control" rows="2" [(ngModel)] = "str" id="comment"></textarea>
-                      </div>
-                      <div class="row"  style=" text-align: center; ">
-                        <div class="col-md-12">
-                            <div class=" pt-3  w-100">
-                                <input class="mat-raised-button btn-secondary trasnfer-save ms-2" type="submit"
-                                id="submit1" value="Modify Transfer" (click)="modificationTransfer()" />
-                            </div>
-                        </div>
-                       </div> 
-                    </div>
-                
-
-                    <div class="card pt-3 mt-3"  *ngIf="employeeJoinKVallotedYN=='NO'">
-                        <form [formGroup]="adminTransferEditForm" (ngSubmit)="submitForm()">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="px-3">
-                                        <div class="row">
-    
-                                            <div class="col-md-4 mb-2">
-                                                <label class="mb-1"> Select Region</label>
-                                                <select class="form-select form-select-sm" formControlName="transferRegion"
-                                                    aria-label="Default select example"
-                                                    (change)="getStationByRegionId($event)">
-                                                    <option selected disabled> Select Region</option>
-                                                    <option *ngFor="let data of selectRegionList"
-                                                        value="{{data.region_code}}">
-                                                        {{data.region_name}}
-                                                    </option>
-    
-                                                </select>
-                                            </div>
-    
-                                            <div class="col-md-4 mb-2">
-                                                <label class="mb-1"> Select Station</label>
-                                                <select class="form-select form-select-sm" formControlName="transferStation"
-                                                    aria-label="Default select example"
-                                                    (change)="getKvSchoolByStationId($event)">
-                                                    <option selected disabled> Select Station</option>
-                                                    <option *ngFor="let data of stationList; let i=index;"
-                                                        value="{{data.station_code}}">
-                                                        {{data.station_name}}
-                                                    </option>
-    
-                                                </select>
-                                            </div>
-    
-                                            <div class="col-md-4 mb-2">
-                                                <label class="mb-1"> Select School</label>
-                                                <select class="form-select form-select-sm" formControlName="transferSchool"
-                                                    aria-label="Default select example" 
-                                                    (change)="setUdiseCode($event)">
-                                                    <option selected disabled> Select School</option>
-                                                    <option *ngFor="let data of kvSchoolList; let i=index;"
-                                                        value="{{data.kvName}}({{data.udiseSchCode}})">
-                                                        {{data.kvName}}
-                                                    </option>
-    
-                                                </select>
-                                            </div>
-    
-                                            <div class="col-md-4 mb-2">
-                                                <label class="mb-1"> Select Category</label>
-                                                <select class="form-select form-select-sm" formControlName="transferGround"
-                                                    aria-label="Default select example">
-                                                    <option selected disabled> Select School</option>
-                                                    <option *ngFor="let data of transferGroundValue; let i=index;"
-                                                        value="{{data.categoriesId}}">
-                                                        {{data.categoriesName}}
-                                                    </option>
-    
-                                                </select>
-                                            </div>
-    
-    
-                                        </div>
-                                        <div class="p-3" style="text-align: center;">
-                                            <input
-                                                [disabled]="!adminTransferEditForm.get('transferRegion').valid  || !adminTransferEditForm.get('transferStation').valid || !adminTransferEditForm.get('transferSchool').valid || !adminTransferEditForm.get('transferGround').valid"
-                                                class="mat-raised-button btn-secondary trasnfer-save ms-2" type="submit"
-                                                id="submit1" value="Modify Transfer" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-
-            </div>
-            </ng-template>
-        </div>
-
-
-
     </div>
 </div>

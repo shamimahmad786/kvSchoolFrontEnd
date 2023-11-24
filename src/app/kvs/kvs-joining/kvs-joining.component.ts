@@ -57,6 +57,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
   businessUnitTypeId: any;
   showFirstButtonColor: boolean = true;
   showsecondButtonColor: boolean = false;
+  
   showNationalSelector: boolean = false
   nationalLogin: boolean = true;
   disabledCreateButton: boolean = false;
@@ -145,8 +146,15 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
         this.setToJoingMatTable(this.teacherJoiningArray);
       }
       if(this.result[2]){
-        this.teacherReliveArray = this.result[2]
-        this.setToRelivingMatTable(this.teacherReliveArray);
+     if(this.result[2].length>1){
+      this.teacherReliveArray = this.result[2].filter((arr, index, self) =>
+      index === self.findIndex((t) => (t.teacher_employee_code === arr.teacher_employee_code && t.transfer_type != 'AM')))
+      console.log(this.teacherReliveArray);
+      this.setToRelivingMatTable(this.teacherReliveArray);
+     }
+      else{
+        this.teacherReliveArray=this.result[2];
+      }
       }
      })
   }
@@ -386,46 +394,76 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
     };
      console.log(data)
    
-     this.outSideService.sendEmplooyeeJoiningDate(data).subscribe((res) => {
-       console.log(res);
-       this.flagUpdatedList = res['response']['status'];
-       this.modalService.dismissAll() 
-       if( this.flagUpdatedList =='0')
-       {
-        Swal.fire({
-          'icon':'error',
-          'text':res['response']['message']
-        }
-        )
-       }
-       else{
-        Swal.fire(
-          'Transfer  Successfully!',
-          '',
-          'success'
-        )
-       }
-     })
+     Swal.fire({
+      'icon':'warning',
+      'text': "Do you want to proceed ?",
+      'allowEscapeKey': false,
+      'allowOutsideClick': false,
+      'showCancelButton': true,
+      'confirmButtonColor': "#DD6B55",
+      'confirmButtonText': "Yes",
+      'cancelButtonText': "No",
+      'showLoaderOnConfirm': true,
+    }
+    ).then((isConfirm) => {
+      if (isConfirm.value === true) {
+        this.outSideService.sendEmplooyeeJoiningDate(data).subscribe((res) => {
+          console.log(res);
+          this.flagUpdatedList = res['response']['status'];
+          this.modalService.dismissAll() 
+          if( this.flagUpdatedList =='0')
+          {
+           Swal.fire({
+             'icon':'error',
+             'text':res['response']['message']
+           }
+           )
+          }
+          else{
+           Swal.fire(
+             'Transfer  Successfully!',
+             '',
+             'success'
+           )
+           this.getKvTeacherRelevingJoiningDetails();
+          }
+        })
+    }
+    return false;
+    });
     }
   //********************** Function Use for Save Releiving Data ******************************
     onEmployeeTransferOutFormSubmit(event: Event){
-    console.log(event)
-    console.log(this.employeeTransferOut)
-    const data={"emp_code":this.onClickRelEmplCode,"doj":this.employeeTransferOut.value.relievingDate,"allotedKvCode":this.allotedKvCode};
-  
-    this.outSideService.sendEmplooyeeRelevingDate(data).subscribe((res) => {
-      console.log(res);
-      this.modalService.dismissAll() 
-      this.flagUpdatedList = res.responseCode;
-      if( this.flagUpdatedList =='200 OK')
-    {
-      Swal.fire(
-        'Your Data has been saved Successfully!',
-        '',
-        'success'
-      )
+      const data={"emp_code":this.onClickRelEmplCode,"doj":this.employeeTransferOut.value.relievingDate,"allotedKvCode":this.allotedKvCode};
+    Swal.fire({
+      'icon':'warning',
+      'text': "Do you want to proceed ?",
+      'allowEscapeKey': false,
+      'allowOutsideClick': false,
+      'showCancelButton': true,
+      'confirmButtonColor': "#DD6B55",
+      'confirmButtonText': "Yes",
+      'cancelButtonText': "No",
+      'showLoaderOnConfirm': true,
     }
-  })
+    ).then((isConfirm) => {
+      if (isConfirm.value === true) {
+        this.outSideService.sendEmplooyeeRelevingDate(data).subscribe((res) => {
+          this.modalService.dismissAll() 
+          this.flagUpdatedList = res.responseCode;
+        if( this.flagUpdatedList =='200 OK')
+        {
+          Swal.fire(
+            'Your Data has been saved Successfully!',
+            '',
+            'success'
+          )
+          this.getKvTeacherRelevingJoiningDetails();
+        }
+      })
+    }
+    return false;
+    });
 }
 }
       
