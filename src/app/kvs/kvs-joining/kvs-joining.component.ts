@@ -412,9 +412,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
     console.log(event)
     console.log(this.employeeTransferOut)
     const data={"emp_code":this.onClickRelEmplCode,"doj":this.employeeTransferOut.value.relievingDate,"allotedKvCode":this.allotedKvCode};
-    console.log(data)
-    alert(JSON.stringify(data));
-    return 
+  
     this.outSideService.sendEmplooyeeRelevingDate(data).subscribe((res) => {
       console.log(res);
       this.modalService.dismissAll() 
