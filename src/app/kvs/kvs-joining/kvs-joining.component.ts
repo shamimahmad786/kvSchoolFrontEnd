@@ -146,9 +146,15 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
         this.setToJoingMatTable(this.teacherJoiningArray);
       }
       if(this.result[2]){
-        this.teacherReliveArray = this.result[2];
-
-        this.setToRelivingMatTable(this.teacherReliveArray);
+     if(this.result[2].length>1){
+      this.teacherReliveArray = this.result[2].filter((arr, index, self) =>
+      index === self.findIndex((t) => (t.teacher_employee_code === arr.teacher_employee_code && t.transfer_type != 'AM')))
+      console.log(this.teacherReliveArray);
+      this.setToRelivingMatTable(this.teacherReliveArray);
+     }
+      else{
+        this.teacherReliveArray=this.result[2];
+      }
       }
      })
   }
