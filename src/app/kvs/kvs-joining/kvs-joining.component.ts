@@ -131,7 +131,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
      this.teacherList = [];
      const data={"kvCode":this.kvCode};
      this.outSideService.getEmployeetransferDetails(data).subscribe((res) => {
-      // alert(JSON.stringify(res));
+
        this.teacherList = res.response;
        var groupBy = function(xs, key) {
         return xs.reduce(function(rv, x) {

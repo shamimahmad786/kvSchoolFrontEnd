@@ -22,12 +22,6 @@
                 <div class="row  profile-info">
                     <!--------------------------Transfer In Start Here-------------------------------------------------->
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <!-- <div class="shadow-sm bg-white p-3 rounded mt-3">
-       <div class="row">
-            <div class="col-md-3"><span style="font-weight: bolder; color: #427e72;">EMPLOYEE TRANSFER OUT</span>
-              </div>
-            </div> 
-        </div> -->
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-md-6 position-relative">
@@ -115,15 +109,8 @@
             <!----------------------Transfer Out End Here--------------------------------------------------------->
 
             <!--------------------------Transfer In Start Here-------------------------------------------------->
-            <div *ngIf="activePaneTwo">
-
+            <div *ngIf="activePaneTwo"> 
                 <div class="row  profile-info">
-                    <!-- <div class="shadow-sm bg-white p-3 rounded mt-3">
-       <div class="row">
-            <div class="col-md-3"><span style="font-weight: bolder; color: #427e72;">EMPLOYEE TRANSFER IN</span>
-              </div>
-            </div> 
-        </div> -->
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-md-6">
@@ -182,16 +169,7 @@
                                     <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">From :
                         </span> {{row.From}} ({{row.from_kv}}) </mat-cell>
                                 </ng-container>
-                                <!-- <ng-container matColumnDef="To">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> To </mat-header-cell>
-                        <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">To :
-                        </span> {{row.To}} </mat-cell>
-                    </ng-container> -->
-                                <!-- <ng-container matColumnDef="relived">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Relived  </mat-header-cell>
-                        <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Relived :
-                        </span> {{row.relived}} </mat-cell>
-                    </ng-container> -->
+                            
                                 <ng-container matColumnDef="transferGround">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Ground </mat-header-cell>
                                     <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Transfer Ground :
