@@ -571,13 +571,6 @@ export class AdminTransferModuleComponent implements OnInit {
     })
   }
   submitForm(){
-    this.selecttedRegionName='';
-    this.selecttedRegionCode='';
-    this.selectStationCode='';
-    this.selectStationName='';
-    this.selectedKvCode='';
-    this.selectedKvname='';
-    this.selectedShiftYN='';
   if(this.selectSchoolType=='Select'){
     Swal.fire({
       'icon':'error',
@@ -682,6 +675,7 @@ else if(this.adminTransferEditForm.value.transferSchool=='' || this.adminTransfe
     "kvNameAlloted": this.selectedKvname,
     "transferOrderNumber":this.adminTransferEditForm.value.transferOrderNumber
 }
+console.log(data)
   Swal.fire({
     'icon':'warning',
     'text': "Do you want to proceed?",
@@ -721,13 +715,7 @@ return false;
 }
 
 submitModificationForm(){
-  this.selecttedRegionName='';
-  this.selecttedRegionCode='';
-  this.selectStationCode='';
-  this.selectStationName='';
-  this.selectedKvCode='';
-  this.selectedKvname='';
-  this.selectedShiftYN='';
+
 if(this.selectSchoolType=='Select'){
   Swal.fire({
     'icon':'error',
@@ -831,6 +819,7 @@ var data =  {
 "kvNameAlloted": this.selectedKvname,
 "transferOrderNumber":this.modificationEditForm.value.transferOrderNumber
 }
+console.log(data)
 Swal.fire({
   'icon':'warning',
   'text': "Do you want to proceed?",
@@ -892,8 +881,9 @@ submitcancelForm(){
     }
     var data={
       "empCode":this.editCancelEmpCode,
-      "cancelTransferOredrNumber":this.cancelEditForm.value.cancelTransferOrderNumber
+      "cancelOrderNumber":this.cancelEditForm.value.cancelTransferOrderNumber
     }
+    console.log(data)
     Swal.fire({
       'icon':'warning',
       'text': "Do you want to proceed ?",

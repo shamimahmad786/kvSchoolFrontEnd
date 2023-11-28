@@ -328,10 +328,10 @@ svg>#Layer_2 #Layer_1>#Path_82280 {
     font-weight: 300;
 }
 
-.header-top .left-list img {
+/* .header-top .left-list img {
     position: absolute;
     left: 0;
-}
+} */
 
 .header-top .left-list li {
     border-left: solid 1px #c8c8c8;
