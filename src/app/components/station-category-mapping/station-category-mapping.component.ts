@@ -170,7 +170,7 @@ export class StationCategoryMappingComponent implements OnInit {
             }
            if(res[i].is_active ==false )
             {
-            this.testData.statusType ='InActive';
+            this.testData.statusType ='Inactive';
             } 
             this.listRegionStation.push(this.testData);
             this.testData = { "sno": "", "stationname": "","stationnames": "", "stationcode": "", "categoryname": "", "fromdate": "","todate":"","status":"","statusType":"","buttonstatusType":"" };
