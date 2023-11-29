@@ -335,6 +335,7 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.modalService.open(this.AdminTransferBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
   openCancelmodal(empName:any,empCode:any,email:any,kvCode:any,dob:any){
+    debugger
     this.editCancelEmpName=empName;
     this.editCancelEmpCode=empCode;
     this.cancelEmail=email;
@@ -362,6 +363,7 @@ export class ModifyTransferModuleComponent implements OnInit {
     let req={"empCode":this.editModifyEmpCode};
     debugger
     this.outSideService.getModifiedTransferDetails(req,this.loginUserNameForChild).subscribe((res) => {
+      debugger
       if((res['rowValue'].length)>1){
         if(res['rowValue'][0]['transfer_type']=='S'){
           this.editeModifyTransferType='Transfer Policy (2023)';

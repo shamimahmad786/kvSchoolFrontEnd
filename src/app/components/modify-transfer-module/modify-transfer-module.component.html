@@ -379,7 +379,7 @@
                     </tbody>
                 </table>
 
-                <table class="table table-bordered text-start" *ngIf="modiFYTransferType=='' || modiFYTransferType=='A'">
+                <table class="table table-bordered text-start" *ngIf="modiFYTransferType=='' || modiFYTransferType==null || modiFYTransferType==undefined || modiFYTransferType=='A'">
                     <thead>
                         <tr>
                             <th colspan="4" class="text-start">
@@ -395,7 +395,7 @@
                     </tbody>
                 </table>
             </div>
-        <div *ngIf="modiFYTransferType=='' || modiFYTransferType=='A'">
+        <div *ngIf="modiFYTransferType=='' || modiFYTransferType==null || modiFYTransferType==undefined || modiFYTransferType=='A'">
             <div class="pb-2 mt-2  row  m-0">
                 <label for="staticEmail" class="col-sm-6 col-form-label ps-0">Select Institute Type</label>
                 <div class="col-sm-6">
