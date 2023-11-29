@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./admin-transfer-module.component.css']
 })
 export class AdminTransferModuleComponent implements OnInit { 
-  displayedColumns = ['Sno', 'employeecode', 'name','kv_code','is_admin_transfer','kv_name_alloted','join_date','relieve_date','transfer_under_cat','Action'];
+  displayedColumns = ['Sno', 'name','kv_code','is_admin_transfer','kv_name_alloted','join_date','relieve_date','transfer_under_cat','Action'];
   testData = { "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"","join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "","relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":""}
   dataSource:any;
   userMappingSource : MatTableDataSource<any>;
@@ -92,6 +92,7 @@ export class AdminTransferModuleComponent implements OnInit {
   selectedKvname: any;
   selectedShiftYN: any;
   school_id:any;
+  canclKvName: any;
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
   ngOnInit(): void {
@@ -161,12 +162,13 @@ export class AdminTransferModuleComponent implements OnInit {
      this.PresentRegionName = PresentRegionName;
      this.modalService.open(this.AdminTransferBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
    }
-   openCancelmodal(empName:any,empCode:any,email:any,kvCode:any,dob:any){
+   openCancelmodal(empName:any,empCode:any,email:any,kvName:any,kvCode:any,dob:any){
     debugger
      this.editCancelEmpName=empName;
      this.editCancelEmpCode=empCode;
      this.cancelEmail=email;
      this.cancelkvCode=kvCode;
+     this.canclKvName=kvName;
      this.canceldob=dob;
      this.modalService.open(this.AdminCancelBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
    }
@@ -463,7 +465,7 @@ export class AdminTransferModuleComponent implements OnInit {
           this.testData.relieve_date = res['rowValue'][i].relieve_date;
           this.testData.emp_transfer_status = res['rowValue'][i].emp_transfer_status;
 //------------------ Transfer Status----------------------------------------------------------
-
+debugger
           if(res['rowValue'][i].emp_transfer_status=='-1' || res['rowValue'][i].emp_transfer_status==null){
             this.testData.transferStatusAction='transfer' 
           }

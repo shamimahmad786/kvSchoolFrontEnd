@@ -369,13 +369,13 @@ export class ModifyTransferModuleComponent implements OnInit {
           this.editeModifyTransferType='Transfer Policy (2023)';
           this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         }
-        this.editModifyEmpName=res['rowValue'][0]['teacher_name'];;
-        this.editModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];;
+        this.editModifyEmpName=res['rowValue'][0]['teacher_name'];
+        this.editModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];
         this.ModifyEmail=res['rowValue'][0]['teacher_email'];
         this.ModifykvCode=res['rowValue'][0]['allot_kv_code'];
         this.ModifykvName=res['rowValue'][0]['kv_name_alloted'];
-        this.Modifydob=res['rowValue'][0]['teacher_dob'];;
-        this.joinDate=res['rowValue'][0]['join_date'];;
+        this.Modifydob=res['rowValue'][0]['teacher_dob'];
+        this.joinDate=res['rowValue'][0]['join_date'];
         this.reliveDate =res['rowValue'][0]['relieve_date'];
         if(res['rowValue'][1]['transfer_type']=='AM'){
           this.editeAllotedTransferType='Admin';
@@ -404,13 +404,13 @@ export class ModifyTransferModuleComponent implements OnInit {
          if(res['rowValue'][0].transfer_type=='AM'){
           this.editeModifyTransferType = 'Admin Modify';
          }
-        this.editModifyEmpName=res['rowValue'][0]['teacher_name'];;
-        this.editModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];;
+        this.editModifyEmpName=res['rowValue'][0]['teacher_name'];
+        this.editModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];
         this.ModifyEmail=res['rowValue'][0]['teacher_email'];
         this.ModifykvCode=res['rowValue'][0]['allot_kv_code'];
         this.ModifykvName=res['rowValue'][0]['kv_name_alloted'];
-        this.Modifydob=res['rowValue'][0]['teacher_dob'];;
-        this.joinDate=res['rowValue'][0]['join_date'];;
+        this.Modifydob=res['rowValue'][0]['teacher_dob'];
+        this.joinDate=res['rowValue'][0]['join_date'];
         this.reliveDate =res['rowValue'][0]['relieve_date'];
       }
     })

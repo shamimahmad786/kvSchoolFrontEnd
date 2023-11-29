@@ -59,7 +59,12 @@
 ::ng-deep .mat-header-cell{background-color:#E5EEFF ; color: #353535; font-weight: 600 !important; font-size: 15px; font-family: 'PoppinsRegular';}
 
 
-  
+.mat-column-Sno {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 5% !important;
+  width: 5% !important;
+}
     .myClass{
       border: solid 0.2px #542555 !important;;
       background-color: #4A1C4B !important;;

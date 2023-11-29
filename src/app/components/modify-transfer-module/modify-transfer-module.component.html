@@ -60,8 +60,8 @@
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="kv_code">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> KV Code </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.kv_code}}
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Present KV (Code) </mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentKvName}}({{row.kv_code}})
                     </mat-cell>
                 </ng-container>  
 

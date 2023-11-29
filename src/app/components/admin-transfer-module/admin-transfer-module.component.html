@@ -78,20 +78,20 @@
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.sno}}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="employeecode">
+                <!-- <ng-container matColumnDef="employeecode">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Employee Code </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"> </span>{{row.employeecode}}
+                    <mat-cell *matCellDef="let row"><span class="mobile-label"> </span>{{row.name}}({{row.employeecode}})
                     </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
                 <ng-container matColumnDef="name">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Employee name </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.name}}
+                    <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.name}}({{row.employeecode}})
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="kv_code">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> KV Code </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.kv_code}}
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Present KV (Code) </mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentKvName}}({{row.kv_code}})
                     </mat-cell>
                 </ng-container>  
 
@@ -146,7 +146,7 @@
                             <i class="fa fa-edit"  (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
                                 aria-hidden="true"></i>
                             <i class="fa fa-times-circle-o"
-                                 (click)="openCancelmodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob)" style="font-size: 1.8rem; color: #dc1301e3; margin-left: 10px;" aria-hidden="true"></i>
+                                 (click)="openCancelmodal(row.name,row.employeecode,row.email,row.presentKvName,row.kv_code,row.teacher_dob)" style="font-size: 1.8rem; color: #dc1301e3; margin-left: 10px;" aria-hidden="true"></i>
                         </span>
                     </mat-cell>
                 </ng-container>
@@ -562,9 +562,9 @@
                                 </tr>
                                 <tr>
                                     <th class="text-start">Present School Name </th>
-                                    <td class="text-start"> {{cancelkvCode}}</td>
+                                    <td class="text-start"> {{canclKvName}}({{cancelkvCode}})</td>
                                     <th class="text-start">D.O.B </th>
-                                    <td class="text-start"> {{canceldob}}</td>
+                                    <td class="text-start"> {{canceldob |date:"dd-MM-yyyy"}}</td>
                                 </tr>
                             </tbody>
                         </table>
