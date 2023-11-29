@@ -14,7 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ModifyTransferModuleComponent implements OnInit {
   
-  displayedColumns = ['Sno', 'employeecode', 'name','kv_code','is_admin_transfer','kv_name_alloted','join_date','relieve_date','transfer_under_cat','Action'];
+  displayedColumns = ['Sno','name','kv_code','is_admin_transfer','kv_name_alloted','join_date','relieve_date','transfer_under_cat','Action'];
   testData = { "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"","join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "","relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":""}
   dataSource:any;
   userMappingSource : MatTableDataSource<any>;
@@ -95,6 +95,7 @@ export class ModifyTransferModuleComponent implements OnInit {
   PresentStationName: any;
   PresentRegionName: any;
   selectYear:any;
+  canclKvName: any;
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
   ngOnInit(): void {
@@ -334,12 +335,13 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.PresentRegionName = PresentRegionName;
     this.modalService.open(this.AdminTransferBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
-  openCancelmodal(empName:any,empCode:any,email:any,kvCode:any,dob:any){
+  openCancelmodal(empName:any,empCode:any,email:any,kvName:any,kvCode:any,dob:any){
     debugger
     this.editCancelEmpName=empName;
     this.editCancelEmpCode=empCode;
     this.cancelEmail=email;
     this.cancelkvCode=kvCode;
+    this.canclKvName=kvName;
     this.canceldob=dob;
     this.modalService.open(this.AdminCancelBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
   }
@@ -369,6 +371,10 @@ export class ModifyTransferModuleComponent implements OnInit {
           this.editeModifyTransferType='Transfer Policy (2023)';
           this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         }
+        if(res['rowValue'][0]['transfer_type']=='AM'){
+          this.editeAllotedTransferType='Admin';
+          this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
+        }
         this.editModifyEmpName=res['rowValue'][0]['teacher_name'];
         this.editModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];
         this.ModifyEmail=res['rowValue'][0]['teacher_email'];
@@ -380,6 +386,9 @@ export class ModifyTransferModuleComponent implements OnInit {
         if(res['rowValue'][1]['transfer_type']=='AM'){
           this.editeAllotedTransferType='Admin';
           this.modiFYTransferType =res['rowValue'][1]['transfer_type'];
+        }
+        if(res['rowValue'][1]['transfer_type']=='A'){
+          this.editeModifyTransferType='Admin';
         }
         this.editAllotedModifyEmpName= res['rowValue'][1]['teacher_name'];
         this.editAllotedModifyEmpCode=res['rowValue'][1]['teacher_employee_code'];
