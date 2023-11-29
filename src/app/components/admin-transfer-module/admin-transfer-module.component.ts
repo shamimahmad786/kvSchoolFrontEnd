@@ -146,7 +146,8 @@ export class AdminTransferModuleComponent implements OnInit {
 
   //********************** Function Use for Admin Transfer Modal*****************************
   openTransfermodal(empName:any,empCode:any,email:any,kvCode:any,dob:any,presentKvName:any,presentKvCode:any,PresentStationName:any,PresentRegionName:any) {
-     this.showTransferEditForm=false;
+ debugger
+    this.showTransferEditForm=false;
      this.kvRegionSchoolZietHqName='';
      this.editEmpName=empName;
      this.editEmpCode=empCode;
@@ -161,6 +162,7 @@ export class AdminTransferModuleComponent implements OnInit {
      this.modalService.open(this.AdminTransferBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
    }
    openCancelmodal(empName:any,empCode:any,email:any,kvCode:any,dob:any){
+    debugger
      this.editCancelEmpName=empName;
      this.editCancelEmpCode=empCode;
      this.cancelEmail=email;
@@ -170,7 +172,8 @@ export class AdminTransferModuleComponent implements OnInit {
    }
  
    openModificationmodal(empCode:any,empName:any,presentKvName:any,presentKvCode:any,PresentStationName:any,PresentRegionName:any){
-     this.kvRegionSchoolZietHqName='';
+    debugger
+    this.kvRegionSchoolZietHqName='';
      this.presentKvName =presentKvName;
      this.presentKvCode = presentKvCode;
      this.PresentStationName = PresentStationName;
