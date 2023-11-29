@@ -5,7 +5,7 @@
     <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Transfer List(Modify)</a></li>
+            <li class="breadcrumb-item"><a href="#">Transfer List (Modify)</a></li>
         </ol>
     </nav>
     <div class="dashboard-main-content-info">
@@ -134,7 +134,7 @@
         <div class="modal-header">
             <div class="d-flex justify-content-between w-100">
                 <h1 class="mb-0 " >Employee Transfer </h1>
-                <i class="fa fa-times" (click)="cleceModal()"
+                <i class="fa fa-times" (click)="cancelModal()"
                     style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
             </div>
         </div>
@@ -151,9 +151,9 @@
                     <tbody>
                         <tr>
                             <th class="w-25 text-start"> Employee Name(Code)</th>
-                            <td class="text-start"> {{editModifyEmpName}}({{editModifyEmpCode}})</td>
+                            <td class="text-start"> {{editEmpName}}({{editEmpCode}})</td>
                             <th class="text-start">Email </th>
-                            <td class="text-start">{{ModifyEmail | uppercase}} </td>
+                            <td class="text-start">{{email | uppercase}} </td>
                         </tr>
                         <tr>
                             <th class="text-start">D.O.B </th>
@@ -259,7 +259,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-2" *ngIf="showCategory">
-                                    <label class="mb-1"> Select Category</label>
+                                    <label class="mb-1"> Select Transfer Ground</label>
                                     <select class="form-select form-select-sm" formControlName="transferGround"
                                         aria-label="Default select example">
                                         <option selected disabled> Select Category</option>
@@ -269,8 +269,12 @@
                                         </option>
                                     </select>
                                 </div>
+                                <div class="col-md-4 mb-2">
+                                    <label class="mb-1"> Transfer Order Number</label>
+                                    <input type="text"  class="form-control form-control-sm" id="orderno" formControlName="transferOrderNumber" >
+                                </div>
                                 <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
-                                    <input type="text" readonly="true" class="form-control form-control-sm" name="udiseSchoolName" formControlName="TransferRegionZietHq" value="{{kvRegionSchoolZietHqName}}">
+                                    <input type="hidden" readonly="true" class="form-control form-control-sm" name="udiseSchoolName" formControlName="TransferRegionZietHq" value="{{kvRegionSchoolZietHqName}}">
                                 </div>
                             </div>
                             <div class="p-3" style="text-align: center;">
@@ -293,7 +297,7 @@
         <div class="modal-header">
             <div class="d-flex justify-content-between w-100">
                 <h1 class="mb-0 " >Employee Transfer Modification </h1>
-                <i class="fa fa-times" (click)="cleceModal()"
+                <i class="fa fa-times" (click)="cancelModal()"
                     style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
             </div>
         </div>
@@ -465,7 +469,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-2" *ngIf="showCategory">
-                                        <label class="mb-1"> Select Category</label>
+                                        <label class="mb-1"> Select Transfer Ground</label>
                                         <select class="form-select form-select-sm" formControlName="modifyTransferGround"
                                             aria-label="Default select example">
                                             <option selected disabled> Select Category</option>
@@ -475,8 +479,14 @@
                                             </option>
                                         </select>
                                     </div>
+
+                                    <div class="col-md-4 mb-2">
+                                        <label class="mb-1"> Transfer Order Number</label>
+                                        <input type="text"  class="form-control form-control-sm" id="orderno" formControlName="transferOrderNumber" >
+                                    </div>
+
                                     <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
-                                        <input type="text" readonly="true" class="form-control form-control-sm" name="udiseSchoolName" formControlName="ModifyTransferRegionZietHq" value="{{kvRegionSchoolZietHqName}}">
+                                        <input type="hidden" readonly="true" class="form-control form-control-sm" name="udiseSchoolName" formControlName="ModifyTransferRegionZietHq" value="{{kvRegionSchoolZietHqName}}">
                                     </div>
                                 </div>
                                 <div class="p-3" style="text-align: center;">
@@ -500,7 +510,7 @@
         <div class="modal-header">
             <div class="d-flex justify-content-between w-100">
                 <h1 class="mb-0 " >Employee Transfer Cancel </h1>
-                <i class="fa fa-times" (click)="cleceModal()"
+                <i class="fa fa-times" (click)="cancelModal()"
                     style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
             </div>
         </div>
@@ -531,14 +541,28 @@
                     </tbody>
                 </table>
             </div>
-           <div class="row"  style=" text-align: center; ">
-            <div class="col-md-12">
-                <div class=" pt-3  w-100">
-                    <input class="mat-raised-button btn-secondary trasnfer-save ms-2" type="submit"
-                    id="submit1" value="Cancel Transfer" (click)="cancelTransfer()" />
-                </div>
-            </div>
-           </div> 
+            <div class="card pt-3 mt-3" >
+                <form [formGroup]="cancelEditForm" (ngSubmit)="submitcancelForm()">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="px-3">
+                                <div class="row">
+                                    <div class="pb-2 mt-2  row  m-0">
+                                        <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order Number</label>
+                                        <div class="col-sm-6">
+                                            <input type="text"  class="form-control form-control-sm" id="cancelorderno" formControlName="cancelTransferOrderNumber" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-3" style="text-align: center;">
+                        <input class="mat-raised-button btn-secondary trasnfer-save ms-2" type="submit"
+                    id="submit1" value="Cancel Transfer" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div> 
     </div>
     </ng-template>
 </div>
