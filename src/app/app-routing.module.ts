@@ -45,6 +45,7 @@ import { RegionWiseStationDetailComponent } from './reports/region-wise-station-
 import { SchoolDetailComponent } from './reports/school-detail/school-detail.component';
 import { AdminTransferModuleComponent } from './components/admin-transfer-module/admin-transfer-module.component';
 import { ModifyTransferModuleComponent } from './components/modify-transfer-module/modify-transfer-module.component';
+import { BasicProfileComponent } from './teacherEntryForm/basic-profile/basic-profile.component';
 const routes: Routes = [
   {path:'', component: MainPageComponent},
   {path:'mainPage', component: MainPageComponent},
@@ -61,6 +62,7 @@ const routes: Routes = [
       {path:'regionDashboard', component: RegionDashboardComponent},
       {path:'stationDashboard', component: StationDashboardComponent},
       {path: 'teacherHome', component:TeacherEntryFormComponent} ,
+      {path: 'basicProfile', component:BasicProfileComponent} ,
       {path: 'customForm', component:CustomFormSelectionComponent},
       {path: 'teachersDetail', component:TeachersDetailComponent},
       {path: 'teachersDropbox', component:TeacherDropboxComponent},

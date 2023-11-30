@@ -1,0 +1,272 @@
+<div class="dashboard-main-content" style="min-height: 600px;">
+    <div class="dashboard-main-content__header">
+        <h1 class="mb-1">Basic Profile</h1>
+      </div>
+      <nav aria-label="breadcrumb" class="mt-0">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a >Home</a></li>
+          <li class="breadcrumb-item"><a >Basic Profile</a></li>
+        </ol>
+      </nav>
+<div class="dashboard-main-content-info  p-4">   
+    <div class="row">
+        <div class="col-lg-12">
+                <form [formGroup]="basicProfileForm" (ngSubmit)="submit()">
+                    <div class="form-card">
+                        <div class="row">
+                            <div class="col-12">
+                                <h2 class="steps text-end pro-name">Vishajeet Singh
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 ">
+                                <div class="shadow p-3 h5620 " style="min-height: 460px; ">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet"> Employee Code<span class="required-asterisk">*</span></h4>
+                                            <input type="text" class="form-control" name="empCode" formControlName="empCode" maxlength="10">
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('empCode').valid && basicProfileForm.get('empCode').touched">
+                                                Enter a valid employee code!</span>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet">Full Name<span class="required-asterisk">*</span>
+                                            </h4>
+                                            <input type="text" class="form-control " name="fullName" formControlName="fullName" style="text-transform:uppercase" maxlength="50" [(ngModel)]="responseData.teacherName">
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('fullName').valid && basicProfileForm.get('fullName').touched">
+                                                Enter your valid name!</span>
+                                        
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet">Gender<span class="required-asterisk">*</span></h4>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="gender" value="1"  name="gender" formControlName="gender">
+                                                <label class="form-check-label font16 ff">Male</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="gender" value="2" name="gender" formControlName="gender">
+                                                <label class="form-check-label font16 ff">Female</label>
+                                            </div>
+                                           
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('gender').valid && basicProfileForm.get('gender').touched ">
+                                                Enter your gender!</span>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet">Date of birth<span class="required-asterisk">*</span></h4>
+                                                    <div class="input-group-addon">
+                                                        <mat-datepicker #pickers></mat-datepicker>
+                                                    </div>
+                                                    <input class="form-control"  id="wordStartDate" [max]="maxDate" placeholder="dd/MM/YYYY"  [matDatepicker]="pickers"   (click)="pickers.open()"
+                                                    formControlName="dob" >
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('dob').valid && basicProfileForm.get('dob').touched ">
+                                                <span class="help-block text-danger"
+                                                    *ngIf="basicProfileForm.get('dob').errors['invalidDate'] ">
+                                                    Age less than 18 years!
+                                                </span>
+                                            <span class="help-block text-danger" *ngIf="basicProfileForm.get('dob').errors['required'] ">
+                                                    Enter date of birth!
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                   
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet">Mobile<span class="required-asterisk">*</span></h4>
+                                            <input type="text" class="form-control" name="mobile" (blur)="checkMobileNumber($event)" formControlName="mobile" maxlength="10" minlength="10">
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('mobile').valid 
+                                            && basicProfileForm.get('mobile').touched
+                                            ">Enter valid mobile number of 10 digit !</span>
+                                        </div>
+
+
+
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet">Email <span class="required-asterisk">*</span></h4>
+                                            <input type="email" class="form-control" name="email" formControlName="email" [(ngModel)]="responseData.teacherEmail" style="text-transform: none">
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('email').valid && teacherForm.get('profileForm.email').touched ">
+                                                Enter your email id!</span>
+                                        </div>
+
+
+
+                                        <div class="row mt-4">
+
+
+                                            <div class="col-9">
+                                                <h4 class="titleSet">Have you been recruited under special recruitment for NER ?</h4>
+                                            </div>
+                                            <div class="col-1">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" value="13" id="singleparentyes" name="specialRecruitmentYn" type="radio" formControlName="specialRecruitmentYn" [(ngModel)]="responseData.specialRecruitmentYn">
+                                                    <label class="form-check-label font16 ff" for="inlineRadio1">Yes</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-1">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" value="14" id="singleparentno" name="specialRecruitmentYn" type="radio" formControlName="specialRecruitmentYn" [(ngModel)]="responseData.specialRecruitmentYn">
+                                                    <label class="form-check-label font16 ff" for="inlineRadio2">No</label>
+                                                </div>
+                                            </div>
+                                            <span class="help-block text-danger" *ngIf="!teacherForm.get('profileForm.specialRecruitmentYn').valid  && teacherForm.get('profileForm.specialRecruitmentYn').touched">
+                                                    Select whichever applicable!</span>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-7">
+                                <div class="shadow p-3 h5620"  style="min-height: 460px; ">
+                                    <div class="row">
+
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet"> Present KV/RO/ZIET/HQ Name(Code)</h4>
+                                            <input type="text" class="form-control " name="presentKvName" formControlName="presentKvName" value="kvCode" [(ngModel)]="kvNameCode" disabled>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+
+                                            <h4 class="titleSet">DoJ in Present KV/RO/ZIET/HQ in Present Post <span class="required-asterisk">*</span></h4>
+
+                                            <div class="input-group-addon">
+                                                <mat-datepicker #pickers1></mat-datepicker>
+                                            </div>
+                                            <input class="form-control"  id="wordStartDate" [max]="maxDate" placeholder="dd/MM/YYYY" (change)="profileDateManagement($event, 'a')" (dateChange)="profileDateManagement($event, 'a')" formControlName="presentKvDate"   [matDatepicker]="pickers1"   (click)="pickers1.open()" >
+                                         
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentKvDate').valid && basicProfileForm.get('presentKvDate').touched">
+                                                <span class="help-block text-danger"
+                                                    *ngIf="basicProfileForm.get('presentKvDate').errors['invalidDate'] ">
+                                                    Enter a valid date!
+                                                </span>
+                                            <span class="help-block text-danger" *ngIf="basicProfileForm.get('presentKvDate').errors['required'] ">
+                                                Enter DoJ in Present KV/RO/ZIET/HQ in Present Post!
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet"> Present Station Name(Code)</h4>
+                                            <input type="text" class="form-control " name="presentStationName" formControlName="presentStationName" value="stationCode" [(ngModel)]="stationNameCode" disabled>
+
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet"> DoJ in Present Station Irrespective of Cadre
+                                                <span class="required-asterisk">*</span>
+                                            </h4>
+
+                                            <div class="input-group-addon">
+                                                <mat-datepicker #pickers2></mat-datepicker>
+                                            </div>
+                                            <input class="form-control"  id="wordStartDate" [max]="maxDate" placeholder="dd/MM/YYYY" (change)="profileDateManagement($event, 'b')" (dateChange)="profileDateManagement($event, 'b')"  formControlName="presentStationPostDate"   [matDatepicker]="pickers2"   (click)="pickers2.open()" >
+
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentStationPostDate').valid && basicProfileForm.get('presentStationPostDate').touched">
+                                                <span class="help-block text-danger"
+                                                    *ngIf="basicProfileForm.get('presentStationPostDate').errors['invalidDate'] ">
+                                                    Enter a valid date!
+                                                </span>
+                                            <span class="help-block text-danger" *ngIf="basicProfileForm.get('presentStationPostDate').errors['required'] ">
+                                                    Enter DoJ in Present Station Irrespective of Cadre!
+                                                </span>
+                                            </span>
+                                        </div>
+
+
+
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet">Present Post Name(Code)<span class="required-asterisk">*</span></h4>
+                                            <select class="form-select" aria-label="Default select example" name="presentPostName" formControlName="presentPostName" (change)="teacherTypeSelect($event)" [(ngModel)]="responseData.lastPromotionPositionType">
+                                                <!-- <option selected>Select Post</option> -->
+                                                <option selected disabled>Select</option>
+                                                <option
+                                                    *ngFor="let data of teacherTypeDataNameCode; let i=index;"
+                                                    value="{{data.teacherTypeId}}">{{data.nameCode}}
+                                                </option>
+                                            </select>
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentPostName').valid && 
+                                            basicProfileForm.get('presentPostName').touched">
+                                                Enter Present Post Name(Code)!</span>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet">DoJ in KVS
+                                                <span class="required-asterisk">*</span></h4>
+
+                                          
+
+
+                                            <div class="input-group-addon">
+                                                <mat-datepicker #pickers3></mat-datepicker>
+                                            </div>
+                                            <input class="form-control"  id="wordStartDate" [max]="maxDate" placeholder="dd/MM/YYYY" (change)="profileDateManagement($event, 'c')" (dateChange)="profileDateManagement($event, 'c')" formControlName="presentPostDate"   [matDatepicker]="pickers3"   (click)="pickers3.open()" >
+
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentPostDate').valid  && basicProfileForm.get('presentPostDate').touched ">
+                                                <span class="help-block text-danger"
+                                                    *ngIf="basicProfileForm.get('presentPostDate').errors['invalidDate'] ">
+                                                    Enter a valid date!
+                                                </span>
+                                            <span class="help-block text-danger" *ngIf="basicProfileForm.get('presentPostDate').errors['required'] ">
+                                                    Enter DoJ in KVS!
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet"> Subject Name(Code)<span class="required-asterisk">*</span></h4>
+                                            <select class="form-select" aria-label="Default select example" name="presentSubjectName" formControlName="presentSubjectName" [(ngModel)]="responseData.workExperienceAppointedForSubject">
+                                                <!-- <option selected>Select Subject</option> -->
+                                                <option selected disabled>Select</option>
+                                                <option
+                                                    *ngFor="let data of subjectListNameCode; let i=index;"
+                                                    value="{{data.subjectCode}}">{{data.subNameCode}}
+                                                </option>
+
+                                            </select>
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentSubjectName').valid && 
+                                            basicProfileForm.get('presentSubjectName').touched">
+                                                Enter Subject Name(Code)!</span>
+                                        </div>
+                                       
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet">Staff Type<span class="required-asterisk">*</span></h4>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="inlineRadio1" value="1" disabled [(ngModel)]="responseData.teachingNonteaching" name="staffType" formControlName="staffType">
+                                                <label class="form-check-label font16 ff" for="inlineRadio1">Teaching</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="inlineRadio2" value="2" disabled [(ngModel)]="responseData.teachingNonteaching" name="staffType" formControlName="staffType">
+                                                <label class="form-check-label font16 ff" for="inlineRadio2">Non-Teaching</label>
+                                            </div>
+                                          
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('staffType').valid && 
+                                            basicProfileForm.get('staffType').touched">
+                                                Select Staff Type!</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+           
+    </div>
+
+
+
+  <div class="mt-2 text-end " >
+    <input   [disabled]="!teacherForm.get('profileForm.dob').valid ||
+    !teacherForm.get('profileForm.fullName').valid || !teacherForm.get('profileForm.specialRecruitmentYn').valid ||
+    !teacherForm.get('profileForm.mobile').valid ||
+    !teacherForm.get('profileForm.gender').valid ||
+    !teacherForm.get('profileForm.presentStationPostDate').valid ||
+    !teacherForm.get('profileForm.presentKvDate').valid ||
+    !teacherForm.get('profileForm.presentPostDate').valid ||
+   
+    !teacherForm.get('profileForm.staffType').valid ||
+    !teacherForm.get('profileForm.empCode').valid ||
+    !teacherForm.get('profileForm.presentPostName').valid ||
+    !teacherForm.get('profileForm.presentSubjectName').valid || !teacherForm.get('profileForm.email').valid || !allowEdit" type="submit" id="submit1" value="Save & Next" class=" action-save mt-2 me-2 add-user" />
+</div>
+</div>
+</div>
+</div>
