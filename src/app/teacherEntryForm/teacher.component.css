@@ -1,0 +1,4 @@
+.header-top ul li a {
+    cursor: none;
+    pointer-events: none;
+}
