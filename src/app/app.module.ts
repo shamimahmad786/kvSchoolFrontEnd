@@ -96,6 +96,7 @@ import { StationWiseSchoolDetailComponent } from './reports/station-wise-school-
 import { SchoolDetailComponent } from './reports/school-detail/school-detail.component';
 import { AdminTransferModuleComponent } from './components/admin-transfer-module/admin-transfer-module.component';
 import { ModifyTransferModuleComponent } from './components/modify-transfer-module/modify-transfer-module.component';
+import { BasicProfileComponent } from './teacherEntryForm/basic-profile/basic-profile.component';
 // import { MAT_DATE_FORMATS } from '@angular/material/';
 // import { DatePickerModule } from 'angular-material-datepicker';
 
@@ -184,7 +185,8 @@ import { ModifyTransferModuleComponent } from './components/modify-transfer-modu
     StationWiseSchoolDetailComponent,
     SchoolDetailComponent,
     AdminTransferModuleComponent,
-    ModifyTransferModuleComponent
+    ModifyTransferModuleComponent,
+    BasicProfileComponent
    
     
   ],

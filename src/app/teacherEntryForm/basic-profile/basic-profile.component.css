@@ -1,0 +1,17 @@
+.add-user{
+    color: #fff;
+    position: relative;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #632765;
+    height: 35px !important;
+    line-height: normal;
+    border: none;
+    padding: 0 15px;
+  }
+  .pro-name{
+    color: #632765;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+  }
