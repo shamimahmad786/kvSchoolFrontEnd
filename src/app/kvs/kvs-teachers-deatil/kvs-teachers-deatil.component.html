@@ -194,7 +194,7 @@
                         <!-- <i class='bx  bxStyle1 bx-lock-open-alt Blink' *ngIf="row.approved == 'SA' " (click)="unlockEmloyee(row.empcode)"  style="padding: 3px; margin: 1px; background: cyan; border-radius: 6px;"></i> -->
                         <!-- <i class='bx   bxStyle1 mr-2 view-btn'>Employee Enable</i> -->
                     <i class='bx bx-show bxStyle1 mr-2 view-btn small-buton' title="View"
-                        (click)="onViewClick(row.teacherId)">{{row.a}}  </i>
+                        (click)="onViewClick(row.empcode)">{{row.a}}  </i>
 
                     <i *ngIf="row.approved != 'TI' && row.approved != 'TTD' && row.approved != 'TTS' && row.approved != 'SI' && row.approved != 'SA' && !isNationalLogin"
                         class='bx bx-edit-alt bxStyle1 mr-2 edit-btn small-buton' title="Edit"

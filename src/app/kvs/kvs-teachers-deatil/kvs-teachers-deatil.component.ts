@@ -155,7 +155,6 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
     if (this.businessUnitTypeId != '2' && this.businessUnitTypeId != '3' && this.businessUnitTypeId != '4') {
       this.disabledCreateButton = false;
       this.getSchoolDetailsByKvCode();
-      // this.getKvTeacherByKvCode();
       this.getKvTeacherByUdiseCode();
     }
 
@@ -171,19 +170,14 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
   }
 
   abc(val) {
-
     if (val == null) {
       this.verifyEnable = true;
       return true;
     }
   }
-
-
   changeDateFormat(date: any){
     return moment(date).format('DD-MM-YYYY')
   }
@@ -372,22 +366,14 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   }
 
   newTeacher() {
-    sessionStorage.setItem('newEntryStatus', '1')
-    this.router.navigate(['/teacher/teacherHome'], { queryParams: { allowEdit: '3' } })
+    sessionStorage.setItem('newEntryStatus', 'New')
+    this.router.navigate(['/teacher/basicProfile'])
   }
 
   onViewClick(val) {
-    // this.showSuccess();
-    sessionStorage.removeItem('singleKvTeacher');
-
-    for (let i = 0; i < this.kvTeacher.length; i++) {
-      if (this.kvTeacher[i].teacherId == val) {
-        sessionStorage.setItem('singleKvTeacher', JSON.stringify(this.kvTeacher[i]))
-        sessionStorage.removeItem('responseData')
-        sessionStorage.removeItem('workExpId')
-        this.router.navigate(['/teacher/teacherHome'], { queryParams: { 'allowEdit': 0 } })
-      }
-    }
+    sessionStorage.removeItem('newEntryStatus');
+    sessionStorage.setItem('newEntryStatus', val)
+    this.router.navigate(['/teacher/basicProfile'])
   }
 
   onEditClick(val) {

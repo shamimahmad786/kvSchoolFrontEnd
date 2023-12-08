@@ -7,6 +7,9 @@ import { OutsideServicesService } from 'src/app/service/outside-services.service
 import Swal from 'sweetalert2';
 import { FormDataService } from 'src/app/teacherEntryForm/service/internalService/form-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {DateAdapter} from '@angular/material/core';
+import { DatePipe } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-modify-transfer-module',
   templateUrl: './modify-transfer-module.component.html',
@@ -96,8 +99,10 @@ export class ModifyTransferModuleComponent implements OnInit {
   PresentRegionName: any;
   selectYear:any;
   canclKvName: any;
-  constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
+  constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>,private router: Router,private formData: FormDataService,private modalService: NgbModal) {
+    this.dateAdapter.setLocale('en-GB');
+   }
   ngOnInit(): void {
     this.selectTransferType='S';
     this.selectYear='2023';
@@ -118,6 +123,7 @@ export class ModifyTransferModuleComponent implements OnInit {
       "TransferHeadquater": new FormControl(''),
       "TransferRegionZietHq": new FormControl(''),
       "transferOrderNumber": new FormControl(''),
+      "transferOrderdate": new FormControl(''),
 
     });
     this.modificationEditForm = new FormGroup({
@@ -129,10 +135,11 @@ export class ModifyTransferModuleComponent implements OnInit {
       "modifyTransferHeadquater":new FormControl(''),
       "ModifyTransferRegionZietHq": new FormControl(''),
       "transferOrderNumber": new FormControl(''),
-
+      "transferOrderdate": new FormControl(''),
     });  
     this.cancelEditForm = new FormGroup({
       'cancelTransferOrderNumber':  new FormControl(''),
+      'cancelTransferOrderdate':  new FormControl(''),
     });
     this.getTransferedList();
   }
@@ -654,6 +661,13 @@ export class ModifyTransferModuleComponent implements OnInit {
      } )
      return false;
   }
+  if(this.adminTransferEditForm.value.transferOrderdate=='' || this.adminTransferEditForm.value.transferOrderdate==null){
+    Swal.fire({
+      'icon':'error',
+      'text':'Please fill transfer order date.'
+     } )
+     return false;
+  }
    var data =  {
       "empName":this.editEmpName,
       "empCode":this.editEmpCode,
@@ -667,6 +681,7 @@ export class ModifyTransferModuleComponent implements OnInit {
       "allotShift": this.selectedShiftYN,
       "allotKvCode":this.selectedKvCode,
       "kvNameAlloted": this.selectedKvname,
+      "trasndfer_order_date":this.adminTransferEditForm.value.transferOrderdate,
       "transferOrderNumber":this.adminTransferEditForm.value.transferOrderNumber
   }
   console.log(data)
@@ -797,7 +812,13 @@ export class ModifyTransferModuleComponent implements OnInit {
    } )
    return false;
 }
-
+if(this.modificationEditForm.value.transferOrderdate=='' || this.modificationEditForm.value.transferOrderdate==null){
+  Swal.fire({
+    'icon':'error',
+    'text':'Please fill transfer order date.'
+   } )
+   return false;
+}
  var data =  {
   "empName":this.editModifyEmpName,
   "empCode":this.editModifyEmpCode,
@@ -812,6 +833,7 @@ export class ModifyTransferModuleComponent implements OnInit {
   "allotKvCode":this.selectedKvCode,
   "isAdminTransfer":true,
   "kvNameAlloted": this.selectedKvname,
+  "trasndfer_order_date":this.modificationEditForm.value.transferOrderdate,
   "transferOrderNumber":this.modificationEditForm.value.transferOrderNumber
 }
 console.log(data)
@@ -873,9 +895,17 @@ submitcancelForm(){
          } )
          return false;
       }
+      if(this.cancelEditForm.value.cancelTransferOrderdate=='' || this.cancelEditForm.value.cancelTransferOrderdate==null){
+        Swal.fire({
+          'icon':'error',
+          'text':'Please fill Cancel transfer order date.'
+         } )
+         return false;
+      }
       var data={
         "empCode":this.editCancelEmpCode,
-        "cancelOrderNumber":this.cancelEditForm.value.cancelTransferOrderNumber
+        "cancelOrderNumber":this.cancelEditForm.value.cancelTransferOrderNumber,
+        "transfer_cancel_order_date":this.cancelEditForm.value.cancelTransferOrderdate,
       }
       console.log(data)
       Swal.fire({

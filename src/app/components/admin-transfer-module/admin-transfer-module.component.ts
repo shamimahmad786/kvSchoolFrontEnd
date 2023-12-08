@@ -112,6 +112,7 @@ export class AdminTransferModuleComponent implements OnInit {
       "TransferHeadquater": new FormControl(''),
       "TransferRegionZietHq": new FormControl(''),
       "transferOrderNumber": new FormControl(''),
+      "transferOrderdate": new FormControl(''),
     });
 
     this.adminTransferForm = new FormGroup({
@@ -131,9 +132,11 @@ export class AdminTransferModuleComponent implements OnInit {
       "modifyTransferHeadquater":new FormControl(''),
       "ModifyTransferRegionZietHq": new FormControl(''),
       "transferOrderNumber": new FormControl(''),
+      "transferOrderdate": new FormControl(''),
     });
     this.cancelEditForm = new FormGroup({
       'cancelTransferOrderNumber':  new FormControl(''),
+      'cancelTransferOrderdate':  new FormControl(''),
     });
     this.getTransferGround();
   }
@@ -665,6 +668,13 @@ else if(this.adminTransferEditForm.value.transferSchool=='' || this.adminTransfe
    } )
    return false;
 }
+if(this.adminTransferEditForm.value.transferOrderdate=='' || this.adminTransferEditForm.value.transferOrderdate==null){
+  Swal.fire({
+    'icon':'error',
+    'text':'Please fill transfer order date.'
+   } )
+   return false;
+}
  var data =  {
     "empName":this.editEmpName,
     "empCode":this.editEmpCode,
@@ -678,6 +688,7 @@ else if(this.adminTransferEditForm.value.transferSchool=='' || this.adminTransfe
     "allotShift": this.selectedShiftYN,
     "allotKvCode":this.selectedKvCode,
     "kvNameAlloted": this.selectedKvname,
+    "trasndfer_order_date":this.adminTransferEditForm.value.transferOrderdate,
     "transferOrderNumber":this.adminTransferEditForm.value.transferOrderNumber
 }
 console.log(data)
@@ -808,6 +819,13 @@ if(this.modificationEditForm.value.transferOrderNumber=='' || this.modificationE
    } )
    return false;
 }
+if(this.modificationEditForm.value.transferOrderdate=='' || this.modificationEditForm.value.transferOrderdate==null){
+  Swal.fire({
+    'icon':'error',
+    'text':'Please fill transfer order date.'
+   } )
+   return false;
+}
 var data =  {
 "empName":this.editModifyEmpName,
 "empCode":this.editModifyEmpCode,
@@ -822,6 +840,7 @@ var data =  {
 "allotKvCode":this.selectedKvCode,
 "isAdminTransfer":true,
 "kvNameAlloted": this.selectedKvname,
+"trasndfer_order_date":this.modificationEditForm.value.transferOrderdate,
 "transferOrderNumber":this.modificationEditForm.value.transferOrderNumber
 }
 console.log(data)
@@ -884,9 +903,17 @@ submitcancelForm(){
        } )
        return false;
     }
+    if(this.cancelEditForm.value.cancelTransferOrderdate=='' || this.cancelEditForm.value.cancelTransferOrderdate==null){
+      Swal.fire({
+        'icon':'error',
+        'text':'Please fill Cancel transfer order date.'
+       } )
+       return false;
+    }
     var data={
       "empCode":this.editCancelEmpCode,
-      "cancelOrderNumber":this.cancelEditForm.value.cancelTransferOrderNumber
+      "cancelOrderNumber":this.cancelEditForm.value.cancelTransferOrderNumber,
+      "transfer_cancel_order_date":this.cancelEditForm.value.cancelTransferOrderdate,
     }
     console.log(data)
     Swal.fire({

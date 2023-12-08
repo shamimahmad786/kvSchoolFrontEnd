@@ -426,8 +426,6 @@ export class TeacherEntryFormComponent implements OnInit {
   constructor(private pdfServive: TeacherAppPdfService, private date: DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
     private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) {
-
-
   }
 
   ngOnInit(): void {
@@ -499,6 +497,7 @@ export class TeacherEntryFormComponent implements OnInit {
             this.getDistrictByStateId(this.responseData.teacherParmanentState, "P")
           }
         } else if (this.allowEdit == '0') {
+          debugger
           this.allowEdit = false;
           // this.responseData = JSON.parse(sessionStorage.getItem('singleKvTeacher'))
           if (sessionStorage.getItem('responseData') == null) {

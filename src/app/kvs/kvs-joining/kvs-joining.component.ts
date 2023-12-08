@@ -26,8 +26,8 @@ declare const srvTime: any;
 })
 export class KvsJoiningComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['sno', 'empcode', 'name','postName', 'subjectName','transferGround','relivingdate','joiningdate','From','action'];
-  displayedColumnsOut = ['sno', 'empcode', 'name','postName', 'subjectName','transferGround','relivingdate','To','action'];
+  displayedColumns = ['sno','name','postName', 'subjectName','transferGround','relivingdate','joiningdate','From','action'];
+  displayedColumnsOut = ['sno','name','postName', 'subjectName','transferGround','relivingdate','To','action'];
   hBSource : MatTableDataSource<any>;
   sBSource : MatTableDataSource<any>;
   remarksForm: FormGroup;
@@ -83,7 +83,8 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
   teacherRelName: any;
   transferType: any;
   allotedKvCode: any;
-  
+  reliveDate: any;
+  showJoingDate:any;
   constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -101,7 +102,11 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
     this.employeeTransferOut = new FormGroup({
        relievingDate: new FormControl('', Validators.required),
     });
-
+    this.showJoingDate='TRUE';
+    this.employeeTransferIn.patchValue({
+      joinConfermation: 'TRUE',
+  });
+  
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.userName = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].user_name;
       this.businessUnitTypeCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
@@ -124,7 +129,16 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
   applyFilterSBSource(filterValue: string) {
     filterValue = filterValue.trim(); 
     filterValue = filterValue.toLowerCase(); 
-    this.hBSource.filter = filterValue;
+    this.sBSource.filter = filterValue;
+  }
+  onSelected(val:any){
+    this.showJoingDate=val;
+    if(this.showJoingDate=='FALSE'){
+      this.employeeTransferIn.value.JoiningDate
+      this.employeeTransferIn.patchValue({
+        JoiningDate: '',
+    });
+    }
   }
   //**********************   Logic for get  Data from Api  ******************************
   getKvTeacherRelevingJoiningDetails() {
@@ -172,6 +186,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
       this.activePaneOne=false;
       this.activePaneTwo=true;
     } 
+    this.getKvTeacherRelevingJoiningDetails();
   }
   //********************** Joining Data Set in to Table ******************************
    setToJoingMatTable(data) {
@@ -196,6 +211,8 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
       this.joiningDataArray.push(this.joiningData);
       this.joiningData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","transferGround":"","relivingdate": "","joiningdate":"","join_relieve_flag":"","teacher_id":"","from_kv":"","From":"","To":"","allot_kv_code":"","transfer_type":""}
     }
+    console.log("trandgdsdsds")
+    console.log(this.joiningDataArray)
     setTimeout(() => {
       this.hBSource  = new MatTableDataSource(this.joiningDataArray);
       this.hBSource .paginator = this.paginator;
@@ -225,19 +242,20 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
     }
     setTimeout(() => {
       this.sBSource   = new MatTableDataSource(this.relevingDataArray);
-      this.sBSource  .paginator = this.paginatorOut;
-      this.sBSource  .sort = this.sBSort;
+      this.sBSource.paginator = this.paginatorOut;
+      this.sBSource.sort = this.sBSort;
     }, 100)
   }
  
   //********************** Function Use for Open Joing Modal *****************************
-    openJoiningmodal(joinId:any,emplCode:any,fromKvCode:any,name:any,transferType:any,allotedKvCode:any) {
+    openJoiningmodal(joinId:any,emplCode:any,fromKvCode:any,name:any,transferType:any,allotedKvCode:any,reliveDate:any) {
         this.teacherName=name;
         this.fromKvCode = fromKvCode;
         this.onClickEmplCode =emplCode;
         this.onClickJoiningTeacherId =joinId;
         this.transferType=transferType;
         this.allotedKvCode=allotedKvCode;
+        this.reliveDate=reliveDate;
         this.modalService.open(this.JoiningBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
       }
   //********************** Function Use for Open Releving Modal*****************************
@@ -383,6 +401,19 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
       }
   //********************** Function Use for Save joining Data ******************************
   onEmployeeTransferFormSubmit(event: Event){
+
+    var joinDate =  Math.round((new Date(this.employeeTransferIn.value.JoiningDate).getTime())/(3600000*24));
+    var relivedate = Math.round((new Date(this.reliveDate).getTime())/(3600000*24));
+    debugger
+    if(relivedate>joinDate){
+      Swal.fire({
+        'icon':'error',
+        'text':'Relieving date can not be greater than joining date.'
+      }
+      )
+      return false;
+    }
+
     console.log(this.fromKvCode)
      const data={
       "kvCode":this.fromKvCode,
@@ -394,7 +425,6 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
      "doj":this.employeeTransferIn.value.JoiningDate
     };
      console.log(data)
-   
      Swal.fire({
       'icon':'warning',
       'text': "Do you want to proceed ?",

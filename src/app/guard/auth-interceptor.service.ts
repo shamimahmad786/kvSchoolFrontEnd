@@ -6,8 +6,7 @@ import { environment } from "src/environments/environment";
 export class AuthInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
-        // alert("At interceptor");
-       //debugger
+     
     //    alert("at interceptor--->"+JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token);
       // debugger;
         if (JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined) {
@@ -64,11 +63,12 @@ export class AuthInterceptorService implements HttpInterceptor {
                             return throwError(error);
                         })
                     ))
-            } else if( req.url.indexOf("uploadDocument") !== -1 || req.url.indexOf("deleteDocumentByTeacherIdAndName") !== -1  || req.url.indexOf("saveTeacher") !== -1 || req.url.indexOf("saveExperience") !== -1 || req.url.indexOf("updatdFlag")  !== -1 || req.url.indexOf("saveTransProfile")  !== -1 ){
+            } else if( req.url.indexOf("uploadDocument") !== -1 || req.url.indexOf("deleteDocumentByTeacherIdAndName") !== -1  || req.url.indexOf("saveTeacher") !== -1 ||  req.url.indexOf("updatdFlag")  !== -1 || req.url.indexOf("saveTransProfile")  !== -1 ){
                 // alert(sessionStorage.systemTeacherCode)
                  const modifiedReq = req.clone(
                      {
                          setHeaders: {
+                            'Authorization': token,
                              'username': JSON.parse(sessionStorage.getItem('authTeacherDetails')).user_name,
                              'loginType':'s',
                              'systemTeacherCode':sessionStorage.systemTeacherCode,
