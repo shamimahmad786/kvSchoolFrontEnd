@@ -46,6 +46,11 @@ import { SchoolDetailComponent } from './reports/school-detail/school-detail.com
 import { AdminTransferModuleComponent } from './components/admin-transfer-module/admin-transfer-module.component';
 import { ModifyTransferModuleComponent } from './components/modify-transfer-module/modify-transfer-module.component';
 import { BasicProfileComponent } from './teacherEntryForm/basic-profile/basic-profile.component';
+import { PersonalInfoComponent } from './teacherEntryForm/personal-info/personal-info.component';
+import { WorkExperienceComponent } from './teacherEntryForm/work-experience/work-experience.component';
+import { PreviewConfirmComponent } from './teacherEntryForm/preview-confirm/preview-confirm.component';
+import { MiscellaneousFormComponent } from './teacherEntryForm/miscellaneous-form/miscellaneous-form.component';
+import { ProgresionBarComponent } from './teacherEntryForm/progresion-bar/progresion-bar.component';
 const routes: Routes = [
   {path:'', component: MainPageComponent},
   {path:'mainPage', component: MainPageComponent},
@@ -63,9 +68,14 @@ const routes: Routes = [
       {path:'stationDashboard', component: StationDashboardComponent},
       {path: 'teacherHome', component:TeacherEntryFormComponent} ,
       {path: 'basicProfile', component:BasicProfileComponent} ,
+      {path: 'personalInfo', component:PersonalInfoComponent} ,    
+      {path: 'workExperience', component:WorkExperienceComponent} ,   
+      {path: 'miscellaneous', component:MiscellaneousFormComponent} ,
+      {path: 'previewConfirm', component:PreviewConfirmComponent} ,
       {path: 'customForm', component:CustomFormSelectionComponent},
       {path: 'teachersDetail', component:TeachersDetailComponent},
-      {path: 'teachersDropbox', component:TeacherDropboxComponent},
+      {path: 'teachersDropbox', component:TeacherDropboxComponent},  
+      {path: 'progresionBar', component:ProgresionBarComponent},
       {path: 'teacherInbox', component:TeacherInboxComponent},
       {path: 'teacherOutbox', component:TeacheroutboxComponent},
       {path: 'updateEmailMobile', component:UpdateMobileEmailComponent},

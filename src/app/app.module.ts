@@ -97,6 +97,12 @@ import { SchoolDetailComponent } from './reports/school-detail/school-detail.com
 import { AdminTransferModuleComponent } from './components/admin-transfer-module/admin-transfer-module.component';
 import { ModifyTransferModuleComponent } from './components/modify-transfer-module/modify-transfer-module.component';
 import { BasicProfileComponent } from './teacherEntryForm/basic-profile/basic-profile.component';
+import { PersonalInfoComponent } from './teacherEntryForm/personal-info/personal-info.component';
+import { WorkExperienceComponent } from './teacherEntryForm/work-experience/work-experience.component';
+
+import { PreviewConfirmComponent } from './teacherEntryForm/preview-confirm/preview-confirm.component';
+import { MiscellaneousFormComponent } from './teacherEntryForm/miscellaneous-form/miscellaneous-form.component';
+import { ProgresionBarComponent } from './teacherEntryForm/progresion-bar/progresion-bar.component';
 // import { MAT_DATE_FORMATS } from '@angular/material/';
 // import { DatePickerModule } from 'angular-material-datepicker';
 
@@ -186,7 +192,12 @@ import { BasicProfileComponent } from './teacherEntryForm/basic-profile/basic-pr
     SchoolDetailComponent,
     AdminTransferModuleComponent,
     ModifyTransferModuleComponent,
-    BasicProfileComponent
+    BasicProfileComponent,
+    PersonalInfoComponent,
+    WorkExperienceComponent,
+    MiscellaneousFormComponent,
+    PreviewConfirmComponent,
+    ProgresionBarComponent
    
     
   ],

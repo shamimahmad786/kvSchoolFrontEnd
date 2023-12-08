@@ -56,7 +56,7 @@ export class OutsideServicesService {
 
     });
     
-    return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "saveTeacher", data, {headers});
+    return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "saveProfileV2", data, {headers});
   }
 
   getMasterDataByStateCode(data: any): Observable<Response> {
@@ -272,10 +272,20 @@ export class OutsideServicesService {
     var headers = new HttpHeaders({
       'Authorization':token,
       'Content-Type': 'text/plain; charset=utf-8',
-
     });
     
     return this._http.post<any>(environment.BASE_URL_DATA_EXPERIENCE+ "saveExperience", data, {headers})
+  }
+
+  saveWorkExperienceV2(data){
+    
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
+    });
+    
+    return this._http.post<any>(environment.BASE_URL_DATA_EXPERIENCE+ "saveWorkExperienceV2", data, {headers})
   }
 
   
@@ -748,7 +758,7 @@ fetchConfirmedTchDetails(data){
     'Content-Type': 'text/plain; charset=utf-8',
   }); 
 
-  return this._http.post<any>(environment.BASE_URL_DATA_TEACHER+ "getConfirmedTeacherDetails", data, {headers})
+  return this._http.post<any>(environment.BASE_URL_DATA_TEACHER+ "getConfirmedTeacherDetailsV2", data, {headers})
 
 }
 
@@ -1297,6 +1307,16 @@ getAllSchoolStationlistbyRegion(data,userName:any){
   }); 
 
   return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/get-all-school-station-list-by-region", data, {headers})
+}
+
+getEmployeeDetailV2(data){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  }); 
+
+  return this._http.post<any>(environment.BASE_URL_DATA_TEACHER+ "getEmployeeDetailV2", data, {headers})
 }
 
 

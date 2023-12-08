@@ -1,23 +1,23 @@
 .add-user{
-  color: #fff;
-  border-radius: 4px;
-  font-size: 14px;
-  background: #632765;
-  height: 35px !important;
-  line-height: normal;
-  border: none;
-  padding: 0 15px;
-}
-.add-user:disabled {
-  color: #fff;
-  top: 7px;
-  padding: 0 15px 0 33px;
-  border-radius: 4px;
-  font-size: 14px;
-  background: #996a9a;
-  height: 34px;
-  line-height: normal;
-  border: none;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #632765;
+    height: 35px !important;
+    line-height: normal;
+    border: none;
+    padding: 0 15px;
+  }
+  .add-user:disabled {
+    color: #fff;
+    top: 7px;
+    padding: 0 15px 0 33px;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #996a9a;
+    height: 34px;
+    line-height: normal;
+    border: none;
 }
   .pro-name{
     color: #632765;
@@ -26,9 +26,38 @@
     font-size: 18px;
   }
 
+  .button-back { 
+    position: relative; 
+} 
+  
+.button-back i{ 
+    position: absolute; 
+    left: 15px; 
+    top: 11px ; 
+    color: white; 
+}
 
+.button-save { 
+    position: relative; 
+} 
+  
+.button-save i{ 
+    position: absolute; 
+    left: 15px; 
+    top: 11px ; 
+    color: white; 
+}
 
-
+.back-button{
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #645a64;
+    height: 35px !important;
+    line-height: normal;
+    border: none;
+    padding: 0 15px 0 33px;
+  }
   /* input.ng-invalid.ng-touched{
     border-left: 3px solid red;
 } */
@@ -164,31 +193,6 @@ ul.ulLeft li {
 .stationName{ font-size:0.9rem ! important; font-weight:600 ! important; letter-spacing: 0.9px ! important;}
 .LIneInde li{ display: table-cell;}
 
-/*----------------------- new css end here-----------------------------*/
-/* #msform input,
-#msform textarea {
-  padding: 8px 15px 8px 15px;
-  border: 1px solid #ccc;
-  border-radius: 0px;
-  margin-bottom: 2px;
-  margin-top: 2px;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: montserrat;
-  color: #2C3E50;
-  background-color: #ECEFF1;
-  font-size: 16px;
-  letter-spacing: 1px
-} */
-
-/* #msform input:focus,
-#msform textarea:focus {
-  -moz-box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-  border: 1px solid #24695c;
-  outline-width: 0
-} */
 
 #msform .action-button {
   width: 100px;
@@ -576,20 +580,4 @@ tr {
 .mat-form-field-appearance-fill .mat-form-field-infix {
   padding: 0px ! important;
   
-}
-.min-height-620{
-  min-height: 523px;
-}
-.min-height-523{
-  min-height: 523px;
-}
-.button-save { 
-  position: relative; 
-} 
-
-.button-save i{ 
-  position: absolute; 
-  left: 15px; 
-  top: 11px ; 
-  color: white; 
 }

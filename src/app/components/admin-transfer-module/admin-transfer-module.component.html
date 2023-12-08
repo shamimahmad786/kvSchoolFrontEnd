@@ -184,7 +184,7 @@
                                     <td class="text-start">{{email | uppercase}} </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-start">D.O.B </th>
+                                    <th class="text-start">D.O.B (dd-mm-yyyy) </th>
                                     <td class="text-start"> {{dob|date:"dd-MM-yyyy"}}</td>
                                     <th class="text-start">Present Region Name </th>
                                     <td class="text-start"> {{PresentRegionName}} </td> 
@@ -301,7 +301,10 @@
                                             <label class="mb-1"> Transfer Order Number</label>
                                             <input type="text"  class="form-control form-control-sm" id="orderno" formControlName="transferOrderNumber" >
                                         </div>
-    
+                                        <div class="col-md-4 mb-2">
+                                            <label class="mb-1"> Transfer Order date</label>
+                                             <input type="date"  class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
+                                        </div>
                                         <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
                                             <input type="hidden" readonly="true" class="form-control form-control-sm" name="udiseSchoolName" formControlName="TransferRegionZietHq" value="{{kvRegionSchoolZietHqName}}">
                                         </div>
@@ -348,7 +351,7 @@
                                     <td class="text-start">{{ModifyEmail | uppercase}} </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-start">D.O.B </th>
+                                    <th class="text-start">D.O.B (dd-mm-yyyy) </th>
                                     <td class="text-start"> {{Modifydob|date:"dd-MM-yyyy"}}</td>
                                     <th class="text-start">Present Region Name </th>
                                     <td class="text-start"> {{PresentRegionName}} </td> 
@@ -373,12 +376,12 @@
                                 <tr>
                                     <th class="text-start " style="width:269px">Designated Institute Name </th>
                                     <td class="text-start"> {{ModifykvName}} ({{ModifykvCode}})</td>
-                                    <th class="text-start">Joining Date </th>
-                                    <td class="text-start"> {{joinDate}}</td>
+                                    <th class="text-start">Joining Date (dd-mm-yyyy) </th>
+                                    <td class="text-start"> {{joinDate | date:"dd-MM-yyyy"}}</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-start">Reliving Date </th>
-                                    <td class="text-start"> {{reliveDate}} </td>
+                                    <th class="text-start">Reliving Date (dd-mm-yyyy) </th>
+                                    <td class="text-start"> {{reliveDate | date:"dd-MM-yyyy" }} </td>
                                     <th class="text-start">Transfer Type </th>
                                     <td class="text-start"> {{editeModifyTransferType}} </td>
                                 </tr>
@@ -396,12 +399,12 @@
                                 <tr>
                                     <th class="text-start" style="width:269px">Alloted Institute Name </th>
                                     <td class="text-start"  style="width: 426px;"> {{editAllotedModifykvName}} ({{editAllotedModifykvCode}})</td>
-                                    <th class="text-start">Joining Date </th>
-                                    <td class="text-start"> {{editAllotedModifyJoindate}}</td>
+                                    <th class="text-start">Joining Date (dd-mm-yyyy) </th>
+                                    <td class="text-start"> {{editAllotedModifyJoindate | date:"dd-MM-yyyy"}}</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-start">Reliving Date </th>
-                                    <td class="text-start"> {{editAllotedModifyrelivedate}} </td>
+                                    <th class="text-start">Reliving Date (dd-mm-yyyy) </th>
+                                    <td class="text-start"> {{editAllotedModifyrelivedate | date:"dd-MM-yyyy"}} </td>
                                     <th class="text-start">Transfer Type </th>
                                     <td class="text-start"> {{editeAllotedTransferType}} </td>
                                 </tr> 
@@ -512,7 +515,10 @@
                                                 <label class="mb-1"> Transfer Order Number</label>
                                                 <input type="text"  class="form-control form-control-sm" id="orderno" formControlName="transferOrderNumber" >
                                             </div>
-        
+                                            <div class="col-md-4 mb-2">
+                                                <label class="mb-1"> Transfer Order date</label>
+                                                 <input type="date"  class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
+                                            </div>
                                             <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
                                                 <input type="hidden" readonly="true" class="form-control form-control-sm" name="udiseSchoolName" formControlName="ModifyTransferRegionZietHq" value="{{kvRegionSchoolZietHqName}}">
                                             </div>
@@ -563,7 +569,7 @@
                                 <tr>
                                     <th class="text-start">Present School Name </th>
                                     <td class="text-start"> {{canclKvName}}({{cancelkvCode}})</td>
-                                    <th class="text-start">D.O.B </th>
+                                    <th class="text-start">D.O.B (dd-mm-yyyy) </th>
                                     <td class="text-start"> {{canceldob |date:"dd-MM-yyyy"}}</td>
                                 </tr>
                             </tbody>
@@ -575,13 +581,15 @@
                                 <div class="col-md-12">
                                     <div class="px-3">
                                         <div class="row">
-                                            <div class="pb-2 mt-2  row  m-0">
+                                            <div class="col-md-6 mb-2">
                                                 <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order Number</label>
-                                                <div class="col-sm-6">
-                                                    <input type="text"  class="form-control form-control-sm" id="cancelorderno" formControlName="cancelTransferOrderNumber" >
-                                                </div>
+                                                <input type="text"  class="form-control form-control-sm" id="cancelorderno" formControlName="cancelTransferOrderNumber" >
                                             </div>
-                                        </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order Number</label>
+                                                <input type="date"  class="form-control form-control-sm" formControlName="cancelTransferOrderdate" name="cancelTransferOrderdate" placeholder="Date">
+                                            </div>
+                                       </div>
                                         <div class="p-3" style="text-align: center;">
                                 <input class="mat-raised-button btn-secondary trasnfer-save ms-2" type="submit"
                             id="submit1" value="Cancel Transfer" />

@@ -20,7 +20,7 @@
         <div class="tab-content" id="myTabContent">
             <div *ngIf="activePaneOne">
                 <div class="row  profile-info">
-                    <!--------------------------Transfer In Start Here-------------------------------------------------->
+                    <!--------------------------Transfer Out Start Here-------------------------------------------------->
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="col-lg-12">
                             <div class="row">
@@ -48,53 +48,43 @@
                                 <mat-table [dataSource]="sBSource" matSort #sBSort="matSort">
                                     <ng-container matColumnDef="sno">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
-                                        <mat-cell *matCellDef="let row"><span class="mobile-label">S.No. : </span> {{row.sno}} </mat-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.sno}} </mat-cell>
                                     </ng-container>
 
-                                    <ng-container matColumnDef="empcode">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Employee Code </mat-header-cell>
-                                        <mat-cell *matCellDef="let row"><span class="mobile-label">Employee Code : </span> {{row.empcode}}
-                                        </mat-cell>
-                                    </ng-container>
 
                                     <ng-container matColumnDef="name">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                                        <mat-cell *matCellDef="let row"><span class="mobile-label">Name : </span> {{row.name | uppercase }}
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.name | uppercase }} ({{row.empcode}})
                                         </mat-cell>
                                     </ng-container>
 
                                     <ng-container matColumnDef="postName">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Post Name </mat-header-cell>
-                                        <mat-cell *matCellDef="let row"><span class="mobile-label">Post Name : </span> {{row.postName }}
+                                        <mat-cell *matCellDef="let row">{{row.postName }}
                                         </mat-cell>
                                     </ng-container>
 
                                     <ng-container matColumnDef="subjectName">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Subject Name</mat-header-cell>
-                                        <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Subject Name :
-                            </span> {{row.subjectName}} </mat-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.subjectName}} </mat-cell>
                                     </ng-container>
 
                                     <ng-container matColumnDef="To">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Transfer To </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">To :
-                        </span> {{row.To}} ({{row.allot_kv_code}}) </mat-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.To}} ({{row.allot_kv_code}}) </mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="transferGround">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Ground </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Transfer Ground :
-                        </span> {{row.transferGround}} </mat-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.transferGround}} </mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="relivingdate">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header> Relieving Date </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Relieving date :
-                        </span> {{changeDateFormat(row.relivingdate)}} </mat-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color"> {{changeDateFormat(row.relivingdate)}} </mat-cell>
                                     </ng-container>
 
                                     <ng-container matColumnDef="action">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Action :
-                        </span> <button type="button" *ngIf="row.join_relieve_flag != '2'" class="btn btn-success btn-sm" (click)="openRelivingmodal(row.teacher_id,row.empcode,row.name,row.allot_kv_code)">Relieve</button> </mat-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color"> <button type="button" *ngIf="row.join_relieve_flag != '2'" class="btn btn-success btn-sm" (click)="openRelivingmodal(row.teacher_id,row.empcode,row.name,row.allot_kv_code)">Relieve</button> </mat-cell>
                                     </ng-container>
                                     <mat-header-row *matHeaderRowDef="displayedColumnsOut; sticky:true; "></mat-header-row>
                                     <mat-row *matRowDef="let row; columns: displayedColumnsOut;">
@@ -137,59 +127,47 @@
                             <mat-table [dataSource]="hBSource" matSort #hBSort="matSort">
                                 <ng-container matColumnDef="sno">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
-                                    <mat-cell *matCellDef="let row"><span class="mobile-label">S.No. : </span> {{row.sno}} </mat-cell>
-                                </ng-container>
-
-                                <ng-container matColumnDef="empcode">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Employee Code </mat-header-cell>
-                                    <mat-cell *matCellDef="let row"><span class="mobile-label">Emp. Code : </span> {{row.empcode}}
-                                    </mat-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.sno}} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="name">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                                    <mat-cell *matCellDef="let row"><span class="mobile-label">Name : </span> {{row.name | uppercase }}
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.name | uppercase }} ({{row.empcode}})
                                     </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="postName">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Post Name </mat-header-cell>
-                                    <mat-cell *matCellDef="let row"><span class="mobile-label">Post Name : </span> {{row.postName }}
+                                    <mat-cell *matCellDef="let row"> {{row.postName }}
                                     </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="subjectName">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Subject Name</mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Subject Name :
-                            </span> {{row.subjectName}} </mat-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.subjectName}} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="From">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Transfer From </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">From :
-                        </span> {{row.From}} ({{row.from_kv}}) </mat-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.From}} ({{row.from_kv}}) </mat-cell>
                                 </ng-container>
                             
                                 <ng-container matColumnDef="transferGround">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Ground </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Transfer Ground :
-                        </span> {{row.transferGround}} </mat-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.transferGround}} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="relivingdate">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Relieving Date </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Relieving date :
-                        </span> {{changeDateFormat(row.relivingdate)}} </mat-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.relivingdate | date:"dd-MM-yyyy"}} </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="joiningdate">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Joining Date </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Joining date :
-                        </span> {{changeDateFormat(row.joiningdate)}} </mat-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.joiningdate | date:"dd-MM-yyyy"}} </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="action">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Action :
-                        </span> <button *ngIf="row.join_relieve_flag != '1'" type="button" class="btn btn-success  btn-sm" (click)="openJoiningmodal(row.teacher_id,row.empcode,row.from_kv,row.name,row.transfer_type,row.allot_kv_code)">Join </button>                                        </mat-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color"><button *ngIf="row.join_relieve_flag != '1'" type="button" class="btn btn-success  btn-sm" (click)="openJoiningmodal(row.teacher_id,row.empcode,row.from_kv,row.name,row.transfer_type,row.allot_kv_code,row.relivingdate)">Join </button>                                        </mat-cell>
                                 </ng-container>
                                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
                                 <mat-row *matRowDef="let row; columns: displayedColumns;">
@@ -216,21 +194,28 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="" style="min-width: 100%; max-height: 1000px;">
                     <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="shadow-sm p-3 mb-2 bg-body rounded m-3 p-3">
+                        <div class="row shadow-sm p-3 mb-2 bg-body rounded m-3 p-3">
+                            <div class="col-md-6">
                                     <div class="row">
                                         <ul class="nav nav-pills nav-fill" style="font-weight: bolder; color: #427e72;">
 
                                             <li style="font-weight: bolder; color: #427e72;">
-                                                NAME : {{teacherName}} ({{onClickEmplCode}})
+                                                Name : {{teacherName}} ({{onClickEmplCode}})
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                    <div class="row">
+                                        <ul class="nav nav-pills nav-fill" style="font-weight: bolder; color: #427e72;">
+                                            <li style="font-weight: bolder; color: #427e72;">   
+                                              Relieving Date : {{reliveDate | date:"dd-MM-yyyy"}}
+                                            </li>
+                                        </ul>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -243,26 +228,22 @@
                                     <div class="shadow m-3 p-3">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <h4 class="titleSet"> Whether the employee join Or not :</h4>
-
-                                                <select class="form-select" formControlName="joinConfermation" aria-label="Default select example" id="s_id">
+                                                <h4 class="titleSet"> Whether the employee join or not :</h4>
+                                                <select class="form-select" formControlName="joinConfermation"   #teams (change)="onSelected(teams.value)" aria-label="Default select example" id="s_id">
                                         <option selected disabled>Select </option>
                                         <option  value="TRUE"> YES</option>
                                         <option  value="FALSE"> NO</option>
                                     </select>
                                             </div>
-
-                                            <div class="col-md-6">
+                                          
+                                            <div class="col-md-6" *ngIf="showJoingDate=='TRUE'">
                                                 <h4 class="titleSet"> Employee Joining Date :</h4>
-
                                                 <input type="date" [max]="maxDate" class="form-control form-control-sm" formControlName="JoiningDate" name="JoiningDate" placeholder="JoiningDate">
                                             </div>
-
                                         </div>
                                         <div class="p-3" style="text-align: right;">
                                             <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
-
-                                            <input [disabled]="!employeeTransferIn.get('JoiningDate').valid " type="submit" id="submit" value="submit" class="action-button" />
+                                            <input [disabled]="(!employeeTransferIn.get('JoiningDate').valid && employeeTransferIn.get('joinConfermation').value == 'TRUE'  ) " type="submit" id="submit" value="submit" class="action-button" />
                                         </div>
                                     </div>
                                 </div>
@@ -316,22 +297,6 @@
                                                 <h4 class="titleSet"> Employee Relieving Date :</h4>
                                                 <input type="date" [max]="maxDate" class="form-control form-control-sm" formControlName="relievingDate" name="relievingDate" placeholder="relievingDate">
                                             </div>
-                                            <!-- <div class="col-md-6">
-                                    <h4 class="titleSet"> Employee Joining Date :</h4>
-                              
-                                       <input type="date" class="form-control form-control-sm"
-                                        formControlName="JoiningDate" name="JoiningDate"
-                                        placeholder="JoiningDate">
-                                  </div> -->
-                                            <!-- <div class="col-md-6" >
-                                    <h4 class="titleSet">Upload File In PDF (Max 500 KB)<span class="required-asterisk">*</span></h4>
-                                    <div class="input-group">
-                                        <input type="file" class="form-control form-control-sm" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" id="file" data-max-size="500" accept=".pdf" (blur)="handleFileInput($event.target.files, '4')" #Physically_Handicap_Certificate>
-                                        <button class="btn btn-outline-secondary btn-sm" type="button" id="inputGroupFileAddon04" (click)="documentUpload(1)">Upload</button>
-                                    </div>
-                                    <span class="help-block text-danger" *ngIf="fileUpload">Please upload the file</span>
-                                </div> -->
-
                                         </div>
                                         <div class="p-3" style="text-align: right;">
                                             <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
