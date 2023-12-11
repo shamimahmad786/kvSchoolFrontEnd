@@ -165,7 +165,7 @@
                                        <select class="form-select" aria-label="Default select example" name="presentPostName" formControlName="presentPostName" (change)="teacherTypeSelect($event)" >
                                            <option selected disabled>Select</option>
                                            <option
-                                               *ngFor="let data of teacherTypeDataNameCode; let i=index;"
+                                               *ngFor="let data of teacherTypeDataNameCode;"
                                                value="{{data.teacherTypeId}}">{{data.nameCode}}
                                            </option>
                                        </select>
@@ -184,7 +184,7 @@
                                             <select class="form-select" aria-label="Default select example" name="presentSubjectName" formControlName="presentSubjectName" >
                                                 <option selected disabled>Select</option>
                                                 <option
-                                                    *ngFor="let data of subjectListNameCode; let i=index;"
+                                                    *ngFor="let data of subjectListNameCode;"
                                                     value="{{data.subjectCode}}">{{data.subNameCode}}
                                                 </option>
                                             </select>

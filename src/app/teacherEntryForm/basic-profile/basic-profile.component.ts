@@ -11,8 +11,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 import { TeacherAppPdfService } from 'src/app/kvs/makePdf/teacher-app-pdf.service';
-import {DateAdapter} from '@angular/material/core';
-
+import {
+  MAT_DATE_FORMATS,
+  DateAdapter,
+  MAT_DATE_LOCALE
+} from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 declare const onNextClick: any;
 declare const onPreviousClick: any;
 declare const onNextButtonClick: any;
@@ -38,7 +42,11 @@ export const MY_FORMATS = {
 @Component({
   selector: 'app-basic-profile',
   templateUrl: './basic-profile.component.html',
-  styleUrls: ['./basic-profile.component.css']
+  styleUrls: ['./basic-profile.component.css'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
 })
 export class BasicProfileComponent implements OnInit {
   maxDate: any;
@@ -55,7 +63,6 @@ export class BasicProfileComponent implements OnInit {
   stationName: any;
   subjectListNameCode: any[] = [];
   teacherTypeDataNameCode: any = [];
-  spouseTypeDataNameCode: any = [];
   teacherTypeData: any;
   subjectList: any;
   spouseTypeData: any;
@@ -75,6 +82,7 @@ export class BasicProfileComponent implements OnInit {
   stateId: any;
   profileTeacherName: any;
   teacherDisabilityType: any;
+  businessUnitTypeCode: any;
  
   constructor(private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
   private modalService: NgbModal, private outSideService: OutsideServicesService,
@@ -88,6 +96,7 @@ export class BasicProfileComponent implements OnInit {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
       this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
+      this.businessUnitTypeCode= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_code;
     }
     const dtToday = new Date();
     let month = String(dtToday.getMonth() + 1);
@@ -131,6 +140,7 @@ export class BasicProfileComponent implements OnInit {
       this.employeeCode=sessionStorage.getItem('newEntryStatus');
      this.getEmployeeData()
     }
+    this.getAllMaster();
     this.getSchoolDetailsByKvCode();
     this.getStateMaster();
   }
@@ -163,7 +173,7 @@ export class BasicProfileComponent implements OnInit {
           disabilityType: this.emplyeeData['teacherDisabilityType'],
           presentPostName:this.emplyeeData['lastPromotionPositionType'],
           lastPromotionPositionDate: this.emplyeeData['lastPromotionPositionDate'],
-          presentSubjectName: this.emplyeeData['subjectName'],
+          presentSubjectName: this.emplyeeData['workExperienceAppointedForSubject'],
           staffType: this.emplyeeData['teachingNonteaching'],
           specialRecruitmentYn: this.emplyeeData['specialRecruitmentYn'],
       });
@@ -304,7 +314,7 @@ export class BasicProfileComponent implements OnInit {
         this.stationName = this.kvSchoolDetails.rowValue[i].station_name;
       }
     })
-    this.getAllMaster();
+    
   }
   getAllMaster() {
     this.outSideService.fetchAllMaster(6).subscribe((res) => {
@@ -320,22 +330,6 @@ export class BasicProfileComponent implements OnInit {
           'teacherTypeId': this.teacherTypeData[i].teacherTypeId
         }
         this.teacherTypeDataNameCode.push(data)
-      }
-    })
-
-    this.outSideService.fetchAllMaster(1).subscribe((res) => {
-      this.spouseTypeData = res.response.postionType;
-      this.spouseTypeDataNameCode = [];
-      for (let i = 0; i < this.spouseTypeData.length; i++) {
-
-        var concatElement;
-        concatElement = this.spouseTypeData[i].organizationTeacherTypeName;
-        concatElement = concatElement + "(" + this.spouseTypeData[i].teacherTypeId + ")";
-        var data = {
-          'nameCode': concatElement,
-          'teacherTypeId': this.spouseTypeData[i].teacherTypeId
-        }
-        this.spouseTypeDataNameCode.push(data)
       }
     })
   }

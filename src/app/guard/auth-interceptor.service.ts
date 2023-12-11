@@ -63,15 +63,17 @@ export class AuthInterceptorService implements HttpInterceptor {
                             return throwError(error);
                         })
                     ))
-            } else if( req.url.indexOf("uploadDocument") !== -1 || req.url.indexOf("deleteDocumentByTeacherIdAndName") !== -1  || req.url.indexOf("saveTeacher") !== -1 ||  req.url.indexOf("updatdFlag")  !== -1 || req.url.indexOf("saveTransProfile")  !== -1 ){
+            } else if( req.url.indexOf("uploadDocument") !== -1 || req.url.indexOf("saveTeacherConfirmationV2") !== -1 || req.url.indexOf("deleteDocumentByTeacherIdAndName") !== -1  || req.url.indexOf("saveTeacher") !== -1 ||  req.url.indexOf("updatdFlag")  !== -1 || req.url.indexOf("saveTransProfile")  !== -1 ){
                 // alert(sessionStorage.systemTeacherCode)
+                var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
                  const modifiedReq = req.clone(
                      {
                          setHeaders: {
                             'Authorization': token,
                              'username': JSON.parse(sessionStorage.getItem('authTeacherDetails')).user_name,
                              'loginType':'s',
-                             'systemTeacherCode':sessionStorage.systemTeacherCode,
+                             'Content-Type': (req.url.indexOf('unee-api/v1') !==-1)?'application/json; charset=utf-8':'text/plain; charset=utf-8',
+                             //'systemTeacherCode':sessionStorage.systemTeacherCode,
                          }
                      });
                  return next.handle(modifiedReq).pipe(

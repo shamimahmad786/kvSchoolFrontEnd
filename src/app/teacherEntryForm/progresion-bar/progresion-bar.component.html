@@ -5,13 +5,13 @@
                 <div class="card px-0 pb-0 ">
                     <form id="msform">
                         <ul id="progressbar" class="m-0 p-0">
-                            <li class="active" id="profile">
+                            <li [ngClass]="{'active' : profilePage}"  id="profile">
                                 <strong>Profile</strong>
                             </li>
-                            <li  class="active" id="experience">
+                            <li [ngClass]="{'active' : experiencePage}"  id="experience">
                                 <strong>Experience</strong>
                             </li>
-                            <li id="upload">
+                            <li [ngClass]="{'active' : uploadPage}"   id="upload" >
                                 <strong>Preview & Confirm</strong>
                             </li>
                         </ul>

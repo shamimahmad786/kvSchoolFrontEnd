@@ -173,7 +173,7 @@ export class WorkExperienceComponent implements OnInit {
         udiseSchoolName: ["", [Validators.required]],
         udiseSchCode: ["", [Validators.required]],
         workStartDate: ["", [Validators.required]],
-        workEndDate: ["", [Validators.required]],
+        workEndDate: '',
         positionType: ["", [Validators.required]],
         appointedForSubject: "",
         shiftYn: '',
