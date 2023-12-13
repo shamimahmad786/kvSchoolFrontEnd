@@ -35,4 +35,3 @@ openSideBar.addEventListener("click", () => {
     openSideBar.style.display = "none";
 });
 
-$('#example, #example2, #example1 ').dataTable({ searching: false, paging: false, info: false });

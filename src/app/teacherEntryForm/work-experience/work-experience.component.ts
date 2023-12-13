@@ -98,9 +98,9 @@ export class WorkExperienceComponent implements OnInit {
             "teacherTypeId": this.tchExpList[i].positionType
           }
           if (this.tchExpList[i].workEndDate != null && this.tchExpList[i].workEndDate != "null") {
-            this.tchExpList[i].workEndDate = this.date.transform(new Date(this.tchExpList[i].workEndDate * 1), 'yyyy-MM-dd')
+            this.tchExpList[i].workEndDate =this.tchExpList[i].workEndDate;
           }
-          this.tchExpList[i].workStartDate = this.date.transform(new Date(this.tchExpList[i].workStartDate * 1), 'yyyy-MM-dd')
+          this.tchExpList[i].workStartDate = this.tchExpList[i].workStartDate;
           this.addQuantity(this.tchExpList[i])
           this.getSubjectByTchTypeExp(data, i)
 
@@ -362,6 +362,7 @@ export class WorkExperienceComponent implements OnInit {
   }
   experienceDataManagement(event, index,type) {
     ((this.teacherForm.get('workExperienceForm') as FormArray).at(0) as FormGroup).get('workStartDate');
+    debugger
     for (let i = 0; i < this.teacherForm.value.workExperienceForm.length - 1; i++) {
       var dateFrom = this.teacherForm.value.workExperienceForm[i].workStartDate;
       var dateTo = this.teacherForm.value.workExperienceForm[i].workEndDate;

@@ -317,7 +317,7 @@ export class OutsideServicesService {
 
     });
     
-    return this._http.post<any>(environment.BASE_URL_DATA_EXPERIENCE+ "getExperienceByTeacherId", data, {headers})
+    return this._http.post<any>(environment.BASE_URL_DATA_EXPERIENCE+ "getExperienceByTeacherIdV2", data, {headers})
   }
 
   fetchPromotionByTchId(data){
