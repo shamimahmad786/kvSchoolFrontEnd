@@ -70,8 +70,8 @@ export class DesignationMasterComponent implements OnInit,AfterViewInit {
        }
        setTimeout(() => {
          this.dataSource = new MatTableDataSource(this.listDesignation);
-         // this.dataSource.paginator = this.paginator;
-         // this.dataSource.sort = this.sort;
+         this.dataSource.paginator = this.paginator;
+         this.dataSource.sort = this.sort;
        }, 100)
      })
    }

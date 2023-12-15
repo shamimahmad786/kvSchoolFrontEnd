@@ -3,8 +3,8 @@
     width: 100%;
   }
   th.mat-header-cell:first-of-type{
-    padding-left: 8px;
-    text-align: center;
+    padding-left: 15px;
+   
   }
   th.mat-header-cell{
     padding-left: 24px;

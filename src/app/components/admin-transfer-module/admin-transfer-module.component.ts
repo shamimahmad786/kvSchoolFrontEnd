@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,10 +7,21 @@ import { OutsideServicesService } from 'src/app/service/outside-services.service
 import Swal from 'sweetalert2';
 import { FormDataService } from 'src/app/teacherEntryForm/service/internalService/form-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  MAT_DATE_FORMATS,
+  DateAdapter,
+  MAT_DATE_LOCALE
+} from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MY_FORMATS } from 'src/app/teacherEntryForm/teacher-entry-form/teacher-entry-form.component';
 @Component({
   selector: 'app-admin-transfer-module',
   templateUrl: './admin-transfer-module.component.html',
-  styleUrls: ['./admin-transfer-module.component.css']
+  styleUrls: ['./admin-transfer-module.component.css'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
 })
 export class AdminTransferModuleComponent implements OnInit { 
   displayedColumns = ['Sno', 'name','kv_code','is_admin_transfer','kv_name_alloted','join_date','relieve_date','transfer_under_cat','Action'];
@@ -22,6 +33,7 @@ export class AdminTransferModuleComponent implements OnInit {
   @ViewChild('AdminTransferBox', { static: true }) AdminTransferBox: TemplateRef<any>;
   @ViewChild('AdminCancelBox', { static: true }) AdminCancelBox: TemplateRef<any>;
   @ViewChild('AdminMdificationBox', { static: true }) AdminMdificationBox: TemplateRef<any>;
+  @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
   adminTransferForm: FormGroup;
   adminTransferEditForm: FormGroup;
   modificationEditForm: FormGroup;
@@ -173,7 +185,7 @@ export class AdminTransferModuleComponent implements OnInit {
      this.cancelkvCode=kvCode;
      this.canclKvName=kvName;
      this.canceldob=dob;
-     this.modalService.open(this.AdminCancelBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
+     this.modalService.open(this.AdminCancelBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
    }
  
    openModificationmodal(empCode:any,empName:any,presentKvName:any,presentKvCode:any,PresentStationName:any,PresentRegionName:any){
@@ -392,7 +404,20 @@ export class AdminTransferModuleComponent implements OnInit {
     }
   }
 }
-
+  clear(){
+    this.adminTransferMangement=[];
+    this.totalLength ='';
+    this.dataSource = new MatTableDataSource(this.adminTransferMangement);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.userMappingSort;
+    this.adminTransferForm.patchValue({
+      employeeCode: '',
+      name: '',
+      dob: '',
+      email: '',
+      mobileNo: '',
+  });
+}
   //***************Function user for search  data*******************************************/
   submit(){
     console.log(this.adminTransferForm.value) 
@@ -403,6 +428,27 @@ export class AdminTransferModuleComponent implements OnInit {
       "teacherEmail":this.adminTransferForm.value.email.trim().toUpperCase(),
       "teacherMobile":this.adminTransferForm.value.mobileNo.trim(),
     }
+    debugger
+    if((this.adminTransferForm.value.employeeCode=='' || this.adminTransferForm.value.employeeCode==null )
+    && (this.adminTransferForm.value.name=='' || this.adminTransferForm.value.name==null ) && 
+    (this.adminTransferForm.value.dob=='' ||  this.adminTransferForm.value.dob ==null ) &&
+     (this.adminTransferForm.value.email=='' || this.adminTransferForm.value.email==null) &&
+      (this.adminTransferForm.value.mobileNo=='' || this.adminTransferForm.value.mobileNo==null )){
+        this.adminTransferMangement=[];
+        this.totalLength ='';
+        this.dataSource = new MatTableDataSource(this.adminTransferMangement);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.userMappingSort;
+        this.adminTransferForm.patchValue({
+          employeeCode: '',
+          name: '',
+          dob: '',
+          email: '',
+          mobileNo: '',
+      });
+        return ;
+      }
+      else{
     console.log(data)
     this.adminTransferMangement=[];
     this.outSideService.searchEmployeeForTransfer(data,this.loginUserNameForChild).subscribe(res => {
@@ -461,7 +507,7 @@ export class AdminTransferModuleComponent implements OnInit {
           else{
             this.testData.kv_name_alloted = res['rowValue'][i].kv_name_alloted;
           }
-          this.testData.kv_name_alloted =  this.testData.kv_name_alloted +'('+this.testData.allot_kv_code +')'  ;
+          this.testData.kv_name_alloted =  this.testData.kv_name_alloted +' ('+this.testData.allot_kv_code +')'  ;
           this.testData.allot_kv_code = res['rowValue'][i].allot_kv_code;
           this.testData.work_experience_appointed_for_subject = res['rowValue'][i].work_experience_appointed_for_subject;
           this.testData.last_promotion_position_type = res['rowValue'][i].last_promotion_position_type;
@@ -578,6 +624,7 @@ debugger
       })
     })
   }
+  }
   submitForm(){
   if(this.selectSchoolType=='Select'){
     Swal.fire({
@@ -649,7 +696,7 @@ else if(this.adminTransferEditForm.value.transferSchool=='' || this.adminTransfe
   if(this.adminTransferEditForm.value.TransferHeadquater=='' || this.adminTransferEditForm.value.TransferHeadquater==null){
     Swal.fire({
       'icon':'error',
-      'text':'Please select Head Quater.'
+      'text':'Please select Headquarter.'
      } )
      return false;
   }
@@ -657,7 +704,7 @@ else if(this.adminTransferEditForm.value.transferSchool=='' || this.adminTransfe
  if(this.adminTransferEditForm.value.transferGround=='' || this.adminTransferEditForm.value.transferGround==null){
   Swal.fire({
     'icon':'error',
-    'text':'Please select Category.'
+    'text':'Please select transferground.'
    } )
    return false;
 }
@@ -800,7 +847,7 @@ if(this.selectSchoolType=='4'){
 if(this.modificationEditForm.value.modifyTransferHeadquater=='' || this.modificationEditForm.value.modifyTransferHeadquater==null){
   Swal.fire({
     'icon':'error',
-    'text':'Please select Head Quater.'
+    'text':'Please select Headquarter.'
    } )
    return false;
 }
@@ -808,7 +855,7 @@ if(this.modificationEditForm.value.modifyTransferHeadquater=='' || this.modifica
 if(this.modificationEditForm.value.modifyTransferGround=='' || this.modificationEditForm.value.modifyTransferGround==null){
   Swal.fire({
     'icon':'error',
-    'text':'Please select Category.'
+    'text':'Please select transfer ground.'
    } )
    return false;
 }

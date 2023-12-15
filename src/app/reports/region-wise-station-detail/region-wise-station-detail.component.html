@@ -15,7 +15,7 @@
                     <div class="col-md-4 mt-3">
                         <div class="">
                             <div *ngIf="dataSource">
-                                <mat-form-field style=" width: 350px;">
+                                <mat-form-field appearance="outline" class="searchInput" style=" width: 350px;">
                                     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search ">
                                 </mat-form-field>
                             </div>

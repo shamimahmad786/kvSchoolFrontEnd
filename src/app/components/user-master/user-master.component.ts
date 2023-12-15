@@ -23,7 +23,7 @@ declare const srvTime: any;
 })
 export class UserMasterComponent implements OnInit, AfterViewInit {
   displayedColumns = ['Sno', 'User Name', 'Email','Mobile','Parent User','Action' ];
-  hBSource : MatTableDataSource<any>;
+  dataSource : MatTableDataSource<any>;
   remarksForm: FormGroup;
  @ViewChild('paginator') paginator: MatPaginator;
  @ViewChild('hBSort') hBSort: MatSort;
@@ -88,7 +88,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   applyFilterHBSource(filterValue: string) {
     filterValue = filterValue.trim(); 
     filterValue = filterValue.toLowerCase(); 
-    this.hBSource.filter = filterValue;
+    this.dataSource.filter = filterValue;
   }
   //**********************   Logic for get  Data from Api  ******************************
   getChilduser() {
@@ -133,9 +133,9 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
       this.childUserData = { "sno": "","username": "", "email": "","enabled": "","firstname": "","mobile":"","parentuser": ""}
     }
     setTimeout(() => {
-      this.hBSource  = new MatTableDataSource(this.childuserDataArray);
-      this.hBSource.paginator = this.paginator;
-      this.hBSource.sort = this.hBSort;  
+      this.dataSource  = new MatTableDataSource(this.childuserDataArray);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.hBSort;  
     }, 100)
   }
   childActiveDeactive(action:any,userName:any)
