@@ -857,7 +857,11 @@ deleteUploadedDoc(data){
 }
 
 uploadDocument(data){
-return this._http.post<any>(environment.BASE_URL_DATA_TRANSFER+ "uploadDocument", data);
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+return this._http.post<any>(environment.BASE_URL_DATA_TRANSFER+ "uploadDocument",  data,{headers});
 }
 
 
