@@ -537,9 +537,13 @@ body {
         font-size: 24px;
       }
     
-   
+   .mat-header-row{
+    z-index: 1 !important;
+   }
     
-    
+   .mat-elevation-z8 {
+    width: 100%;
+}
       .dashboard--remaining--width {
         margin-left: 0px !important;
         min-width: 100%;

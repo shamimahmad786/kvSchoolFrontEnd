@@ -203,7 +203,7 @@ export class ModifyTransferModuleComponent implements OnInit {
              else{
                this.testData.kv_name_alloted = res['rowValue'][i].kv_name_alloted;
              }
-             this.testData.kv_name_alloted =  this.testData.kv_name_alloted +'('+this.testData.allot_kv_code +')'  ;
+             this.testData.kv_name_alloted =  this.testData.kv_name_alloted +' ('+this.testData.allot_kv_code +')'  ;
              this.testData.allot_kv_code = res['rowValue'][i].allot_kv_code;
              this.testData.work_experience_appointed_for_subject = res['rowValue'][i].work_experience_appointed_for_subject;
              this.testData.last_promotion_position_type = res['rowValue'][i].last_promotion_position_type;
@@ -350,7 +350,7 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.cancelkvCode=kvCode;
     this.canclKvName=kvName;
     this.canceldob=dob;
-    this.modalService.open(this.AdminCancelBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
+    this.modalService.open(this.AdminCancelBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
 
   openModificationmodal(empCode:any,empName:any,presentKvName:any,presentKvCode:any,PresentStationName:any,PresentRegionName:any){
@@ -642,7 +642,7 @@ export class ModifyTransferModuleComponent implements OnInit {
     if(this.adminTransferEditForm.value.TransferHeadquater=='' || this.adminTransferEditForm.value.TransferHeadquater==null){
       Swal.fire({
         'icon':'error',
-        'text':'Please select Head Quater.'
+        'text':'Please select Headquarter.'
        } )
        return false;
     }
@@ -650,7 +650,7 @@ export class ModifyTransferModuleComponent implements OnInit {
    if(this.adminTransferEditForm.value.transferGround=='' || this.adminTransferEditForm.value.transferGround==null){
     Swal.fire({
       'icon':'error',
-      'text':'Please select Category.'
+      'text':'Please select transferground.'
      } )
      return false;
  }
@@ -793,7 +793,7 @@ export class ModifyTransferModuleComponent implements OnInit {
   if(this.modificationEditForm.value.modifyTransferHeadquater=='' || this.modificationEditForm.value.modifyTransferHeadquater==null){
     Swal.fire({
       'icon':'error',
-      'text':'Please select Head Quater.'
+      'text':'Please select Headquarter.'
      } )
      return false;
   }
@@ -801,7 +801,7 @@ export class ModifyTransferModuleComponent implements OnInit {
  if(this.modificationEditForm.value.modifyTransferGround=='' || this.modificationEditForm.value.modifyTransferGround==null){
   Swal.fire({
     'icon':'error',
-    'text':'Please select Category.'
+    'text':'Please select transferground.'
    } )
    return false;
 }

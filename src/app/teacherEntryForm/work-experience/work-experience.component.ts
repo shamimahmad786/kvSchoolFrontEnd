@@ -7,14 +7,34 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormDataService } from '../service/internalService/form-data.service';
-import { DateAdapter } from '@angular/material/core';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import {
+  MAT_DATE_FORMATS,
+  DateAdapter,
+  MAT_DATE_LOCALE
+} from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD-MM-YYYY',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-work-experience',
   templateUrl: './work-experience.component.html',
-  styleUrls: ['./work-experience.component.css']
+  styleUrls: ['./work-experience.component.css'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
 })
 export class WorkExperienceComponent implements OnInit {
   teacherForm: FormGroup;
@@ -98,9 +118,9 @@ export class WorkExperienceComponent implements OnInit {
             "teacherTypeId": this.tchExpList[i].positionType
           }
           if (this.tchExpList[i].workEndDate != null && this.tchExpList[i].workEndDate != "null") {
-            this.tchExpList[i].workEndDate = this.date.transform(new Date(this.tchExpList[i].workEndDate * 1), 'yyyy-MM-dd')
+            this.tchExpList[i].workEndDate =this.tchExpList[i].workEndDate;
           }
-          this.tchExpList[i].workStartDate = this.date.transform(new Date(this.tchExpList[i].workStartDate * 1), 'yyyy-MM-dd')
+          this.tchExpList[i].workStartDate = this.tchExpList[i].workStartDate;
           this.addQuantity(this.tchExpList[i])
           this.getSubjectByTchTypeExp(data, i)
 
@@ -173,7 +193,7 @@ export class WorkExperienceComponent implements OnInit {
         udiseSchoolName: ["", [Validators.required]],
         udiseSchCode: ["", [Validators.required]],
         workStartDate: ["", [Validators.required]],
-        workEndDate: ["", [Validators.required]],
+        workEndDate: '',
         positionType: ["", [Validators.required]],
         appointedForSubject: "",
         shiftYn: '',
@@ -362,6 +382,7 @@ export class WorkExperienceComponent implements OnInit {
   }
   experienceDataManagement(event, index,type) {
     ((this.teacherForm.get('workExperienceForm') as FormArray).at(0) as FormGroup).get('workStartDate');
+    debugger
     for (let i = 0; i < this.teacherForm.value.workExperienceForm.length - 1; i++) {
       var dateFrom = this.teacherForm.value.workExperienceForm[i].workStartDate;
       var dateTo = this.teacherForm.value.workExperienceForm[i].workEndDate;
@@ -370,7 +391,7 @@ export class WorkExperienceComponent implements OnInit {
         dateCheck =event.target.value;
         
       }else{
-        dateCheck = moment(event.value?._d).format("YYYY-MM-DD");
+        dateCheck =event.target.value;
       }
       var returnType
       if (dateTo == null || dateTo == 'null') {

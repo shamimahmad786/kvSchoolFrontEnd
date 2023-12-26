@@ -58,6 +58,25 @@ export class OutsideServicesService {
     
     return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "saveProfileV2", data, {headers});
   }
+  saveTeacherConfirmationV2(data: any): Observable<Response>{
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
+
+    });
+    return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "saveTeacherConfirmationV2", data, {headers});
+  }
+
+  getTeacherConfirmationV2(data: any){
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
+
+    });
+    return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "getTeacherConfirmationV2", data, {headers});
+  }
 
   getMasterDataByStateCode(data: any): Observable<Response> {
     
@@ -298,7 +317,7 @@ export class OutsideServicesService {
 
     });
     
-    return this._http.post<any>(environment.BASE_URL_DATA_EXPERIENCE+ "getExperienceByTeacherId", data, {headers})
+    return this._http.post<any>(environment.BASE_URL_DATA_EXPERIENCE+ "getExperienceByTeacherIdV2", data, {headers})
   }
 
   fetchPromotionByTchId(data){

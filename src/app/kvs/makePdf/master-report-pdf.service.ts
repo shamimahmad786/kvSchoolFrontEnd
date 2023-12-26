@@ -962,7 +962,7 @@ console.log(this.regionSchoolMappingListArray)
         bottom: 15,
       },
     })
-    doc.save('stationCategoryMapping.pdf')
+    doc.save('StationCategoryMapping.pdf')
    }
 
         

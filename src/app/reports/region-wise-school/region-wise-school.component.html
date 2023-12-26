@@ -49,10 +49,10 @@
                         </form>
                     </div>
 
-                    <div class="col-md-3 mt-3">
+                    <div class="col-md-3 mt-1">
                         <div class="float-end">
                             <div *ngIf="dataSource">
-                                <mat-form-field style="margin-right: 20px; width: 350px;">
+                                <mat-form-field appearance="outline" class="searchInput" style="margin-right: 20px; width: 350px;">
                                     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search ">
                                 </mat-form-field>
                             </div>

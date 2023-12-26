@@ -55,13 +55,13 @@
                 </ng-container> -->
 
                 <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Employee name </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.name}}({{row.employeecode}})
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Employee name (Code)</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.name}} ({{row.employeecode}})
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="kv_code">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Present KV (Code) </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentKvName}}({{row.kv_code}})
+                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentKvName}} ({{row.kv_code}})
                     </mat-cell>
                 </ng-container>  
 
@@ -72,7 +72,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="kv_name_alloted">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> KV Name Alloted </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> KV Name Alloted (Code)</mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span>{{row.kv_name_alloted}}
                     </mat-cell>
                 </ng-container>
@@ -150,13 +150,13 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th class="w-25 text-start"> Employee Name(Code)</th>
-                            <td class="text-start"> {{editEmpName}}({{editEmpCode}})</td>
+                            <th class="w-25 text-start"> Employee Name (Code)</th>
+                            <td class="text-start"> {{editEmpName}} ({{editEmpCode}})</td>
                             <th class="text-start">Email </th>
                             <td class="text-start">{{email | uppercase}} </td>
                         </tr>
                         <tr>
-                            <th class="text-start">D.O.B (dd-mm-yyyy) </th>
+                            <th class="text-start">DOB (dd-mm-yyyy) </th>
                             <td class="text-start"> {{dob|date:"dd-MM-yyyy"}}</td>
                             <th class="text-start">Present Region Name </th>
                             <td class="text-start"> {{PresentRegionName}} </td> 
@@ -164,7 +164,7 @@
                         <tr>
                             <th class="text-start">Present Station name</th>
                             <td class="text-start"> {{PresentStationName}}</td>
-                            <th class="text-start">Present School Name(Code) </th>
+                            <th class="text-start">Present School Name (Code) </th>
                             <td class="text-start"> {{presentKvName}} ({{presentKvCode}})</td>
                         </tr>
                     </tbody>
@@ -317,13 +317,13 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th class="w-25 text-start"> Employee Name(Code)</th>
-                            <td class="text-start"> {{editModifyEmpName}}({{editModifyEmpCode}})</td>
+                            <th class="w-25 text-start"> Employee Name (Code)</th>
+                            <td class="text-start"> {{editModifyEmpName}} ({{editModifyEmpCode}})</td>
                             <th class="text-start">Email </th>
                             <td class="text-start">{{ModifyEmail | uppercase}} </td>
                         </tr>
                         <tr>
-                            <th class="text-start">D.O.B (dd-mm-yyyy) </th>
+                            <th class="text-start">DOB (dd-mm-yyyy) </th>
                             <td class="text-start"> {{Modifydob|date:"dd-MM-yyyy"}}</td>
                             <th class="text-start">Present Region Name </th>
                             <td class="text-start"> {{PresentRegionName}} </td> 
@@ -331,7 +331,7 @@
                         <tr>
                             <th class="text-start">Present Station name</th>
                             <td class="text-start"> {{PresentStationName}}</td>
-                            <th class="text-start">Present School Name(Code) </th>
+                            <th class="text-start">Present School Name (Code) </th>
                             <td class="text-start"> {{presentKvName}} ({{presentKvCode}})</td>
                         </tr>
                     </tbody>
@@ -346,7 +346,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th class="text-start " style="width:269px">Designated Institute Name </th>
+                            <th class="text-start " style="width:269px">Designated Institute Name (Code) </th>
                             <td class="text-start"> {{ModifykvName}} ({{ModifykvCode}})</td>
                             <th class="text-start">Joining Date (dd-mm-yyyy)</th>
                             <td class="text-start"> {{joinDate | date:"dd-MM-yyyy"}}</td>
@@ -369,7 +369,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th class="text-start" style="width:269px">Alloted Institute Name </th>
+                            <th class="text-start" style="width:269px">Alloted Institute Name (Code)</th>
                             <td class="text-start"  style="width: 426px;"> {{editAllotedModifykvName}} ({{editAllotedModifykvCode}})</td>
                             <th class="text-start">Joining Date (dd-mm-yyyy) </th>
                             <td class="text-start"> {{editAllotedModifyJoindate | date:"dd-MM-yyyy"}}</td>
@@ -535,16 +535,16 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th class="w-25 text-start"> Employee Name(Code)</th>
+                            <th class="w-25 text-start"> Employee Name (Code)</th>
                             <td class="text-start"> {{editCancelEmpName}}
                                 ({{editCancelEmpCode}})</td>
                             <th class="text-start">Email </th>
                             <td class="text-start">{{cancelEmail | uppercase}} </td>
                         </tr>
                         <tr>
-                            <th class="text-start">Present School Name </th>
-                            <td class="text-start"> {{canclKvName}}({{cancelkvCode}})</td>
-                            <th class="text-start">D.O.B (dd-mm-yyyy)</th>
+                            <th class="text-start">Present School Name (Code) </th>
+                            <td class="text-start"> {{canclKvName}} ({{cancelkvCode}})</td>
+                            <th class="text-start">DOB (dd-mm-yyyy)</th>
                             <td class="text-start"> {{canceldob |date:"dd-MM-yyyy"}}</td>
                         </tr>
                     </tbody>
