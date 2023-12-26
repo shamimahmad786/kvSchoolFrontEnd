@@ -75,8 +75,6 @@ export class PreviewConfirmComponent implements OnInit {
     })
     this.outSideService.fetchConfirmedTchDetails(this.tempTeacherId).subscribe((res) => {
     this.verifyTchTeacherProfileData = res.response.teacherProfile;
-    console.log("------------------techer detail----------------")
-    console.log(this.verifyTchTeacherProfileData)
     this.schoolDetails = res.response.schoolDetails;
     this.verifyTchTeacherTraining = res.response.training;
   
@@ -94,8 +92,6 @@ export class PreviewConfirmComponent implements OnInit {
       "teacherId":this.tempTeacherId}
     this.outSideService.getTeacherConfirmationV2(data).subscribe((res)=>{
       if(res){
-        console.log("---------------teacher check  detilll------");
-        console.log(res);
         this.teacherPreviewConfirmForm.patchValue({
           teacherName:  res.response['teacherName'],
           teacherGender:  res.response['teacherGender'],
