@@ -61,9 +61,10 @@ export class WorkExperienceComponent implements OnInit {
   selectHeadQuaterZoneRegion = false;
   selectedSchoolType: any;
   selectSchoolType: any;
-  stationList: any;
+  stationList: any = [];
   kvSchoolList: any;
   headQuaterList: any = [];
+  regionList: any = [];
   zoneList: any = [];
   selectRegionList: any = [];
   selectedKvCode: any;
@@ -99,6 +100,7 @@ export class WorkExperienceComponent implements OnInit {
     this.transferGroundList = this.formDataList.transferGround
     this.getTchExpByTchId();
     this.getAllMaster();
+    this.getKvRegion();
   }
   detailsOfPosting(): FormArray {
     return this.teacherForm.get("workExperienceForm") as FormArray
@@ -328,7 +330,17 @@ export class WorkExperienceComponent implements OnInit {
       }
     }
   }
+  getStationByRegionId(event) {
+    debugger
+    this.stationList=[];
+    const data = { "regionCode": event.target.value };
+    this.outSideService.fetchStationByRegionId(data).subscribe((res) => {
+      this.stationList = res.rowValue
+    })
+    console.log(this.stationList)
+  }
   getStationByRegionIdWithCond(event) {
+    this.stationList=[];
     var stationByInterCond = {
       "extcall": "MOE_EXT_GETSTATION_BY_TEACHER_INTER",
       "conditionvalue": [this.responseData.teacherId, event.target.value, event.target.value, this.responseData.teacherId]
@@ -482,6 +494,14 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
         }
         this.spouseTypeDataNameCode.push(data)
       }
+    })
+  }
+  getKvRegion() {
+    this.regionList=[];
+    this.outSideService.fetchKvRegion(1).subscribe((res) => {
+      console.log("region list")
+      this.regionList = res.response.rowValue;
+      console.log(this.regionList)
     })
   }
   teacherTypeSelectExp(event, index) {
