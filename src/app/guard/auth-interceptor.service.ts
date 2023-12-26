@@ -8,7 +8,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler) {
      
     //    alert("at interceptor--->"+JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token);
-      // debugger;
+      debugger;
         if (JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined) {
             // alert("in if");
             if (req.url.indexOf('getProfileImage') !== -1 || req.url.indexOf('uploadProfileImage') !== -1 || req.url.indexOf('deleteDocumentByTeacherIdAndName') !== -1 ||
@@ -41,7 +41,7 @@ export class AuthInterceptorService implements HttpInterceptor {
                             setHeaders: {
                                 'username': JSON.parse(sessionStorage.getItem('authTeacherDetails')).user_name,
                                 'loginType':'s',
-                                'systemTeacherCode':sessionStorage.systemTeacherCode,
+                              //  'systemTeacherCode':sessionStorage.systemTeacherCode,
                             }
                         });
                     return next.handle(modifiedReq).pipe(
