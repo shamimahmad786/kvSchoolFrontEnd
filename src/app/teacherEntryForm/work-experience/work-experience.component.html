@@ -173,9 +173,9 @@
                     </div>
                     <div class="col-md-3 " *ngIf="showSchoolType">
                         <select class="form-select form-select-sm" aria-label="Default select example" (change)="getStationByRegionId($event)">
-                            <option selected disabled> Select Region</option>
-                            <option *ngFor="let data of regionList; let i=index;" value="{{data.region_code}}">
-                                {{data.region_name}}
+                            <option selected disabled> Select Regions</option>
+                            <option *ngFor="let data of regionList; let i=index;" value="{{data.regionCode}}">
+                                {{data.regionName}}
                             </option>
 
                         </select>
