@@ -9,6 +9,7 @@ export class AuthInterceptorService implements HttpInterceptor {
      
     //    alert("at interceptor--->"+JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token);
       debugger;
+      var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
         if (JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined) {
             // alert("in if");
             if (req.url.indexOf('getProfileImage') !== -1 || req.url.indexOf('uploadProfileImage') !== -1 || req.url.indexOf('deleteDocumentByTeacherIdAndName') !== -1 ||
@@ -21,7 +22,9 @@ export class AuthInterceptorService implements HttpInterceptor {
                             setHeaders: {
                                 'Content-Type': 'text/plain; charset=utf-8',
                                 'loginType':'s',
-                                'systemTeacherCode':sessionStorage.systemTeacherCode
+                                'systemTeacherCode':sessionStorage.systemTeacherCode,
+                                'Authorization': token,
+                             'username': JSON.parse(sessionStorage.getItem('authTeacherDetails')).user_name
                             }
                         });
                     return next.handle(modifiedReq).pipe(
@@ -41,6 +44,7 @@ export class AuthInterceptorService implements HttpInterceptor {
                             setHeaders: {
                                 'username': JSON.parse(sessionStorage.getItem('authTeacherDetails')).user_name,
                                 'loginType':'s',
+                                'Authorization': token
                               //  'systemTeacherCode':sessionStorage.systemTeacherCode,
                             }
                         });
@@ -138,6 +142,7 @@ export class AuthInterceptorService implements HttpInterceptor {
                     {
                         setHeaders: {
                             // 'Authorization': token,
+                            //  'username': JSON.parse(sessionStorage.getItem('authTeacherDetails')).user_name,
                             'Content-Type': 'text/plain; charset=utf-8',
                             // 'username': 'XYZ',
                             // 'systemTeacherCode':sessionStorage.systemTeacherCode,
