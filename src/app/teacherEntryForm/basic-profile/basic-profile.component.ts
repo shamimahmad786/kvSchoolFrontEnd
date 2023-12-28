@@ -243,7 +243,7 @@ export class BasicProfileComponent implements OnInit {
         "teacherTypeId": this.emplyeeData['lastPromotionPositionType']
       }
       this.getSubjectByTchType(data);
-      if(this.emplyeeData['teacherDisabilityType']=='1'){
+      if(this.emplyeeData['teacherDisabilityYn']=='1'){
         this.teacherDisabilityType='yes';
       }
       else{
@@ -316,6 +316,7 @@ export class BasicProfileComponent implements OnInit {
     //this.responseData.teacherPermanentDistrict = value;
   }
   clickOnDisability(val) {
+    debugger
     if (val == 'yes') {
       this.isVisible = true;
     } else if (val == 'no') {
@@ -719,7 +720,6 @@ export class BasicProfileComponent implements OnInit {
   getDocumentByTeacherId() {
     this.outSideService.fetchUploadedDoc(this.emplyeeData['teacherId']).subscribe((res) => {
       this.documentUploadArray = res;
-debugger
       for (let i = 0; i < res.length; i++) {
         if (res[i].docName == 'Physically_Handicap_Certificate.pdf') {
           this.fileUpload = false;
