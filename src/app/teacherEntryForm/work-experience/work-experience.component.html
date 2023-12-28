@@ -23,7 +23,7 @@
                                 <th>Appointed for Subject</th>
                                 <th>Transfer Ground</th>
                                 <th style="width: 144px; padding-top: 8px!important; padding-bottom: 8px!important;">
-                                    <button type="button" class="btn btn-sm btn-success add-btn me-2" (click)="addQuantity(undefined)" style="font-size: 16px;" value="Add">Add</button>
+                                    <button type="button" class="btn btn-sm btn-success add-btn me-2" (click)="addQuantity(undefined)" style="font-size: 16px;" value="Add" *ngIf="profileFinalStatus">Add</button>
                                 </th>
                             </tr>
                         </thead>
@@ -100,9 +100,9 @@
                                 </td>
                                 <td class="IconBx">
 
-                                    <input *ngIf="quantity.value.buttonType=='save'" (click)="onSaveExperience(i)" type="submit" name="Save" class="me-2 btn btn-sm save-user" value="Save" />
-                                    <input *ngIf="quantity.value.buttonType=='update'" (click)="onSaveExperience(i)" type="submit" name="Update" class="me-2 btn btn-sm add-user" value="Update" />
-                                    <button type="submit" name="Save" class="btn btn-sm btn-danger"><i (click)="removeQuantity(i)" class="fa fa-minus-circle mr-2" style="color: #fff; font-size: 13px;"></i></button>
+                                    <input *ngIf="quantity.value.buttonType=='save' && profileFinalStatus"   (click)="onSaveExperience(i)" type="submit" name="Save" class="me-2 btn btn-sm save-user" value="Save" />
+                                    <input *ngIf="quantity.value.buttonType=='update' && profileFinalStatus" (click)="onSaveExperience(i)" type="submit" name="Update" class="me-2 btn btn-sm add-user" value="Update" />
+                                    <button type="submit" *ngIf=" profileFinalStatus" name="Save" class="btn btn-sm btn-danger"><i (click)="removeQuantity(i)" class="fa fa-minus-circle mr-2" style="color: #fff; font-size: 13px;"></i></button>
 
                                 </td>
                             </tr>
