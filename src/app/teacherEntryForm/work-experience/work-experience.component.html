@@ -23,7 +23,7 @@
                         <th style="width: 209px;">Appointed for Subject</th>
                         <th>Transfer Ground</th>
                         <th style="width: 140px; ">
-                            <input type="button"  class="btn btn-sm btn-green-logout me-2" value="Add" (click)="addQuantity(undefined)">
+                            <input type="button" *ngIf="profileFinalStatus" class="btn btn-sm btn-green-logout me-2" value="Add" (click)="addQuantity(undefined)">
                         </th>
                     </tr>
                 </thead>
@@ -99,9 +99,9 @@
                             </mat-form-field>
                         </td>
                         <td class="IconBx">
-                            <i (click)="removeQuantity(i)" class="bx bx-minus-circle bxStyle1 mr-2" style="color: #f9384b;"></i>
-                            <input  *ngIf="quantity.value.buttonType=='save'" (click)="onSaveExperience(i)" type="submit" name="Save"  class="me-2  save-user" value="Save" />
-                            <input *ngIf="quantity.value.buttonType=='update'" (click)="onSaveExperience(i)" type="submit" name="Update"  class="me-2 add-user" value="Update" />
+                            <i (click)="removeQuantity(i)"  *ngIf=" profileFinalStatus" class="bx bx-minus-circle bxStyle1 mr-2" style="color: #f9384b;"></i>
+                            <input  *ngIf="quantity.value.buttonType=='save' && profileFinalStatus"  (click)="onSaveExperience(i)" type="submit" name="Save"  class="me-2  save-user" value="Save" />
+                            <input *ngIf="quantity.value.buttonType=='update' && profileFinalStatus" (click)="onSaveExperience(i)" type="submit" name="Update"  class="me-2 add-user" value="Update" />
                         </td>
                     </tr>
                 </tbody>

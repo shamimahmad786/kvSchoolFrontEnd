@@ -113,7 +113,7 @@
                                 style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
                         </span>
                         <span *ngIf="row.transferStatusAction =='modificationcancel' ">
-                            <i class="fa fa-edit"  (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
+                            <i class="fa fa-edit"  (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName,row.teacher_dob,row.email)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
                                 aria-hidden="true"></i>
                             <i class="fa fa-times-circle-o"
                                  (click)="openCancelmodal(row.name,row.employeecode,row.email,row.presentKvName,row.kv_code,row.teacher_dob)" style="font-size: 1.8rem; color: #dc1301e3; margin-left: 10px;" aria-hidden="true"></i>
@@ -320,11 +320,11 @@
                             <th class="w-25 text-start"> Employee Name (Code)</th>
                             <td class="text-start"> {{editModifyEmpName}} ({{editModifyEmpCode}})</td>
                             <th class="text-start">Email </th>
-                            <td class="text-start">{{ModifyEmail | uppercase}} </td>
+                            <td class="text-start">{{teacherEmail | uppercase}} </td>
                         </tr>
                         <tr>
                             <th class="text-start">DOB (dd-mm-yyyy) </th>
-                            <td class="text-start"> {{Modifydob|date:"dd-MM-yyyy"}}</td>
+                            <td class="text-start"> {{teacherDob|date:"dd-MM-yyyy"}}</td>
                             <th class="text-start">Present Region Name </th>
                             <td class="text-start"> {{PresentRegionName}} </td> 
                         </tr>
@@ -346,29 +346,6 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th class="text-start " style="width:269px">Designated Institute Name (Code) </th>
-                            <td class="text-start"> {{ModifykvName}} ({{ModifykvCode}})</td>
-                            <th class="text-start">Joining Date (dd-mm-yyyy)</th>
-                            <td class="text-start"> {{joinDate | date:"dd-MM-yyyy"}}</td>
-                        </tr>
-                        <tr>
-                            <th class="text-start">Reliving Date (dd-mm-yyyy) </th>
-                            <td class="text-start"> {{reliveDate | date:"dd-MM-yyyy"}} </td>
-                            <th class="text-start">Transfer Type </th>
-                            <td class="text-start"> {{editeModifyTransferType}} </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered text-start" *ngIf="modiFYTransferType=='S' || modiFYTransferType=='AM'">
-                    <thead>
-                        <tr>
-                            <th colspan="4" class="text-start">
-                             Transfer By Admin transfer
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
                             <th class="text-start" style="width:269px">Alloted Institute Name (Code)</th>
                             <td class="text-start"  style="width: 426px;"> {{editAllotedModifykvName}} ({{editAllotedModifykvCode}})</td>
                             <th class="text-start">Joining Date (dd-mm-yyyy) </th>
@@ -380,6 +357,30 @@
                             <th class="text-start">Transfer Type </th>
                             <td class="text-start"> {{editeAllotedTransferType}} </td>
                         </tr> 
+                    </tbody>
+                </table>
+                <table class="table table-bordered text-start" *ngIf="modiFYTransferType=='S' || modiFYTransferType=='AM'">
+                    <thead>
+                        <tr>
+                            <th colspan="4" class="text-start">
+                             Transfer By Admin transfer
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <th class="text-start " style="width:269px">Designated Institute Name (Code) </th>
+                            <td class="text-start"> {{ModifykvName}} ({{ModifykvCode}})</td>
+                            <th class="text-start">Joining Date (dd-mm-yyyy)</th>
+                            <td class="text-start"> {{joinDate | date:"dd-MM-yyyy"}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-start">Reliving Date (dd-mm-yyyy) </th>
+                            <td class="text-start"> {{reliveDate | date:"dd-MM-yyyy"}} </td>
+                            <th class="text-start">Transfer Type </th>
+                            <td class="text-start"> {{editeModifyTransferType}} </td>
+                        </tr>
                     </tbody>
                 </table>
 

@@ -22,8 +22,8 @@
 .mat-column-sno {
     word-wrap: break-word !important;
     white-space: unset !important;
-    flex: 0 0 7% !important;
-    width: 7% !important;
+    flex: 0 0 9% !important;
+    width: 9% !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
@@ -49,7 +49,7 @@
 .mat-column-name {
     word-wrap: break-word !important;
     white-space: unset !important;
-    flex: 0 0 13% !important;
+    flex: 0 0 20% !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
@@ -317,7 +317,7 @@ button.btn.btn12.btn-outline-primary {
 }
 
 .mat-column-postName {
-    width: 10% !important;
+    width: 12% !important;
     word-wrap: break-word !important;
     white-space: unset !important;
     overflow-wrap: break-word;
@@ -326,7 +326,7 @@ button.btn.btn12.btn-outline-primary {
 }
 
 .mat-column-subjectName {
-    width: 10% !important;
+    width: 12% !important;
     word-wrap: break-word !important;
     white-space: unset !important;
     overflow-wrap: break-word;
@@ -335,7 +335,7 @@ button.btn.btn12.btn-outline-primary {
 }
 
 .mat-column-status {
-    width: 10% !important;
+    width: 12% !important;
     word-wrap: break-word !important;
     white-space: unset !important;
     overflow-wrap: break-word;
@@ -353,10 +353,10 @@ button.btn.btn12.btn-outline-primary {
 }
 
 .mat-column-action {
-    width: 20% !important;
+    width: 22% !important;
     word-wrap: break-word !important;
     white-space: unset !important;
-    flex: 0 0 15% !important;
+    flex: 0 0 17% !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;

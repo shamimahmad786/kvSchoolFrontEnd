@@ -735,7 +735,7 @@ if(this.adminTransferEditForm.value.transferOrderdate=='' || this.adminTransferE
     "allotShift": this.selectedShiftYN,
     "allotKvCode":this.selectedKvCode,
     "kvNameAlloted": this.selectedKvname,
-    "trasndfer_order_date":this.adminTransferEditForm.value.transferOrderdate,
+    "trasndferOrderDate":this.adminTransferEditForm.value.transferOrderdate,
     "transferOrderNumber":this.adminTransferEditForm.value.transferOrderNumber
 }
 console.log(data)
@@ -887,7 +887,7 @@ var data =  {
 "allotKvCode":this.selectedKvCode,
 "isAdminTransfer":true,
 "kvNameAlloted": this.selectedKvname,
-"trasndfer_order_date":this.modificationEditForm.value.transferOrderdate,
+"trasndferOrderDate":this.modificationEditForm.value.transferOrderdate,
 "transferOrderNumber":this.modificationEditForm.value.transferOrderNumber
 }
 console.log(data)
@@ -960,7 +960,7 @@ submitcancelForm(){
     var data={
       "empCode":this.editCancelEmpCode,
       "cancelOrderNumber":this.cancelEditForm.value.cancelTransferOrderNumber,
-      "transfer_cancel_order_date":this.cancelEditForm.value.cancelTransferOrderdate,
+      "transferCancelOrderDate":this.cancelEditForm.value.cancelTransferOrderdate,
     }
     console.log(data)
     Swal.fire({

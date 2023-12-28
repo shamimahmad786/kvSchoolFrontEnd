@@ -268,7 +268,6 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
       }
   //********************** show date in dd-mm-yyyy format in table **************************
       changeDateFormat(date: any){
-        console.log(date)
         if(date!='' && date!=null){
           return moment(date).format('DD-MM-YYYY')
         }

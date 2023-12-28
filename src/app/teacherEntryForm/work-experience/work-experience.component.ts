@@ -77,6 +77,7 @@ export class WorkExperienceComponent implements OnInit {
   spouseTypeData: any;
   spouseTypeDataNameCode: any;
   formDataList: any;
+  profileFinalStatus: boolean = false;
   @ViewChild('selectSchoolModal', { static: true }) selectSchoolModal: TemplateRef<any>;
   transferGroundList: any;
   profileTeacherName: any;
@@ -101,10 +102,30 @@ export class WorkExperienceComponent implements OnInit {
     this.getTchExpByTchId();
     this.getAllMaster();
     this.getKvRegion();
+    this. getFormStatusV2();
   }
   detailsOfPosting(): FormArray {
     return this.teacherForm.get("workExperienceForm") as FormArray
   }
+  getFormStatusV2(){
+    var data ={
+      "teacherId": this.tempTeacherId
+    }
+    debugger
+    this.outSideService.getFormStatusV2(data).subscribe((res)=>{
+      if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
+        this.profileFinalStatus=true;
+       }
+  },
+  error => {
+    Swal.fire({
+      'icon':'error',
+      'text':error.error
+    }
+    )
+  })
+  }
+
   getTchExpByTchId() {
     (this.teacherForm.controls['workExperienceForm'] as FormArray).clear();
     this.tchExpList = [];
@@ -586,27 +607,48 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
       "workExperienceId":this.workExperienceArray['0']['workExperienceId'],
       "experienceType":this.workExperienceArray['0']['experienceType']
       }
-    
       if (this.teacherForm.controls.workExperienceForm.status == 'VALID') {
-        this.outSideService.saveWorkExperienceV2(data).subscribe((res) => {
-          debugger
-          var responsePosting = res.status;
+        Swal.fire({
+          'icon':'warning',
+          'text': "Do you want to proceed ?",
+          'allowEscapeKey': false,
+          'allowOutsideClick': false,
+          'showCancelButton': true,
+          'confirmButtonColor': "#DD6B55",
+          'confirmButtonText': "Yes",
+          'cancelButtonText': "No",
+          'showLoaderOnConfirm': true,
+        }
+        ).then((isConfirm) => {
+          if (isConfirm.value === true) {
+            this.outSideService.saveWorkExperienceV2(data).subscribe((res)=>{
+              var responsePosting = res.status;
    
-          if (responsePosting == '1') {
-            Swal.fire(
-              'Your Data has been saved Successfully!',
-              '',
-              'success'
+              if (responsePosting == '1') {
+                Swal.fire(
+                  'Your Data has been saved Successfully!',
+                  '',
+                  'success'
+                )
+                this.getTchExpByTchId();
+              } else if (responsePosting == '0') {
+                Swal.fire(
+                  'Some thing wen wrong!',
+                  '',
+                  'error'
+                )
+              }
+          },
+          error => {
+            Swal.fire({
+              'icon':'error',
+              'text':error.error
+            }
             )
-            this.getTchExpByTchId();
-          } else if (responsePosting == '0') {
-            Swal.fire(
-              'Some thing wen wrong!',
-              '',
-              'error'
-            )
-          }
-        })
+          })
+        }
+        return false;
+        });
       } else {
         ((this.teacherForm.get('workExperienceForm') as FormArray).at(0) as FormGroup).get('workStartDate');
         ((this.teacherForm.get('workExperienceForm') as FormArray).at(0) as FormGroup).get('positionType');

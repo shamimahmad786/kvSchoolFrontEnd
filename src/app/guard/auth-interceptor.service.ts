@@ -8,7 +8,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler) {
      
     //    alert("at interceptor--->"+JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token);
-      debugger;
+  
       var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
         if (JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined) {
             // alert("in if");

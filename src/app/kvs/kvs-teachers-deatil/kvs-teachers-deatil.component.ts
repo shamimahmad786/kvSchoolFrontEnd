@@ -26,7 +26,7 @@ declare var $: any;
 })
 export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['sno', 'empcode', 'name','postName', 'subjectName',   "status", 'systchcode', 'action'];
+  displayedColumns = ['sno', 'empcode', 'name','postName', 'subjectName',   "status",  'action'];
   
   dataSource: MatTableDataSource<any>;
   dropboxForm: FormGroup;
@@ -35,7 +35,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
  @ViewChild(MatSort) sort: MatSort;
   
-  testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus":"","approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "" }
+  testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus":"","approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileFinalStatus":"" }
   users: any = [];
   kvTeacher: any;
   teacherList: any;
@@ -118,9 +118,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       this.userName = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].user_name;
       this.businessUnitTypeCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
-      
       this.businessUnitTypeId = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_id;
-      
     }
 
     if (this.businessUnitTypeId == '2') {
@@ -286,8 +284,9 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       this.testData.subjectName = data[i].subjectName;;
       this.testData.empcode = data[i].teacherEmployeeCode;
       this.testData.teacherId = data[i].teacherId;
-      this.testData.systchcode = data[i].teacherSystemGeneratedCode;
-      this.testData.approved = data[i].finalStatus;
+      this.testData.systchcode = data[i].teacherSystemGeneratedCode;   
+      this.testData.approved = data[i].finalStatus;   
+      this.testData.profileFinalStatus = data[i].profileFinalStatus;
       if( data[i].finalStatus=='SI')
       {
         this.testData.approvedStatus = "School Initiated"
@@ -332,7 +331,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       this.testData.postName = data[i].postName;
       this.users.push(this.testData);
     
-      this.testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus": "", "approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "" }
+      this.testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus": "", "approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileFinalStatus":"" }
     }
 
     console.log("---------------user detail----------")

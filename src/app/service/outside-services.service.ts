@@ -53,9 +53,7 @@ export class OutsideServicesService {
     var headers = new HttpHeaders({
       'Authorization':token,
       'Content-Type': 'text/plain; charset=utf-8',
-
     });
-    
     return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "saveProfileV2", data, {headers});
   }
   saveTeacherConfirmationV2(data: any): Observable<Response>{
@@ -631,10 +629,18 @@ export class OutsideServicesService {
     var headers = new HttpHeaders({
       'Authorization':token,
       'Content-Type': 'text/plain; charset=utf-8',
+    });
+    return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "getUpdatdFlag", data, {headers})
+  }
+
+  getFormStatusV2(data) {
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization': token,
+      'Content-Type': 'text/plain; charset=utf-8',
 
     });
-    
-    return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "getUpdatdFlag", data, {headers})
+    return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "getFormStatusV2", data, { headers });
   }
 
 deteleEducationalQualification(data){

@@ -161,6 +161,11 @@
                                         </div>
 
                                         <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet"> Present Station Name(Code)</h4>
+                                            <input type="text" class="form-control " name="presentStationName" formControlName="presentStationName" value="stationCode" [(ngModel)]="stationNameCode" disabled>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
                                        <h4 class="titleSet">Present Post Name(Code)<span class="required-asterisk">*</span></h4>
                                        <select class="form-select" aria-label="Default select example" name="presentPostName" formControlName="presentPostName" (change)="teacherTypeSelect($event)" >
                                            <option selected disabled>Select</option>
@@ -173,10 +178,19 @@
                                        basicProfileForm.get('presentPostName').touched">
                                            Enter Present Post Name(Code)!</span>
                                         </div>
-
+                                    
                                         <div class="col-md-6 mb-3">
-                                            <h4 class="titleSet"> Present Station Name(Code)</h4>
-                                            <input type="text" class="form-control " name="presentStationName" formControlName="presentStationName" value="stationCode" [(ngModel)]="stationNameCode" disabled>
+                                            <h4 class="titleSet">Last promotion position date<span class="required-asterisk">*</span></h4>
+                                                    <div class="input-group-addon">
+                                                        <mat-datepicker #pickers12></mat-datepicker>
+                                                    </div>
+                                                    <input class="form-control"  id="wordStartDate" [max]="maxDate" placeholder="DD/MM/YYYY"  [matDatepicker]="pickers12"   (click)="pickers12.open()"
+                                                    formControlName="lastPromotionPositionDate" >
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('lastPromotionPositionDate').valid && basicProfileForm.get('lastPromotionPositionDate').touched ">
+                                            <span class="help-block text-danger" *ngIf="basicProfileForm.get('lastPromotionPositionDate').errors['required'] ">
+                                                    Enter last promotion position date!
+                                                </span>
+                                            </span>
                                         </div>
 
                                         <div class="col-md-6 mb-3">
@@ -192,21 +206,6 @@
                                             basicProfileForm.get('presentSubjectName').touched">
                                                 Enter Subject Name(Code)!</span>
                                         </div>   
-
-
-                                        <div class="col-md-6 mb-3">
-                                            <h4 class="titleSet">Last promotion position date<span class="required-asterisk">*</span></h4>
-                                                    <div class="input-group-addon">
-                                                        <mat-datepicker #pickers12></mat-datepicker>
-                                                    </div>
-                                                    <input class="form-control"  id="wordStartDate" [max]="maxDate" placeholder="DD/MM/YYYY"  [matDatepicker]="pickers12"   (click)="pickers12.open()"
-                                                    formControlName="lastPromotionPositionDate" >
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('lastPromotionPositionDate').valid && basicProfileForm.get('lastPromotionPositionDate').touched ">
-                                            <span class="help-block text-danger" *ngIf="basicProfileForm.get('lastPromotionPositionDate').errors['required'] ">
-                                                    Enter last promotion position date!
-                                                </span>
-                                            </span>
-                                        </div>
 
                                         <div class="col-md-6 mb-3">                                        
                                             <h4 class="titleSet">Have you been recruited under special recruitment for NER ?</h4>
@@ -454,7 +453,7 @@
                     </div>
                  </div>
                     <div class="mt-4 button-save float-end " >
-                        <i class="fa fa-floppy-o" aria-hidden="true"></i>  <input [disabled]="(!basicProfileForm.get('maritalStatusF').valid || !basicProfileForm.get('dob').valid ||
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>  <input *ngIf="profileFinalStatus" [disabled]="(!basicProfileForm.get('maritalStatusF').valid || !basicProfileForm.get('dob').valid ||
                        !basicProfileForm.get('fullName').valid || !basicProfileForm.get('specialRecruitmentYn').valid ||
                        !basicProfileForm.get('mobile').valid ||
                        !basicProfileForm.get('gender').valid ||
@@ -476,8 +475,12 @@
                        basicProfileForm.get('spouseStatusF').value == '3') &&
                        (!basicProfileForm.get('spouseName').valid ||
                        !basicProfileForm.get('spouseStationName').valid)) || (!basicProfileForm.get('crspndncPinCode').valid ||
-                       (basicProfileForm.get('prmntPinCode').status != 'VALID' && basicProfileForm.get('prmntPinCode').status != 'DISABLED') || (documentUploadArray[4]?.docName != 'Physically_Handicap_Certificate' &&  basicProfileForm.get('disabilityYN').value == '1'))) "  type="submit" name="Save & Next"  class="me-2 add-user" value="Save & Next" /> 
-                       </div>
+                       (basicProfileForm.get('prmntPinCode').status != 'VALID' && basicProfileForm.get('prmntPinCode').status != 'DISABLED') || (documentUploadArray[4]?.docName != 'Physically_Handicap_Certificate.pdf' &&  basicProfileForm.get('disabilityYN').value == '1'))) "  type="submit" name="Save & Next"  class="me-2 add-user" value="Save & Next" /> 
+                       
+                       <input *ngIf="!profileFinalStatus" (click)="next()"   type="submit" name="Save & Next"  class="me-2 add-user" value="Next" />
+                    
+                    
+                    </div>
             </form>    
     </div>
 </div>

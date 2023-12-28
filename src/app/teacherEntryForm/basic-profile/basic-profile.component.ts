@@ -88,6 +88,7 @@ export class BasicProfileComponent implements OnInit {
   profileTeacherName: any;
   teacherDisabilityType: any;
   businessUnitTypeCode: any;
+  profileFinalStatus: boolean = false;
   @ViewChild('Physically_Handicap_Certificate')Physically_Handicap_Certificate: ElementRef;
   @ViewChild('selectSpouseStationModal', { static: true }) selectSpouseStationModal: TemplateRef<any>;
   constructor(private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
@@ -156,16 +157,32 @@ export class BasicProfileComponent implements OnInit {
     this.getAllMaster();
     this.getSchoolDetailsByKvCode();
     this.getStateMaster();
-    this.getDocumentByTeacherId();
+   
   }
 
+  getFormStatusV2(){
+    var data ={
+      "teacherId": this.emplyeeData['teacherId']
+    }
+    debugger
+    this.outSideService.getFormStatusV2(data).subscribe((res)=>{
+      if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
+        this.profileFinalStatus=true;
+       }
+  },
+  error => {
+    Swal.fire({
+      'icon':'error',
+      'text':error.error
+    }
+    )
+  })
+  }
   getEmployeeData(){
     var data={
      "teacherEmployeeCode":this.employeeCode
     }
       this.outSideService.getEmployeeDetailV2(data).subscribe((res)=>{
-      console.log("-employee data---------")
-      console.log(res)
       this.emplyeeData=res.response;
       if(res){
         this.basicProfileForm.patchValue({
@@ -233,7 +250,9 @@ export class BasicProfileComponent implements OnInit {
         this.teacherDisabilityType='no';
       }
       this.clickOnDisability(this.teacherDisabilityType);
-      }   
+      } 
+      this.getDocumentByTeacherId();  
+      this.getFormStatusV2();
   },
   error => {
     Swal.fire({
@@ -352,7 +371,7 @@ export class BasicProfileComponent implements OnInit {
     })
     
   }
-  getAllMaster() {
+    getAllMaster() {
     this.outSideService.fetchAllMaster(6).subscribe((res) => {
       this.teacherTypeData = res.response.postionType;
       this.teacherTypeDataNameCode = [];
@@ -367,7 +386,14 @@ export class BasicProfileComponent implements OnInit {
         }
         this.teacherTypeDataNameCode.push(data)
       }
-    })
+    },
+    error => {
+    Swal.fire({
+      'icon':'error',
+      'text':error.error
+    }
+    )
+  })
   }
   checkMobileNumber(event) {
     this.outSideService.fetchTchDuplicateMobile(event.target.value).subscribe((res) => {
@@ -464,7 +490,6 @@ export class BasicProfileComponent implements OnInit {
       this.spouseNone = true;
       this.spouseKVSStation = false;
       this.basicProfileForm.patchValue({
-    
           spouseStationName: '',
           spousePost: '',
           spouseStationCode: '',
@@ -476,13 +501,11 @@ export class BasicProfileComponent implements OnInit {
       this.spouseNone = false;
       this.spouseKVSStation = false;
       this.basicProfileForm.patchValue({
-    
           spouseStationName: '',
           spousePost: '',
           spouseStationCode: '',
           spouseName: '',
           spouseEmpCode: ''
-        
       })
     }
   }
@@ -498,7 +521,6 @@ export class BasicProfileComponent implements OnInit {
           spouseName: '',
           spouseEmpCode: '',
           spouseStatusF: '5'
-        
       })
 
     } else if (event.target.value == '7') {
@@ -526,7 +548,6 @@ export class BasicProfileComponent implements OnInit {
           spouseName: '',
           spouseEmpCode: '',
           spouseStatusF: '5'
-        
       })
 
       if (this.basicProfileForm.value.gender == '2') {
@@ -537,7 +558,6 @@ export class BasicProfileComponent implements OnInit {
             spouseName: '',
             spouseEmpCode: '',
             spouseStatusF: '4'
-          
         })
       }
 
@@ -564,7 +584,6 @@ export class BasicProfileComponent implements OnInit {
     
   }
   selectSpouseStationFn() {
-    debugger
     var str = this.selectedSpouseStation
     var splitted = str.split("-", 2);
     this.basicProfileForm.patchValue({
@@ -666,9 +685,9 @@ export class BasicProfileComponent implements OnInit {
     }
   }
   documentUpload(index) {
+    debugger
     this.fileUpload = true;
     const formData = new FormData();
-
     if (this.fileToUpload != null) {
       formData.append('teacherId', this.emplyeeData['teacherId']);
       formData.append('file', this.fileToUpload);
@@ -676,7 +695,6 @@ export class BasicProfileComponent implements OnInit {
         formData.append('filename', "Physically_Handicap_Certificate");
       }
       this.outSideService.uploadDocument(formData).subscribe((res) => {
-        debugger
         this.fileUpload = false;
         Swal.fire(
           'Document Upload Sucessfully',
@@ -699,9 +717,9 @@ export class BasicProfileComponent implements OnInit {
     }
   }
   getDocumentByTeacherId() {
-    this.outSideService.fetchUploadedDoc(this.tempTeacherId).subscribe((res) => {
+    this.outSideService.fetchUploadedDoc(this.emplyeeData['teacherId']).subscribe((res) => {
       this.documentUploadArray = res;
-
+debugger
       for (let i = 0; i < res.length; i++) {
         if (res[i].docName == 'Physically_Handicap_Certificate.pdf') {
           this.fileUpload = false;
@@ -732,18 +750,10 @@ export class BasicProfileComponent implements OnInit {
       )
     })
   }
-
+  next(){
+    this.router.navigate(['/teacher/workExperience']);
+  }
   submit(){
-    if(this.basicProfileForm.value.disabilityYN!=0)
-    {
-      if (this.basicProfileForm.invalid) {
-        Swal.fire(
-          'something went worng!',
-          'error'
-        )
-        return false;
-         }
-       }
         var data={
           "teacherName":this.basicProfileForm.value.fullName,
           "teacherGender":this.basicProfileForm.value.gender,

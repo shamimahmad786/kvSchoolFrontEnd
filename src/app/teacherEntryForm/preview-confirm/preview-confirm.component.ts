@@ -32,6 +32,7 @@ export class PreviewConfirmComponent implements OnInit {
   schoolDetails:any;
   verifyTchTeacherTraining: any;
   profileTeacherName: any;
+  profileFinalStatus: boolean = false;
   constructor(private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
     private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) { }
@@ -58,6 +59,7 @@ export class PreviewConfirmComponent implements OnInit {
     }
     this.tempTeacherId = sessionStorage.getItem('kvTeacherId');
     this.profileTeacherName=sessionStorage.getItem('profileTeacherName');
+    this.getFormStatusV2();
     this.onVerifyClick();
     this.getTeacherConfirmationV2();
   }
@@ -67,6 +69,25 @@ export class PreviewConfirmComponent implements OnInit {
     //   this.pdfServive.testFnc(this.verifyTchTeacherProfileData this.verifyTchTeacherWorkExp, this.teacherStationChioce);
     // }, 1000);
 
+  }
+
+  getFormStatusV2(){
+    var data ={
+      "teacherId": this.tempTeacherId
+    }
+    debugger
+    this.outSideService.getFormStatusV2(data).subscribe((res)=>{
+      if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
+        this.profileFinalStatus=true;
+       }
+  },
+  error => {
+    Swal.fire({
+      'icon':'error',
+      'text':error.error
+    }
+    )
+  })
   }
   onVerifyClick() {
     this.outSideService.getUpdatedFlag(this.tempTeacherId).subscribe((res) => {
@@ -117,7 +138,6 @@ export class PreviewConfirmComponent implements OnInit {
     this.router.navigate(['/teacher/workExperience']);
   }
   submit(){
-    debugger
     if (this.teacherPreviewConfirmForm.invalid) {
       Swal.fire({
         'icon':'error',
@@ -125,7 +145,7 @@ export class PreviewConfirmComponent implements OnInit {
       })
       return false;
        }
-  if(this.teacherPreviewConfirmForm.value.teacherName==false || this.teacherPreviewConfirmForm.value.teacherGender==false || this.teacherPreviewConfirmForm.value.teacherDob==false || this.teacherPreviewConfirmForm.value.teacherEmplCode==false
+      if(this.teacherPreviewConfirmForm.value.teacherName==false || this.teacherPreviewConfirmForm.value.teacherGender==false || this.teacherPreviewConfirmForm.value.teacherDob==false || this.teacherPreviewConfirmForm.value.teacherEmplCode==false
        || (this.teacherPreviewConfirmForm.value.teacherDisability==false  && this.teacherPreviewConfirmForm.value.teacherDisability!='0')|| this.teacherPreviewConfirmForm.value.ExperienceStartDatePresentKv==false
        || this.teacherPreviewConfirmForm.value.workExperienceAppointedForSubject==false || this.teacherPreviewConfirmForm.value.lastPromotionPositionType==false
        || this.teacherPreviewConfirmForm.value.undertaking1==false || this.teacherPreviewConfirmForm.value.undertaking2==false ){
@@ -163,9 +183,8 @@ export class PreviewConfirmComponent implements OnInit {
       ).then((isConfirm) => {
         if (isConfirm.value === true) {
             this.outSideService.saveTeacherConfirmationV2(data).subscribe((res)=>{
-              debugger
-              console.log(res)
               if(res){
+                this.profileFinalStatus=false;
                 Swal.fire(
                   'Confirmation save successfully!',
                   '',
