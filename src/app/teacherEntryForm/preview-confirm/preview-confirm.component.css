@@ -1,4 +1,4 @@
-.add-user{
+.add-user {
     color: #fff;
     border-radius: 4px;
     font-size: 14px;
@@ -7,8 +7,9 @@
     line-height: normal;
     border: none;
     padding: 0 15px;
-  }
-  .add-user:disabled {
+}
+
+.add-user:disabled {
     color: #fff;
     top: 7px;
     padding: 0 15px 0 33px;
@@ -19,44 +20,36 @@
     line-height: normal;
     border: none;
 }
-.add-teacher{
-  color: #fff;
-  border-radius: 4px;
-  font-size: 14px;
-  background: #632765;
-  height: 35px !important;
-  line-height: normal;
-  border: none;
-  padding: 0 35px;
+
+.add-teacher {
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #632765;
+    height: 35px !important;
+    line-height: normal;
+    border: none;
+    padding: 0 35px;
 }
+
 .add-teacher:disabled {
-  color: #fff;
-  top: 7px;
-  padding: 0 15px 0 33px;
-  border-radius: 4px;
-  font-size: 14px;
-  background: #996a9a;
-  height: 34px;
-  line-height: normal;
-  border: none;
+    color: #fff;
+    top: 7px;
+    padding: 0 15px 0 33px;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #996a9a;
+    height: 34px;
+    line-height: normal;
+    border: none;
 }
-
-
-
-
-
-
-
-
-
 
 .required-asterisk {
-  color: red;
-  font-weight: bold;
-  margin-left: 3px;
-  font-size: 1.2em;
+    color: red;
+    font-weight: bold;
+    margin-left: 3px;
+    font-size: 1.2em;
 }
-
 
 tbody,
 td,
@@ -64,76 +57,106 @@ tfoot,
 th,
 thead,
 tr {
-  text-align: left;
-  padding: 6px 3px ! important;
+    text-align: left;
+    padding: 6px 3px ! important;
 }
 
 h2.px-2.mt-2.text-green {
-  text-align: left;
+    text-align: left;
 }
 
 tr:nth-child(even) {
-  background: #fafafa;
+    background: #fff;
 }
 
 tr {
-  border-bottom: 1px solid rgba(0, 0, 0, .12);
-}
-.pro-name{
-  color: #632765;
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: 18px;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
 }
 
-.button-back i{ 
-  position: absolute; 
-  left: 15px; 
-  top: 11px ; 
-  color: white; 
-}
-.back-button{
-  color: #fff;
-  border-radius: 4px;
-  font-size: 14px;
-  background: #645a64;
-  height: 35px !important;
-  line-height: normal;
-  border: none;
-  padding: 0 15px 0 33px;
+.pro-name {
+    color: #632765;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
 }
 
-.button-save { 
-  position: relative; 
-} 
-
-.button-save i{ 
-  position: absolute; 
-  left: 15px; 
-  top: 11px ; 
-  color: white; 
+.button-back i {
+    position: absolute;
+    left: 15px;
+    top: 11px;
+    color: white;
 }
+
+.back-button {
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #645a64;
+    height: 35px !important;
+    line-height: normal;
+    border: none;
+    padding: 0 15px 0 33px;
+}
+
+.button-save {
+    position: relative;
+}
+
+.button-save i {
+    position: absolute;
+    left: 15px;
+    top: 11px;
+    color: white;
+}
+
 .alpha-li li {
-  margin-top: 15px;
+    margin-top: 15px;
+}
 
+.dcForm-min-height {
+    min-height: 1080px;
 }
-.dcForm-min-height{
-  min-height: 1080px;
-}
+
 .chk-box-font {
-  background-color:#fafafa;
-}
-.chk-box-font label{
-  font-size: 16px;
-  font-weight: 600;
-  margin-right: 8px;
-  padding-top: 2px;
-}
-.chk-box-font input{
-  width: 18px;
-  height: 18px;
-}
-.px-padding{
-  padding-left: 0px !important;
+    background-color: #fafafa;
+    border-radius: 4px;
 }
 
+.chk-box-font table td {
+    background-color: #fafafa!important;
+}
+
+.chk-box-font label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 8px;
+    padding-top: 2px;
+}
+
+.chk-box-font input {
+    width: 18px;
+    height: 18px;
+    /* background-color: #fff; */
+}
+
+.px-padding {
+    padding-left: 0px !important;
+}
+
+tbody th {
+    background-color: #E5EEFF;
+    padding: 3px 10px!important;
+}
+
+thead th {
+    padding: 5px 10px!important;
+}
+
+tbody td {
+    padding: 5px 10px!important;
+}
+
+.tbl-heading {
+    font-size: 20px!important;
+    font-weight: 600!important;
+}

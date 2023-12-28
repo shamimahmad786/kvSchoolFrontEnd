@@ -1,82 +1,82 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <app-progresion-bar></app-progresion-bar>
-<div class="dashboard-main-content-info  p-4 mt-3">   
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-4">
-                    <h2 class="mb-0">Work Experience:</h2>
+    <div class="dashboard-main-content-info  p-4 mt-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-4">
+                        <h2 class="mb-0">Work Experience:</h2>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="steps text-end pro-name">{{profileTeacherName | uppercase}}
+                        </h2>
+                    </div>
                 </div>
-                <div class="col-8">
-                    <h2 class="steps text-end pro-name">{{profileTeacherName | uppercase}}
-                    </h2>
-                </div>
-            </div>
-         <form id="msform" [formGroup]="teacherForm"  class="form-card  shadow p-3" >
-            <table class="table mt-1 "  formArrayName="workExperienceForm">
-                <thead>
-                    <tr>
-                        <th width="20%"> KV/RO/ZIET/HQ</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th style="width: 182px; "> Position Held</th>
-                        <th style="width: 209px;">Appointed for Subject</th>
-                        <th>Transfer Ground</th>
-                        <th style="width: 140px; ">
-                            <input type="button" *ngIf="profileFinalStatus" class="btn btn-sm btn-green-logout me-2" value="Add" (click)="addQuantity(undefined)">
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let quantity of detailsOfPosting().controls; let i=index" formGroupName="{{i}}">
-                        <td>
-                            <div class="input-group mb-3"  style="width: 231px;margin-top: 22px;">
-                                <input type="text" class="input-group-text input" name="udiseSchCode" formControlName="udiseSchCode" disabled style="width:70px; height:33px;">
-                                <input type="text" class="form-control form-control-sm " name="udiseSchoolName" formControlName="udiseSchoolName" disabled>
+                <form id="msform" [formGroup]="teacherForm" class="form-card  shadow p-3">
+                    <table class="table work-exp mt-1" formArrayName="workExperienceForm">
+                        <thead>
+                            <tr>
+                                <th width="20%">KV/RO/ZIET/HQ</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th> Position Held</th>
+                                <th>Appointed for Subject</th>
+                                <th>Transfer Ground</th>
+                                <th style="width: 144px; padding-top: 8px!important; padding-bottom: 8px!important;">
+                                    <button type="button" class="btn btn-sm btn-success add-btn me-2" (click)="addQuantity(undefined)" style="font-size: 16px;" value="Add">Add</button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let quantity of detailsOfPosting().controls; let i=index" formGroupName="{{i}}">
+                                <td>
+                                    <div class="input-group mb-3" style="width: 231px;margin-top: 22px;">
+                                        <input type="text" class="input-group-text input" name="udiseSchCode" formControlName="udiseSchCode" disabled style="width:70px; height:33px;">
+                                        <input type="text" class="form-control form-control-sm " name="udiseSchoolName" formControlName="udiseSchoolName" disabled>
 
-                                <div *ngIf="i==0">
-                                    <button class="btn btn-sm btn-outline-secondary btn-sm" type="button" id="button-addon2"  (click)="selectExperianceSchool(i)"> <i
+                                        <div *ngIf="i==0">
+                                            <button class="btn btn-sm btn-outline-secondary btn-sm" type="button" id="button-addon2" (click)="selectExperianceSchool(i)"> <i
                                     class="fa fa-search"></i></button>
-                                </div>
-                                <div *ngIf="i!=0">
-                                    <button class="btn btn-sm btn-outline-secondary btn-sm" type="button" id="button-addon2" (click)="selectExperianceSchool(i)"> <i
+                                        </div>
+                                        <div *ngIf="i!=0">
+                                            <button class="btn btn-sm btn-outline-secondary btn-sm" type="button" id="button-addon2" (click)="selectExperianceSchool(i)"> <i
                                         class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                            <span class="help-block text-danger" *ngIf="quantity.controls.udiseSchoolName.errors?.required">
+                                        </div>
+                                    </div>
+                                    <span class="help-block text-danger" *ngIf="quantity.controls.udiseSchoolName.errors?.required">
                                 Enter KV/RO/ZIET/HQ !</span>
-                        </td>
-                        <td>
-                            <mat-form-field style="width: 100%;">
-                                <input matInput [matDatepicker]="si" id="wordStartDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="workStartDate" (dateChange)="experienceDataManagement($event,i,1)" formControlName="workStartDate" style="text-transform: none">
-                                <mat-datepicker-toggle matSuffix [for]="si"></mat-datepicker-toggle>
-                                <mat-datepicker #si></mat-datepicker>
-                            </mat-form-field>
-                            <span class="help-block text-danger" *ngIf="quantity.controls.workStartDate.errors?.required">
+                                </td>
+                                <td>
+                                    <mat-form-field style="width: 100%;">
+                                        <input matInput [matDatepicker]="si" id="wordStartDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="workStartDate" (dateChange)="experienceDataManagement($event,i,1)" formControlName="workStartDate" style="text-transform: none">
+                                        <mat-datepicker-toggle matSuffix [for]="si"></mat-datepicker-toggle>
+                                        <mat-datepicker #si></mat-datepicker>
+                                    </mat-form-field>
+                                    <span class="help-block text-danger" *ngIf="quantity.controls.workStartDate.errors?.required">
                                 Select Work Start Date!</span>
-                        </td>
-                        <td>
-                            <mat-form-field style="width: 100%;">
-                                <input matInput [matDatepicker]="ei" id="wordEndDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="workStartDate" (dateChange)="experienceDataManagement($event,i,2)" formControlName="workEndDate" style="text-transform: none">
-                                <mat-datepicker-toggle matSuffix [for]="ei"></mat-datepicker-toggle>
-                                <mat-datepicker #ei></mat-datepicker>
-                            </mat-form-field>
-                            <span class="help-block text-danger" *ngIf="quantity.controls.workEndDate.errors?.required">
+                                </td>
+                                <td>
+                                    <mat-form-field style="width: 100%;">
+                                        <input matInput [matDatepicker]="ei" id="wordEndDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="workStartDate" (dateChange)="experienceDataManagement($event,i,2)" formControlName="workEndDate" style="text-transform: none">
+                                        <mat-datepicker-toggle matSuffix [for]="ei"></mat-datepicker-toggle>
+                                        <mat-datepicker #ei></mat-datepicker>
+                                    </mat-form-field>
+                                    <span class="help-block text-danger" *ngIf="quantity.controls.workEndDate.errors?.required">
                                 Enter Work End Date!</span>
-                        </td>
-                        <td>
-                            <select class="form-select form-select-sm" aria-label="Default select example" name="positionType" formControlName="positionType" value="positionHeld" (blur)="teacherTypeSelectExp($event,i)">
+                                </td>
+                                <td>
+                                    <select class="form-select form-select-sm" aria-label="Default select example" name="positionType" formControlName="positionType" value="positionHeld" (blur)="teacherTypeSelectExp($event,i)">
                                 <option selected disabled>Select</option>
                                 <option
                                     *ngFor="let data of teacherTypeDataNameCode; let i=index;"
                                     value="{{data.teacherTypeId}}">{{data.nameCode}}
                                 </option>
                             </select>
-                            <span class="help-block text-danger" *ngIf="quantity.controls.positionType.errors?.required">
+                                    <span class="help-block text-danger" *ngIf="quantity.controls.positionType.errors?.required">
                                 Select Position Held!</span>
-                        </td>
-                        <td>
-                            <select class="form-select form-select-sm" aria-label="Default select example" name="appointedForSubject" id="appointedSubject-{{i}}" formControlName="appointedForSubject">
+                                </td>
+                                <td>
+                                    <select class="form-select form-select-sm" aria-label="Default select example" name="appointedForSubject" id="appointedSubject-{{i}}" formControlName="appointedForSubject">
                                 <option selected disabled>Select</option>
                                 <option
                                     *ngFor="let data of subjectListNameCode2[i]; let j=index;"
@@ -84,57 +84,59 @@
                                     {{data.subNameCode}}
                                 </option>
                             </select>
-                            <span class="help-block text-danger" *ngIf="quantity.controls.appointedForSubject.errors?.required">
+                                    <span class="help-block text-danger" *ngIf="quantity.controls.appointedForSubject.errors?.required">
                                 Select appointed for subject!</span>
-                        </td>
-                        <td>
-                            {{groundForTransfer}}
-                            <mat-form-field appearance="fill">
-                                <mat-select formControlName="groundForTransfer" name="groundForTransfer">
-                                    <mat-option *ngFor="let ground of transferGroundList" [value]="ground?.transferGroundId">
-                                        {{ground?.transferGroundType}}</mat-option>
-                                </mat-select>
-                                <span class="help-block text-danger" *ngIf="quantity.controls.groundForTransfer.errors?.required">
+                                </td>
+                                <td>
+                                    {{groundForTransfer}}
+                                    <!-- <mat-form-field appearance="fill"> -->
+                                    <select class="form-select form-select-sm" formControlName="groundForTransfer" name="groundForTransfer">
+                                            <option *ngFor="let ground of transferGroundList" [value]="ground?.transferGroundId">
+                                                {{ground?.transferGroundType}}</option>
+                                        </select>
+                                    <span class="help-block text-danger" *ngIf="quantity.controls.groundForTransfer.errors?.required">
                                     Select transfer ground!</span>
-                            </mat-form-field>
-                        </td>
-                        <td class="IconBx">
-                            <i (click)="removeQuantity(i)"  *ngIf=" profileFinalStatus" class="bx bx-minus-circle bxStyle1 mr-2" style="color: #f9384b;"></i>
-                            <input  *ngIf="quantity.value.buttonType=='save' && profileFinalStatus"  (click)="onSaveExperience(i)" type="submit" name="Save"  class="me-2  save-user" value="Save" />
-                            <input *ngIf="quantity.value.buttonType=='update' && profileFinalStatus" (click)="onSaveExperience(i)" type="submit" name="Update"  class="me-2 add-user" value="Update" />
-                        </td>
-                    </tr>
-                </tbody>
-       </table>
-      
-    </form>
-    <div class="mt-2 d-flex align-items-center justify-content-between " >
-        <div class="button-back mt-2">
-        <input type="button" name="previous" class=" me-2 back-button" (click)="previousPage()"  value="Back" /><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></div>  
-        <div class="button-save mt-2">
-       <input  type="button"  class="me-2 add-user" (click)="onNextClick()" value="Next" /> <i class="fa fa-floppy-o" aria-hidden="true"></i> </div>
-       </div>
- </div>
- </div> 
- </div>
- <div mat-dialog-content>
-    <ng-template #selectSchoolModal let-modal style="min-width: 100%;">
-        <div class="modal-header">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="clearfix">
-                        <div class="float-left">
-                            <h2 class="mb-0 text-green">Select Your Location</h2>
+                                    <!-- </mat-form-field> -->
+                                </td>
+                                <td class="IconBx">
+
+                                    <input *ngIf="quantity.value.buttonType=='save'" (click)="onSaveExperience(i)" type="submit" name="Save" class="me-2 btn btn-sm save-user" value="Save" />
+                                    <input *ngIf="quantity.value.buttonType=='update'" (click)="onSaveExperience(i)" type="submit" name="Update" class="me-2 btn btn-sm add-user" value="Update" />
+                                    <button type="submit" name="Save" class="btn btn-sm btn-danger"><i (click)="removeQuantity(i)" class="fa fa-minus-circle mr-2" style="color: #fff; font-size: 13px;"></i></button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </form>
+                <div class="mt-2 d-flex align-items-center justify-content-between ">
+                    <div class="button-back mt-2">
+                        <input type="button" name="previous" class=" me-2 back-button" (click)="previousPage()" value="Back" /><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></div>
+                    <div class="button-save mt-2">
+                        <input type="button" class="me-2 next" (click)="onNextClick()" value="Next" /> <i class="fa fa-floppy-o" aria-hidden="true" style="margin-left: -2px;"></i> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-content>
+        <ng-template #selectSchoolModal let-modal style="min-width: 100%;">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="clearfix">
+                            <div class="float-left">
+                                <h2 class="mb-0 text-green">Select Your Location</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="" style="min-width: 100%; max-height: 750px;">
-            <div class="container-fluid">
-                <div class="row p-4">
-                    <div class="col-md-3 ">
-                        <select class="form-select form-select-sm" aria-label="Default select example" (change)="setSchoolType($event)">
+            <div class="" style="min-width: 100%; max-height: 750px;">
+                <div class="container-fluid">
+                    <div class="row p-4">
+                        <div class="col-md-3 ">
+                            <select class="form-select form-select-sm" aria-label="Default select example" (change)="setSchoolType($event)">
                             <option selected disabled> Select Type</option>
                             <option value="4"> HEAD QUARTER</option>
                             <option value="2">ZIET</option>
@@ -142,90 +144,90 @@
                             <option value="1">SCHOOL</option>
                             <option value="5">DEPUTATION</option>
                         </select>
-                    </div>
-                    <div class="col-md-3 " *ngIf="headQuaterShow">
-                        <select class="form-select form-select-sm" aria-label="Default select example" (change)="getStationByHqId($event)">
+                        </div>
+                        <div class="col-md-3 " *ngIf="headQuaterShow">
+                            <select class="form-select form-select-sm" aria-label="Default select example" (change)="getStationByHqId($event)">
                             <option selected disabled> Select HQ</option>
                             <option *ngFor="let data of headQuaterList; let i=index;" value="{{data.kv_code}}">
                                 {{data.kv_name}}
                             </option>
 
                         </select>
-                    </div>
+                        </div>
 
-                    <div class="col-md-3 " *ngIf="zoneShow">
-                        <select class="form-select form-select-sm" aria-label="Default select example" (change)="getStationByHqId($event)">
+                        <div class="col-md-3 " *ngIf="zoneShow">
+                            <select class="form-select form-select-sm" aria-label="Default select example" (change)="getStationByHqId($event)">
                             <option selected disabled> Select Zite</option>
                             <option *ngFor="let data of zoneList; let i=index;" value="{{data.kv_code}}">
                                 {{data.kv_name}}
                             </option>
 
                         </select>
-                    </div>
-                    <div class="col-md-3 " *ngIf="regionShow">
-                        <select class="form-select form-select-sm" aria-label="Default select example" (change)="getStationByHqId($event)">
+                        </div>
+                        <div class="col-md-3 " *ngIf="regionShow">
+                            <select class="form-select form-select-sm" aria-label="Default select example" (change)="getStationByHqId($event)">
                             <option selected disabled> Select Region</option>
                             <option *ngFor="let data of selectRegionList; let i=index;" value="{{data.kv_code}}">
                                 {{data.kv_name}}
                             </option>
 
                         </select>
-                    </div>
-                    <div class="col-md-3 " *ngIf="showSchoolType">
-                        <select class="form-select form-select-sm" aria-label="Default select example" (change)="getStationByRegionId($event)">
+                        </div>
+                        <div class="col-md-3 " *ngIf="showSchoolType">
+                            <select class="form-select form-select-sm" aria-label="Default select example" (change)="getStationByRegionId($event)">
                             <option selected disabled> Select Regions</option>
                             <option *ngFor="let data of regionList; let i=index;" value="{{data.regionCode}}">
                                 {{data.regionName}}
                             </option>
 
                         </select>
-                    </div>
-                    <div class="col-md-3" *ngIf="showSchoolType">
-                        <select class="form-select form-select-sm" aria-label="Default select example" (change)="getKvSchoolByStationId($event)">
+                        </div>
+                        <div class="col-md-3" *ngIf="showSchoolType">
+                            <select class="form-select form-select-sm" aria-label="Default select example" (change)="getKvSchoolByStationId($event)">
                             <option selected disabled> Select Station</option>
                             <option *ngFor="let data of stationList; let i=index;" value="{{data.station_code}}">
                                 {{data.station_name}}
                             </option>
 
                         </select>
-                    </div>
-                    <div class="col-md-3" *ngIf="showSchoolType">
-                        <select class="form-select form-select-sm" aria-label="Default select example" [(ngModel)]="selectedUdiseCode" (change)="setUdiseCode($event)">
+                        </div>
+                        <div class="col-md-3" *ngIf="showSchoolType">
+                            <select class="form-select form-select-sm" aria-label="Default select example" [(ngModel)]="selectedUdiseCode" (change)="setUdiseCode($event)">
                             <option selected disabled> Select School</option>
                             <option *ngFor="let data of kvSchoolList; let i=index;" value="{{data.udiseSchCode}}">
                                 {{data.kvName}}
                             </option>
 
                         </select>
-                    </div>
-                    <div class="col-md-3 " *ngIf="selectHeadQuaterZoneRegion">
-                        <input type="text" class="form-control form-control-sm" name="udiseSchoolName" formControlName="udiseSchoolName" value="{{selectStationName}}">
-                    </div>
+                        </div>
+                        <div class="col-md-3 " *ngIf="selectHeadQuaterZoneRegion">
+                            <input type="text" class="form-control form-control-sm" name="udiseSchoolName" formControlName="udiseSchoolName" value="{{selectStationName}}">
+                        </div>
 
-                    <div class="col-md-3" *ngIf="stationShow">
-                        <select class="form-select form-select-sm" aria-label="Default select example" (change)="getKvSchoolByStationId($event)">
+                        <div class="col-md-3" *ngIf="stationShow">
+                            <select class="form-select form-select-sm" aria-label="Default select example" (change)="getKvSchoolByStationId($event)">
                             <option selected disabled> Select Station</option>
                             <option *ngFor="let data of stationList; let i=index;" value="{{data.statinCode}}">
                                 {{data.stationName}}
                             </option>
                         </select>
-                    </div>
-                    <div class="col-md-3" *ngIf="schoolShow">
-                        <select class="form-select form-select-sm" aria-label="Default select example" [(ngModel)]="selectedUdiseCode" (change)="setUdiseCode($event)">
+                        </div>
+                        <div class="col-md-3" *ngIf="schoolShow">
+                            <select class="form-select form-select-sm" aria-label="Default select example" [(ngModel)]="selectedUdiseCode" (change)="setUdiseCode($event)">
                             <option selected disabled> Select School</option>
                             <option *ngFor="let data of kvSchoolList; let i=index;" value="{{data.udiseSchCode}}">
                                 {{data.kvName}}
                             </option>
                         </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="" style="margin-bottom: 20px; margin-top: 10px;">
+                        <button class="btn btn-danger btn-sm" (click)="modal.dismiss('Cross click')">Cancel</button>
+                        <button class="btn btn-success btn-sm" style="margin-left: 3px;" (click)="selectSchoolByUdise() ; modal.dismiss('Cross click')"> Ok</button>
                     </div>
                 </div>
-                <hr>
-                <div class="" style="margin-bottom: 20px; margin-top: 10px;">
-                    <button class="btn btn-danger btn-sm" (click)="modal.dismiss('Cross click')">Cancel</button>
-                    <button class="btn btn-success btn-sm" style="margin-left: 3px;" (click)="selectSchoolByUdise() ; modal.dismiss('Cross click')"> Ok</button>
-                </div>
             </div>
-        </div>
-    </ng-template>
-</div>
+        </ng-template>
+    </div>
 </div>
