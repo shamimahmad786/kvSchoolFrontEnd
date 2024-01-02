@@ -1,629 +1,611 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
         <h1 class="mb-1">Employee Details</h1>
-      </div>
-      <nav aria-label="breadcrumb" class="mt-0">
+    </div>
+    <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a >Home</a></li>
-          <li class="breadcrumb-item"><a >Employee Deatils</a></li>
+            <li class="breadcrumb-item"><a>Home</a></li>
+            <li class="breadcrumb-item"><a>Employee Deatils</a></li>
         </ol>
-      </nav>
-<div class="dashboard-main-content-info">   
-    <div class="row">
-        <div class="col-lg-12">
-<div *ngIf="nationalLogin">
-    <div class="row">
-        <div class="col-md-6">
-          
-                <mat-form-field appearance="outline" class="searchInput me-4">
-                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-                    <mat-icon matSuffix></mat-icon>
-                </mat-form-field>
+    </nav>
+    <div class="dashboard-main-content-info">
+        <div class="row">
+            <div class="col-lg-12">
+                <div *ngIf="nationalLogin">
+                    <div class="row">
+                        <div class="col-md-6">
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Select Filter</mat-label>
-                    <mat-select (selectionChange)="applyFilterOnSelect($event.value)">
-                        <mat-option value="Teaching">Teaching</mat-option>
-                        <mat-option value="Non-Teaching">Non-Teaching</mat-option>
-                        <!-- <mat-option value="NA">NA</mat-option> -->
-                    </mat-select>
-                </mat-form-field>
-          
-        </div>
+                            <mat-form-field appearance="outline" class="searchInput me-4">
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+                                <mat-icon matSuffix></mat-icon>
+                            </mat-form-field>
 
-        <div class="col-md-6">
-            <div class="d-flex flex-row-reverse bd-highlight ">
-                <div class="p-1">
-            <button mat-raised-button class="float-end mt-2 btn-primary red" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>  
-         </div>
-         <div class="p-1">
-            <button mat-raised-button class="float-end mt-2 btn-secondary green" (click)="dashboardMasterpdf()"><i class="bi bi-file-pdf me-1"></i> Download PDF</button>
-              </div> 
-        </div>
-        </div>
-    </div>
-    <!-------------------------Data Show in  table Start here--------------------------------->
-    <div class="example-container mat-elevation-z8 " id="style-2">
-        <mat-table [dataSource]="dataSource" matSort>
-            <ng-container matColumnDef="sno">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
-                <mat-cell *matCellDef="let row"><span class="mobile-label">S.No. : </span> {{row.sno}} </mat-cell>
-            </ng-container>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Select Filter</mat-label>
+                                <mat-select (selectionChange)="applyFilterOnSelect($event.value)">
+                                    <mat-option value="Teaching">Teaching</mat-option>
+                                    <mat-option value="Non-Teaching">Non-Teaching</mat-option>
+                                    <!-- <mat-option value="NA">NA</mat-option> -->
+                                </mat-select>
+                            </mat-form-field>
 
-            <ng-container matColumnDef="empcode">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Employee Code </mat-header-cell>
-                <mat-cell *matCellDef="let row"><span class="mobile-label">Employee Code : </span> {{row.empcode}}
-                </mat-cell>
-            </ng-container>
+                        </div>
 
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                <mat-cell *matCellDef="let row"><span class="mobile-label">Name : </span> {{row.name | uppercase
-                    }}</mat-cell>
-            </ng-container>
+                        <div class="col-md-6">
+                            <div class="d-flex flex-row-reverse bd-highlight ">
+                                <div class="p-1">
+                                    <button mat-raised-button class="float-end mt-2 btn-primary red" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>
+                                </div>
+                                <div class="p-1">
+                                    <button mat-raised-button class="float-end mt-2 btn-secondary green" (click)="dashboardMasterpdf()"><i class="bi bi-file-pdf me-1"></i> Download PDF</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-------------------------Data Show in  table Start here--------------------------------->
+                    <div class="example-container mat-elevation-z8 " id="style-2">
+                        <mat-table [dataSource]="dataSource" matSort>
+                            <ng-container matColumnDef="sno">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
+                                <mat-cell *matCellDef="let row"><span class="mobile-label">S.No. : </span> {{row.sno}} </mat-cell>
+                            </ng-container>
 
-            <ng-container matColumnDef="postName">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Post Name </mat-header-cell>
-                <mat-cell *matCellDef="let row"><span class="mobile-label">Post Name : </span> {{row.postName }}
-                </mat-cell>
-            </ng-container>
+                            <ng-container matColumnDef="empcode">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Employee Code </mat-header-cell>
+                                <mat-cell *matCellDef="let row"><span class="mobile-label">Employee Code : </span> {{row.empcode}}
+                                </mat-cell>
+                            </ng-container>
 
-            <ng-container matColumnDef="subjectName">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Subject Name</mat-header-cell>
-                <!-- <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.subjectName | genderPipe }} </mat-cell> -->
-                <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Subject Name :
+                            <ng-container matColumnDef="name">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                                <mat-cell *matCellDef="let row"><span class="mobile-label">Name : </span> {{row.name | uppercase }}
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="postName">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Post Name </mat-header-cell>
+                                <mat-cell *matCellDef="let row"><span class="mobile-label">Post Name : </span> {{row.postName }}
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="subjectName">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Subject Name</mat-header-cell>
+                                <!-- <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.subjectName | genderPipe }} </mat-cell> -->
+                                <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Subject Name :
                     </span> {{row.subjectName}} </mat-cell>
-            </ng-container>
+                            </ng-container>
 
-            <ng-container matColumnDef="status">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Current Status </mat-header-cell>
-                <mat-cell *matCellDef="let row" [style.color]="row.color" class="IconBx"><span
-                        class="mobile-label">Status : </span>   
+                            <ng-container matColumnDef="status">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Current Status </mat-header-cell>
+                                <mat-cell *matCellDef="let row" [style.color]="row.color" class="IconBx"><span class="mobile-label">Status : </span>
 
-                    <span *ngIf="row.profileFinalStatus === 'SA'" class='bx-badge-check-verified bxStyle1 mr-2'>APPROVED</span>
-                    <span *ngIf="row.profileFinalStatus != 'SA' " class='bx-badge-check-sch bxStyle1 mr-2'>NOT APPROVED</span>
-                </mat-cell>
-            </ng-container>
+                                    <span *ngIf="row.profileFinalStatus === 'SA'" class='bx-badge-check-verified bxStyle1 mr-2'>APPROVED</span>
+                                    <span *ngIf="row.profileFinalStatus != 'SA' " class='bx-badge-check-sch bxStyle1 mr-2'>NOT APPROVED</span>
+                                </mat-cell>
+                            </ng-container>
 
-            <ng-container matColumnDef="action">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
-                <mat-cell *matCellDef="let row" [style.color]="row.color" class="IconBx"> <span
-                        class="mobile-label">Action : </span>                            
-                    <i  class='bx bx-edit-alt bxStyle1 mr-2 edit-btn small-buton' title="Edit"
-                        (click)="onViewClick(row.empcode)">{{row.a}} </i>
+                            <ng-container matColumnDef="action">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                                <mat-cell *matCellDef="let row" [style.color]="row.color" class="IconBx"> <span class="mobile-label">Action : </span>
+                                    <i class='bx bx-edit-alt bxStyle1 mr-2 edit-btn small-buton' title="Edit" (click)="onViewClick(row.empcode)">{{row.a}} </i>
 
-                        <i class="fa fa-unlock-alt reset-btn small-buton" title="Reset" aria-hidden="true"></i>
+                                    <i class="fa fa-unlock-alt reset-btn small-buton" title="Reset" aria-hidden="true"></i>
 
-                </mat-cell>
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;">
-            </mat-row>
-        </mat-table>
-        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
-    </div>
+                                </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;">
+                            </mat-row>
+                        </mat-table>
+                        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+                    </div>
 
-    <!--------------------------------- Data table End here---------------------------------->
+                    <!--------------------------------- Data table End here---------------------------------->
 
-    <div class="mt-3 pb-4">
-        <!-- <h5 style="float: left;">Legend: </h5> -->
-        <div style="float: left;">
-            
-            <i class='bx bx-show bxStyle1 view-btn' style="margin-right: 4px; margin-left: 10px;"></i>View
-            <i class='bx bx-edit-alt bxStyle1 edit-btn' style="margin-right: 4px; margin-left: 10px;"></i>Edit
-            <!-- <i class='bx bx-box bxStyle1 dropbox-btn' style="margin-right: 4px; margin-left: 10px;"></i>Dropbox -->
-            <i class='bx bx-key bxStyle1 reset-btn' style="margin-right: 4px; margin-left: 10px;"></i>Reset Password
-            <i class='bx bx-user-check bxStyle1 verify-btn' style="margin-right: 4px; margin-left: 10px;"></i>Verify
-            <i class='bx  bxStyle1 bx-lock-open-alt ' style="padding: 3px; margin: 1px; background: cyan; border-radius: 6px;"></i> Unfreeze/Unlock Employee
-        </div>
-    </div>
-</div>
+                    <div class="mt-3 pb-4">
+                        <!-- <h5 style="float: left;">Legend: </h5> -->
+                        <div style="float: left;">
 
-<div mat-dialog-content>
-    <ng-template #test let-modal style="min-width: 100%;">
-
-        <div class="modal-header">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="clearfix">
-                        <div class="float-left">
-                            <h2 class="mb-0 text-green">Detailed Data of Selected Employee</h2>
+                            <i class='bx bx-show bxStyle1 view-btn' style="margin-right: 4px; margin-left: 10px;"></i>View
+                            <i class='bx bx-edit-alt bxStyle1 edit-btn' style="margin-right: 4px; margin-left: 10px;"></i>Edit
+                            <!-- <i class='bx bx-box bxStyle1 dropbox-btn' style="margin-right: 4px; margin-left: 10px;"></i>Dropbox -->
+                            <i class='bx bx-key bxStyle1 reset-btn' style="margin-right: 4px; margin-left: 10px;"></i>Reset Password
+                            <i class='bx bx-user-check bxStyle1 verify-btn' style="margin-right: 4px; margin-left: 10px;"></i>Verify
+                            <i class='bx  bxStyle1 bx-lock-open-alt ' style="padding: 3px; margin: 1px; background: cyan; border-radius: 6px;"></i> Unfreeze/Unlock Employee
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="" style="min-width: 100%; max-height: 750px;">
-          
-            <div class="row">
-                <div class="table-responsive">
-                   
-                    <table class="table-striped">
-                        <tr>
-                            <!-- <th>School Id</th>
+                <div mat-dialog-content>
+                    <ng-template #test let-modal style="min-width: 100%;">
+
+                        <div class="modal-header">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="clearfix">
+                                        <div class="float-left">
+                                            <h2 class="mb-0 text-green">Detailed Data of Selected Employee</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="" style="min-width: 100%; max-height: 750px;">
+
+                            <div class="row">
+                                <div class="table-responsive">
+
+                                    <table class="table-striped">
+                                        <tr>
+                                            <!-- <th>School Id</th>
                             <td>{{verifySingleTeacherList?.schoolId}}</td> -->
 
-                            <th>Udise School Code</th>
-                            <td>{{verifySingleTeacherList?.currentUdiseSchCode}}</td>
-                            <th>Present KV Name</th>
-                            <td>{{kvNameCode}}</td>
-                            <th>Employee Code</th>
-                            <td *ngIf="verifySingleTeacherList?.currentUdiseSchCode != null">
-                                {{verifySingleTeacherList?.teacherEmployeeCode}}</td>
-                            <td
-                                *ngIf="verifySingleTeacherList?.currentUdiseSchCode == '' || verifySingleTeacherList?.currentUdiseSchCode == null">
-                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
-                            </td>
-                        </tr>
+                                            <th>Udise School Code</th>
+                                            <td>{{verifySingleTeacherList?.currentUdiseSchCode}}</td>
+                                            <th>Present KV Name</th>
+                                            <td>{{kvNameCode}}</td>
+                                            <th>Employee Code</th>
+                                            <td *ngIf="verifySingleTeacherList?.currentUdiseSchCode != null">
+                                                {{verifySingleTeacherList?.teacherEmployeeCode}}</td>
+                                            <td *ngIf="verifySingleTeacherList?.currentUdiseSchCode == '' || verifySingleTeacherList?.currentUdiseSchCode == null">
+                                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
+                                            </td>
+                                        </tr>
 
-                        <tr>
-                            <th>Employee Id</th>
-                            <td>{{verifySingleTeacherList?.teacherId}}</td>
-                            <th>Name</th>
-                            <td *ngIf="verifySingleTeacherList?.teacherName != null">
-                                {{verifySingleTeacherList?.teacherName | titlecase}}</td>
-                            <td *ngIf="verifySingleTeacherList?.teacherName == null">
-                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
-                            </td>
-                            <th>Gender</th>
-                            <td *ngIf="verifySingleTeacherList?.teacherGender != null">
-                                {{verifySingleTeacherList?.teacherGender | genderPipe}}</td>
-                            <td *ngIf="verifySingleTeacherList?.teacherGender == null">
-                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Date of Birth</th>
-                            <td *ngIf="verifySingleTeacherList?.teacherDob != null">
-                                {{verifySingleTeacherList?.teacherDob}}</td>
-                            <td *ngIf="verifySingleTeacherList?.teacherDob == null">
-                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
-                            </td>
-                            <!-- <th>Social Category</th>
+                                        <tr>
+                                            <th>Employee Id</th>
+                                            <td>{{verifySingleTeacherList?.teacherId}}</td>
+                                            <th>Name</th>
+                                            <td *ngIf="verifySingleTeacherList?.teacherName != null">
+                                                {{verifySingleTeacherList?.teacherName | titlecase}}</td>
+                                            <td *ngIf="verifySingleTeacherList?.teacherName == null">
+                                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
+                                            </td>
+                                            <th>Gender</th>
+                                            <td *ngIf="verifySingleTeacherList?.teacherGender != null">
+                                                {{verifySingleTeacherList?.teacherGender | genderPipe}}</td>
+                                            <td *ngIf="verifySingleTeacherList?.teacherGender == null">
+                                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date of Birth</th>
+                                            <td *ngIf="verifySingleTeacherList?.teacherDob != null">
+                                                {{verifySingleTeacherList?.teacherDob}}</td>
+                                            <td *ngIf="verifySingleTeacherList?.teacherDob == null">
+                                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
+                                            </td>
+                                            <!-- <th>Social Category</th>
                             <td>{{verifySingleTeacherList?.teacherSocialCategory | socialCatPipe}}</td> -->
-                            <th>Email</th>
-                            <td *ngIf="verifySingleTeacherList?.teacherEmail != null">
-                                {{verifySingleTeacherList?.teacherEmail}}</td>
-                            <td *ngIf="verifySingleTeacherList?.teacherEmail == null">
-                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
-                            </td>
-                            <th>Mobile Number</th>
-                            <td *ngIf="verifySingleTeacherList?.teacherMobile != null">
-                                {{verifySingleTeacherList?.teacherMobile}}</td>
-                            <td *ngIf="verifySingleTeacherList?.teacherMobile == null">
-                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Nationality</th>
-                            <td *ngIf="verifySingleTeacherList?.teacherNationality != null">
-                                Indian</td>
-                            <td *ngIf="verifySingleTeacherList?.teacherNationality == null">
-                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
-                            </td>
-                            <th>Present Station Name</th>
-                            <td>{{stationNameCode}}</td>
-                            <th>Present Station in Present Post Date</th>
-                            <td
-                                *ngIf="verifySingleTeacherList?.workExperiencePositionTypePresentStationStartDate != null">
-                                {{verifySingleTeacherList?.workExperiencePositionTypePresentStationStartDate}}</td>
-                            <td
-                                *ngIf="verifySingleTeacherList?.workExperiencePositionTypePresentStationStartDate == null">
-                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Present KV in Present Post Date</th>
-                            <td *ngIf="verifySingleTeacherList?.workExperienceWorkStartDatePresentKv != null">
-                                {{verifySingleTeacherList?.workExperienceWorkStartDatePresentKv}}</td>
-                            <td *ngIf="verifySingleTeacherList?.workExperienceWorkStartDatePresentKv == null">
-                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
-                            </td>
+                                            <th>Email</th>
+                                            <td *ngIf="verifySingleTeacherList?.teacherEmail != null">
+                                                {{verifySingleTeacherList?.teacherEmail}}</td>
+                                            <td *ngIf="verifySingleTeacherList?.teacherEmail == null">
+                                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
+                                            </td>
+                                            <th>Mobile Number</th>
+                                            <td *ngIf="verifySingleTeacherList?.teacherMobile != null">
+                                                {{verifySingleTeacherList?.teacherMobile}}</td>
+                                            <td *ngIf="verifySingleTeacherList?.teacherMobile == null">
+                                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nationality</th>
+                                            <td *ngIf="verifySingleTeacherList?.teacherNationality != null">
+                                                Indian</td>
+                                            <td *ngIf="verifySingleTeacherList?.teacherNationality == null">
+                                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
+                                            </td>
+                                            <th>Present Station Name</th>
+                                            <td>{{stationNameCode}}</td>
+                                            <th>Present Station in Present Post Date</th>
+                                            <td *ngIf="verifySingleTeacherList?.workExperiencePositionTypePresentStationStartDate != null">
+                                                {{verifySingleTeacherList?.workExperiencePositionTypePresentStationStartDate}}</td>
+                                            <td *ngIf="verifySingleTeacherList?.workExperiencePositionTypePresentStationStartDate == null">
+                                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Present KV in Present Post Date</th>
+                                            <td *ngIf="verifySingleTeacherList?.workExperienceWorkStartDatePresentKv != null">
+                                                {{verifySingleTeacherList?.workExperienceWorkStartDatePresentKv}}</td>
+                                            <td *ngIf="verifySingleTeacherList?.workExperienceWorkStartDatePresentKv == null">
+                                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
+                                            </td>
 
-                            <th>Present post name</th>
-                            <td *ngIf="teacherTypeDataNameCodeV != null">{{teacherTypeDataNameCodeV}}</td>
-                            <td *ngIf="teacherTypeDataNameCodeV == null">
-                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
-                            </td>
+                                            <th>Present post name</th>
+                                            <td *ngIf="teacherTypeDataNameCodeV != null">{{teacherTypeDataNameCodeV}}</td>
+                                            <td *ngIf="teacherTypeDataNameCodeV == null">
+                                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
+                                            </td>
 
-                            <th>Present post date</th>
-                            <td *ngIf="verifySingleTeacherList?.lastPromotionPositionDate != null">
-                                {{verifySingleTeacherList?.lastPromotionPositionDate}}</td>
-                            <td *ngIf="verifySingleTeacherList?.lastPromotionPositionDate == null">
-                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
-                            </td>
-                        </tr>
-                    </table>
+                                            <th>Present post date</th>
+                                            <td *ngIf="verifySingleTeacherList?.lastPromotionPositionDate != null">
+                                                {{verifySingleTeacherList?.lastPromotionPositionDate}}</td>
+                                            <td *ngIf="verifySingleTeacherList?.lastPromotionPositionDate == null">
+                                                <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
+                                            </td>
+                                        </tr>
+                                    </table>
 
-                    <table *ngIf="disabilityFormShow" class="table-striped">
+                                    <table *ngIf="disabilityFormShow" class="table-striped">
 
-                        <h2>Disability Table</h2>
+                                        <h2>Disability Table</h2>
 
-                    </table>
-                    <table *ngIf="informationFormShow" class="table-striped">
+                                    </table>
+                                    <table *ngIf="informationFormShow" class="table-striped">
 
-                        <h2>Information Table</h2>
+                                        <h2>Information Table</h2>
 
-                    </table>
-                    <table *ngIf="qualificationFormShow" class="table-striped">
+                                    </table>
+                                    <table *ngIf="qualificationFormShow" class="table-striped">
 
-                        <h2>Qualification Table</h2>
+                                        <h2>Qualification Table</h2>
 
-                    </table>
-                    <table *ngIf="trainingFormShow" class="table-striped">
+                                    </table>
+                                    <table *ngIf="trainingFormShow" class="table-striped">
 
-                        <h2>Training Table</h2>
+                                        <h2>Training Table</h2>
 
-                    </table>
-                    <table *ngIf="experienceFormShow" class="table-striped">
+                                    </table>
+                                    <table *ngIf="experienceFormShow" class="table-striped">
 
-                        <h2>Experience Table</h2>
+                                        <h2>Experience Table</h2>
 
-                    </table>
-                    <table *ngIf="uploadFormShow" class="table-striped">
+                                    </table>
+                                    <table *ngIf="uploadFormShow" class="table-striped">
 
-                        <h2>Upload Documnet Table</h2>
+                                        <h2>Upload Documnet Table</h2>
 
-                    </table>
+                                    </table>
 
-                    <div class="p-2">
+                                    <div class="p-2">
 
-                        <a class=" btn-cancel p-2 me-2" (click)="modal.dismiss('Cross click')">Cancel</a>
-                        <button class="btn btn-success btn-sm" style="margin-left: 3px;"
-                            (click)="onVerify(verifySingleTeacherList.teacherId, 'SA')">
+                                        <a class=" btn-cancel p-2 me-2" (click)="modal.dismiss('Cross click')">Cancel</a>
+                                        <button class="btn btn-success btn-sm" style="margin-left: 3px;" (click)="onVerify(verifySingleTeacherList.teacherId, 'SA')">
                             Confirm & Verify</button>
-                      
-                    </div>
-                </div>
-            </div>
-        </div>
-    </ng-template>
-</div>
 
-<div mat-dialog-content>
-    <ng-template #DropBox let-modal style="min-width: 100%;">
-
-        <div class="modal-header">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="clearfix">
-                        <div class="float-left">
-                            <h2 class="mb-0 text-green">Employee Basic Information </h2>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </ng-template>
                 </div>
-            </div>
-        </div>
 
-        <div class="" style="min-width: 100%; max-height: 750px;">
-            <div class="row">
-                <div class="table-responsive">
-                    <table class="table-striped">
-                        <tr>
-                            <th>Name</th>
-                            <td> {{singleDeletedTeacher.teacherName}}</td>
-                        </tr>
-                        <tr>
-                            <th>Mobile</th>
-                            <td> {{singleDeletedTeacher.teacherMobile}}</td>
-                        </tr>
-                        <tr>
-                            <th>Email Id</th>
-                            <td> {{singleDeletedTeacher.teacherEmail}}</td>
-                        </tr>
-                        <tr>
-                            <th>Employee Code</th>
-                            <td>{{singleDeletedTeacher.teacherEmployeeCode}}</td>
-                        </tr>
-                        <!-- <tr>
+                <div mat-dialog-content>
+                    <ng-template #DropBox let-modal style="min-width: 100%;">
+
+                        <div class="modal-header">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="clearfix">
+                                        <div class="float-left">
+                                            <h2 class="mb-0 text-green">Employee Basic Information </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="" style="min-width: 100%; max-height: 750px;">
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table-striped">
+                                        <tr>
+                                            <th>Name</th>
+                                            <td> {{singleDeletedTeacher.teacherName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Mobile</th>
+                                            <td> {{singleDeletedTeacher.teacherMobile}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email Id</th>
+                                            <td> {{singleDeletedTeacher.teacherEmail}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Employee Code</th>
+                                            <td>{{singleDeletedTeacher.teacherEmployeeCode}}</td>
+                                        </tr>
+                                        <!-- <tr>
                             <th>System Teacher Code </th>
                             <td>{{singleDeletedTeacher.teacherSystemGeneratedCode}}</td>
                         </tr> -->
-                        <tr>
-                            <th>Date of Birth</th>
-                            <td>{{singleDeletedTeacher.teacherDob}}</td>
-                        </tr>
-                    </table>
-                    <div class="p-2">
-                        <div class="row">  
-                            <form [formGroup]="dropboxForm">
-                                <div class="row">
-                                    <div class="col-md-12" style="text-align: right;">
-                                        <div class="">
-                                            <button class="btn btn-success btn-sm me-2 " style="margin-left: 3px;"
-                                                (click)="onVerifyDropbox('true') ; modal.dismiss('Cross click')">
+                                        <tr>
+                                            <th>Date of Birth</th>
+                                            <td>{{singleDeletedTeacher.teacherDob}}</td>
+                                        </tr>
+                                    </table>
+                                    <div class="p-2">
+                                        <div class="row">
+                                            <form [formGroup]="dropboxForm">
+                                                <div class="row">
+                                                    <div class="col-md-12" style="text-align: right;">
+                                                        <div class="">
+                                                            <button class="btn btn-success btn-sm me-2 " style="margin-left: 3px;" (click)="onVerifyDropbox('true') ; modal.dismiss('Cross click')">
                                                 Submit</button>
-                                            <button class="btn btn-danger btn-sm me-2 " style="margin-left: 3px;"
-                                                (click)="onVerifyDropbox('false') ; modal.dismiss('Cross click')">
+                                                            <button class="btn btn-danger btn-sm me-2 " style="margin-left: 3px;" (click)="onVerifyDropbox('false') ; modal.dismiss('Cross click')">
                                                 Cancel</button>
-                                            <!-- <a class=" btn-cancel p-2 "
+                                                            <!-- <a class=" btn-cancel p-2 "
                                                 (click)="onVerifyDropbox('false') ; modal.dismiss('Cross click')">Cancel</a> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="col-md-12">
+                                                    <h2 style="color: red; text-align: center;"> *Note - Employee moved to dropbox can be found inside Outbox section of Dropbox.</h2>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
-                                <div class="col-md-12">
-                                    <h2 style="color: red; text-align: center;"> *Note - Employee moved to dropbox can
-                                        be found inside Outbox section of Dropbox.</h2>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+
+                    </ng-template>
                 </div>
-            </div>
-        </div>
 
-    </ng-template>
-</div>
+                <div mat-dialog-content>
+                    <ng-template #changeRequest let-modal style="min-width: 100%;">
 
-<div mat-dialog-content>
-    <ng-template #changeRequest let-modal style="min-width: 100%;">
-
-        <div class="modal-header">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="clearfix">
-                        <div class="float-left">
-                            <h2 class="mb-0 text-green">Employee Basic Information</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="" style="min-width: 100%; max-height: 750px;">
-            <div class="row">
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <th style="font-weight: bolder;">Present Information</th>
-                            <th style="font-weight: bolder">Change Requested</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <table class="table-striped">
-                                    <tr *ngIf="processingSingleTchList.teacherEmployeeCodeNew != ''">
-                                        <th>Employee Code</th>
-                                        <td> {{processingSingleTchList.teacherEmployeeCode}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherNameNew != ''">
-                                        <th>Name</th>
-                                        <td> {{processingSingleTchList.teacherName}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherGenderNew != ''">
-                                        <th>Gender</th>
-                                        <td> {{processingSingleTchList.teacherGender}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherDobNew != ''">
-                                        <th>Date of Birth</th>
-                                        <td>{{processingSingleTchList.teacherDob}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherSocialCategoryNew != ''">
-                                        <th>Social Category</th>
-                                        <td>{{processingSingleTchList.teacherSocialCategory}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherReligionNew != ''">
-                                        <th>Religion</th>
-                                        <td>{{processingSingleTchList.teacherReligion}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherNationalityNew != ''">
-                                        <th>Nationality</th>
-                                        <td>{{processingSingleTchList.teacherNationality}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherMobileNew != ''">
-                                        <th>Mobile</th>
-                                        <td>{{processingSingleTchList.teacherMobile}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherEmailNew != ''">
-                                        <th>Email</th>
-                                        <td>{{processingSingleTchList.teacherEmail}}</td>
-                                    </tr>
-                                    <tr
-                                        *ngIf="processingSingleTchList.workExperiencePositionTypePresentStationStartDateNew != ''">
-                                        <th>Present Station in Present Post Date</th>
-                                        <td>{{processingSingleTchList.workExperiencePositionTypePresentStationStartDate}}
-                                        </td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.workExperienceWorkStartDatePresentKvNew != ''">
-                                        <th>Present KV in Present Post Date</th>
-                                        <td>{{processingSingleTchList.workExperienceWorkStartDatePresentKv}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.lastPromotionPositionTypeNew != ''">
-                                        <th>Present Post Name</th>
-                                        <td>{{processingSingleTchList.lastPromotionPositionType}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.lastPromotionPositionDateNew != ''">
-                                        <th>Present Post Date</th>
-                                        <td>{{processingSingleTchList.lastPromotionPositionDate}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.workExperienceAppointedForSubjectNew != ''">
-                                        <th>Subject Name</th>
-                                        <td>{{processingSingleTchList.workExperienceAppointedForSubject}}</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td>
-                                <table class="table-striped">
-                                    <tr *ngIf="processingSingleTchList.teacherEmployeeCodeNew">
-                                        <th>Employee Code</th>
-                                        <td> {{processingSingleTchList.teacherEmployeeCodeNew}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherNameNew">
-                                        <th>Name</th>
-                                        <td> {{processingSingleTchList.teacherNameNew}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherGenderNew">
-                                        <th>Gender</th>
-                                        <td> {{processingSingleTchList.teacherGenderNew}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherDobNew">
-                                        <th>Date of Birth</th>
-                                        <td>{{processingSingleTchList.teacherDobNew}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherSocialCategoryNew">
-                                        <th>Social Category</th>
-                                        <td>{{processingSingleTchList.teacherSocialCategoryNew}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherReligionNew">
-                                        <th>Religion</th>
-                                        <td>{{processingSingleTchList.teacherReligionNew}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherNationalityNew">
-                                        <th>Nationality</th>
-                                        <td>{{processingSingleTchList.teacherNationalityNew}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherMobileNew">
-                                        <th>Mobile</th>
-                                        <td>{{processingSingleTchList.teacherMobileNew}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.teacherEmailNew">
-                                        <th>Email</th>
-                                        <td>{{processingSingleTchList.teacherEmailNew}}</td>
-                                    </tr>
-                                    <tr
-                                        *ngIf="processingSingleTchList.workExperiencePositionTypePresentStationStartDateNew">
-                                        <th>Present Station in Present Post Date</th>
-                                        <td>{{processingSingleTchList.workExperiencePositionTypePresentStationStartDateNew}}
-                                        </td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.workExperienceWorkStartDatePresentKvNew">
-                                        <th>Present KV in Present Post Date</th>
-                                        <td>{{processingSingleTchList.workExperienceWorkStartDatePresentKvNew}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.lastPromotionPositionTypeNew">
-                                        <th>Present Post Name</th>
-                                        <td>{{processingSingleTchList.lastPromotionPositionTypeNew}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.lastPromotionPositionDateNew">
-                                        <th>Present Post Date</th>
-                                        <td>{{processingSingleTchList.lastPromotionPositionDateNew}}</td>
-                                    </tr>
-                                    <tr *ngIf="processingSingleTchList.workExperienceAppointedForSubjectNew">
-                                        <th>Subject Name</th>
-                                        <td>{{processingSingleTchList.workExperienceAppointedForSubjectNew}}</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr *ngIf="processingSingleTchList.remarks != ''">
-                            <th>Remarks</th>
-                            <td>{{processingSingleTchList.remarks}}</td>
-                        </tr>
-                    </table>
-
-                    <div class="p-2">
-                        <div class="row">
-                           
-                            <form [formGroup]="dropboxForm">
+                        <div class="modal-header">
+                            <div class="row">
                                 <div class="col-md-12">
-                                    <div class="mb-3">
-                                      
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                                            formControlName="feedback" placeholder="Your remarks (if any)"></textarea>
+                                    <div class="clearfix">
+                                        <div class="float-left">
+                                            <h2 class="mb-0 text-green">Employee Basic Information</h2>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                   
-                                    <div class="col-md-6">
-                                        <div class="">
-                                            <button class="btn btn-success btn-sm me-2 " style="margin-left: 3px;"
-                                                (click)="modal.dismiss('Cross click')">
+                            </div>
+                        </div>
+
+                        <div class="" style="min-width: 100%; max-height: 750px;">
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table>
+                                        <tr>
+                                            <th style="font-weight: bolder;">Present Information</th>
+                                            <th style="font-weight: bolder">Change Requested</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table class="table-striped">
+                                                    <tr *ngIf="processingSingleTchList.teacherEmployeeCodeNew != ''">
+                                                        <th>Employee Code</th>
+                                                        <td> {{processingSingleTchList.teacherEmployeeCode}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherNameNew != ''">
+                                                        <th>Name</th>
+                                                        <td> {{processingSingleTchList.teacherName}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherGenderNew != ''">
+                                                        <th>Gender</th>
+                                                        <td> {{processingSingleTchList.teacherGender}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherDobNew != ''">
+                                                        <th>Date of Birth</th>
+                                                        <td>{{processingSingleTchList.teacherDob}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherSocialCategoryNew != ''">
+                                                        <th>Social Category</th>
+                                                        <td>{{processingSingleTchList.teacherSocialCategory}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherReligionNew != ''">
+                                                        <th>Religion</th>
+                                                        <td>{{processingSingleTchList.teacherReligion}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherNationalityNew != ''">
+                                                        <th>Nationality</th>
+                                                        <td>{{processingSingleTchList.teacherNationality}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherMobileNew != ''">
+                                                        <th>Mobile</th>
+                                                        <td>{{processingSingleTchList.teacherMobile}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherEmailNew != ''">
+                                                        <th>Email</th>
+                                                        <td>{{processingSingleTchList.teacherEmail}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.workExperiencePositionTypePresentStationStartDateNew != ''">
+                                                        <th>Present Station in Present Post Date</th>
+                                                        <td>{{processingSingleTchList.workExperiencePositionTypePresentStationStartDate}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.workExperienceWorkStartDatePresentKvNew != ''">
+                                                        <th>Present KV in Present Post Date</th>
+                                                        <td>{{processingSingleTchList.workExperienceWorkStartDatePresentKv}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.lastPromotionPositionTypeNew != ''">
+                                                        <th>Present Post Name</th>
+                                                        <td>{{processingSingleTchList.lastPromotionPositionType}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.lastPromotionPositionDateNew != ''">
+                                                        <th>Present Post Date</th>
+                                                        <td>{{processingSingleTchList.lastPromotionPositionDate}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.workExperienceAppointedForSubjectNew != ''">
+                                                        <th>Subject Name</th>
+                                                        <td>{{processingSingleTchList.workExperienceAppointedForSubject}}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td>
+                                                <table class="table-striped">
+                                                    <tr *ngIf="processingSingleTchList.teacherEmployeeCodeNew">
+                                                        <th>Employee Code</th>
+                                                        <td> {{processingSingleTchList.teacherEmployeeCodeNew}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherNameNew">
+                                                        <th>Name</th>
+                                                        <td> {{processingSingleTchList.teacherNameNew}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherGenderNew">
+                                                        <th>Gender</th>
+                                                        <td> {{processingSingleTchList.teacherGenderNew}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherDobNew">
+                                                        <th>Date of Birth</th>
+                                                        <td>{{processingSingleTchList.teacherDobNew}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherSocialCategoryNew">
+                                                        <th>Social Category</th>
+                                                        <td>{{processingSingleTchList.teacherSocialCategoryNew}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherReligionNew">
+                                                        <th>Religion</th>
+                                                        <td>{{processingSingleTchList.teacherReligionNew}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherNationalityNew">
+                                                        <th>Nationality</th>
+                                                        <td>{{processingSingleTchList.teacherNationalityNew}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherMobileNew">
+                                                        <th>Mobile</th>
+                                                        <td>{{processingSingleTchList.teacherMobileNew}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.teacherEmailNew">
+                                                        <th>Email</th>
+                                                        <td>{{processingSingleTchList.teacherEmailNew}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.workExperiencePositionTypePresentStationStartDateNew">
+                                                        <th>Present Station in Present Post Date</th>
+                                                        <td>{{processingSingleTchList.workExperiencePositionTypePresentStationStartDateNew}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.workExperienceWorkStartDatePresentKvNew">
+                                                        <th>Present KV in Present Post Date</th>
+                                                        <td>{{processingSingleTchList.workExperienceWorkStartDatePresentKvNew}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.lastPromotionPositionTypeNew">
+                                                        <th>Present Post Name</th>
+                                                        <td>{{processingSingleTchList.lastPromotionPositionTypeNew}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.lastPromotionPositionDateNew">
+                                                        <th>Present Post Date</th>
+                                                        <td>{{processingSingleTchList.lastPromotionPositionDateNew}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="processingSingleTchList.workExperienceAppointedForSubjectNew">
+                                                        <th>Subject Name</th>
+                                                        <td>{{processingSingleTchList.workExperienceAppointedForSubjectNew}}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="processingSingleTchList.remarks != ''">
+                                            <th>Remarks</th>
+                                            <td>{{processingSingleTchList.remarks}}</td>
+                                        </tr>
+                                    </table>
+
+                                    <div class="p-2">
+                                        <div class="row">
+
+                                            <form [formGroup]="dropboxForm">
+                                                <div class="col-md-12">
+                                                    <div class="mb-3">
+
+                                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" formControlName="feedback" placeholder="Your remarks (if any)"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col-md-6">
+                                                        <div class="">
+                                                            <button class="btn btn-success btn-sm me-2 " style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">
                                                 Approve</button>
-                                            <a class=" btn-cancel p-2 "
-                                                (click)="modal.dismiss('Cross click')">Reject</a>
+                                                            <a class=" btn-cancel p-2 " (click)="modal.dismiss('Cross click')">Reject</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="col-md-12">
+                                                    <h2 style="color: blue; text-align: center;"> <span style="color: red;">*Note:
+                                        </span>On click <span style="color: green;">(Approve)</span> the change will be applied and the data will be updated.</h2>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
-                                <div class="col-md-12">
-                                    <h2 style="color: blue; text-align: center;"> <span style="color: red;">*Note:
-                                        </span>On click <span style="color: green;">(Approve)</span> the change will be
-                                        applied and the data will be updated.</h2>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+
+                    </ng-template>
                 </div>
-            </div>
-        </div>
 
-    </ng-template>
-</div>
+                <div mat-dialog-content>
+                    <ng-template #verifyModal let-modal style="min-width: 100%;">
+                        <div class="" style="min-width: 100%; ">
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table-striped">
+                                        <h2 class="px-2 mt-2 text-green">Profile Details</h2>
+                                        <tr>
+                                            <th>KV/RO/ZIET/HQ Name</th>
+                                            <td>{{kvNameCode}}</td>
+                                            <th>Employee Code</th>
+                                            <td>{{verifyTchTeacherProfileData?.teacherEmployeeCode}}</td>
+                                            <th>Name</th>
+                                            <td>{{verifyTchTeacherProfileData?.teacherName | titlecase}}</td>
+                                        </tr>
 
-<div mat-dialog-content>
-    <ng-template #verifyModal let-modal style="min-width: 100%;"> 
-        <div class="" style="min-width: 100%; ">
-            <div class="row">
-                <div class="table-responsive">
-                    <table class="table-striped">
-                        <h2 class="px-2 mt-2 text-green">Profile Details</h2>
-                        <tr>
-                            <th>KV/RO/ZIET/HQ Name</th>
-                            <td>{{kvNameCode}}</td>
-                            <th>Employee Code</th>
-                            <td>{{verifyTchTeacherProfileData?.teacherEmployeeCode}}</td>
-                            <th>Name</th>
-                            <td>{{verifyTchTeacherProfileData?.teacherName | titlecase}}</td>
-                        </tr>
+                                        <tr>
+                                            <th>Gender</th>
+                                            <td>{{verifyTchTeacherProfileData?.teacherGender | genderPipe}}</td>
+                                            <th>Date of Birth</th>
+                                            <td>{{changeDateFormat(verifyTchTeacherProfileData?.teacherDob)}}</td>
+                                            <th>Email</th>
+                                            <td>{{verifyTchTeacherProfileData?.teacherEmail}}</td>
+                                        </tr>
+                                        <tr>
 
-                        <tr>                         
-                            <th>Gender</th>
-                            <td>{{verifyTchTeacherProfileData?.teacherGender | genderPipe}}</td>
-                            <th>Date of Birth</th>
-                            <td>{{changeDateFormat(verifyTchTeacherProfileData?.teacherDob)}}</td>
-                            <th>Email</th>
-                            <td>{{verifyTchTeacherProfileData?.teacherEmail}}</td>
-                        </tr>
-                        <tr>
-                            
-                            <th>Mobile Number</th>
-                            <td>{{verifyTchTeacherProfileData?.teacherMobile}}</td>
-                            <th>Marital Status</th>
-                            <td>{{verifyTchTeacherProfileData?.maritalStatus | maritalStatus}}</td>
-                            <th>Present Station Name</th>
-                            <td>{{stationNameCode}}</td>
-                        </tr>
+                                            <th>Mobile Number</th>
+                                            <td>{{verifyTchTeacherProfileData?.teacherMobile}}</td>
+                                            <th>Marital Status</th>
+                                            <td>{{verifyTchTeacherProfileData?.maritalStatus | maritalStatus}}</td>
+                                            <th>Present Station Name</th>
+                                            <td>{{stationNameCode}}</td>
+                                        </tr>
 
-                        <tr>
-                            <th>DoJ in Present Station Irrespective of Cadre</th>
-                            <td>{{changeDateFormat(verifyTchTeacherProfileData?.workExperiencePositionTypePresentStationStartDate) }}</td>
-                            <th>DoJ in Present KV/RO/ZIET/HQ in Present Post</th>
-                            <td>{{changeDateFormat(verifyTchTeacherProfileData?.workExperienceWorkStartDatePresentKv) }}</td>
-                            <th>Present post name</th>
-                            <td>{{verifyTchTeacherProfileData?.lastPromotionPositionType}}</td>
+                                        <tr>
+                                            <th>DoJ in Present Station Irrespective of Cadre</th>
+                                            <td>{{changeDateFormat(verifyTchTeacherProfileData?.workExperiencePositionTypePresentStationStartDate) }}</td>
+                                            <th>DoJ in Present KV/RO/ZIET/HQ in Present Post</th>
+                                            <td>{{changeDateFormat(verifyTchTeacherProfileData?.workExperienceWorkStartDatePresentKv) }}</td>
+                                            <th>Present post name</th>
+                                            <td>{{verifyTchTeacherProfileData?.lastPromotionPositionType}}</td>
 
-                        </tr>
-                        <tr>
-                            <th>DoJ in KVS</th>
-                            <td>{{changeDateFormat(verifyTchTeacherProfileData?.lastPromotionPositionDate)}}</td>
-                            <th>Subject Name</th>
-                            <td>{{verifyTchTeacherProfileData?.workExperienceAppointedForSubject}}</td>
-                            <th>Staff Type</th>
-                            <td>{{verifyTchTeacherProfileData?.teachingNonteaching | staffType}}</td>
-                        </tr>
-                    </table>
-                    <form [formGroup]="remarksForm">
-                     
-                        <div class="p-2 floatRight">
-                            <button class="btn btn-secondary btn-sm"
-                                (click)="modal.dismiss('Cross click')">Cancel</button>
-                            <!-- <button [disabled]="!remarksForm.valid" class="btn btn-danger btn-sm" style="margin-left: 3px;"
+                                        </tr>
+                                        <tr>
+                                            <th>DoJ in KVS</th>
+                                            <td>{{changeDateFormat(verifyTchTeacherProfileData?.lastPromotionPositionDate)}}</td>
+                                            <th>Subject Name</th>
+                                            <td>{{verifyTchTeacherProfileData?.workExperienceAppointedForSubject}}</td>
+                                            <th>Staff Type</th>
+                                            <td>{{verifyTchTeacherProfileData?.teachingNonteaching | staffType}}</td>
+                                        </tr>
+                                    </table>
+                                    <form [formGroup]="remarksForm">
+
+                                        <div class="p-2 floatRight">
+                                            <button class="btn btn-secondary btn-sm" (click)="modal.dismiss('Cross click')">Cancel</button>
+                                            <!-- <button [disabled]="!remarksForm.valid" class="btn btn-danger btn-sm" style="margin-left: 3px;"
                             (click)="onVerify(verifyTchTeacherProfileData.teacherId, 'SR') ; modal.dismiss('Cross click')">Reject</button> -->
-                            <button class="btn btn-success btn-sm" style="margin-left: 3px;"
-                                (click)="onVerify(verifyTchTeacherProfileData.teacherId, 'SA') ; modal.dismiss('Cross click')" >
+                                            <button class="btn btn-success btn-sm" style="margin-left: 3px;" (click)="onVerify(verifyTchTeacherProfileData.teacherId, 'SA') ; modal.dismiss('Cross click')">
                                 Confirm & Verify</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
                         </div>
-                    </form>
+                    </ng-template>
                 </div>
-
             </div>
-
-
         </div>
-    </ng-template>
     </div>
-    </div>
-</div>
-</div>
 </div>
