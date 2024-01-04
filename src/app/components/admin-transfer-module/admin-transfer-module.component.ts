@@ -105,6 +105,8 @@ export class AdminTransferModuleComponent implements OnInit {
   selectedShiftYN: any;
   school_id:any;
   canclKvName: any;
+  teacherDob: any;
+  teacherEmail: any;
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
   ngOnInit(): void {
@@ -188,78 +190,93 @@ export class AdminTransferModuleComponent implements OnInit {
      this.modalService.open(this.AdminCancelBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
    }
  
-   openModificationmodal(empCode:any,empName:any,presentKvName:any,presentKvCode:any,PresentStationName:any,PresentRegionName:any){
-    debugger
+
+   openModificationmodal(empCode:any,empName:any,presentKvName:any,presentKvCode:any,PresentStationName:any,PresentRegionName:any,teacherDob:any,teacherEmail:any){
     this.kvRegionSchoolZietHqName='';
-     this.presentKvName =presentKvName;
-     this.presentKvCode = presentKvCode;
-     this.PresentStationName = PresentStationName;
-     this.PresentRegionName = PresentRegionName;
-     this.showTransferEditForm=false;
-     this.showRegion=false;
-     this.showSchool=false;
-     this.showZiet=false;
-     this.showHq=false;
-     this.showCategory=false;
-     this.modiFYTransferType='';
-     this.transferType=9999;
-     this.editModifyEmpCode=empCode;
-     this.editModifyEmpName=empName;
-     let req={"empCode":this.editModifyEmpCode};
-     debugger
-     this.outSideService.getModifiedTransferDetails(req,this.loginUserNameForChild).subscribe((res) => {
-       if((res['rowValue'].length)>1){
-         if(res['rowValue'][0]['transfer_type']=='S'){
-           this.editeModifyTransferType='Transfer Policy (2023)';
-           this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
+    this.presentKvName =presentKvName;
+    this.presentKvCode = presentKvCode;
+    this.PresentStationName = PresentStationName;
+    this.PresentRegionName = PresentRegionName;
+    this.showTransferEditForm=false;
+    this.showRegion=false;
+    this.showSchool=false;
+    this.showZiet=false;
+    this.showHq=false;
+    this.showCategory=false;
+    this.modiFYTransferType='';
+    this.transferType=9999;
+    this.teacherDob=teacherDob;
+    this.teacherEmail=teacherEmail;
+    this.editModifyEmpCode=empCode;
+    this.editModifyEmpName=empName;
+    let req={"empCode":this.editModifyEmpCode};
+    debugger
+    this.outSideService.getModifiedTransferDetails(req,this.loginUserNameForChild).subscribe((res) => {
+      debugger
+      this.editeModifyTransferType='';
+      this.editeAllotedTransferType='';
+      if((res['rowValue'].length)>1){
+        if(res['rowValue'][0]['transfer_type']=='S'){
+          this.editeModifyTransferType='Transfer Policy (2023)';
+          this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
+        }
+        if(res['rowValue'][0]['transfer_type']=='AM'){
+          this.editeAllotedTransferType='Transfer Policy (2023)';
+          this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
+        }
+        this.editModifyEmpName=res['rowValue'][0]['teacher_name'];
+        this.editModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];
+        this.ModifyEmail=res['rowValue'][0]['teacher_email'];
+        this.ModifykvCode=res['rowValue'][0]['allot_kv_code'];
+        this.ModifykvName=res['rowValue'][0]['kv_name_alloted'];
+        this.Modifydob=res['rowValue'][0]['teacher_dob'];
+        this.joinDate=res['rowValue'][0]['join_date'];
+        this.reliveDate =res['rowValue'][0]['relieve_date'];
+        if(res['rowValue'][1]['transfer_type']=='AM'){
+          this.editeAllotedTransferType='Transfer Policy (2023)';
+          this.modiFYTransferType =res['rowValue'][1]['transfer_type'];
+        }
+        if(res['rowValue'][1]['transfer_type']=='A'){
+          this.editeModifyTransferType='Admin';
+        }
+        if(res['rowValue'][1]['transfer_type']=='S'){
+          this.editeModifyTransferType='Admin';
+        }
+        this.editAllotedModifyEmpName= res['rowValue'][1]['teacher_name'];
+        this.editAllotedModifyEmpCode=res['rowValue'][1]['teacher_employee_code'];
+        this.editAllotedModifyEmail=res['rowValue'][1]['teacher_email'];
+        this.editAllotedModifykvCode=res['rowValue'][1]['allot_kv_code'];
+        this.editAllotedModifykvName=res['rowValue'][1]['kv_name_alloted'];
+        this.editAllotedModifydob=res['rowValue'][1]['teacher_dob'];
+        this.editAllotedModifyJoindate=res['rowValue'][1]['join_date'];
+        this.editAllotedModifyrelivedate=res['rowValue'][1]['relieve_date'];
+      }
+      else{
+        this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
+        if(res['rowValue'][0]['transfer_type']=='S'){
+          this.editeAllotedTransferType='Transfer Policy (2023)'
+        }
+        if(res['rowValue'][0].is_admin_transfer==true){
+          this.editeAllotedTransferType = 'Admin';
          }
-         this.editModifyEmpName=res['rowValue'][0]['teacher_name'];;
-         this.editModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];;
-         this.ModifyEmail=res['rowValue'][0]['teacher_email'];
-         this.ModifykvCode=res['rowValue'][0]['allot_kv_code'];
-         this.ModifykvName=res['rowValue'][0]['kv_name_alloted'];
-         this.Modifydob=res['rowValue'][0]['teacher_dob'];;
-         this.joinDate=res['rowValue'][0]['join_date'];;
-         this.reliveDate =res['rowValue'][0]['relieve_date'];
-         if(res['rowValue'][1]['transfer_type']=='AM'){
-           this.editeAllotedTransferType='Admin';
-           this.modiFYTransferType =res['rowValue'][1]['transfer_type'];
+         if(res['rowValue'][0].is_automated_transfer==true){
+          this.editeAllotedTransferType = 'Transfer Policy (2023)';
          }
-         this.editAllotedModifyEmpName= res['rowValue'][1]['teacher_name'];
-         this.editAllotedModifyEmpCode=res['rowValue'][1]['teacher_employee_code'];
-         this.editAllotedModifyEmail=res['rowValue'][1]['teacher_email'];
-         this.editAllotedModifykvCode=res['rowValue'][1]['allot_kv_code'];
-         this.editAllotedModifykvName=res['rowValue'][1]['kv_name_alloted'];
-         this.editAllotedModifydob=res['rowValue'][1]['teacher_dob'];
-         this.editAllotedModifyJoindate=res['rowValue'][1]['join_date'];
-         this.editAllotedModifyrelivedate=res['rowValue'][1]['relieve_date'];
-       }
-       else{
-         this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
-         if(res['rowValue'][0]['transfer_type']=='S'){
-           this.editeModifyTransferType='Transfer Policy (2023)'
+         if(res['rowValue'][0].transfer_type=='AM'){
+          this.editeAllotedTransferType = 'Admin Modify';
          }
-         if(res['rowValue'][0].is_admin_transfer==true){
-           this.editeModifyTransferType = 'Admin';
-          }
-          if(res['rowValue'][0].is_automated_transfer==true){
-           this.editeModifyTransferType = 'Transfer Policy (2023)';
-          }
-          if(res['rowValue'][0].transfer_type=='AM'){
-           this.editeModifyTransferType = 'Admin Modify';
-          }
-         this.editModifyEmpName=res['rowValue'][0]['teacher_name'];;
-         this.editModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];;
-         this.ModifyEmail=res['rowValue'][0]['teacher_email'];
-         this.ModifykvCode=res['rowValue'][0]['allot_kv_code'];
-         this.ModifykvName=res['rowValue'][0]['kv_name_alloted'];
-         this.Modifydob=res['rowValue'][0]['teacher_dob'];;
-         this.joinDate=res['rowValue'][0]['join_date'];;
-         this.reliveDate =res['rowValue'][0]['relieve_date'];
-       }
-     })
-     this.modalService.open(this.AdminMdificationBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-   }
+         this.editAllotedModifyEmpName= res['rowValue'][0]['teacher_name'];
+         this.editAllotedModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];
+         this.editAllotedModifyEmail=res['rowValue'][0]['teacher_email'];
+         this.editAllotedModifykvCode=res['rowValue'][0]['allot_kv_code'];
+         this.editAllotedModifykvName=res['rowValue'][0]['kv_name_alloted'];
+         this.editAllotedModifydob=res['rowValue'][0]['teacher_dob'];
+         this.editAllotedModifyJoindate=res['rowValue'][0]['join_date'];
+         this.editAllotedModifyrelivedate=res['rowValue'][0]['relieve_date'];
+      }
+    })
+    this.modalService.open(this.AdminMdificationBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+  }
 
   getTransferGround(){
     let req={};
