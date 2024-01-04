@@ -147,7 +147,7 @@ export class ModifyTransferModuleComponent implements OnInit {
   }
 
   getTransferedList(){
-    let req={"type":this.selectTransferType};
+    let req={"type":this.selectTransferType,"transferYear":this.selectYear};
      this.adminTransferMangement=[];
      this.outSideService.getTransferedList(req,this.loginUserNameForChild).subscribe(res => {
        console.log("emp transfer  data---------------")
