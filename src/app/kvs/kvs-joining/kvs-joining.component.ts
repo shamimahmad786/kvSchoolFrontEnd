@@ -57,7 +57,6 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
   businessUnitTypeId: any;
   showFirstButtonColor: boolean = true;
   showsecondButtonColor: boolean = false;
-  
   showNationalSelector: boolean = false
   nationalLogin: boolean = true;
   disabledCreateButton: boolean = false;
@@ -85,6 +84,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
   allotedKvCode: any;
   reliveDate: any;
   showJoingDate:any;
+  kvNameKvCode:any;
   constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -374,7 +374,9 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
              }
            
             this.joiningDataArray.forEach((item) => {
-            const row = workSheet.addRow([item.empcode, item.name,item.postName,item.subjectName,item.transferGround,item.relivingdate,item.joiningdate,item.To]);
+              debugger
+              this.kvNameKvCode=item.From+' ('+item.from_kv+')';
+            const row = workSheet.addRow([item.empcode, item.name,item.postName,item.subjectName,item.transferGround,item.relivingdate,item.joiningdate, this.kvNameKvCode]);
           });
           workBook.xlsx.writeBuffer().then((data) => {
             let blob = new Blob([data], {

@@ -432,10 +432,7 @@
                        (!basicProfileForm.get('spouseName').valid ||
                        !basicProfileForm.get('spouseStationName').valid)) || (!basicProfileForm.get('crspndncPinCode').valid ||
                        (basicProfileForm.get('prmntPinCode').status != 'VALID' && basicProfileForm.get('prmntPinCode').status != 'DISABLED') || (documentUploadArray[4]?.docName != 'Physically_Handicap_Certificate.pdf' &&  basicProfileForm.get('disabilityYN').value == '1'))) "  type="submit" name="Save & Next"  class="me-2 add-user" value="Save & Next" /> 
-                       
-                       <input *ngIf="!profileFinalStatus" (click)="next()"   type="submit" name="Save & Next"  class="me-2 add-user" value="Next" />
-                    
-                    
+                       <input *ngIf="!profileFinalStatus" (click)="next()"   type="submit" name="Next"  class="me-2 add-user" value="Next" />
                     </div>
             </form>    
     </div>

@@ -67,13 +67,13 @@ export class ProfileComponent implements OnInit {
       userId:this.user_name
     }
     debugger
-    this.outSideService.checkPasswordChanged(data).subscribe((res)=>{
-      if(res.status==1){  
-        this.dialogRef = this.modalService.open(this.resetPasswordModal, {  backdrop: 'static', keyboard: false,
-          }, );
-      }
-     console.log(res);
-    })
+    // this.outSideService.checkPasswordChanged(data).subscribe((res)=>{
+    //   if(res.status==1){  
+    //     this.dialogRef = this.modalService.open(this.resetPasswordModal, {  backdrop: 'static', keyboard: false,
+    //       }, );
+    //   }
+    //  console.log(res);
+    // })
 
     if(sessionStorage.getItem('displayPopUp') == 'true' && JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id !='2'){
       // this.modalService.open(this.processFlow, { size: 'xl', backdrop: 'static', keyboard: false })

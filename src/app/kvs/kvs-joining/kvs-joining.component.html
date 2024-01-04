@@ -228,7 +228,7 @@
                                     <div class="shadow m-3 p-3">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <h4 class="titleSet"> Whether the employee join or not :</h4>
+                                                <h4 class="titleSet"> Whether the Employee Join or Not :</h4>
                                                 <select class="form-select" formControlName="joinConfermation"   #teams (change)="onSelected(teams.value)" aria-label="Default select example" id="s_id">
                                         <option selected disabled>Select </option>
                                         <option  value="TRUE"> YES</option>
@@ -243,7 +243,7 @@
                                         </div>
                                         <div class="p-3" style="text-align: right;">
                                             <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
-                                            <input [disabled]="(!employeeTransferIn.get('JoiningDate').valid && employeeTransferIn.get('joinConfermation').value == 'TRUE'  ) " type="submit" id="submit" value="submit" class="action-button" />
+                                            <input [disabled]="(!employeeTransferIn.get('JoiningDate').valid && employeeTransferIn.get('joinConfermation').value == 'TRUE'  ) " type="submit" id="submit" value="Submit" class="action-button" />
                                         </div>
                                     </div>
                                 </div>
@@ -301,7 +301,7 @@
                                         <div class="p-3" style="text-align: right;">
                                             <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
 
-                                            <input [disabled]="!employeeTransferOut.get('relievingDate').valid " type="submit" id="submit1" value="submit" class="action-button" />
+                                            <input [disabled]="!employeeTransferOut.get('relievingDate').valid " type="submit" id="submit1" value="Submit" class="action-button" />
                                         </div>
                                     </div>
                                 </div>

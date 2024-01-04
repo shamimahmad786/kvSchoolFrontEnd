@@ -27,22 +27,6 @@
         </div> -->
 
 
-        <div class="accordion-item">
-            <div class="accordion-header m-0">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-        <i class="bi bi-pencil me-2"></i> Transfer Management
-      </button>
-            </div>
-            <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body p-0 pt-3 pb-3">
-                    <ul>
-                        <li class=""><a routerLinkActive="active" routerLink="/teacher/modifyTransferModule"><i class="bi bi-dot"></i>Transfer List (Modify)</a></li>
-                        <li><a routerLinkActive="active" routerLink="/teacher/globalTransferModule"><i class="bi bi-dot"></i>Global Transfer</a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
 
         <div class="accordion-item">
             <div class="accordion-header m-0">
@@ -60,6 +44,26 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="accordion-item">
+            <div class="accordion-header m-0">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+        <i class="bi bi-pencil me-2"></i> Transfer Management
+      </button>
+            </div>
+            <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body p-0 pt-3 pb-3">
+                    <ul>
+                        <li class=""><a routerLinkActive="active" routerLink="/teacher/modifyTransferModule"><i class="bi bi-dot"></i>Transfer List (Modify)</a></li>
+                        <li><a routerLinkActive="active" routerLink="/teacher/globalTransferModule"><i class="bi bi-dot"></i>Global Transfer</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+      
         <div class="accordion-item" *ngIf="showNational">
             <div class="accordion-header m-0">
                 <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">

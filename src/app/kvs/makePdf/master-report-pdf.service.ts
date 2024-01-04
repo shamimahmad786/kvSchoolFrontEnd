@@ -1433,7 +1433,7 @@ if(schoolStationMappingList[i]?.shift==0){
     relevingDatalistTemp.push(relevingDataArray[i]?.subjectName)
     relevingDatalistTemp.push(relevingDataArray[i]?.transferGround)
     relevingDatalistTemp.push(relevingDataArray[i]?.relivingdate)
-    relevingDatalistTemp.push(relevingDataArray[i]?.To + '(' +relevingDataArray[i]?.allot_kv_code+')')
+    relevingDatalistTemp.push(relevingDataArray[i]?.To + ' (' +relevingDataArray[i]?.allot_kv_code+')')
   
     this.relevingDataListArray.push(relevingDatalistTemp)
   }
@@ -1465,7 +1465,7 @@ if(schoolStationMappingList[i]?.shift==0){
       doc.setTextColor(138, 24, 34);
       doc.setFontSize(14);
       doc.setFont('Times-Roman', 'bold');
-      doc.text('REPORT : EMPLOYEE TRANSFR OUT DETAILS', 15, 28);
+      doc.text('REPORT : EMPLOYEE TRANSFER OUT DETAILS', 15, 28);
 
       // Footer
       var str = "Page " + data.doc.internal.getNumberOfPages();
@@ -1520,7 +1520,7 @@ if(schoolStationMappingList[i]?.shift==0){
     joiningDataListTemp.push(joiningDataArray[i]?.transferGround)
     joiningDataListTemp.push(joiningDataArray[i]?.relivingdate)
     joiningDataListTemp.push(joiningDataArray[i]?.joiningdate)
-    joiningDataListTemp.push(joiningDataArray[i]?.From + '(' +joiningDataArray[i]?.from_kv+')')
+    joiningDataListTemp.push(joiningDataArray[i]?.From + ' (' +joiningDataArray[i]?.from_kv+')')
   
     this.joiningDataListArray.push(joiningDataListTemp)
   }
@@ -1552,7 +1552,7 @@ if(schoolStationMappingList[i]?.shift==0){
       doc.setTextColor(138, 24, 34);
       doc.setFontSize(14);
       doc.setFont('Times-Roman', 'bold');
-      doc.text('REPORT : EMPLOYEE TRANSFR IN DETAILS', 15, 28);
+      doc.text('REPORT : EMPLOYEE TRANSFER IN DETAILS', 15, 28);
 
       // Footer
       var str = "Page " + data.doc.internal.getNumberOfPages();
@@ -1633,7 +1633,7 @@ if(schoolStationMappingList[i]?.shift==0){
       doc.setTextColor(138, 24, 34);
       doc.setFontSize(14);
       doc.setFont('Times-Roman', 'bold');
-      doc.text('REPORT : EMPLOYEE TRANSFR DETAILS OF '+'12345', 15, 28);
+      doc.text('REPORT : EMPLOYEE TRANSFER DETAILS OF '+'12345', 15, 28);
 
       // Footer
       var str = "Page " + data.doc.internal.getNumberOfPages();

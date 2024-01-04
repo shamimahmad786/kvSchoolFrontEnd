@@ -12,7 +12,7 @@
 
 ::ng-deep .mat-header-cell{background-color:#E5EEFF ; color: #353535; font-weight: 600 !important; font-size: 15px; font-family: 'PoppinsRegular';}
 #msform .action-button {
-    width: 73px;
+  
     background: #1b4c43;
     font-weight: bold;
     color: white;
@@ -25,7 +25,7 @@
 }
 
 #msform .action-button:disabled {
-    width: 73px;
+ 
     background: #1b4c43;
     font-weight: bold;
     color: grey;
