@@ -1,0 +1,81 @@
+
+.mat-header-row {
+    background-color: #E5EEFF;
+   
+}
+.mat-header-cell {
+    background-color: #E5EEFF;
+    color: #353535 !important;
+    font-weight: 600 !important;
+    font-size: 13px;
+    font-family: 'PoppinsRegular';
+}
+.trasnfer-save{
+    color: #fff;
+    position: relative;
+    border-radius: 4px;
+    font-size: 14px;
+     background: #632765; 
+    height: 34px !important;
+    line-height: normal;
+    border: none;
+  
+  }
+
+  .trasnfer-cancel{
+    color: #fff;
+    position: relative;
+    border-radius: 4px;
+    font-size: 14px;
+     background: #c92b2b; 
+    height: 34px !important;
+    line-height: normal;
+    border: none;
+  }
+  .trasnfer-save:disabled {
+    color: #fff;
+    position: relative;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #996a9a;
+    height: 34px;
+    line-height: normal;
+    border: none;
+}
+
+.table tr:nth-child(even) {
+  background: none; 
+}
+
+.mat-column-Sno {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 5% !important;
+  width: 5% !important;
+}
+ .action-button {
+  
+    background: #1b4c43;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 6px 8px;
+    margin: 0px 0px 0px 9px;
+  
+}
+.make-red {
+    color: red;
+    background-color: #ffefef;;
+    font-family: 'PoppinsBold';
+}
+.make-red-row {
+    background-color: #ffefef;;
+   
+}
+.make-blue {
+    color: blue;
+    font-family: 'PoppinsBold';
+
+}

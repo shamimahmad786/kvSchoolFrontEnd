@@ -1486,6 +1486,28 @@ uploadTicketDocument(data){
   }); 
     return this._http.post<any>(environment.BASE_URL_DATA_API_TICKET + "uploadTicketDocument",  data,{headers});
 }
+uploadXlxDocument(data){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+    return this._http.post<any>(environment.BASE_URL_DATA_API_FILETRANSFER + "uploadDoc",  data,{headers});
+}
+getTempTransferData(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+    return this._http.post<any>(environment.BASE_URL_DATA_API_FILETRANSFER + "getTempTransferData",{headers});
+}
+confirmTransferData(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+    return this._http.post<any>(environment.BASE_URL_DATA_API_FILETRANSFER + "confirmTransferData",{headers});
+}
+
 getDocumentByFolderId(data){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({

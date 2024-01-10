@@ -212,7 +212,7 @@ export class ModifyTransferModuleComponent implements OnInit {
              this.testData.relieve_date = res['rowValue'][i].relieve_date;
              this.testData.emp_transfer_status = res['rowValue'][i].emp_transfer_status;
  //------------------ Transfer Status----------------------------------------------------------
- debugger
+
              if(res['rowValue'][i].emp_transfer_status=='-1' || res['rowValue'][i].emp_transfer_status==null){
                this.testData.transferStatusAction='transfer' 
              }

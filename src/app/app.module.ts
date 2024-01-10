@@ -104,6 +104,7 @@ import { PreviewConfirmComponent } from './teacherEntryForm/preview-confirm/prev
 import { MiscellaneousFormComponent } from './teacherEntryForm/miscellaneous-form/miscellaneous-form.component';
 import { ProgresionBarComponent } from './teacherEntryForm/progresion-bar/progresion-bar.component';
 import { KvsTicketComponent } from './kvs/kvs-ticket/kvs-ticket.component';
+import { ExcelTransferModuleComponent } from './components/excel-transfer-module/excel-transfer-module.component';
 // import { MAT_DATE_FORMATS } from '@angular/material/';
 // import { DatePickerModule } from 'angular-material-datepicker';
 
@@ -199,7 +200,8 @@ import { KvsTicketComponent } from './kvs/kvs-ticket/kvs-ticket.component';
     MiscellaneousFormComponent,
     PreviewConfirmComponent,
     ProgresionBarComponent,
-    KvsTicketComponent
+    KvsTicketComponent,
+    ExcelTransferModuleComponent
    
     
   ],

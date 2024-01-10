@@ -10,8 +10,8 @@ export class AuthInterceptorService implements HttpInterceptor {
      var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
      if(req.url.indexOf('api') !== -1){
     if (JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined && JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined) {
-        let modifiedReq 
-        if(req.url.indexOf('uploadDocument') !== -1){
+        let modifiedReq     
+        if(req.url.indexOf('uploadDocument') !== -1 || req.url.indexOf('uploadDoc') !== -1){
              modifiedReq = req.clone(
                 {
                     setHeaders: {

@@ -28,7 +28,7 @@ export class KvsTicketComponent implements OnInit {
   ticketList: any=[];
   imageName: any=[];
   isVisible: boolean = false;
-  fileNameWithoutExt: string;
+  fileNameWithoutExt: any;
   imageName1: any;
   image2: any;
   selectTransferType:any
