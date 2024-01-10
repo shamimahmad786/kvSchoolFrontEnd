@@ -346,19 +346,19 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th class="w-25 text-start"> Employee Name(Code)</th>
-                                    <td class="text-start"> {{editModifyEmpName}}({{editModifyEmpCode}})</td>
-                                    <th class="text-start">Email Id </th>
-                                    <td class="text-start">{{ModifyEmail | uppercase}} </td>
+                                    <th class="w-25 text-start"> Employee Name (Code)</th>
+                                    <td class="text-start"> {{editModifyEmpName}} ({{editModifyEmpCode}})</td>
+                                    <th class="text-start">Email </th>
+                                    <td class="text-start">{{teacherEmail | uppercase}} </td>
                                 </tr>
                                 <tr>
                                     <th class="text-start">DOB (dd-mm-yyyy) </th>
-                                    <td class="text-start"> {{Modifydob|date:"dd-MM-yyyy"}}</td>
+                                    <td class="text-start"> {{teacherDob|date:"dd-MM-yyyy"}}</td>
                                     <th class="text-start">Present Region Name </th>
                                     <td class="text-start"> {{PresentRegionName}} </td> 
                                 </tr>
                                 <tr>
-                                    <th class="text-start">Present Station Name</th>
+                                    <th class="text-start">Present Station name</th>
                                     <td class="text-start"> {{PresentStationName}}</td>
                                     <th class="text-start">Present School Name (Code) </th>
                                     <td class="text-start"> {{presentKvName}} ({{presentKvCode}})</td>
@@ -384,7 +384,7 @@
                                     <th class="text-start">Reliving Date (dd-mm-yyyy) </th>
                                     <td class="text-start"> {{editAllotedModifyrelivedate | date:"dd-MM-yyyy"}} </td>
                                     <th class="text-start">Transfer Type </th>
-                                    <td class="text-start"> {{editeAllotedTransferType}} </td>
+                                    <td class="text-start"> {{editeModifyTransferType}} </td>
                                 </tr> 
                             </tbody>
                         </table>
@@ -408,7 +408,7 @@
                                     <th class="text-start">Reliving Date (dd-mm-yyyy) </th>
                                     <td class="text-start"> {{reliveDate | date:"dd-MM-yyyy"}} </td>
                                     <th class="text-start">Transfer Type </th>
-                                    <td class="text-start"> {{editeModifyTransferType}} </td>
+                                    <td class="text-start"> {{editeAllotedTransferType}} </td>
                                 </tr>
                             </tbody>
                         </table>

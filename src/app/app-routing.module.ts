@@ -51,6 +51,7 @@ import { WorkExperienceComponent } from './teacherEntryForm/work-experience/work
 import { PreviewConfirmComponent } from './teacherEntryForm/preview-confirm/preview-confirm.component';
 import { MiscellaneousFormComponent } from './teacherEntryForm/miscellaneous-form/miscellaneous-form.component';
 import { ProgresionBarComponent } from './teacherEntryForm/progresion-bar/progresion-bar.component';
+import { KvsTicketComponent } from './kvs/kvs-ticket/kvs-ticket.component';
 const routes: Routes = [
   {path:'', component: MainPageComponent},
   {path:'mainPage', component: MainPageComponent},
@@ -82,7 +83,8 @@ const routes: Routes = [
       {path: 'surveyMaster', component:SurveyMasterComponent},
       {path: 'kvsTchProfile', component:KvsTeacherProfileComponent},
       {path: 'kvsTchTransfer', component:KvsTeacherTransferComponent},
-      {path: 'employeeJoining', component:KvsJoiningComponent},
+      {path: 'employeeJoining', component:KvsJoiningComponent},  
+      {path: 'kvsTicket', component:KvsTicketComponent}, 
       {path: 'kvsTchDetails', component:KvsTeachersDeatilComponent},
       {path: 'schoolReview', component:SchoolReviewComponent},
       {path: 'transferEdit', component:KvsTransferEditComponent},

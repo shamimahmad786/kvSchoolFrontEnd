@@ -6,20 +6,32 @@ import { environment } from "src/environments/environment";
 export class AuthInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
-    
+    debugger
      var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
      if(req.url.indexOf('api') !== -1){
     if (JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined && JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined) {
-                        const modifiedReq = req.clone(
-                            {
-                                setHeaders: {
-                                    'Content-Type': (req.url.indexOf('unee-api/v1') !==-1)?'application/json; charset=utf-8':'text/plain; charset=utf-8',
-                                    'loginType':'s',
-                                    // 'systemTeacherCode':sessionStorage.systemTeacherCode,
-                                    'Authorization': token,
-                                 'username': JSON.parse(sessionStorage.getItem('authTeacherDetails')).user_name
-                                }
-                            });
+        let modifiedReq 
+        if(req.url.indexOf('uploadDocument') !== -1){
+             modifiedReq = req.clone(
+                {
+                    setHeaders: {
+                        'Authorization': token,
+                     'username': JSON.parse(sessionStorage.getItem('authTeacherDetails')).user_name
+                    }
+                });
+        }    else{
+             modifiedReq = req.clone(
+                {
+                    setHeaders: {
+                        'Content-Type': (req.url.indexOf('unee-api/v1') !==-1)?'application/json; charset=utf-8':'text/plain; charset=utf-8',
+                        'loginType':'s',
+                        // 'systemTeacherCode':sessionStorage.systemTeacherCode,
+                        'Authorization': token,
+                     'username': JSON.parse(sessionStorage.getItem('authTeacherDetails')).user_name
+                    }
+                });
+        }        
+ 
                         return next.handle(modifiedReq).pipe(
                             (
                                 catchError((error: HttpErrorResponse) => {

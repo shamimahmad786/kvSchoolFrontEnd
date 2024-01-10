@@ -221,7 +221,7 @@ export class AdminTransferModuleComponent implements OnInit {
           this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         }
         if(res['rowValue'][0]['transfer_type']=='AM'){
-          this.editeAllotedTransferType='Transfer Policy (2023)';
+          this.editeAllotedTransferType='Admin';
           this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         }
         this.editModifyEmpName=res['rowValue'][0]['teacher_name'];
@@ -240,7 +240,7 @@ export class AdminTransferModuleComponent implements OnInit {
           this.editeModifyTransferType='Admin';
         }
         if(res['rowValue'][1]['transfer_type']=='S'){
-          this.editeModifyTransferType='Admin';
+          this.editeModifyTransferType='Transfer Policy (2023)';
         }
         this.editAllotedModifyEmpName= res['rowValue'][1]['teacher_name'];
         this.editAllotedModifyEmpCode=res['rowValue'][1]['teacher_employee_code'];
@@ -254,16 +254,16 @@ export class AdminTransferModuleComponent implements OnInit {
       else{
         this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         if(res['rowValue'][0]['transfer_type']=='S'){
-          this.editeAllotedTransferType='Transfer Policy (2023)'
+          this.editeModifyTransferType='Transfer Policy (2023)'
         }
         if(res['rowValue'][0].is_admin_transfer==true){
-          this.editeAllotedTransferType = 'Admin';
+          this.editeModifyTransferType = 'Admin';
          }
          if(res['rowValue'][0].is_automated_transfer==true){
-          this.editeAllotedTransferType = 'Transfer Policy (2023)';
+          this.editeModifyTransferType = 'Transfer Policy (2023)';
          }
          if(res['rowValue'][0].transfer_type=='AM'){
-          this.editeAllotedTransferType = 'Admin Modify';
+          this.editeModifyTransferType = 'Admin Modify';
          }
          this.editAllotedModifyEmpName= res['rowValue'][0]['teacher_name'];
          this.editAllotedModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];
@@ -880,6 +880,13 @@ if(this.modificationEditForm.value.transferOrderNumber=='' || this.modificationE
   Swal.fire({
     'icon':'error',
     'text':'Please fill transfer order number.'
+   } )
+   return false;
+}
+if(this.modificationEditForm.value.transferOrderdate=='' || this.modificationEditForm.value.transferOrderdate==null){
+  Swal.fire({
+    'icon':'error',
+    'text':'Please fill transfer order date.'
    } )
    return false;
 }

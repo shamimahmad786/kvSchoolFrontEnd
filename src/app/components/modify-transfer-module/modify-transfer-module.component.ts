@@ -212,7 +212,7 @@ export class ModifyTransferModuleComponent implements OnInit {
              this.testData.relieve_date = res['rowValue'][i].relieve_date;
              this.testData.emp_transfer_status = res['rowValue'][i].emp_transfer_status;
  //------------------ Transfer Status----------------------------------------------------------
- 
+ debugger
              if(res['rowValue'][i].emp_transfer_status=='-1' || res['rowValue'][i].emp_transfer_status==null){
                this.testData.transferStatusAction='transfer' 
              }
@@ -222,8 +222,8 @@ export class ModifyTransferModuleComponent implements OnInit {
              if(res['rowValue'][i].emp_transfer_status=='9999'  && (res['rowValue'][i].join_relieve_flag=='2' || res['rowValue'][i].join_relieve_flag=='0' || res['rowValue'][i].join_relieve_flag=='' || res['rowValue'][i].join_relieve_flag==null )){
                this.testData.transferStatusAction='modificationcancel'; 
              }
-             if(res['rowValue'][i].emp_transfer_status=='4'  && (res['rowValue'][i].join_relieve_flag=='1')){
-               this.testData.transferStatusAction='transfer'; 
+             if((res['rowValue'][i].emp_transfer_status=='4' || res['rowValue'][i].emp_transfer_status=='5' || res['rowValue'][i].emp_transfer_status=='3' || res['rowValue'][i].emp_transfer_status=='1' )  && (res['rowValue'][i].join_relieve_flag=='1')){
+               this.testData.transferStatusAction=''; 
              }
              if(res['rowValue'][i].emp_transfer_status=='4'  && (res['rowValue'][i].join_relieve_flag=='2' || res['rowValue'][i].join_relieve_flag=='0' || res['rowValue'][i].join_relieve_flag=='' || res['rowValue'][i].join_relieve_flag==null )){
                this.testData.transferStatusAction='modificationcancel'; 
@@ -231,21 +231,15 @@ export class ModifyTransferModuleComponent implements OnInit {
              if(res['rowValue'][i].emp_transfer_status=='2' && res['rowValue'][i].allot_kv_code=='-1'){
                this.testData.transferStatusAction='transfer' 
              }
-             if(res['rowValue'][i].emp_transfer_status=='5'  && (res['rowValue'][i].join_relieve_flag=='1')){
-               this.testData.transferStatusAction='transfer'; 
-             }
+            
              if(res['rowValue'][i].emp_transfer_status=='5'  && (res['rowValue'][i].join_relieve_flag=='2' || res['rowValue'][i].join_relieve_flag=='0' || res['rowValue'][i].join_relieve_flag=='' || res['rowValue'][i].join_relieve_flag==null )){
                this.testData.transferStatusAction='modificationcancel'; 
              }         
-             if(res['rowValue'][i].emp_transfer_status=='3'  && (res['rowValue'][i].join_relieve_flag=='1')){
-               this.testData.transferStatusAction='transfer'; 
-             }
+           
              if(res['rowValue'][i].emp_transfer_status=='3'  && (res['rowValue'][i].join_relieve_flag=='2'|| res['rowValue'][i].join_relieve_flag=='0' || res['rowValue'][i].join_relieve_flag=='' || res['rowValue'][i].join_relieve_flag==null )){
                this.testData.transferStatusAction='modificationcancel'; 
              }
-             if(res['rowValue'][i].emp_transfer_status=='1'  && (res['rowValue'][i].join_relieve_flag=='1')){
-               this.testData.transferStatusAction='transfer'; 
-             }
+           
              if(res['rowValue'][i].emp_transfer_status=='1'  && (res['rowValue'][i].join_relieve_flag=='2' || res['rowValue'][i].join_relieve_flag=='0' || res['rowValue'][i].join_relieve_flag=='' || res['rowValue'][i].join_relieve_flag==null )){
                this.testData.transferStatusAction='modificationcancel'; 
              }           
@@ -385,7 +379,7 @@ export class ModifyTransferModuleComponent implements OnInit {
           this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         }
         if(res['rowValue'][0]['transfer_type']=='AM'){
-          this.editeAllotedTransferType='Transfer Policy (2023)';
+          this.editeAllotedTransferType='Admin';
           this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         }
         this.editModifyEmpName=res['rowValue'][0]['teacher_name'];
@@ -404,7 +398,7 @@ export class ModifyTransferModuleComponent implements OnInit {
           this.editeModifyTransferType='Admin';
         }
         if(res['rowValue'][1]['transfer_type']=='S'){
-          this.editeModifyTransferType='Admin';
+          this.editeModifyTransferType='Transfer Policy (2023)';
         }
         this.editAllotedModifyEmpName= res['rowValue'][1]['teacher_name'];
         this.editAllotedModifyEmpCode=res['rowValue'][1]['teacher_employee_code'];
@@ -418,16 +412,16 @@ export class ModifyTransferModuleComponent implements OnInit {
       else{
         this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         if(res['rowValue'][0]['transfer_type']=='S'){
-          this.editeAllotedTransferType='Transfer Policy (2023)'
+          this.editeModifyTransferType='Transfer Policy (2023)'
         }
         if(res['rowValue'][0].is_admin_transfer==true){
-          this.editeAllotedTransferType = 'Admin';
+          this.editeModifyTransferType = 'Admin';
          }
          if(res['rowValue'][0].is_automated_transfer==true){
-          this.editeAllotedTransferType = 'Transfer Policy (2023)';
+          this.editeModifyTransferType = 'Transfer Policy (2023)';
          }
          if(res['rowValue'][0].transfer_type=='AM'){
-          this.editeAllotedTransferType = 'Admin Modify';
+          this.editeModifyTransferType = 'Admin Modify';
          }
          this.editAllotedModifyEmpName= res['rowValue'][0]['teacher_name'];
          this.editAllotedModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];

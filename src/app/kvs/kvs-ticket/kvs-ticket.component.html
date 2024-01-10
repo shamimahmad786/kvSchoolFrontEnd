@@ -1,0 +1,349 @@
+<div class="dashboard-main-content" style="min-height: 600px;">
+    <div class="dashboard-main-content__header">
+        <h1>Ticket Management System</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="mt-0">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Home</a></li>
+          <li class="breadcrumb-item"><a>Ticket Management System</a></li>
+        </ol>
+      </nav>
+    <div class="dashboard-main-content-info p-4 mt-4">
+        <div class="row">
+            <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-4 form-group  mb-3">
+                            <label class="titleSet">Ticket Type</label>
+                            <mat-select    class="form-control" (selectionChange)="getAllModifyTransferAsTypeList($event.value)" [(ngModel)]="selectTransferType" >
+                                <mat-option value="">Select Ticket Type</mat-option>
+                                <mat-option  value="0">In Process</mat-option>
+                                <mat-option  value="1">Resolved</mat-option>
+                                <mat-option  value="2">Rejected</mat-option>
+                            </mat-select>
+                        </div>
+                        <div class="col-md-4 " >
+                          
+                        </div> 
+                        <div class="col-md-4 " *ngIf="dataSource">
+                            <mat-form-field style="width: 100%;" appearance="outline" class="searchInput me-4">
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search ">
+                            </mat-form-field>
+                        </div> 
+                    </div>           
+        <table mat-table  [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="sno">
+                <th mat-header-cell *matHeaderCellDef> S.No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.sno}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="ticketId">
+                <th mat-header-cell *matHeaderCellDef> Ticket ID </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.ticketId}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="subject">
+                <th mat-header-cell *matHeaderCellDef> Subject </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.ticketSubject}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="InitiateDate">
+                <th mat-header-cell *matHeaderCellDef> Initiate Date </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.ticketdateTime}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="InitiateTo">
+                <th mat-header-cell *matHeaderCellDef> Initiate To </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.ticketToId}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.ticketStatus}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="resolvedBy">
+                <th mat-header-cell *matHeaderCellDef> Resolved By </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.ticketResolvedBy}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element">
+                    <button type="button" *ngIf="element.ticketStatus=='In Process'" class="btn btn-success btn-sm" (click)="openResolvemodal(element.ticketId)">Resolve</button>
+                    &nbsp; <button type="button" *ngIf="element.ticketStatus=='In Process'" class="btn btn-success btn-sm" (click)="assignTomodal(element.ticketId)">Assign To</button>
+                    &nbsp;<button type="button"  class="btn btn-success btn-sm" (click)="openPreviewmodal(element.ticketId)">Preview</button>
+                   </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="8">No data Found</td>
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10,20, 25]"> </mat-paginator>
+    </div>
+</div>
+</div>
+
+    <div mat-dialog-content>
+        <ng-template #PreviewBox let-modal style="min-width: 100%;">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="clearfix">
+                            <div class="float-left">
+                                <h2 class="mb-0 text-green">Ticket Preview </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" style="min-width: 100%; max-height: 1000px;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered w-100">
+                                <thead>
+                                    <tr style="background-color:#7492cb;">
+                                        <th colspan="8" class="text-center text-white">Ticket ( {{ticketDetails?.ticketId}} )</th>
+                                    </tr>
+                                    <tr style="background-color:#E5EEFF;">
+                                        <th >Ticket Subject</th>
+                                        <th >Ticket Description </th>
+                                        <th >School Remarks</th>
+                                        <th >Teacher Remarks</th>
+                                        <th >Head Quarter Remarks</th>
+                                        <th>Ticket Status</th>
+                                        <th >Ticket Genration Date</th>
+                                        <th >Ticket Resolve Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ticketDetails?.ticketSubject}}</td>
+                                        <td>{{ticketDetails?.ticketDescription}}</td>
+                                        <td>{{ticketDetails?.schoolRemarks}}</td>
+                                        <td>{{ticketDetails?.teacherRemarks}}</td>
+                                        <td>{{ticketDetails?.nationalRemarks}}</td>
+                                        <td>{{ticketStatusForPreview}}</td>
+                                        <td>{{ticketDetails?.ticketdateTime}}</td>
+                                        <td>{{ticketDetails?.ticketResolveDateTime}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" style="min-width: 100%; max-height: 1000px;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered w-100">
+                                <thead>
+                                    <tr style="background-color:#7492cb;">
+                                        <th colspan="7" class="text-center text-white">Document details</th>
+                                    </tr>
+                                    <tr style="background-color:#E5EEFF;">
+                                        
+                                        <th >S.No</th>
+                                        <th >Document</th>
+                                        <th>Download</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="background-color:white;" *ngFor="let data of docList; let i=index;">
+                                        <td>{{i+1}}</td>
+                                        <td>{{data}}</td>
+                                        <td><a href="http://10.25.26.251:8015/api/ticket/downloadDocument?folderId={{ticketDetails?.folderId}}&fileName={{data}}" target="_blank"> <img src="/assets/images/download.png"></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3" style="text-align: right;">
+                <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
+            </div>
+        </ng-template>
+    </div>
+
+    <div mat-dialog-content>
+        <ng-template #AssignToBox let-modal style="min-width: 100%;">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="clearfix">
+                            <div class="float-left">
+                                <h2 class="mb-0 text-green">Assign To </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" >
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <table class="table table-bordered w-100 ">
+                                <thead>
+                                    <tr style="background-color:#7492cb;">
+                                        <th colspan="8" class="text-center text-white">Ticket ( {{ticketDetails?.ticketId}} )</th>
+                                    </tr>
+                                    <tr style="background-color:#E5EEFF;">
+                                        <th >Ticket Subject</th>
+                                        <th >Ticket Description </th>
+                                        <th >School Remarks</th>
+                                        <th >Teacher Remarks</th>
+                                        <th >Head Quarter Remarks</th>
+                                        <th>Ticket Status</th>
+                                        <th >Ticket Genration Date</th>
+                                        <th >Ticket Resolve Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ticketDetails?.ticketSubject}}</td>
+                                        <td>{{ticketDetails?.ticketDescription}}</td>
+                                        <td>{{ticketDetails?.schoolRemarks}}</td>
+                                        <td>{{ticketDetails?.teacherRemarks}}</td>
+                                        <td>{{ticketDetails?.nationalRemarks}}</td>
+                                        <td>{{ticketStatusForAssignTo}}</td>
+                                        <td>{{ticketDetails?.ticketdateTime}}</td>
+                                        <td>{{ticketDetails?.ticketResolveDateTime}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+            <div class="" style="min-width: 100%; max-height: 1000px;">
+                <div class="container-fluid">
+                    <form id="msform" class="msform" [formGroup]="assignToForm" (ngSubmit)="assignToFormSubmit()">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class=" m-3 p-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4 class="titleSet"> Assign To :</h4>
+                                            <select  *ngIf ="businessTypeId!='2'" class="form-select" formControlName="assignTo" aria-label="Default select example">
+                                                <option selected>Select</option>
+                                                <option value="1">Head Quater</option>
+                                              </select>
+                                              <select  *ngIf ="businessTypeId=='2'" class="form-select" formControlName="assignTo" aria-label="Default select example">
+                                                <option selected>Select</option>
+                                                <option value="{{ticketDetails?.instituteCode}}">School</option>
+                                              </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4 class="titleSet"> Remark :</h4>
+                                            <textarea class="form-control" formControlName="assignToRemarks" placeholder="Leave a remark here" id="floatingTextarea"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="p-3" style="text-align: center;">
+                                        <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
+                                        <input [disabled]="!assignToForm.get('assignToRemarks').valid || !assignToForm.get('assignTo').valid" type="submit" id="submit1" value="Submit" class="action-button" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+    <div mat-dialog-content>
+        <ng-template #ResolveBox let-modal style="min-width: 100%;">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="clearfix">
+                            <div class="float-left">
+                                <h2 class="mb-0 text-green">Ticket Resolve </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" >
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <table class="table table-bordered w-100 ">
+                                <thead>
+                                    <tr style="background-color:#7492cb;">
+                                        <th colspan="7" class="text-center text-white">Ticket ( {{ticketDetails?.ticketId}} )</th>
+                                    </tr>
+                                    <tr style="background-color:#E5EEFF;">
+                                        <th >Ticket Subject</th>
+                                        <th >Ticket Description </th>
+                                        <th >School Remarks</th>
+                                        <th >Teacher Remarks</th>
+                                        <th>Ticket Status</th>
+                                        <th >Ticket Genration Date</th>
+                                        <th >Ticket Resolve Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ticketDetails?.ticketSubject}}</td>
+                                        <td>{{ticketDetails?.ticketDescription}}</td>
+                                        <td>{{ticketDetails?.schoolRemarks}}</td>
+                                        <td>{{ticketDetails?.teacherRemarks}}</td>
+                                        <td>{{ticketStatusForResolve}}</td>
+                                        <td>{{ticketDetails?.ticketdateTime}}</td>
+                                        <td>{{ticketDetails?.ticketResolveDateTime}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" style="min-width: 100%; max-height: 1000px;">
+                <div class="container-fluid">
+                    <form id="msform" class="msform" [formGroup]="resolveForm" (ngSubmit)="resolveFormSubmit()">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class=" m-3 p-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4 class="titleSet"> Remark :</h4>
+                                            <textarea class="form-control" formControlName="resolveRemarks" placeholder="Leave a remark here" id="floatingTextarea"></textarea>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <h4 class="titleSet"> Ticket Status :</h4>
+                                            <select class="form-select" formControlName="ticketType"  aria-label="Default select example">
+                                                <option value="1">Resolved</option>
+                                                <option value="2">Rejected</option>
+                                              </select>
+                                        </div>
+                                    </div>
+                                    <div class="p-3" style="text-align: center;">
+                                        <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
+                                        <input [disabled]="!resolveForm.get('resolveRemarks').valid || !resolveForm.get('ticketType').valid " type="submit" id="submit1" value="Submit" class="action-button" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

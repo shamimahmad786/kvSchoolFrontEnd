@@ -1,0 +1,49 @@
+table {
+    width: 100%;
+  }
+  th.mat-header-cell:first-of-type{
+    padding-left: 8px;
+    text-align: center;
+  }
+  th.mat-header-cell{
+    padding-left: 54px;
+  }
+  td.mat-cell{
+    padding-left: 54px;
+  }
+  .mat_label{
+      font-weight: 500;
+  }
+  .delete-icon{
+    font-size: 22px;
+    color: red;
+  }
+  .eye-icon{
+    font-size: 22px;
+    color: rgb(102, 164, 230)(0, 0, 255);
+  }
+  #msform .action-button {
+  
+    background: #1b4c43;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 6px 8px;
+    margin: 0px 0px 0px 9px;
+  
+}
+
+#msform .action-button:disabled {
+ 
+    background: #1b4c43;
+    font-weight: bold;
+    color: grey;
+    border: 0 none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 6px 8px;
+    margin: 1px 0px 0px 9px;
+  
+}

@@ -103,6 +103,7 @@ import { WorkExperienceComponent } from './teacherEntryForm/work-experience/work
 import { PreviewConfirmComponent } from './teacherEntryForm/preview-confirm/preview-confirm.component';
 import { MiscellaneousFormComponent } from './teacherEntryForm/miscellaneous-form/miscellaneous-form.component';
 import { ProgresionBarComponent } from './teacherEntryForm/progresion-bar/progresion-bar.component';
+import { KvsTicketComponent } from './kvs/kvs-ticket/kvs-ticket.component';
 // import { MAT_DATE_FORMATS } from '@angular/material/';
 // import { DatePickerModule } from 'angular-material-datepicker';
 
@@ -197,7 +198,8 @@ import { ProgresionBarComponent } from './teacherEntryForm/progresion-bar/progre
     WorkExperienceComponent,
     MiscellaneousFormComponent,
     PreviewConfirmComponent,
-    ProgresionBarComponent
+    ProgresionBarComponent,
+    KvsTicketComponent
    
     
   ],

@@ -35,7 +35,7 @@ BASE_URL_DATA_TEACHER: 'http://10.25.26.251:8014/api/teacher/',
   BASE_URL_DATA_KVCONTROLER:'http://10.25.26.251:8014/api/kvscontroller/',
   BASE_URL_DATA_REPORTCONTROLER:'http://10.25.26.251:8014/api/reportcontroller/',
   BASE_URL_DATA_TRANSFERPROCESS:'http://10.25.26.251:8014/api/transferprocess/',
-
+  BASE_URL_DATA_API_TICKET:'http://10.25.26.251:8015/api/ticket/',
 
   
   // BASE_URL_DATA_TEACHER: 'http://10.25.26.35:8014/api/teacher/',

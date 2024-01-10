@@ -443,10 +443,11 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
           console.log(res);
           this.flagUpdatedList = res['response']['status'];
           this.modalService.dismissAll() 
+          debugger
           if( this.flagUpdatedList =='0')
           {
            Swal.fire({
-             'icon':'error',
+             'icon':'success',
              'text':res['response']['message']
            }
            )

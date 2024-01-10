@@ -1471,6 +1471,63 @@ addSubjectPostMapping(data){
   return this._http.post<any>(environment.BASE_URL_DATA_MAPPING+ "master/save-post-subject", data, {headers})
 
 }
+getTicketByInstitute(data){
+  debugger
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+    return this._http.post<any>(environment.BASE_URL_DATA_API_TICKET + "getTicketByInstitute",  data,{headers});
+}
+uploadTicketDocument(data){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+    return this._http.post<any>(environment.BASE_URL_DATA_API_TICKET + "uploadTicketDocument",  data,{headers});
+}
+getDocumentByFolderId(data){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+    return this._http.post<any>(environment.BASE_URL_DATA_API_TICKET + "getDocumentByFolderId",  data,{headers});
+}
+deleteTicketDocument(data){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+    return this._http.post<any>(environment.BASE_URL_DATA_API_TICKET + "deleteTicketDocument",  data,{headers});
+}
+getInitiatedTicketByTicketId(data){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+    return this._http.post<any>(environment.BASE_URL_DATA_API_TICKET + "getInitiatedTicketByTicketId",  data,{headers});
+}
+initiateTicket(data){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+    return this._http.post<any>(environment.BASE_URL_DATA_API_TICKET + "initiateTicket",  data,{headers});
+}
+resolveTicketByTicketId(data){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+    return this._http.post<any>(environment.BASE_URL_DATA_API_TICKET + "resolveTicketByTicketId",  data,{headers});
+}
+assignTicketTo(data){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+    return this._http.post<any>(environment.BASE_URL_DATA_API_TICKET + "assignTicketTo",  data,{headers});
+}
 // fetchSubjectPostMapping(data){
 
 //   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
