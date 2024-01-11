@@ -18,7 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ModifyTransferModuleComponent implements OnInit {
   
   displayedColumns = ['Sno','name','kv_code','is_admin_transfer','kv_name_alloted','join_date','relieve_date','transfer_under_cat','Action'];
-  testData = { "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"","join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "","relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":""}
+  testData = { "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"","join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "","relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","transferStatusOneComplite":""}
   dataSource:any;
   userMappingSource : MatTableDataSource<any>;
   @ViewChild('paginator') paginator: MatPaginator;
@@ -101,6 +101,7 @@ export class ModifyTransferModuleComponent implements OnInit {
   canclKvName: any;
   teacherDob: any;
   teacherEmail: any;
+  allotedKvCode: any;
 
   constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>,private router: Router,private formData: FormDataService,private modalService: NgbModal) {
     this.dateAdapter.setLocale('en-GB');
@@ -218,6 +219,7 @@ export class ModifyTransferModuleComponent implements OnInit {
              }
              if(res['rowValue'][i].emp_transfer_status=='9999'  && (res['rowValue'][i].join_relieve_flag=='1')){
                this.testData.transferStatusAction='transfer'; 
+               this.testData.transferStatusOneComplite='true';
              }
              if(res['rowValue'][i].emp_transfer_status=='9999'  && (res['rowValue'][i].join_relieve_flag=='2' || res['rowValue'][i].join_relieve_flag=='0' || res['rowValue'][i].join_relieve_flag=='' || res['rowValue'][i].join_relieve_flag==null )){
                this.testData.transferStatusAction='modificationcancel'; 
@@ -300,7 +302,7 @@ export class ModifyTransferModuleComponent implements OnInit {
              this.totalLength = this.adminTransferMangement.length;
              this.testData = {  "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"",
              "join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "",
-             "relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":""};
+             "relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","transferStatusOneComplite":""};
            }
        }
        setTimeout(() => {
@@ -349,10 +351,11 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.modalService.open(this.AdminCancelBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
 
-  openModificationmodal(empCode:any,empName:any,presentKvName:any,presentKvCode:any,PresentStationName:any,PresentRegionName:any,teacherDob:any,teacherEmail:any){
+  openModificationmodal(empCode:any,empName:any,presentKvName:any,presentKvCode:any,PresentStationName:any,PresentRegionName:any,teacherDob:any,teacherEmail:any,allotedKvCode:any){
     this.kvRegionSchoolZietHqName='';
     this.presentKvName =presentKvName;
     this.presentKvCode = presentKvCode;
+    this.allotedKvCode=allotedKvCode;
     this.PresentStationName = PresentStationName;
     this.PresentRegionName = PresentRegionName;
     this.showTransferEditForm=false;
@@ -367,7 +370,7 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.teacherEmail=teacherEmail;
     this.editModifyEmpCode=empCode;
     this.editModifyEmpName=empName;
-    let req={"empCode":this.editModifyEmpCode};
+    let req={"empCode":this.editModifyEmpCode,"inityear":this.selectYear,"presentKvCode":this.presentKvCode,"allotedKvCode":this.allotedKvCode};
     debugger
     this.outSideService.getModifiedTransferDetails(req,this.loginUserNameForChild).subscribe((res) => {
       debugger
@@ -682,6 +685,7 @@ export class ModifyTransferModuleComponent implements OnInit {
       "allotStnCode": this.selectStationCode,
       "stationNameAlloted": this.selectStationName,
       "allotShift": this.selectedShiftYN,
+      "inityear": this.selectYear,
       "allotKvCode":this.selectedKvCode,
       "kvNameAlloted": this.selectedKvname,
       "trasndferOrderDate":this.adminTransferEditForm.value.transferOrderdate,
@@ -835,6 +839,7 @@ if(this.modificationEditForm.value.transferOrderdate=='' || this.modificationEdi
   "allotShift": this.selectedShiftYN,
   "allotKvCode":this.selectedKvCode,
   "isAdminTransfer":true,
+  "transferYear": this.selectYear,
   "kvNameAlloted": this.selectedKvname,
   "trasndferOrderDate":this.modificationEditForm.value.transferOrderdate,
   "transferOrderNumber":this.modificationEditForm.value.transferOrderNumber
@@ -909,6 +914,7 @@ submitcancelForm(){
       var data={
         "empCode":this.editCancelEmpCode,
         "cancelOrderNumber":this.cancelEditForm.value.cancelTransferOrderNumber,
+        "transferYear": this.selectYear,
         "transferCancelOrderDate":this.cancelEditForm.value.cancelTransferOrderdate,
       }
       console.log(data)

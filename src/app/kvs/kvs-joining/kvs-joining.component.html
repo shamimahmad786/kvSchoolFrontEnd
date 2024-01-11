@@ -75,7 +75,7 @@
                                     </ng-container>
                                     <ng-container matColumnDef="transferGround">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Ground </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.transferGround}} </mat-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.transferred_under_cat}} </mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="relivingdate">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header> Relieving Date </mat-header-cell>
@@ -84,7 +84,7 @@
 
                                     <ng-container matColumnDef="action">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" [style.color]="row.color"> <button type="button" *ngIf="row.join_relieve_flag != '2'" class="btn btn-success btn-sm" (click)="openRelivingmodal(row.teacher_id,row.empcode,row.name,row.allot_kv_code)">Relieve</button> </mat-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color"> <button type="button" *ngIf="row.join_relieve_flag != '1'  &&  row.join_relieve_flag != '2'" class="btn btn-success btn-sm" (click)="openRelivingmodal(row.teacher_id,row.empcode,row.name,row.allot_kv_code)">Relieve</button> </mat-cell>
                                     </ng-container>
                                     <mat-header-row *matHeaderRowDef="displayedColumnsOut; sticky:true; "></mat-header-row>
                                     <mat-row *matRowDef="let row; columns: displayedColumnsOut;">
@@ -154,7 +154,7 @@
                             
                                 <ng-container matColumnDef="transferGround">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Ground </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.transferGround}} </mat-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.transferred_under_cat}} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="relivingdate">

@@ -61,7 +61,7 @@
                 </ng-container>
                 <ng-container matColumnDef="kv_code">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Present KV (Code) </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentKvName}} ({{row.kv_code}})
+                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentKvName}} ({{row.presentKvCode}})
                     </mat-cell>
                 </ng-container>  
 
@@ -108,15 +108,20 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span>
                         <span *ngIf="row.transferStatusAction =='transfer' ">
-                            <i class="fa fa-exchange"
+                            <i class="fa fa-exchange" *ngIf="row.transferStatusOneComplite!='true'"
                                 (click)="openTransfermodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName)"
                                 style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
                         </span>
                         <span *ngIf="row.transferStatusAction =='modificationcancel' ">
-                            <i class="fa fa-edit"  (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName,row.teacher_dob,row.email)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
+                            <i class="fa fa-edit"  (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName,row.teacher_dob,row.email,row.allot_kv_code)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
                                 aria-hidden="true"></i>
                             <i class="fa fa-times-circle-o"
                                  (click)="openCancelmodal(row.name,row.employeecode,row.email,row.presentKvName,row.kv_code,row.teacher_dob)" style="font-size: 1.8rem; color: #dc1301e3; margin-left: 10px;" aria-hidden="true"></i>
+                        </span>
+
+                        <span *ngIf="row.transferStatusAction =='' ">
+                            <i class="fa fa-edit"  (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName,row.teacher_dob,row.email,row.allot_kv_code)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
+                                aria-hidden="true"></i>
                         </span>
                     </mat-cell>
                 </ng-container>

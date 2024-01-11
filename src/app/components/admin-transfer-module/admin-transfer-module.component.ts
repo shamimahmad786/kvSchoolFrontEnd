@@ -25,7 +25,7 @@ import { MY_FORMATS } from 'src/app/teacherEntryForm/teacher-entry-form/teacher-
 })
 export class AdminTransferModuleComponent implements OnInit { 
   displayedColumns = ['Sno', 'name','kv_code','is_admin_transfer','kv_name_alloted','join_date','relieve_date','transfer_under_cat','Action'];
-  testData = { "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"","join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "","relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":""}
+  testData = { "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"","join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "","relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","transferStatusOneComplite":""}
   dataSource:any;
   userMappingSource : MatTableDataSource<any>;
   @ViewChild('paginator') paginator: MatPaginator;
@@ -77,6 +77,7 @@ export class AdminTransferModuleComponent implements OnInit {
   editModifyEmpName: any;
   editeModifyTransferType: string;
   selectHeadQuaterZoneRegion:boolean = false;
+  //transferStatusOneComplite:boolean = false;
   selectSchoolType: any;
   ModifyEmail: any;
   ModifykvCode: any;
@@ -127,6 +128,7 @@ export class AdminTransferModuleComponent implements OnInit {
       "TransferRegionZietHq": new FormControl(''),
       "transferOrderNumber": new FormControl(''),
       "transferOrderdate": new FormControl(''),
+      "transferYear": new FormControl(''),
     });
 
     this.adminTransferForm = new FormGroup({
@@ -147,6 +149,7 @@ export class AdminTransferModuleComponent implements OnInit {
       "ModifyTransferRegionZietHq": new FormControl(''),
       "transferOrderNumber": new FormControl(''),
       "transferOrderdate": new FormControl(''),
+      "transferYear": new FormControl(''),
     });
     this.cancelEditForm = new FormGroup({
       'cancelTransferOrderNumber':  new FormControl(''),
@@ -470,6 +473,7 @@ export class AdminTransferModuleComponent implements OnInit {
     this.adminTransferMangement=[];
     this.outSideService.searchEmployeeForTransfer(data,this.loginUserNameForChild).subscribe(res => {
       console.log("emp transfer  data---------------")
+     // this.transferStatusOneComplite=false;
       console.log(res['rowValue'])
       if(res['rowValue'].length>0){
         for (let i = 0; i < res['rowValue'].length; i++) {
@@ -535,8 +539,10 @@ debugger
           if(res['rowValue'][i].emp_transfer_status=='-1' || res['rowValue'][i].emp_transfer_status==null){
             this.testData.transferStatusAction='transfer' 
           }
-          if(res['rowValue'][i].emp_transfer_status=='9999'  && (res['rowValue'][i].join_relieve_flag=='1')){
+          if(res['rowValue'][i].join_relieve_flag=='1' || res['rowValue'][i].allot_kv_code=='-1'){
             this.testData.transferStatusAction='transfer'; 
+            //this.transferStatusOneComplite=true;
+            this.testData.transferStatusOneComplite='true';
           }
           if(res['rowValue'][i].emp_transfer_status=='9999'  && (res['rowValue'][i].join_relieve_flag=='2' || res['rowValue'][i].join_relieve_flag=='0' || res['rowValue'][i].join_relieve_flag=='' || res['rowValue'][i].join_relieve_flag==null )){
             this.testData.transferStatusAction='modificationcancel'; 
@@ -625,7 +631,7 @@ debugger
           this.totalLength = this.adminTransferMangement.length;
           this.testData = {  "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"",
           "join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "",
-          "relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":""};
+          "relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","transferStatusOneComplite":""};
         }
     }
       setTimeout(() => {
@@ -739,6 +745,14 @@ if(this.adminTransferEditForm.value.transferOrderdate=='' || this.adminTransferE
    } )
    return false;
 }
+
+if(this.adminTransferEditForm.value.transferYear=='' || this.adminTransferEditForm.value.transferYear==null){
+  Swal.fire({
+    'icon':'error',
+    'text':'Please fill transfer year.'
+   } )
+   return false;
+}
  var data =  {
     "empName":this.editEmpName,
     "empCode":this.editEmpCode,
@@ -751,6 +765,7 @@ if(this.adminTransferEditForm.value.transferOrderdate=='' || this.adminTransferE
     "stationNameAlloted": this.selectStationName,
     "allotShift": this.selectedShiftYN,
     "allotKvCode":this.selectedKvCode,
+    "transferYear":this.adminTransferEditForm.value.transferYear,
     "kvNameAlloted": this.selectedKvname,
     "trasndferOrderDate":this.adminTransferEditForm.value.transferOrderdate,
     "transferOrderNumber":this.adminTransferEditForm.value.transferOrderNumber
@@ -897,6 +912,13 @@ if(this.modificationEditForm.value.transferOrderdate=='' || this.modificationEdi
    } )
    return false;
 }
+if(this.modificationEditForm.value.transferYear=='' || this.modificationEditForm.value.transferYear==null){
+  Swal.fire({
+    'icon':'error',
+    'text':'Please fill transfer year.'
+   } )
+   return false;
+}
 var data =  {
 "empName":this.editModifyEmpName,
 "empCode":this.editModifyEmpCode,
@@ -910,6 +932,7 @@ var data =  {
 "allotShift": this.selectedShiftYN,
 "allotKvCode":this.selectedKvCode,
 "isAdminTransfer":true,
+"transferYear":this.modificationEditForm.value.transferYear,
 "kvNameAlloted": this.selectedKvname,
 "trasndferOrderDate":this.modificationEditForm.value.transferOrderdate,
 "transferOrderNumber":this.modificationEditForm.value.transferOrderNumber
