@@ -16,6 +16,7 @@ import { MasterReportPdfService } from 'src/app/kvs/makePdf/master-report-pdf.se
 import { Workbook } from 'exceljs';
 import { saveAs } from 'file-saver';
 import * as moment from 'moment';
+import { FormDataService } from 'src/app/teacherEntryForm/service/internalService/form-data.service';
 // import { type } from 'os';
 declare var $: any;
 declare const srvTime: any;
@@ -37,8 +38,8 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
  @ViewChild('sBSort') sBSort: MatSort;
  @ViewChild('JoiningBox', { static: true }) JoiningBox: TemplateRef<any>;   
  @ViewChild('RelivingBox', { static: true }) RelivingBox: TemplateRef<any>;
-  relevingData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","join_relieve_flag":"","transferGround":"","relivingdate": "","teacher_id":"","From":"","allot_kv_code":"","To":""}
-  joiningData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","transferGround":"","relivingdate": "","joiningdate": "","join_relieve_flag":"","teacher_id":"","from_kv":"","From":"","allot_kv_code":"","To":"","transfer_type":""}
+  relevingData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","join_relieve_flag":"","transferGround":"","relivingdate": "","teacher_id":"","From":"","allot_kv_code":"","To":"","transferred_under_cat":""}
+  joiningData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","transferGround":"","relivingdate": "","joiningdate": "","join_relieve_flag":"","teacher_id":"","from_kv":"","From":"","allot_kv_code":"","To":"","transfer_type":"","transferred_under_cat":""}
   relevingDataArray: any = [];
   joiningDataArray: any = [];
   teacherJoiningArray: any;
@@ -80,12 +81,14 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
   returnTypeSrvTime: any;
   maxDate: any;
   teacherRelName: any;
+  formDataList:any;
   transferType: any;
   allotedKvCode: any;
   reliveDate: any;
   showJoingDate:any;
   kvNameKvCode:any;
-  constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
+  transferGroundList: any;
+  constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private formData: FormDataService,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     const today = new Date().toISOString().split('T')[0];
@@ -95,6 +98,8 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
     day = ("0" + date.getDate()).slice(-2);
     this.maxDate =  [date.getFullYear(), mnth, day].join("-");
     console.log("server dataaat--"+ [date.getFullYear(), mnth, day].join("-"))
+    this.formDataList = this.formData.formData();
+    this.transferGroundList = this.formDataList.transferGround;
     this.employeeTransferIn = new FormGroup({
       JoiningDate: new FormControl('', Validators.required),
       joinConfermation: new FormControl('', Validators.required),
@@ -202,6 +207,11 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
       this.joiningData.joiningdate = data[i]?.join_date;
       this.joiningData.join_relieve_flag = data[i]?.join_relieve_flag;
       this.joiningData.transferGround= data[i].ground_level;
+        for (let j = 0; j < this.transferGroundList.length; j++) {
+          if(this.transferGroundList[j]['transferGroundId']==data[i]['transferred_under_cat_id']){
+            this.joiningData.transferred_under_cat=this.transferGroundList[j]['transferGroundType']
+          }
+        }
       this.joiningData.teacher_id= data[i].teacher_id;    
       this.joiningData.from_kv= data[i].from_kv;
       this.joiningData.From= data[i].from_kv_name;
@@ -209,7 +219,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
       this.joiningData.allot_kv_code= data[i].allot_kv_code;
       this.joiningData.transfer_type= data[i].transfer_type;
       this.joiningDataArray.push(this.joiningData);
-      this.joiningData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","transferGround":"","relivingdate": "","joiningdate":"","join_relieve_flag":"","teacher_id":"","from_kv":"","From":"","To":"","allot_kv_code":"","transfer_type":""}
+      this.joiningData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","transferGround":"","relivingdate": "","joiningdate":"","join_relieve_flag":"","teacher_id":"","from_kv":"","From":"","To":"","allot_kv_code":"","transfer_type":"","transferred_under_cat":""}
     }
     console.log("trandgdsdsds")
     console.log(this.joiningDataArray)
@@ -233,12 +243,17 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
       this.relevingData.relivingdate = data[i]?.relieve_date;
       this.relevingData.join_relieve_flag = data[i]?.join_relieve_flag;
       this.relevingData.transferGround= data[i].ground_level;
+      for (let j = 0; j < this.transferGroundList.length; j++) {
+        if(this.transferGroundList[j]['transferGroundId']==data[i]['transferred_under_cat_id']){
+          this.relevingData.transferred_under_cat=this.transferGroundList[j]['transferGroundType']
+        }
+      }
       this.relevingData.teacher_id= data[i].teacher_id;
       this.relevingData.From= data[i].from_kv_name;
       this.relevingData.allot_kv_code= data[i].allot_kv_code;
       this.relevingData.To= data[i].kv_name_alloted;
       this.relevingDataArray.push(this.relevingData);
-      this.relevingData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","transferGround":"","join_relieve_flag":"","relivingdate": "","teacher_id":"","From":"","allot_kv_code":"","To":""}
+      this.relevingData = { "sno": "","empcode": "", "name": "","postName": "","subjectName": "","transferGround":"","join_relieve_flag":"","relivingdate": "","teacher_id":"","From":"","allot_kv_code":"","To":"","transferred_under_cat":""}
     }
     setTimeout(() => {
       this.sBSource   = new MatTableDataSource(this.relevingDataArray);

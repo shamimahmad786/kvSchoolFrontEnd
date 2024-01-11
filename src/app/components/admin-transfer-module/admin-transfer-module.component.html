@@ -92,33 +92,33 @@
               </ng-container>
   
               <ng-container matColumnDef="is_admin_transfer">
-                  <th mat-header-cell *matHeaderCellDef > Transfer Type  </th>
-                  <td mat-cell *matCellDef="let element">
-                      <span> {{element.is_admin_transfer}}</span> </td>
+                  <th mat-header-cell *matHeaderCellDef > Transfer Type   </th>
+                  <td mat-cell *matCellDef="let element" >
+                      <span *ngIf="element.transferStatusOneComplite!='true'"> {{element.is_admin_transfer}}</span> </td>
               </ng-container>
   
-              <ng-container matColumnDef="kv_name_alloted">
+              <ng-container matColumnDef="kv_name_alloted" >
                   <th mat-header-cell *matHeaderCellDef > KV Name Alloted </th>
-                  <td mat-cell *matCellDef="let element">
-                      <span> {{element.kv_name_alloted}}</span> </td>
+                  <td mat-cell *matCellDef="let element" >
+                      <span *ngIf="element.transferStatusOneComplite!='true'"> {{element.kv_name_alloted}}</span> </td>
               </ng-container>
 
               <ng-container matColumnDef="transfer_under_cat">
                 <th mat-header-cell *matHeaderCellDef > Transfer Under Category</th>
                 <td mat-cell *matCellDef="let element">
-                    <span> {{element.transferred_under_cat}}</span> </td>
+                    <span *ngIf="element.transferStatusOneComplite!='true'"> {{element.transferred_under_cat}}</span> </td>
             </ng-container>
 
             <ng-container matColumnDef="join_date">
                 <th mat-header-cell *matHeaderCellDef > Join Date</th>
                 <td mat-cell *matCellDef="let element">
-                    <span> {{element.join_date|date:"dd-MM-yyyy"}}</span> </td>
+                    <span *ngIf="element.transferStatusOneComplite!='true'"> {{element.join_date|date:"dd-MM-yyyy"}}</span> </td>
             </ng-container>
 
             <ng-container matColumnDef="relieve_date">
                 <th mat-header-cell *matHeaderCellDef > Relieve Date </th>
                 <td mat-cell *matCellDef="let element">
-                    <span> {{element.relieve_date |date:"dd-MM-yyyy"}}</span> </td>
+                    <span *ngIf="element.transferStatusOneComplite!='true'"> {{element.relieve_date |date:"dd-MM-yyyy"}}</span> </td>
             </ng-container>
 
             <ng-container matColumnDef="allot_stn_code">
@@ -305,6 +305,15 @@
                                         <div class="col-md-4 mb-2">
                                             <label class="mb-1"> Transfer Order date</label>
                                              <input type="date"  class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <label class="mb-1"> Transfer Year</label>
+                                            <select class="form-select form-select-sm" formControlName="transferYear"
+                                                aria-label="Default select example">
+                                                <option selected disabled> Select Year</option>
+                                                <option  value="2023">2023</option>
+                                                <option  value="2024">2024</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
                                             <input type="hidden" readonly="true" class="form-control form-control-sm" name="udiseSchoolName" formControlName="TransferRegionZietHq" value="{{kvRegionSchoolZietHqName}}">
@@ -521,6 +530,20 @@
                                                 <label class="mb-1"> Transfer Order date</label>
                                                  <input type="date"  class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
                                             </div>
+
+
+                                            <div class="col-md-4 mb-2">
+                                                <label class="mb-1"> Transfer Year</label>
+                                                <select class="form-select form-select-sm" formControlName="transferYear"
+                                                    aria-label="Default select example">
+                                                    <option selected disabled> Select Year</option>
+                                                    <option  value="2023">2023</option>
+                                                    <option  value="2024">2024</option>
+                                                </select>
+                                            </div>
+
+
+                                            
                                             <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
                                                 <input type="hidden" readonly="true" class="form-control form-control-sm" name="udiseSchoolName" formControlName="ModifyTransferRegionZietHq" value="{{kvRegionSchoolZietHqName}}">
                                             </div>

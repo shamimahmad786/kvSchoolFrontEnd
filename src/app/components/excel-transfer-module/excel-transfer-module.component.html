@@ -11,7 +11,7 @@
     <div class="dashboard-main-content-info p-4 ticket">
         <form [formGroup]="excelTransferForm" (ngSubmit)="submit()">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="upload-card">
                     <div class="mb-3 row" >
                         <label class="col-sm-3 col-form-label">File Upload</label>
@@ -40,7 +40,7 @@
                     </div> 
                 </div>
             </div>
-            <div class="col-md-6">Download Demo Excel <a class="" download href="assets/transferExcel.xlsx" target="_blank"> <img src="/assets/images/download.png"></a></div>
+            <div class="col-md-4" style="text-align: end;">Download Demo Excel <a class="" download href="assets/transferExcel.xlsx" target="_blank"> <img src="/assets/images/download.png"></a></div>
         </div>
     </form>
     </div>
@@ -61,68 +61,68 @@
         </div>
         <mat-table [dataSource]="dataSource" matSort #hBSort="matSort">
             <ng-container matColumnDef="Sno">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> S.No. </mat-header-cell>
                 <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.sno}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Employee name (Code)</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef >Employee name (Code)</mat-header-cell>
                 <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.name}} ({{row.employeecode}})
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="kvname">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Present KV (Code) </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef >Present KV (Code) </mat-header-cell>
                 <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentKvName}} ({{row.presentKvCode}})
                 </mat-cell>
             </ng-container>  
 
             <ng-container matColumnDef="regionname">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Present Region Name (Code) </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>Present Region Name (Code) </mat-header-cell>
                 <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentRegionName}} ({{row.presentRegionCode}})
                 </mat-cell>
             </ng-container>  
 
             <ng-container matColumnDef="stationname">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Present Station Name (Code) </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef >Present Station Name (Code) </mat-header-cell>
                 <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentStationName}} ({{row.presentStationCode}})
                 </mat-cell>
             </ng-container>  
 
             <ng-container matColumnDef="kv_name_alloted">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Alloted KV (Code) </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef >Alloted KV (Code) </mat-header-cell>
                 <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.kv_name_alloted}} ({{row.allot_kv_code}})
                 </mat-cell>
             </ng-container> 
 
 
             <ng-container matColumnDef="region_name_alloted">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Alloted Region Name (Code) </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef >Alloted Region Name (Code) </mat-header-cell>
                 <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.stationNameAlloted}} ({{row.allotStnCode}})
                 </mat-cell>
             </ng-container>  
            
 
             <ng-container matColumnDef="station_name_alloted">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Alloted Station name  (Code) </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef >Alloted Station name  (Code) </mat-header-cell>
                 <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.stationNameAlloted}} ({{row.allotStnCode}})
                 </mat-cell>
             </ng-container>  
           
             <ng-container matColumnDef="admintransfer">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Transfer Type </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef >Transfer Type </mat-header-cell>
                 <mat-cell *matCellDef="let row" [ngClass]="{'make-red': row.transfer_type=='NA','make-blue': row.transfer_type=='AM'}" ><span class="mobile-label"></span> {{row.is_admin_transfer}} 
                 </mat-cell>
             </ng-container>  
          
             <ng-container matColumnDef="post">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Post </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef >Post </mat-header-cell>
                 <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.last_promotion_position_type}} 
                 </mat-cell>
             </ng-container> 
            
             <ng-container matColumnDef="category">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Cattegory </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef >Cattegory </mat-header-cell>
                 <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferred_under_cat}} 
                 </mat-cell>
             </ng-container>  
