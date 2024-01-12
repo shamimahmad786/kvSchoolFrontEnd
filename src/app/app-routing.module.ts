@@ -86,10 +86,7 @@ const routes: Routes = [
       {path: 'kvsTchTransfer', component:KvsTeacherTransferComponent},
       {path: 'employeeJoining', component:KvsJoiningComponent},  
       {path: 'kvsTicket', component:KvsTicketComponent}, 
-
       {path: 'excel-transfer', component:ExcelTransferModuleComponent},
-
-
       {path: 'kvsTchDetails', component:KvsTeachersDeatilComponent},
       {path: 'schoolReview', component:SchoolReviewComponent},
       {path: 'transferEdit', component:KvsTransferEditComponent},

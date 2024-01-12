@@ -10,6 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {DateAdapter} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+declare const srvTime: any;
 @Component({
   selector: 'app-modify-transfer-module',
   templateUrl: './modify-transfer-module.component.html',
@@ -91,6 +92,7 @@ export class ModifyTransferModuleComponent implements OnInit {
   selecttedRegionName: any;
   selecttedRegionCode: any;
   selectStationCode: any;
+  returnTypeSrvTime: any;
   school_id: any;
   selectedShiftYN: any;
   presentKvName: any;
@@ -102,7 +104,7 @@ export class ModifyTransferModuleComponent implements OnInit {
   teacherDob: any;
   teacherEmail: any;
   allotedKvCode: any;
-
+  maxDate: any;
   constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>,private router: Router,private formData: FormDataService,private modalService: NgbModal) {
     this.dateAdapter.setLocale('en-GB');
    }
@@ -110,6 +112,12 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.selectTransferType='S';
     this.selectYear='2023';
     console.log(this.transferType)
+    this.returnTypeSrvTime = srvTime();
+    var date = new Date(this.returnTypeSrvTime),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+    this.maxDate =  [date.getFullYear(), mnth, day].join("-");
+
     this.formDataList = this.formData.formData();
     this.transferGroundList = this.formDataList.transferGround;
     console.log(this.formDataList)
@@ -352,6 +360,17 @@ export class ModifyTransferModuleComponent implements OnInit {
   }
 
   openModificationmodal(empCode:any,empName:any,presentKvName:any,presentKvCode:any,PresentStationName:any,PresentRegionName:any,teacherDob:any,teacherEmail:any,allotedKvCode:any){
+    this.modificationEditForm.patchValue({
+      modifyTransferRegion: '',
+      modifyTransferStation: '',
+      modifyTransferSchool: '',
+      modifyTransferGround: '',
+      modifyTransferZiet: '',
+      modifyTransferHeadquater: '',
+      ModifyTransferRegionZietHq: '',
+      transferOrderNumber: '',
+      transferOrderdate: '',
+  })
     this.kvRegionSchoolZietHqName='';
     this.presentKvName =presentKvName;
     this.presentKvCode = presentKvCode;
