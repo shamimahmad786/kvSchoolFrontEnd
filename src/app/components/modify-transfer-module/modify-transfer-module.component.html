@@ -280,7 +280,7 @@
                                 </div>
                                 <div class="col-md-4 mb-2">
                                     <label class="mb-1"> Transfer Order date</label>
-                                     <input type="date"  class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
+                                     <input type="date" [max]="maxDate" class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
                                 </div>
                                 <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
                                     <input type="hidden" readonly="true" class="form-control form-control-sm" name="udiseSchoolName" formControlName="TransferRegionZietHq" value="{{kvRegionSchoolZietHqName}}">
@@ -497,7 +497,7 @@
 
                                     <div class="col-md-4 mb-2">
                                         <label class="mb-1"> Transfer Order date</label>
-                                         <input type="date"  class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
+                                         <input type="date" [max]="maxDate" class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
                                     </div>
 
                                     <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
@@ -567,8 +567,8 @@
                                         <input type="text"  class="form-control form-control-sm" id="cancelorderno" formControlName="cancelTransferOrderNumber" >
                                     </div>
                                     <div class="col-md-6 mb-2">
-                                        <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order Number</label>
-                                        <input type="date"  class="form-control form-control-sm" formControlName="cancelTransferOrderdate" name="cancelTransferOrderdate" placeholder="Date">
+                                        <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order date</label>
+                                        <input type="date"  class="form-control form-control-sm" [max]="maxDate" formControlName="cancelTransferOrderdate" name="cancelTransferOrderdate" placeholder="Date">
                                     </div>
                                </div>
                                 <div class="p-3" style="text-align: center;">

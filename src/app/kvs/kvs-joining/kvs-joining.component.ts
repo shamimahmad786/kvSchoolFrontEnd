@@ -424,7 +424,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
     if(relivedate>joinDate){
       Swal.fire({
         'icon':'error',
-        'text':'Relieving date can not be greater than joining date.'
+        'text':' Relieving date should be after joining date.'
       }
       )
       return false;

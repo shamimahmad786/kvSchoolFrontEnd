@@ -192,7 +192,7 @@ export class WorkExperienceComponent implements OnInit {
         workExperienceId: data.workExperienceId,
         shiftType: data.shiftType,
         experienceType: experienceType,
-        groundForTransfer: parseInt(data.groundForTransfer),
+        groundForTransfer: data.groundForTransfer,
         currentlyActiveYn: data.currentlyActiveYn,
         shiftYn: data.shift_yn,
         buttonType:'update',
@@ -211,7 +211,7 @@ export class WorkExperienceComponent implements OnInit {
         experienceType: '',
         shiftType: '',
         buttonType:'save',
-        groundForTransfer: ["", [Validators.required]],
+        groundForTransfer: '',
         currentlyActiveYn: '',
         udiseSchoolName: ["", [Validators.required]],
         udiseSchCode: ["", [Validators.required]],
@@ -580,8 +580,26 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
     for (let i = 0; i < this.teacherForm.value.workExperienceForm.length; i++) {
       if (this.teacherForm.value.workExperienceForm[i].workEndDate == '' || this.teacherForm.value.workExperienceForm[i].workEndDate == null ) {
         this.teacherForm.value.workExperienceForm[i].currentlyActiveYn = '1';
+       if(this.teacherForm.value.workExperienceForm[i].groundForTransfer!='' && this.teacherForm.value.workExperienceForm[i].groundForTransfer!=null )
+        {
+          Swal.fire(
+            'Transfer Ground can be submited when to date is blank !',
+            '',
+            'error'
+          )
+          return false;
+        }
       } else {
         this.teacherForm.value.workExperienceForm[i].currentlyActiveYn = '0';
+        if(this.teacherForm.value.workExperienceForm[i].groundForTransfer=='' && this.teacherForm.value.workExperienceForm[i].groundForTransfer==null )
+        {
+          Swal.fire(
+            'Please fill transfer ground !',
+            '',
+            'error'
+          )
+          return false;
+        }
       }
     }
     for (let i = 0; i < this.teacherForm.value.workExperienceForm.length; i++) {

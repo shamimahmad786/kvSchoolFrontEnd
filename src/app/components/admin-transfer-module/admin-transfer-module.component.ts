@@ -14,6 +14,7 @@ import {
 } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MY_FORMATS } from 'src/app/teacherEntryForm/teacher-entry-form/teacher-entry-form.component';
+declare const srvTime: any;
 @Component({
   selector: 'app-admin-transfer-module',
   templateUrl: './admin-transfer-module.component.html',
@@ -98,6 +99,7 @@ export class AdminTransferModuleComponent implements OnInit {
   zoneList: any = [];
   employeeInstituteType: any;
   selecttedRegionName: any;
+  returnTypeSrvTime: any;
   selecttedRegionCode: any;
   selectStationCode: any;
   selectStationName: any;
@@ -108,9 +110,15 @@ export class AdminTransferModuleComponent implements OnInit {
   canclKvName: any;
   teacherDob: any;
   teacherEmail: any;
+  maxDate:any;
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
   ngOnInit(): void {
+    this.returnTypeSrvTime = srvTime();
+    var date = new Date(this.returnTypeSrvTime),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+    this.maxDate =  [date.getFullYear(), mnth, day].join("-");
     this.formDataList = this.formData.formData();
     this.transferGroundList = this.formDataList.transferGround
     console.log(this.formDataList)
@@ -195,6 +203,17 @@ export class AdminTransferModuleComponent implements OnInit {
  
 
    openModificationmodal(empCode:any,empName:any,presentKvName:any,presentKvCode:any,PresentStationName:any,PresentRegionName:any,teacherDob:any,teacherEmail:any){
+    this.modificationEditForm.patchValue({
+      modifyTransferRegion: '',
+      modifyTransferStation: '',
+      modifyTransferSchool: '',
+      modifyTransferGround: '',
+      modifyTransferZiet: '',
+      modifyTransferHeadquater: '',
+      ModifyTransferRegionZietHq: '',
+      transferOrderNumber: '',
+      transferOrderdate: '',
+  })
     this.kvRegionSchoolZietHqName='';
     this.presentKvName =presentKvName;
     this.presentKvCode = presentKvCode;

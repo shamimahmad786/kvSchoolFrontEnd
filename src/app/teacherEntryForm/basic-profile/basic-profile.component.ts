@@ -754,6 +754,7 @@ export class BasicProfileComponent implements OnInit {
     this.router.navigate(['/teacher/workExperience']);
   }
   submit(){
+    debugger
         var data={
           "teacherName":this.basicProfileForm.value.fullName,
           "teacherGender":this.basicProfileForm.value.gender,
