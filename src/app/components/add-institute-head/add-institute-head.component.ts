@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
@@ -114,7 +114,7 @@ export class AddInstituteHeadComponent implements OnInit {
     }
 
     this.outSideService.getregionSchool(data,this.loginUserNameForChild).subscribe(res => {
-      alert(JSON.stringify(res));
+     // alert(JSON.stringify(res));
     this.regionList=res
     console.log(res)
     },
@@ -129,6 +129,16 @@ export class AddInstituteHeadComponent implements OnInit {
       userName:'',
     })
   }
+
+  // @HostListener('input', ['$event'])
+  // onInput(event: Event) {
+  //   const inputElement = event.target as HTMLInputElement;
+  //   const inputValue = inputElement.value.replace(/\s/g, ''); 
+  //   inputElement.value = inputValue;
+  //   this.addInstituteForm.patchValue({ Mobile: inputValue }); 
+    
+
+  // }
   //***************** make User Name On Basis Of Station name*******************************************/
   getUserNameForInstitute(event:any){
 
