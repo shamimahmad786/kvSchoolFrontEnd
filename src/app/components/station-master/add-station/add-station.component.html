@@ -43,7 +43,7 @@
                                 <!-- <span class="help-block text-danger"
                                     *ngIf="!stationForm.get('stationName').valid && stationForm.get('stationName').touched">Please Enter Station Name !</span> -->
                                 <mat-error *ngIf="isSubmitted && errorHandling('stationName', 'required')">
-                                    Please Enter Station Code!
+                                    Please Enter Station Name!
                                 </mat-error>
                                 <mat-error *ngIf="isSubmitted && errorHandling('stationName', 'minlength')">
                                     Please Enter Minimum 3 characters word for Station Name!

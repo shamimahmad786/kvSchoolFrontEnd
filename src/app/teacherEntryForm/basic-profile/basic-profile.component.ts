@@ -10,6 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 import { TeacherAppPdfService } from 'src/app/kvs/makePdf/teacher-app-pdf.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
   MAT_DATE_FORMATS,
   DateAdapter,
@@ -91,7 +92,7 @@ export class BasicProfileComponent implements OnInit {
   profileFinalStatus: boolean = false;
   @ViewChild('Physically_Handicap_Certificate')Physically_Handicap_Certificate: ElementRef;
   @ViewChild('selectSpouseStationModal', { static: true }) selectSpouseStationModal: TemplateRef<any>;
-  constructor(private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
+  constructor(private _http:HttpClient,private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
   private modalService: NgbModal, private outSideService: OutsideServicesService,
   private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) {
   }
@@ -702,7 +703,7 @@ export class BasicProfileComponent implements OnInit {
           '',
           'success'
         )
-        this.documentUploadArray[index] = { "docName": res.response.docName, "url": res.response.url };
+        this.documentUploadArray[index] = { "docName": res.response.docName, "url": res.response.url};
 
        if (index == 4) {
           this.deleteDocUpdate4 = false
@@ -718,15 +719,21 @@ export class BasicProfileComponent implements OnInit {
     }
   }
   getDocumentByTeacherId() {
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
     this.outSideService.fetchUploadedDoc(this.emplyeeData['teacherId']).subscribe((res) => {
-      this.documentUploadArray = res;
       for (let i = 0; i < res.length; i++) {
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    if(JSON.stringify(res[i]) !="{}" && res[i]?.url !='undefined' && res[i]?.url.length>0){
+        res[i].url=res[i].url+"&docId="+token+"&username="+JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;;
+    }
         if (res[i].docName == 'Physically_Handicap_Certificate.pdf') {
           this.fileUpload = false;
         }   
       }
+      this.documentUploadArray = res;
     })
   }
+  
   deleteDocumentUploaded(documentName) {
     for (let i = 0; i < this.documentUploadArray.length; i++) {
       if (this.documentUploadArray[i].docName == documentName) {
@@ -827,4 +834,18 @@ export class BasicProfileComponent implements OnInit {
         return false;
         });
 }
+
+
+// downloadDocument(url) {
+// // event.preventDefault();
+// alert(url);
+
+
+
+// var link = document.createElement("a")
+// link.href = url
+// link.click();
+// // this._http.get<any>(, {headers});
+
+// }
 }
