@@ -33,7 +33,7 @@ export class AddSchoolComponent implements OnInit,OnDestroy{
       schoolAddress:['',[Validators.required]],
       status:[true,[Validators.required]],
       schoolType:[''],
-      shift:[true,[Validators.required]],
+      shift:['',[Validators.required]],
       id:['']
     });
   }

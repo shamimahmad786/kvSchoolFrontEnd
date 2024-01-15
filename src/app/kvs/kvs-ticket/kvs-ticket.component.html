@@ -54,10 +54,17 @@
                     {{element.ticketdateTime}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="InitiateTo">
-                <th mat-header-cell *matHeaderCellDef> Initiate To </th>
+           
+            <ng-container matColumnDef="InitiateFrom" *ngIf ="businessTypeId!='2'">
+                <th mat-header-cell *matHeaderCellDef> Initiate From </th>
                 <td mat-cell *matCellDef="let element">
-                    {{element.ticketToId}} </td>
+                    {{element.ticketFromId}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="InitiateFrom" *ngIf ="businessTypeId=='2'">
+                <th mat-header-cell *matHeaderCellDef> Initiate From </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.instituteCode}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Status">
@@ -240,11 +247,11 @@
                                         <div class="col-md-6">
                                             <h4 class="titleSet"> Assign To :</h4>
                                             <select  *ngIf ="businessTypeId!='2'" class="form-select" formControlName="assignTo" aria-label="Default select example">
-                                                <option selected>Select</option>
+                                                <option disabled selected>Select</option>
                                                 <option value="1">Head Quater</option>
                                               </select>
                                               <select  *ngIf ="businessTypeId=='2'" class="form-select" formControlName="assignTo" aria-label="Default select example">
-                                                <option selected>Select</option>
+                                                <option disabled selected>Select</option>
                                                 <option value="{{ticketDetails?.instituteCode}}">School</option>
                                               </select>
                                         </div>

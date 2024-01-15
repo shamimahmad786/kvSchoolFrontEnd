@@ -18,7 +18,7 @@
                         <div class="row">
                             <div class="col-md-4 my-2 form-group">
                                 <label class="titleSet">Select Region</label>
-                                <ng-multiselect-dropdown [placeholder]="'Select Region'" [settings]="dropdownRegionSettings" [data]="dropdownRegionList" [(ngModel)]="selectedRegionItems" formControlName="regionCode">
+                                <ng-multiselect-dropdown [placeholder]="'Select Region'"  [settings]="dropdownRegionSettings" [data]="dropdownRegionList" [(ngModel)]="selectedRegionItems" formControlName="regionCode">
                                 </ng-multiselect-dropdown>
                                 <span class="help-block text-danger" *ngIf="!regionMForm.get('regionCode').valid && regionMForm.get('regionCode').touched">Please Enter Region!</span>
                             </div>

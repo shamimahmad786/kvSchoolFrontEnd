@@ -48,9 +48,9 @@ export class KvsTicketComponent implements OnInit {
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal) { }
   dataSource:any;
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
-  displayedColumns:any = ['sno','ticketId','subject','InitiateDate','InitiateTo','Status','resolvedBy','Action'];
+  displayedColumns:any = ['sno','ticketId','subject','InitiateDate','InitiateFrom','Status','resolvedBy','Action'];
 
-  testData ={ "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "", "ticketToId": "","ticketStatus":"","ticketResolvedBy":"" };
+  testData ={ "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFromId":"", "ticketToId": "","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;      
   @ViewChild('PreviewBox', { static: true }) PreviewBox: TemplateRef<any>;
@@ -108,7 +108,11 @@ export class KvsTicketComponent implements OnInit {
             this.testData.ticketId = res[i].ticketId;   
             this.testData.ticketSubject = res[i].ticketSubject;
             this.testData.ticketdateTime = res[i].ticketdateTime;
-            this.testData.ticketToId = res[i].ticketToId;    
+            this.testData.ticketToId = res[i].ticketToId;  
+            
+            this.testData.ticketFromId = res[i].ticketFromId;   
+            this.testData.instituteCode = res[i].instituteCode;
+
             if(res[i].ticketStatus==0 || res[i].ticketStatus=='0'){
               this.testData.ticketStatus='In Process';
             }else if(res[i].ticketStatus=='1' || res[i].ticketStatus==1){
@@ -119,7 +123,7 @@ export class KvsTicketComponent implements OnInit {
             }
             this.testData.ticketResolvedBy = res[i].ticketResolvedBy;    
             this.ticketList.push(this.testData);
-            this.testData = { "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "", "ticketToId": "","ticketStatus":"","ticketResolvedBy":"" };
+            this.testData = { "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFromId":"", "ticketToId": "","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
           }
         console.log(this.ticketList)
       }

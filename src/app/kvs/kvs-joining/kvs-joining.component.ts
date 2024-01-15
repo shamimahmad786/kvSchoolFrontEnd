@@ -462,7 +462,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
           if( this.flagUpdatedList =='0')
           {
            Swal.fire({
-             'icon':'success',
+             'icon':'info',
              'text':res['response']['message']
            }
            )
