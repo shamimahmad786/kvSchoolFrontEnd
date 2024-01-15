@@ -7,6 +7,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
     debugger
+    // alert(req.url);
      var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
      if(req.url.indexOf('api') !== -1){
     if (JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined && JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined) {
