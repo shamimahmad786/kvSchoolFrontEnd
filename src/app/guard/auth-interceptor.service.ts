@@ -2,6 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
+var md5 = require('md5');
 
 export class AuthInterceptorService implements HttpInterceptor {
 
@@ -9,6 +10,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     debugger
     // alert(req.url);
      var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+     
      if(req.url.indexOf('api') !== -1){
     if (JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined && JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined) {
         let modifiedReq     
@@ -21,11 +23,13 @@ export class AuthInterceptorService implements HttpInterceptor {
                     }
                 });
         }    else{
+             var x_headers=md5(JSON.stringify(req.body));
              modifiedReq = req.clone(
                 {
                     setHeaders: {
                         'Content-Type': (req.url.indexOf('unee-api/v1') !==-1)?'application/json; charset=utf-8':'text/plain; charset=utf-8',
                         'loginType':'s',
+                        'X-HEADERS':x_headers,
                         // 'systemTeacherCode':sessionStorage.systemTeacherCode,
                         'Authorization': token,
                      'username': JSON.parse(sessionStorage.getItem('authTeacherDetails')).user_name

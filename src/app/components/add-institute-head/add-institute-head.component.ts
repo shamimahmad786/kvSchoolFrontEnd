@@ -112,9 +112,7 @@ export class AddInstituteHeadComponent implements OnInit {
       "regionCode":this.businessUnitTypeCode,
       "schoolType":this.schoolType
     }
-
     this.outSideService.getregionSchool(data,this.loginUserNameForChild).subscribe(res => {
-     // alert(JSON.stringify(res));
     this.regionList=res
     console.log(res)
     },

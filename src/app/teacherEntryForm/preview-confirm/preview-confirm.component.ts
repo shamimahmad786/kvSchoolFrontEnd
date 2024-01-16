@@ -32,6 +32,8 @@ export class PreviewConfirmComponent implements OnInit {
   schoolDetails:any;
   verifyTchTeacherTraining: any;
   profileTeacherName: any;
+  kvNameCode:any;
+  stationNameCode:any;
   profileFinalStatus: boolean = false;
   constructor(private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
@@ -66,7 +68,8 @@ export class PreviewConfirmComponent implements OnInit {
   teacherPdf() {
     // this.onVerifyClick();
     // setTimeout(() => {
-    //   this.pdfServive.testFnc(this.verifyTchTeacherProfileData this.verifyTchTeacherWorkExp, this.teacherStationChioce);
+    //   this.pdfServive.exportToPdf(this.verifyTchTeacherProfileData, this.kvNameCode, this.stationNameCode, 
+    //     this.verifyTchTeacherWorkExp);
     // }, 1000);
 
   }
@@ -90,6 +93,7 @@ export class PreviewConfirmComponent implements OnInit {
   })
   }
   onVerifyClick() {
+    debugger
     this.outSideService.getUpdatedFlag(this.tempTeacherId).subscribe((res) => {
       this.flagUpdatedList = res.response
     }, error => {
@@ -97,6 +101,8 @@ export class PreviewConfirmComponent implements OnInit {
     this.outSideService.fetchConfirmedTchDetails(this.tempTeacherId).subscribe((res) => {
     this.verifyTchTeacherProfileData = res.response.teacherProfile;
     this.schoolDetails = res.response.schoolDetails;
+    this.kvNameCode = this.schoolDetails.kvName+' '+this.schoolDetails.kvCode;
+    this.stationNameCode= this.schoolDetails.stationName+' '+this.schoolDetails.stationCode;
     this.verifyTchTeacherTraining = res.response.training;
   
       for (let i = 0; i < res.response.experience.length; i++) {

@@ -27,6 +27,7 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'YYYY',
   },
 };
+declare const srvTime: any;
 @Component({
   selector: 'app-work-experience',
   templateUrl: './work-experience.component.html',
@@ -77,6 +78,8 @@ export class WorkExperienceComponent implements OnInit {
   spouseTypeData: any;
   spouseTypeDataNameCode: any;
   formDataList: any;
+  returnTypeSrvTime: any;
+  maxDate:any;
   profileFinalStatus: boolean = false;
   @ViewChild('selectSchoolModal', { static: true }) selectSchoolModal: TemplateRef<any>;
   transferGroundList: any;
@@ -86,6 +89,11 @@ export class WorkExperienceComponent implements OnInit {
     private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) {
     }
   ngOnInit(): void {
+    this.returnTypeSrvTime = srvTime();
+    var date = new Date(this.returnTypeSrvTime),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+    this.maxDate =  [date.getFullYear(), mnth, day].join("-");
     this.applicationId = environment.applicationId;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
@@ -415,7 +423,6 @@ export class WorkExperienceComponent implements OnInit {
   }
   experienceDataManagement(event, index,type) {
     ((this.teacherForm.get('workExperienceForm') as FormArray).at(0) as FormGroup).get('workStartDate');
-    debugger
     for (let i = 0; i < this.teacherForm.value.workExperienceForm.length - 1; i++) {
       var dateFrom = this.teacherForm.value.workExperienceForm[i].workStartDate;
       var dateTo = this.teacherForm.value.workExperienceForm[i].workEndDate;
@@ -433,16 +440,15 @@ export class WorkExperienceComponent implements OnInit {
         returnType = this.dateCheck(dateFrom, dateTo, dateCheck,type);
       }
       if (returnType == 0) {
+        debugger
         Swal.fire(
           'Date lies between previous experience !',
           '',
           'error'
         );
         setTimeout(() => {
-          (<HTMLInputElement>document.getElementById("wordStartDate-" + index)).value = "";
-          (<HTMLInputElement>document.getElementById("wordEndDate-" + index)).value = "";
-          this.teacherForm.value.workExperienceForm[index].workStartDate = "";
-          this.teacherForm.value.workExperienceForm[index].workEndDate = "";
+          ((this.teacherForm.get('workExperienceForm') as FormArray).at(index) as FormGroup).get('workStartDate').patchValue('');
+          ((this.teacherForm.get('workExperienceForm') as FormArray).at(index) as FormGroup).get('workEndDate').patchValue('');
         }, 200);
       }
     }
@@ -591,7 +597,7 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
         }
       } else {
         this.teacherForm.value.workExperienceForm[i].currentlyActiveYn = '0';
-        if(this.teacherForm.value.workExperienceForm[i].groundForTransfer=='' && this.teacherForm.value.workExperienceForm[i].groundForTransfer==null )
+        if(this.teacherForm.value.workExperienceForm[i].groundForTransfer=='' || this.teacherForm.value.workExperienceForm[i].groundForTransfer==null )
         {
           Swal.fire(
             'Please fill transfer ground !',
@@ -625,6 +631,7 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
       "workExperienceId":this.workExperienceArray['0']['workExperienceId'],
       "experienceType":this.workExperienceArray['0']['experienceType']
       }
+    
       if (this.teacherForm.controls.workExperienceForm.status == 'VALID') {
         Swal.fire({
           'icon':'warning',
