@@ -354,24 +354,32 @@ export class BasicProfileComponent implements OnInit {
 
 
   getSchoolDetailsByKvCode() {
-    this.outSideService.fetchKvSchoolDetails(this.kvCode).subscribe((res) => {
-      this.kvSchoolDetails = res.response;
-      console.log("kv details")
-      console.log(this.kvSchoolDetails)
-      for (let i = 0; i < this.kvSchoolDetails.rowValue.length; i++) {
-        this.stationNameCode = this.kvSchoolDetails.rowValue[i].station_name;
-        this.stationNameCode = this.stationNameCode + "(" + this.kvSchoolDetails.rowValue[i].station_code + ")";
-        this.stationCode = this.kvSchoolDetails.rowValue[i].station_code
-
-        this.kvNameCode = this.kvSchoolDetails.rowValue[i].kv_name;
-        this.kvNameCode = this.kvNameCode + "(" + this.kvSchoolDetails.rowValue[i].kv_code + ")";
-
-        this.udiseSchCode = this.kvSchoolDetails.rowValue[i].udise_sch_code;
-        this.schName = this.kvSchoolDetails.rowValue[i].kv_name;
-        this.stationName = this.kvSchoolDetails.rowValue[i].station_name;
-      }
-    })
-    
+    setTimeout(() => {
+      this.outSideService.fetchKvSchoolDetails(this.kvCode).subscribe((res) => {
+        this.kvSchoolDetails = res.response;
+        console.log("kv details")
+        console.log(this.kvSchoolDetails)
+        for (let i = 0; i < this.kvSchoolDetails.rowValue.length; i++) {
+          this.stationNameCode = this.kvSchoolDetails.rowValue[i].station_name;
+          this.stationNameCode = this.stationNameCode + "(" + this.kvSchoolDetails.rowValue[i].station_code + ")";
+          this.stationCode = this.kvSchoolDetails.rowValue[i].station_code
+  
+          this.kvNameCode = this.kvSchoolDetails.rowValue[i].kv_name;
+          this.kvNameCode = this.kvNameCode + "(" + this.kvSchoolDetails.rowValue[i].kv_code + ")";
+  
+          this.udiseSchCode = this.kvSchoolDetails.rowValue[i].udise_sch_code;
+          this.schName = this.kvSchoolDetails.rowValue[i].kv_name;
+          this.stationName = this.kvSchoolDetails.rowValue[i].station_name;
+        }
+      },
+      error => {
+        Swal.fire({
+          'icon':'error',
+          'text':error.error
+        }
+        )
+      })
+    }, 200); 
   }
     getAllMaster() {
     this.outSideService.fetchAllMaster(6).subscribe((res) => {
