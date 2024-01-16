@@ -86,9 +86,9 @@
                             <ng-container matColumnDef="action">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                                 <mat-cell *matCellDef="let row" [style.color]="row.color" class="IconBx"> <span class="mobile-label">Action : </span>
-                                    <i class='bx bx-edit-alt bxStyle1 mr-2 edit-btn small-buton' title="Edit" (click)="onViewClick(row.empcode)">{{row.a}} </i>
+                                    <i class='bx bx-edit-alt bxStyle1 mr-2 edit-btn small-buton' title="Edit" (click)="onViewClick(row.empcode)">{{row.a}}</i>
 
-                                    <i class="fa fa-unlock-alt reset-btn small-buton" title="Reset" aria-hidden="true"></i>
+                                    <i class="fa fa-unlock-alt reset-btn small-buton" title="Reset" aria-hidden="true" style="cursor: pointer;" (click)="onResetClick(row.teacherId)"></i>
 
                                 </mat-cell>
                             </ng-container>

@@ -6,6 +6,7 @@ img {
     width: auto;
     height: auto;
     max-width: 100%;
+    cursor: pointer;
 }
 
 @font-face {
@@ -98,6 +99,7 @@ img {
     width: auto;
     height: auto;
     max-width: 100%;
+    /* cursor: pointer; */
 }
 
 .login-wrap {
