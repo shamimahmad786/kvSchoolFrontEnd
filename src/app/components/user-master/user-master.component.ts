@@ -151,14 +151,14 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
         {
         Swal.fire({
           'icon':'success',
-          'text':'User('+userName+')'+' deactivated succesfully'
+          'text':'User('+userName+')'+' deactivated successfully'
         })
       }
       if(action=='1')
       {
       Swal.fire({
         'icon':'success',
-        'text':'User('+userName+')'+' activated succesfully'
+        'text':'User('+userName+')'+' activated successfully'
       })
     }
       }
