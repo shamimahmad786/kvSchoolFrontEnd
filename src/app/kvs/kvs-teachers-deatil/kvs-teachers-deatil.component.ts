@@ -287,6 +287,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       this.testData.systchcode = data[i].teacherSystemGeneratedCode;   
       this.testData.approved = data[i].finalStatus;   
       this.testData.profileFinalStatus = data[i].profileFinalStatus;
+      
       if( data[i].finalStatus=='SI')
       {
         this.testData.approvedStatus = "School Initiated"
