@@ -21,7 +21,7 @@
                                 <div class="col-sm-3">
 
                                     <select class="form-select" aria-label="Default select example" name="instituteType" formControlName="instituteType" (change)="getStationByRegionId($event)" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.instituteType.errors }">
-                        <option selected >Select Institute Type</option>
+                        <!-- <option selected >Select Institute Type</option> -->
                         <option *ngFor="let data of instituteType"
                         value="{{data.value}}">{{data.name}}</option>
                     </select>
