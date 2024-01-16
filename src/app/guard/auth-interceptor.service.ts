@@ -23,7 +23,12 @@ export class AuthInterceptorService implements HttpInterceptor {
                     }
                 });
         }    else{
-             var x_headers=md5(JSON.stringify(req.body));
+            if(typeof(req.body) =="object"){
+                var x_headers=md5(JSON.stringify(req.body));
+            }else{
+                var x_headers=md5(req.body);  
+            }
+             
              modifiedReq = req.clone(
                 {
                     setHeaders: {
