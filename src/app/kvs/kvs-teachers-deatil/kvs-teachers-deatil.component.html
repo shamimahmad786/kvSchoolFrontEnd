@@ -5,7 +5,7 @@
     <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a>Home</a></li>
-            <li class="breadcrumb-item"><a>Employee Deatils</a></li>
+            <li class="breadcrumb-item"><a>Employee Details</a></li>
         </ol>
     </nav>
     <div class="dashboard-main-content-info">
@@ -44,7 +44,7 @@
                     </div>
                     <!-------------------------Data Show in  table Start here--------------------------------->
                     <div class="example-container mat-elevation-z8 " id="style-2">
-                        <mat-table [dataSource]="dataSource" matSort>
+                        <table mat-table [dataSource]="dataSource" matSort>
                             <ng-container matColumnDef="sno">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
                                 <mat-cell *matCellDef="let row"><span class="mobile-label">S.No. : </span> {{row.sno}} </mat-cell>
@@ -96,7 +96,7 @@
                             <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
                             <mat-row *matRowDef="let row; columns: displayedColumns;">
                             </mat-row>
-                        </mat-table>
+                        </table>
                         <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
                     </div>
 
