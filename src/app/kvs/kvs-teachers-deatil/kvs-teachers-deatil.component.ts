@@ -53,7 +53,8 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   subjectListNameCode: any;
   subjectCodeNameV: any = null;
   dropboxIndex: any;
-
+  employeedeatails: any = [];
+  selectTransferType:any
   profileFormShow: boolean = false;
   disabilityFormShow: boolean = false;
   informationFormShow: boolean = false;
@@ -186,9 +187,9 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   }
 
   applyFilterOnSelect(filterValueSelect: string) {
-    filterValueSelect = filterValueSelect.trim(); // Remove whitespace
-    filterValueSelect = filterValueSelect.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValueSelect;
+  console.log(filterValueSelect)
+  this.selectTransferType=filterValueSelect;
+  this.getKvTeacherByUdiseCode();
   }
 
   getKvTeacherByKvCode() {
@@ -255,6 +256,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
     }
   
   getKvTeacherByUdiseCode() {
+   this.employeedeatails=[];
     if (this.businessUnitTypeId != '2' && this.businessUnitTypeId != '3' && this.businessUnitTypeId != '4') {
       // this.udiseSchoolCode = JSON.parse(sessionStorage.getItem("mappingData")).mappingData[0].udise_sch_code;
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_code;
@@ -264,7 +266,19 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       console.log(res.response)
       this.teacherList = [];
       this.teacherList = res.response;
-      this.setToMatTable(res.response);
+      debugger
+      if( this.selectTransferType=='1' || this.selectTransferType=='2'){
+        for(var i=0;i<this.teacherList.length;i++){
+          if(this.teacherList[i]['teachingNonteaching']==this.selectTransferType)
+          {
+            this.employeedeatails.push(this.teacherList[i]);
+          }
+      }
+      this.setToMatTable( this.employeedeatails);
+      }else{
+        this.setToMatTable(res.response);
+      }
+     
     })
   }
 
@@ -287,7 +301,6 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       this.testData.systchcode = data[i].teacherSystemGeneratedCode;   
       this.testData.approved = data[i].finalStatus;   
       this.testData.profileFinalStatus = data[i].profileFinalStatus;
-      
       if( data[i].finalStatus=='SI')
       {
         this.testData.approvedStatus = "School Initiated"

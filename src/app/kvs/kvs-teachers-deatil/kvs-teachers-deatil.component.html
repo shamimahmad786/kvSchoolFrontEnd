@@ -13,24 +13,23 @@
             <div class="col-lg-12">
                 <div *ngIf="nationalLogin">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
 
                             <mat-form-field appearance="outline" class="searchInput me-4">
                                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
                                 <mat-icon matSuffix></mat-icon>
                             </mat-form-field>
-
-                            <mat-form-field appearance="outline">
-                                <mat-label>Select Filter</mat-label>
-                                <mat-select (selectionChange)="applyFilterOnSelect($event.value)">
-                                    <mat-option value="Teaching">Teaching</mat-option>
-                                    <mat-option value="Non-Teaching">Non-Teaching</mat-option>
-                                    <!-- <mat-option value="NA">NA</mat-option> -->
-                                </mat-select>
-                            </mat-form-field>
-
                         </div>
 
+                        <div class="col-md-3">
+
+                        <label class="titleSet">Select Staff Type</label>
+                        <mat-select    class="form-control" (selectionChange)="applyFilterOnSelect($event.value)" [(ngModel)]="selectTransferType" >
+                            <mat-option value="">Select Staff Type</mat-option>
+                            <mat-option value="1">Teaching</mat-option>
+                            <mat-option value="2">Non-Teaching</mat-option>
+                        </mat-select>
+                        </div>
                         <div class="col-md-6">
                             <div class="d-flex flex-row-reverse bd-highlight ">
                                 <div class="p-1">

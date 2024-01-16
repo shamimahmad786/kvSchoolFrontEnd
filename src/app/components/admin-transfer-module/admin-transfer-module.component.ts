@@ -95,7 +95,7 @@ export class AdminTransferModuleComponent implements OnInit {
   editAllotedModifydob: any;
   editAllotedModifyJoindate: any;
   editAllotedModifyrelivedate: any;
-  headQuaterList: any = [];
+  headQuaterList: any = [];   
   zoneList: any = [];
   employeeInstituteType: any;
   selecttedRegionName: any;
@@ -171,7 +171,9 @@ export class AdminTransferModuleComponent implements OnInit {
     this.userMappingSource.filter = filterValue;
     this.totalLength = this.userMappingSource.filteredData.length;
   }
-
+  disableDate() { 
+    return false; 
+} 
 
   //********************** Function Use for Admin Transfer Modal*****************************
   openTransfermodal(empName:any,empCode:any,email:any,kvCode:any,dob:any,presentKvName:any,presentKvCode:any,PresentStationName:any,PresentRegionName:any) {

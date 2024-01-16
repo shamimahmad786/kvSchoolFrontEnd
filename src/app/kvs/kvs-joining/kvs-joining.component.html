@@ -238,7 +238,7 @@
                                           
                                             <div class="col-md-6" *ngIf="showJoingDate=='TRUE'">
                                                 <h4 class="titleSet"> Employee Joining Date :</h4>
-                                                <input type="date" [max]="maxDate" class="form-control form-control-sm" formControlName="JoiningDate" name="JoiningDate" placeholder="JoiningDate">
+                                                <input type="date" [max]="maxDate" (keydown)="disableDate()" class="form-control form-control-sm" formControlName="JoiningDate" name="JoiningDate" placeholder="JoiningDate">
                                             </div>
                                         </div>
                                         <div class="p-3" style="text-align: right;">
@@ -295,7 +295,7 @@
 
                                             <div class="col-md-6">
                                                 <h4 class="titleSet"> Employee Relieving Date :</h4>
-                                                <input type="date" [max]="maxDate" class="form-control form-control-sm" formControlName="relievingDate" name="relievingDate" placeholder="relievingDate">
+                                                <input type="date" [max]="maxDate" class="form-control form-control-sm" (keydown)="disableDate()" formControlName="relievingDate" name="relievingDate" placeholder="relievingDate">
                                             </div>
                                         </div>
                                         <div class="p-3" style="text-align: right;">

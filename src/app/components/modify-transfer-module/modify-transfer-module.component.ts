@@ -542,6 +542,9 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.transferGroundValue=res['response']
   })
 }
+disableDate() { 
+  return false; 
+} 
   getStationByHqId(id: any) {
       this.kvRegionSchoolZietHqName = '';
       this.selecttedRegionName='';
