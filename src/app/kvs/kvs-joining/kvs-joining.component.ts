@@ -261,7 +261,9 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
       this.sBSource.sort = this.sBSort;
     }, 100)
   }
- 
+  disableDate() { 
+    return false; 
+ } 
   //********************** Function Use for Open Joing Modal *****************************
     openJoiningmodal(joinId:any,emplCode:any,fromKvCode:any,name:any,transferType:any,allotedKvCode:any,reliveDate:any) {
         this.teacherName=name;

@@ -887,6 +887,21 @@ resetPassword(data){
   // return this._http.post<any>('https://kvsdemo.udiseplus.gov.in/UserService/api/user/resetPassword', data);
 }
 
+resetTeacherById(data){
+  
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+    'Content-Type': 'text/plain; charset=utf-8',
+  }); 
+  // return this._http.post<any>('http://10.25.26.251:8090/meuser/api/user/', data);
+  
+  return this._http.post<any>(environment.BASE_URL_DATA_TEACHER+"resetProfileV2" , data,{headers});
+
+  // return this._http.post<any>('https://pgi.udiseplus.gov.in/UserService/api/user/resetPassword', data);
+  // return this._http.post<any>('https://kvsdemo.udiseplus.gov.in/UserService/api/user/resetPassword', data);
+}
+
 
 getUniversalSurplus(data){
 

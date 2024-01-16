@@ -8,7 +8,7 @@
         <div class="accordion-item">
             <div class="accordion-header m-0">
                 <button class="accordion-button aa" routerLinkActive="" routerLink="/teacher/regionDashboard" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <i class="bi bi-eye me-2"></i> Dashboard
+       <img src="assets/images/speedometer.png" class="me-2"> Dashboard
       </button>
             </div>
             <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
@@ -25,13 +25,13 @@
             <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             </div>
         </div> -->
-
+   
 
 
         <div class="accordion-item">
             <div class="accordion-header m-0">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        <i class="bi bi-pencil me-2"></i> User Management
+       <img src="assets/images/management.png" class="me-2"> User Management
       </button>
             </div>
             <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -49,7 +49,7 @@
         <div class="accordion-item">
             <div class="accordion-header m-0">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-        <i class="bi bi-pencil me-2"></i> Transfer Management
+                    <img src="assets/images/transfer.png" class="me-2">Transfer Management
       </button>
             </div>
             <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -66,12 +66,12 @@
                 </div>
             </div>
         </div>
-
+        
       
         <div class="accordion-item" *ngIf="showNational">
             <div class="accordion-header m-0">
                 <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        <i class="bi bi-book me-2"></i>Master
+                    <img src="assets/images/open-book.png" class="me-2">Master
       </button>
             </div>
             <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -88,10 +88,12 @@
                 </div>
             </div>
         </div>
+        
+
         <div class="accordion-item">
             <div class="accordion-header m-0">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-        <i class="bi bi-person-video3 me-2"></i>Mapping
+                    <img src="assets/images/social-networks.png" class="me-2">Mapping
       </button>
             </div>
             <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -111,7 +113,7 @@
         <div class="accordion-item">
             <div class="accordion-header m-0">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFour">
-        <i class="bi bi-person-video3 me-2"></i>Reports
+                    <img src="assets/images/report.png" class="me-2">Reports
       </button>
             </div>
             <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -120,13 +122,12 @@
                         <li><a routerLinkActive="active" routerLink="/teacher/regionWiseSchool"><i class="bi bi-dot"></i>Region Wise School</a></li>
                         <li><a routerLinkActive="active" routerLink="/teacher/stationWiseSchool"><i class="bi bi-dot"></i>Region and Station Wise School</a></li>
                         <li><a routerLinkActive="active" routerLink="/teacher/regionWiseStationDetail"><i class="bi bi-dot"></i>Region Wise Station Detail</a></li>
-                        <!-- <li><a routerLinkActive="active" routerLink="/teacher/schoolDetail"><i class="bi bi-dot"></i>School Detail</a></li> -->
                     </ul>
                 </div>
             </div>
         </div>
         <ul class="list" >
-            <li><a routerLinkActive="active" routerLink="/teacher/kvsTicket"><i class="bi bi-ticket-detailed me-2"></i>Ticket </a></li>
+            <li><a routerLinkActive="active" routerLink="/teacher/kvsTicket"> <img src="assets/images/coupon.png" class="me-2">Ticket </a></li>
         </ul>
     </div>
 
@@ -134,17 +135,17 @@
     
     <!------------------Show School bussines id 5--------------------------------------------------------->
     <ul class="list" *ngIf="showSchool">
-        <li><a routerLinkActive="active" routerLink="/teacher/profile"><i class="bi bi-eye me-2"></i>Dashboard</a></li>
+        <li><a routerLinkActive="active" routerLink="/teacher/profile"><img src="assets/images/speedometer.png" class="me-2">Dashboard</a></li>
         <li>
-            <a routerLinkActive="active" routerLink="/teacher/userMaster"> <i class="bi bi-pencil-square me-2"></i>User Management</a>
+            <a routerLinkActive="active" routerLink="/teacher/userMaster"><img src="assets/images/management.png" class="me-2">User Management</a>
         </li>
         <li>
-            <a routerLinkActive="active" routerLink="/teacher/kvsTchDetails"> <i class="bi bi-file-text me-2"></i>Employee Details</a>
+            <a routerLinkActive="active" routerLink="/teacher/kvsTchDetails"> <img src="assets/images/info.png" class="me-2">Employee Details</a>
         </li>
 
-        <li><a routerLinkActive="active" routerLink="/teacher/employeeJoining"><i class="fa fa-exchange me-2"></i>Relieving-Joining </a></li>
+        <li><a routerLinkActive="active" routerLink="/teacher/employeeJoining"><img src="assets/images/transfer.png" class="me-2">Relieving-Joining </a></li>
        
-        <li><a routerLinkActive="active" routerLink="/teacher/kvsTicket"><i class="bi bi-ticket-detailed me-2"></i>Ticket </a></li>
+        <li><a routerLinkActive="active" routerLink="/teacher/kvsTicket"><img src="assets/images/coupon.png" class="me-2">Ticket </a></li>
        
     </ul>
 
