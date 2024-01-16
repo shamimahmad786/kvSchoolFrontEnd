@@ -73,6 +73,7 @@
 
                                     <input type="text" class="form-control" onKeyPress="if(this.value.length==10 ) return false;" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile no  is required</div>
+                                   
                                 </div>
                             </div>
                             <div class="text-center my-2 "><button class="insitute-svae-button">Save</button></div>
@@ -106,6 +107,7 @@
 
                                     <input type="text" class="form-control" onKeyPress="if(this.value.length==10) return false;" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile is required</div>
+                                    <!-- <div *ngIf="f.Mobile.hasError('whitespace')">Mobile number cannot contain only whitespace.</div> -->
                                 </div>
                             </div>
                             <div class="text-center my-2 "><button class="insitute-svae-button">Save</button></div>
