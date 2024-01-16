@@ -1,5 +1,5 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
@@ -39,7 +39,7 @@ export class AddInstituteHeadComponent implements OnInit {
       this.addInstituteForm = new FormGroup({
         'userName': new FormControl('', Validators.required),
         'firstname': new FormControl('', Validators.required),
-        'Email': new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9_%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+        'Email': new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
         'Mobile': new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("[8976][0-9]{9}")]),
       });
     }
@@ -130,15 +130,8 @@ export class AddInstituteHeadComponent implements OnInit {
     })
   }
 
-  // @HostListener('input', ['$event'])
-  // onInput(event: Event) {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   const inputValue = inputElement.value.replace(/\s/g, ''); 
-  //   inputElement.value = inputValue;
-  //   this.addInstituteForm.patchValue({ Mobile: inputValue }); 
-    
 
-  // }
+
   //***************** make User Name On Basis Of Station name*******************************************/
   getUserNameForInstitute(event:any){
 
@@ -250,3 +243,5 @@ export class AddInstituteHeadComponent implements OnInit {
   }
   }
 }
+
+
