@@ -564,6 +564,45 @@ debugger;
       }
     }
   }
+  onResetClick(teacherId) {
+    Swal.fire({
+      'icon':'warning',
+      'text': 'Are you sure you want to reset',
+        'allowEscapeKey': false,
+        'allowOutsideClick': false,
+        'showCancelButton': true,
+        'confirmButtonColor': "#DD6B55",
+        'confirmButtonText': "Yes",
+        'cancelButtonText': "No",
+        'showLoaderOnConfirm': true,
+    }).then((isConfirm) => {
+      if (isConfirm.value === true) {
+        const data={"teacherId":teacherId};
+        this.outSideService.resetTeacherById(data).subscribe((res) => {
+          if(res) {
+            Swal.fire(
+              'Status has been reset successfully!',
+              '',
+              'success'
+            ) 
+          }
+          //this.router.navigate(['/teacher/kvsTchDetails']);
+        },
+        error => {
+          Swal.fire({
+            'icon':'error',
+            'text':error.error
+          }
+          )
+        }
+        )
+      } 
+      return false;
+
+    });
+ 
+  }
+
   resetPassword(empCode){
     debugger
     this.outSideService.resetPassword(empCode).subscribe((res)=>{
