@@ -72,7 +72,7 @@ img {
     background-color: #632765;
     border-radius: 0px 0px 10px 0px;
     width: 320px;
-    z-index: 100;
+    z-index: 999;
     position: relative;
     position: absolute;
     top: 0;
@@ -177,6 +177,7 @@ img {
 
 .login-form .form-control {
     border: none;
+    background-color: inherit;
     border-bottom: solid 1px #717171;
     border-radius: 0;
     padding-bottom: 10px;
@@ -229,6 +230,7 @@ img {
     background: #37338a;
     border-color: #37338a;
     font-size: 16px;
+    width: 100%;
 }
 
 .login-cnt a {
@@ -260,11 +262,14 @@ img {
 
 /*****************************/
 
-.searchInput .mat-form-field-infix{width: 300px !important;}
+/*.searchInput .mat-form-field-infix{width: 300px !important;} */
+.mat-form-field-appearance-outline .mat-form-field-wrapper{margin: 0 !important;}
+.mat-form-field-appearance-outline .mat-form-field-infix{padding: 5px 0 10px !important;}
 
  th.mat-header-cell{background-color:#E5EEFF ; color: #353535 !important; font-weight: 600 !important; font-size: 15px; font-family: 'PoppinsRegular';}
  
  .example-container {padding: 0;}
+
 
 @media (max-width:1600px) {
     .login-bg h2 {
@@ -501,7 +506,7 @@ body {
     .accordion-body li { font-family: 'PoppinsMedium'; margin:0 0 3px; list-style: none; position: relative;}
     
     .accordion-body li a {color: #fff; padding:7px 10px 7px 25px; display: block; }
-    .accordion-body li a i {font-size: 30px; position: absolute; left: 0px; top: -5px;}
+    .accordion-body li a i {font-size: 30px; position: absolute; left: 0px; top: 3px;}
     .accordion-body li a:hover, .accordion-body li.active a{background-color: #804E82; border-radius: 4px;} 
     .dashboard--img {
       padding-right: 18px;
@@ -659,7 +664,7 @@ body {
       box-shadow: 0 3px 6px #272d3b1c;
     }
     
-    .dashboard-footer { background-color:#D0D0D0; padding:20px 30px 20px 30px;}
+    .dashboard-footer { /*background-color:#D0D0D0;*/ padding:20px 30px 20px 30px;}
     .font-size-16{font-size: 16px !important;}
     .dashboard-footer p { margin-bottom: 0 !important; font-size: 13px; color: #061045;}
     
@@ -860,6 +865,12 @@ body {
       }
     }
 
+    
+    @media screen and (max-width:991px) {
+      .searchInput .mat-form-field-infix{width: 230px !important;}
+    }
+  
+
     @media screen and (max-width: 767px) {
 
       .dashboard-header--image {text-align: center;}
@@ -867,6 +878,12 @@ body {
       .header-top .left-list li a{font-size: 12px;}
       .header-top {padding: 4px 30px 5px 30px; font-size: 12px; font-weight: 300;}
       .dashboard-main-content__header h1{font-size: 20px;}
+      .mobile-buttons {flex-direction:row !important; margin-bottom: 20px; margin-top: -19px;}
+      .searchInput .mat-form-field-infix{width: 100% !important;}
+      h3.TotalTeachingStaff {font-size: 14px !important;}
+      .stationUL li{ margin: 0; padding: 0 5px !important; font-size: 14px; display: block;}
+      .TolTeacherValue {font-size: 14px !important;}
+      .Verified, .mat-typography h2 {font-size: 14px !important; }
     }
 
  
@@ -874,13 +891,16 @@ body {
     @media screen and (max-width: 575px) {
       .profile-info .col-sm-9{padding: 0;}
       .dashboard-main-content {padding: 20px;}
-      .mobile-buttons{display: block !important; margin-bottom: 20px; margin-top: -19px;  float: left; width: 100%;}
-      .searchInput .mat-form-field-infix{width: 100% !important;}
+      .mobile-buttons{display: block !important;   float: left; width: 100%; text-align: center;}
       .mat-form-field{display: block !important;}
       .mobile-buttons .mat-raised-button  {display: block !important; width: 100%;;}
       .dashboard-main-content{min-height: auto !important;}
       .dashboard-footer p{font-size: 12px;}
       .dashboard-footer img {width:100px;}
+      .mat-table th {white-space: nowrap;}
+      .nav-tabs li {width:50%; min-width: 50% !important;}
+      .nav-tabs li button {min-width: 100%;}
+
 
     }
     

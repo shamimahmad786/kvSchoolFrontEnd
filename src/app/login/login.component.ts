@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   isDisabled: boolean = false;
   showTimer: boolean = false;
   captchaotp: any;
+  errorMessage: any;
   constructor(private formBuilder: FormBuilder,private route: ActivatedRoute,private router: Router, private auth :AuthService,private outSideService: OutsideServicesService) { }
   ngOnInit(): void {
     sessionStorage.clear();
@@ -125,7 +126,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.controls.passwordForm.status == 'INVALID' ) {
       this.generate()
       return;
-    }
+    } 
+    
     // if (this.loginForm.controls.passwordForm.value['passwordCaptcha'] != this.captcha ) {
     //   this.loginForm.patchValue({
     //     passwordForm: {
@@ -163,6 +165,12 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/teacher/profile']);
         }
       }
+      if(res.errorMessage=='User is not active'){
+        Swal.fire({
+          'icon':'error',
+           'text':'User is not active.'
+        })
+       }
       this.generate();
     },
       error => { 
