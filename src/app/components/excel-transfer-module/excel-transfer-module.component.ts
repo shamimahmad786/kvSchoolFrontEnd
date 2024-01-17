@@ -111,12 +111,24 @@ export class ExcelTransferModuleComponent implements OnInit {
       console.log(formData)
       this.outSideService.uploadXlxDocument(formData).subscribe((res) => {
         console.log(res)
+
+        if(res.status=="1"){
+          Swal.fire(
+            res.message,
+            '',
+            'success'
+          )
+
+        }else{
+Swal.fire(
+            res.message,
+            '',
+            'error'
+          )
+        }
+
         this.fileUpload = false;
-        Swal.fire(
-          'Document Upload Sucessfully',
-          '',
-          'success'
-        )
+       
         this.documentUploadArray[index] = { "Action":'upload' };
 
        if (index == 4) {
@@ -146,12 +158,12 @@ export class ExcelTransferModuleComponent implements OnInit {
         this.testData.transfer_type = res[i].transferType;
         this.testData.presentKvName = res[i].kvNamePresent;
         this.testData.presentKvCode = res[i].presentKvCode;
-        this.testData.presentStationName = res[i].station_name_present;
-        this.testData.presentStationCode = res[i].stationNamePresent;
+        this.testData.presentStationName = res[i].stationNamePresent;
+        this.testData.presentStationCode = res[i].presentStationCode;
         this.testData.presentRegionName = res[i].regionNamePresent;
         this.testData.presentRegionCode = res[i].regionCode;
         this.testData.regionNameAlloted = res[i].regionNameAlloted;
-        this.testData.presentRegionCode = res[i].regionCodeAlloted;
+    //    this.testData.presentRegionCode = res[i].regionCodeAlloted;
         this.testData.allotStnCode = res[i].allotStnCode;
         this.testData.stationNameAlloted = res[i].stationNameAlloted;
        if(res[i].transferType=='AM'){
@@ -253,13 +265,21 @@ export class ExcelTransferModuleComponent implements OnInit {
     if (isConfirm.value === true) {
       debugger
         this.outSideService.confirmTransferData().subscribe((res)=>{
-          if(res){
+          // alert(res);
+          if(res.status=="1"){
             Swal.fire(
-              'Data Upload successfully!',
+              res.message,
               '',
               'success'
             ) 
+          }else{
+            Swal.fire(
+              res.message,
+              '',
+              'error'
+            )
           }
+          this.getTempTransferData();
     },
     error => {
       Swal.fire({
