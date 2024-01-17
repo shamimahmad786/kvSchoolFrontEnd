@@ -469,6 +469,26 @@ debugger
   return false;
   });
   }
+
+  downloadDocument() {
+    const folderId = this.ticketDetails?.folderId;
+    const fileName = this.docList;
+
+    this.outSideService.downloadDocument(folderId, fileName).subscribe((blob: Blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    });
+  }
+
+
+
+
   submit(){
   var data={
       "teacherId": this.tempTeacherId,
