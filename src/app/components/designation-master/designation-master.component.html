@@ -20,7 +20,7 @@
                 </mat-form-field>
             </div>
             <div class="col-sm-6">
-                <div class="d-flex flex-row-reverse bd-highlight ">
+                <div class="d-flex flex-row-reverse bd-highlight mobile-buttons">
                     <div class="p-1" *ngIf="!freezeStatus">
                         <button mat-raised-button class="float-end mt-2 btn-success voilet" (click)="redirectto()"> <i class="bi bi-plus-circle me-1 "></i> Add</button>
                     </div>
@@ -33,7 +33,8 @@
                 </div>
             </div>   
     </div>
-    <div class="example-container mat-elevation-z8 table-responsive">
+    <div class="example-container mat-elevation-z8">
+        <div class="table-responsive">
             <table mat-table *ngIf="dataSource?.data?.length > 0"
                 [dataSource]="dataSource" matSort
                 class="mat-elevation-z8 demo-table">
@@ -88,6 +89,9 @@
                     <td class="mat-cell" colspan="4">No data Found</td>
                 </tr>
             </table>
+        </div>
+
+            
 
             <mat-paginator [pageSizeOptions]="[10,20, 25]"> </mat-paginator>
         </div>
