@@ -165,7 +165,7 @@ export class BasicProfileComponent implements OnInit {
     var data ={
       "teacherId": this.emplyeeData['teacherId']
     }
-    debugger
+   
     this.outSideService.getFormStatusV2(data).subscribe((res)=>{
       if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
         this.profileFinalStatus=true;
@@ -317,7 +317,7 @@ export class BasicProfileComponent implements OnInit {
     //this.responseData.teacherPermanentDistrict = value;
   }
   clickOnDisability(val) {
-    debugger
+  
     if (val == 'yes') {
       this.isVisible = true;
     } else if (val == 'no') {
@@ -382,6 +382,7 @@ export class BasicProfileComponent implements OnInit {
     }, 200); 
   }
     getAllMaster() {
+      
     this.outSideService.fetchAllMaster(6).subscribe((res) => {
       this.teacherTypeData = res.response.postionType;
       this.teacherTypeDataNameCode = [];
@@ -695,7 +696,7 @@ export class BasicProfileComponent implements OnInit {
     }
   }
   documentUpload(index) {
-    debugger
+   
     this.fileUpload = true;
     const formData = new FormData();
     if (this.fileToUpload != null) {
@@ -769,7 +770,7 @@ export class BasicProfileComponent implements OnInit {
     this.router.navigate(['/teacher/workExperience']);
   }
   submit(){
-    debugger
+ 
         var data={
           "teacherName":this.basicProfileForm.value.fullName,
           "teacherGender":this.basicProfileForm.value.gender,

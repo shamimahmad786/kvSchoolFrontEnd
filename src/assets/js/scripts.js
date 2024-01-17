@@ -71,8 +71,13 @@ var publcKey;
 function getKey() {
     $.ajax({
         //  url: "https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER/api/login/getKey",
+<<<<<<< HEAD
+        url: "http://10.25.26.251:8014/api/login/getKey",
+        // url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/getKey",
+=======
          url: "http://10.25.26.251:8014/api/login/getKey",
        // url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/getKey",
+>>>>>>> f85a4131c64649e7daa8ee62f39ac23e355229d5
         type: "POST",
         cache: false,
         async: false,
