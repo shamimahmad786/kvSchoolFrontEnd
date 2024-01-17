@@ -859,9 +859,28 @@ body {
         margin-left: 0px !important;
       }
     }
+
+    @media screen and (max-width: 767px) {
+
+      .dashboard-header--image {text-align: center;}
+      .dashboard-header--image img {width: 230px;}
+      .header-top .left-list li a{font-size: 12px;}
+      .header-top {padding: 4px 30px 5px 30px; font-size: 12px; font-weight: 300;}
+      .dashboard-main-content__header h1{font-size: 20px;}
+    }
+
+ 
     
     @media screen and (max-width: 575px) {
       .profile-info .col-sm-9{padding: 0;}
       .dashboard-main-content {padding: 20px;}
+      .mobile-buttons{display: block !important; margin-bottom: 20px; margin-top: -19px;  float: left; width: 100%;}
+      .searchInput .mat-form-field-infix{width: 100% !important;}
+      .mat-form-field{display: block !important;}
+      .mobile-buttons .mat-raised-button  {display: block !important; width: 100%;;}
+      .dashboard-main-content{min-height: auto !important;}
+      .dashboard-footer p{font-size: 12px;}
+      .dashboard-footer img {width:100px;}
+
     }
     
