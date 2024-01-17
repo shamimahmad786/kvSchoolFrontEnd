@@ -49,6 +49,7 @@ export class KvSchoolMappingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    $('#cf_1268591').attr("disabled", true); 
     this.heading="Add/Edit User Mapping";
     this.route.queryParams.subscribe(params => {
       this.userMappingAction=params['action'];
@@ -82,7 +83,9 @@ export class KvSchoolMappingComponent implements OnInit {
       this.businessUnitTypeId= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id;
       this.businessUnitTypeCode= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_code;
     }
+    alert(this.businessUnitTypeId)
     if(this.businessUnitTypeId=="2"){
+    
       this.schoolType="3";
       this.controllerType="R";
     } else if(this.businessUnitTypeId=="3"){
@@ -104,7 +107,7 @@ export class KvSchoolMappingComponent implements OnInit {
   getStationByRegionId(){
     this.outSideService.fetchKvRegion(1).subscribe((res) => {
       this.regionList = res.response.rowValue;
-      debugger
+   
       for (let i = 0; i <   this.regionList.length; i++) {
         if(this.regionList[i].regionCode==this.businessUnitTypeCode)
         {
@@ -125,7 +128,7 @@ export class KvSchoolMappingComponent implements OnInit {
 
     checkDatelieBeetwenFromTo(event:any,type:any){
       console.log( this.historySchoolControllerOfficeDataArray)
-      debugger
+   
       for (let i = 0; i < this.historySchoolControllerOfficeDataArray.length; i++) {
         var dateFrom = this.historySchoolControllerOfficeDataArray[i].fromdate;
         var dateTo = this.historySchoolControllerOfficeDataArray[i].todate;
@@ -209,7 +212,7 @@ export class KvSchoolMappingComponent implements OnInit {
     }
  //***********************Get RO Office *************************************/
  getRoOfficeByRegionId(){
-
+debugger
   this.roOSchoolList=[];
   var data={
     "regionCode": this.businessUnitTypeCode,
@@ -384,7 +387,7 @@ currentDate():Date{
       {
         this.duplicateKOneCheck.push(this.controllerOfficeList[i]);
       }
-      debugger
+     
     if(this.duplicateKOneCheck.length>1){
       Swal.fire({
         'icon':'error',

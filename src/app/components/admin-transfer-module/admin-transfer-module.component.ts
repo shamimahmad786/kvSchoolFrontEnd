@@ -461,11 +461,12 @@ export class AdminTransferModuleComponent implements OnInit {
 }
   //***************Function user for search  data*******************************************/
   submit(){
+    debugger
     console.log(this.adminTransferForm.value) 
     var data={
       "teacherEmployeeCode":this.adminTransferForm.value.employeeCode.trim(),
       "teacherName":this.adminTransferForm.value.name.trim().toUpperCase(),
-      "teacherDob":this.adminTransferForm.value.dob.trim(),
+      "teacherDob":this.adminTransferForm.value.dob,
       "teacherEmail":this.adminTransferForm.value.email.trim().toUpperCase(),
       "teacherMobile":this.adminTransferForm.value.mobileNo.trim(),
     }
@@ -748,7 +749,7 @@ else if(this.adminTransferEditForm.value.transferSchool=='' || this.adminTransfe
  if(this.adminTransferEditForm.value.transferGround=='' || this.adminTransferEditForm.value.transferGround==null){
   Swal.fire({
     'icon':'error',
-    'text':'Please select transferground.'
+    'text':'Please select Transfer Ground.'
    } )
    return false;
 }
@@ -908,7 +909,7 @@ if(this.modificationEditForm.value.modifyTransferHeadquater=='' || this.modifica
 if(this.modificationEditForm.value.modifyTransferGround=='' || this.modificationEditForm.value.modifyTransferGround==null){
   Swal.fire({
     'icon':'error',
-    'text':'Please select transfer ground.'
+    'text':'Please select Transfer Ground.'
    } )
    return false;
 }

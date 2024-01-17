@@ -16,17 +16,17 @@
               <div *ngIf="userMappingAction=='Add' || userMappingAction=='update'">
                 <form id="msform" [formGroup]="addSchoolMapping" (ngSubmit)="onSubmit()">
               <div class="pb-2 mt-2  row  m-0">
-                <label for="staticEmail" class="col-sm-2 col-form-label ps-0">Region</label>
+                <label class="col-sm-2 col-form-label ps-0">Region</label>
                 <div class="col-sm-3">
                     <input type="text" readonly  class="form-control" id="startdate" formControlName="region"  [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.region.errors }">
                     <div *ngIf="addUserMappingFormubmitted && f.region.errors" class="invalid-feedback">Region is required</div>
                 </div>
 
-                <label for="staticEmail" class="col-sm-2 col-form-label ">RO Office </label>
+                <label *ngIf="businessUnitTypeId!='3'" class="col-sm-2 col-form-label ">RO Office </label>
+                <label *ngIf="businessUnitTypeId=='3'"   class="col-sm-2 col-form-label ">School Name </label>
                 <div class="col-sm-3">  
                     
                     <input type="text" readonly  class="form-control" id="startdate" formControlName="rooffice"  [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.rooffice.errors }"> 
-
                     <div *ngIf="addUserMappingFormubmitted && f.rooffice.errors" class="invalid-feedback">RO Office is required</div>
                 </div>
               </div>

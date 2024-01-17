@@ -678,7 +678,7 @@ disableDate() {
    if(this.adminTransferEditForm.value.transferGround=='' || this.adminTransferEditForm.value.transferGround==null){
     Swal.fire({
       'icon':'error',
-      'text':'Please select transferground.'
+      'text':'Please select Transfer Ground.'
      } )
      return false;
  }
@@ -830,7 +830,7 @@ disableDate() {
  if(this.modificationEditForm.value.modifyTransferGround=='' || this.modificationEditForm.value.modifyTransferGround==null){
   Swal.fire({
     'icon':'error',
-    'text':'Please select transferground.'
+    'text':'Please select Transfer Ground.'
    } )
    return false;
 }

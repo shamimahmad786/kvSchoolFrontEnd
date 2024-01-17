@@ -72,7 +72,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="kv_name_alloted">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> KV Name Alloted (Code)</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> KV Name Allotted (Code)</mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span>{{row.kv_name_alloted}}
                     </mat-cell>
                 </ng-container>
@@ -157,7 +157,7 @@
                         <tr>
                             <th class="w-25 text-start"> Employee Name (Code)</th>
                             <td class="text-start"> {{editEmpName}} ({{editEmpCode}})</td>
-                            <th class="text-start">Email </th>
+                            <th class="text-start">Email Id </th>
                             <td class="text-start">{{email | uppercase}} </td>
                         </tr>
                         <tr>
@@ -324,7 +324,7 @@
                         <tr>
                             <th class="w-25 text-start"> Employee Name (Code)</th>
                             <td class="text-start"> {{editModifyEmpName}} ({{editModifyEmpCode}})</td>
-                            <th class="text-start">Email </th>
+                            <th class="text-start">Email Id </th>
                             <td class="text-start">{{teacherEmail | uppercase}} </td>
                         </tr>
                         <tr>
@@ -351,13 +351,13 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th class="text-start" style="width:269px">Alloted Institute Name (Code)</th>
+                            <th class="text-start" style="width:269px">Allotted Institute Name (Code)</th>
                             <td class="text-start"  style="width: 426px;"> {{editAllotedModifykvName}} ({{editAllotedModifykvCode}})</td>
                             <th class="text-start">Joining Date (dd-mm-yyyy) </th>
                             <td class="text-start"> {{editAllotedModifyJoindate | date:"dd-MM-yyyy"}}</td>
                         </tr>
                         <tr>
-                            <th class="text-start">Reliving Date (dd-mm-yyyy) </th>
+                            <th class="text-start">Relieving Date (dd-mm-yyyy) </th>
                             <td class="text-start"> {{editAllotedModifyrelivedate | date:"dd-MM-yyyy"}} </td>
                             <th class="text-start">Transfer Type </th>
                             <td class="text-start"> {{editeModifyTransferType}} </td> 
@@ -381,7 +381,7 @@
                             <td class="text-start"> {{joinDate | date:"dd-MM-yyyy"}}</td>
                         </tr>
                         <tr>
-                            <th class="text-start">Reliving Date (dd-mm-yyyy) </th>
+                            <th class="text-start">Relieving Date (dd-mm-yyyy) </th>
                             <td class="text-start"> {{reliveDate | date:"dd-MM-yyyy"}} </td>
                             <th class="text-start">Transfer Type </th>
                             <td class="text-start"> {{editeAllotedTransferType}} </td>
@@ -544,7 +544,7 @@
                             <th class="w-25 text-start"> Employee Name (Code)</th>
                             <td class="text-start"> {{editCancelEmpName}}
                                 ({{editCancelEmpCode}})</td>
-                            <th class="text-start">Email </th>
+                            <th class="text-start">Email Id </th>
                             <td class="text-start">{{cancelEmail | uppercase}} </td>
                         </tr>
                         <tr>
