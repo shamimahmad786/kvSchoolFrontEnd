@@ -220,7 +220,7 @@ export class StationCategoryMappingComponent implements OnInit {
     const dobCol = workSheet.getColumn(1);
     dobCol.width = 20;
     const dobCol1 = workSheet.getColumn(2);
-    dobCol1.width = 30;
+    dobCol1.width = 38;
     const dobCol2 = workSheet.getColumn(3);
     dobCol2.width = 12;
     const dobCol3 = workSheet.getColumn(4);
@@ -234,9 +234,9 @@ export class StationCategoryMappingComponent implements OnInit {
         fgColor: { argb:  '9c9b98' },   
       };
     }
-   const ws = workSheet.addRow(['Station Name', 'Category Name','From Date','To Date', 'Status','buttonstatusType']);
+   const ws = workSheet.addRow(['Station Name', 'Category Name','From Date','To Date', 'Status']);
    workSheet.getRow(2).font = { name: 'Arial', family: 4, size: 10, bold: true };
-      for (let i = 1; i < 6; i++) {
+      for (let i = 1; i < 5; i++) {
         const col = ws.getCell(i);
         col.fill = {
           type: 'pattern',
