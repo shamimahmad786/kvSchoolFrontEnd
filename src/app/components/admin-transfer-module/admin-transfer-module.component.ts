@@ -741,7 +741,7 @@ else if(this.adminTransferEditForm.value.transferSchool=='' || this.adminTransfe
   if(this.adminTransferEditForm.value.TransferHeadquater=='' || this.adminTransferEditForm.value.TransferHeadquater==null){
     Swal.fire({
       'icon':'error',
-      'text':'Please select Headquarter.'
+      'text':'Please select HeadQuarter.'
      } )
      return false;
   }
@@ -901,7 +901,7 @@ if(this.selectSchoolType=='4'){
 if(this.modificationEditForm.value.modifyTransferHeadquater=='' || this.modificationEditForm.value.modifyTransferHeadquater==null){
   Swal.fire({
     'icon':'error',
-    'text':'Please select Headquarter.'
+    'text':'Please select HeadQuarter.'
    } )
    return false;
 }

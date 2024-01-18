@@ -84,9 +84,9 @@
                             <ng-container matColumnDef="Action">
                                 <th mat-header-cell *matHeaderCellDef> Action </th>
                                 <td mat-cell *matCellDef="let element">
-                                    <button type="button" *ngIf="element.ticketStatus=='In Process'" class="btn btn-success btn-sm mb-2" (click)="openResolvemodal(element.ticketId)">Resolve</button>
-                                    <button type="button" *ngIf="element.ticketStatus=='In Process'" class="btn btn-success btn-sm mb-2" (click)="assignTomodal(element.ticketId)">Assign To</button>
-                              <button type="button"  class="btn btn-success btn-sm" (click)="openPreviewmodal(element.ticketId)">Preview</button>
+                                    <button type="button" *ngIf="element.ticketStatus=='In Process'" class="btn btn-success btn-sm mb-2 me-1" (click)="openResolvemodal(element.ticketId)">Resolve</button>
+                                    <button type="button" *ngIf="element.ticketStatus=='In Process'" class="btn btn-success btn-sm mb-2 me-1" (click)="assignTomodal(element.ticketId)">Assign To</button>
+                              <button type="button"  class="btn btn-success btn-sm mb-2" (click)="openPreviewmodal(element.ticketId)">Preview</button>
                                    </td>
                             </ng-container>
                 
@@ -252,7 +252,7 @@
                                             <h4 class="titleSet"> Assign To :</h4>
                                             <select  *ngIf ="businessTypeId!='2'" class="form-select" formControlName="assignTo" aria-label="Default select example">
                                                 <option disabled selected>Select</option>
-                                                <option value="1">Head Quater</option>
+                                                <option value="1">HeadQuarter</option>
                                               </select>
                                               <select  *ngIf ="businessTypeId=='2'" class="form-select" formControlName="assignTo" aria-label="Default select example">
                                                 <option disabled selected>Select</option>
