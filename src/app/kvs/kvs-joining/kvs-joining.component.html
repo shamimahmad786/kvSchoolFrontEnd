@@ -46,9 +46,9 @@
                             </div>
                             <div class="example-container mat-elevation-z8 " id="style-2">
                          <div class="table-responsive">
-                                <mat-table [dataSource]="sBSource" matSort #sBSort="matSort">
+                                <table mat-table [dataSource]="sBSource" matSort #sBSort="matSort">
                                     <ng-container matColumnDef="sno">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> S.No.</mat-header-cell>
                                         <mat-cell *matCellDef="let row"> {{row.sno}} </mat-cell>
                                     </ng-container>
 
@@ -84,13 +84,13 @@
                                     </ng-container>
 
                                     <ng-container matColumnDef="action">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header > Action </mat-header-cell>
                                         <mat-cell *matCellDef="let row" [style.color]="row.color"> <button type="button" *ngIf="row.join_relieve_flag != '1'  &&  row.join_relieve_flag != '2'" class="btn btn-success btn-sm" (click)="openRelivingmodal(row.teacher_id,row.empcode,row.name,row.allot_kv_code)">Relieve</button> </mat-cell>
                                     </ng-container>
-                                    <mat-header-row *matHeaderRowDef="displayedColumnsOut; sticky:true; "></mat-header-row>
+                                    <mat-header-row *matHeaderRowDef="displayedColumnsOut; "></mat-header-row>
                                     <mat-row *matRowDef="let row; columns: displayedColumnsOut;">
                                     </mat-row>
-                                </mat-table>
+                                </table>
                                 </div>
                                 <mat-paginator #paginatorOut [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
                             </div>

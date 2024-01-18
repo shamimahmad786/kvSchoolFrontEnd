@@ -19,11 +19,13 @@
                             <div class="d-flex justify-content-start">
                             <div>
                                 <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" id="file" (blur)="handleFileInput($event.target.files, '4')" >
+                                <span class="help-block text-danger" *ngIf="fileUpload">Please upload the file</span>  
                             </div>
+                            
                             <button class="btn btn-secondary" style="height: 38px; margin-right: 10px;" type="button" id="inputGroupFileAddon04" (click)="documentUpload(4)">Upload</button>
                             <span class="note">Note: File type Excel File size 5MB</span>
                         </div>
-                        <span class="help-block text-danger" *ngIf="fileUpload">Please upload the file</span>
+                        
                         </div>
                         
                     </div>
