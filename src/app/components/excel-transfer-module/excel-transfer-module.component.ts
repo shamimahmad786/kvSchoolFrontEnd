@@ -57,7 +57,7 @@ export class ExcelTransferModuleComponent implements OnInit {
   fileToUpload: File | null = null;
   handleFileInput(files: FileList, index) {
     this.documentUploadArray[index] = { "Action":'' };
-    this.fileUpload = true;
+    this.fileUpload = false;
     this.fileName = files.item(0).name;
     var splitted = this.fileName.split('.', 2)
     this.fileNameWithoutExt=splitted[0];
@@ -123,6 +123,7 @@ export class ExcelTransferModuleComponent implements OnInit {
           this.deleteDocUpdate4 = false
         }
       this.getTempTransferData()
+     
       })
     } else {
       Swal.fire(
@@ -259,6 +260,7 @@ export class ExcelTransferModuleComponent implements OnInit {
               'success'
             ) 
           }
+          //this.fileName = '';
     },
     error => {
       Swal.fire({
