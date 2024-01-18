@@ -14,7 +14,7 @@ export class AddSubjectComponent implements OnInit,OnDestroy {
 
   subjectForm: FormGroup;
   isSubmitted: boolean = false;
-  statusList=[{'value':true,'status':'Active'},{'value':false,'status':'InActive'}];
+  statusList=[{'value':true,'status':'Active'},{'value':false,'status':'Inactive'}];
   isEdit: boolean=false;
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService, private router: Router) { }
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;

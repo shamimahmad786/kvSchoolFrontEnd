@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class AddStationCategoryComponent implements OnInit,OnDestroy {
   stationCategoryForm: FormGroup;
   isSubmitted: boolean = false;
-  statusList=[{'value':true,'status':'Active'},{'value':false,'status':'InActive'}];
+  statusList=[{'value':true,'status':'Active'},{'value':false,'status':'Inactive'}];
   isEdit: boolean=false;
   editId: any;
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService, private router: Router) { }

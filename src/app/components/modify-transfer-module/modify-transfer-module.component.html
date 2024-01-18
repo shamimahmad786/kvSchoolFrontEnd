@@ -85,14 +85,14 @@
 
 
                 <ng-container matColumnDef="join_date">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Join Date </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Joining Date </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.join_date
                         |date:"dd-MM-yyyy"}}
                     </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="relieve_date">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Relieve Date </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Relieving Date </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span>{{row.relieve_date
                         |date:"dd-MM-yyyy"}}
                     </mat-cell>

@@ -137,7 +137,6 @@ export class ExcelTransferModuleComponent implements OnInit {
     this.excelTransferMangement=[];
     this.outSideService.getTempTransferData().subscribe((res) => {
     this.excelTransferData=res;
-   
     if(res.length>0){
       for (let i = 0; i < res.length; i++) {
         this.testData.sno = '' + (i + 1) + '';
