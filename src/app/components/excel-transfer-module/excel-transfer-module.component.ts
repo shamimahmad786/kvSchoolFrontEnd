@@ -31,8 +31,8 @@ export class ExcelTransferModuleComponent implements OnInit {
   randonNumber: any;
   deleteDocUpdate4: boolean;
   isVisible: boolean = false;
-  displayedColumns = ['Sno','name','kvname','regionname','stationname','kv_name_alloted','region_name_alloted','station_name_alloted','admintransfer','post','category'];
-  testData =  {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":""};
+  displayedColumns = ['Sno','name','kvname','regionname','stationname','kv_name_alloted','region_name_alloted','station_name_alloted','admintransfer','post','category','transferordernumber','trasndferorderdate'];
+  testData =  {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","transferOrderNumber":"","trasndferOrderDate":""};
   transferGroundList: any;
   totalLength: any;
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
@@ -111,12 +111,24 @@ export class ExcelTransferModuleComponent implements OnInit {
       console.log(formData)
       this.outSideService.uploadXlxDocument(formData).subscribe((res) => {
         console.log(res)
+
+        if(res.status=="1"){
+          Swal.fire(
+            res.message,
+            '',
+            'success'
+          )
+
+        }else{
+Swal.fire(
+            res.message,
+            '',
+            'error'
+          )
+        }
+
         this.fileUpload = false;
-        Swal.fire(
-          'Document Upload Sucessfully',
-          '',
-          'success'
-        )
+       
         this.documentUploadArray[index] = { "Action":'upload' };
 
        if (index == 4) {
@@ -146,19 +158,21 @@ export class ExcelTransferModuleComponent implements OnInit {
         this.testData.transfer_type = res[i].transferType;
         this.testData.presentKvName = res[i].kvNamePresent;
         this.testData.presentKvCode = res[i].presentKvCode;
-        this.testData.presentStationName = res[i].station_name_present;
-        this.testData.presentStationCode = res[i].stationNamePresent;
+        this.testData.presentStationName = res[i].stationNamePresent;
+        this.testData.presentStationCode = res[i].presentStationCode;
         this.testData.presentRegionName = res[i].regionNamePresent;
         this.testData.presentRegionCode = res[i].regionCode;
         this.testData.regionNameAlloted = res[i].regionNameAlloted;
-        this.testData.presentRegionCode = res[i].regionCodeAlloted;
+    //    this.testData.presentRegionCode = res[i].regionCodeAlloted;
         this.testData.allotStnCode = res[i].allotStnCode;
         this.testData.stationNameAlloted = res[i].stationNameAlloted;
+        this.testData.transferOrderNumber = res[i].transferOrderNumber;
+        this.testData.trasndferOrderDate = res[i].trasndferOrderDate;
        if(res[i].transferType=='AM'){
         this.testData.is_admin_transfer = 'Admin Modify';
        }
        if(res[i].transferType=='A'){
-        this.testData.is_admin_transfer = 'Admin';
+        this.testData.is_admin_transfer = 'Admin Transfer';
        }
        if(res[i].transferType=="NA"){
         this.testData.is_admin_transfer = 'Previous transfer pending';
@@ -168,57 +182,59 @@ export class ExcelTransferModuleComponent implements OnInit {
         this.testData.last_promotion_position_type = res[i].postName;
         if(res[i].transfer_type=='A' || res[i].transfer_type=='AM'){
           for (let j = 0; j < this.transferGroundList.length; j++) {
+            
             if(this.transferGroundList[j]['transferGroundId']==res[i]['transferredUnderCatId']){
               this.testData.transferred_under_cat=this.transferGroundList[j]['transferGroundType']
             }
           }
         }
-        if(res[i].transferredUnderCat=='-1' || res[i].transferredUnderCat==null){
-          this.testData.transferred_under_cat='NA' 
-        }
-        if(res[i].transferredUnderCat=='40'){
-          this.testData.transferred_under_cat='PWD' 
-        }
-        if(res[i].transferredUnderCat=='30'){
-          this.testData.transferred_under_cat='Hard Station' 
-        }
-        if(res[i].transferredUnderCat=='20'){
-          this.testData.transferred_under_cat='Single Parent' 
-        }
-        if(res[i].transferredUnderCat=='12'){
-          this.testData.transferred_under_cat='CG Spouse' 
-        }
-        if(res[i].transferredUnderCat=='8'){
-          this.testData.transferred_under_cat='Women' 
-        }
-        if(res[i].transferredUnderCat=='98'){
-          this.testData.transferred_under_cat='Below 40 Transfer' 
-        }
-        if(res[i].transferredUnderCat=='0'){
-          this.testData.transferred_under_cat='Tenure Complte' 
-        }
-        if(res[i].transferredUnderCat=='35'){
-          this.testData.transferred_under_cat='DFP/MGD' 
-        }
-        if(res[i].transferredUnderCat=='25'){
-          this.testData.transferred_under_cat='LTR' 
-        }
-        if(res[i].transferredUnderCat=='15'){
-          this.testData.transferred_under_cat='KVS Spouse' 
-        }
-        if(res[i].transferredUnderCat=='10'){
-          this.testData.transferred_under_cat='State Spouse' 
-        }
-        if(res[i].transferredUnderCat=='6'){
-          this.testData.transferred_under_cat='RJCM/NJCM' 
-        }
-        if(res[i].transferredUnderCat=='99'){
-          this.testData.transferred_under_cat='Displacement without choice' 
-        }
+         this.testData.transferred_under_cat=this.transferUderCat(res[i]['transferredUnderCatId']);
+        // if(res[i].transferredUnderCat=='-1' || res[i].transferredUnderCat==null){
+        //   this.testData.transferred_under_cat='NA' 
+        // }
+        // if(res[i].transferredUnderCat=='40'){
+        //   this.testData.transferred_under_cat='PWD' 
+        // }
+        // if(res[i].transferredUnderCat=='30'){
+        //   this.testData.transferred_under_cat='Hard Station' 
+        // }
+        // if(res[i].transferredUnderCat=='20'){
+        //   this.testData.transferred_under_cat='Single Parent' 
+        // }
+        // if(res[i].transferredUnderCat=='12'){
+        //   this.testData.transferred_under_cat='CG Spouse' 
+        // }
+        // if(res[i].transferredUnderCat=='8'){
+        //   this.testData.transferred_under_cat='Women' 
+        // }
+        // if(res[i].transferredUnderCat=='98'){
+        //   this.testData.transferred_under_cat='Below 40 Transfer' 
+        // }
+        // if(res[i].transferredUnderCat=='0'){
+        //   this.testData.transferred_under_cat='Tenure Complte' 
+        // }
+        // if(res[i].transferredUnderCat=='35'){
+        //   this.testData.transferred_under_cat='DFP/MGD' 
+        // }
+        // if(res[i].transferredUnderCat=='25'){
+        //   this.testData.transferred_under_cat='LTR' 
+        // }
+        // if(res[i].transferredUnderCat=='15'){
+        //   this.testData.transferred_under_cat='KVS Spouse' 
+        // }
+        // if(res[i].transferredUnderCat=='10'){
+        //   this.testData.transferred_under_cat='State Spouse' 
+        // }
+        // if(res[i].transferredUnderCat=='6'){
+        //   this.testData.transferred_under_cat='RJCM/NJCM' 
+        // }
+        // if(res[i].transferredUnderCat=='99'){
+        //   this.testData.transferred_under_cat='Displacement without choice' 
+        // }
 //--------------------Transfer under Cat end------------------------------------------------------
         this.excelTransferMangement.push(this.testData);
         this.totalLength = this.excelTransferMangement.length;
-        this.testData = {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":""};
+        this.testData = {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","transferOrderNumber":"","trasndferOrderDate":""};
       }
       console.log(this.excelTransferMangement)
   }
@@ -253,14 +269,21 @@ export class ExcelTransferModuleComponent implements OnInit {
     if (isConfirm.value === true) {
       debugger
         this.outSideService.confirmTransferData().subscribe((res)=>{
-          if(res){
+          // alert(res);
+          if(res.status=="1"){
             Swal.fire(
-              'Data Upload successfully!',
+              res.message,
               '',
               'success'
             ) 
+          }else{
+            Swal.fire(
+              res.message,
+              '',
+              'error'
+            )
           }
-          //this.fileName = '';
+          this.getTempTransferData();
     },
     error => {
       Swal.fire({
@@ -282,4 +305,52 @@ export class ExcelTransferModuleComponent implements OnInit {
     }
   submit(){
   }
+
+
+ transferUderCat(id:any){
+let catData={"id1":"Request Transfer","id2":"Request On LTR","id3":"Request On MDG","id4":"Request On DFP","id5":"Request On PwD","id6":"Request On Spouse Ground","id7":"Surplus","id8":"Displacement","id9":"ADMN Ground Under PARA7(E)","id10":"ADMN Ground Under 40 Years Of Age","id11":"Direct Recruitment","id12":"Promotion","id13":"Request On SP","id14":"Request On Widow/Widower","id15":"Mutual Transfer","id16":"Request On Any Other Ground","id17":"No Taker Vacancy Availed","id18":"Any Other Administrative Ground","id19":"Transfer Modification","id20":"Public Interest"};
+if(id==1){
+  return catData.id1;
+}else if(id==2){
+  return catData.id2;
+}else if(id==3){
+  return catData.id3;
+}else if(id==4){
+  return catData.id4;
+}else if(id==5){
+  return catData.id5;
+}else if(id==6){
+  return catData.id6;
+}else if(id==7){
+  return catData.id7;
+}else if(id==8){
+  return catData.id8;
+}else if(id==9){
+  return catData.id9;
+}else if(id==10){
+  return catData.id10;
+}else if(id==11){
+  return catData.id11;
+}else if(id==12){
+  return catData.id12;
+}else if(id==13){
+  return catData.id13;
+}else if(id==14){
+  return catData.id14;
+}else if(id==15){
+  return catData.id15;
+}else if(id==16){
+  return catData.id16;
+}else if(id==17){
+  return catData.id17;
+}else if(id==18){
+  return catData.id18;
+}else if(id==19){
+  return catData.id19;
+}else if(id==20){
+  return catData.id20;
+}
+
+  }
+
 }

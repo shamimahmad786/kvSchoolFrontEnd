@@ -11,6 +11,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler) {
 
     // alert(req.url);
+    debugger;
      var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
      console.log(token)
      if(req.url.indexOf('api') !== -1){
@@ -56,7 +57,7 @@ export class AuthInterceptorService implements HttpInterceptor {
                                 })
                             ))   
      }else{
-        if(req.url.indexOf('sign-in') !== -1 || req.url.indexOf('getkvsDashboardReport') !== -1 ||  req.url.indexOf('assets') !== -1){
+        if(req.url.indexOf('sign-in') !== -1 || req.url.indexOf('getkvsDashboardReport') !== -1 ||  req.url.indexOf('assets') !== -1 ||  req.url.indexOf('restPassword') !== -1 ||  req.url.indexOf('changePassword') !== -1){
                     return next.handle(req);
         }else{
                 sessionStorage.removeItem('authTeacherDetails')
