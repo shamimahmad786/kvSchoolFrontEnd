@@ -109,7 +109,7 @@ export class StationCategoryMasterComponent implements OnInit {
     const dobCol = workSheet.getColumn(1);
     dobCol.width = 15;
     const dobCol1 = workSheet.getColumn(2);
-    dobCol1.width = 30;
+    dobCol1.width = 35;
     const dobCol2 = workSheet.getColumn(3);
     dobCol2.width = 10;
     workSheet.getRow(1).font = { name: 'Arial', family: 4, size: 13, bold: true };

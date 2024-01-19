@@ -199,17 +199,17 @@ export class RegionWiseSchoolComponent implements OnInit {
   exportexcel(){
     console.log(this.listRegionSchool)
     const workBook = new Workbook();
-    const workSheet = workBook.addWorksheet('RegionStationMapping');
+    const workSheet = workBook.addWorksheet('Region Wise School');
     const excelData = [];
-    const ws1 = workSheet.addRow(['', 'REGION STATION MAPPING', '']);
+    const ws1 = workSheet.addRow(['', 'REGION WISE SCHOOL', '']);
     const dobCol = workSheet.getColumn(1);
     dobCol.width = 15;
     const dobCol1 = workSheet.getColumn(2);
-    dobCol1.width = 30;
+    dobCol1.width = 35;
     const dobCol2 = workSheet.getColumn(3);
-    dobCol2.width = 70;
+    dobCol2.width = 50;
     const dobCol3 = workSheet.getColumn(4);
-    dobCol3.width = 40;
+    dobCol3.width = 30;
     workSheet.getRow(1).font = { name: 'Arial', family: 4, size: 13, bold: true };
     for (let i = 1; i < 6; i++) {
       const col = ws1.getCell(i);
@@ -220,7 +220,7 @@ export class RegionWiseSchoolComponent implements OnInit {
       };
     }
   //  const ws = workSheet.addRow(['Region Name', 'Station Name','From Date','todate','Status']);
-   const ws = workSheet.addRow(['Region Name', 'Station Name','School Name','Adress']);
+   const ws = workSheet.addRow(['Region Name', 'Station Name','School Name','Address']);
    workSheet.getRow(2).font = { name: 'Arial', family: 4, size: 10, bold: true };
       for (let i = 1; i < 6; i++) {
         const col = ws.getCell(i);
@@ -238,7 +238,7 @@ export class RegionWiseSchoolComponent implements OnInit {
       let blob = new Blob([data], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
-      saveAs(blob, 'RegionStationMapping.xlsx');
+      saveAs(blob, 'RegionWiseSchool.xlsx');
     });
  
   }

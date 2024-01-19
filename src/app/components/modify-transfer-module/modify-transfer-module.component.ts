@@ -26,7 +26,8 @@ export class ModifyTransferModuleComponent implements OnInit {
   @ViewChild('userMappingSort') userMappingSort: MatSort;    
   @ViewChild('AdminTransferBox', { static: true }) AdminTransferBox: TemplateRef<any>;
   @ViewChild('AdminCancelBox', { static: true }) AdminCancelBox: TemplateRef<any>;
-  @ViewChild('AdminMdificationBox', { static: true }) AdminMdificationBox: TemplateRef<any>;
+  @ViewChild('AdminMdificationBox', { static: true }) AdminMdificationBox: TemplateRef<any>;  
+  @ViewChild('AdminViewBox', { static: true }) AdminViewBox: TemplateRef<any>;
   adminTransferEditForm: FormGroup;
   modificationEditForm: FormGroup;
   cancelEditForm: FormGroup;
@@ -85,6 +86,7 @@ export class ModifyTransferModuleComponent implements OnInit {
   headQuaterList: any = [];
   zoneList: any = [];
   institute_id: string;
+  verifyTchTeacherWorkExp:any;
   totalLength: any;
   selectStationName: string;
   selectedKvCode: any;
@@ -457,7 +459,20 @@ export class ModifyTransferModuleComponent implements OnInit {
     })
     this.modalService.open(this.AdminMdificationBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
-
+  openViewModal(empCode:any){
+   
+    this.outSideService.fetchConfirmedTchDetails(empCode).subscribe((res) => {
+  
+      for (let i = 0; i < res.response.experience.length; i++) {
+        if (res.response.experience[i].workEndDate != null || res.response.experience[i].workEndDate != null) {
+          res.response.experience[i].workEndDate = res.response.experience[i].workEndDate;
+        }
+        res.response.experience[i].workStartDate = res.response.experience[i].workStartDate;
+      }
+      this.verifyTchTeacherWorkExp = res.response.experience
+    })
+    this.modalService.open(this.AdminViewBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+  }
   selectInstituteType(event:any){
    this.headQuaterList=[];
    this.zoneList=[];
@@ -822,7 +837,7 @@ disableDate() {
   if(this.modificationEditForm.value.modifyTransferHeadquater=='' || this.modificationEditForm.value.modifyTransferHeadquater==null){
     Swal.fire({
       'icon':'error',
-      'text':'Please select HeadQuarter.'
+      'text':'Please select Head Quarter.'
      } )
      return false;
   }

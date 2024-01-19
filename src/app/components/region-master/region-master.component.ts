@@ -115,9 +115,11 @@ export class RegionMasterComponent implements OnInit,AfterViewInit {
     const dobCol1 = workSheet.getColumn(2);
     dobCol1.width = 30;
     const dobCol2 = workSheet.getColumn(3);
-    dobCol2.width = 10;
+    dobCol2.width = 30;
+    const dobCol3 = workSheet.getColumn(4);
+    dobCol3.width = 10;
     workSheet.getRow(1).font = { name: 'Arial', family: 4, size: 13, bold: true };
-    for (let i = 1; i < 4; i++) {
+    for (let i = 1; i < 5; i++) {
       const col = ws1.getCell(i);
       col.fill = {
         type: 'pattern',
@@ -125,9 +127,9 @@ export class RegionMasterComponent implements OnInit,AfterViewInit {
         fgColor: { argb:  '9c9b98' },   
       };
     }
-   const ws = workSheet.addRow(['Region Code', 'Region Name', 'Status']);
+   const ws = workSheet.addRow(['Region Code', 'Region Name','Address', 'Status']);
    workSheet.getRow(2).font = { name: 'Arial', family: 4, size: 10, bold: true };
-      for (let i = 1; i < 4; i++) {
+      for (let i = 1; i < 5; i++) {
         const col = ws.getCell(i);
         col.fill = {
           type: 'pattern',
@@ -137,7 +139,7 @@ export class RegionMasterComponent implements OnInit,AfterViewInit {
       }
       
     this.listRegion.forEach((item) => {
-      const row = workSheet.addRow([item.regioncode, item.regionname,item.statusType]);
+      const row = workSheet.addRow([item.regioncode, item.regionname,item.regionaddress,item.statusType]);
     });
     workBook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], {

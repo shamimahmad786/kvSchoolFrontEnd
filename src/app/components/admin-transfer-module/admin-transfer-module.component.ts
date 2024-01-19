@@ -34,6 +34,7 @@ export class AdminTransferModuleComponent implements OnInit {
   @ViewChild('AdminTransferBox', { static: true }) AdminTransferBox: TemplateRef<any>;
   @ViewChild('AdminCancelBox', { static: true }) AdminCancelBox: TemplateRef<any>;
   @ViewChild('AdminMdificationBox', { static: true }) AdminMdificationBox: TemplateRef<any>;
+  @ViewChild('AdminViewBox', { static: true }) AdminViewBox: TemplateRef<any>;
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
   adminTransferForm: FormGroup;
   adminTransferEditForm: FormGroup;
@@ -72,6 +73,7 @@ export class AdminTransferModuleComponent implements OnInit {
   showSchool:boolean = false;
   showZiet:boolean = false;
   showHq:boolean = false;
+  verifyTchTeacherWorkExp:any;
   showCategory: boolean;
   modiFYTransferType: string;
   editModifyEmpCode: any;
@@ -301,7 +303,20 @@ export class AdminTransferModuleComponent implements OnInit {
     })
     this.modalService.open(this.AdminMdificationBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
-
+  openViewModal(empCode:any){
+   
+    this.outSideService.fetchConfirmedTchDetails(empCode).subscribe((res) => {
+  
+      for (let i = 0; i < res.response.experience.length; i++) {
+        if (res.response.experience[i].workEndDate != null || res.response.experience[i].workEndDate != null) {
+          res.response.experience[i].workEndDate = res.response.experience[i].workEndDate;
+        }
+        res.response.experience[i].workStartDate = res.response.experience[i].workStartDate;
+      }
+      this.verifyTchTeacherWorkExp = res.response.experience
+    })
+    this.modalService.open(this.AdminViewBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+  }
   getTransferGround(){
     let req={};
     this.outSideService.getTransferGround(req,this.loginUserNameForChild).subscribe((res) => {

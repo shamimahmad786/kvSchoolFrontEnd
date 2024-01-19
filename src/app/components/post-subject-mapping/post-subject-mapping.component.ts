@@ -90,11 +90,13 @@ export class PostSubjectMappingComponent implements OnInit,AfterViewInit {
     const dobCol = workSheet.getColumn(1);
     dobCol.width = 15;
     const dobCol1 = workSheet.getColumn(2);
-    dobCol1.width = 30;
-    const dobCol2 = workSheet.getColumn(3);
-    dobCol2.width = 10;
+    dobCol1.width = 40;
+    const dobCol3 = workSheet.getColumn(3);
+    dobCol3.width = 15;
+    const dobCol4 = workSheet.getColumn(4);
+    dobCol4.width = 10;
     workSheet.getRow(1).font = { name: 'Arial', family: 4, size: 13, bold: true };
-    for (let i = 1; i < 4; i++) {
+    for (let i = 1; i < 5; i++) {
       const col = ws1.getCell(i);
       col.fill = {
         type: 'pattern',

@@ -269,7 +269,11 @@ export class SchoolStationMappingComponent implements OnInit {
     const dobCol1 = workSheet.getColumn(2);
     dobCol1.width = 45;
     const dobCol2 = workSheet.getColumn(3);
-    dobCol2.width = 10;
+    dobCol2.width = 20;
+    const dobCol3 = workSheet.getColumn(4);
+    dobCol3.width = 20;
+    const dobCol4 = workSheet.getColumn(5);
+    dobCol4.width = 10;
     workSheet.getRow(1).font = { name: 'Arial', family: 4, size: 13, bold: true };
     for (let i = 1; i < 7; i++) {
       const col = ws1.getCell(i);
@@ -279,7 +283,7 @@ export class SchoolStationMappingComponent implements OnInit {
         fgColor: { argb:  '9c9b98' },   
       };
     }
-   const ws = workSheet.addRow(['Station Name', 'School Name', 'Status','Shift Type']);
+   const ws = workSheet.addRow(['Station Name', 'School Name', 'Status','From Date','To Date','Shift Type']);
    workSheet.getRow(2).font = { name: 'Arial', family: 4, size: 10, bold: true };
       for (let i = 1; i < 7; i++) {
         const col = ws.getCell(i);
@@ -291,7 +295,7 @@ export class SchoolStationMappingComponent implements OnInit {
       }
       
     this.listRegionStation.forEach((item) => {
-      const row = workSheet.addRow([item.stationname, item.schoolname,item.statusType,item.shiftType,]);
+      const row = workSheet.addRow([item.stationname, item.schoolname,item.statusType,item.fromdate,item.todate,item.shiftType,]);
     });
     workBook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], {

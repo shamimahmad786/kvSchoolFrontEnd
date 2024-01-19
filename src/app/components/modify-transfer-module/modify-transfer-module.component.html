@@ -122,7 +122,13 @@
                         <span *ngIf="row.transferStatusAction =='' ">
                             <i class="fa fa-edit" title="Edit"  (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName,row.teacher_dob,row.email,row.allot_kv_code)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
                                 aria-hidden="true"></i>
-                        </span>
+                        </span>  
+
+                        <span>
+                            <i class="fa fa-eye" title="View"  (click)="openViewModal(row.employeecode)"  style="font-size: 1.8rem; color: #0668d2; margin-left: 10px;" aria-hidden="true"></i>
+                        </span> 
+
+
                     </mat-cell>
                 </ng-container>
 
@@ -583,5 +589,73 @@
     </div>
     </ng-template>
 </div>
+
+
+<div mat-dialog-content>
+    <ng-template #AdminViewBox let-modal style="min-width: 100%;">
+        <div class="modal-header">
+            <div class="d-flex justify-content-between w-100">
+                <h1 class="mb-0 " >Employee Work Experience </h1>
+                <i class="fa fa-times" (click)="cancelModal()"
+                    style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="p-3">
+            <div class="table-responsive">
+                <!-- <table class="table table-bordered text-start">
+                    <thead>
+                        <tr>
+                            <th colspan="4" class="text-start">
+                                Employee Details
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="w-25 text-start"> Employee Name (Code)</th>
+                            <td class="text-start"> {{editCancelEmpName}}
+                                ({{editCancelEmpCode}})</td>
+                            <th class="text-start">Email Id </th>
+                            <td class="text-start">{{cancelEmail | uppercase}} </td>
+                        </tr>
+                        <tr>
+                            <th class="text-start">Present School Name (Code) </th>
+                            <td class="text-start"> {{canclKvName}} ({{cancelkvCode}})</td>
+                            <th class="text-start">DOB (dd-mm-yyyy)</th>
+                            <td class="text-start"> {{canceldob |date:"dd-MM-yyyy"}}</td>
+                        </tr>
+                    </tbody>
+                </table> -->
+                <table class="table table-bordered w-100">
+                    <thead>
+                        <tr style="background-color:#7492cb;">
+                            <th colspan="7" class="text-center text-white">Experience</th>
+                        </tr>
+                        <tr style="background-color:#E5EEFF;">
+                            <th>School Name</th>
+                            <th width="8%">From</th>
+                            <th width="8%">To</th>
+                            <th width="16%">Position Held</th>
+                            <th width="13%">Appointed for Subject</th>
+                            <th width="15%">Transfer Ground</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of verifyTchTeacherWorkExp">
+                            <td>{{data?.udiseSchoolName}}</td>
+                            <td>{{data?.workStartDate}}</td>
+                            <td>{{data?.workEndDate}}</td>
+                            <td>{{data?.positionType}}</td>
+                            <td>{{data?.appointedForSubject}}</td>
+                            <td>{{data?.groundForTransfer == 'null' ? '':data?.groundForTransfer}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> 
+    </div>
+    </ng-template>
+</div>
+
+
 </div>
 </div>

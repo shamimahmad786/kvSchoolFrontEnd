@@ -26,9 +26,9 @@ export class MasterReportPdfService {
   dashboardMasterListArray:any;
   relevingDataListArray:any;
   joiningDataListArray:any
-  regionHead = [['S.No', 'Region Code', 'Region Name', 'Status']]
+  regionHead = [['S.No', 'Region Code', 'Region Name','Address','Status']]
   stationHead = [['S.No', 'Station Code', 'Station Name', 'Status']]
-  schoolHead = [['S.No', 'School Code', 'School Name', 'Status','Shift' ]]
+  schoolHead = [['S.No', 'School Code', 'School Name','Institute Type', 'Status','Shift','Address' ]]
   stationCategoryHead = [['S.No', 'Category Name', 'Status']]
   staffTypeHead = [['S.No', 'Staff Type Name', 'Status']]
   designationHead = [['S.No', 'Designation Code','Designation Name', 'Status']]
@@ -36,7 +36,7 @@ export class MasterReportPdfService {
   regionStationMappingHead = [['S.No', 'Region Name','Station Name','Status']]
   regionSchoolMappingHead = [['S.No', 'Region Name','Station Name','School Name','Adress']]
   stationCategoryMappingHead = [['S.No', 'Station Name','Category Name','From Date','To Date','Status']]
-  schoolStationMappingHead = [['S.No', 'Station Name','School Name','shift','status']]
+  schoolStationMappingHead = [['S.No', 'Station Name','School Name','From date','To date','Shift','Status']]
   staffTypePostMappingHead = [['S.No', 'Staff-Type','Post Code','Post Name']]
   postSubjectMappingHead = [['S.No', 'Post Code','Post name','Subject Code','Subject Name']]
   sanctionPostMappingHead = [['S.No', 'Staff Type','Post Name','Post Code','Subject Name','Subject Code','Sanctioned Post','Occupied Post','Vacant Post','Surplus Post']]
@@ -56,6 +56,7 @@ export class MasterReportPdfService {
       regionListTemp.push(regionList[i]?.sno)
       regionListTemp.push(regionList[i]?.regioncode)
       regionListTemp.push(regionList[i]?.regionname)
+      regionListTemp.push(regionList[i]?.regionaddress)
       if(regionList[i]?.status==true)
       {
          regionListTemp.push('Active')
@@ -233,6 +234,7 @@ export class MasterReportPdfService {
       schoolListTemp.push(schoollist[i]?.sno)
       schoolListTemp.push(schoollist[i]?.schoolcode)
       schoolListTemp.push(schoollist[i]?.schoolname)
+      schoolListTemp.push(schoollist[i]?.instituteType)
       if(schoollist[i]?.status==true)
       {
         schoolListTemp.push('Active')
@@ -240,14 +242,15 @@ export class MasterReportPdfService {
       else{
         schoolListTemp.push('Inactive')
       }
-
-      if(schoollist[i]?.shift==0 || schoollist[i]?.shift=='0' || schoollist[i]?.shift==1 || schoollist[i]?.shift=='1')
-      {
-        schoolListTemp.push('First Shift')
-      }
-      else{
-        schoolListTemp.push('Second Shift')
-      }
+      schoolListTemp.push(schoollist[i]?.shiftType)
+      schoolListTemp.push(schoollist[i]?.schooladdress)
+      // if(schoollist[i]?.shift==0 || schoollist[i]?.shift=='0' || schoollist[i]?.shift==1 || schoollist[i]?.shift=='1')
+      // {
+      //   schoolListTemp.push('First Shift')
+      // }
+      // else{
+      //   schoolListTemp.push('Second Shift')
+      // }
       this.schoolListArray.push(schoolListTemp)
     }
     this.currentDate = "(" + servTime + ")"
@@ -978,9 +981,9 @@ schoolStationMappingList(schoolStationMappingList:any,servTime:any){
     schoolStationMappinglistTemp.push(schoolStationMappingList[i]?.sno)
     schoolStationMappinglistTemp.push(schoolStationMappingList[i]?.stationname)
     schoolStationMappinglistTemp.push(schoolStationMappingList[i]?.schoolname)
-    schoolStationMappinglistTemp.push(schoolStationMappingList[i]?.shift);
-    // schoolStationMappinglistTemp.push(schoolStationMappingList[i]?.fromdate)
-    // schoolStationMappinglistTemp.push(schoolStationMappingList[i]?.todate)
+    //schoolStationMappinglistTemp.push(schoolStationMappingList[i]?.shift);
+     schoolStationMappinglistTemp.push(schoolStationMappingList[i]?.fromdate)
+     schoolStationMappinglistTemp.push(schoolStationMappingList[i]?.todate)
    // stationCategorylistTemp.push(stationCategorylist[i]?.schoolname)
 if(schoolStationMappingList[i]?.shift==0){
   schoolStationMappinglistTemp.push('Not Applicable');
