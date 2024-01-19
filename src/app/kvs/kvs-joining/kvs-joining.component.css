@@ -40,7 +40,7 @@
 .mat-column-action {
     word-wrap: break-word !important;
     white-space: unset !important;
-    flex: 0 0 8% !important;
+    /* flex: 0 0 8% !important; */
     width: 8% !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -58,5 +58,31 @@
     border: solid 0.2px #542555 !important;;
     background-color: #4A1C4B !important;;
     color: white !important;;
+  }
+
+  @media screen and (max-width: 1199px) {
+/* 
+    .mat-header-cell, .mat-cell{ overflow: visible; white-space: nowrap; font-size: 14px; padding: 0 10px !important; }
+    .mat-cell {font-size: 14px;}
+
+    .mat-column-action {
+      word-wrap: break-word !important;
+      white-space:initial!important;
+      flex: 0 0 0 !important;
+      width:200px !important;
+
+
+
+    } */
+  
+  }
+
+
+  @media screen and (max-width: 575px) {
+
+ 
+    .mobile-buttons{margin-top: 10px;}
+    .mobile-buttons button {margin-bottom: 10px;}
+    .mat-form-field{margin-right:0 !important ;}
   }
 

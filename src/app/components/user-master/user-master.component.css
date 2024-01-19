@@ -561,6 +561,7 @@ body {
     @media screen and (max-width: 575px) {
       .profile-info .col-sm-9{padding: 0;}
       .dashboard-main-content {padding: 20px;}
+      .mat-focus-indicator{top:-10px}
     }
     .myClass{
       border: solid 0.2px #542555 !important;;

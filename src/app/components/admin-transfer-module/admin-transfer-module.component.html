@@ -32,7 +32,7 @@
                                                 <mat-datepicker-toggle mdSuffix [for]="pickers"></mat-datepicker-toggle>
                                                 <mat-datepicker #pickers></mat-datepicker>
                                             </div>
-                                     <input class="form-control" id="wordStartDate" [max]="maxDate" [matDatepicker]="pickers"
+                                     <input class="form-control" id="wordStartDate" (keydown)="disableDate()" [max]="maxDate" [matDatepicker]="pickers"
                                                 placeholder="Date of Birth" (click)="pickers.open()" formControlName="dob">
                                     </div>
                                     </div>
@@ -191,7 +191,7 @@
                                     <td class="text-start"> {{PresentRegionName}} </td> 
                                 </tr>
                                 <tr>
-                                    <th class="text-start">Present Station name</th>
+                                    <th class="text-start">Present Station Name</th>
                                     <td class="text-start"> {{PresentStationName}}</td>
                                     <th class="text-start">Present School Name (Code) </th>
                                     <td class="text-start"> {{presentKvName}} ({{presentKvCode}})</td>
@@ -279,7 +279,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-3 " *ngIf="showHq">
-                                            <label class="mb-1"> Select Headquarter</label>
+                                            <label class="mb-1"> Select HeadQuarter</label>
                                             <select class="form-select form-select-sm" aria-label="Default select example" formControlName="TransferHeadquater"  (change)="getStationByHqId($event)" >
                                                 <option selected disabled> Select HQ</option>
                                                 <option *ngFor="let data of headQuaterList; let i=index;" value="{{data.kv_code}}">
@@ -303,7 +303,7 @@
                                             <input type="text"  class="form-control form-control-sm" id="orderno" formControlName="transferOrderNumber" >
                                         </div>
                                         <div class="col-md-4 mb-2">
-                                            <label class="mb-1"> Transfer Order date</label>
+                                            <label class="mb-1"> Transfer Order Date</label>
                                              <input type="date" [max]="maxDate"  class="form-control form-control-sm" (keydown)="disableDate()" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
                                         </div>
                                         <div class="col-md-4 mb-2">
@@ -357,7 +357,7 @@
                                 <tr>
                                     <th class="w-25 text-start"> Employee Name (Code)</th>
                                     <td class="text-start"> {{editModifyEmpName}} ({{editModifyEmpCode}})</td>
-                                    <th class="text-start">Email </th>
+                                    <th class="text-start">Email Id </th>
                                     <td class="text-start">{{teacherEmail | uppercase}} </td>
                                 </tr>
                                 <tr>
@@ -367,7 +367,7 @@
                                     <td class="text-start"> {{PresentRegionName}} </td> 
                                 </tr>
                                 <tr>
-                                    <th class="text-start">Present Station name</th>
+                                    <th class="text-start">Present Station Name</th>
                                     <td class="text-start"> {{PresentStationName}}</td>
                                     <th class="text-start">Present School Name (Code) </th>
                                     <td class="text-start"> {{presentKvName}} ({{presentKvCode}})</td>
@@ -384,13 +384,13 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th class="text-start" style="width:269px">Alloted Institute Name (Code)</th>
+                                    <th class="text-start" style="width:269px">Allotted Institute Name (Code)</th>
                                     <td class="text-start"  style="width: 426px;"> {{editAllotedModifykvName}} ({{editAllotedModifykvCode}})</td>
                                     <th class="text-start">Joining Date (dd-mm-yyyy) </th>
                                     <td class="text-start"> {{editAllotedModifyJoindate | date:"dd-MM-yyyy"}}</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-start">Reliving Date (dd-mm-yyyy) </th>
+                                    <th class="text-start">Relieving Date (dd-mm-yyyy) </th>
                                     <td class="text-start"> {{editAllotedModifyrelivedate | date:"dd-MM-yyyy"}} </td>
                                     <th class="text-start">Transfer Type </th>
                                     <td class="text-start"> {{editeModifyTransferType}} </td>
@@ -402,7 +402,7 @@
                             <thead>
                                 <tr>
                                     <th colspan="4" class="text-start">
-                                     Transfer By Admin transfer
+                                     Transfer By Admin Transfer
                                     </th>
                                 </tr>
                             </thead>
@@ -414,7 +414,7 @@
                                     <td class="text-start"> {{joinDate | date:"dd-MM-yyyy"}}</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-start">Reliving Date (dd-mm-yyyy) </th>
+                                    <th class="text-start">Relieving Date (dd-mm-yyyy) </th>
                                     <td class="text-start"> {{reliveDate | date:"dd-MM-yyyy"}} </td>
                                     <th class="text-start">Transfer Type </th>
                                     <td class="text-start"> {{editeAllotedTransferType}} </td>
@@ -527,7 +527,7 @@
                                                 <input type="text"  class="form-control form-control-sm" id="orderno" formControlName="transferOrderNumber" >
                                             </div>
                                             <div class="col-md-4 mb-2">
-                                                <label class="mb-1"> Transfer Order date</label>
+                                                <label class="mb-1"> Transfer Order Date</label>
                                                  <input type="date" [max]="maxDate"  (keydown)="disableDate()"  class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
                                             </div>
 
@@ -611,7 +611,7 @@
                                                 <input type="text"  class="form-control form-control-sm" id="cancelorderno" formControlName="cancelTransferOrderNumber" >
                                             </div>
                                             <div class="col-md-6 mb-2">
-                                                <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order date</label>
+                                                <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order Date</label>
                                                 <input type="date"  class="form-control form-control-sm" (keydown)="disableDate()" [max]="maxDate" formControlName="cancelTransferOrderdate" name="cancelTransferOrderdate" placeholder="Date">
                                             </div>
                                        </div>

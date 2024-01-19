@@ -72,7 +72,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="kv_name_alloted">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> KV Name Alloted (Code)</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> KV Name Allotted (Code)</mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span>{{row.kv_name_alloted}}
                     </mat-cell>
                 </ng-container>
@@ -108,19 +108,19 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span>
                         <span *ngIf="row.transferStatusAction =='transfer' ">
-                            <i class="fa fa-exchange" *ngIf="row.transferStatusOneComplite!='true'"
+                            <i class="fa fa-exchange" *ngIf="row.transferStatusOneComplite!='true'" title="Edit"
                                 (click)="openTransfermodal(row.name,row.employeecode,row.email,row.kv_code,row.teacher_dob,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName)"
                                 style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
                         </span>
                         <span *ngIf="row.transferStatusAction =='modificationcancel' ">
-                            <i class="fa fa-edit"  (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName,row.teacher_dob,row.email,row.allot_kv_code)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
+                            <i class="fa fa-edit"  title="Edit" (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName,row.teacher_dob,row.email,row.allot_kv_code)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
                                 aria-hidden="true"></i>
-                            <i class="fa fa-times-circle-o"
+                            <i class="fa fa-times-circle-o" title="Cancel"
                                  (click)="openCancelmodal(row.name,row.employeecode,row.email,row.presentKvName,row.kv_code,row.teacher_dob)" style="font-size: 1.8rem; color: #dc1301e3; margin-left: 10px;" aria-hidden="true"></i>
                         </span>
 
                         <span *ngIf="row.transferStatusAction =='' ">
-                            <i class="fa fa-edit"  (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName,row.teacher_dob,row.email,row.allot_kv_code)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
+                            <i class="fa fa-edit" title="Edit"  (click)="openModificationmodal(row.employeecode,row.name,row.presentKvName,row.presentKvCode,row.presentStationName,row.presentRegionName,row.teacher_dob,row.email,row.allot_kv_code)"style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;"
                                 aria-hidden="true"></i>
                         </span>
                     </mat-cell>
@@ -157,7 +157,7 @@
                         <tr>
                             <th class="w-25 text-start"> Employee Name (Code)</th>
                             <td class="text-start"> {{editEmpName}} ({{editEmpCode}})</td>
-                            <th class="text-start">Email </th>
+                            <th class="text-start">Email Id </th>
                             <td class="text-start">{{email | uppercase}} </td>
                         </tr>
                         <tr>
@@ -167,7 +167,7 @@
                             <td class="text-start"> {{PresentRegionName}} </td> 
                         </tr>
                         <tr>
-                            <th class="text-start">Present Station name</th>
+                            <th class="text-start">Present Station Name</th>
                             <td class="text-start"> {{PresentStationName}}</td>
                             <th class="text-start">Present School Name (Code) </th>
                             <td class="text-start"> {{presentKvName}} ({{presentKvCode}})</td>
@@ -255,7 +255,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3 " *ngIf="showHq">
-                                    <label class="mb-1"> Select HeadQuater</label>
+                                    <label class="mb-1"> Select HeadQuarter</label>
                                     <select class="form-select form-select-sm" aria-label="Default select example" formControlName="TransferHeadquater"  (change)="getStationByHqId($event)" >
                                         <option selected disabled> Select HQ</option>
                                         <option *ngFor="let data of headQuaterList; let i=index;" value="{{data.kv_code}}">
@@ -279,7 +279,7 @@
                                     <input type="text"  class="form-control form-control-sm" id="orderno" formControlName="transferOrderNumber" >
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label class="mb-1"> Transfer Order date</label>
+                                    <label class="mb-1"> Transfer Order Date</label>
                                      <input type="date" [max]="maxDate" (keydown)="disableDate()" class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
                                 </div>
                                 <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
@@ -324,7 +324,7 @@
                         <tr>
                             <th class="w-25 text-start"> Employee Name (Code)</th>
                             <td class="text-start"> {{editModifyEmpName}} ({{editModifyEmpCode}})</td>
-                            <th class="text-start">Email </th>
+                            <th class="text-start">Email Id </th>
                             <td class="text-start">{{teacherEmail | uppercase}} </td>
                         </tr>
                         <tr>
@@ -334,7 +334,7 @@
                             <td class="text-start"> {{PresentRegionName}} </td> 
                         </tr>
                         <tr>
-                            <th class="text-start">Present Station name</th>
+                            <th class="text-start">Present Station Name</th>
                             <td class="text-start"> {{PresentStationName}}</td>
                             <th class="text-start">Present School Name (Code) </th>
                             <td class="text-start"> {{presentKvName}} ({{presentKvCode}})</td>
@@ -351,13 +351,13 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th class="text-start" style="width:269px">Alloted Institute Name (Code)</th>
+                            <th class="text-start" style="width:269px">Allotted Institute Name (Code)</th>
                             <td class="text-start"  style="width: 426px;"> {{editAllotedModifykvName}} ({{editAllotedModifykvCode}})</td>
                             <th class="text-start">Joining Date (dd-mm-yyyy) </th>
                             <td class="text-start"> {{editAllotedModifyJoindate | date:"dd-MM-yyyy"}}</td>
                         </tr>
                         <tr>
-                            <th class="text-start">Reliving Date (dd-mm-yyyy) </th>
+                            <th class="text-start">Relieving Date (dd-mm-yyyy) </th>
                             <td class="text-start"> {{editAllotedModifyrelivedate | date:"dd-MM-yyyy"}} </td>
                             <th class="text-start">Transfer Type </th>
                             <td class="text-start"> {{editeModifyTransferType}} </td> 
@@ -368,7 +368,7 @@
                     <thead>
                         <tr>
                             <th colspan="4" class="text-start">
-                             Transfer By Admin transfer
+                             Transfer By Admin Transfer
                             </th>
                         </tr>
                     </thead>
@@ -381,7 +381,7 @@
                             <td class="text-start"> {{joinDate | date:"dd-MM-yyyy"}}</td>
                         </tr>
                         <tr>
-                            <th class="text-start">Reliving Date (dd-mm-yyyy) </th>
+                            <th class="text-start">Relieving Date (dd-mm-yyyy) </th>
                             <td class="text-start"> {{reliveDate | date:"dd-MM-yyyy"}} </td>
                             <th class="text-start">Transfer Type </th>
                             <td class="text-start"> {{editeAllotedTransferType}} </td>
@@ -496,7 +496,7 @@
                                     </div>
 
                                     <div class="col-md-4 mb-2">
-                                        <label class="mb-1"> Transfer Order date</label>
+                                        <label class="mb-1"> Transfer Order Date</label>
                                          <input type="date" [max]="maxDate" (keydown)="disableDate()" class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
                                     </div>
 
@@ -544,7 +544,7 @@
                             <th class="w-25 text-start"> Employee Name (Code)</th>
                             <td class="text-start"> {{editCancelEmpName}}
                                 ({{editCancelEmpCode}})</td>
-                            <th class="text-start">Email </th>
+                            <th class="text-start">Email Id </th>
                             <td class="text-start">{{cancelEmail | uppercase}} </td>
                         </tr>
                         <tr>
@@ -567,7 +567,7 @@
                                         <input type="text"  class="form-control form-control-sm" id="cancelorderno" formControlName="cancelTransferOrderNumber" >
                                     </div>
                                     <div class="col-md-6 mb-2">
-                                        <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order date</label>
+                                        <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order Date</label>
                                         <input type="date" (keydown)="disableDate()"  class="form-control form-control-sm" [max]="maxDate" formControlName="cancelTransferOrderdate" name="cancelTransferOrderdate" placeholder="Date">
                                     </div>
                                </div>

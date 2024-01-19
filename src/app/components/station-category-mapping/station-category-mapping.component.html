@@ -42,7 +42,7 @@
                         </div> -->
 
                         <div class="col-sm-8">
-                            <div class="d-flex flex-row-reverse bd-highlight ">
+                            <div class="d-flex flex-row-reverse bd-highlight mobile-buttons">
                                 <div class="p-1">
                                     <button mat-raised-button class="float-end mt-2 btn-secondary green" (click)="stationCategoryMappingpdf()">Download PDF</button>
                                 </div>
@@ -54,7 +54,7 @@
 
                     </div>
                 </form>
-            <div class="example-container mat-elevation-z8">
+            <div class="example-container mat-elevation-z8 table-responsive">
                 <table mat-table *ngIf="dataSource?.data?.length > 0" [dataSource]="dataSource" matSort>
                     <!-- Position Column -->
                     <ng-container matColumnDef="sno">
