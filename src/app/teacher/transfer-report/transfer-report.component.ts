@@ -19,6 +19,12 @@ export class TransferReportComponent implements OnInit {
 
 
   displayedColumns = ['Sno','reportId','reportName','Action'];
-  
 
+  regionMasterPdf() {
+    alert('Pdf generation in progress...')
+  }
+  
+  exportexcel() {
+    alert('Excel generation in progress...')
+  }
 }

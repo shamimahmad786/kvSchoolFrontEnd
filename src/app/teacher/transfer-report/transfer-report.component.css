@@ -79,3 +79,7 @@
     font-family: 'PoppinsBold';
 
 }
+
+.mat-elevation-z8 {
+  width: 100%;
+}

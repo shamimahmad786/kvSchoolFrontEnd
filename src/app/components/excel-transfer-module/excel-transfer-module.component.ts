@@ -32,7 +32,7 @@ export class ExcelTransferModuleComponent implements OnInit {
   deleteDocUpdate4: boolean;
   isVisible: boolean = false;
   displayedColumns = ['Sno','name','kvname','regionname','stationname','kv_name_alloted','region_name_alloted','station_name_alloted','admintransfer','post','category'];
-  testData =  {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":""};
+  testData =  {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","allottedRegionCode":""};
   transferGroundList: any;
   totalLength: any;
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
@@ -155,6 +155,7 @@ export class ExcelTransferModuleComponent implements OnInit {
         this.testData.presentRegionCode = res[i].regionCodeAlloted;
         this.testData.allotStnCode = res[i].allotStnCode;
         this.testData.stationNameAlloted = res[i].stationNameAlloted;
+        this.testData.allottedRegionCode = res[i].regionCodeAlloted;
        if(res[i].transferType=='AM'){
         this.testData.is_admin_transfer = 'Admin Modify';
        }
@@ -219,7 +220,7 @@ export class ExcelTransferModuleComponent implements OnInit {
 //--------------------Transfer under Cat end------------------------------------------------------
         this.excelTransferMangement.push(this.testData);
         this.totalLength = this.excelTransferMangement.length;
-        this.testData = {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":""};
+        this.testData = {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"", "allottedRegionCode":""};
       }
       console.log(this.excelTransferMangement)
   }

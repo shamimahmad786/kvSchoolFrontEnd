@@ -334,7 +334,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
             to: 'G2',
            }
           this.relevingDataArray.forEach((item) => {
-          const row = workSheet.addRow([item.empcode, item.name,item.postName,item.subjectName,item.transferGround,item.relivingdate,item.To]);
+          const row = workSheet.addRow([item.empcode, item.name,item.postName,item.subjectName,item.transferred_under_cat,item.relivingdate,item.To]);
         });
         workBook.xlsx.writeBuffer().then((data) => {
           let blob = new Blob([data], {
@@ -395,7 +395,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
             this.joiningDataArray.forEach((item) => {
               debugger
               this.kvNameKvCode=item.From+' ('+item.from_kv+')';
-            const row = workSheet.addRow([item.sno, item.empcode, item.name,item.postName,item.subjectName,item.transferGround,item.relivingdate,item.joiningdate, this.kvNameKvCode]);
+            const row = workSheet.addRow([item.sno, item.empcode, item.name,item.postName,item.subjectName,item.transferred_under_cat,item.relivingdate,item.joiningdate, this.kvNameKvCode]);
           });
           workBook.xlsx.writeBuffer().then((data) => {
             let blob = new Blob([data], {
