@@ -46,7 +46,7 @@
                             </div>
                             <div class="example-container mat-elevation-z8 " id="style-2">
                          <div class="table-responsive">
-                                <table mat-table [dataSource]="sBSource" matSort #sBSort="matSort">
+                                <mat-table [dataSource]="sBSource" matSort #sBSort="matSort">
                                     <ng-container matColumnDef="sno">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header> S.No.</mat-header-cell>
                                         <mat-cell *matCellDef="let row"> {{row.sno}} </mat-cell>
@@ -90,7 +90,7 @@
                                     <mat-header-row *matHeaderRowDef="displayedColumnsOut; "></mat-header-row>
                                     <mat-row *matRowDef="let row; columns: displayedColumnsOut;">
                                     </mat-row>
-                                </table>
+                                </mat-table>
                                 </div>
                                 <mat-paginator #paginatorOut [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
                             </div>

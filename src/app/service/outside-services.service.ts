@@ -1544,13 +1544,14 @@ getInitiatedTicketByTicketId(data){
   }); 
     return this._http.post<any>(environment.BASE_URL_DATA_API_TICKET + "getInitiatedTicketByTicketId",  data,{headers});
 }
-private baseUrl = 'http://10.25.26.251:8015/api/ticket';
+
 downloadDocument(folderId: string, fileName: string): Observable<Blob> {
+  var baseUrl = environment.BASE_URL_DATA_API_TICKET;
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({
     'Authorization':token, 
   }); 
-  const url = `${this.baseUrl}/downloadDocument?folderId=${folderId}&fileName=${fileName}`;
+  const url = `${baseUrl}downloadDocument?folderId=${folderId}&fileName=${fileName}`;
   return this._http.get(url, { responseType: 'blob' });
 }
 

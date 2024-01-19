@@ -350,24 +350,26 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
           const workSheet = workBook.addWorksheet('Employee Transfer');
           const excelData = [];
           const ws1 = workSheet.addRow([ '','','','EMPLOYEE TRANSFER IN']);
-          const dobCol = workSheet.getColumn(1);
+          const dobCol0 = workSheet.getColumn(1);
+          dobCol0.width = 10;
+          const dobCol = workSheet.getColumn(2);
           dobCol.width = 15;
-          const dobCol1 = workSheet.getColumn(2);
+          const dobCol1 = workSheet.getColumn(3);
           dobCol1.width = 30;
-          const dobCol2 = workSheet.getColumn(3);
+          const dobCol2 = workSheet.getColumn(4);
           dobCol2.width = 20;
-          const dobCol3 = workSheet.getColumn(4);
+          const dobCol3 = workSheet.getColumn(5);
           dobCol3.width = 20;
-          const dobCol4 = workSheet.getColumn(5);
+          const dobCol4 = workSheet.getColumn(6);
           dobCol4.width = 10;
-          const dobCol5 = workSheet.getColumn(6);
+          const dobCol5 = workSheet.getColumn(7);
           dobCol5.width = 20;
-          const dobCol6 = workSheet.getColumn(7);
+          const dobCol6 = workSheet.getColumn(8);
           dobCol6.width = 20;
-          const dobCol7 = workSheet.getColumn(8);
+          const dobCol7 = workSheet.getColumn(9);
           dobCol7.width = 35;
           workSheet.getRow(1).font = { name: 'Arial', family: 4, size: 18, bold: true };
-          for (let i = 1; i < 9; i++) {
+          for (let i = 1; i < 10; i++) {
             const col = ws1.getCell(i);
             col.fill = {
               type: 'pattern',           
@@ -375,9 +377,9 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
               fgColor: { argb:  '9c9b98' },   
             };
           }
-         const ws = workSheet.addRow(['Employee Code', 'Name', 'Post Name', 'Subject Name','Transfer Ground','Relieving Date','Joining Date','Transfer From']);
+         const ws = workSheet.addRow(['S.No.','Employee Code', 'Name', 'Post Name', 'Subject Name','Transfer Ground','Relieving Date','Joining Date','Transfer From']);
          workSheet.getRow(2).font = { name: 'Arial', family: 4, size: 10, bold: true };
-            for (let i = 1; i < 9; i++) {
+            for (let i = 1; i < 10; i++) {
               const col = ws.getCell(i);
               col.fill = {
                 type: 'pattern',
@@ -393,7 +395,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
             this.joiningDataArray.forEach((item) => {
               debugger
               this.kvNameKvCode=item.From+' ('+item.from_kv+')';
-            const row = workSheet.addRow([item.empcode, item.name,item.postName,item.subjectName,item.transferGround,item.relivingdate,item.joiningdate, this.kvNameKvCode]);
+            const row = workSheet.addRow([item.sno, item.empcode, item.name,item.postName,item.subjectName,item.transferGround,item.relivingdate,item.joiningdate, this.kvNameKvCode]);
           });
           workBook.xlsx.writeBuffer().then((data) => {
             let blob = new Blob([data], {

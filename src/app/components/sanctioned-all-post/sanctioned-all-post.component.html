@@ -58,7 +58,7 @@
     <div class="row bg-1">
 
         <div class="example-container mat-elevation-z8">
-            <table mat-table *ngIf="dataSource?.data?.length > 0" [dataSource]="dataSource" matSort class="mat-elevation-z8 demo-table" style="width: 100%;">
+            <table mat-table matSort *ngIf="dataSource?.data?.length > 0" [dataSource]="dataSource"  class="mat-elevation-z8 demo-table" style="width: 100%;">
 
                 <ng-container matColumnDef="sno">
                     <th mat-header-cell *matHeaderCellDef> S.No. </th>

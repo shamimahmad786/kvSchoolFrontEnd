@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SanctionedPostRoutingModule } from './sanctioned-post-routing.module';
 import { SanctionedPostComponent } from './sanctioned-post.component';
 import { QCommonModule } from '../q-common/q-common.module';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { QCommonModule } from '../q-common/q-common.module';
   imports: [
     CommonModule,
     SanctionedPostRoutingModule,
-    QCommonModule
+    QCommonModule,
+    MatSortModule 
   ]
 })
 export class SanctionedPostModule { }

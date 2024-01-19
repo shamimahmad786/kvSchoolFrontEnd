@@ -27,20 +27,20 @@
               </div>
               </div>     
           </div>
-          <div class="example-container mat-elevation-z8 " id="style-2">
+          <div class="example-container mat-elevation-z8" id="style-2">
             <div class="table-responsive">
-              <table mat-table [dataSource]="hBSource" matSort #hBSort="matSort">
+              <mat-table [dataSource]="hBSource" matSort #hBSort="matSort">
                 <ng-container matColumnDef="Sno">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.sno}} </mat-cell>
                 </ng-container>
-
+  
                 <ng-container matColumnDef="Region Name">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Region Name </mat-header-cell>
                   <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.regionname}}
                   </mat-cell>
               </ng-container>
-
+  
                 <ng-container matColumnDef="Employee Code">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Employee Code </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.employeeCode}}
@@ -87,7 +87,7 @@
                 <mat-header-row *matHeaderRowDef="displayedColumnsForNational; sticky:true; "></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumnsForNational;">
                 </mat-row>
-            </table>
+            </mat-table>
             </div>
               
               <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>

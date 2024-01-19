@@ -339,8 +339,6 @@ export class KvsTicketComponent implements OnInit {
     }
     this.outSideService.getInitiatedTicketByTicketId(data).subscribe((res)=>{
       if(res){
-        debugger
-      console.log(res); 
       this.docList=res['docList'];
       this.ticketDetails=res['ticketDetails'];
       if(res['ticketDetails'].ticketStatus==0 || res['ticketDetails'].ticketStatus=='0'){
@@ -391,7 +389,6 @@ export class KvsTicketComponent implements OnInit {
   }
   ).then((isConfirm) => {
   if (isConfirm.value === true) {
-    debugger
       this.outSideService.assignTicketTo(this.assignTo).subscribe((res)=>{
         if(res){
           Swal.fire(
@@ -446,7 +443,6 @@ debugger
   }
   ).then((isConfirm) => {
   if (isConfirm.value === true) {
-    debugger
       this.outSideService.resolveTicketByTicketId(this.resolveTicket).subscribe((res)=>{
         if(res){
           Swal.fire(
@@ -470,10 +466,11 @@ debugger
   });
   }
 
-  downloadDocument() {
-    const folderId = this.ticketDetails?.folderId;
-    const fileName = this.docList;
-
+  downloadDocument(data:any,folderIds:any) {
+    const folderId = folderIds;
+    const fileName = data;
+console.log(folderId)
+console.log(fileName)
     this.outSideService.downloadDocument(folderId, fileName).subscribe((blob: Blob) => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
