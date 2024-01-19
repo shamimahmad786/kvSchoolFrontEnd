@@ -19,7 +19,7 @@
                         <div class="row">
 
                             <div class="col-md-4 my-2form-group">
-                                <label class="titleSet">Staff Type Name</label>
+                                <label class="titleSet">Staff Type Name<span class="required-asterisk">*</span></label>
                                 <input type="text" formControlName="staffType" class="form-control">
                                 <!-- <span class="help-block text-danger"
                                     *ngIf="isSubmitted && !staffTypeForm.get('regionname').valid && staffTypeForm.get('regionname').touched">Please Enter Region Name !</span> -->
@@ -34,7 +34,7 @@
                             </div>
                             <div class="col-md-4 my-2form-group">
                                 <!-- <mat-form-field style="width: 100%;"> -->
-                                <label class="titleSet">Select Status</label>
+                                <label class="titleSet">Select Status<span class="required-asterisk">*</span></label>
                                 <mat-select formControlName="status" class="form-control">
                                     <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.status}}</mat-option>
                                 </mat-select>
@@ -46,7 +46,7 @@
                                 <!-- <span class="help-block text-danger"
                                 *ngIf="!regionForm.get('status').valid && regionForm.get('status').touched">Please select the status!</span> -->
                             </div>
-                            <div class="mt-2 text-end">
+                            <div class="mt-2 text-center">
                                 <button type="submit" class="btn btn-success mt-2">{{(isEdit)?'Update':'Add'}}</button>&nbsp;&nbsp;
                                 <button type="button" *ngIf="!isEdit" class="btn btn-primary mt-2" (click)="clear()">Clear</button>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-primary mt-2" (click)="redirectToList()">Cancel</button>

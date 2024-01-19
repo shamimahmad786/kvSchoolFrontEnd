@@ -209,7 +209,7 @@
                         <div class="px-3">
                             <div class="row">
                                 <div class="col-md-4 mb-2" *ngIf="showRegion || showSchool ">
-                                    <label class="mb-1"> Select Region</label>
+                                    <label class="mb-1"> Select Region<span class="required-asterisk">*</span></label>
                                     <select class="form-select form-select-sm" formControlName="transferRegion"
                                         aria-label="Default select example"
                                         (change)="getStationByHqId($event);getStationByRegionId($event)">
@@ -221,7 +221,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-2" *ngIf="showSchool">
-                                    <label class="mb-1"> Select Station</label>
+                                    <label class="mb-1"> Select Station<span class="required-asterisk">*</span></label>
                                     <select class="form-select form-select-sm" formControlName="transferStation"
                                         aria-label="Default select example"
                                         (change)="getKvSchoolByStationId($event)">
@@ -233,7 +233,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-2" *ngIf="showSchool">
-                                    <label class="mb-1"> Select School</label>
+                                    <label class="mb-1"> Select School<span class="required-asterisk">*</span></label>
                                     <select class="form-select form-select-sm"  formControlName="transferSchool"
                                         aria-label="Default select example" 
                                         (change)="setUdiseCode($event)">
@@ -246,7 +246,7 @@
                                 </div>
 
                                 <div class="col-md-4 mb-2" *ngIf="showZiet">
-                                    <label class="mb-1"> Select ZIET</label>
+                                    <label class="mb-1"> Select ZIET<span class="required-asterisk">*</span></label>
                                     <select class="form-select form-select-sm" aria-label="Default select example" formControlName="TransferZiet"  (change)="getStationByHqId($event)">
                                         <option selected disabled> Select ZITE</option>
                                         <option *ngFor="let data of zoneList; let i=index;" value="{{data.kv_code}}">
@@ -255,7 +255,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3 " *ngIf="showHq">
-                                    <label class="mb-1"> Select HeadQuarter</label>
+                                    <label class="mb-1"> Select HeadQuarter<span class="required-asterisk">*</span></label>
                                     <select class="form-select form-select-sm" aria-label="Default select example" formControlName="TransferHeadquater"  (change)="getStationByHqId($event)" >
                                         <option selected disabled> Select HQ</option>
                                         <option *ngFor="let data of headQuaterList; let i=index;" value="{{data.kv_code}}">
@@ -264,7 +264,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-2" *ngIf="showCategory">
-                                    <label class="mb-1"> Select Transfer Ground</label>
+                                    <label class="mb-1"> Select Transfer Ground<span class="required-asterisk">*</span></label>
                                     <select class="form-select form-select-sm" formControlName="transferGround"
                                         aria-label="Default select example">
                                         <option selected disabled> Select Category</option>
@@ -275,11 +275,11 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label class="mb-1"> Transfer Order Number</label>
+                                    <label class="mb-1"> Transfer Order Number<span class="required-asterisk">*</span></label>
                                     <input type="text"  class="form-control form-control-sm" id="orderno" formControlName="transferOrderNumber" >
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label class="mb-1"> Transfer Order Date</label>
+                                    <label class="mb-1"> Transfer Order Date<span class="required-asterisk">*</span></label>
                                      <input type="date" [max]="maxDate" (keydown)="disableDate()" class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
                                 </div>
                                 <div class="col-md-4 mt-4 " *ngIf="selectHeadQuaterZoneRegion">
@@ -407,7 +407,7 @@
             </div>
         <div *ngIf="modiFYTransferType=='' || modiFYTransferType==null || modiFYTransferType==undefined || modiFYTransferType=='A'">
             <div class="pb-2 mt-2  row  m-0">
-                <label for="staticEmail" class="col-sm-6 col-form-label ps-0">Select Institute Type</label>
+                <label for="staticEmail" class="col-sm-6 col-form-label ps-0">Select Institute Type<span class="required-asterisk">*</span></label>
                 <div class="col-sm-6">
                     <select class="form-select"   (change)="selectInstituteType($event)"  aria-label="Default select example" id="institute_id">
                         <option selected disabled>Select </option>
@@ -425,7 +425,7 @@
                             <div class="px-3">
                                 <div class="row">
                                     <div class="col-md-4 mb-2" *ngIf="showRegion || showSchool ">
-                                        <label class="mb-1"> Select Region</label>
+                                        <label class="mb-1"> Select Region<span class="required-asterisk">*</span></label>
                                         <select class="form-select form-select-sm" formControlName="modifyTransferRegion"
                                             aria-label="Default select example"
                                             (change)="getStationByHqId($event);getStationByRegionId($event)">
@@ -437,7 +437,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-2" *ngIf="showSchool">
-                                        <label class="mb-1"> Select Station</label>
+                                        <label class="mb-1"> Select Station<span class="required-asterisk">*</span></label>
                                         <select class="form-select form-select-sm" formControlName="modifyTransferStation"
                                             aria-label="Default select example"
                                             (change)="getKvSchoolByStationId($event)">
@@ -449,7 +449,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-2" *ngIf="showSchool">
-                                        <label class="mb-1"> Select School</label>
+                                        <label class="mb-1"> Select School<span class="required-asterisk">*</span></label>
                                         <select class="form-select form-select-sm"  formControlName="modifyTransferSchool"
                                             aria-label="Default select example" 
                                             (change)="setUdiseCode($event)">
@@ -461,7 +461,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-2" *ngIf="showZiet">
-                                        <label class="mb-1"> Select ZIET</label>
+                                        <label class="mb-1"> Select ZIET<span class="required-asterisk">*</span></label>
                                         <select class="form-select form-select-sm" aria-label="Default select example" formControlName="modifyTransferZiet"  (change)="getStationByHqId($event)">
                                             <option selected disabled> Select ZITE</option>
                                             <option *ngFor="let data of zoneList; let i=index;" value="{{data.kv_code}}">
@@ -470,7 +470,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3 " *ngIf="showHq">
-                                        <label class="mb-1"> Select HeadQuater</label>
+                                        <label class="mb-1"> Select HeadQuarter<span class="required-asterisk">*</span></label>
                                         <select class="form-select form-select-sm" aria-label="Default select example" formControlName="modifyTransferHeadquater"  (change)="getStationByHqId($event)" >
                                             <option selected disabled> Select HQ</option>
                                             <option *ngFor="let data of headQuaterList; let i=index;" value="{{data.kv_code}}">
@@ -479,7 +479,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-2" *ngIf="showCategory">
-                                        <label class="mb-1"> Select Transfer Ground</label>
+                                        <label class="mb-1"> Select Transfer Ground<span class="required-asterisk">*</span></label>
                                         <select class="form-select form-select-sm" formControlName="modifyTransferGround"
                                             aria-label="Default select example">
                                             <option selected disabled> Select Category</option>
@@ -491,12 +491,12 @@
                                     </div>
 
                                     <div class="col-md-4 mb-2">
-                                        <label class="mb-1"> Transfer Order Number</label>
+                                        <label class="mb-1"> Transfer Order Number<span class="required-asterisk">*</span></label>
                                         <input type="text"  class="form-control form-control-sm" id="orderno" formControlName="transferOrderNumber" >
                                     </div>
 
                                     <div class="col-md-4 mb-2">
-                                        <label class="mb-1"> Transfer Order Date</label>
+                                        <label class="mb-1"> Transfer Order Date<span class="required-asterisk">*</span></label>
                                          <input type="date" [max]="maxDate" (keydown)="disableDate()" class="form-control form-control-sm" formControlName="transferOrderdate" name="transferOrderdate" placeholder="Date">
                                     </div>
 
@@ -563,11 +563,11 @@
                             <div class="px-3">
                                 <div class="row">
                                     <div class="col-md-6 mb-2">
-                                        <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order Number</label>
+                                        <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order Number<span class="required-asterisk">*</span></label>
                                         <input type="text"  class="form-control form-control-sm" id="cancelorderno" formControlName="cancelTransferOrderNumber" >
                                     </div>
                                     <div class="col-md-6 mb-2">
-                                        <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order Date</label>
+                                        <label  class="col-sm-6 col-form-label ps-0"> Cancel Transfer Order Date<span class="required-asterisk">*</span></label>
                                         <input type="date" (keydown)="disableDate()"  class="form-control form-control-sm" [max]="maxDate" formControlName="cancelTransferOrderdate" name="cancelTransferOrderdate" placeholder="Date">
                                     </div>
                                </div>

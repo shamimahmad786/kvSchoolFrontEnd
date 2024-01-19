@@ -19,7 +19,7 @@
                     <div class=" prof-fields bg-white shadow p-4 rounded-3">
                         <div class="row">
                             <div class="col-md-4 form-group my-2">
-                                <label class="titleSet">Post Code</label>
+                                <label class="titleSet">Post Code<span class="required-asterisk">*</span></label>
                                 <input type="text" formControlName="postCode" [readonly]="poscodeStatus" class="form-control" maxlength="4">
                                 <!-- <span class="help-block text-danger"
                                     *ngIf="!designationForm.get('postCode').valid && designationForm.get('postCode').touched">Please Enter Region Code !</span> -->
@@ -32,7 +32,7 @@
                                 </mat-error>
                             </div>
                             <div class="col-md-4 form-group my-2">
-                                <label class="titleSet">Post Name</label>
+                                <label class="titleSet">Post Name<span class="required-asterisk">*</span></label>
                                 <input type="text" formControlName="postName" class="form-control">
                                 <!-- <span class="help-block text-danger"
                                     *ngIf="isSubmitted && !designationForm.get('postName').valid && designationForm.get('postName').touched">Please Enter Region Name !</span> -->
@@ -47,7 +47,7 @@
                             </div>
                             <div class="col-md-4 form-group my-2 ">
                                 <!-- <mat-form-field style="width: 100%;"> -->
-                                <label class="titleSet">Select Status</label>
+                                <label class="titleSet">Select Status<span class="required-asterisk">*</span></label>
                                 <mat-select formControlName="status" class="form-control">
                                     <mat-option>Select Status</mat-option>
                                     <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.status}}</mat-option>
@@ -60,7 +60,7 @@
                                 <!-- <span class="help-block text-danger"
                                 *ngIf="!designationForm.get('status').valid && designationForm.get('status').touched">Please select the status!</span> -->
                             </div>
-                            <div class="mt-2 text-end">
+                            <div class="mt-2 text-center">
                                 <button type="submit" class="btn btn-success mt-2">{{(isEdit)?'Update':'Add Designation'}}</button>&nbsp;&nbsp;
                                 <button type="button" *ngIf="!isEdit" class="btn btn-primary mt-2" (click)="clear()">Clear</button>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-primary mt-2" (click)="redirectToList()">Cancel</button>

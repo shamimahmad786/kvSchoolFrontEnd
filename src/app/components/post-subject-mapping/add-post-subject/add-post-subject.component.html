@@ -20,7 +20,7 @@
                         <div class="row">
                             <div class="col-md-5 form-group mt-3">
 
-                                <label class="titleSet">Select Post Code</label>
+                                <label class="titleSet">Select Post Code<span class="required-asterisk">*</span></label>
                                 <mat-select formControlName="postCode" class="form-control">
                                     <mat-option value="">Select Status</mat-option>
                                     <mat-option *ngFor="let post of designationList" [value]="post.id" (click)="valueChangePost(post.postName); getSubject(post.id)">{{post.postCode}}-({{post.postName}})</mat-option>
@@ -39,7 +39,7 @@
 
                             </div>
                             <div class="col-md-5 form-group mt-3">
-                                <label class="titleSet">Select Subject Code</label>
+                                <label class="titleSet">Select Subject Code<span class="required-asterisk">*</span></label>
                                 <mat-select formControlName="subjectCode" class="form-control">
                                     <mat-option value="">Select Staff-Type</mat-option>
                                     <mat-option *ngFor="let sub of subjectList" (click)="valueChangeSubject(sub.subjectName)" [value]="sub.id">{{sub.subjectCode}}-({{sub.subjectName}})</mat-option>
@@ -56,20 +56,14 @@
                                     </mat-error> -->
 
                             </div>
-
-
-                            <div class="mt-2">
+                            <div class="mt-2 text-center">
                                 <button type="submit" class="btn btn-primary mt-2">Add</button>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-primary mt-2" (click)="clear()">Clear</button>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-primary mt-2" (click)="redirectToList()">Cancel</button>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-
-
             </div>
         </div>
     </form>

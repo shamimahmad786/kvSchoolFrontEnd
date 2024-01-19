@@ -18,6 +18,9 @@ table {
     font-size: 22px;
     color: red;
   }
+  .required-asterisk{
+    color: red;
+  }
   .eye-icon{
     font-size: 22px;
     color: rgb(102, 164, 230)(0, 0, 255);

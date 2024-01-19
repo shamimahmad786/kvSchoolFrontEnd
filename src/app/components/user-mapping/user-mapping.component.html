@@ -16,7 +16,7 @@
               <div *ngIf="userMappingAction=='Add' || userMappingAction=='update'">
                 <form id="msform" [formGroup]="addUserMapping" (ngSubmit)="onSubmit()">
               <div class="pb-2 mt-2  row  m-0">
-                <label for="staticEmail" class="col-sm-2 col-form-label ps-0">Region</label>
+                <label for="staticEmail" class="col-sm-2 col-form-label ps-0">Region<span class="required-asterisk">*</span></label>
                 <div class="col-sm-3">
                     <select class="form-select"   aria-label="Default select example" id="s_id" name="region"  #region formControlName="region" (change)="getRoOfficeByRegionId(region.value)" [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.region.errors }">
                         <option selected disabled>Select Region</option>
@@ -27,7 +27,7 @@
                     <div *ngIf="addUserMappingFormubmitted && f.region.errors" class="invalid-feedback">Region is required</div>
                 </div>
 
-                <label for="staticEmail" class="col-sm-2 col-form-label ">RO Office </label>
+                <label for="staticEmail" class="col-sm-2 col-form-label ">RO Office<span class="required-asterisk">*</span> </label>
                 <div class="col-sm-3">   
                     <select class="form-select " aria-label="Default select example" #rooffice (change)="getRoEmpByRegionOfficeId(rooffice.value)" formControlName="rooffice" [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.rooffice.errors }">
                         <option selected disabled>Select RO Office </option>
@@ -40,7 +40,7 @@
               </div>
 
               <div class="pb-2 mt-2  row  m-0">
-               <label for="staticEmail" class="col-sm-2 col-form-label ps-0">Employee Name</label>
+               <label for="staticEmail" class="col-sm-2 col-form-label ps-0">Employee Name<span class="required-asterisk">*</span></label>
                 <div class="col-sm-3">
 
                     <select class="form-select " aria-label="Default select example" formControlName="empname" [ngClass]="{'is-invalid': addUserMappingFormubmitted && f.empname.errors }">
@@ -52,14 +52,14 @@
                     <div *ngIf="addUserMappingFormubmitted && f.empname.errors" class="invalid-feedback">Employee Name is required</div>
                 </div>
 
-                <label for="staticEmail" class="col-sm-2 col-form-label" >Start Date</label>
+                <label for="staticEmail" class="col-sm-2 col-form-label" >Start Date<span class="required-asterisk">*</span></label>
                 <div class="col-sm-3">
                   <div class="input-group">
                       <div class="input-group-addon">
                           <mat-datepicker-toggle mdSuffix [for]="pickers"></mat-datepicker-toggle>
                           <mat-datepicker #pickers></mat-datepicker>
                       </div>
-                      <input class="form-control"  id="wordStartDate" (dateChange)="checkDatelieBeetwenFromTo($event,1)" [matDatepicker]="pickers" placeholder="Date"  (click)="pickers.open()"
+                      <input class="form-control"  id="wordStartDate" [max]="maxDate" (dateChange)="checkDatelieBeetwenFromTo($event,1)" [matDatepicker]="pickers" placeholder="Date"  (click)="pickers.open()"
                           formControlName="startdate" >
                   </div>
                   <span class="help-block text-danger"

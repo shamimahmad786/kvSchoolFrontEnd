@@ -17,13 +17,13 @@
                     <div class=" prof-fields bg-white shadow p-4 rounded-3">
                         <div class="row">
                             <div class="col-md-4 my-2 form-group">
-                                <label class="titleSet">Select Region</label>
+                                <label class="titleSet">Select Region<span class="required-asterisk">*</span></label>
                                 <ng-multiselect-dropdown [placeholder]="'Select Region'"  [settings]="dropdownRegionSettings" [data]="dropdownRegionList" [(ngModel)]="selectedRegionItems" formControlName="regionCode">
                                 </ng-multiselect-dropdown>
                                 <span class="help-block text-danger" *ngIf="!regionMForm.get('regionCode').valid && regionMForm.get('regionCode').touched">Please Enter Region!</span>
                             </div>
                             <div class="col-md-4 my-2 form-group">
-                                <label class="titleSet">Select Station</label>
+                                <label class="titleSet">Select Station<span class="required-asterisk">*</span></label>
                                 <ng-multiselect-dropdown #multiStation [placeholder]="'Select Station'" [settings]="dropdownStationSettings" [data]="dropdownStationList" [(ngModel)]="selectedStationItems" formControlName="stationCode">
                                 </ng-multiselect-dropdown>
                                 <span class="help-block text-danger" *ngIf="stationMapped">All Station has been mapped</span>
@@ -31,13 +31,13 @@
 
                             </div>
                             <div class="col-md-4 my-2 form-group ">
-                                <label class="titleSet">From Date</label>
+                                <label class="titleSet">From Date<span class="required-asterisk">*</span></label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <mat-datepicker-toggle mdSuffix [for]="pickers"></mat-datepicker-toggle>
                                         <mat-datepicker #pickers></mat-datepicker>
                                     </div>
-                                    <input class="form-control" [matDatepicker]="pickers" placeholder="Date" (click)="pickers.open()" formControlName="fromDate">
+                                    <input class="form-control" [max]="maxDate" [matDatepicker]="pickers" placeholder="Date" (click)="pickers.open()" formControlName="fromDate">
                                 </div>
                                 <span class="help-block text-danger" *ngIf="!regionMForm.get('fromDate').valid && regionMForm.get('fromDate').touched">Please Select From Date!</span>
 
@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-md-4 my-2 form-group ">
                                 <mat-form-field appearance="outline" class="w-100 mt-4" >
-                                    <mat-label class="mat_lable">Select Status</mat-label>
+                                    <mat-label class="mat_lable">Select Status<span class="required-asterisk">*</span></mat-label>
                                     <mat-select formControlName="status">
                                         <mat-option>Select Status</mat-option>
                                         <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.status}}</mat-option>
@@ -67,7 +67,7 @@
                                 </mat-form-field>
                                 <span class="help-block text-danger" *ngIf="!regionMForm.get('status').valid && regionMForm.get('status').touched">Please select the status!</span>
                             </div>
-                            <div class="text-end">
+                            <div class="text-center">
                                 <button type="submit" class="btn btn-success mt-2">Submit</button>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-primary mt-2" (click)="clear()">Clear</button>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-primary mt-2" (click)="redirectToList()">Cancel</button>
