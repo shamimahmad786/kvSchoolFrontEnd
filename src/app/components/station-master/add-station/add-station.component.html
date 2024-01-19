@@ -26,7 +26,7 @@
                         <div class="row">
 
                             <div class="col-md-4 form-group my-2">
-                                <label class="titleSet">Station Code</label>
+                                <label class="titleSet">Station Code<span class="required-asterisk">*</span></label>
                                 <input type="text" formControlName="stationCode" class="form-control" maxlength="3">
                                 <!-- <span class="help-block text-danger"
                                     *ngIf="!stationForm.get('stationCode').valid && stationForm.get('stationCode').touched">Please Enter Station Code !</span> -->
@@ -38,7 +38,7 @@
 
                             </div>
                             <div class="col-md-4 form-group my-2">
-                                <label class="titleSet">Station Name</label>
+                                <label class="titleSet">Station Name<span class="required-asterisk">*</span></label>
                                 <input type="text" formControlName="stationName" class="form-control" maxlength="50">
                                 <!-- <span class="help-block text-danger"
                                     *ngIf="!stationForm.get('stationName').valid && stationForm.get('stationName').touched">Please Enter Station Name !</span> -->
@@ -52,7 +52,7 @@
                                 </mat-error>
                             </div>
                             <div class="col-md-4 form-group my-2">
-                                <label class="titleSet">Select Status</label>
+                                <label class="titleSet">Select Status<span class="required-asterisk">*</span></label>
                                 <mat-select formControlName="status" class="form-control">
                                     <mat-option>Select Status</mat-option>
                                     <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.status}}</mat-option>

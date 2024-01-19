@@ -12,7 +12,6 @@
       <div class="dashboard-main-content-info p-5">
 <div class="cardSet50 px-4">
     <form [formGroup]="regionForm" (ngSubmit)="submit()">
-
         <div class="row">
             <div class="col-md-12">
                 <div class="">
@@ -20,7 +19,7 @@
                         <div class="row">
 
                             <div class="col-md-4 form-group my-2">
-                                <label class="titleSet">Region/ZIET Code</label>
+                                <label class="titleSet">Region/ZIET Code<span class="required-asterisk">*</span></label>
                                 <input type="text" formControlName="regioncode" class="form-control" maxlength="2" minlength="2">
                                 <!-- <span class="help-block text-danger"
                                     *ngIf="!regionForm.get('regioncode').valid && regionForm.get('regioncode').touched">Please Enter Region Code !</span> -->
@@ -31,7 +30,7 @@
                                 </mat-error>
                             </div>
                             <div class="col-md-4 form-group my-2">
-                                <label class="titleSet">Region/ZIET Name</label>
+                                <label class="titleSet">Region/ZIET Name<span class="required-asterisk">*</span></label>
                                 <input type="text" formControlName="regionname" class="form-control" maxlength="50" minlength="3">
                                 <!-- <span class="help-block text-danger"
                                     *ngIf="isSubmitted && !regionForm.get('regionname').valid && regionForm.get('regionname').touched">Please Enter Region Name !</span> -->
@@ -47,7 +46,7 @@
 
                             <div class="col-md-4 form-group my-2">
                                 <!-- <mat-form-field style="width: 100%;"> -->
-                                <label class="titleSet">Select Status</label>
+                                <label class="titleSet">Select Status<span class="required-asterisk">*</span></label>
                                 <mat-select formControlName="status" class="form-control">
                                     <mat-option>Select Status</mat-option>
                                     <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.status}}</mat-option>
@@ -57,33 +56,23 @@
                                 <mat-error *ngIf="isSubmitted && errorHandling('status', 'required')">
                                     Please select the status!
                                 </mat-error>
-                                <!-- <span class="help-block text-danger"
-                                *ngIf="!regionForm.get('status').valid && regionForm.get('status').touched">Please select the status!</span> -->
                             </div>
                             <div class="col-md-8 form-group my-2">
-                                <label class="titleSet">Address</label>
+                                <label class="titleSet">Address<span class="required-asterisk">*</span></label>
                                 <textarea formControlName="regionaddress" class="form-control" maxlength="50" minlength="3"></textarea>
                                 <mat-error *ngIf="isSubmitted && errorHandling('regionaddress', 'required')">
                                     Please enter address!
                                 </mat-error>
 
                             </div>
-
-
-
-
                             <div class="mt-2 text-middle" style="text-align: center;">
                                 <button type="submit" class="btn btn-success mt-2">{{(isEdit)?'Update':'Add Region'}}</button>&nbsp;&nbsp;
                                 <button type="button" *ngIf="!isEdit" class="btn btn-primary mt-2" (click)="clear()">Clear</button>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-primary mt-2" (click)="redirectToList()">Cancel</button>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-
-
             </div>
         </div>
     </form>

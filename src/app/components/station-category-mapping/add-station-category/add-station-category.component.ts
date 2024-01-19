@@ -10,7 +10,7 @@ import * as moment from 'moment';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
-
+declare const srvTime: any;
 @Component({
   selector: 'app-add-station-category',
   templateUrl: './add-station-category.component.html',
@@ -37,11 +37,13 @@ export class AddStationCategoryComponent implements OnInit {
   duplicateregionCheck = [];
   getCategoryMappingListData:any=[];
   dropdownCategorySettings = {};
+  returnTypeSrvTime: any;
   userMappingAction:any;
   userMappingRegionCode:any;
   loginUserNameForService:any;
   userMappingRegionName:any;
   historyControllerOfficeDataArray: any = [];
+  maxDate:any;
   statusList=[{'value':true,'status':'Active'},{'value':false,'status':'InActive'}]
 
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
@@ -52,7 +54,11 @@ export class AddStationCategoryComponent implements OnInit {
   }
   @ViewChild('multiStation') multiStation;
   ngOnInit(): void {
- 
+    this.returnTypeSrvTime = srvTime();
+    var date = new Date(this.returnTypeSrvTime),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+    this.maxDate =  [date.getFullYear(), mnth, day].join("-");
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
     }

@@ -9,6 +9,7 @@ import { DateAdapter } from '@angular/material/core';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
 declare var $: any;
+declare const srvTime: any;
 @Component({
   selector: 'app-user-mapping',
   templateUrl: './user-mapping.component.html',
@@ -39,14 +40,21 @@ export class UserMappingComponent implements OnInit {
   historyControllerOfficeDataArray: any = [];
   heading:any;
   businessUnitTypeId:any;
+  returnTypeSrvTime: any;
   schoolType:any;
   controllerType:any;
   activeStatus: any;
+  maxDate:any;
   constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>,private router: Router) {
     this.dateAdapter.setLocale('en-GB');
    }
 
   ngOnInit(): void {
+    this.returnTypeSrvTime = srvTime();
+    var date = new Date(this.returnTypeSrvTime),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+    this.maxDate =  [date.getFullYear(), mnth, day].join("-");
     this.heading="Add/Edit User Mapping";
     this.route.queryParams.subscribe(params => {
       this.userMappingAction=params['action'];

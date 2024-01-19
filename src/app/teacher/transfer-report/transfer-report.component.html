@@ -4,75 +4,71 @@
     </div>
     <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a>Home</a></li>
-          <li class="breadcrumb-item"><a>Transfer Report</a></li>
+            <li class="breadcrumb-item"><a>Home</a></li>
+            <li class="breadcrumb-item"><a>Transfer Report</a></li>
         </ol>
-      </nav>
-      <div class="dashboard-main-content-info p-6 ticket">
+    </nav>
+    <div class="dashboard-main-content-info p-6 ticket">
 
-            <div class="row">
+        <div class="row">
             <div class="col-lg-12">
 
-                <div class="row ">              
-                   
-                    <div class="col-sm-6">
-                        <div class="d-flex flex-row-reverse bd-highlight ">
-                            
-                            <div class="p-1">
-                                <button mat-raised-button class="float-end mt-2 btn-secondary green" (click)="regionMasterPdf()"><i class="bi bi-file-pdf me-1"></i> Download PDF</button>
-                            </div>
-                            <div class="p-1">
-                                <button mat-raised-button class="float-end mt-2 btn-primary red" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>
-                            </div>
-                        </div>
-                    </div>   
-            </div>
+                <div class="example-container mat-elevation-z8">
 
-            <!-- <div class="row">
-                <div class="col-md-12 form-group ">
-                    <div class="float-end">
-                        <div>
-                            <span class="me-2">Show Results : <strong>  {{totalLength}}</strong></span>
-                            <mat-form-field  style="width: 350px;" appearance="outline" class=" searchInput ">
-                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-                            </mat-form-field>
-                        </div>      
+                    <div class="col-sm-8">
+                        <div class="d-flex flex-row-reverse bd-highlight ">
+                            <div class="p-1">
+                                <button mat-raised-button class="float-end mt-2 btn-secondary green"
+                                    (click)="generatePDF()">Download PDF</button>
+                            </div>
+                            <div class="p-1">
+                                <button mat-raised-button class="float-end mt-2 btn-primary red"
+                                    (click)="exportexcel()">Download Excel</button>
+                            </div>
                         </div>
                     </div>
-            </div> -->
-            <mat-table [dataSource]="dataSource" matSort #hBSort="matSort">
-                <ng-container matColumnDef="Sno">
-                    <mat-header-cell *matHeaderCellDef> S.No. </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.sno}}</mat-cell>
-                </ng-container>
-    
-                <ng-container matColumnDef="reportId">
-                    <mat-header-cell *matHeaderCellDef >Report Id</mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.name}} ({{row.employeecode}})
-                    </mat-cell>
-                </ng-container>
-    
-                <ng-container matColumnDef="reportName">
-                    <mat-header-cell *matHeaderCellDef >Report Name </mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentKvName}} ({{row.presentKvCode}})
-                    </mat-cell>
-                </ng-container>  
-      
-                <ng-container matColumnDef="Action" >
-                    <mat-header-cell *matHeaderCellDef > Action </mat-header-cell>
-                    <td mat-cell *matCellDef="let element"><i class="fa fa-edit  edite_buttun" matTooltip="Edit" ></i></td>
-                </ng-container>
-              
-    
-                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; " ></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'make-red-row': row.transfer_type=='NA'}">
-                </mat-row>
-            </mat-table>
-            <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
-          
+
+                    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8 demo-table"
+                        style="width: 100%;">
+
+                        <ng-container matColumnDef="sno">
+                            <th mat-header-cell *matHeaderCellDef> S.No. </th>
+                            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="reportId">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Report Id </th>
+                            <td mat-cell *matCellDef="let element"> {{element.reportId}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="reportName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Report Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.reportName}} </td>
+
+                        </ng-container>
+                        <ng-container matColumnDef="reportType">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Report Type </th>
+                            <td mat-cell *matCellDef="let element"> {{(element.reportType ==
+                                "T")?'Transfer':'YetToDecide'}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Action">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                            <td mat-cell *matCellDef="let element"><i class="fa fa-edit edite_buttun" matTooltip="Edit"
+                                    style="font-size: 23px;margin-left: 8px;" data-toggle="modal" data-target=".bd-example-modal-lg" (click)="openReportModel(element)"></i></td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[10,20, 25]"> </mat-paginator>
+                </div>
+            </div>
+        </div>
+
     </div>
-    </div>
-    
-    </div>
- 
+
 </div>
+
+

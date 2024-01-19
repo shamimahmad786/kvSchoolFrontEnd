@@ -83,7 +83,7 @@ export class KvSchoolMappingComponent implements OnInit {
       this.businessUnitTypeId= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id;
       this.businessUnitTypeCode= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_code;
     }
-    alert(this.businessUnitTypeId)
+  
     if(this.businessUnitTypeId=="2"){
     
       this.schoolType="3";

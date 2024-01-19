@@ -17,7 +17,7 @@
                     <div class="card p-3" *ngIf="businessUnitTypeId!='5'">
                         <form id="msform" [formGroup]="addInstituteForm" (ngSubmit)="onSubmit()">
                             <div class="pb-2 mt-2  row  m-0">
-                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0">Institution type</label>
+                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Institution type<span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
 
                                     <select class="form-select" aria-label="Default select example" name="instituteType" formControlName="instituteType" (change)="getStationByRegionId($event)" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.instituteType.errors }">
@@ -28,7 +28,7 @@
                                     <div *ngIf="addInstituteFormubmitted && f.instituteType.errors" class="invalid-feedback">Institute type is required</div>
                                 </div>
 
-                                <label for="staticEmail" class="col-sm-2 col-form-label ">Institution List </label>
+                                <label for="staticEmail" class="col-sm-2 col-form-label text-end ">Institution List<span class="required-asterisk">*</span> </label>
                                 <div class="col-sm-3" *ngIf="(businessUnitTypeId =='2' || businessUnitTypeId =='5')   && schoolType !='4'">
                                     <select class="form-select " aria-label="Default select example" #institutelist (change)="getUserNameForInstitute(institutelist.value)" formControlName="instituteCode" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.instituteCode.errors }">
                         <option selected >Select Institute Lists </option>
@@ -51,14 +51,14 @@
                             </div>
 
                             <div class="pb-2 mt-2  row  m-0">
-                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0">User Name</label>
+                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">User Name<span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
 
                                     <input type="text" class="form-control" id="userName" [readonly]="true" formControlName="userName" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">User name is required</div>
                                 </div>
 
-                                <label for="staticEmail" class="col-sm-2 col-form-label">Email Id</label>
+                                <label for="staticEmail" class="col-sm-2 col-form-label text-end">Email Id<span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
 
                                     <input type="text" class="form-control" id="Email" formControlName="Email" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Email.errors }">
@@ -67,8 +67,8 @@
                             </div>
 
 
-                            <div class="pb-2 mt-2  row  m-0">
-                                <label for="staticEmail" class="col-sm-2 col-form-label ">Mobile No</label>
+                            <div class="pb-2 mt-2  row  ">
+                                <label for="staticEmail" class="col-sm-2 col-form-label text text-end ">Mobile No<span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
 
                                     <input type="text" class="form-control" onKeyPress="if(this.value.length==10 ) return false;" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
@@ -83,30 +83,30 @@
                     <div class="card p-3" *ngIf="businessUnitTypeId=='5'">
                         <form id="msform" [formGroup]="addInstituteForm" (ngSubmit)="onSubmit()">
                             <div class="pb-2 mt-2  row  m-0">
-                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0">Employee Code</label>
+                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Employee Code <span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
                                     <input type="text" class="form-control" id="userName" formControlName="userName" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
-                                    <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Institute name is required</div>
+                                    <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Employee Code is required</div>
                                 </div>
-                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0">Employee Name</label>
+                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Employee Name <span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
                                     <input type="text" class="form-control" id="userName" formControlName="firstname" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
-                                    <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Institute name is required</div>
+                                    <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Employee Name is required</div>
                                 </div>
 
                             </div>
                             <div class="pb-2 mt-2  row  m-0">
-                                <label for="staticEmail" class="col-sm-2 col-form-label">Email Id</label>
+                                <label for="staticEmail" class="col-sm-2 col-form-label text-end">Email Id <span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
 
                                     <input type="text" class="form-control" id="Email" formControlName="Email" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Email.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.Email.errors" class="invalid-feedback">Email is required</div>
                                 </div>
-                                <label for="staticEmail" class="col-sm-2 col-form-label ">Mobile No.</label>
+                                <label for="staticEmail" class="col-sm-2 col-form-label text-end">Mobile No. <span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
 
                                     <input type="text" class="form-control" onKeyPress="if(this.value.length==10) return false;" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
-                                    <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile is required</div>
+                                    <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile No is required</div>
                                     <!-- <div *ngIf="f.Mobile.hasError('whitespace')">Mobile number cannot contain only whitespace.</div> -->
                                 </div>
                             </div>

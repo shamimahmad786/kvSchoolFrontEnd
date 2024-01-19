@@ -15,3 +15,6 @@
   .mat_label{
       font-weight: 500;
   }
+  .mat-table {
+    background: #ffffff;
+}

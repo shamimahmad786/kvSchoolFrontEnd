@@ -4,62 +4,153 @@
     </div>
     <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a>Home</a></li>
-          <li class="breadcrumb-item"><a>Transfer Through Excel</a></li>
+            <li class="breadcrumb-item"><a>Home</a></li>
+            <li class="breadcrumb-item"><a>Transfer Through Excel</a></li>
         </ol>
-      </nav>
+    </nav>
     <div class="dashboard-main-content-info p-4 ticket">
         <form [formGroup]="excelTransferForm" (ngSubmit)="submit()">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="upload-card">
-                    <div class="mb-3 row" >
-                        <label class="col-sm-3 col-form-label">File Upload</label>
-                        <div class="col-sm-9">
-                            <div class="d-flex justify-content-start">
-                            <div>
-                                <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" id="file" (blur)="handleFileInput($event.target.files, '4')" >
-                                <span class="help-block text-danger" *ngIf="fileUpload">Please upload the file</span>  
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="upload-card">
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">File Upload</label>
+                            <div class="col-sm-9">
+                                <div class="d-flex justify-content-start">
+                                    <div>
+                                        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" id="file" (blur)="handleFileInput($event.target.files, '4')">
+                                    </div>
+                                    <button class="btn btn-secondary" style="height: 38px; margin-right: 10px;" type="button" id="inputGroupFileAddon04" (click)="documentUpload(4)">Upload</button>
+                                    <span class="note">Note: File type Excel File size 5MB</span>
+                                </div>
+                                <span class="help-block text-danger" *ngIf="fileUpload">Please upload the file</span>
                             </div>
-                            
-                            <button class="btn btn-secondary" style="height: 38px; margin-right: 10px;" type="button" id="inputGroupFileAddon04" (click)="documentUpload(4)">Upload</button>
-                            <span class="note">Note: File type Excel File size 5MB</span>
+
                         </div>
-                        
-                        </div>
-                        
-                    </div>
-                    <div *ngIf="isVisible" style="width:250px;"  >
-                    <div  class="d-flex justify-content-between" *ngFor="let data of image2; let i=index;">
-                        <p class="filename">{{data}}</p>
-                        <div>
-                            <a href="#" title="" class="me-2" >
-                                <a href="http://10.25.26.251:8015/api/ticket/downloadDocument?folderId={{randonNumber}}&fileName={{data}}" >  <i class="fa fa-eye eye-icon" aria-hidden="true"></i></a>
-                            </a>
-                            <i class="fa fa-trash delete-icon" (click)="deleteFile(data)" aria-hidden="true"></i>
+                        <div *ngIf="isVisible" style="width:250px;">
+                            <div class="d-flex justify-content-between" *ngFor="let data of image2; let i=index;">
+                                <p class="filename">{{data}}</p>
+                                <div>
+                                    <a href="#" title="" class="me-2">
+                                        <a href="http://10.25.26.251:8015/api/ticket/downloadDocument?folderId={{randonNumber}}&fileName={{data}}"> <i class="fa fa-eye eye-icon" aria-hidden="true"></i></a>
+                                    </a>
+                                    <i class="fa fa-trash delete-icon" (click)="deleteFile(data)" aria-hidden="true"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    </div> 
+                </div>
+                <div class="col-md-4" style="text-align: end;">Download Demo Excel
+                    <a class="" download href="assets/transferExcel.xlsx" target="_blank"> <img src="/assets/images/download.png"></a>
                 </div>
             </div>
-            <div class="col-md-4" style="text-align: end;">Download Demo Excel <a class="" download href="assets/transferExcel.xlsx" target="_blank"> <img src="/assets/images/download.png"></a></div>
-        </div>
-    </form>
+        </form>
     </div>
     <div class="dashboard-main-content-info p-4 mt-4">
         <div class="row">
-        <div class="col-lg-12">
-        <div class="row">
-            <div class="col-md-12 form-group ">
-                <div class="float-end">
-                    <div>
-                        <span class="me-2">Show Results : <strong>  {{totalLength}}</strong></span>
-                        <mat-form-field  style="width: 350px;" appearance="outline" class=" searchInput ">
-                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-                        </mat-form-field>
-                    </div>      
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-12 form-group ">
+                        <div class="float-end">
+                            <div>
+                                <span class="me-2">Show Results : <strong>  {{totalLength}}</strong></span>
+                                <mat-form-field style="width: 350px;" appearance="outline" class=" searchInput ">
+                                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+                                </mat-form-field>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <mat-table [dataSource]="dataSource" matSort #hBSort="matSort">
+                    <ng-container matColumnDef="Sno">
+                        <mat-header-cell *matHeaderCellDef> S.No. </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.sno}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef>Employee name (Code)</mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.name}} ({{row.employeecode}})
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="kvname">
+                        <mat-header-cell *matHeaderCellDef>Present KV (Code) </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentKvName}} ({{row.presentKvCode}})
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="regionname">
+                        <mat-header-cell *matHeaderCellDef>Present Region Name (Code) </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentRegionName}} ({{row.presentRegionCode}})
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="stationname">
+                        <mat-header-cell *matHeaderCellDef>Present Station Name (Code) </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentStationName}} ({{row.presentStationCode}})
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="kv_name_alloted">
+                        <mat-header-cell *matHeaderCellDef>Allotted KV (Code) </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.kv_name_alloted}} ({{row.allot_kv_code}})
+                        </mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="region_name_alloted">
+                        <mat-header-cell *matHeaderCellDef>Allotted Region Name (Code) </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.stationNameAlloted}} ({{row.allotStnCode}})
+                        </mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="station_name_alloted">
+                        <mat-header-cell *matHeaderCellDef>Allotted Station name (Code) </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.stationNameAlloted}} ({{row.allotStnCode}})
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="admintransfer">
+                        <mat-header-cell *matHeaderCellDef>Transfer Type </mat-header-cell>
+                        <mat-cell *matCellDef="let row" [ngClass]="{'make-red': row.transfer_type=='NA','make-blue': row.transfer_type=='AM'}"><span class="mobile-label"></span> {{row.is_admin_transfer}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="post">
+                        <mat-header-cell *matHeaderCellDef>Post </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.last_promotion_position_type}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="category">
+                        <mat-header-cell *matHeaderCellDef>Category </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferred_under_cat}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="transferordernumber">
+                        <mat-header-cell *matHeaderCellDef>Transfer Order Number </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferOrderNumber}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="trasndferorderdate">
+                        <mat-header-cell *matHeaderCellDef>Transfer Order Date </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.trasndferOrderDate}}
+                        </mat-cell>
+                    </ng-container>
+
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'make-red-row': row.transfer_type=='NA'}">
+                    </mat-row>
+                </mat-table>
+                <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+                <div class="p-3" style="text-align: center;">
+                    <input type="submit" id="submit1" value="Confirm" (click)="saveExcelTransferdata();" class="btn btn-success" />
+                </div>
+            </div>
         </div>
         <mat-table [dataSource]="dataSource" matSort #hBSort="matSort">
             <ng-container matColumnDef="Sno">
@@ -67,11 +158,11 @@
                 <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.sno}}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef >Employee name (Code)</mat-header-cell>
-                <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.name}} ({{row.employeecode}})
-                </mat-cell>
-            </ng-container>
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef>Employee name (Code)</mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.name}} ({{row.employeecode}})
+                        </mat-cell>
+                    </ng-container>
 
             <ng-container matColumnDef="kvname">
                 <mat-header-cell *matHeaderCellDef >Present KV (Code) </mat-header-cell>
@@ -138,7 +229,5 @@
         <div class="p-3" style="text-align: center;">
             <input  type="submit" id="submit1" value="Confirm" (click)="saveExcelTransferdata();"  class="btn btn-success" />
         </div>
-</div>
-</div>
 </div>
 </div>

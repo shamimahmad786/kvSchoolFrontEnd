@@ -22,3 +22,6 @@
     line-height: normal;
     border: none;
 }
+.required-asterisk{
+    color: red;
+  }
