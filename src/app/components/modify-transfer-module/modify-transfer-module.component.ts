@@ -19,7 +19,7 @@ declare const srvTime: any;
 export class ModifyTransferModuleComponent implements OnInit {
   
   displayedColumns = ['Sno','name','kv_code','is_admin_transfer','kv_name_alloted','join_date','relieve_date','transfer_under_cat','Action'];
-  testData = { "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"","join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "","relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","transferStatusOneComplite":""}
+  testData = { "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"","join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "","relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","transferStatusOneComplite":"","teacherId":""}
   dataSource:any;
   userMappingSource : MatTableDataSource<any>;
   @ViewChild('paginator') paginator: MatPaginator;
@@ -107,6 +107,13 @@ export class ModifyTransferModuleComponent implements OnInit {
   teacherEmail: any;
   allotedKvCode: any;
   maxDate: any;
+  presentKvNameViewModal: any;
+  presentKvCodeViewModal: any;
+  allotedKvCodeViewModal: any;
+  teacherDobViewModal: any;
+  teacherEmailViewModal: any;
+  editModifyEmpCodeViewModal: any;
+  editModifyEmpNameViewModal: any;
   constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>,private router: Router,private formData: FormDataService,private modalService: NgbModal) {
     this.dateAdapter.setLocale('en-GB');
    }
@@ -176,6 +183,7 @@ export class ModifyTransferModuleComponent implements OnInit {
              this.testData.presentStationName = res['rowValue'][i].station_name_present;
              this.testData.presentStationCode = res['rowValue'][i].present_station_code;
              this.testData.presentRegionName = res['rowValue'][i].region_name_present;
+             this.testData.teacherId = res['rowValue'][i].teacher_id;
             if(res['rowValue'][i].is_admin_transfer==true){
              this.testData.is_admin_transfer = 'Admin';
             }
@@ -312,7 +320,7 @@ export class ModifyTransferModuleComponent implements OnInit {
              this.totalLength = this.adminTransferMangement.length;
              this.testData = {  "sno": "", "employeecode": "", "name":"" ,"email": "", "teacher_dob": "","transfer_type":"","is_admin_transfer":"","kv_name_alloted":"","kv_code":"","join_relieve_flag":"",
              "join_date": "","allot_stn_code": "","allot_kv_code": "","work_experience_appointed_for_subject": "","last_promotion_position_type": "",
-             "relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","transferStatusOneComplite":""};
+             "relieve_date": "","emp_transfer_status": "","transferred_under_cat":"","transferStatusAction":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","transferStatusOneComplite":"","teacherId":""};
            }
        }
        setTimeout(() => {
@@ -459,9 +467,26 @@ export class ModifyTransferModuleComponent implements OnInit {
     })
     this.modalService.open(this.AdminMdificationBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
-  openViewModal(empCode:any){
-   
-    this.outSideService.fetchConfirmedTchDetails(empCode).subscribe((res) => {
+
+
+  openViewModal(teacherId:any,empName:any,empCode:any,email:any,kvName:any,kvCode:any,dob:any){
+  debugger
+    this.presentKvNameViewModal='';
+    this.presentKvCodeViewModal='';
+    this.allotedKvCodeViewModal='';
+
+    this.teacherDobViewModal='';
+    this.teacherEmailViewModal='';
+    this.editModifyEmpCodeViewModal='';
+    this.editModifyEmpNameViewModal='';
+    this.presentKvNameViewModal =kvName;
+    this.presentKvCodeViewModal = kvCode;
+    this.teacherDobViewModal=dob;
+    this.teacherEmailViewModal=email;
+    this.editModifyEmpCodeViewModal=empCode;
+    this.editModifyEmpNameViewModal=empName;
+
+    this.outSideService.fetchConfirmedTchDetails(teacherId).subscribe((res) => {
   
       for (let i = 0; i < res.response.experience.length; i++) {
         if (res.response.experience[i].workEndDate != null || res.response.experience[i].workEndDate != null) {

@@ -189,15 +189,15 @@ export class LoginComponent implements OnInit {
       this.generate();
       return;
     }
-    // if (this.loginForm.controls.otpForm.value['otpCaptcha'] != this.captchaotp ) {
-    //   this.loginForm.patchValue({
-    //     otpForm: {
-    //       otpCaptcha: '',
-    //     }
-    //   })
-    //   this.generate();
-    //   return;
-    // }
+    if (this.loginForm.controls.otpForm.value['otpCaptcha'] != this.captchaotp ) {
+      this.loginForm.patchValue({
+        otpForm: {
+          otpCaptcha: '',
+        }
+      })
+      this.generate();
+      return;
+    }
     sessionStorage.clear();
     sessionStorage.removeItem('authTeacherDetails')
     sessionStorage.removeItem('mappingData')

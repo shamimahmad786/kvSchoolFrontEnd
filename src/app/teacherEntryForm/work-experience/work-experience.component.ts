@@ -84,6 +84,7 @@ export class WorkExperienceComponent implements OnInit {
   @ViewChild('selectSchoolModal', { static: true }) selectSchoolModal: TemplateRef<any>;
   transferGroundList: any;
   profileTeacherName: any;
+  checkWorkEndDateBlank: any;
   constructor(private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
     private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) {
@@ -209,7 +210,7 @@ export class WorkExperienceComponent implements OnInit {
         workStartDate: [data.workStartDate, [Validators.required]],
         workEndDate:data.workEndDate,
         positionType: data.positionType,
-        appointedForSubject: data.appointedForSubject,
+        appointedForSubject:  [data.appointedForSubject,[Validators.required]],
         kvCode: [data.kvCode, [Validators.required]],
       })
     } else {
@@ -226,7 +227,7 @@ export class WorkExperienceComponent implements OnInit {
         workStartDate: ["", [Validators.required]],
         workEndDate: '',
         positionType: ["", [Validators.required]],
-        appointedForSubject: "",
+        appointedForSubject: ["", [Validators.required]],
         shiftYn: '',
         kvCode: ['', [Validators.required]],
       })
@@ -422,6 +423,7 @@ export class WorkExperienceComponent implements OnInit {
     }
   }
   experienceDataManagement(event, index,type) {
+    debugger
     ((this.teacherForm.get('workExperienceForm') as FormArray).at(0) as FormGroup).get('workStartDate');
     for (let i = 0; i < this.teacherForm.value.workExperienceForm.length - 1; i++) {
       var dateFrom = this.teacherForm.value.workExperienceForm[i].workStartDate;
@@ -532,6 +534,7 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
     })
   }
   teacherTypeSelectExp(event, index) {
+    ((this.teacherForm.get('workExperienceForm') as FormArray).at(index) as FormGroup).get('appointedForSubject').patchValue('');
     var data = {
       "applicationId": this.applicationId,
       "teacherTypeId": event.target.value
@@ -566,6 +569,10 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
   previousPage(){
     this.router.navigate(['/teacher/basicProfile']);
   }
+   blank(value) {
+    debugger
+    return value === null || value === '';
+  }
   onNextClick(){
     debugger
     if(this.teacherForm.value.workExperienceForm.length<1){
@@ -583,13 +590,23 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
  debugger
  console.log(event)
  this.workExperienceArray=[];
+ this.checkWorkEndDateBlank='';
+    this.checkWorkEndDateBlank = this.teacherForm.value.workExperienceForm.filter(item => this.blank(item.workEndDate)).length;
+    if(this.checkWorkEndDateBlank>1){
+      Swal.fire(
+        'Please fill To date field!',
+        '',
+        'error'
+      )
+      return false;
+    }
     for (let i = 0; i < this.teacherForm.value.workExperienceForm.length; i++) {
       if (this.teacherForm.value.workExperienceForm[i].workEndDate == '' || this.teacherForm.value.workExperienceForm[i].workEndDate == null ) {
         this.teacherForm.value.workExperienceForm[i].currentlyActiveYn = '1';
        if(this.teacherForm.value.workExperienceForm[i].groundForTransfer!='' && this.teacherForm.value.workExperienceForm[i].groundForTransfer!=null )
         {
           Swal.fire(
-            'Transfer Ground can be submited when to date is blank !',
+            'Transfer Ground can not be submited when to date is blank !',
             '',
             'error'
           )
