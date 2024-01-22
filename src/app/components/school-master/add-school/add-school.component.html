@@ -22,7 +22,7 @@
                     <div class=" prof-fields bg-white shadow p-4 rounded-3">
                         <div class="row">
                             <div class="col-md-4 form-group my-2">
-                                <label class="titleSet">School Code</label>
+                                <label class="titleSet">School Code<span class="required-asterisk">*</span></label>
                                 <input type="text" formControlName="schoolCode" class="form-control" maxlength="4">
                                 <!-- <span class="help-block text-danger"
                                     *ngIf="!schoolForm.get('schoolCode').valid && schoolForm.get('schoolCode').touched">Please Enter School Code !</span> -->
@@ -33,7 +33,7 @@
                                 </mat-error>
                             </div>
                             <div class="col-md-4 form-group my-2">
-                                <label class="titleSet">School Name</label>
+                                <label class="titleSet">School Name<span class="required-asterisk">*</span></label>
                                 <input type="text" formControlName="schoolName" class="form-control" maxlength="50">
                                 <!-- <span class="help-block text-danger"
                                     *ngIf="!schoolForm.get('schoolName').valid && schoolForm.get('schoolName').touched">Please Enter School Name !</span> -->
@@ -51,7 +51,7 @@
 
                             <div class="col-md-4 form-group my-2 ">
                                 <!-- <mat-form-field style="width: 100%;"> -->
-                                <label class="titleSet">Select Status</label>
+                                <label class="titleSet">Select Status<span class="required-asterisk">*</span></label>
                                 <mat-select formControlName="status" class="form-control">
                                     <mat-option value="">Select Status</mat-option>
                                     <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.status}}</mat-option>
@@ -65,7 +65,7 @@
                                 *ngIf="!regionForm.get('status').valid && regionForm.get('status').touched">Please select the status!</span> -->
                             </div>
                             <div class="col-md-4 form-group my-2 ">
-                                <label class="titleSet">Select Shift</label><br>
+                                <label class="titleSet">Select Shift<span class="required-asterisk">*</span></label><br>
                                 <!-- <mat-select formControlName="shift" class="form-control">
                                     <mat-option *ngFor="let shift of shiftList" [value]="shift.value">{{shift.type}}</mat-option>
                                 </mat-select>
@@ -88,7 +88,7 @@
                             </div>
 
                             <div class="col-md-4 form-group my-2 ">
-                                <label class="titleSet">Address</label><br>
+                                <label class="titleSet">Address<span class="required-asterisk">*</span></label><br>
                                 <textarea type="text" formControlName="schoolAddress" class="form-control"></textarea>
                                 <mat-error *ngIf="isSubmitted && errorHandling('schoolAddress', 'required')">
                                     Please provide address!

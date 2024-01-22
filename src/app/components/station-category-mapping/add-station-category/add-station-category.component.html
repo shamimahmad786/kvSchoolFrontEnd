@@ -25,7 +25,7 @@
                         <div class="row">
 
                             <div class="col-md-6 form-group">
-                                <label class="titleSet">Select Station</label>                    
+                                <label class="titleSet">Select Station<span class="required-asterisk">*</span></label>                    
                                     <ng-multiselect-dropdown #multiStation
                                     [placeholder]="'Select Station'"
                                     [settings]="dropdownStationSettings"
@@ -49,7 +49,7 @@
 
                                     </mat-select>
                                 </mat-form-field> -->
-                                <label class="titleSet">Select Station Category</label>                    
+                                <label class="titleSet">Select Station Category<span class="required-asterisk">*</span></label>                    
                                     <ng-multiselect-dropdown
                                     [placeholder]="'Select Station Category'"
                                     [settings]="dropdownCategorySettings"
@@ -62,13 +62,13 @@
                                   *ngIf="!stationCategoryMForm.get('category').valid && stationCategoryMForm.get('category').touched">Please Enter Station-Category!</span>
                             </div>
                             <div class="col-md-6 form-group mt-2">
-                                <label class="titleSet">From Date</label>
+                                <label class="titleSet">From Date<span class="required-asterisk">*</span></label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <mat-datepicker-toggle mdSuffix [for]="pickers"></mat-datepicker-toggle>
                                         <mat-datepicker #pickers></mat-datepicker>
                                     </div>
-                                    <input class="form-control"  id="wordStartDate" (dateChange)="checkDatelieBeetwenFromTo($event,1)" [matDatepicker]="pickers" placeholder="Date"  (click)="pickers.open()"
+                                    <input class="form-control" [max]="maxDate"  id="wordStartDate" (dateChange)="checkDatelieBeetwenFromTo($event,1)" [matDatepicker]="pickers" placeholder="Date"  (click)="pickers.open()"
                                         formControlName="fromDate" >
                                 </div>
                                 <span class="help-block text-danger"
@@ -91,7 +91,7 @@
                             </div>
                             <div class="col-md-6 form-group mt-3">
                             <mat-form-field style="width: 100%;">
-                                <mat-label class="mat_lable">Select Status</mat-label>
+                                <mat-label class="mat_lable">Select Status<span class="required-asterisk">*</span></mat-label>
                                 <mat-select formControlName="status">
                                     <mat-option>Select Status</mat-option>
                                     <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.status}}</mat-option>
@@ -179,10 +179,6 @@
         <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
     </div>
 </div>
-
-
-
-
 </div>
 </div>
 </div>

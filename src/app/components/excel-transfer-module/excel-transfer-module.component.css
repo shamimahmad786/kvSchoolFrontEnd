@@ -70,6 +70,9 @@
     background-color: #ffefef;;
     font-family: 'PoppinsBold';
 }
+.required-asterisk{
+  color: red;
+}
 .make-red-row {
     background-color: #ffefef;;
    

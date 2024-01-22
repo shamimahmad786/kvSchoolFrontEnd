@@ -2,16 +2,4 @@
   table {
     width: 100%;
   }
-  th.mat-header-cell:first-of-type{
-    padding-left: 30px;
-   
-  }
-  th.mat-header-cell{
-    padding-left: 54px;
-  }
-  td.mat-cell{
-    padding-left: 54px;
-  }
-  .mat_label{
-      font-weight: 500;
-  }
+ 

@@ -5,7 +5,7 @@ import { DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
-
+declare const srvTime: any;
 @Component({
   selector: 'app-add-region-station',
   templateUrl: './add-region-station.component.html',
@@ -19,13 +19,13 @@ export class AddRegionStationComponent implements OnInit {
   dropdownStationList = [];
   selectedStationItems = [];
   dropdownStationSettings = {};
-
+  returnTypeSrvTime: any;
   regionList: any=[];
   dropdownRegionList:any=[];
   selectedRegionItems = [];
   dropdownRegionSettings = {};
   stationMapped:boolean=false;
-
+  maxDate: any;
   statusList=[{'value':true,'status':'Active'},{'value':false,'status':'InActive'}];
 
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
@@ -36,6 +36,11 @@ export class AddRegionStationComponent implements OnInit {
   }
   @ViewChild('multiStation') multiStation;
   ngOnInit(): void {
+    this.returnTypeSrvTime = srvTime();
+    var date = new Date(this.returnTypeSrvTime),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+    this.maxDate =  [date.getFullYear(), mnth, day].join("-");
     this.buildRegionMappingForm();
     this.getRegionList();
     this.getStationList();

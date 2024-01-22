@@ -1,0 +1,10 @@
+.required-asterisk{
+    color: red;
+  }
+  .mat-header-row {
+    background-color: #E5EEFF !important;
+    color: #353535 !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    font-family: 'PoppinsRegular' !important;
+  }

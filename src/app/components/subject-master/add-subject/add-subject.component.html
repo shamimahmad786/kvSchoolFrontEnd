@@ -20,7 +20,7 @@
                         <div class="row">
 
                             <div class="col-md-4 my-2 form-group">
-                                <label class="titleSet">Subject Code</label>
+                                <label class="titleSet">Subject Code<span class="required-asterisk">*</span></label>
                                 <input type="text" formControlName="subjectCode" maxlength="5" class="form-control">
                                 <!-- <span class="help-block text-danger"
                                     *ngIf="!subjectForm.get('subjectCode').valid && subjectForm.get('subjectCode').touched">Please Enter Region Code !</span> -->
@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-md-4 my-2 form-group ">
                                 <!-- <mat-form-field style="width: 100%;"> -->
-                                <label class="titleSet">Select Status</label>
+                                <label class="titleSet">Select Status<span class="required-asterisk">*</span></label>
                                 <mat-select formControlName="status" class="form-control">
                                     <mat-option>Select Status</mat-option>
                                     <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.status}}</mat-option>

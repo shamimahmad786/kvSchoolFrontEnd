@@ -33,14 +33,14 @@
 
                             </div>
                             <div class="col-md-6 form-group">
-                                <label class="titleSet">Select School</label>
+                                <label class="titleSet">Select School<span class="required-asterisk">*</span></label>
                                 <ng-multiselect-dropdown [placeholder]="'Select School'" [settings]="dropdownSchoolSettings" [data]="dropdownSchoolList" [(ngModel)]="selectedSchoolItems" formControlName="schoolCode">
                                 </ng-multiselect-dropdown>
                                 <span *ngIf="schoolStaionMapped">All School has been Mapped</span>
                                 <span class="help-block text-danger" *ngIf="!schoolStationMForm.get('schoolCode').valid && schoolStationMForm.get('schoolCode').touched">Please Enter Region!</span>
                             </div>
                             <div class="col-md-6 form-group mt-2">
-                                <label class="titleSet">From Dates</label>
+                                <label class="titleSet">From Dates<span class="required-asterisk">*</span></label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <mat-datepicker-toggle mdSuffix [for]="pickers"></mat-datepicker-toggle>
@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-md-6 form-group mt-3">
                                 <mat-form-field style="width: 100%;">
-                                    <mat-label class="mat_lable">Select Status</mat-label>
+                                    <mat-label class="mat_lable">Select Status<span class="required-asterisk">*</span></mat-label>
                                     <mat-select formControlName="status">
                                         <mat-option>Select Status</mat-option>
                                         <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.status}}</mat-option>
