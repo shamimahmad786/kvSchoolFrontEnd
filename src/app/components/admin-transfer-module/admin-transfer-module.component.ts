@@ -628,7 +628,7 @@ debugger
             this.testData.transferred_under_cat='Below 40 Transfer' 
           }
           if(res['rowValue'][i].transferred_under_cat=='0'){
-            this.testData.transferred_under_cat='Tenure Complte' 
+            this.testData.transferred_under_cat='Tenure Complete' 
           }
           if(res['rowValue'][i].transferred_under_cat=='35'){
             this.testData.transferred_under_cat='DFP/MGD' 
