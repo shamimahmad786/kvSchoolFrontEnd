@@ -34,6 +34,7 @@ export class AdminTransferModuleComponent implements OnInit {
   @ViewChild('AdminTransferBox', { static: true }) AdminTransferBox: TemplateRef<any>;
   @ViewChild('AdminCancelBox', { static: true }) AdminCancelBox: TemplateRef<any>;
   @ViewChild('AdminMdificationBox', { static: true }) AdminMdificationBox: TemplateRef<any>;
+  @ViewChild('AdminViewBox', { static: true }) AdminViewBox: TemplateRef<any>;
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
   adminTransferForm: FormGroup;
   adminTransferEditForm: FormGroup;
@@ -72,6 +73,7 @@ export class AdminTransferModuleComponent implements OnInit {
   showSchool:boolean = false;
   showZiet:boolean = false;
   showHq:boolean = false;
+  verifyTchTeacherWorkExp:any;
   showCategory: boolean;
   modiFYTransferType: string;
   editModifyEmpCode: any;
@@ -111,6 +113,13 @@ export class AdminTransferModuleComponent implements OnInit {
   teacherDob: any;
   teacherEmail: any;
   maxDate:any;
+  presentKvNameViewModal: any;
+  presentKvCodeViewModal: any;
+  allotedKvCodeViewModal: any;
+  teacherDobViewModal: any;
+  teacherEmailViewModal: any;
+  editModifyEmpCodeViewModal: any;
+  editModifyEmpNameViewModal: any;
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
   ngOnInit(): void {
@@ -301,7 +310,35 @@ export class AdminTransferModuleComponent implements OnInit {
     })
     this.modalService.open(this.AdminMdificationBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
-
+  openViewModal(teacherId:any,empName:any,empCode:any,email:any,kvName:any,kvCode:any,dob:any){
+    debugger
+      this.presentKvNameViewModal='';
+      this.presentKvCodeViewModal='';
+      this.allotedKvCodeViewModal='';
+  
+      this.teacherDobViewModal='';
+      this.teacherEmailViewModal='';
+      this.editModifyEmpCodeViewModal='';
+      this.editModifyEmpNameViewModal='';
+      this.presentKvNameViewModal =kvName;
+      this.presentKvCodeViewModal = kvCode;
+      this.teacherDobViewModal=dob;
+      this.teacherEmailViewModal=email;
+      this.editModifyEmpCodeViewModal=empCode;
+      this.editModifyEmpNameViewModal=empName;
+  
+      this.outSideService.fetchConfirmedTchDetails(teacherId).subscribe((res) => {
+    
+        for (let i = 0; i < res.response.experience.length; i++) {
+          if (res.response.experience[i].workEndDate != null || res.response.experience[i].workEndDate != null) {
+            res.response.experience[i].workEndDate = res.response.experience[i].workEndDate;
+          }
+          res.response.experience[i].workStartDate = res.response.experience[i].workStartDate;
+        }
+        this.verifyTchTeacherWorkExp = res.response.experience
+      })
+      this.modalService.open(this.AdminViewBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+    }
   getTransferGround(){
     let req={};
     this.outSideService.getTransferGround(req,this.loginUserNameForChild).subscribe((res) => {
@@ -557,7 +594,6 @@ export class AdminTransferModuleComponent implements OnInit {
           this.testData.relieve_date = res['rowValue'][i].relieve_date;
           this.testData.emp_transfer_status = res['rowValue'][i].emp_transfer_status;
 //------------------ Transfer Status----------------------------------------------------------
-debugger
           if(res['rowValue'][i].emp_transfer_status=='-1' || res['rowValue'][i].emp_transfer_status==null){
             this.testData.transferStatusAction='transfer' 
           }

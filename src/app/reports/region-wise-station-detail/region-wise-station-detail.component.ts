@@ -39,6 +39,9 @@ export class RegionWiseStationDetailComponent implements OnInit {
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
   returnTypeSrvTime: any;
   loginUserNameForService: any;
+  controllerEmail: any;
+  controllerMobile: any;
+  controllerName: any;
   constructor(private pdfService: MasterReportPdfService,private fb: FormBuilder,private outSideService: OutsideServicesService, private router: Router,private dateAdapter: DateAdapter<Date>) { 
     this.dateAdapter.setLocale('en-GB');
   }
@@ -125,20 +128,26 @@ export class RegionWiseStationDetailComponent implements OnInit {
   exportexcel(){
     console.log(this.stationSchoolCountByRegion)
     const workBook = new Workbook();
-    const workSheet = workBook.addWorksheet('RegionStationMapping');
+    const workSheet = workBook.addWorksheet('RegionWiseStation');
     const excelData = [];
-    const ws1 = workSheet.addRow(['', 'REGION STATION MAPPING', '']);
+    const ws1 = workSheet.addRow(['', 'REGION WISE STATIONS', '']);
     const dobCol = workSheet.getColumn(1);
     dobCol.width = 15;
     const dobCol1 = workSheet.getColumn(2);
     dobCol1.width = 35;
     const dobCol2 = workSheet.getColumn(3);
-    dobCol2.width = 70;
+    dobCol2.width = 15;
     const dobCol3 = workSheet.getColumn(4);
+<<<<<<< HEAD
     dobCol3.width = 25;
     const dobCol4 = workSheet.getColumn(5);
     dobCol4.width = 25;
     
+=======
+    dobCol3.width = 15;
+    const dobCol4 = workSheet.getColumn(5);
+    dobCol4.width = 30;
+>>>>>>> c09f1e411837077bfbe8fabab070de5faa517e1d
     workSheet.getRow(1).font = { name: 'Arial', family: 4, size: 13, bold: true };
     for (let i = 1; i < 6; i++) {
       const col = ws1.getCell(i);
@@ -149,7 +158,11 @@ export class RegionWiseStationDetailComponent implements OnInit {
       };
     }
   //  const ws = workSheet.addRow(['Region Name', 'Station Name','From Date','todate','Status']);
+<<<<<<< HEAD
    const ws = workSheet.addRow(['S.NO.','Region Name', 'Region Address', 'No. Of Station','No. Of School']);
+=======
+   const ws = workSheet.addRow(['Region Name', 'Region Address','No. Of Station','No. Of School','Region Head']);
+>>>>>>> c09f1e411837077bfbe8fabab070de5faa517e1d
    workSheet.getRow(2).font = { name: 'Arial', family: 4, size: 10, bold: true };
       for (let i = 1; i < 6; i++) {
         const col = ws.getCell(i);
@@ -158,16 +171,37 @@ export class RegionWiseStationDetailComponent implements OnInit {
           pattern: 'solid',
           fgColor: { argb:  'd6d6d4' },
         };
-      }
-      
+      } 
     this.stationSchoolCountByRegion.forEach((item) => {
+<<<<<<< HEAD
       const row = workSheet.addRow([item.sno, item.regionname,item.regionaddress,item.stationcount, item.schoolcount]);
+=======
+      if(item.controllername==null || item.controllername=='null'){
+        this.controllerName='';
+      }
+      else{
+        this.controllerName=item.controllername
+      }
+      if(item.controllermobile==null || item.controllermobile=='null'){
+        this.controllerMobile='';
+      }
+      else{
+        this.controllerMobile=item.controllermobile;
+      }
+      if(item.controlleremail==null || item.controlleremail=='null'){
+        this.controllerEmail='';
+      }
+      else{
+        this.controllerEmail=item.controlleremail;
+      }
+      const row = workSheet.addRow([item.regionname, item.regionaddress,item.stationcount,item.schoolcount,this.controllerName+' '+this.controllerMobile+' '+ this.controllerEmail]);
+>>>>>>> c09f1e411837077bfbe8fabab070de5faa517e1d
     });
     workBook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
-      saveAs(blob, 'RegionStationMapping.xlsx');
+      saveAs(blob, 'RegionWiseStationDetails.xlsx');
     });
  
   }

@@ -22,24 +22,19 @@ export class SideNavComponent implements OnInit {
   showStation:boolean = false;
   showSchool:boolean = false;
   constructor(private router: Router,private outSideService: OutsideServicesService,) {
-
   }
 
   ngOnInit(): void {
-    
     this.applicationId = environment.applicationId;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
-      
       this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
       this.businessUnitTypeId = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_id;
     }
-
     if (this.kvicons?.includes(this.applicationId)) {
       this.kvIfConditions = true;
     }else{
       this.kvIfConditions = false;
     }
- 
     if(this.businessUnitTypeId == '2'){
       this.showNational = true;
     }else if(this.businessUnitTypeId == '3'){
@@ -55,8 +50,6 @@ export class SideNavComponent implements OnInit {
   
 timeWatch()
 {
-  
-
 if((sessionStorage.getItem("authTeacherDetails")!= null) && (JSON.parse(sessionStorage.getItem("authTeacherDetails")).status != 0)){
    this.timeLeft = 15;
    

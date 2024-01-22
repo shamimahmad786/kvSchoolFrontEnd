@@ -103,7 +103,7 @@ export class DesignationMasterComponent implements OnInit,AfterViewInit {
     const excelData = [];
     const ws1 = workSheet.addRow(['', 'DESIGNATION MASTER', '']);
     const dobCol = workSheet.getColumn(1);
-    dobCol.width = 15;
+    dobCol.width = 20;
     const dobCol1 = workSheet.getColumn(2);
     dobCol1.width = 30;
     const dobCol2 = workSheet.getColumn(3);

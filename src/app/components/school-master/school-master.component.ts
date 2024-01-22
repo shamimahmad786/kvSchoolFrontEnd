@@ -23,7 +23,7 @@ const ELEMENT_DATA: any = [
 export class SchoolMasterComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   displayedColumns:any = ['sno', 'schoolcode', 'schoolname', 'institutetype', 'status','shift','schooladdress','action'];
-  testData = {sno: '', schoolcode: '', schoolname: '', status: '', statusType: '',schooltype:'',shiftType:'',shift:'',schooladdress:'',id:''};
+  testData = {sno: '', schoolcode: '', schoolname: '', status: '', statusType: '',schooltype:'',shiftType:'',shift:'',schooladdress:'',instituteType:'',id:''};
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   schoolList: any=[];
@@ -79,11 +79,28 @@ export class SchoolMasterComponent implements OnInit {
           {
           this.testData.statusType ='InActive';
           } 
+
           this.testData.id = res[i].id;
           this.testData.schooltype=res[i].schoolType;
+          if(res[i].schoolType==1 || res[i].schoolType=='1')
+          {
+            this.testData.instituteType='School';
+          }
+          if(res[i].schoolType==2 || res[i].schoolType=='2')
+          {
+            this.testData.instituteType='Ziet';
+          }
+          if(res[i].schoolType==3 || res[i].schoolType=='3')
+          {
+            this.testData.instituteType='Region';
+          }
+          if(res[i].schoolType==4 || res[i].schoolType=='4')
+          {
+            this.testData.instituteType='HeadQuarter';
+          }
           this.testData.schooladdress=res[i].schoolAddress;
           this.schoolList.push(this.testData);
-          this.testData = {sno: '', schoolcode: '', schoolname: '',schooltype:'', status:'',statusType:'',shiftType:'',shift:'',schooladdress:'',id:''};
+          this.testData = {sno: '', schoolcode: '', schoolname: '',schooltype:'', status:'',statusType:'',shiftType:'',shift:'',schooladdress:'',instituteType:'',id:''};
         }
         console.log(this.schoolList);
         setTimeout(() => {
@@ -128,11 +145,15 @@ export class SchoolMasterComponent implements OnInit {
     const dobCol1 = workSheet.getColumn(2);
     dobCol1.width = 40;
     const dobCol2 = workSheet.getColumn(3);
-    dobCol2.width = 10;
+    dobCol2.width = 15;
     const dobCol3 = workSheet.getColumn(4);
     dobCol3.width = 12;
+    const dobCol4 = workSheet.getColumn(5);
+    dobCol4.width = 20;
+    const dobCol5 = workSheet.getColumn(6);
+    dobCol5.width = 30;
     workSheet.getRow(1).font = { name: 'Arial', family: 4, size: 13, bold: true };
-    for (let i = 1; i < 5; i++) {
+    for (let i = 1; i < 7; i++) {
       const col = ws1.getCell(i);
       col.fill = {
         type: 'pattern',
@@ -140,9 +161,9 @@ export class SchoolMasterComponent implements OnInit {
         fgColor: { argb:  '9c9b98' },   
       };
     }
-   const ws = workSheet.addRow(['School Code', 'School Name','Status','Shift Type']);
+   const ws = workSheet.addRow(['School Code', 'School Name','Institute Type','Status','Shift Type','School Address']);
    workSheet.getRow(2).font = { name: 'Arial', family: 4, size: 10, bold: true };
-      for (let i = 1; i < 5; i++) {
+      for (let i = 1; i < 7; i++) {
         const col = ws.getCell(i);
         col.fill = {
           type: 'pattern',
@@ -152,7 +173,7 @@ export class SchoolMasterComponent implements OnInit {
       }
       
     this.schoolList.forEach((item) => {
-      const row = workSheet.addRow([item.schoolcode, item.schoolname,item.statusType,item.shiftType]);
+      const row = workSheet.addRow([item.schoolcode, item.schoolname,item.instituteType,item.statusType,item.shiftType,item.schooladdress]);
     });
     workBook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], {

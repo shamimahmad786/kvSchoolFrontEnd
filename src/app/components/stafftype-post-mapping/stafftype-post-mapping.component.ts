@@ -100,7 +100,7 @@ export class StafftypePostMappingComponent implements OnInit,AfterViewInit {
     const dobCol1 = workSheet.getColumn(2);
     dobCol1.width = 30;
     const dobCol2 = workSheet.getColumn(3);
-    dobCol2.width = 10;
+    dobCol2.width = 20;
     workSheet.getRow(1).font = { name: 'Arial', family: 4, size: 13, bold: true };
     for (let i = 1; i < 4; i++) {
       const col = ws1.getCell(i);
