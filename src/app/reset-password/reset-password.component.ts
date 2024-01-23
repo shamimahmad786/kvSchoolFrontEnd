@@ -111,7 +111,7 @@ export class ResetPasswordComponent implements OnInit {
         this.generate()
       if(res['success']){
         Swal.fire({
-          'icon':'error',
+          'icon':'success',
           'text':'Password Created Successfully.'
         })
           this.router.navigate(['/login']); 
@@ -137,7 +137,7 @@ export class ResetPasswordComponent implements OnInit {
 
         if(res['success']){
           Swal.fire({
-            'icon':'error',
+            'icon':'success',
             'text':'Password Changed Successfully.'
           })
             this.router.navigate(['/login']); 
