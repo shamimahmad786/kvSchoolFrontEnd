@@ -84,8 +84,8 @@ export class WorkExperienceComponent implements OnInit {
   @ViewChild('selectSchoolModal', { static: true }) selectSchoolModal: TemplateRef<any>;
   transferGroundList: any;
   profileTeacherName: any;
-  checkWorkEndDateBlank: any;
-  constructor(private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
+  checkWorkEndDateBlank: any;      
+  constructor(private pdfServive: TeacherAppPdfService,private router: Router,  private datePipe:DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
     private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) {
     }
@@ -634,8 +634,8 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
     var data={
       "teacherId":this.workExperienceArray['0']['teacherId'],
       "udiseSchCode":this.workExperienceArray['0']['udiseSchCode'],
-      "workStartDate":this.workExperienceArray['0']['workStartDate'],
-      "workEndDate":this.workExperienceArray['0']['workEndDate'],
+      "workStartDate":  this.workExperienceArray['0']['workStartDate'],
+      "workEndDate":  this.workExperienceArray['0']['workEndDate'],
       "positionType":this.workExperienceArray['0']['positionType'],
       "appointedForSubject":this.workExperienceArray['0']['appointedForSubject'],
       "udiseSchoolName":this.workExperienceArray['0']['udiseSchoolName'],
