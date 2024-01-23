@@ -33,7 +33,7 @@
         </div>
 
 
-        <div class="accordion-item">
+        <div class="accordion-item" *ngIf="showNational">
             <div class="accordion-header m-0">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                     <img src="assets/images/transfer.png" class="me-2">Transfer Management
@@ -44,10 +44,8 @@
                     <ul>
                         <li class=""><a routerLinkActive="active" routerLink="/teacher/modifyTransferModule"><i class="bi bi-dot"></i>Transfer List (Modify)</a></li>
                         <li><a routerLinkActive="active" routerLink="/teacher/globalTransferModule"><i class="bi bi-dot"></i>Global Transfer</a></li>
-
-
                         <li><a routerLinkActive="active" routerLink="/teacher/excel-transfer"><i class="bi bi-dot"></i>Transfer Through Excel</a></li>
-
+                        <li><a routerLinkActive="active" routerLink="/teacher/transfer-report"><i class="bi bi-dot"></i>Transfer Report</a></li>
 
                     </ul>
                 </div>

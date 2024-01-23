@@ -152,5 +152,82 @@
                 </div>
             </div>
         </div>
-    </div>
+        <!-- <mat-table [dataSource]="dataSource" matSort #hBSort="matSort">
+            <ng-container matColumnDef="Sno">
+                <mat-header-cell *matHeaderCellDef> S.No. </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.sno}}</mat-cell>
+            </ng-container>
+
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef>Employee name (Code)</mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"> </span> {{row.name}} ({{row.employeecode}})
+                        </mat-cell>
+                    </ng-container>
+
+            <ng-container matColumnDef="kvname">
+                <mat-header-cell *matHeaderCellDef >Present KV (Code) </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentKvName}} ({{row.presentKvCode}})
+                </mat-cell>
+            </ng-container>  
+
+            <ng-container matColumnDef="regionname">
+                <mat-header-cell *matHeaderCellDef>Present Region Name (Code) </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentRegionName}} ({{row.presentRegionCode}})
+                </mat-cell>
+            </ng-container>  
+
+            <ng-container matColumnDef="stationname">
+                <mat-header-cell *matHeaderCellDef >Present Station Name (Code) </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.presentStationName}} ({{row.presentStationCode}})
+                </mat-cell>
+            </ng-container>  
+
+            <ng-container matColumnDef="kv_name_alloted">
+                <mat-header-cell *matHeaderCellDef >Allotted KV (Code) </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.kv_name_alloted}} ({{row.allot_kv_code}})
+                </mat-cell>
+            </ng-container> 
+
+
+            <ng-container matColumnDef="region_name_alloted">
+                <mat-header-cell *matHeaderCellDef >Allotted Region Name (Code) </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.regionNameAlloted}} ({{row.allottedRegionCode}})
+                </mat-cell>
+            </ng-container>  
+           
+
+            <ng-container matColumnDef="station_name_alloted">
+                <mat-header-cell *matHeaderCellDef >Allotted Station name  (Code) </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.stationNameAlloted}} ({{row.allotStnCode}})
+                </mat-cell>
+            </ng-container>  
+          
+            <ng-container matColumnDef="admintransfer">
+                <mat-header-cell *matHeaderCellDef >Transfer Type </mat-header-cell>
+                <mat-cell *matCellDef="let row" [ngClass]="{'make-red': row.transfer_type=='NA','make-blue': row.transfer_type=='AM'}" ><span class="mobile-label"></span> {{row.is_admin_transfer}} 
+                </mat-cell>
+            </ng-container>  
+         
+            <ng-container matColumnDef="post">
+                <mat-header-cell *matHeaderCellDef >Post </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.last_promotion_position_type}} 
+                </mat-cell>
+            </ng-container> 
+           
+            <ng-container matColumnDef="category">
+                <mat-header-cell *matHeaderCellDef >Category </mat-header-cell>
+                <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferred_under_cat}} 
+                </mat-cell>
+            </ng-container>  
+          
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; " ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'make-red-row': row.transfer_type=='NA'}">
+            </mat-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+        <div class="p-3" style="text-align: center;">
+            <input  type="submit" id="submit1" value="Confirm" (click)="saveExcelTransferdata();"  class="btn btn-success" />
+        </div> -->
+</div>
 </div>

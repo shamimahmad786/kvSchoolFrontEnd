@@ -144,12 +144,10 @@
                              (click)="openCancelmodal(element.name,element.employeecode,element.email,element.presentKvName,element.kv_code,element.teacher_dob)" style="font-size: 1.8rem; color: #dc1301e3; margin-left: 10px;" aria-hidden="true"></i>
                     </span>
                     <span>
-                        <i class="fa fa-eye" title="View"  (click)="openViewModal(element.employeecode)"  style="font-size: 1.8rem; color: #0668d2; margin-left: 10px;" aria-hidden="true"></i>
-                    </span> 
-
+                        <i class="fa fa-eye" title="View"  (click)="openViewModal(element.teacherId,element.name,element.employeecode,element.email,element.presentKvName,element.kv_code,element.teacher_dob)"  style="font-size: 1.8rem; color: #238cfd; margin-left: 10px;" aria-hidden="true"></i>
+                    </span>
                   </td>
               </ng-container>
-            
               <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   
@@ -159,8 +157,6 @@
           </table>
               <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>  
       </div>
-
-
 
         <div mat-dialog-content>
             <ng-template #AdminTransferBox let-modal style="min-width: 100%;">
@@ -643,30 +639,30 @@
                 </div>
                 <div class="p-3">
                     <div class="table-responsive">
-                        <!-- <table class="table table-bordered text-start">
+                        <table class="table table-bordered w-100">
+
                             <thead>
-                                <tr>
-                                    <th colspan="4" class="text-start">
-                                        Employee Details
-                                    </th>
+                                <tr style="background-color:#7492cb;">
+                                    <th colspan="7" class="text-center text-white"> Employee Details</th>
                                 </tr>
+                              
                             </thead>
                             <tbody>
                                 <tr>
                                     <th class="w-25 text-start"> Employee Name (Code)</th>
-                                    <td class="text-start"> {{editCancelEmpName}}
-                                        ({{editCancelEmpCode}})</td>
+                                    <td class="text-start"> {{editModifyEmpNameViewModal}}
+                                        ({{editModifyEmpCodeViewModal}})</td>
                                     <th class="text-start">Email Id </th>
-                                    <td class="text-start">{{cancelEmail | uppercase}} </td>
+                                    <td class="text-start">{{teacherEmailViewModal | uppercase}} </td>
                                 </tr>
                                 <tr>
                                     <th class="text-start">Present School Name (Code) </th>
-                                    <td class="text-start"> {{canclKvName}} ({{cancelkvCode}})</td>
+                                    <td class="text-start"> {{presentKvNameViewModal}} ({{presentKvCodeViewModal}})</td>
                                     <th class="text-start">DOB (dd-mm-yyyy)</th>
-                                    <td class="text-start"> {{canceldob |date:"dd-MM-yyyy"}}</td>
+                                    <td class="text-start"> {{teacherDobViewModal |date:"dd-MM-yyyy"}}</td>
                                 </tr>
                             </tbody>
-                        </table> -->
+                        </table>
                         <table class="table table-bordered w-100">
                             <thead>
                                 <tr style="background-color:#7492cb;">

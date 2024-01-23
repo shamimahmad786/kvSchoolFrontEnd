@@ -71,8 +71,20 @@
 .mat-column-Action {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 8% !important;
-  width: 8% !important;
+  flex: 0 0 10% !important;
+  width: 10% !important;
+}
+.mat-column-kv_code {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 12% !important;
+  width: 12% !important;
+}
+.mat-column-kv_name_alloted {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 12% !important;
+  width: 12% !important;
 }
     .myClass{
       border: solid 0.2px #542555 !important;;

@@ -53,6 +53,8 @@ import { MiscellaneousFormComponent } from './teacherEntryForm/miscellaneous-for
 import { ProgresionBarComponent } from './teacherEntryForm/progresion-bar/progresion-bar.component';
 import { KvsTicketComponent } from './kvs/kvs-ticket/kvs-ticket.component';
 import { ExcelTransferModuleComponent } from './components/excel-transfer-module/excel-transfer-module.component';
+import { TransferReportComponent } from './teacher/transfer-report/transfer-report.component';
+import { TransferReportChildComponent } from './teacher/transfer-report-child/transfer-report-child.component';
 const routes: Routes = [
   {path:'', component: MainPageComponent},
   {path:'mainPage', component: MainPageComponent},
@@ -87,6 +89,8 @@ const routes: Routes = [
       {path: 'employeeJoining', component:KvsJoiningComponent},  
       {path: 'kvsTicket', component:KvsTicketComponent}, 
       {path: 'excel-transfer', component:ExcelTransferModuleComponent},
+      {path: 'transfer-report', component:TransferReportComponent},
+      {path: 'sub-transfer-report', component:TransferReportChildComponent},
       {path: 'kvsTchDetails', component:KvsTeachersDeatilComponent},
       {path: 'schoolReview', component:SchoolReviewComponent},
       {path: 'transferEdit', component:KvsTransferEditComponent},

@@ -92,7 +92,7 @@ export class BasicProfileComponent implements OnInit {
   profileFinalStatus: boolean = false;
   @ViewChild('Physically_Handicap_Certificate')Physically_Handicap_Certificate: ElementRef;
   @ViewChild('selectSpouseStationModal', { static: true }) selectSpouseStationModal: TemplateRef<any>;
-  constructor(private _http:HttpClient,private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
+  constructor(private _http:HttpClient,private pdfServive: TeacherAppPdfService,private router: Router,private datePipe:DatePipe, private dataService: DataService,
   private modalService: NgbModal, private outSideService: OutsideServicesService,
   private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) {
   }
@@ -117,7 +117,6 @@ export class BasicProfileComponent implements OnInit {
       day = '0' + day.toString();
     }
     this.maxDate = `2024-07-20`;
-   
     this.basicProfileForm = this.fb.group({
       'empCode': new FormControl('', [Validators.required, Validators.pattern("[0-9]*$")]),
       'fullName': new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z ]*$")]),
@@ -770,11 +769,10 @@ export class BasicProfileComponent implements OnInit {
     this.router.navigate(['/teacher/workExperience']);
   }
   submit(){
- 
         var data={
           "teacherName":this.basicProfileForm.value.fullName,
           "teacherGender":this.basicProfileForm.value.gender,
-          "teacherDob":this.basicProfileForm.value.dob,
+          "teacherDob": this.basicProfileForm.value.dob,
           "teacherEmployeeCode":this.basicProfileForm.value.empCode,
           "teacherMobile":this.basicProfileForm.value.mobile,
           "teacherEmail":this.basicProfileForm.value.email,
