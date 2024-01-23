@@ -211,6 +211,19 @@ export class OutsideServicesService {
     return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "getKvTeacherByKvCode", data, {headers})
   }
 
+
+  getReportByID(data: any): Observable<any> {
+    
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
+
+    });
+    return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD + "getReportById", data, {headers})
+  }
+
+
   getEmployeetransferDetails(data: any): Observable<Response> { 
     var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
     var headers = new HttpHeaders({
@@ -1212,6 +1225,19 @@ fetchStationList(data,userName:any){
   return this._http.post<any>(environment.BASE_URL_DATA_MASTER1+ "fetch/list-of-all-station", data, {headers})
 
 }
+
+fetchReportList(data){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  }); 
+
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getListOfReport", data, {headers})
+
+}
+
+
 getSchoolStationHistory(data,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({

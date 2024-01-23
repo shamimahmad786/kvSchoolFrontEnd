@@ -31,8 +31,8 @@ export class ExcelTransferModuleComponent implements OnInit {
   randonNumber: any;
   deleteDocUpdate4: boolean;
   isVisible: boolean = false;
-  displayedColumns = ['Sno','name','kvname','regionname','stationname','kv_name_alloted','region_name_alloted','station_name_alloted','admintransfer','post','category','transferordernumber','trasndferorderdate'];
-  testData =  {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","transferOrderNumber":"","trasndferOrderDate":""};
+  displayedColumns = ['Sno','name','kvname','regionname','stationname','kv_name_alloted','region_name_alloted','station_name_alloted','admintransfer','post','category'];
+  testData =  {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","transferOrderNumber":"","trasndferOrderDate":"","allottedRegionCode": ""};
   transferGroundList: any;
   totalLength: any;
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
@@ -166,6 +166,7 @@ Swal.fire(
     //    this.testData.presentRegionCode = res[i].regionCodeAlloted;
         this.testData.allotStnCode = res[i].allotStnCode;
         this.testData.stationNameAlloted = res[i].stationNameAlloted;
+        this.testData.allottedRegionCode = res[i].regionCodeAlloted;
         this.testData.transferOrderNumber = res[i].transferOrderNumber;
         this.testData.trasndferOrderDate = res[i].trasndferOrderDate;
        if(res[i].transferType=='AM'){
@@ -234,7 +235,7 @@ Swal.fire(
 //--------------------Transfer under Cat end------------------------------------------------------
         this.excelTransferMangement.push(this.testData);
         this.totalLength = this.excelTransferMangement.length;
-        this.testData = {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","transferOrderNumber":"","trasndferOrderDate":""};
+        this.testData = {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","transferOrderNumber":"","trasndferOrderDate":"", "allottedRegionCode": ""};
       }
       console.log(this.excelTransferMangement)
   }

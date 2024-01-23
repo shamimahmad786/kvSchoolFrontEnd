@@ -134,7 +134,7 @@ export class RegionWiseStationDetailComponent implements OnInit {
     const dobCol = workSheet.getColumn(1);
     dobCol.width = 15;
     const dobCol1 = workSheet.getColumn(2);
-    dobCol1.width = 30;
+    dobCol1.width = 35;
     const dobCol2 = workSheet.getColumn(3);
     dobCol2.width = 15;
     const dobCol3 = workSheet.getColumn(4);
