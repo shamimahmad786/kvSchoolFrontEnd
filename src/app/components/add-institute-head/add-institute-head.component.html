@@ -90,7 +90,7 @@
                                 </div>
                                 <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Employee Name <span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="userName" formControlName="firstname" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
+                                    <input type="text" (keypress)="omit_special_char($event)" class="form-control" id="userName" formControlName="firstname" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Employee Name is required</div>
                                 </div>
 
