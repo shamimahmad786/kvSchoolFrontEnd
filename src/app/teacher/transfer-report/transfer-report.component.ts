@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { json } from '@rxweb/reactive-form-validators';
 import { Workbook } from 'exceljs';
-import { ReportdatamodelComponent } from 'src/app/reportdatamodel/reportdatamodel.component';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import { saveAs } from 'file-saver';
 @Component({
