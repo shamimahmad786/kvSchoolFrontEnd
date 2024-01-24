@@ -18,7 +18,7 @@
                             <div class="col-sm-9">
                                 <div class="d-flex justify-content-start">
                                     <div>
-                                        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" id="file" (blur)="handleFileInput($event.target.files, '4')">
+                                        <input type="file" formControlName="fileUpload" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" id="file" (blur)="handleFileInput($event.target.files, '4')">
                                     </div>
                                     <button class="btn btn-secondary" style="height: 38px; margin-right: 10px;" type="button" id="inputGroupFileAddon04" (click)="documentUpload(4)">Upload</button>
                                     <span class="note">Note: File type Excel File size 5MB</span>
@@ -48,10 +48,34 @@
     </div>
     <div class="dashboard-main-content-info p-4 mt-4">
         <div class="row">
-            <div class="col-lg-12">
+            <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+                <mat-progress-spinner 
+                  color="primary" 
+                  mode="indeterminate">
+                </mat-progress-spinner><h3>Loading...</h3>
+              </mat-card>
+            <div class="col-lg-12" *ngIf="!isLoading">
                 <div class="row">
-                    <div class="col-md-12 form-group ">
-                        <div class="float-end">
+                    <!-- <div class="col-sm-6 float-end">
+                        
+                           
+                            <div class="p-1">
+                                <button mat-raised-button class="float-end mt-2 btn-primary red" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>
+                            </div>
+                       
+                    </div>    -->
+
+                    <div class="col-md-6 form-group ">
+                        <div>
+                            <div>
+                                <button mat-raised-button class="float-end mt-2 btn-primary red" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 form-group ">
+                        <div>
                             <div>
                                 <span class="me-2">Show Results : <strong>  {{totalLength}}</strong></span>
                                 <mat-form-field style="width: 350px;" appearance="outline" class=" searchInput ">
@@ -61,6 +85,7 @@
                         </div>
                     </div>
                 </div>
+
                 <mat-table [dataSource]="dataSource" matSort #hBSort="matSort">
                     <ng-container matColumnDef="Sno">
                         <mat-header-cell *matHeaderCellDef> S.No. </mat-header-cell>
@@ -93,7 +118,7 @@
 
                     <ng-container matColumnDef="kv_name_alloted">
                         <mat-header-cell *matHeaderCellDef>Allotted KV (Code) </mat-header-cell>
-                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.kv_name_alloted}} ({{row.allot_kv_code}})
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.kv_name_alloted}} 
                         </mat-cell>
                     </ng-container>
 
@@ -122,13 +147,6 @@
                         <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.last_promotion_position_type}}
                         </mat-cell>
                     </ng-container>
-
-                    <ng-container matColumnDef="category">
-                        <mat-header-cell *matHeaderCellDef>Category </mat-header-cell>
-                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferred_under_cat}}
-                        </mat-cell>
-                    </ng-container>
-
                     <ng-container matColumnDef="transferordernumber">
                         <mat-header-cell *matHeaderCellDef>Transfer Order Number </mat-header-cell>
                         <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferOrderNumber}}
@@ -141,15 +159,34 @@
                         </mat-cell>
                     </ng-container>
 
+                    <ng-container matColumnDef="category">
+                        <mat-header-cell *matHeaderCellDef>Category </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferred_under_cat}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <mat-header-cell *matHeaderCellDef>Status </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.statusFinal}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="remark">
+                        <mat-header-cell *matHeaderCellDef>Remark </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.remark}}
+                        </mat-cell>
+                    </ng-container>
+
 
                     <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'make-red-row': row.transfer_type=='NA'}">
+                    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'make-red-row': row.transfer_type=='NA' || row.status==0 }">
                     </mat-row>
                 </mat-table>
                 <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
                 <div class="p-3" style="text-align: center;">
                     <input type="submit" id="submit1" value="Confirm" (click)="saveExcelTransferdata();" class="btn btn-success" />
                 </div>
+
             </div>
         </div>
         <!-- <mat-table [dataSource]="dataSource" matSort #hBSort="matSort">
