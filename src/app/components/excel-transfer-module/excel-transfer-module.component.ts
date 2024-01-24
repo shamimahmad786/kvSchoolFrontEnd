@@ -270,19 +270,32 @@ export class ExcelTransferModuleComponent implements OnInit {
 
   exportexcel(){
     console.log( this.excelTransferMangement)
-    
     const workBook = new Workbook();
     const workSheet = workBook.addWorksheet('StationMaster');
     const excelData = [];
-    const ws1 = workSheet.addRow(['', 'STATION MASTER', '']);
+    const ws1 = workSheet.addRow(['','','', 'TRANSFER EXCEL', '']);
     const dobCol = workSheet.getColumn(1);
-    dobCol.width = 15;
+    dobCol.width = 25;
     const dobCol1 = workSheet.getColumn(2);
     dobCol1.width = 30;
     const dobCol2 = workSheet.getColumn(3);
-    dobCol2.width = 10;
+    dobCol2.width = 30;
+    const dobCol3 = workSheet.getColumn(4);
+    dobCol3.width = 30;
+    const dobCol4 = workSheet.getColumn(5);
+    dobCol4.width = 30;
+    const dobCol5 = workSheet.getColumn(6);
+    dobCol5.width = 30;
+    const dobCol6 = workSheet.getColumn(7);
+    dobCol6.width = 30;
+    const dobCol7 = workSheet.getColumn(8);
+    dobCol7.width = 30;
+    const dobCol8 = workSheet.getColumn(9);
+    dobCol8.width = 10;
+    const dobCol9 = workSheet.getColumn(10);
+    dobCol9.width = 10;
     workSheet.getRow(1).font = { name: 'Arial', family: 4, size: 13, bold: true };
-    for (let i = 1; i < 4; i++) {
+    for (let i = 1; i < 11; i++) {
       const col = ws1.getCell(i);
       col.fill = {
         type: 'pattern',
@@ -290,9 +303,11 @@ export class ExcelTransferModuleComponent implements OnInit {
         fgColor: { argb:  '9c9b98' },   
       };
     }
-   const ws = workSheet.addRow(['Station Code', 'Station Name', 'Status']);
+   const ws = workSheet.addRow(['Employee Name', 'PrerentKv', 'Present Region', 'Present Station','Alloted KV','Alloted Region','Alloted Station','Transfer Type','Post','Status']);
    workSheet.getRow(2).font = { name: 'Arial', family: 4, size: 10, bold: true };
-      for (let i = 1; i < 4; i++) {
+  
+
+      for (let i = 1; i < 11; i++) {
         const col = ws.getCell(i);
         col.fill = {
           type: 'pattern',
@@ -302,7 +317,21 @@ export class ExcelTransferModuleComponent implements OnInit {
       }
       
     this.excelTransferMangement.forEach((item) => {
-      const row = workSheet.addRow([item.stationcode, item.stationname,item.statusType]);
+      if(item.status==0 || item.status=='0'){
+        const row1 = workSheet.addRow([item.name+' ('+item.presentKvCode+')', item.presentKvName +' ('+item.presentKvCode+')', item.presentRegionName +' ('+item.presentRegionCode+')', item.presentStationName +' ('+item.presentStationCode+')', item.kv_name_alloted +' ('+item.allot_kv_code+')', item.regionNameAlloted +' ('+item.allottedRegionCode+')', item.stationNameAlloted +' ('+item.allotStnCode+')', item.transfer_type ,item.last_promotion_position_type,item.statusFinal]);
+      //  workSheet.getRow(item.sno).font = { name: 'Arial', family: 4, size: 10, bold: true };
+        for (let i = 1; i < 11; i++) {
+          const col = row1.getCell(i);
+          col.fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb:  'cc2121' },
+          };
+        }
+      }
+      else{
+        const row = workSheet.addRow([item.name+' ('+item.presentKvCode+')', item.presentKvName +' ('+item.presentKvCode+')', item.presentRegionName +' ('+item.presentRegionCode+')', item.presentStationName +' ('+item.presentStationCode+')', item.kv_name_alloted +' ('+item.allot_kv_code+')', item.regionNameAlloted +' ('+item.allottedRegionCode+')', item.stationNameAlloted +' ('+item.allotStnCode+')', item.transfer_type ,item.last_promotion_position_type,item.statusFinal]);
+      }
     });
     workBook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], {
