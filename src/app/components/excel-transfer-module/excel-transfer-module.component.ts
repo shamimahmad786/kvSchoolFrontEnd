@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Workbook } from 'exceljs';
+import { saveAs } from 'file-saver';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import { FormDataService } from 'src/app/teacherEntryForm/service/internalService/form-data.service';
 import Swal from 'sweetalert2';
@@ -30,9 +32,10 @@ export class ExcelTransferModuleComponent implements OnInit {
   tempTeacherId: any;
   randonNumber: any;
   deleteDocUpdate4: boolean;
+  isLoading : boolean = false;
   isVisible: boolean = false;
-  displayedColumns = ['Sno','name','kvname','regionname','stationname','kv_name_alloted','region_name_alloted','station_name_alloted','admintransfer','post','category'];
-  testData =  {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","transferOrderNumber":"","trasndferOrderDate":"","allottedRegionCode": ""};
+  displayedColumns = ['Sno','name','kvname','regionname','stationname','kv_name_alloted','region_name_alloted','station_name_alloted','admintransfer','post','category','status','remark'];
+  testData =  {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","transferOrderNumber":"","status":"","statusFinal":"","remark":"","trasndferOrderDate":"","allottedRegionCode": ""};
   transferGroundList: any;
   totalLength: any;
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
@@ -49,8 +52,9 @@ export class ExcelTransferModuleComponent implements OnInit {
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
     }
     this.excelTransferForm = this.fb.group({
-     
+      'fileUpload': new FormControl(''),
     });
+
     this.tempTeacherId = sessionStorage.getItem('kvTeacherId');
     this.getTempTransferData();
   }
@@ -100,6 +104,10 @@ export class ExcelTransferModuleComponent implements OnInit {
   }
   documentUpload(index) {
     debugger
+    this.excelTransferForm.patchValue({
+      fileUpload: '',
+    })
+    
     this.fileUpload = true;
     const formData = new FormData();
     if (this.fileToUpload != null) {
@@ -109,28 +117,27 @@ export class ExcelTransferModuleComponent implements OnInit {
       } 
       const data={"file":formData};
       console.log(formData)
+      this.isLoading=true;
       this.outSideService.uploadXlxDocument(formData).subscribe((res) => {
         console.log(res)
-
+       
         if(res.status=="1"){
+          this.isLoading = false;
           Swal.fire(
             res.message,
             '',
             'success'
           )
-
         }else{
-Swal.fire(
+          this.isLoading = false;
+          Swal.fire(
             res.message,
             '',
             'error'
           )
         }
-
         this.fileUpload = false;
-       
         this.documentUploadArray[index] = { "Action":'upload' };
-
        if (index == 4) {
           this.deleteDocUpdate4 = false
         }
@@ -169,6 +176,14 @@ Swal.fire(
         this.testData.allottedRegionCode = res[i].regionCodeAlloted;
         this.testData.transferOrderNumber = res[i].transferOrderNumber;
         this.testData.trasndferOrderDate = res[i].trasndferOrderDate;
+        this.testData.status= res[i].status;
+        this.testData.remark= res[i].remarks;
+        if(res[i].status=='1' || res[i].status==1){
+          this.testData.statusFinal='Sucess';
+        }
+        if(res[i].status=='0' || res[i].status==0){
+          this.testData.statusFinal='Fail';
+        }
        if(res[i].transferType=='AM'){
         this.testData.is_admin_transfer = 'Admin Modify';
        }
@@ -235,7 +250,7 @@ Swal.fire(
 //--------------------Transfer under Cat end------------------------------------------------------
         this.excelTransferMangement.push(this.testData);
         this.totalLength = this.excelTransferMangement.length;
-        this.testData = {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","transferOrderNumber":"","trasndferOrderDate":"", "allottedRegionCode": ""};
+        this.testData = {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","transferOrderNumber":"","status":"","statusFinal":"","remark":"","trasndferOrderDate":"", "allottedRegionCode": ""};
       }
       console.log(this.excelTransferMangement)
   }
@@ -252,6 +267,52 @@ Swal.fire(
     })
   })
   }
+
+  exportexcel(){
+    console.log( this.excelTransferMangement)
+    
+    const workBook = new Workbook();
+    const workSheet = workBook.addWorksheet('StationMaster');
+    const excelData = [];
+    const ws1 = workSheet.addRow(['', 'STATION MASTER', '']);
+    const dobCol = workSheet.getColumn(1);
+    dobCol.width = 15;
+    const dobCol1 = workSheet.getColumn(2);
+    dobCol1.width = 30;
+    const dobCol2 = workSheet.getColumn(3);
+    dobCol2.width = 10;
+    workSheet.getRow(1).font = { name: 'Arial', family: 4, size: 13, bold: true };
+    for (let i = 1; i < 4; i++) {
+      const col = ws1.getCell(i);
+      col.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb:  '9c9b98' },   
+      };
+    }
+   const ws = workSheet.addRow(['Station Code', 'Station Name', 'Status']);
+   workSheet.getRow(2).font = { name: 'Arial', family: 4, size: 10, bold: true };
+      for (let i = 1; i < 4; i++) {
+        const col = ws.getCell(i);
+        col.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: { argb:  'd6d6d4' },
+        };
+      }
+      
+    this.excelTransferMangement.forEach((item) => {
+      const row = workSheet.addRow([item.stationcode, item.stationname,item.statusType]);
+    });
+    workBook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+      saveAs(blob, 'StationMaster.xlsx');
+    });
+ 
+  } 
+
   saveExcelTransferdata(){
 
   if(this.excelTransferData.length>0){
