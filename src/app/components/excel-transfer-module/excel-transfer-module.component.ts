@@ -319,7 +319,6 @@ export class ExcelTransferModuleComponent implements OnInit {
     this.excelTransferMangement.forEach((item) => {
       if(item.status==0 || item.status=='0'){
         const row1 = workSheet.addRow([item.name+' ('+item.presentKvCode+')', item.presentKvName +' ('+item.presentKvCode+')', item.presentRegionName +' ('+item.presentRegionCode+')', item.presentStationName +' ('+item.presentStationCode+')', item.kv_name_alloted +' ('+item.allot_kv_code+')', item.regionNameAlloted +' ('+item.allottedRegionCode+')', item.stationNameAlloted +' ('+item.allotStnCode+')', item.transfer_type ,item.last_promotion_position_type,item.statusFinal]);
-      //  workSheet.getRow(item.sno).font = { name: 'Arial', family: 4, size: 10, bold: true };
         for (let i = 1; i < 11; i++) {
           const col = row1.getCell(i);
           col.fill = {
