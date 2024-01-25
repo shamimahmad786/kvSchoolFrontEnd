@@ -11,6 +11,7 @@ import { DataService } from '../service/internalService/data-service';
 import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { json } from '@rxweb/reactive-form-validators';
 @Component({
   selector: 'app-preview-confirm',
   templateUrl: './preview-confirm.component.html',
@@ -68,8 +69,8 @@ export class PreviewConfirmComponent implements OnInit {
   teacherPdf() {
     // this.onVerifyClick();
     // setTimeout(() => {
-    //   this.pdfServive.exportToPdf(this.verifyTchTeacherProfileData, this.kvNameCode, this.stationNameCode, 
-    //     this.verifyTchTeacherWorkExp);
+    //   this.pdfServive.testFnc(this.verifyTchTeacherProfileData, this.kvNameCode, this.stationNameCode, 
+    //     this.verifyTchTeacherWorkExp, this.teacherStationChioce);
     // }, 1000);
 
   }
