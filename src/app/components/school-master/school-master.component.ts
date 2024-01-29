@@ -128,11 +128,13 @@ export class SchoolMasterComponent implements OnInit {
     this.router.navigate(['/teacher/schoolMaster/edit'])
    }
    schoolMasterPdf()
+  
    {
-    this.returnTypeSrvTime = srvTime();
-    setTimeout(() => {
-      this.pdfService.schoolMasterList(this.schoolList,this.returnTypeSrvTime);
-    }, 1000);
+    debugger
+    // this.returnTypeSrvTime = srvTime();
+    // setTimeout(() => {
+    //   this.pdfService.schoolMasterList(this.schoolList,this.returnTypeSrvTime);
+    // }, 1000);
    }
    exportexcel(){
     console.log(this.schoolList)
