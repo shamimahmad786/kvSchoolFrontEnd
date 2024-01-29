@@ -23,7 +23,9 @@
     margin: 0px 0px 0px 9px;
     float: right;
 }
-
+.required-asterisk{
+  color: red;
+}
 #msform .action-button:disabled {
  
     background: #1b4c43;
