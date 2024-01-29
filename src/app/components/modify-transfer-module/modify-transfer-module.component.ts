@@ -474,7 +474,6 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.presentKvNameViewModal='';
     this.presentKvCodeViewModal='';
     this.allotedKvCodeViewModal='';
-
     this.teacherDobViewModal='';
     this.teacherEmailViewModal='';
     this.editModifyEmpCodeViewModal='';
