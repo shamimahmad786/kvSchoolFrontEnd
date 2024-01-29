@@ -131,7 +131,7 @@ export class WorkExperienceComponent implements OnInit {
     Swal.fire({
       'icon':'error',
       'text':error.error
-    }
+     }
     )
   })
   }

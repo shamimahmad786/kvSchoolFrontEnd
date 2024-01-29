@@ -18,11 +18,9 @@
                                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search ">
                             </mat-form-field>
                         </div>
-
                         <!-- <div class="col-md-2 form-group">
                             <button mat-raised-button color="primary" type="submit">Search</button>
                         </div> -->
-
                         <div class="col-sm-8">
                             <div class="d-flex flex-row-reverse bd-highlight mobile-buttons">
                                 <div class="p-1">
@@ -75,9 +73,7 @@
                      <i  class="fa fa-edit" matTooltip="Edit" *ngIf="element.buttonstatusType =='Update' "  (click)="addUpdateViewstationCategoryMapping(element.stationcode,element.stationnames,'Update')"   style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
                      <i  class="fa fa-plus-circle" matTooltip="Add" *ngIf="element.buttonstatusType =='Update' "  (click)="addUpdateViewstationCategoryMapping(element.stationcode,element.stationnames,'Add')"   style="font-size: 1.5rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
                     </td>
-            
                     </ng-container>
-    
                     <tr mat-header-row  *matHeaderRowDef="displayedColumns" ></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     
@@ -86,9 +82,7 @@
                         <td class="mat-cell" colspan="4">No data Found</td>
                     </tr>
                 </table>
-    
-    
-                <mat-paginator [pageSizeOptions]="[10,20, 25]"> </mat-paginator>
+                <mat-paginator [pageSizeOptions]="[10,20, 25]" showFirstLastButtons> </mat-paginator>
             </div>
         </div>
         </div>

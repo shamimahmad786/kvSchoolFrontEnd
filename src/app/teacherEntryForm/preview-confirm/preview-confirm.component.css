@@ -6,7 +6,7 @@
     height: 35px !important;
     line-height: normal;
     border: none;
-    padding: 0 15px;
+    padding: 0 15px 0 33px;
 }
 
 .add-user:disabled {
