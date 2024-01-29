@@ -578,7 +578,7 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
     debugger
     if(this.teacherForm.controls.workExperienceForm.status != 'VALID'){
       Swal.fire(
-        'Please fill Experience!',
+        'Please Add Work Experience!',
         '',
         'error'
       )
@@ -586,7 +586,7 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
     }
     if(this.teacherForm.value.workExperienceForm.length<1){
       Swal.fire(
-        'Please fill Experience!',
+        'Please Add Work Experience!',
         '',
         'error'
       )
