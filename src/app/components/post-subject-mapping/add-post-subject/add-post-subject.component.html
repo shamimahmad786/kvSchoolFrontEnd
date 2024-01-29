@@ -19,7 +19,6 @@
                     <div class="m-3 prof-fields">
                         <div class="row">
                             <div class="col-md-5 form-group mt-3">
-
                                 <label class="titleSet">Select Post Code<span class="required-asterisk">*</span></label>
                                 <mat-select formControlName="postCode" class="form-control">
                                     <mat-option value="">Select Status</mat-option>
@@ -28,7 +27,6 @@
                                 <mat-error *ngIf="isSubmitted && errorHandling('postCode', 'required')">
                                     Please select the Post Code!
                                 </mat-error>
-
                             </div>
                             <div class="col-md-5 form-group mt-3">
                                 <label class="titleSet">Post Name</label>
@@ -36,7 +34,6 @@
                                 <!-- <mat-error  *ngIf="isSubmitted && errorHandling('regionname', 'required')">
                                         Please Enter Region Name!
                                     </mat-error> -->
-
                             </div>
                             <div class="col-md-5 form-group mt-3">
                                 <label class="titleSet">Select Subject Code<span class="required-asterisk">*</span></label>
@@ -54,7 +51,6 @@
                                 <!-- <mat-error  *ngIf="isSubmitted && errorHandling('regionname', 'required')">
                                         Please Enter Region Name!
                                     </mat-error> -->
-
                             </div>
                             <div class="mt-2 text-center">
                                 <button type="submit" class="btn btn-primary mt-2">Add</button>&nbsp;&nbsp;

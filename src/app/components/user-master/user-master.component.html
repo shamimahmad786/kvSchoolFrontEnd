@@ -34,9 +34,6 @@
             </div>
             </div>     
         </div>
-      
-
-
         <div class="example-container mat-elevation-z8 " >
           <div class="table-responsive">
             <table mat-table *ngIf="dataSource?.data?.length > 0" id="excel-table" [dataSource]="dataSource" matSort class="mat-elevation-z8 demo-table w-100">
@@ -85,8 +82,7 @@
               </tr>
           </table>
           </div>
-          
-            <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>  
+       <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons></mat-paginator>  
     </div>
     </div>
   </div><!--close row-->

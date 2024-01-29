@@ -80,12 +80,8 @@
                                 <button mat-raised-button class="float-end mt-2 btn-primary red" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>
                             </div>
                         </div>
-                    </div>
-
-
-                   
+                    </div>  
                 </div>
-
                 <mat-table [dataSource]="dataSource" matSort #hBSort="matSort">
                     <ng-container matColumnDef="Sno">
                         <mat-header-cell *matHeaderCellDef> S.No. </mat-header-cell>
@@ -121,7 +117,6 @@
                         <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.kv_name_alloted}} 
                         </mat-cell>
                     </ng-container>
-
 
                     <ng-container matColumnDef="region_name_alloted">
                         <mat-header-cell *matHeaderCellDef>Allotted Region Name (Code) </mat-header-cell>
@@ -177,12 +172,11 @@
                         </mat-cell>
                     </ng-container>
 
-
                     <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'make-red-row': row.transfer_type=='NA' || row.status==0 }">
                     </mat-row>
                 </mat-table>
-                <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+                <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons ></mat-paginator>
                 <div class="p-3" style="text-align: center;">
                     <input type="submit"  *ngIf="excelTransferData.length>0" id="submit1" value="Confirm" (click)="saveExcelTransferdata();" class="btn btn-success" />
                 </div>
