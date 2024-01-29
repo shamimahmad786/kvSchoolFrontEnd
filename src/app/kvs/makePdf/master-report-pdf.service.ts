@@ -26,6 +26,7 @@ export class MasterReportPdfService {
   dashboardMasterListArray:any;
   relevingDataListArray:any;
   joiningDataListArray:any
+  generateRptPDFArray: any;
   regionHead = [['S.No', 'Region Code', 'Region Name','Address','Status']]
   stationHead = [['S.No', 'Station Code', 'Station Name', 'Status']]
   schoolHead = [['S.No', 'School Code', 'School Name','Institute Type', 'Status','Shift','Address' ]]
@@ -36,6 +37,7 @@ export class MasterReportPdfService {
   regionStationMappingHead = [['S.No', 'Region Name','Station Name','Status']]
   regionSchoolMappingHead = [['S.No', 'Region Name','Station Name','School Name','Adress']]
   stationCategoryMappingHead = [['S.No', 'Station Name','Category Name','From Date','To Date','Status']]
+  transferReportHead = [['S.No', 'Employee Name', 'Region Address', 'Present Region Name', 'Present Station Name (Code)', 'Allotted KV Name (Code)', 'Allotted Region Name (Code)', 'Transfer Type', 'Post Name', 'Category']]
   schoolStationMappingHead = [['S.No', 'Station Name','School Name','From date','To date','Shift','Status']]
   staffTypePostMappingHead = [['S.No', 'Staff-Type','Post Code','Post Name']]
   postSubjectMappingHead = [['S.No', 'Post Code','Post name','Subject Code','Subject Name']]
@@ -227,6 +229,7 @@ export class MasterReportPdfService {
   //------------------- school master --------------------------------------------------------------------------
   schoolMasterList(schoollist:any,servTime:any)
   {
+    debugger;
     this.schoolListArray = [];
 
     for(let i=0; i<schoollist.length; i++){
@@ -967,6 +970,92 @@ console.log(this.regionSchoolMappingListArray)
     })
     doc.save('StationCategoryMapping.pdf')
    }
+
+// -------------------------------------Transfer Report------------------------------------
+
+generateReportPDF(generateReportPDF:any, servTime:any) {
+  debugger;
+  this.generateRptPDFArray = [];
+ 
+  for(let i=0; i<generateReportPDF.length; i++){
+    var generateReportPDFListTemp = [];
+    generateReportPDFListTemp.push(generateReportPDF[i]?.sno)
+    generateReportPDFListTemp.push(generateReportPDF[i]?.emp_name + " " + "(" + generateReportPDF[i]?.emp_code + ")")
+    generateReportPDFListTemp.push(generateReportPDF[i]?.kv_name_present + " " + "(" + generateReportPDF[i]?.present_kv_master_code + ")")
+    generateReportPDFListTemp.push(generateReportPDF[i]?.region_name_present)
+    generateReportPDFListTemp.push(generateReportPDF[i]?.station_name_present + " " + "(" + generateReportPDF[i]?.present_station_code+ ")")
+    generateReportPDFListTemp.push(generateReportPDF[i]?.kv_name_alloted + " " + "(" + generateReportPDF[i]?.allot_kv_code + ")")
+    generateReportPDFListTemp.push(generateReportPDF[i]?.region_name_alloted + " " + "(" + generateReportPDF[i]?.region_code_alloted + ")")
+    generateReportPDFListTemp.push(generateReportPDF[i]?.transfer_type)
+    generateReportPDFListTemp.push(generateReportPDF[i]?.post_name)
+    generateReportPDFListTemp.push(generateReportPDF[i]?.transferred_under_cat_id)
+    this.generateRptPDFArray.push(generateReportPDFListTemp)
+  }
+  this.currentDate = "(" + servTime + ")"
+    // var tchId = "" + teacherProfile.teacherId + ""
+    const doc = new jsPDF('l', 'mm', 'a4');
+    doc.setTextColor(138, 24, 34);
+    doc.setFontSize(14);
+    doc.setFont('Times-Roman', 'bold');
+    doc.text('School Master', 130, 45);    
+
+    
+    (doc as any).autoTable({
+      head: this.transferReportHead,
+      body: this.generateRptPDFArray,
+      theme: 'grid',
+      startY: 40,
+      didDrawPage: function (data) {
+       const currentDate = servTime.toString();
+       var index = currentDate.lastIndexOf(':') +3
+       const convtCurrentDate = "(" + currentDate.substring(0, index) + ")"
+        // Header
+        doc.addImage("assets/assets/img/kvslogo1.jpg", "JPG", 100, 4, 100, 20);
+        doc.setDrawColor(0, 0, 0);
+        doc.setTextColor(0, 0, 0);
+        doc.setLineWidth(1);
+        doc.line(15, 35, 280, 35);
+
+        doc.setTextColor(138, 24, 34);
+        doc.setFontSize(14);
+        doc.setFont('Times-Roman', 'bold');
+        doc.text('Report : Transfer Report', 15, 28);
+
+        // Footer
+        var str = "Page " + data.doc.internal.getNumberOfPages();
+
+        doc.setFontSize(10);
+        // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+        var pageSize = doc.internal.pageSize;
+        var pageHeight = pageSize.height
+          ? pageSize.height
+          : pageSize.getHeight();
+        doc.text(str,130, pageHeight - 7);
+        doc.addImage("assets/assets/img/nic-logo.png", "png", 13, 198, 0, 0);
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(12);
+        doc.setFont('Times-Roman', 'bold');
+        doc.text('Report Generation Date & Time',  data.settings.margin.left+210, pageHeight - 10)
+    
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(12);
+        doc.setFont('Times-Roman', 'normal');
+        doc.text(convtCurrentDate,  data.settings.margin.left+210, pageHeight - 5)       
+      },
+
+      didDrawCell: data => {
+        this.yPoint = data.cursor.y
+      },
+      headStyles: { fillColor: [255, 228, 181], textColor: 0, fontStyle: 'bold' },
+      alternateRowStyles: { fillColor: [255, 251, 245] },
+      valign: 'top',
+      margin: {
+        top: 40,
+        bottom: 15,
+      },
+    })
+  doc.save('TransferReport.pdf')
+}
 
         
 // -------------------------------------School Station  Mapping------------------------------------

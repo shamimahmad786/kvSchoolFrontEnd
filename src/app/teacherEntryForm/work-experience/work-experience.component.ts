@@ -576,7 +576,7 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
   }
   onNextClick(){
     debugger
-    if(this.teacherForm.value.workExperienceForm.length<1){
+    if(this.teacherForm.value.workExperienceForm.length <1){
       Swal.fire(
         'Please fill Experience!',
         '',
