@@ -32,10 +32,10 @@ declare const srvTime: any;
   selector: 'app-work-experience',
   templateUrl: './work-experience.component.html',
   styleUrls: ['./work-experience.component.css'],
-  // providers: [
-  //   { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-  //   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-  // ],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
   
 })
 export class WorkExperienceComponent implements OnInit {
@@ -576,12 +576,21 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
   }
   onNextClick(){
     debugger
-    if(this.teacherForm.value.workExperienceForm.length<1){
+    if(this.teacherForm.controls.workExperienceForm.status != 'VALID'){
       Swal.fire(
-        'Please fill Experience!',
+        'Please Add Work Experience!',
         '',
         'error'
       )
+      return false;
+    }
+    if(this.teacherForm.value.workExperienceForm.length<1){
+      Swal.fire(
+        'Please Add Work Experience!',
+        '',
+        'error'
+      )
+      return false;
     }
     else{
       this.router.navigate(['/teacher/previewConfirm']);
