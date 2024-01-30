@@ -161,6 +161,12 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/teacher/stationDashboard']);
         }else if(this.businessUnitTypeId=="5"){
           this.router.navigate(['/teacher/profile']);
+        }else if(this.businessUnitTypeId=="6"){
+          Swal.fire({
+            'icon':'error',
+            'text':`Please provide correct credential.`
+          })
+          this.router.navigate(['/teacher_1/#/login']);
         }else{
           this.router.navigate(['/teacher/profile']);
         }
