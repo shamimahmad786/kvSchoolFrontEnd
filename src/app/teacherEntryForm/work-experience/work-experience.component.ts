@@ -86,6 +86,8 @@ export class WorkExperienceComponent implements OnInit {
   transferGroundList: any;
   profileTeacherName: any;
   checkWorkEndDateBlank: any;      
+  startDateForBlankToDate: any;
+
   constructor(private pdfServive: TeacherAppPdfService,private router: Router,  private datePipe:DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
     private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) {
@@ -426,7 +428,7 @@ export class WorkExperienceComponent implements OnInit {
   experienceDataManagement(event, index,type) {
     debugger
     ((this.teacherForm.get('workExperienceForm') as FormArray).at(0) as FormGroup).get('workStartDate');
-    for (let i = 0; i < this.teacherForm.value.workExperienceForm.length - 1; i++) {
+    for (let i = 0; i < this.teacherForm.value.workExperienceForm.length ; i++) {
       var dateFrom = this.teacherForm.value.workExperienceForm[i].workStartDate;
       var dateTo = this.teacherForm.value.workExperienceForm[i].workEndDate;
       var dateCheck;
@@ -487,7 +489,7 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
       return 1;
     }
   }else if(type==2){
-    if (check > from && check <= to) {
+    if (check > from && check < to) {
       return 0
     } else {
       return 1;
@@ -613,6 +615,7 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
     for (let i = 0; i < this.teacherForm.value.workExperienceForm.length; i++) {
       if (this.teacherForm.value.workExperienceForm[i].workEndDate == '' || this.teacherForm.value.workExperienceForm[i].workEndDate == null ) {
         this.teacherForm.value.workExperienceForm[i].currentlyActiveYn = '1';
+        this.startDateForBlankToDate=this.teacherForm.value.workExperienceForm[i].workStartDate;
        if(this.teacherForm.value.workExperienceForm[i].groundForTransfer!='' && this.teacherForm.value.workExperienceForm[i].groundForTransfer!=null )
         {
           Swal.fire(
@@ -636,11 +639,29 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
       }
     }
     for (let i = 0; i < this.teacherForm.value.workExperienceForm.length; i++) {
+    if( Math.round((new Date(this.startDateForBlankToDate).getTime())/(3600000*24)) < Math.round((new Date(this.teacherForm.value.workExperienceForm[i].workStartDate).getTime())/(3600000*24))) 
+    {
+      Swal.fire(
+        'Please check the posting details as they conflict with the already entered information',
+        '',
+        'error'
+      )
+      return false;
+    }
     if(i==event){
-      this.workExperienceArray.push(this.teacherForm.value.workExperienceForm[i])
+      debugger
+    this.workExperienceArray.push(this.teacherForm.value.workExperienceForm[i])
+    if( this.workExperienceArray['0']['appointedForSubject']=='Select' || this.workExperienceArray['0']['appointedForSubject']=='' )
+     {
+     Swal.fire(
+      'Please fill Appointed for Subject!',
+      '',
+      'error'
+    )
+    return false;
     }
     }
-  
+    }
     var data={
       "teacherId":this.workExperienceArray['0']['teacherId'],
       "udiseSchCode":this.workExperienceArray['0']['udiseSchCode'],

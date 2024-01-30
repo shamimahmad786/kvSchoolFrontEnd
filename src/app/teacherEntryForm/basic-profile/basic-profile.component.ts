@@ -17,6 +17,7 @@ import {
   MAT_DATE_LOCALE
 } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+declare const srvTime: any;
 interface SubjectData {
   subNameCode: string;
   subjectCode: string;
@@ -85,11 +86,13 @@ export class BasicProfileComponent implements OnInit {
   transferGroundList: any;
   employeeCode: any;
   emplyeeData: any;
+  returnTypeSrvTime: any;
   stateId: any;
   profileTeacherName: any;
   teacherDisabilityType: any;
   businessUnitTypeCode: any;
   profileFinalStatus: boolean = false;
+  
   @ViewChild('Physically_Handicap_Certificate')Physically_Handicap_Certificate: ElementRef;
   @ViewChild('selectSpouseStationModal', { static: true }) selectSpouseStationModal: TemplateRef<any>;
   constructor(private _http:HttpClient,private pdfServive: TeacherAppPdfService,private router: Router,private datePipe:DatePipe, private dataService: DataService,
@@ -116,7 +119,11 @@ export class BasicProfileComponent implements OnInit {
     if (parseInt(day, 10) < 10) {
       day = '0' + day.toString();
     }
-    this.maxDate = `2024-07-20`;
+    this.returnTypeSrvTime = srvTime();
+    var date = new Date(this.returnTypeSrvTime),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day1 = ("0" + date.getDate()).slice(-2);
+    this.maxDate =  [date.getFullYear(), mnth, day1].join("-");
     this.basicProfileForm = this.fb.group({
       'empCode': new FormControl('', [Validators.required, Validators.pattern("[0-9]*$")]),
       'fullName': new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z ]*$")]),
