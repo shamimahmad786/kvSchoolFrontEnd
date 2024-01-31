@@ -129,7 +129,7 @@ button:hover {
 .sidebar {
     background-color: #632765;
     border-radius: 0px 0px 10px 0px;
-    width: 320px;
+    width: 300px;
     z-index: 100;
     position: relative;
     position: absolute;
@@ -157,8 +157,8 @@ button:hover {
 }
 
 .dashboard--remaining--width {
-    width: calc(100% - 320px);
-    margin-left: 320px;
+    width: calc(100% - 300px);
+    margin-left: 300px;
     transition: all .5s ease !important;
 }
 
@@ -779,13 +779,19 @@ svg>#Layer_2 #Layer_1>#Path_82280 {
     border-bottom-color: initial;
     box-shadow: none;
     padding: 0.8rem 0.6rem;
-    display: block
+    display: block;
+    cursor: pointer;
 }
 
+.sidebar .list li a:hover { 
+    background-color: #4a1c4b;
+    cursor: pointer;} 
+
 .sidebar .list li.active a {
-    background-color: #1E2F5B;
+    background-color: #4a1c4b;
     color: #fff;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .dashboard-main-content {

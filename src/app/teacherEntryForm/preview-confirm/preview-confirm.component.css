@@ -160,3 +160,11 @@ tbody td {
     font-size: 20px!important;
     font-weight: 600!important;
 }
+
+
+
+@media screen and (max-width: 575px) {
+.chk-box-font td{white-space: nowrap;}
+.bd-highlight{display: block !important; margin-bottom: 10px;}
+.bd-highlight h2 {text-align: left !important;}
+}

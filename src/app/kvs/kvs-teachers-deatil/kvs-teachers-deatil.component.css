@@ -451,3 +451,21 @@ button.btn.btn12.btn-outline-primary {
     font-size: 15px;
     font-family: 'PoppinsRegular';
 }
+
+
+
+@media screen and (max-width: 575px) {
+    .searchInput {margin-right: 0  !important;}
+    .mat-column-action{width: 100% !important;}
+}
+
+
+@media screen and (max-width: 480px) {
+
+        
+ .bd-highlight{display: block !important;  width: 100%; float: left; margin-bottom:10px;}
+
+ .bd-highlight button{width: 100%;}
+
+}
+

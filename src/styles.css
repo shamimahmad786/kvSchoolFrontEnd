@@ -71,7 +71,7 @@ img {
 .sidebar {
     background-color: #632765;
     border-radius: 0px 0px 10px 0px;
-    width: 320px;
+    width: 300px;
     z-index: 999;
     position: relative;
     position: absolute;
@@ -900,6 +900,8 @@ body {
       .mat-table th {white-space: nowrap;}
       .nav-tabs li {width:50%; min-width: 50% !important;}
       .nav-tabs li button {min-width: 100%;}
+
+      .mat-paginator-range-label {margin: 10px !important;}
 
 
     }

@@ -732,7 +732,11 @@ label {
   i.iconsilver{font-size:36px; color:#858585;}
   ul.display-inline li:hover i.iconsilver{ color:white;}
   ul.display-inline li:hover .bg-sil{background-color:#858585;} 
+.controlling-mob {display: block !important;}
+.controlling-mob .w-50 {display: block !important;}
+
   }
+
   .line-space{
       line-height: 22px;
   }

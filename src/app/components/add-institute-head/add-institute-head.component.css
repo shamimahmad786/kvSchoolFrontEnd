@@ -25,3 +25,10 @@
 .required-asterisk{
     color: red;
   }
+
+
+
+  @media screen and (max-width: 575px) {
+    #msform label{text-align: left !important; }
+    #msform .col-sm-3, #msform .col-sm-2  {padding-left: 0 !important;}
+  }
