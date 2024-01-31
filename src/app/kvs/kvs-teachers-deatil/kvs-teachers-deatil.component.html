@@ -14,16 +14,12 @@
                 <div *ngIf="nationalLogin">
                     <div class="row">
                         <div class="col-md-3">
-
                             <mat-form-field appearance="outline" class="searchInput me-4">
                                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
                                 <mat-icon matSuffix></mat-icon>
                             </mat-form-field>
                         </div>
-
                         <div class="col-md-3">
-
-                       
                         <mat-select    class="form-control" (selectionChange)="applyFilterOnSelect($event.value)" [(ngModel)]="selectTransferType" >
                             <mat-option value="">Select Staff Type</mat-option>
                             <mat-option value="1">Teaching</mat-option>
@@ -86,10 +82,9 @@
                             <ng-container matColumnDef="action">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                                 <mat-cell *matCellDef="let row" [style.color]="row.color" class="IconBx"> <span class="mobile-label">Action : </span>
-                                    <i class='bx bx-edit-alt bxStyle1 mr-2 edit-btn small-buton' title="Edit" (click)="onViewClick(row.empcode)">{{row.a}}</i>
-
+                                    <i *ngIf="row.profileFinalStatus != 'SA'" class='bx bx-edit-alt bxStyle1 mr-2 edit-btn small-buton' title="Edit" (click)="onViewClick(row.empcode)">{{row.a}}</i>
+                                    <i *ngIf="row.profileFinalStatus === 'SA'" class='bx bx-show bxStyle1 mr-2 edit-btn small-buton' title="View" (click)="onViewClick(row.empcode)">{{row.a}}</i>
                                     <i class="fa fa-unlock-alt reset-btn small-buton" title="Reset" aria-hidden="true" style="cursor: pointer;" (click)="onResetClick(row.teacherId)"></i>
-
                                 </mat-cell>
                             </ng-container>
                             <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
@@ -104,7 +99,6 @@
                     <div class="mt-3 pb-4">
                         <!-- <h5 style="float: left;">Legend: </h5> -->
                         <div style="float: left;">
-
                             <i class='bx bx-show bxStyle1 view-btn' style="margin-right: 4px; margin-left: 10px;"></i>View
                             <i class='bx bx-edit-alt bxStyle1 edit-btn' style="margin-right: 4px; margin-left: 10px;"></i>Edit
                             <!-- <i class='bx bx-box bxStyle1 dropbox-btn' style="margin-right: 4px; margin-left: 10px;"></i>Dropbox -->
@@ -114,10 +108,8 @@
                         </div>
                     </div>
                 </div>
-
                 <div mat-dialog-content>
                     <ng-template #test let-modal style="min-width: 100%;">
-
                         <div class="modal-header">
                             <div class="row">
                                 <div class="col-md-12">
@@ -129,17 +121,13 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="" style="min-width: 100%; max-height: 750px;">
-
                             <div class="row">
                                 <div class="table-responsive">
-
                                     <table class="table-striped">
                                         <tr>
                                             <!-- <th>School Id</th>
                             <td>{{verifySingleTeacherList?.schoolId}}</td> -->
-
                                             <th>Udise School Code</th>
                                             <td>{{verifySingleTeacherList?.currentUdiseSchCode}}</td>
                                             <th>Present KV Name</th>
@@ -151,7 +139,6 @@
                                                 <box-icon name='question-mark' animation='flashing' color='red'></box-icon>
                                             </td>
                                         </tr>
-
                                         <tr>
                                             <th>Employee Id</th>
                                             <td>{{verifySingleTeacherList?.teacherId}}</td>
@@ -287,7 +274,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="" style="min-width: 100%; max-height: 750px;">
                             <div class="row">
                                 <div class="table-responsive">
@@ -342,7 +328,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </ng-template>
                 </div>
 
@@ -360,7 +345,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="" style="min-width: 100%; max-height: 750px;">
                             <div class="row">
                                 <div class="table-responsive">
@@ -533,7 +517,6 @@
 
                     </ng-template>
                 </div>
-
                 <div mat-dialog-content>
                     <ng-template #verifyModal let-modal style="min-width: 100%;">
                         <div class="" style="min-width: 100%; ">
@@ -597,10 +580,7 @@
                                         </div>
                                     </form>
                                 </div>
-
                             </div>
-
-
                         </div>
                     </ng-template>
                 </div>

@@ -11,7 +11,6 @@ export class AuthInterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler) {
 
     // alert(req.url);
-    debugger;
      var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
      console.log(token)
      if(req.url.indexOf('api') !== -1){

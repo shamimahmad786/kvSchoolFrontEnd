@@ -57,11 +57,16 @@ export class ForgetPasswordComponent implements OnInit {
     this.generate()
     return;
   }
+
   var data = {"email":this.forgetPasswordForm.controls['email'].value}
   this.auth.forgetPasswordMail(data).subscribe((res) => {
     this.generate();
     console.log(res)
     if(res.status=='1'){
+      this.forgetPasswordForm.patchValue({
+        email: '',
+        ForgetPasswordCaptcha: '',
+    });
       Swal.fire(
         'Please check mail for reset password',
         '',
