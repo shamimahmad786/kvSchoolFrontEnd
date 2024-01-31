@@ -1548,6 +1548,13 @@ confirmTransferData(){
   }); 
     return this._http.post<any>(environment.BASE_URL_DATA_API_FILETRANSFER + "confirmTransferData",{headers});
 }
+cleanUploadedExcel(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token, 
+  }); 
+    return this._http.post<any>(environment.BASE_URL_DATA_API_FILETRANSFER + "cleanUploadedExcel",{headers});
+}
 
 getDocumentByFolderId(data){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
