@@ -119,7 +119,7 @@ export class ResetPasswordComponent implements OnInit {
       if(!res['success']){
         Swal.fire({
           'icon':'error',
-          'text':res['errorMessage']
+          'text':res['message']
         })
       }
         },
@@ -145,7 +145,7 @@ export class ResetPasswordComponent implements OnInit {
         if(!res['success']){
           Swal.fire({
             'icon':'error',
-            'text':res['errorMessage']
+            'text':res['message']
           })
         }
         },
