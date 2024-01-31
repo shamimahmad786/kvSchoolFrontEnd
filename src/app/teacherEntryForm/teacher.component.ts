@@ -56,7 +56,7 @@ export class TeacherComponent implements OnInit {
     // Open sidebar
     openSideBar.addEventListener("click", () => { 
         dashboardSideBar["style"].left = "0px";
-        dashboardRemainingPart["style"].marginLeft = "320px";
+        dashboardRemainingPart["style"].marginLeft = "300px";
         openSideBar["style"].display = "none";
     });
     

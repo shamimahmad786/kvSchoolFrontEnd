@@ -86,5 +86,6 @@
     .mobile-buttons{margin-top: 10px;}
     .mobile-buttons button {margin-bottom: 10px;}
     .mat-form-field{margin-right:0 !important ;}
+    .mat-column-action{width: auto !important; word-break: initial !important;}
   }
 

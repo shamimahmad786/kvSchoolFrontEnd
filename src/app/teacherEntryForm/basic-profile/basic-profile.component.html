@@ -1,23 +1,20 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <app-progresion-bar></app-progresion-bar>
-    <div class="dashboard-main-content-info  p-4 mt-3">
+    <div class=" mt-3">
         <div class="row">
             <div class="col-lg-12">
                 <div class="row">
-                    <div class="col-4">
-                        <h2 class="mb-0">Basic Profile:</h2>
-                    </div>
-                    <div class="col-8">
-                        <h2 class="steps text-end pro-name">{{ profileTeacherName | uppercase}}
-                        </h2>
-                    </div>
+                    <div class="col-sm-12">
+                     
+                        <div  class="dashboard-main-content__header mb-2"><h1  class="mb-0 pro-name">Basic Profile: {{ profileTeacherName | uppercase}}</h1></div>
+                  
                 </div>
                 <form [formGroup]="basicProfileForm" (ngSubmit)="submit()">
                     <div class="form-card">
 
                         <div class="row">
                             <div class="col-md-6 ">
-                                <div class="shadow p-3  min-height-523 ">
+                                <div class="shadow p-3 card mb-3  min-height-523 ">
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet"> Employee Code<span class="required-asterisk">*</span></h4>
@@ -152,7 +149,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="shadow p-3  min-height-620">
+                                <div class="shadow card p-3  min-height-620" style="min-height: 686px;">
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet"> Present KV/RO/ZIET/HQ Name (Code)</h4>
@@ -287,7 +284,7 @@
                                                 <h4 class="titleSet">Action</h4>
                                                 <div>
                                                     
-                                                    <a href="{{documentUploadArray[4]?.url}}" ><i
+                                                   <a href="{{documentUploadArray[4]?.url}}" ><i
                                                     class='bx bx-show' style="font-size: 25px; "></i></a> 
                                                     <i *ngIf="profileFinalStatus"   (click)="deleteDocumentUploaded('Physically_Handicap_Certificate.pdf')" class='bx bx-minus-circle' style="font-size: 25px; "></i>
                                                 </div>
@@ -305,7 +302,7 @@
                                     </div>
                                     <div class="radio-sec  shadow-sm mb-3">
                                         <div class="row">
-                                            <div class="col-3">
+                                            <div class="col-sm-3">
                                                 <h4 class="titleSet">Marital Status<span class="required-asterisk">*</span></h4>
                                             </div>
                                             <div class="col-2">
@@ -317,7 +314,7 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-sm-2">
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" value="4" (click)="maritalStatusCheck($event)" id="maritalStatusF" name="maritalStatusF" formControlName="maritalStatusF">
                                                     <label class="form-check-label font16 ff">Single</label>
@@ -325,7 +322,7 @@
                                             </div>
 
 
-                                            <div class="col-1">
+                                            <div class="col-sm-1">
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" value="7" (click)="maritalStatusCheck($event)" id="maritalStatusF" name="maritalStatusF" formControlName="maritalStatusF">
                                                     <label class="form-check-label font16 ff">Widow/Widower</label>
