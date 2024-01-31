@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="col-md-4" style="text-align: end;">Download Demo Excel
-                    <a class="" download href="assets/transferExcel.xlsx" target="_blank"> <img src="/assets/images/download.png"></a>
+                    <a class="" download href="assets/transferExcel.xlsx" target="_blank"> <img src="assets/images/download.png"></a>
                 </div>
             </div>
         </form>
@@ -178,8 +178,13 @@
                 </mat-table>
                 <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons ></mat-paginator>
                 <div class="p-3" style="text-align: center;">
+                    <input type="submit"  *ngIf="excelTransferData.length>0" id="submit2" value="Clear" (click)="clearExcelTransferdata();" class="btn btn-secondary" />&nbsp;&nbsp;
                     <input type="submit"  *ngIf="excelTransferData.length>0" id="submit1" value="Confirm" (click)="saveExcelTransferdata();" class="btn btn-success" />
+      
+                
+                
                 </div>
+                
 
             </div>
         </div>

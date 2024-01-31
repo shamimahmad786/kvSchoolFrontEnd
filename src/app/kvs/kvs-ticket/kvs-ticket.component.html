@@ -99,7 +99,7 @@
                         </table>
                     </div>    
         
-        <mat-paginator [pageSizeOptions]="[10,20, 25]"> </mat-paginator>
+        <mat-paginator [pageSizeOptions]="[10,20, 25]" showFirstLastButtons> </mat-paginator>
     </div>
 </div>
 </div>
@@ -174,7 +174,7 @@
                                     <tr style="background-color:white;" *ngFor="let data of docList; let i=index;">
                                         <td>{{i+1}}</td>
                                         <td>{{data}}</td>
-                                        <td><button (click)="downloadDocument(data,ticketDetails['folderId'])"> <img src="/assets/images/download.png"></button></td>
+                                        <td><button (click)="downloadDocument(data,ticketDetails['folderId'])"> <img src="assets/images/download.png"></button></td>
                                         <!-- <td><a href="http://10.25.26.251:8015/api/ticket/downloadDocument?folderId={{ticketDetails?.folderId}}&fileName={{data}}" target="_blank"> <img src="/assets/images/download.png"></a>
                                         </td> -->
                                     </tr>

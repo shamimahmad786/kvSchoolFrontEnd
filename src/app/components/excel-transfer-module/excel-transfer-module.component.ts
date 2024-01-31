@@ -267,7 +267,49 @@ export class ExcelTransferModuleComponent implements OnInit {
     })
   })
   }
-
+  clearExcelTransferdata(){
+    Swal.fire({
+      'icon':'warning',
+      'text': "Do you want to proceed ?",
+      'allowEscapeKey': false,
+      'allowOutsideClick': false,
+      'showCancelButton': true,
+      'confirmButtonColor': "#DD6B55",
+      'confirmButtonText': "Yes",
+      'cancelButtonText': "No",
+      'showLoaderOnConfirm': true,
+    }
+    ).then((isConfirm) => {
+    if (isConfirm.value === true) {
+      debugger
+        this.outSideService.cleanUploadedExcel().subscribe((res)=>{
+          // alert(res);
+          if(res.status=="1"){
+            Swal.fire(
+              res.message,
+              '',
+              'success'
+            ) 
+          }else{
+            Swal.fire(
+              res.message,
+              '',
+              'error'
+            )
+          }
+          this.getTempTransferData();
+    },
+    error => {
+      Swal.fire({
+        'icon':'error',
+        'text':error.error
+      }
+      )
+    })
+  }
+  return false;
+  });
+  }
   exportexcel(){
     console.log( this.excelTransferMangement)
     const workBook = new Workbook();
@@ -305,8 +347,6 @@ export class ExcelTransferModuleComponent implements OnInit {
     }
    const ws = workSheet.addRow(['Employee Name', 'PrerentKv', 'Present Region', 'Present Station','Alloted KV','Alloted Region','Alloted Station','Transfer Type','Post','Status']);
    workSheet.getRow(2).font = { name: 'Arial', family: 4, size: 10, bold: true };
-  
-
       for (let i = 1; i < 11; i++) {
         const col = ws.getCell(i);
         col.fill = {
@@ -338,11 +378,9 @@ export class ExcelTransferModuleComponent implements OnInit {
       });
       saveAs(blob, 'StationMaster.xlsx');
     });
- 
   } 
-
+  
   saveExcelTransferdata(){
-
   if(this.excelTransferData.length>0){
     Swal.fire({
       'icon':'warning',

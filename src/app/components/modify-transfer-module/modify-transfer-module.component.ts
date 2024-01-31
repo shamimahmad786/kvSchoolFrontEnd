@@ -114,6 +114,9 @@ export class ModifyTransferModuleComponent implements OnInit {
   teacherEmailViewModal: any;
   editModifyEmpCodeViewModal: any;
   editModifyEmpNameViewModal: any;
+  cancelArrayList: any;
+  cancelAllotedKvCode: any;
+  cancelAllotedKvTransferType: any;
   constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>,private router: Router,private formData: FormDataService,private modalService: NgbModal) {
     this.dateAdapter.setLocale('en-GB');
    }
@@ -358,7 +361,7 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.PresentRegionName = PresentRegionName;
     this.modalService.open(this.AdminTransferBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
-  openCancelmodal(empName:any,empCode:any,email:any,kvName:any,kvCode:any,dob:any){
+  openCancelmodal(empName:any,empCode:any,email:any,kvName:any,kvCode:any,dob:any,allotedKvCode:any){
     debugger
     this.editCancelEmpName=empName;
     this.editCancelEmpCode=empCode;
@@ -366,6 +369,12 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.cancelkvCode=kvCode;
     this.canclKvName=kvName;
     this.canceldob=dob;
+    let req={"empCode":this.editCancelEmpCode,"inityear":this.selectYear,"presentKvCode":this.cancelkvCode,"allotedKvCode":allotedKvCode};
+    debugger
+    this.outSideService.getModifiedTransferDetails(req,this.loginUserNameForChild).subscribe((res) => {
+    console.log(res);
+    this.cancelArrayList=res['rowValue'];
+    })
     this.modalService.open(this.AdminCancelBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
 
@@ -402,7 +411,6 @@ export class ModifyTransferModuleComponent implements OnInit {
     let req={"empCode":this.editModifyEmpCode,"inityear":this.selectYear,"presentKvCode":this.presentKvCode,"allotedKvCode":this.allotedKvCode};
     debugger
     this.outSideService.getModifiedTransferDetails(req,this.loginUserNameForChild).subscribe((res) => {
-      debugger
       this.editeModifyTransferType='';
       this.editeAllotedTransferType='';
       if((res['rowValue'].length)>1){
@@ -468,7 +476,6 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.modalService.open(this.AdminMdificationBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
 
-
   openViewModal(teacherId:any,empName:any,empCode:any,email:any,kvName:any,kvCode:any,dob:any){
   debugger
     this.presentKvNameViewModal='';
@@ -484,9 +491,7 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.teacherEmailViewModal=email;
     this.editModifyEmpCodeViewModal=empCode;
     this.editModifyEmpNameViewModal=empName;
-
     this.outSideService.fetchConfirmedTchDetails(teacherId).subscribe((res) => {
-  
       for (let i = 0; i < res.response.experience.length; i++) {
         if (res.response.experience[i].workEndDate != null || res.response.experience[i].workEndDate != null) {
           res.response.experience[i].workEndDate = res.response.experience[i].workEndDate;
@@ -497,6 +502,12 @@ export class ModifyTransferModuleComponent implements OnInit {
     })
     this.modalService.open(this.AdminViewBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
+  onItemChange(value){
+    debugger
+    var splitted = value.split("-");
+    this.cancelAllotedKvCode=splitted[0];
+    this.cancelAllotedKvTransferType=splitted[1];
+ }
   selectInstituteType(event:any){
    this.headQuaterList=[];
    this.zoneList=[];
@@ -958,6 +969,13 @@ submitcancelForm(){
          } )
          return false;
       }
+      if(this.cancelAllotedKvCode=='' || this.cancelAllotedKvCode==null){
+        Swal.fire({
+          'icon':'error',
+          'text':'Please Check Radio Button.'
+         } )
+         return false;
+      }
       if(this.cancelEditForm.value.cancelTransferOrderNumber=='' || this.cancelEditForm.value.cancelTransferOrderNumber==null){
         Swal.fire({
           'icon':'error',
@@ -974,6 +992,9 @@ submitcancelForm(){
       }
       var data={
         "empCode":this.editCancelEmpCode,
+        "presentKvCode":this.cancelkvCode,
+        "allotKvCode":this.cancelAllotedKvCode,
+        "transferType":this.cancelAllotedKvTransferType,
         "cancelOrderNumber":this.cancelEditForm.value.cancelTransferOrderNumber,
         "transferYear": this.selectYear,
         "transferCancelOrderDate":this.cancelEditForm.value.cancelTransferOrderdate,

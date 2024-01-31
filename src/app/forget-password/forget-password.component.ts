@@ -62,10 +62,10 @@ export class ForgetPasswordComponent implements OnInit {
     this.generate();
     console.log(res)
     if(res.status=='1'){
-      Swal.fire(
-        'Please check mail for reset password',
-        '',
-        'success'
+      Swal.fire({
+        'icon':'success',
+        'text':'Please check mail for reset password.'
+      }
       )}
     },
     error => { 
