@@ -12,54 +12,56 @@
                     </div>
                     <div><button class="btn btn-primary btn-sm" (click)="teacherPdf()">Export to PDF</button></div>
                 </div>
-
-                <table class="table table-bordered w-100">
-                    <thead>
-                        <tr style="background-color:#7492cb;">
-                            <th colspan="6" class="text-center text-white">Profile Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>KV/RO/ZIET/HQ Name</th>
-                            <td>{{schoolDetails?.kvName}} ({{schoolDetails?.kvCode}})</td>
-                            <th>Employee Code</th>
-                            <td>{{verifyTchTeacherProfileData?.teacherEmployeeCode}}</td>
-                            <th>Staff Type</th>
-                            <td>{{verifyTchTeacherProfileData?.teachingNonteaching | staffType}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Name</th>
-                            <td>{{verifyTchTeacherProfileData?.teacherName | titlecase}}
-                            </td>
-                            <th>Gender</th>
-                            <td>{{verifyTchTeacherProfileData?.teacherGender | genderPipe}}
-                            </td>
-                            <th>Date of Birth</th>
-                            <td>{{verifyTchTeacherProfileData?.teacherDob }}</td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td>{{verifyTchTeacherProfileData?.teacherEmail}}</td>
-                            <th>Mobile Number</th>
-                            <td>{{verifyTchTeacherProfileData?.teacherMobile}}</td>
-                            <th>Disability</th>
-                            <td>{{verifyTchTeacherProfileData?.teacherDisabilityYn == '1' ? 'Yes':'No'}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Present Station Name</th>
-                            <td>{{schoolDetails?.stationName}} ({{schoolDetails?.stationCode}})</td>
-                            <th>Present post name</th>
-                            <td>{{verifyTchTeacherProfileData?.lastPromotionPositionType}}
-                            </td>
-                            <th>Subject Name</th>
-                            <td>{{verifyTchTeacherProfileData?.workExperienceAppointedForSubject}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered w-100">
+                        <thead>
+                            <tr style="background-color:#7492cb;">
+                                <th colspan="6" class="text-center text-white">Profile Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>KV/RO/ZIET/HQ Name</th>
+                                <td>{{schoolDetails?.kvName}} ({{schoolDetails?.kvCode}})</td>
+                                <th>Employee Code</th>
+                                <td>{{verifyTchTeacherProfileData?.teacherEmployeeCode}}</td>
+                                <th>Staff Type</th>
+                                <td>{{verifyTchTeacherProfileData?.teachingNonteaching | staffType}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{verifyTchTeacherProfileData?.teacherName | titlecase}}
+                                </td>
+                                <th>Gender</th>
+                                <td>{{verifyTchTeacherProfileData?.teacherGender | genderPipe}}
+                                </td>
+                                <th>Date of Birth</th>
+                                <td>{{verifyTchTeacherProfileData?.teacherDob }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{verifyTchTeacherProfileData?.teacherEmail}}</td>
+                                <th>Mobile Number</th>
+                                <td>{{verifyTchTeacherProfileData?.teacherMobile}}</td>
+                                <th>Disability</th>
+                                <td>{{verifyTchTeacherProfileData?.teacherDisabilityYn == '1' ? 'Yes':'No'}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Present Station Name</th>
+                                <td>{{schoolDetails?.stationName}} ({{schoolDetails?.stationCode}})</td>
+                                <th>Present post name</th>
+                                <td>{{verifyTchTeacherProfileData?.lastPromotionPositionType}}
+                                </td>
+                                <th>Subject Name</th>
+                                <td>{{verifyTchTeacherProfileData?.workExperienceAppointedForSubject}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+               <div class="table-responsive">
                 <table class="table table-bordered w-100">
                     <thead>
                         <tr style="background-color:#7492cb;">
@@ -85,47 +87,51 @@
                         </tr>
                     </tbody>
                 </table>
+               </div>
+               
 
                 <form [formGroup]="teacherPreviewConfirmForm" (ngSubmit)="submit()">
                     <div class="chk-box-font border p-3 mt-4">
-                        <table class="table w-100">
-                            <tr>
-                                <td>
-                                    <label>Employee Name: </label>&nbsp;{{verifyTchTeacherProfileData?.teacherName | titlecase}} <input class="form-check-input" type="checkbox" value="" formControlName="teacherName" id="teacherName" id="teacherName">
-                                </td>
-                                <td>
-                                    <label>Employee Gender:</label>&nbsp;{{ verifyTchTeacherProfileData?.teacherGender | genderPipe }} <input class="form-check-input" type="checkbox" value="" formControlName="teacherGender" id="teacherGender">
-                                </td>
-                                <td>
-                                    <label>Employee Dob: </label> &nbsp;{{verifyTchTeacherProfileData?.teacherDob }} <input class="form-check-input" type="checkbox" value="" formControlName="teacherDob" id="teacherDob">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Employee Code:</label> &nbsp; {{verifyTchTeacherProfileData?.teacherEmployeeCode}} <input class="form-check-input" type="checkbox" value="" formControlName="teacherEmplCode" id="teacherEmplCode">
-                                </td>
-                                <td>
-                                    <label>Employee Disability:</label> &nbsp;{{verifyTchTeacherProfileData?.teacherDisabilityYn == '1' ? 'Yes':'No'}} <input class="form-check-input" type="checkbox" value="" formControlName="teacherDisability" id="teacherDisability">
-                                </td>
-                                <td>
-                                    <label>Experience Start Date Present KV:</label>&nbsp; {{verifyTchTeacherProfileData?.workExperienceWorkStartDatePresentKv}} <input class="form-check-input" type="checkbox" value="" formControlName="ExperienceStartDatePresentKv"
-                                        id="ExperienceStartDatePresentKv">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Appointed For Subject:</label> &nbsp; {{verifyTchTeacherProfileData?.workExperienceAppointedForSubject}} <input class="form-check-input" type="checkbox" value="" formControlName="workExperienceAppointedForSubject"
-                                        id="workExperienceAppointedForSubject">
-                                </td>
-                                <td>
-                                    <label>Position Held:</label> &nbsp;{{verifyTchTeacherProfileData?.lastPromotionPositionType}} <input class="form-check-input" type="checkbox" value="" formControlName="lastPromotionPositionType" id="lastPromotionPositionType">
-                                </td>
-                                <td></td>
-                            </tr>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table w-100">
+                                <tr>
+                                    <td>
+                                        <label>Employee Name: </label>&nbsp;{{verifyTchTeacherProfileData?.teacherName | titlecase}} <input class="form-check-input" type="checkbox" value="" formControlName="teacherName" id="teacherName" id="teacherName">
+                                    </td>
+                                    <td>
+                                        <label>Employee Gender:</label>&nbsp;{{ verifyTchTeacherProfileData?.teacherGender | genderPipe }} <input class="form-check-input" type="checkbox" value="" formControlName="teacherGender" id="teacherGender">
+                                    </td>
+                                    <td>
+                                        <label>Employee Dob: </label> &nbsp;{{verifyTchTeacherProfileData?.teacherDob }} <input class="form-check-input" type="checkbox" value="" formControlName="teacherDob" id="teacherDob">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Employee Code:</label> &nbsp; {{verifyTchTeacherProfileData?.teacherEmployeeCode}} <input class="form-check-input" type="checkbox" value="" formControlName="teacherEmplCode" id="teacherEmplCode">
+                                    </td>
+                                    <td>
+                                        <label>Employee Disability:</label> &nbsp;{{verifyTchTeacherProfileData?.teacherDisabilityYn == '1' ? 'Yes':'No'}} <input class="form-check-input" type="checkbox" value="" formControlName="teacherDisability" id="teacherDisability">
+                                    </td>
+                                    <td>
+                                        <label>Experience Start Date Present KV:</label>&nbsp; {{verifyTchTeacherProfileData?.workExperienceWorkStartDatePresentKv}} <input class="form-check-input" type="checkbox" value="" formControlName="ExperienceStartDatePresentKv"
+                                            id="ExperienceStartDatePresentKv">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Appointed For Subject:</label> &nbsp; {{verifyTchTeacherProfileData?.workExperienceAppointedForSubject}} <input class="form-check-input" type="checkbox" value="" formControlName="workExperienceAppointedForSubject"
+                                            id="workExperienceAppointedForSubject">
+                                    </td>
+                                    <td>
+                                        <label>Position Held:</label> &nbsp;{{verifyTchTeacherProfileData?.lastPromotionPositionType}} <input class="form-check-input" type="checkbox" value="" formControlName="lastPromotionPositionType" id="lastPromotionPositionType">
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
 
                     </div>
-                    <div class="form-card mt-3">
+                    <div class="form-card mt-3" *ngIf="profileFinalStatus">
                         <div class="row">
                             <div class="col-7">
                                 <h2 class="mb-0 font8958"> Undertaking: </h2>

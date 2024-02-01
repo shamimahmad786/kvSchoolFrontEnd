@@ -74,7 +74,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 form-group ">
+                    <div class="col-md-2 form-group ">
+                        <h3 *ngIf="errorShowDiv">Total number of errors : {{bugsCount}}</h3>
+                    </div> 
+                    <div class="col-md-4 form-group ">
                         <div>
                             <div>
                                 <button mat-raised-button class="float-end mt-2 btn-primary red" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>
@@ -179,7 +182,7 @@
                 <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons ></mat-paginator>
                 <div class="p-3" style="text-align: center;">
                     <input type="submit"  *ngIf="excelTransferData.length>0" id="submit2" value="Clear" (click)="clearExcelTransferdata();" class="btn btn-secondary" />&nbsp;&nbsp;
-                    <input type="submit"  *ngIf="excelTransferData.length>0" id="submit1" value="Confirm" (click)="saveExcelTransferdata();" class="btn btn-success" />
+                    <input type="submit"  *ngIf="excelTransferData.length>0 && hideConfirmButton" id="submit1" value="Confirm" (click)="saveExcelTransferdata();" class="btn btn-success" />
       
                 
                 

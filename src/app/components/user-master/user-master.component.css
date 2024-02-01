@@ -106,7 +106,7 @@ body {
     .sidebar {
       background-color: #632765;
       border-radius: 0px 0px 10px 0px;
-      width: 320px;
+      width: 300px;
       z-index: 100;
       position: relative;
       position: absolute;
@@ -153,8 +153,8 @@ body {
     }
     
     .dashboard--remaining--width {
-      width: calc(100% - 320px);
-      margin-left: 320px;
+      width: calc(100% - 300px);
+      margin-left: 300px;
       transition: all .5s ease !important;
     
     }
@@ -567,4 +567,11 @@ body {
       border: solid 0.2px #542555 !important;;
       background-color: #4A1C4B !important;;
       color: white !important;;
+    }
+
+        
+    @media screen and (max-width: 991px) {
+      
+      th ,td {white-space: nowrap; padding-left: 10px !important; padding-right: 10px !important;}
+
     }

@@ -33,11 +33,14 @@ export class ExcelTransferModuleComponent implements OnInit {
   randonNumber: any;
   deleteDocUpdate4: boolean;
   isLoading : boolean = false;
+  hideConfirmButton: boolean = false;
+  errorShowDiv: boolean = false;
   isVisible: boolean = false;
   displayedColumns = ['Sno','name','kvname','regionname','stationname','kv_name_alloted','region_name_alloted','station_name_alloted','admintransfer','post','category','status','remark'];
   testData =  {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","transferOrderNumber":"","status":"","statusFinal":"","remark":"","trasndferOrderDate":"","allottedRegionCode": ""};
   transferGroundList: any;
   totalLength: any;
+  bugsCount: any;
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
   userMappingSource : MatTableDataSource<any>;
   @ViewChild('paginator') paginator: MatPaginator;
@@ -122,18 +125,22 @@ export class ExcelTransferModuleComponent implements OnInit {
         console.log(res)
        
         if(res.status=="1"){
+          this.hideConfirmButton=true;
           this.isLoading = false;
           Swal.fire(
             res.message,
             '',
             'success'
           )
-        }else{
+        }
+        else{
           this.isLoading = false;
-          Swal.fire(
-            res.message,
-            '',
-            'error'
+          this.bugsCount=res.bugsCount
+          this.errorShowDiv=true;
+          Swal.fire({
+            'icon':'error',
+            'text':res.message
+          }
           )
         }
         this.fileUpload = false;
@@ -395,25 +402,21 @@ export class ExcelTransferModuleComponent implements OnInit {
     }
     ).then((isConfirm) => {
     if (isConfirm.value === true) {
-      debugger
+  
         this.outSideService.confirmTransferData().subscribe((res)=>{
           // alert(res);
-          if(res.status=="1"){
+          if(res.status==1){
+            alert(3)
             Swal.fire(
               res.message,
               '',
               'success'
             ) 
-          }else{
-            Swal.fire(
-              res.message,
-              '',
-              'error'
-            )
           }
           this.getTempTransferData();
     },
     error => {
+      alert(2)
       Swal.fire({
         'icon':'error',
         'text':error.error
