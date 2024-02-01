@@ -167,6 +167,13 @@ export class BasicProfileComponent implements OnInit {
    
   }
 
+  omit_special_char(event)
+  {   
+     var k;  
+     k = event.charCode;
+     return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32); 
+  }
+
   getFormStatusV2(){
     var data ={
       "teacherId": this.emplyeeData['teacherId']

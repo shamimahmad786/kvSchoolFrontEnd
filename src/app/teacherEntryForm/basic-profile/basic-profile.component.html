@@ -62,7 +62,7 @@
 
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">Mobile<span class="required-asterisk">*</span></h4>
-                                            <input type="text" class="form-control" name="mobile" (blur)="checkMobileNumber($event)" formControlName="mobile" maxlength="10" minlength="10">
+                                            <input type="text" class="form-control" name="mobile" (blur)="checkMobileNumber($event)" disabled formControlName="mobile" maxlength="10" minlength="10">
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('mobile').valid 
                                             && basicProfileForm.get('mobile').touched
                                             ">Enter valid mobile number of 10 digit !</span>
@@ -70,7 +70,7 @@
 
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">Email <span class="required-asterisk">*</span></h4>
-                                            <input type="email" class="form-control" name="email" formControlName="email" style="text-transform: none">
+                                            <input type="email" class="form-control" disabled name="email" formControlName="email" style="text-transform: none">
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('email').valid && basicProfileForm.get('email').touched ">
                                                 Enter your email id!</span>
                                         </div>
@@ -373,7 +373,7 @@
                                             </div>
                                             <div *ngIf="spouseNone" class="col-md-6 mb-3">
                                                 <h4 class="titleSet mt-2"> Serving Spouse Name<span class="required-asterisk">*</span> </h4>
-                                                <input type="text" class="form-control " style="text-transform:uppercase" name="spouseName" id="spouseName" formControlName="spouseName">
+                                                <input type="text" class="form-control "  (keypress)="omit_special_char($event)" style="text-transform:uppercase" name="spouseName" id="spouseName" formControlName="spouseName">
                                             </div>
                                             <div *ngIf="spouseNone && spouseKVSStation" class="col-md-6 mb-3">
                                                 <h4 class="titleSet mt-2"> Position Held<span class="required-asterisk">*</span> </h4>
