@@ -73,6 +73,10 @@ export class PreviewConfirmComponent implements OnInit {
     //     this.verifyTchTeacherWorkExp, this.teacherStationChioce);
     // }, 1000);
 
+     // formData.append('token', );
+    // formData.append('username', );
+    // formData.append('username', );
+
   }
 
   getFormStatusV2(){
@@ -212,4 +216,7 @@ export class PreviewConfirmComponent implements OnInit {
       });
        }
   }
+
+ 
+
 }
