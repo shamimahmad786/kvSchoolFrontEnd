@@ -599,6 +599,7 @@ debugger;
               'success'
             ) 
           }
+          this.getKvTeacherByUdiseCode();
           //this.router.navigate(['/teacher/kvsTchDetails']);
         },
         error => {

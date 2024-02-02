@@ -56,6 +56,34 @@ export class OutsideServicesService {
     });
     return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "saveProfileV2", data, {headers});
   }
+  getTransferProfileBySchool(data: any){
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
+
+    });
+    return this._http.post<any>(environment.BASE_URL_DATA_SURPLUS_TRANSFER + "getTransferProfileBySchool", data, {headers});
+  }
+  getTransferStationByEmployee(data)
+  {
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization': token,
+      'Content-Type': 'text/plain; charset=utf-8',
+    });
+
+    return this._http.post<any>(environment.BASE_URL_DATA_TRANSFER + "getTransferStationByEmployee", data, { headers })
+  }
+  getSpouseDetailsV2(data) {
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization': token,
+      'Content-Type': 'text/plain; charset=utf-8',
+    });
+    return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "getSpouseDetailsV2", data, { headers });
+  }
+
   saveTeacherConfirmationV2(data: any): Observable<Response>{
     var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
     var headers = new HttpHeaders({
@@ -883,7 +911,15 @@ uploadDocument(data){
 return this._http.post<any>(environment.BASE_URL_DATA_TRANSFER+ "uploadDocument",  data,{headers});
 }
 
+getTcDcPointByTeacherIdAndInityear(data) {
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization': token,
+    'Content-Type': 'text/plain; charset=utf-8',
 
+  });
+  return this._http.post<any>(environment.BASE_URL_DATA_TEACHER_TRANSFER_V2 + "getTcDcPointByTeacherIdAndInityear", data, { headers });
+}
 
 resetPassword(data){
   debugger
@@ -1088,9 +1124,35 @@ getTransferData(data){
   return this._http.post<any>(environment.BASE_URL_DATA_TEACHER_TRANSFER + "getTransProfile", data, {headers});
 }
 
+saveTransferDCTCPoints(data) {
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization': token,
+    'Content-Type': 'text/plain; charset=utf-8',
 
+  });
+
+  return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "transfer/saveTransferDCTCPoints", data, { headers });
+}
+saveTransferConfirmation(data) {
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization': token,
+    'Content-Type': 'text/plain; charset=utf-8',
+
+  });
+  return this._http.post<any>(environment.BASE_URL_DATA_TRANSFERPROCESS + "saveTransferConfirmation", data, { headers });
+}
+confirmTransferBySchool(data) {
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization': token,
+    'Content-Type': 'text/plain; charset=utf-8',
+
+  });
+  return this._http.post<any>(environment.BASE_URL_DATA_TRANSFERPROCESS + "confirmTransferBySchool", data, { headers });
+}
 //  Unicoff
-
 
 addRegionMaster(data){
 

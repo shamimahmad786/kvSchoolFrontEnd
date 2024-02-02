@@ -119,25 +119,79 @@
     <!-------------------------------------Close Here National ------------------------------------------->
     
     <!------------------Show School bussines id 5--------------------------------------------------------->
-    <ul class="list" *ngIf="showSchool">
-        <li><a routerLinkActive="active" routerLink="/teacher/profile"><img src="assets/images/speedometer.png" class="me-2">Dashboard</a></li>
-        <li>
-            <a routerLinkActive="active" routerLink="/teacher/userMaster"><img src="assets/images/management.png" class="me-2">User Management</a>
-        </li>
-        <li>
-            <a routerLinkActive="active" routerLink="/teacher/kvsTchDetails"> <img src="assets/images/info.png" class="me-2">Employee Details</a>
-        </li>
 
-        <li><a routerLinkActive="active" routerLink="/teacher/employeeJoining"><img src="assets/images/transfer.png" class="me-2">Relieving-Joining </a></li>
-       
-        <li><a routerLinkActive="active" routerLink="/teacher/kvsTicket"><img src="assets/images/coupon.png" class="me-2">Ticket </a></li>
-       
-    </ul>
+    <div class="accordion" id="accordionExample" *ngIf="showSchool">
+        <div class="accordion-item">
+            <div class="accordion-header m-0">
+                <button class="accordion-button aa" routerLinkActive="" routerLink="/teacher/profile" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOnec" aria-expanded="true" aria-controls="collapseOnec">
+       <img src="assets/images/speedometer.png" class="me-2"> Dashboard
+      </button>
+            </div>
+            <div id="collapseOnec" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            </div>
+        </div>
+
+        <div class="accordion-item" >
+            <div class="accordion-header m-0">
+                <button class="accordion-button aa collapsed" routerLink="/teacher/userMaster" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourcs" aria-expanded="false" aria-controls="collapseFourcs">
+                    <img src="assets/images/management.png" class="me-2"> User Management
+        </button>
+            </div>
+            <div id="collapseFourcs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">  
+            </div>
+        </div>
+
+        <div class="accordion-item" >
+            <div class="accordion-header m-0">
+                <button class="accordion-button aa collapsed" routerLink="/teacher/kvsTchDetails" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourccs" aria-expanded="false" aria-controls="collapseFourccs">
+                    <img src="assets/images/info.png" class="me-2"> Employee Details
+        </button>
+            </div>
+            <div id="collapseFourccs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">  
+            </div>
+        </div>
+
+        <div class="accordion-item" >
+            <div class="accordion-header m-0">
+                <button class="accordion-button aa collapsed" routerLink="/teacher/teacher-transfer-dashboard" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourc" aria-expanded="false" aria-controls="collapseFourc">
+                    <img src="assets/images/transfer.png" class="me-2">Transfer Management
+      </button>
+            </div>
+            <div id="collapseFourc" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <!-- <div class="accordion-body p-0 pt-3 pb-3">
+                    <ul>
+                        <li><a routerLinkActive="active" routerLink="{{miscellaneous == true ? '/teacher/transferMiscellaneous/' : '/same/route'}}" (click)="getFormStatusLinkV2();" ><i class="bi bi-dot"></i>Miscellaneous</a></li>
+                        <li><a routerLinkActive="active" routerLink="{{stationChoice == true ? '/teacher/transferStationChoice/' : '/same/route'}}" (click)="getFormStatusLinkV2();"><i class="bi bi-dot"></i>Station Choice</a></li>
+                        <li><a routerLinkActive="active" routerLink="{{previewUnderTaking == true ? '/teacher/preview-undertaking/' : '/same/route'}}" (click)="getFormStatusLinkV2();" ><i class="bi bi-dot"></i>Preview And Undertaking</a></li>
+                    </ul>
+                </div> -->
+            </div>
+        </div>
+        
+        <div class="accordion-item" >
+            <div class="accordion-header m-0">
+                <button class="accordion-button aa collapsed" routerLink="/teacher/employeeJoining" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourcccs" aria-expanded="false" aria-controls="collapseFourcccs">
+                    <img src="assets/images/rel1.png" class="me-2"> Relieving-Joining 
+        </button>
+            </div>
+            <div id="collapseFourcccs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">  
+            </div>
+        </div>
+
+        <div class="accordion-item" >
+            <div class="accordion-header m-0">
+                <button class="accordion-button aa collapsed" routerLink="/teacher/kvsTicket" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourccccs" aria-expanded="false" aria-controls="collapseFourccccs">
+                    <img src="assets/images/coupon.png" class="me-2"> Ticket
+        </button>
+            </div>
+            <div id="collapseFourccccs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">  
+            </div>
+        </div>
+    </div>
 
 
     <!-- {{timeLeft}} -->
     <!-----------------------Close Here School------------------------------------------------------------>
-
 </div>
 
 <div class="dashboard-icon" title="Close Sidebar">

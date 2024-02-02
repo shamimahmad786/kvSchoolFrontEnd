@@ -1,0 +1,60 @@
+.mat-elevation-z8 {
+    width: 100%;
+}
+.make-green {
+    color:#028302;
+ 
+    font-family: 'PoppinsBold';
+}
+
+.make-yellow {
+    color: #e59400;
+    font-family: 'PoppinsBold';
+}
+.make-gray{
+    color: #747474;
+    font-family: 'PoppinsBold';
+}
+.back-button{
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #645a64;
+    height: 35px !important;
+    line-height: normal;
+    border: none;
+    padding: 0 15px 0 33px;
+  }
+
+  .button-back { 
+    position: relative; 
+  } 
+  
+  .button-back i{ 
+    position: absolute; 
+    left: 15px; 
+    top: 11px ; 
+    color: white; 
+  }
+  .add-teacher{
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #632765;
+    height: 35px !important;
+    line-height: normal;
+    border: none;
+    padding: 0 35px;
+  }
+  .add-teacher:disabled {
+    color: #fff;
+    top: 7px;
+    padding: 0 15px 0 33px;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #996a9a;
+    height: 34px;
+    line-height: normal;
+    border: none;
+  }
+ 

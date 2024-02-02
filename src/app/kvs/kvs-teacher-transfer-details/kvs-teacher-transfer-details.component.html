@@ -1,0 +1,751 @@
+<div class="dashboard-main-content" style="min-height: 600px;">
+    <div class="dashboard-main-content__header">
+      <h1 class="mb-1">Transfer Management</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="mt-0">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a>Home</a></li>
+          <li class="breadcrumb-item"><a>Transfer Management</a></li>
+        </ol>
+      </nav>
+<div class="dashboard-main-content-info ">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row ">              
+            <div class="col-md-6 " >
+                <mat-form-field appearance="outline" class="searchInput" >
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search ">
+                  
+                </mat-form-field>
+            </div>
+            <div class="col-sm-6">
+                <div class="d-flex flex-row-reverse bd-highlight ">
+                    <!-- <div class="p-1" *ngIf="!freezeStatus">
+                        <button mat-raised-button class="float-end mt-2 btn-success voilet" (click)="redirectto()"> <i class="bi bi-plus-circle me-1"></i>Add</button>
+                    </div> -->
+                    <!-- <div class="p-1">
+                        <button mat-raised-button class="float-end mt-2 btn-secondary green" (click)="regionMasterPdf()"><i class="bi bi-file-pdf me-1"></i> Download PDF</button>
+                    </div> -->
+                    <!-- <div class="p-1">
+                        <button mat-raised-button class="float-end mt-2 btn-primary red" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>
+                    </div> -->
+                </div>
+            </div>   
+    </div>
+        <div class="example-container mat-elevation-z8 table-responsive">
+            <table mat-table *ngIf="dataSource?.data?.length > 0" id="excel-table" [dataSource]="dataSource" matSort class="mat-elevation-z8 demo-table">
+                <ng-container matColumnDef="sno">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> S.No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.sno}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="teacherId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Employee Name</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.teacherName}} ({{element.teacherId}})</td>
+                </ng-container>
+
+                <ng-container matColumnDef="dcPoint">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Dc Point </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span> {{element.dcTotalPoint}}</span> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="tcPoint">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Tc Point </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span> {{element.tcTotalPoint}}</span></td>
+                </ng-container>
+
+                <ng-container matColumnDef="transferFinalStatus">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Transfer Status </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span [ngClass]="{'make-yellow': element.transferFinalStatus=='TS'}" *ngIf="element.transferFinalStatus=='TS'">  Transfer Submited By Teacher</span>
+                        <span [ngClass]="{'make-green': element.transferFinalStatus=='TA'}" *ngIf="element.transferFinalStatus=='TA'">  Transfer Approved By School</span>
+                        <span [ngClass]="{'make-gray': element.transferFinalStatus==null}" *ngIf="element.transferFinalStatus=='' || element.transferFinalStatus==null">  Pending</span>
+                    
+                    </td>
+               
+                     
+                    </ng-container>
+
+                <ng-container matColumnDef="action" >
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Action </th>
+            <td mat-cell *matCellDef="let element">       
+            <i *ngIf="element.transferFinalStatus=='TS'" class="fa fa-edit edite_buttun" matTooltip="Edit" (click)="viewTeacherTransferProfile(element.teacherId,element.teacherName)"  ></i>
+            <i *ngIf="element.transferFinalStatus=='TS'" class="fa fa-eye edite_buttun" matTooltip="View / Confirm" (click)="confirmTransferProfile(element.teacherId,element.teacherName)"  ></i></td>
+                </ng-container>
+               
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data Found</td>
+                </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10,20, 25]" showFirstLastButtons> </mat-paginator>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div mat-dialog-content>
+    <ng-template #ConfirmBox let-modal style="min-width: 100%;">
+        <div class="dashboard-main-content" style="min-height: 600px;">
+              <div class="dashboard-main-content-info p-4 ">
+                     <table class="table table-bordered w-100">
+                        <thead>
+                            <tr style="background-color:#7492cb;">
+                                <th colspan="5" class="text-center text-white">Choice Of Station (Transfer)</th>
+                            </tr>
+                            <tr>
+                                <th width="30%">Station name</th>
+                                <th>Station Name</th>
+                                <th>Station Name</th>
+                                <th>Station Name</th>
+                                <th width="20%;">Station Name</th>                   
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{teacherrofileData?.choiceKv1StationName}}</td> 
+                            <td>{{teacherrofileData?.choiceKv2StationName}}</td>
+                            <td>{{teacherrofileData?.choiceKv3StationName}}</td>
+                            <td>{{teacherrofileData?.choiceKv4StationName}}</td>
+                            <td>{{teacherrofileData?.choiceKv5StationName}}</td>
+                            
+                        </tr>
+                    </tbody>                
+                    </table>             
+                    <table class="table table-bordered w-100">
+                        <thead>
+                            <tr style="background-color:#7492cb;">
+                                <th colspan="4" class="text-center text-white">Miscellaneous</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td width="2%" class="text-center fw-bold">1</td>
+                            <td>Whether the employee is seeking benefit of spouse who is working at the same station where employee is posted/transfer is being sought for.</td>
+                            <td>{{teacherrofileData?.spouseKvsYnD == '1' ?'Yes':'No'}}</td>
+                            <td><a href="{{spouseDeclarationDocUrlName}}"  *ngIf="teacherrofileData?.spouseKvsYnD == '1'" target="_blank"> <img src="assets/images/download.png" ></a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center fw-bold">2</td>
+                            <td>Whether the employee is seeking benefit of medical ground (MDG Ground).</td>
+                            <td>{{teacherrofileData?.personalStatusMdgD == '1' ?'Yes':'No'}}</td>
+                            <td><a href="{{medicalDocURLName}}" *ngIf="teacherrofileData?.personalStatusMdgD == '1'" style="cursor: pointer;" target="_blank" title="Download"><img src="assets/images/download.png" ></a></td>
+            
+                        </tr>
+                        <tr>
+                            <td class="text-center fw-bold">3</td>
+                            <td>Whether the employee is seeking benefit of single parent (SP Ground).</td>
+                            <td>{{teacherrofileData?.personalStatusSpD == '1' ?'Yes':'No'}}</td>
+                            <td><a href="{{singleParentDocURLName}}" *ngIf="teacherrofileData?.personalStatusSpD == '1'" target="_blank" title="Download"> <img src="assets/images/download.png" ></a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center fw-bold">4</td>    
+                            <td>Whether the employee is seeking benefit of Death of Family Person (DFP Ground).</td>
+                            <td>{{teacherrofileData?.personalStatusDfpD == '1' ?'Yes':'No'}}</td>
+                            <td><a href="{{dFPDocURLName}}" *ngIf="teacherrofileData?.personalStatusDfpD == '1'" target="_blank" title="Download"> <img src="assets/images/download.png" ></a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center fw-bold">5</td>    
+                            <td>Whether your are main care-giver to the person with disability in the family (i.e spouse/son/daughter).</td>
+                            <td>{{teacherrofileData?.careGiverFaimlyYnD == '1' ?'Yes':'No'}}</td>
+                            <td><a href="{{disabilityCertiDocURLName}}" *ngIf="teacherrofileData?.careGiverFaimlyYnD == '1'" target="_blank" title="Download"> <img src="assets/images/download.png" ></a></td>
+                        </tr>
+                                                                                                               
+                        <!-- <tr>
+                            <td> Whether you have a differently-abled child.</td>
+                            <td>{{teacherStationChioce?.childDifferentAbleYnD == '1' ?'Yes':'No'}}</td>
+                        </tr> -->
+                        <tr>
+                            <td class="text-center fw-bold">6</td>    
+                            <td>Members of JCM at KVS Regional Office (RJCM) / KVS Headquarters (NJCM).</td>
+                            <td>{{teacherrofileData?.memberJCM == '1' ?'RJCM': teacherrofileData?.memberJCM == '2'? 'NJCM': teacherrofileData?.memberJCM == '0'?'None':" " }}</td>
+                            <td><a href="{{nJCMRJCMDocURLName}}" *ngIf="teacherrofileData?.memberJCM != '0'" target="_blank" title="Download"> <img src="assets/images/download.png" ></a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center fw-bold">7</td>
+                            <td>Active stay (in years) refer 2 (i) of Part- 1 of Transfer Policy 2023.</td>
+                            <td>{{teacherrofileData?.absenceDaysOne}}</td>
+                            <td></td>
+                          
+                        </tr>
+                        <tr>
+                            <td class="text-center fw-bold">8</td>
+                            <td>Whether disciplinary proceedings are in progress.</td>
+                            <td>{{teacherrofileData?.disciplinaryYn == '1' ?'Yes':'No'}}</td>
+                            <td></td>
+                           
+                        </tr>
+                        <tr>
+                            <td class="text-center fw-bold">9</td>
+                            <td>Whether, the employee has completed one tenure at hard/NER/Priority station(during entire service).</td>
+                            <td>{{teacherrofileData?.surveHardYn == '1' ?'Yes':'No'}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    </table>    
+        <div class="row">    
+        <div class="col-6">
+            <div  class="card shadow p-3 dcForm-min-height">
+            <form id="msform" [formGroup]="displacementCountForm" >
+                <div class="form-card ">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr style="background-color:#7492cb;">
+                                    <th colspan="3" class="text-center text-white">DC Count</th>
+                                </tr>
+                            </thead>
+                            <thead>
+                                <tr>
+                                    <th > S.No. </th>
+                                    <th class="align-middle text-center"> Question Description</th>
+                                    <th class="align-middle text-center"> Points </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="5%" class="align-middle text-center"> 1.</td>
+                                    <td class="align-middle">
+                                        <h4 class="titleSet mb-0">
+        
+                                            Stay at a station as on 30th June in complete years irrespective
+                                            of Cadre Clarification.
+                                        </h4>
+                                        <ol class="alpha-li" style="list-style-type:lower-alpha">
+                                            <li class="w80 ml-2">Period of absence on any account shall also
+                                                be counted for this purpose.
+                                            </li>
+                                            <li class="w80">If an employee transferred from station "A" to
+                                                station "B" returns to the station "A" on request without
+                                                completing three years of stay at station "B" then the
+                                                period of stay at station "A" will be calculated as total
+                                                number of years served at station "A" prior to his posting
+                                                at "B" and the number of years served after his return to
+                                                station "A" taken together.
+                                            </li>
+                                        </ol>
+                                    </td>
+                                    <td width="7%" class=" text-center">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="dcStayStationPoint" formControlName="dcStayStationPoint"
+                                            name="dcStayStationPoint" disabled>
+                                    </td>
+                                </tr>
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">2.</span>
+                                    </td>
+                                    <td width="75%" class="align-middle">
+                                        <h4 class="titleSet">
+        
+                                            Whether the employee below 40 years (as on 30th June of the
+                                            year) has
+                                            completed one tenure at Hard/NER/Priority station (during entire
+                                            service).
+        
+                                        </h4>                                  
+                                    </td>
+        
+                                    <td width="7%" class=" text-center">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;" id=""
+                                            formControlName="dcTenureHardPoint" name="dcTenureHardPoint"
+                                            disabled>
+                                    </td>
+                                </tr>
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">3.</span>
+                                    </td>
+                                    <td width="75%" class="align-middle">
+                                        <h4 class="titleSet">
+                                            PwD employees
+                                        </h4>
+                                    </td>
+        
+                                    <td width="7%" class=" text-center">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="dcPhysicalChallengedPoint"
+                                            formControlName="dcPhysicalChallengedPoint"
+                                            name="dcPhysicalChallengedPoint" disabled>
+                                    </td>
+                                </tr>
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">4.</span>
+                                    </td>
+                                    <td width="75%" class="align-middle">
+                                        <h4 class="titleSet">
+                                            
+                                            Medical ground (MDG)/Death of family person (DFP)
+        
+                                        </h4>
+                                        <ol class="alpha-li" style="list-style-type:lower-alpha">
+                                            <li class="w80 ml-2"> Medical ground (MDG).</li>
+                                            <li class="w80 ml-2"> Death of Family person (DFP).</li>
+                                        </ol>
+                                    </td>
+        
+                                    <td width="7%" class=" text-center">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="dcMdDfGroungPoint" formControlName="dcMdDfGroungPoint"
+                                            name="dcMdDfGroungPoint" disabled>
+                                    </td>
+                                </tr>
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">5.</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <h4 class="titleSet">
+                                            Less than three years to retire (LTR).
+                                        </h4>
+                                    </td>
+        
+                                    <td width="7%" class=" text-center">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="dcLtrPoint" formControlName="dcLtrPoint" name="dcLtrPoint"
+                                            disabled>
+                                    </td>
+                                </tr>
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">6.</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <h4 class="titleSet">
+                                            Single Parent.
+                                        </h4>
+                                    </td>
+        
+                                    <td width="7%" class=" text-center">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="dcSinglePoint" formControlName="dcSinglePoint"
+                                            name="dcSinglePoint" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">7.</span>
+                                    </td>
+        
+                                    <td class="align-middle">Spouse if a KVS Employee and posted at the
+                                        same station.
+                                    </td>
+                                    <td  rowspan="4" class="text-center">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="dcSpousePoint" formControlName="dcSpousePoint"
+                                            name="dcSpousePoint" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">8.</span>
+                                    </td>
+        
+                                    <td class="align-middle">Spouse if a Central Government/Central body/Central Govt. Public Sector 
+                                        Undertaking/ Defence Employee and Central Armed Police Forces employee posted at the 
+                                        same station.
+                                    </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">9.</span>
+                                    </td>
+                                    <td class="align-middle">Spouse if a State Covernment / State Govt.
+                                        Autonomous body / State Govt. Public Sectors Undertaking
+                                        Employee and posted at the same station.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">10.</span>
+                                    </td>
+                                    <td class="align-middle">Woman employee not covered under Sl. No.
+                                        6,7,8,9 above.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">11.</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <h4 class="titleSet">
+                                            Members of recognized associations of KVS staff who are also
+                                            members of JCM at KVS regional offices and / or KVS
+                                            Headquarters.
+                                            Note: - Benefit will be given only if they are posted in KVs
+                                            located at the station of Regional Office/ ZIET.
+                                        </h4>
+                                    </td>
+                                    <td width="7%" class=" text-center">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="dcRjcmNjcmPoint" formControlName="dcRjcmNjcmPoint"
+                                            name="dcRjcmNjcmPoint" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="align-middle"><h3 class="titleSet fw-bold mb-0">
+                                        Total Displacement Count</h3></td>
+                                    <td width="7%" class=" text-center">                          
+                                            <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="dcTotalPoint" formControlName="dcTotalPoint" name="dcTotalPoint"
+                                            disabled>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+               
+        
+                </form>
+        
+        </div>
+        </div>
+        <div class="col-6">
+            <div class="card shadow p-3">
+            <form id="msform" [formGroup]="transferCountForm">
+                <div class="form-card ">
+                    <div *ngIf="enableTransferFormYn" >
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr style="background-color:#7492cb;">
+                                    <th colspan="3" class="text-center text-white">TC Count</th>
+                                </tr>
+                            </thead>
+                            <thead>
+                                <tr>
+                                    <th> S.No. </th>
+                                    <th  class="align-middle text-center"> Question Description </th>
+                                    <th class="align-middle text-center"> Points </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td  width="5%" class="align-middle text-center"> <span class="text-green">1.</span></td>
+                                    <td class="align-middle ">
+                                        <h4 class="titleSet mb-0">
+                                            Continuous Active Stay at station as on 30th june for all
+                                            stations excluding periods of absence (any kind of leave other
+                                            than maternity Leave) of 30 days or more at normal station and
+                                            45 days or more at Hard/NER/Priorty stations, irrespective of
+                                            cadre.
+                                        </h4>                               
+                                    </td>
+                                    <td  class=" text-center"  *ngIf="!showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="tcStayStationPoint" formControlName="tcStayStationPoint"
+                                            name="tcStayStationPoint" disabled>
+                                    </td>
+                                    <td  class=" text-center" *ngIf="showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            value="0" style="width:40px; margin:0px auto;" disabled>
+                                    </td>
+                                </tr>
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">2.</span> </td>
+                                    <td  class="align-middle ">
+                                        <h4 class="titleSet">
+                                            PwD employees
+                                        </h4>
+                                    </td>
+        
+                                    <td  class=" text-center"  *ngIf="!showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="tcPhysicalChallengedPoint"
+                                            formControlName="tcPhysicalChallengedPoint"
+                                            name="tcPhysicalChallengedPoint" disabled>
+                                    </td>
+                                    <td class=" text-center" *ngIf="showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            value="0" style="width:40px; margin:0px auto;" disabled>
+                                    </td>
+                                </tr>
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">3.</span>
+                                    </td>
+                                    <td  class="align-middle " >
+                                        <h4 class="titleSet">
+                                            Completion of prescribed tenure in Hard/NER/Priority stations at
+                                            present place of posting.
+                                        </h4>                           
+                                    </td>
+        
+                                    <td class=" text-center"  *ngIf="!showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;" id=""
+                                            formControlName="tcTenureHardPoint" name="tcTenureHardPoint"
+                                            disabled>
+                                    </td>
+                                    <td class=" text-center" *ngIf="showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            value="0" style="width:40px; margin:0px auto;" disabled>
+                                    </td>
+                                </tr>
+        
+        
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">4.</span>
+                                    </td>
+                                    <td class="align-middle" >
+                                        <h4 class="titleSet">
+                                            Clarification: If an employee qualifies on more than one ground,
+                                            the points shall be limited to a maximum of (+) 35 only.
+                                        </h4>
+                                        <h4 class="titleSet">
+                                            Further,if an employee has already secured a transfer in
+                                            previous year(s) on the basis of these grounds,then points shall
+                                            not be given again.
+                                        </h4>
+                                        <ol class="alpha-li" style="list-style-type:lower-alpha">
+                                           
+                                            <li class="w80 ml-2"> Medical ground(MDG).</li>
+                                            <li class="w80 ml-2"> Death of Family person(DFP).</li>
+                                        </ol>
+                                       
+                                    </td>
+        
+                                    <td  class=" text-center"  *ngIf="!showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="tcMdDfGroungPoint" formControlName="tcMdDfGroungPoint"
+                                            name="tcMdDfGroungPoint" disabled>
+                                    </td>
+                                    <td  class=" text-center" *ngIf="showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            value="0" style="width:40px; margin:0px auto;" disabled>
+                                    </td>
+                                </tr>
+        
+        
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">5.</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <h4 class="titleSet">
+                                            Less than three years to retire (LTR).
+                                        </h4>
+                                    </td>
+        
+        
+                                    <td class=" text-center"  *ngIf="!showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="tcLtrPoint" formControlName="tcLtrPoint" name="tcLtrPoint"
+                                            disabled>
+                                    </td>
+                                    <td class=" text-center" *ngIf="showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            value="0" style="width:40px; margin:0px auto;" disabled>
+                                    </td>
+                                </tr>
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">6.</span>
+                                    </td>
+                                    <td class="align-middle" >
+                                        <h4 class="titleSet">
+                                            Single Parent.
+                                        </h4>
+                                    </td>
+        
+                                    <td  class=" text-center"  *ngIf="!showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="tcSinglePoint" formControlName="tcSinglePoint"
+                                            name="tcSinglePoint" disabled>
+                                    </td>
+                                    <td class=" text-center" *ngIf="showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            value="0" style="width:40px; margin:0px auto;" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">7.</span>
+                                    </td>
+                                    <td class="align-middle" >
+                                        <h4 class="titleSet">
+                                            Spouse if a KVS Employee and posted at the
+                                            choice station.
+                                        </h4>
+                                    </td>
+        
+                                    <td class=" text-center" rowspan="4" *ngIf="!showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="tcSpousePoint" formControlName="tcSpousePoint"
+                                            name="tcSpousePoint" disabled>
+                                    </td>
+                                    <td  class=" text-center"  rowspan="4" *ngIf="showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            value="0" style="width:40px; margin:0px auto;" disabled>
+                                    </td>
+                                </tr>
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">8.</span>
+                                    </td>
+                                    <td class="align-middle" >
+                                        <h4 class="titleSet">
+                                            Spouse if a Central Government/Central
+                                                Govt. Autonomous
+                                                body/Central
+                                                Govt. Public Sector Undertaking/ Defence Employee and
+                                                Central Armed
+                                                Police Forces employee posted at the choice station.
+                                        </h4>
+                                    </td>
+                                    
+                                </tr>
+          
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">9.</span>
+                                    </td>
+                                    <td class="align-middle" >
+                                        <h4 class="titleSet">
+                                            Spouse if a State Covernment / State Govt.
+                                                Autonomous body / State Govt. Public Sectors Undertaking
+                                                Employee & posted at the choice station.
+                                        </h4>
+                                    </td>
+                                    
+                                </tr>
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">10.</span>
+                                    </td>
+                                    <td class="align-middle" >
+                                        <h4 class="titleSet">
+                                            Woman employee not covered under Sl. No.
+                                                6,7,8,9 above. 
+                                        </h4>
+                                    </td>
+                                    
+                                </tr>
+        
+                                <tr>
+                                    <td class="align-middle text-center"> <span class="text-green">11.</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <h4 class="titleSet">
+                                            Members of recognized associations of KVS staff who are also
+                                            members of JCM at KVS regional offices and / or KVS
+                                            Headquarters.
+                                            Note: - Benefit will be given only if they are posted in KVs
+                                            located at the station of Regional Office/ ZIET.
+                                        </h4>
+                                    </td>
+        
+                                    <td  class=" text-center"  *ngIf="!showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            placeholder="0" style="width:40px; margin:0px auto;"
+                                            id="tcRjcmNjcmPoint" formControlName="tcRjcmNjcmPoint"
+                                            name="tcRjcmNjcmPoint" disabled>
+                                    </td>
+                                    <td  class=" text-center" *ngIf="showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                            value="0" style="width:40px; margin:0px auto;" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle text-center">  </td>
+                                    <td class="align-middle">
+                                        <h3 class="titleSet fw-bold mb-0">
+                                            Total Transfer Counts</h3>
+                                    </td>
+                                    <td  width="7%" class=" text-center"  *ngIf="!showTcField">                              
+                                        <input type="text" class="form-control form-control-sm "
+                                        placeholder="0" style="width:40px; margin:0px auto;"
+                                        id="tcTotalPoint" formControlName="tcTotalPoint" name="tcTotalPoint"
+                                        disabled>
+                                    </td>
+                                    <td width="7%"  class=" text-center" *ngIf="showTcField">
+                                        <input type="text" class="form-control form-control-sm "
+                                        placeholder="0" style="width:40px; margin:0px auto;" disabled>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>  
+                </form>
+        </div>
+        </div>
+        </div>
+        <form [formGroup]="teacherPreviewUndertakingForm" (ngSubmit)="onSubmitConfermation()" >    
+            <div class="chk-box-font border p-3 mt-4">  
+        <div class="d-flex justify-content-start  ">
+            <div class="px-5 px-padding"><label>Station (I)</label>&nbsp;{{teacherrofileData?.choiceKv1StationName}} ({{teacherrofileData?.choiceKv1StationCode}}) <input class="form-check-input" type="checkbox" value="" disabled formControlName="stationOne" id="stationOne" ></div>
+            <div class="px-5"><label>Station (II)</label>&nbsp;{{teacherrofileData?.choiceKv2StationName}} ({{teacherrofileData?.choiceKv2StationCode}})  <input class="form-check-input" type="checkbox" value="" disabled formControlName="stationTwo" id="stationTwo" ></div>
+            <div class="px-5"><label>Station (III)</label> &nbsp;{{teacherrofileData?.choiceKv3StationName}} ({{teacherrofileData?.choiceKv3StationCode}}) <input class="form-check-input" type="checkbox" value="" disabled formControlName="stationThree" id="stationThree" > </div>
+            <div class="px-5"><label>Station (IV)</label> &nbsp; {{teacherrofileData?.choiceKv4StationName}} ({{teacherrofileData?.choiceKv4StationCode}}) <input class="form-check-input" type="checkbox" value="" disabled formControlName="stationFour" id="stationFour" ></div>
+          </div>
+          <div class="d-flex justify-content-start mt-4">
+            <div class="px-5 px-padding"><label>Station (V)</label> &nbsp;{{teacherrofileData?.choiceKv5StationName}} ({{teacherrofileData?.choiceKv5StationCode}}) <input class="form-check-input" type="checkbox" value="" disabled  formControlName="stationFive" id="stationFive" > </div>
+            <div class="px-5"><label>Total DC Counte</label>  <input class="form-check-input" type="checkbox" value="" disabled  formControlName="dcCountStatus" id="dcCountStatus" >&nbsp;&nbsp;{{displacementCountForm.get('dcTotalPoint').value}} </div>
+            <div class="px-5" *ngIf="!showTcField"><label>Total TC Count</label>  <input class="form-check-input" disabled type="checkbox" value=""  formControlName="tcCountStatus" id="tcCountStatus" >&nbsp;&nbsp;{{transferCountForm.get('tcTotalPoint').value}}</div>
+          </div>
+        </div> 
+          <div class="form-card mt-3" *ngIf="!profileFinalStatus">
+            <div class="row">
+                <div class="col-7">
+                    <h2 class="mb-0 font8958"> Undertaking: </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="text-align: left;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" formControlName="undertaking1" id="flexCheckDefault1">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            I, the undersigned, certify that to the best
+                            of my knowledge and belief, this Profile
+                            Information, Qualifications, Experience etc.
+                            correctly describes the associated employee.
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" formControlName="undertaking2" id="flexCheckChecked2">
+                        <label class="form-check-label" for="flexCheckChecked">
+                            I also declare that I have saved all the previous
+                            sections
+                            separately.
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 button-save  " style="text-align: center; " >
+            <input  [disabled]="(!teacherPreviewUndertakingForm.get('stationOne').valid &&  !teacherPreviewUndertakingForm.get('stationTwo').valid  &&  !teacherPreviewUndertakingForm.get('stationThree').valid  &&  !teacherPreviewUndertakingForm.get('stationFour').valid  &&  !teacherPreviewUndertakingForm.get('stationFive').valid  &&  !teacherPreviewUndertakingForm.get('dcCountStatus').valid  &&  !teacherPreviewUndertakingForm.get('tcCountStatus').valid )"  type="submit" name="Next"  class="me-2 add-teacher" value="Confirm" /> 
+          </div>
+          <div class="button-back mt-2"><input type="button" name="previous" class="action-save me-2 back-button" (click)="previousPage()"  value="Back" /><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></div>  
+        </form>
+        </div>
+        </div>
+    </ng-template>
+</div>
+
+
+
+</div>
