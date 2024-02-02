@@ -417,6 +417,14 @@ body {
 th.td-bg{ background-color:#fbe6ec !important;}
 .table1 span.text-color {color: #97516a; background-color: #fbe6ec !important}
 
+.color-1{background-color: #F7D9E3 !important;}
+.color-2 { background-color:#CBF0F4 !important;}
+.color-3 { background-color: #CBD4F4!important;}
+.color-4 { background-color: #e1f7d9!important;}
+.color-5 { background-color: #f7f3d9!important;}
+.SchoolStatus li h4 {font-weight: 400; font-size: 18px;}
+.SchoolStatus li h2 {font-weight: 600; font-size: 26px;}
+
 
 @media screen and (min-width: 1300px) and (max-width:1600px) {
   .SchoolStatus li {

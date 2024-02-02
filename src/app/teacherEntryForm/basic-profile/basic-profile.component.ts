@@ -181,9 +181,7 @@ export class BasicProfileComponent implements OnInit {
   copyCurrentAdd() {
     let copyAdd = this.basicProfileForm.get('copyAddress')?.value;
     if(copyAdd?.value) {
-      // this.permanentAddress = {corressPondAdd : this.currentAddress.corressPondAdd, state: this.currentAddress.state, district: this.currentAddress.district, zipCode: this.currentAddress.zipCode}
-      this.permanentAddress = { ...this.currentAddress}
-      alert( this.permanentAddress)
+     // let corresPondAdd = this.basicProfileForm.get()
     } else {
       this.permanentAddress = {corressPondAdd: '', state: '', district: '', zipCode: ''}
     }
