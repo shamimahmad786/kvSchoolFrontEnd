@@ -17,6 +17,7 @@ import {
   MAT_DATE_LOCALE
 } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { BasicProfile } from 'src/app/basic-profile';
 declare const srvTime: any;
 interface SubjectData {
   subNameCode: string;
@@ -92,7 +93,10 @@ export class BasicProfileComponent implements OnInit {
   teacherDisabilityType: any;
   businessUnitTypeCode: any;
   profileFinalStatus: boolean = false;
-  
+  currentAddress:BasicProfile = {corressPondAdd: '', state: '', district: '', zipCode: ''};
+  permanentAddress: BasicProfile = {corressPondAdd: '', state: '', district: '', zipCode: ''};;
+  copyAdd: boolean = false;
+
   @ViewChild('Physically_Handicap_Certificate')Physically_Handicap_Certificate: ElementRef;
   @ViewChild('selectSpouseStationModal', { static: true }) selectSpouseStationModal: TemplateRef<any>;
   constructor(private _http:HttpClient,private pdfServive: TeacherAppPdfService,private router: Router,private datePipe:DatePipe, private dataService: DataService,
@@ -156,6 +160,7 @@ export class BasicProfileComponent implements OnInit {
       'spouseStatusF': new FormControl('', Validators.required),
       'spouseStationName': new FormControl('', Validators.required),
       'prmntPinCode': new FormControl('', [Validators.minLength(6), Validators.maxLength(6), Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")]),
+       'copyAddress': new FormControl([false])
     });
     if(sessionStorage.getItem('newEntryStatus')!='New'){
       this.employeeCode=sessionStorage.getItem('newEntryStatus');
@@ -164,14 +169,31 @@ export class BasicProfileComponent implements OnInit {
     this.getAllMaster();
     this.getSchoolDetailsByKvCode();
     this.getStateMaster();
-   
+
+  }
+
+  omit_special_char(event)
+  {
+     var k;
+     k = event.charCode;
+     return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32);
+  }
+  copyCurrentAdd() {
+    let copyAdd = this.basicProfileForm.get('copyAddress')?.value;
+    if(copyAdd?.value) {
+      // this.permanentAddress = {corressPondAdd : this.currentAddress.corressPondAdd, state: this.currentAddress.state, district: this.currentAddress.district, zipCode: this.currentAddress.zipCode}
+      this.permanentAddress = { ...this.currentAddress}
+      alert( this.permanentAddress)
+    } else {
+      this.permanentAddress = {corressPondAdd: '', state: '', district: '', zipCode: ''}
+    }
   }
 
   getFormStatusV2(){
     var data ={
       "teacherId": this.emplyeeData['teacherId']
     }
-   
+
     this.outSideService.getFormStatusV2(data).subscribe((res)=>{
       if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
         this.profileFinalStatus=true;
@@ -257,15 +279,15 @@ export class BasicProfileComponent implements OnInit {
         this.teacherDisabilityType='no';
       }
       this.clickOnDisability(this.teacherDisabilityType);
-      } 
-      this.getDocumentByTeacherId();  
+      }
+      this.getDocumentByTeacherId();
       this.getFormStatusV2();
   },
   error => {
     Swal.fire({
       'icon':'error',
       'text':error.error
-    }  
+    }
     )
   })
   }
@@ -323,7 +345,7 @@ export class BasicProfileComponent implements OnInit {
     //this.responseData.teacherPermanentDistrict = value;
   }
   clickOnDisability(val) {
-  
+
     if (val == 'yes') {
       this.isVisible = true;
     } else if (val == 'no') {
@@ -369,10 +391,10 @@ export class BasicProfileComponent implements OnInit {
           this.stationNameCode = this.kvSchoolDetails.rowValue[i].station_name;
           this.stationNameCode = this.stationNameCode + "(" + this.kvSchoolDetails.rowValue[i].station_code + ")";
           this.stationCode = this.kvSchoolDetails.rowValue[i].station_code
-  
+
           this.kvNameCode = this.kvSchoolDetails.rowValue[i].kv_name;
           this.kvNameCode = this.kvNameCode + "(" + this.kvSchoolDetails.rowValue[i].kv_code + ")";
-  
+
           this.udiseSchCode = this.kvSchoolDetails.rowValue[i].udise_sch_code;
           this.schName = this.kvSchoolDetails.rowValue[i].kv_name;
           this.stationName = this.kvSchoolDetails.rowValue[i].station_name;
@@ -385,10 +407,10 @@ export class BasicProfileComponent implements OnInit {
         }
         )
       })
-    }, 200); 
+    }, 200);
   }
     getAllMaster() {
-      
+
     this.outSideService.fetchAllMaster(6).subscribe((res) => {
       this.teacherTypeData = res.response.postionType;
       this.teacherTypeDataNameCode = [];
@@ -454,7 +476,7 @@ export class BasicProfileComponent implements OnInit {
     }
     return null;
   }
- 
+
   teacherTypeSelect(event) {
     console.log(event.target.value)
     if (event.target.value != 22 && event.target.value != 23 && event.target.value != 10 && event.target.value != 12 && event.target.value != 24 && event.target.value != 11 && event.target.value != '22' && event.target.value != '23' && event.target.value != '11' && event.target.value != '24') {
@@ -483,25 +505,25 @@ export class BasicProfileComponent implements OnInit {
       this.spouseNone = true;
       this.spouseKVSStation = true;
       this.basicProfileForm.patchValue({
-   
+
           spouseStationName: '',
           spousePost: '',
           spouseStationCode: '',
           spouseName: '',
           spouseEmpCode: ''
-        
+
       })
     } else if (event.target.value == '2') {
       this.spouseNone = true;
       this.spouseKVSStation = false;
       this.basicProfileForm.patchValue({
-   
+
           spouseStationName: '',
           spousePost: '',
           spouseStationCode: '',
           spouseName: '',
           spouseEmpCode: ''
-        
+
       })
     } else if (event.target.value == '3') {
       this.spouseNone = true;
@@ -512,7 +534,7 @@ export class BasicProfileComponent implements OnInit {
           spouseStationCode: '',
           spouseName: '',
           spouseEmpCode: ''
-        
+
       })
     } else if (event.target.value == '5') {
       this.spouseNone = false;
@@ -550,11 +572,11 @@ export class BasicProfileComponent implements OnInit {
           spouseStationCode: '',
           spouseName: '',
           spouseEmpCode: '',
-          spouseStatusF: '5' 
+          spouseStatusF: '5'
       })
 
     } else if (event.target.value == '4') {
-    
+
       this.marriedStatusYN = false;
       this.spouseKVSStation = false;
       this.spouseNone = false;
@@ -598,7 +620,7 @@ export class BasicProfileComponent implements OnInit {
     this.outSideService.fetchStationByRegionId(data).subscribe((res) => {
       this.stationList = res.rowValue
     })
-    
+
   }
   selectSpouseStationFn() {
     var str = this.selectedSpouseStation
@@ -616,7 +638,7 @@ export class BasicProfileComponent implements OnInit {
         spouseStationCode: '',
         spouseName: ''
     })
-    
+
     this.outSideService.fetchSpouseByEmpCode(event.target.value).subscribe((res) => {
       if (res.status == '0') {
         // Swal.fire(
@@ -702,7 +724,7 @@ export class BasicProfileComponent implements OnInit {
     }
   }
   documentUpload(index) {
-   
+
     this.fileUpload = true;
     const formData = new FormData();
     if (this.fileToUpload != null) {
@@ -743,12 +765,12 @@ export class BasicProfileComponent implements OnInit {
     }
         if (res[i].docName == 'Physically_Handicap_Certificate.pdf') {
           this.fileUpload = false;
-        }   
+        }
       }
       this.documentUploadArray = res;
     })
   }
-  
+
   deleteDocumentUploaded(documentName) {
     for (let i = 0; i < this.documentUploadArray.length; i++) {
       if (this.documentUploadArray[i].docName == documentName) {
@@ -801,8 +823,8 @@ export class BasicProfileComponent implements OnInit {
           "spousePost":this.basicProfileForm.value.spousePost,
           "spouseName":this.basicProfileForm.value.spouseName,
           "spouseEmpCode":this.basicProfileForm.value.spouseEmpCode,
-          "spouseStatus":this.basicProfileForm.value.spouseStatusF, 
-          "maritalStatus":this.basicProfileForm.value.maritalStatusF, 
+          "spouseStatus":this.basicProfileForm.value.spouseStatusF,
+          "maritalStatus":this.basicProfileForm.value.maritalStatusF,
           "currentUdiseSchCode":this.kvCode,
           "teacherId":this.emplyeeData['teacherId'],
           "schoolId":"",
@@ -833,7 +855,7 @@ export class BasicProfileComponent implements OnInit {
                     'Basic profile save successfully!',
                     '',
                     'success'
-                  ) 
+                  )
                 }
                 this.router.navigate(['/teacher/workExperience']);
           },
