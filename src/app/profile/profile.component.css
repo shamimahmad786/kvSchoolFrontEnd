@@ -329,7 +329,8 @@ body {
 }
 
 .themed-card {
-  background: linear-gradient(107.93deg, #106384 27.98%, #3588ab 102.19%);
+  /* background: linear-gradient(107.93deg, #106384 27.98%, #3588ab 102.19%); */
+  background-color: #564880;
   border-radius: 14px;
 }
 
@@ -342,7 +343,7 @@ body {
 .card-desc {
   font-size: 14px;
   font-weight: normal;
-  color: #ffffffce;
+  color: #fff;
   margin-top: 4px;
 }
 
@@ -379,11 +380,13 @@ body {
   box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.15) !important;
   list-style: none;
   display: inline-table;
-  width: 14.85%;
+  /* width: 14.85%; */
+  width: calc(20% - 25px);
   border-radius: 7px;
   text-align: center;
   padding: 15px;
 }
+.SchoolStatus li:last-child{margin-right: 0;}
 
 .SchoolStatus li:nth-child(1) {
   margin-left: 0px !important;
@@ -401,6 +404,20 @@ body {
 .d-flexg {
   display: flex;
 }
+
+.card-title {font-weight: 600;}
+.card-title span {font-weight: normal;}
+.table1 {width: 100%; border-collapse: collapse;}
+.table1 th, .table1 td {border-collapse: collapse; padding: 8px 10px; border-width: 1px; text-align:center;}
+.table1 th{background: #f6e7f7;
+  text-align: center;
+  color: #000;}
+  .table1 td {padding: 18px 10px;}
+.table1 td span{padding:3px 12px; font-weight: 600; background-color: #f6e7f7;     color: #945197; font-size: 16px; border-radius: 4px;}
+th.td-bg{ background-color:#fbe6ec !important;}
+.table1 span.text-color {color: #97516a; background-color: #fbe6ec !important}
+
+
 @media screen and (min-width: 1300px) and (max-width:1600px) {
   .SchoolStatus li {
     margin: 0px 5px 10px 5px !important;

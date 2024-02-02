@@ -52,88 +52,119 @@
             </li>
         </ul>
     </div>
-    <div class="dashboard-main-content-info p-5">
+    <div class="">
         <div class="row">
-            <div class="col-md-6 w100">
-                <div class="card themed-card p-3 mb-3">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="left d-flex align-items-center w-50">
-                                <img src="assets/img/card-logo.svg" class="img-fluid">
-                                <h2 class="text-white ms-2 card-title">{{dashboardDetails?.kvName}} <span class="d-block card-desc">{{dashboardDetails?.stationName}}</span></h2>
-                            </div>
-                            <div class="right w-50">
-                                <h2 class="text-white card-title">KV/RO/ZIET/HQ - Code<span class="d-block card-desc">{{dashboardDetails?.kvCode}}</span></h2>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <h2 class="text-white card-title w-50">Region Name (Code) <span class="d-block card-desc">{{dashboardDetails?.regionName}}({{dashboardDetails?.regionCode}})</span></h2>
-                            <h2 class="text-white card-title w-50">Station Name (Code) <span class="d-block card-desc">{{dashboardDetails?.stationName}}({{dashboardDetails?.stationCode}})</span></h2>
-                        </div>
+            <div class="col-md-12 w100">
+       
+                <div class="card themed-card p-3 mb-3  controlling-mob">
+
+                    <div class="left d-flex align-items-center w-100 border-bottom pb-1 mb-3">
+                        <img src="assets/img/card-logo.svg" class="img-fluid" style="top: -10px; position: relative;">
+                        <h2 class="text-white ms-2 card-title mb-1"><strong>{{dashboardDetails?.kvName}}</strong> <span class="d-block card-desc">{{dashboardDetails?.stationName}}</span></h2>
                     </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h2 class="text-white card-title">KV/RO/ZIET/HQ - Code<span class="d-block card-desc">{{dashboardDetails?.kvCode}}</span></h2>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <h2 class="text-white card-title">Region Name (Code) <span class="d-block card-desc">{{dashboardDetails?.regionName}}({{dashboardDetails?.regionCode}})</span></h2>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <h2 class="text-white card-title">Region Name (Code) <span class="d-block card-desc">{{dashboardDetails?.regionName}}({{dashboardDetails?.regionCode}})</span></h2>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <h2 class="text-white card-title">Station Name (Code) <span class="d-block card-desc">{{dashboardDetails?.stationName}}({{dashboardDetails?.stationCode}})</span></h2>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <h2 class="text-white ms-0 me-2 card-title">Controlling Officer <span class="d-block card-desc">{{dashboardDetails?.employeeName}}</span></h2>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <h2 class="text-white card-title ">Email <span class="d-block card-desc">{{dashboardDetails?.teacherEmail}}</span></h2>
+                         
+                        </div>
+
+                        <div class="col-sm-3">
+                            <h2 class="text-white card-title me-2">Mobile  <span class="d-block card-desc">{{dashboardDetails?.teacherMobile}}</span></h2>
+                         
+                        </div>
+
+                        <div class="col-sm-3">
+                            <h2 class="text-white card-title ">Address<span class="d-block card-desc">{{dashboardDetails?.schoolAddress}}</span></h2>
+                         
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
-            <div class="col-md-6 w100">
-                <div class="card themed-card p-3 mb-3">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center controlling-mob">
-                            <div class="left d-flex align-items-center w-50">
-                                <h2 class="text-white ms-0 me-2 card-title">Controlling Officer <span class="d-block card-desc">{{dashboardDetails?.employeeName}}</span></h2>
-                            </div>
-                            <div class="right w-50">
-                                <h2 class="text-white card-title">Email <span class="d-block card-desc">{{dashboardDetails?.teacherEmail}}</span></h2>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3 controlling-mob">
-                            <h2 class="text-white card-title w-50 me-2">Mobile  <span class="d-block card-desc">{{dashboardDetails?.teacherMobile}}</span></h2>
-                            <h2 class="text-white card-title w-50">Address<span class="d-block card-desc">{{dashboardDetails?.schoolAddress}}</span></h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    
 </div>
 
 <div class="row mt-3">
-    <div class="col-md-6">
+    <div class=" dashboard-main-content__header"><h2 class="TolTeacherValue  ">Total Staff</h2></div>
+        
+    <div class="col-md-9">
+      
         <ul class="">
             <li class="card p-3 rounded-3 mb-3">
-                <h2 class="TolTeacherValue mb-0 card-text-color text-center ">Total Staff</h2>
+        
                 <div class="row mt-0">
                     <div class="row ">
                         <div class="col-sm-6 ">
-                            <div class="row ">
-                                <h2 class="TolTeacherValue mb-2 card-text-color text-center border-end border-top border-bottom ">Teaching</h2>
-                                <div class="col-4 text-center border-end">
-                                    <h4 class="Verified mb-0 card-text-color">Male </h4>
-                                    <h2 class="mt-4">{{dashboardDetails?.teachingMale === null ?'0':dashboardDetails?.teachingMale}}</h2>
-                                </div>
-                                <div class="col-4 text-center border-end">
-                                    <h4 class="Verified mb-0 card-text-color">Female </h4>
-                                    <h2 class="mt-4">{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</h2>
-                                </div>
-                                <div class="col-4 text-center border-end">
-                                    <h4 class="Verified mb-0 card-text-color">Total</h4>
-                                    <h2 class="mt-4">{{teachingMaleFemaleTotal}}</h2>
-                                </div>
-                            </div>
+
+                            <table class="table1 table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" style="background:#945197; color: #fff;   ">Teaching</th>
+                                        
+                                    </tr>
+                                    <tr rowspan="2">
+                                        <th>Male</th>
+                                        <th>Female</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                              
+                                <tr>
+                                    <td><span>{{dashboardDetails?.teachingMale === null ?'0':dashboardDetails?.teachingMale}}</span></td>
+                                    <td><span>{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</span></td>
+                                    <td><span>{{teachingMaleFemaleTotal}}</span></td>
+                                </tr>
+                                
+                            </table>
+
                         </div>
+
                         <div class="col-sm-6">
-                            <div class="row ">
-                                <h2 class="TolTeacherValue mb-2 card-text-color text-center  border-top border-bottom  ">Non-Teaching</h2>
-                                <div class="col-4 text-center border-end">
-                                    <h4 class="Verified mb-0 card-text-color">Male </h4>
-                                    <h2 class="mt-4">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</h2>
-                                </div>
-                                <div class="col-4 text-center border-end">
-                                    <h4 class="Verified mb-0 card-text-color">Female </h4>
-                                    <h2 class="mt-4">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</h2>
-                                </div>
-                                <div class="col-4 text-center ">
-                                    <h4 class="Verified mb-0 card-text-color">Total </h4>
-                                    <h2 class="mt-4">{{nonTeachingMaleFemaleTotal}}</h2>
-                                </div>
-                            </div>
+                            
+                            <table class="table1 table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" style="background:#97516a; color: #fff;   " >Non-Teaching</th>
+                                        
+                                    </tr>
+                                    <tr rowspan="2">
+                                        <th class="td-bg">Male</th>
+                                        <th class="td-bg">Female</th>
+                                        <th class="td-bg">Total</th>
+                                    </tr>
+                                </thead>
+                              
+                                <tr>
+                                    <td><span class="text-color">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</span></td>
+                                    <td><span class="text-color">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</span></td>
+                                    <td><span class="text-color">{{nonTeachingMaleFemaleTotal}}</span></td>
+                                </tr>
+                                
+                            </table>
                         </div>
+           
                       
                     </div>
                 </div>
@@ -144,7 +175,7 @@
     
         </ul>
     </div>
-<div class="col-md-6">
+<div class="col-md-3">
     <ul>
     <li class="card p-4  rounded-3" style="
     height: 204px;
@@ -167,8 +198,8 @@
 </div>
 
 <div class="row mt-3">
-    <div class="col-md-12">
-        <ul class="SchoolStatus ">
+    <div class="col-md-12 d-flex justify-content-center">
+        <ul class="SchoolStatus w-100 text-center">
             <li>
                 <div>
                     <img src="assets/assets/img/total-staff.png" class="mb-2" />
