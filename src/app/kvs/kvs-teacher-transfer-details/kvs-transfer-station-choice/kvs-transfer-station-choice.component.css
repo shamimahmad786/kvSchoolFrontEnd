@@ -1,0 +1,260 @@
+.add-teacher{
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #632765;
+    height: 35px !important;
+    line-height: normal;
+    border: none;
+    padding: 0 35px;
+  }
+  .save-user{
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #632765;
+    height: 35px !important;
+    line-height: normal;
+    border: none;
+    padding: 0 24px;
+  }
+  .add-teacher:disabled {
+    color: #fff;
+    top: 7px;
+    padding: 0 15px 0 33px;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #996a9a;
+    height: 34px;
+    line-height: normal;
+    border: none;
+}
+  .pro-name{
+    color: #632765;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .btn-sml {
+    padding: 2px 6px;
+   
+}
+  .button-back { 
+    position: relative; 
+} 
+  
+.button-back i{ 
+    position: absolute; 
+    left: 15px; 
+    top: 11px ; 
+    color: white; 
+}
+
+.button-save { 
+    position: relative; 
+} 
+  
+.button-save i{ 
+    position: absolute; 
+    left: 15px; 
+    top: 11px ; 
+    color: white; 
+}
+
+.back-button{
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #645a64;
+    height: 35px !important;
+    line-height: normal;
+    border: none;
+    padding: 0 15px 0 33px;
+  }
+
+
+.add-btn {
+  min-width: 72px;
+}
+
+input {
+  text-transform: capitalize;
+}
+
+::-webkit-input-placeholder {
+  text-transform: none;
+}
+
+:-moz-placeholder {
+  text-transform: none;
+}
+
+::-moz-placeholder {
+  text-transform: none;
+}
+
+:-ms-input-placeholder {
+  text-transform: none;
+}
+
+.mt-10 {
+  margin-top: 10px;
+  min-height: 620px;
+}
+
+.mt-83 {
+  margin-top: 0px;
+}
+
+.FontTitle {
+  font-size: 20px;
+  font-family: 'roboto', sans-serif;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.mat-horizontal-content-container {
+  overflow: hidden;
+  padding: 0px ! important;
+}
+
+ul.ulLeft {
+  padding: 0px;
+  margin: 0px;
+}
+
+ul.ulLeft li {
+  display: inline-flex;
+  margin-right: 25px;
+}
+
+#heading {
+  text-transform: uppercase;
+  color: #24695c;
+  font-weight: normal
+}
+
+#msform {
+  text-align: center;
+  position: relative;
+  margin-top: 0px
+}
+
+.card {
+  border: none ! important;
+  margin-bottom: 0px;
+}
+
+#msform fieldSet {
+  background: white;
+  border: 0 none;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 0px;
+  position: relative
+}
+
+.form-card {
+  text-align: left
+}
+
+#msform .fieldSet:not(:first-of-type) {
+  display: none
+}
+
+/*----------------------- new css add here-----------------------------*/
+
+
+
+
+.stationCode,
+.LIneInde{list-style: none; padding:0px; margin:0px; box-sizing: border-box;}
+.stationCode li { display: inline-table; margin-right: 15px;  width:31%;}
+/* .stationCode li:nth-child(even) {  margin-right: 3%; } */
+.stationName{ font-size:0.9rem ! important; font-weight:600 ! important; letter-spacing: 0.9px ! important;}
+.LIneInde li{ display: table-cell;}
+
+/*----------------------- new css end here-----------------------------*/
+/* #msform input,
+#msform textarea {
+  padding: 8px 15px 8px 15px;
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: montserrat;
+  color: #2C3E50;
+  background-color: #ECEFF1;
+  font-size: 16px;
+  letter-spacing: 1px
+} */
+
+/* #msform input:focus,
+#msform textarea:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #24695c;
+  outline-width: 0
+} */
+
+#msform .action-button {
+  width: 100px;
+  background: #24695c;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 0px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 0px 10px 5px;
+  float: right
+}
+
+#msform .action-button:hover,
+#msform .action-button:focus {
+  background-color: #632765
+}
+
+
+.card {
+  z-index: 0;
+  border: none;
+  position: relative
+}
+
+
+
+
+
+.required-asterisk {
+  color: red;
+  font-weight: bold;
+  margin-left: 3px;
+  font-size: 1.2em;
+}
+
+.card-transfr {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.form-heading {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
+
+

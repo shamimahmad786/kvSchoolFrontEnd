@@ -74,12 +74,25 @@ export class PreviewConfirmComponent implements OnInit {
     // }, 1000);
 
   }
-
+  // previewCheck(){
+  //   var checkbox = (<HTMLInputElement>document.getElementById("lastPromotionPositionType")).checked;
+  //   console.log(checkbox);
+  //   if(checkbox==true){
+  //     this.teacherPreviewConfirmForm.patchValue({
+  //       lastPromotionPositionType: true,
+  //   });
+  //   }
+  //   if(checkbox==false){
+  //     this.teacherPreviewConfirmForm.patchValue({
+  //       lastPromotionPositionType: '',
+  //   });
+  //   }
+  // }
   getFormStatusV2(){
     var data ={
       "teacherId": this.tempTeacherId
     }
-    debugger
+   
     this.outSideService.getFormStatusV2(data).subscribe((res)=>{
       if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
         this.profileFinalStatus=true;

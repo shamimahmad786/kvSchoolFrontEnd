@@ -37,6 +37,11 @@ BASE_URL_DATA_TEACHER: 'http://10.25.26.251:8014/api/teacher/',
   BASE_URL_DATA_TRANSFERPROCESS:'http://10.25.26.251:8014/api/transferprocess/',
   BASE_URL_DATA_API_TICKET:'http://10.25.26.251:8015/api/ticket/',
   BASE_URL_DATA_API_FILETRANSFER:'http://10.25.26.251:8014/api/filetransfer/',
+  BASE_URL_DATA_TEACHER_TRANSFER_V2: 'http://10.25.26.251:8014/api/teacher/transfer/',
+
+
+
+
   
   // BASE_URL_DATA_TEACHER: 'http://10.25.26.35:8014/api/teacher/',
 	// BASE_URL_DATA_TEACHER_TRANSFER:'http://10.25.26.35:8014/api/transprofile/',

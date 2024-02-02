@@ -108,6 +108,11 @@ import { ExcelTransferModuleComponent } from './components/excel-transfer-module
 import { TransferReportComponent } from './teacher/transfer-report/transfer-report.component';
 import { ReportdatamodelComponent } from './reportdatamodel/reportdatamodel.component';
 import { TransferReportChildComponent } from './teacher/transfer-report-child/transfer-report-child.component';
+import { KvsTeacherTransferDetailsComponent } from './kvs/kvs-teacher-transfer-details/kvs-teacher-transfer-details.component';
+import { KvsTransferMiscellaneusComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-miscellaneus/kvs-transfer-miscellaneus.component';
+import { TransferProgresionBarComponent } from './kvs/kvs-teacher-transfer-details/transfer-progresion-bar/transfer-progresion-bar.component';
+import { KvsTransferStationChoiceComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-station-choice/kvs-transfer-station-choice.component';
+import { KvsTransferPreviewUndertakingComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-preview-undertaking/kvs-transfer-preview-undertaking.component';
 // import { MAT_DATE_FORMATS } from '@angular/material/';
 // import { DatePickerModule } from 'angular-material-datepicker';
 
@@ -207,7 +212,12 @@ import { TransferReportChildComponent } from './teacher/transfer-report-child/tr
     ExcelTransferModuleComponent,
     TransferReportComponent,
     ReportdatamodelComponent,
-    TransferReportChildComponent
+    TransferReportChildComponent,
+    KvsTeacherTransferDetailsComponent,
+    KvsTransferMiscellaneusComponent,
+    TransferProgresionBarComponent,
+    KvsTransferStationChoiceComponent,
+    KvsTransferPreviewUndertakingComponent
    
     
   ],
