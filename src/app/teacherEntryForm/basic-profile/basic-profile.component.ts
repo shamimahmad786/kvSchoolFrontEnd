@@ -160,7 +160,7 @@ export class BasicProfileComponent implements OnInit {
       'spouseStatusF': new FormControl('', Validators.required),
       'spouseStationName': new FormControl('', Validators.required),
       'prmntPinCode': new FormControl('', [Validators.minLength(6), Validators.maxLength(6), Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")]),
-       'copyAddress': new FormControl([false])
+       'copyAddress': new FormControl(false)
     });
     if(sessionStorage.getItem('newEntryStatus')!='New'){
       this.employeeCode=sessionStorage.getItem('newEntryStatus');
@@ -179,13 +179,28 @@ export class BasicProfileComponent implements OnInit {
      return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32);
   }
   copyCurrentAdd() {
-    let copyAdd = this.basicProfileForm.get('copyAddress')?.value;
-    if(copyAdd?.value) {
-      // this.permanentAddress = {corressPondAdd : this.currentAddress.corressPondAdd, state: this.currentAddress.state, district: this.currentAddress.district, zipCode: this.currentAddress.zipCode}
-      this.permanentAddress = { ...this.currentAddress}
-      alert( this.permanentAddress)
+    
+    let copyAddress = this.basicProfileForm.get('copyAddress')?.value;
+    if(copyAddress) {
+      let corresPondAdd = this.basicProfileForm.get('crspndncAddress')?.value
+      let corresPondState = this.basicProfileForm.get('crspndncState')?.value
+      let corresPondDistrict = this.basicProfileForm.get('crspndncDistrict')?.value
+      let corresPondPinCode = this.basicProfileForm.get('crspndncPinCode')?.value
+      this.basicProfileForm.patchValue({
+        prmntAddress: corresPondAdd,
+        prmntState: corresPondState,
+        prmntDistrict: corresPondDistrict,
+        prmntPinCode: corresPondPinCode
+      })
+      this.getDistrictListByStateIdSameasAbove(corresPondState, 'P')
+    this.copyAdd = true
     } else {
-      this.permanentAddress = {corressPondAdd: '', state: '', district: '', zipCode: ''}
+     this.basicProfileForm.patchValue({
+      prmntAddress: '',
+      prmntState: '',
+      prmntDistrict: '',
+      prmntPinCode: ''
+     })
     }
   }
 
@@ -298,7 +313,8 @@ export class BasicProfileComponent implements OnInit {
     })
   }
   getDistrictListByStateId(event, data) {
-    this.stateId=event.target.value;
+    debugger
+    this.stateId=event;
     if (data == 'C') {
       this.districListByStateIdC = [];
       this.basicProfileForm.patchValue({
@@ -313,6 +329,27 @@ export class BasicProfileComponent implements OnInit {
     }
     this.getDistrictByStateId(this.stateId, data);
   }
+
+  getDistrictListByStateIdSameasAbove(event, data) {
+    debugger
+    this.stateId=event;
+    if (data == 'C') {
+      this.districListByStateIdC = [];
+      this.basicProfileForm.patchValue({
+          crspndncPinCode: '',
+      });
+      this.enableDisableAddress('enable');
+    } else if (data == 'P') {
+      this.districListByStateIdP = [];
+      // this.basicProfileForm.patchValue({
+      //     prmntPinCode: ''
+      // })
+    }
+    this.getDistrictByStateId(this.stateId, data);
+  }
+
+
+
   enableDisableAddress(val) {
     if (val == 'disable') {
       this.basicProfileForm.get('prmntAddress').disable();

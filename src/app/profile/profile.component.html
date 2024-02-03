@@ -107,17 +107,16 @@
 </div>
 
 <div class="row mt-3">
-    <div class=" dashboard-main-content__header"><h2 class="TolTeacherValue  ">Total Staff</h2></div>
+    <div class=" dashboard-main-content__header mb-2"><h1 class="TolTeacherValue  ">Total Staff</h1></div>
         
     <div class="col-md-9">
       
         <ul class="">
             <li class="card p-3 rounded-3 mb-3">
         
-                <div class="row mt-0">
                     <div class="row ">
                         <div class="col-sm-6 ">
-
+                            <div class="table-responsive">
                             <table class="table1 table-bordered">
                                 <thead>
                                     <tr>
@@ -138,11 +137,12 @@
                                 </tr>
                                 
                             </table>
+                            </div>
 
                         </div>
 
                         <div class="col-sm-6">
-                            
+                            <div class="table-responsive">
                             <table class="table1 table-bordered">
                                 <thead>
                                     <tr>
@@ -163,34 +163,42 @@
                                 </tr>
                                 
                             </table>
+                            </div>
                         </div>
            
                       
                     </div>
-                </div>
-                <div class="pattern">
-                    <i class='bx bx-user-circle imgRotate'></i>
-                </div>
+            
+               
             </li>
     
         </ul>
     </div>
 <div class="col-md-3">
-    <ul>
-    <li class="card p-4  rounded-3" style="
-    height: 204px;
-">
-        <div>
-            <div class=" d-flex align-items-center justify-content-center">
-                <div class="flex-grow-1">
-                    <h3 class="mb-0 blue-text TotalTeachingStaff">Notification: </h3>
-                    <h3 class="TolTeacherValue  line-space mt-4"></h3>
-                    
-                </div>
-            </div>
-        </div>
-    </li>
-</ul> 
+ 
+  <div class="card p-3">
+    <div class="table-responsive">
+    <table class="table1 table-bordered">
+      <thead> 
+        <tr>
+            <th colspan="3" style="background:#f7f3d9; color: #000;   ">Ticket Notification</th>
+            
+        </tr>
+        <tr rowspan="2">
+     
+            <th style="background: #f9e5bf;">In Process</th>
+            <th style="background:#afebbd;">Resolved</th>
+            <th style="background:#f9bfbf;">Rejected</th>
+        </tr>
+    </thead> 
+        <tr>
+            <td><span  style="background: #f9e5bf; color:#b9831d">20</span></td>
+            <td><span  style="background: #afebbd; color:#2f9948">30</span></td>
+            <td><span  style="background: #f9bfbf; color:#b94848">15</span></td>
+        </tr>
+    </table>
+</div>
+  </div>
 </div>
 
 
@@ -207,28 +215,28 @@
                     <h2 class="font64989985 mb-0">{{totalTeachers}}</h2>
                 </div>
             </li>
-            <li>
+            <li >
                 <div>
                     <img src="assets/assets/img/verified-staff.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Verified Staff </h4>
                     <h2 class="font64989985 mb-0">{{verifiedCOunt}}</h2>
                 </div>
             </li>
-            <li>
+            <li >
                 <div>
                     <img src="assets/assets/img/pending-school.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Pending at School </h4>
                     <h2 class="font64989985 mb-0">{{schoolPendingCount}}</h2>
                 </div>
             </li>
-            <li>
+            <li >
                 <div>
                     <img src="assets/assets/img/pending-staff.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Pending at Staff</h4>
                     <h2 class="font64989985 mb-0">{{teacherPendingCount}}</h2>
                 </div>
             </li>
-            <li>
+            <li >
                 <div>
                     <img src="assets/assets/img/initiated-school.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Initiated by School </h4>
