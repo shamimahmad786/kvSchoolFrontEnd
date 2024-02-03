@@ -13,10 +13,11 @@ export class AuthInterceptorService implements HttpInterceptor {
     // alert(req.url);
      var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
      console.log(token)
+
      if(req.url.indexOf('api') !== -1){
     if (JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined && JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token != undefined) {
         let modifiedReq     
-        if(req.url.indexOf('uploadDocument') !== -1 || req.url.indexOf('uploadDoc') !== -1){
+        if(req.url.indexOf('uploadDocument') !== -1 || req.url.indexOf('uploadDoc') !== -1 ||  req.url.indexOf('getTeacherBasicDetailPdf') !== -1){
              modifiedReq = req.clone(
                 {
                     setHeaders: {
@@ -56,8 +57,9 @@ export class AuthInterceptorService implements HttpInterceptor {
                                 })
                             ))   
      }else{
-        if(req.url.indexOf('sign-in') !== -1 || req.url.indexOf('getkvsDashboardReport') !== -1 ||  req.url.indexOf('assets') !== -1 ||  req.url.indexOf('restPassword') !== -1 ||  req.url.indexOf('changePassword') !== -1){
-                    return next.handle(req);
+        if(req.url.indexOf('sign-in') !== -1 || req.url.indexOf('getkvsDashboardReport') !== -1 ||  req.url.indexOf('assets') !== -1 ||  req.url.indexOf('restPassword') !== -1 ||  req.url.indexOf('changePassword') !== -1  || req.url.indexOf('getTeacherBasicDetailPdf') !== -1){
+    
+            return next.handle(req);
         }else{
                 sessionStorage.removeItem('authTeacherDetails')
                 sessionStorage.removeItem('mappingData')

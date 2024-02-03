@@ -921,6 +921,18 @@ getTcDcPointByTeacherIdAndInityear(data) {
   return this._http.post<any>(environment.BASE_URL_DATA_TEACHER_TRANSFER_V2 + "getTcDcPointByTeacherIdAndInityear", data, { headers });
 }
 
+
+
+getPDF(data) {
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization': token,
+    // 'Content-Type': 'text/plain; charset=utf-8',
+
+  });
+  return this._http.post<any>(environment.BASE_URL_DATA_REPORT + "getTeacherBasicDetailPdf", data, { headers });
+}
+
 resetPassword(data){
   debugger
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token

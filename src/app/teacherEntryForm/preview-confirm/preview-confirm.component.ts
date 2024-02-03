@@ -36,6 +36,7 @@ export class PreviewConfirmComponent implements OnInit {
   kvNameCode:any;
   stationNameCode:any;
   profileFinalStatus: boolean = false;
+  token: any;
   constructor(private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
     private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) { }
@@ -65,15 +66,29 @@ export class PreviewConfirmComponent implements OnInit {
     this.getFormStatusV2();
     this.onVerifyClick();
     this.getTeacherConfirmationV2();
-  }
-  teacherPdf() {
-    // this.onVerifyClick();
-    // setTimeout(() => {
-    //   this.pdfServive.testFnc(this.verifyTchTeacherProfileData, this.kvNameCode, this.stationNameCode, 
-    //     this.verifyTchTeacherWorkExp, this.teacherStationChioce);
-    // }, 1000);
 
+    this.token =JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token;
   }
+  // teacherPdf() {
+
+  //   const formData = new FormData();
+  //    this.token =formData.append('token', JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token);
+  //   formData.append('username',JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.user_name)
+  //   formData.append('teacherId',this.tempTeacherId)
+
+  //     this.outSideService.getPDF(formData).subscribe((res) => {
+
+       
+  //       const blob = new Blob([res], { type: 'application/pdf' });
+  //       const url = window.URL.createObjectURL(blob);
+  //       window.open(url); // This will open the PDF in a new tab
+  //       alert(url)
+  //     }, error => {
+  //       console.error('Error fetching PDF:', error);
+  //     });
+    
+
+  // }
   // previewCheck(){
   //   var checkbox = (<HTMLInputElement>document.getElementById("lastPromotionPositionType")).checked;
   //   console.log(checkbox);
@@ -176,11 +191,12 @@ export class PreviewConfirmComponent implements OnInit {
         return false;
        }
        else{
-       
+        var dt = new Date(this.verifyTchTeacherProfileData['teacherDob'])
         var data = {
             "teacherName": this.verifyTchTeacherProfileData['teacherName'],
             "teacherGender": this.verifyTchTeacherProfileData['teacherGender'],
-            "teacherDob":this.verifyTchTeacherProfileData['teacherDob'],
+          //"teacherDob":this.verifyTchTeacherProfileData['teacherDob'].split("-")[2]+"-"+this.verifyTchTeacherProfileData['teacherDob'].split("-")[0]+"-"+this.verifyTchTeacherProfileData['teacherDob'].split("-")[1],
+             "teacherDob":dt,
             "teacherEmployeeCode":this.verifyTchTeacherProfileData['teacherEmployeeCode'],
             "teacherDisabilityYn": this.verifyTchTeacherProfileData['teacherDisabilityYn'],
             "workExperienceWorkStartDatePresentKv": this.verifyTchTeacherProfileData['workExperienceWorkStartDatePresentKv'],
@@ -189,6 +205,7 @@ export class PreviewConfirmComponent implements OnInit {
             "teacherId": this.verifyTchTeacherProfileData['teacherId'],
         }
        console.log(data)
+      // return
        Swal.fire({
         'icon':'warning',
         'text': "Do you want to proceed ?",
