@@ -231,6 +231,12 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     this.activePaneTwo=false;
     this.getChilduser();
   }
+  omit_special_char_mobile(event)
+  {   
+     var k;  
+     k = event.charCode;
+     return((k > 47 && k < 58)); 
+  }
   saveProfileData(val:any,userName:any,type:any){
 
     debugger

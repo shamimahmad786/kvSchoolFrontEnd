@@ -74,20 +74,7 @@ export class PreviewConfirmComponent implements OnInit {
     // }, 1000);
 
   }
-  // previewCheck(){
-  //   var checkbox = (<HTMLInputElement>document.getElementById("lastPromotionPositionType")).checked;
-  //   console.log(checkbox);
-  //   if(checkbox==true){
-  //     this.teacherPreviewConfirmForm.patchValue({
-  //       lastPromotionPositionType: true,
-  //   });
-  //   }
-  //   if(checkbox==false){
-  //     this.teacherPreviewConfirmForm.patchValue({
-  //       lastPromotionPositionType: '',
-  //   });
-  //   }
-  // }
+
   getFormStatusV2(){
     var data ={
       "teacherId": this.tempTeacherId
@@ -161,7 +148,7 @@ export class PreviewConfirmComponent implements OnInit {
     if (this.teacherPreviewConfirmForm.invalid) {
       Swal.fire({
         'icon':'error',
-        'text':'something went worng!'
+        'text':'Please check all fields!'
       })
       return false;
        }
@@ -171,7 +158,7 @@ export class PreviewConfirmComponent implements OnInit {
        || this.teacherPreviewConfirmForm.value.undertaking1==false || this.teacherPreviewConfirmForm.value.undertaking2==false ){
         Swal.fire({
           'icon':'error',
-          'text':'Please check all fields'
+          'text':'Please check all fields!'
         })
         return false;
        }
