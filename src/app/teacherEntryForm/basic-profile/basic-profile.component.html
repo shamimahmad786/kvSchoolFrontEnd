@@ -18,14 +18,14 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet"> Employee Code<span class="required-asterisk">*</span></h4>
-                                            <input type="text" class="form-control" name="empCode" formControlName="empCode" maxlength="10">
+                                            <input type="text" class="form-control" name="empCode" disabled formControlName="empCode" maxlength="10">
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('empCode').valid && basicProfileForm.get('empCode').touched">
                                                 Enter a valid employee code!</span>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">Full Name<span class="required-asterisk">*</span>
                                             </h4>
-                                            <input type="text" class="form-control" (keyup)="onKeyUp($event)" name="fullName" formControlName="fullName" style="text-transform:uppercase" maxlength="50">
+                                            <input type="text" class="form-control"  (keyup)="onKeyUp($event)" name="fullName" formControlName="fullName" style="text-transform:uppercase" maxlength="50">
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('fullName').valid && basicProfileForm.get('fullName').touched">
                                                 Enter your valid name!</span>
                                         </div>
