@@ -118,6 +118,7 @@ export class KvsTransferMiscellaneusComponent implements OnInit {
       'id': new FormControl(''),
       'transferStatus': new FormControl(''),
       'absenceDaysOne': new FormControl('', Validators.required),
+      'applyTransferYn': new FormControl(''),
       'disciplinaryYn': new FormControl(''),
       'teacherId': new FormControl('', Validators.required),
       'spouseKvsYnD': new FormControl(),
@@ -714,6 +715,7 @@ export class KvsTransferMiscellaneusComponent implements OnInit {
     this.router.navigate(['/teacher/kvsTchStationChoice']);
   }
   submit(){
+    debugger
     this.miscellaneousForm.patchValue({
       inityear: '2024'
       })

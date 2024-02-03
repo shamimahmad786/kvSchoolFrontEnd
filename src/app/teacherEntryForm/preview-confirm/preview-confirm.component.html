@@ -10,7 +10,9 @@
                     <div class="pe-3">
                         <h2 class="steps text-end pro-name">{{ profileTeacherName | uppercase}} </h2>
                     </div>
-                    <div><button class="btn btn-primary btn-sm"><a href="http://10.25.26.251:8080/api/getTeacherBasicDetailPdf?token={{token}}&username={{loginUserNameForChild}}&teacherId={{tempTeacherId}}"  style="text-decoration: none !important; color:white !important">Export To PDF</a></button></div>
+                    <div><button class="btn btn-primary btn-sm">
+                        <a href="{{exportProfileUrl}}getTeacherBasicDetailPdf?token={{token}}&username={{loginUserNameForChild}}&teacherId={{tempTeacherId}}"  style="text-decoration: none !important; color:white !important">Export To PDF</a>
+                    </button></div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered w-100">

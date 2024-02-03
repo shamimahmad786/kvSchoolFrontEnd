@@ -49,6 +49,7 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
   schoolProfileFinalStatus:any;
   tempTeachername:any;
   profileFinalStatus: boolean = false;
+  schoolTransferFinalStatus: any;
   constructor(private outSideService: OutsideServicesService,private fb: FormBuilder,private modalService: NgbModal,private router: Router) { }
   ngOnInit(): void {
     this.displacementCountForm = new FormGroup({
@@ -110,8 +111,9 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
     }
     this.outSideService.getFormStatusV2(data).subscribe((res) => {
      this.schoolProfileFinalStatus = res.response['profileFinalStatus']
+     this.schoolTransferFinalStatus = res.response['transferFinalStatus']
      console.log(res.response);
-     if(res.response['form4Status']==1 || res.response['form4Status']=='1')
+     if(this.schoolTransferFinalStatus=="TA" || this.schoolTransferFinalStatus=="TS" )
      {
       this.profileFinalStatus=true;
       this.getTcDcPointByTeacherIdAndInityearV2();
