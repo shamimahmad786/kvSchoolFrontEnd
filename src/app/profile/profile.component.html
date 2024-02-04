@@ -192,9 +192,9 @@
         </tr>
     </thead> 
         <tr>
-            <td><span  style="background: #f9e5bf; color:#b9831d">20</span></td>
-            <td><span  style="background: #afebbd; color:#2f9948">30</span></td>
-            <td><span  style="background: #f9bfbf; color:#b94848">15</span></td>
+            <td><span  style="background: #f9e5bf; color:#b9831d">{{dashboardDetails?.inprogresTicket}}</span></td>
+            <td><span  style="background: #afebbd; color:#2f9948">{{dashboardDetails?.resolveTicket}}</span></td>
+            <td><span  style="background: #f9bfbf; color:#b94848">{{dashboardDetails?.rejectTicket}}</span></td>
         </tr>
     </table>
 </div>
@@ -212,35 +212,35 @@
                 <div>
                     <img src="assets/assets/img/total-staff.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Total Staff</h4>
-                    <h2 class="font64989985 mb-0">{{totalTeachers}}</h2>
+                    <h2 class="font64989985 mb-0">{{dashboardDetails?.totalNoOfEmployee}}</h2>
                 </div>
             </li>
             <li >
                 <div>
                     <img src="assets/assets/img/verified-staff.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Verified Staff </h4>
-                    <h2 class="font64989985 mb-0">{{verifiedCOunt}}</h2>
+                    <h2 class="font64989985 mb-0">{{dashboardDetails?.noOfTeacherApprove}}</h2>
                 </div>
             </li>
             <li >
                 <div>
                     <img src="assets/assets/img/pending-school.png" class="mb-2" />
-                    <h4 class="font26589 mb-1">Pending at School </h4>
-                    <h2 class="font64989985 mb-0">{{schoolPendingCount}}</h2>
+                    <h4 class="font26589 mb-1">Not Verified Staff </h4>
+                    <h2 class="font64989985 mb-0">{{dashboardDetails?.noOfTeacherPending}}</h2>
                 </div>
             </li>
             <li >
                 <div>
                     <img src="assets/assets/img/pending-staff.png" class="mb-2" />
-                    <h4 class="font26589 mb-1">Pending at Staff</h4>
-                    <h2 class="font64989985 mb-0">{{teacherPendingCount}}</h2>
+                    <h4 class="font26589 mb-1">Employee Relieving Pending</h4>
+                    <h2 class="font64989985 mb-0">{{dashboardDetails?.noOfTransferReleavingPending}}</h2>
                 </div>
             </li>
             <li >
                 <div>
                     <img src="assets/assets/img/initiated-school.png" class="mb-2" />
-                    <h4 class="font26589 mb-1">Initiated by School </h4>
-                    <h2 class="font64989985 mb-0">{{schoolInitiated}}</h2>
+                    <h4 class="font26589 mb-1">Employee Joining Pending </h4>
+                    <h2 class="font64989985 mb-0">{{dashboardDetails?.noOfTransferJoiningPending}}</h2>
                 </div>
             </li>
             <!-- <li>

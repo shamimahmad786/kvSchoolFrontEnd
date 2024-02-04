@@ -79,6 +79,7 @@ export class ModifyTransferModuleComponent implements OnInit {
   showSchool:boolean = false;
   showZiet:boolean = false;
   showHq:boolean = false;
+  twoRowsFind:boolean = false;
   showCategory:boolean = false;
   showTransferEditForm:boolean = false;
   selectHeadQuaterZoneRegion:boolean = false;
@@ -117,6 +118,8 @@ export class ModifyTransferModuleComponent implements OnInit {
   cancelArrayList: any;
   cancelAllotedKvCode: any;
   cancelAllotedKvTransferType: any;
+  transfer2Type: string;
+  transfer1Type: string;
   constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>,private router: Router,private formData: FormDataService,private modalService: NgbModal) {
     this.dateAdapter.setLocale('en-GB');
    }
@@ -413,15 +416,30 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.outSideService.getModifiedTransferDetails(req,this.loginUserNameForChild).subscribe((res) => {
       this.editeModifyTransferType='';
       this.editeAllotedTransferType='';
+
+      this.transfer1Type='';
+      this.transfer2Type='';
+
+      this.twoRowsFind=false;
+      debugger;
       if((res['rowValue'].length)>1){
+        this.twoRowsFind=true;
         if(res['rowValue'][0]['transfer_type']=='S'){
           this.editeModifyTransferType='Transfer Policy (2023)';
+          this.transfer1Type='Transfer Policy (2023)';
           this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         }
         if(res['rowValue'][0]['transfer_type']=='AM'){
-          this.editeAllotedTransferType='Admin';
+          this.editeModifyTransferType='Admin';
+          this.transfer1Type='Admin';
           this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         }
+        if(res['rowValue'][0]['transfer_type']=='A'){
+          this.editeModifyTransferType='Admin';
+          this.transfer1Type='Admin';
+          this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
+        }
+
         this.editModifyEmpName=res['rowValue'][0]['teacher_name'];
         this.editModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];
         this.ModifyEmail=res['rowValue'][0]['teacher_email'];
@@ -431,14 +449,17 @@ export class ModifyTransferModuleComponent implements OnInit {
         this.joinDate=res['rowValue'][0]['join_date'];
         this.reliveDate =res['rowValue'][0]['relieve_date'];
         if(res['rowValue'][1]['transfer_type']=='AM'){
-          this.editeAllotedTransferType='Transfer Policy (2023)';
+          this.editeAllotedTransferType='Admin';
+          this.transfer2Type='Transfer Policy (2023)';
           this.modiFYTransferType =res['rowValue'][1]['transfer_type'];
         }
         if(res['rowValue'][1]['transfer_type']=='A'){
-          this.editeModifyTransferType='Admin';
+          this.editeAllotedTransferType='Admin';
+          this.transfer2Type='Admin';
         }
         if(res['rowValue'][1]['transfer_type']=='S'){
-          this.editeModifyTransferType='Transfer Policy (2023)';
+          this.editeAllotedTransferType='Transfer Policy (2023)';
+          this.transfer2Type='Transfer Policy (2023)';
         }
         this.editAllotedModifyEmpName= res['rowValue'][1]['teacher_name'];
         this.editAllotedModifyEmpCode=res['rowValue'][1]['teacher_employee_code'];
@@ -450,18 +471,23 @@ export class ModifyTransferModuleComponent implements OnInit {
         this.editAllotedModifyrelivedate=res['rowValue'][1]['relieve_date'];
       }
       else{
+       
         this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         if(res['rowValue'][0]['transfer_type']=='S'){
-          this.editeModifyTransferType='Transfer Policy (2023)'
+          this.transfer1Type='Transfer Policy (2023)';
+          this.editeAllotedTransferType='Transfer Policy (2023)'
         }
         if(res['rowValue'][0].is_admin_transfer==true){
-          this.editeModifyTransferType = 'Admin';
+          this.editeAllotedTransferType = 'Admin';
+          this.transfer1Type='Admin';
          }
          if(res['rowValue'][0].is_automated_transfer==true){
-          this.editeModifyTransferType = 'Transfer Policy (2023)';
+          this.editeAllotedTransferType = 'Transfer Policy (2023)';
+          this.transfer1Type='Transfer Policy (2023)';
          }
          if(res['rowValue'][0].transfer_type=='AM'){
-          this.editeModifyTransferType = 'Admin Modify';
+          this.editeAllotedTransferType = 'Admin';
+          this.transfer1Type='AdmAdmin Modifyin';
          }
          this.editAllotedModifyEmpName= res['rowValue'][0]['teacher_name'];
          this.editAllotedModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];

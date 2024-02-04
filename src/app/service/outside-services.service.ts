@@ -921,7 +921,15 @@ getTcDcPointByTeacherIdAndInityear(data) {
   return this._http.post<any>(environment.BASE_URL_DATA_TEACHER_TRANSFER_V2 + "getTcDcPointByTeacherIdAndInityear", data, { headers });
 }
 
+getTransferId(data) {
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization': token,
+    'Content-Type': 'text/plain; charset=utf-8',
 
+  });
+  return this._http.post<any>(environment.BASE_URL_DATA_TRANSFER + "getTransferId", data, { headers });
+}
 
 getPDF(data) {
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
@@ -1134,6 +1142,28 @@ getTransferData(data){
   });
   
   return this._http.post<any>(environment.BASE_URL_DATA_TEACHER_TRANSFER + "getTransProfile", data, {headers});
+}
+
+getTransferData1(data) {
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization': token,
+    'Content-Type': 'text/plain; charset=utf-8',
+
+  });
+
+  return this._http.post<any>(environment.BASE_URL_DATA_TEACHER_TRANSFER + "getTransProfileV2", data, { headers });
+}
+
+getTransferDataMiscelenius(data) {
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization': token,
+    'Content-Type': 'text/plain; charset=utf-8',
+
+  });
+
+  return this._http.post<any>(environment.BASE_URL_DATA_TEACHER_TRANSFER + "getTransProfileV2", data, { headers });
 }
 
 saveTransferDCTCPoints(data) {

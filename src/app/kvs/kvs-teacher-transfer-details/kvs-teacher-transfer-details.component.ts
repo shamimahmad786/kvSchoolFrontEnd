@@ -218,7 +218,7 @@ export class KvsTeacherTransferDetailsComponent implements OnInit {
        "teacherId": this.tempTeacherId,
        "inityear":"2024" 
       };
-    this.outSideService.getTransferData(data).subscribe((res) => {
+    this.outSideService.getTransferData1(data).subscribe((res) => {
       console.log("------transfer data-----------------")
       console.log(res.response) 
       this.teacherrofileData=res.response

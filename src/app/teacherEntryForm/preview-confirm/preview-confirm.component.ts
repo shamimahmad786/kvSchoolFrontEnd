@@ -181,8 +181,15 @@ export class PreviewConfirmComponent implements OnInit {
       })
       return false;
        }
+      
+       if(this.teacherPreviewConfirmForm.value.teacherDisability==='0'){
+        this.teacherPreviewConfirmForm.patchValue({
+          teacherDisability: true,
+             });
+       }
+      
       if(this.teacherPreviewConfirmForm.value.teacherName==false || this.teacherPreviewConfirmForm.value.teacherGender==false || this.teacherPreviewConfirmForm.value.teacherDob==false || this.teacherPreviewConfirmForm.value.teacherEmplCode==false
-       || (this.teacherPreviewConfirmForm.value.teacherDisability==false  && this.teacherPreviewConfirmForm.value.teacherDisability!='0')|| this.teacherPreviewConfirmForm.value.ExperienceStartDatePresentKv==false
+       || this.teacherPreviewConfirmForm.value.teacherDisability==false || this.teacherPreviewConfirmForm.value.ExperienceStartDatePresentKv==false
        || this.teacherPreviewConfirmForm.value.workExperienceAppointedForSubject==false || this.teacherPreviewConfirmForm.value.lastPromotionPositionType==false
        || this.teacherPreviewConfirmForm.value.undertaking1==false || this.teacherPreviewConfirmForm.value.undertaking2==false ){
         Swal.fire({
