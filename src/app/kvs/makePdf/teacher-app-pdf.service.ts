@@ -39,6 +39,12 @@ export class TeacherAppPdfService {
 
 
   }
+
+
+ 
+
+
+
   testFnc(teacherProfile, kvNameCode, stationNameCode, workExperience,teacherStationChioc) {
     console.log("pdf data")
     debugger

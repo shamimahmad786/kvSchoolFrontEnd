@@ -81,17 +81,17 @@
                     </div>
                     <!---------------------------Form Open For school businessUnitTypeId ==5 ---------------------------->
                     <div class="card p-3" *ngIf="businessUnitTypeId=='5'">
-                        <form id="msform" [formGroup]="addInstituteForm" (ngSubmit)="onSubmit()">
+                        <form id="msform" [formGroup]="addInstituteForm" (ngSubmit)="onSubmit()"  autocomplete="off">
                             <div class="pb-2 mt-2  row  m-0">
                                 <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Employee Code <span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="userName" formControlName="userName" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
+                                    <input type="text" class="form-control" autocomplete="off" id="userName" formControlName="userName" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Employee Code is required</div>
                                 </div>
                                 <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Employee Name <span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
-                                    <input type="text" autocomplete="off" (keypress)="omit_special_char($event)" class="form-control" id="userName" formControlName="firstname" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
-                                    <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Employee Name is required</div>
+                                    <input type="text" autocomplete="off" autocomplete="off" (keypress)="omit_special_char($event)" class="form-control" id="userName" formControlName="firstname" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
+                                    <div *ngIf="addInstituteFormubmitted && f.firstname.errors" class="invalid-feedback">Employee Name is required</div>
                                 </div>
 
                             </div>
@@ -99,13 +99,13 @@
                                 <label for="staticEmail" class="col-sm-2 col-form-label text-end">Email Id <span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
 
-                                    <input type="text" class="form-control" id="Email" formControlName="Email" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Email.errors }">
+                                    <input type="text" class="form-control" id="Email"  autocomplete="off" formControlName="Email" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Email.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.Email.errors" class="invalid-feedback">Email is required</div>
                                 </div>
                                 <label for="staticEmail" class="col-sm-2 col-form-label text-end">Mobile No. <span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
 
-                                    <input type="text" class="form-control" onKeyPress="if(this.value.length==10) return false;" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
+                                    <input type="text" class="form-control" autocomplete="off" (keypress)="omit_special_char_mobile($event)" onKeyPress="if(this.value.length==10) return false;" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile No is required</div>
                                     <!-- <div *ngIf="f.Mobile.hasError('whitespace')">Mobile number cannot contain only whitespace.</div> -->
                                 </div>
