@@ -62,7 +62,7 @@
 
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">Mobile<span class="required-asterisk">*</span></h4>
-                                            <input type="text" class="form-control" name="mobile" (blur)="checkMobileNumber($event)" formControlName="mobile" maxlength="10" minlength="10">
+                                            <input type="text" class="form-control" name="mobile" (blur)="checkMobileNumber($event)" disabled formControlName="mobile" maxlength="10" minlength="10">
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('mobile').valid 
                                             && basicProfileForm.get('mobile').touched
                                             ">Enter valid mobile number of 10 digit !</span>
@@ -70,7 +70,7 @@
 
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">Email <span class="required-asterisk">*</span></h4>
-                                            <input type="email" class="form-control" name="email" formControlName="email" style="text-transform: none">
+                                            <input type="email" class="form-control" disabled name="email" formControlName="email" style="text-transform: none">
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('email').valid && basicProfileForm.get('email').touched ">
                                                 Enter your email id!</span>
                                         </div>
@@ -80,11 +80,11 @@
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">
                                                 Correspondence Address <span class="required-asterisk">*</span></h4>
-                                            <textarea class="form-control" rows="1" name="crspndncAddress" formControlName="crspndncAddress" style="text-transform:uppercase" (change)="addOrPinChange('A')"></textarea>
+                                            <textarea class="form-control" rows="1" [(ngModel)]="currentAddress.corressPondAdd" name="crspndncAddress" formControlName="crspndncAddress" style="text-transform:uppercase" (change)="addOrPinChange('A')"></textarea>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">State <span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" name="crspndncState" formControlName="crspndncState" (change)="getDistrictListByStateId($event, 'C')">
+                                            <select class="form-select" aria-label="Default select example" [(ngModel)]="currentAddress.state" name="crspndncState" formControlName="crspndncState" (change)="getDistrictListByStateId($event, 'C')">
                                                 <option selected disabled>Select State
                                                 </option>
                                                 <option *ngFor="let data of stateMasterList"
@@ -94,7 +94,7 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">District <span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" name="crspndncDistrict" formControlName="crspndncDistrict" (change)="cDistrictChange($event.target.value)">
+                                            <select class="form-select" aria-label="Default select example" [(ngModel)]="currentAddress.district" name="crspndncDistrict" formControlName="crspndncDistrict" (change)="cDistrictChange($event.target.value)">
                                                 <option selected disabled>Select District
                                                 </option>
                                                 <option *ngFor="let data of districListByStateIdC"
@@ -105,7 +105,7 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">Pin Code <span class="required-asterisk">*</span></h4>
-                                            <input class="form-control" name="crspndncPinCode" minlength="6" type="text" formControlName="crspndncPinCode" maxlength="6" (change)="addOrPinChange('p')">
+                                            <input class="form-control" name="crspndncPinCode" [(ngModel)]="currentAddress.zipCode" minlength="6" type="text" formControlName="crspndncPinCode" maxlength="6" (change)="addOrPinChange('p')">
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('crspndncPinCode').valid ">
                                                 Enter a valid pincode!</span>
                                         </div>
@@ -114,13 +114,15 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">
-                                                Home Town Address as per Service Record <span class="required-asterisk">*</span>
+                                                <input type="checkbox" formControlName="copyAddress" (change)="copyCurrentAdd()">&nbsp; <span>Same As Current Address</span>
+                                                
+                                                (Permanent Address as per Service Record) <span class="required-asterisk">*</span>
                                             </h4>
                                             <textarea class="form-control" rows="1" name="prmntAddress" style="text-transform:uppercase" formControlName="prmntAddress"></textarea>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">State <span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" name="prmntState" formControlName="prmntState" (change)="getDistrictListByStateId($event, 'P')">
+                                            <select class="form-select" aria-label="Default select example"  name="prmntState" formControlName="prmntState" (change)="getDistrictListByStateId($event, 'P')">
                                                 <option selected disabled>Select
                                                 </option>
                                                 <option *ngFor="let data of stateMasterList"
@@ -140,7 +142,7 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">Pin Code <span class="required-asterisk">*</span></h4>
-                                            <input type="text" class="form-control" maxlength="6" minlength="6" name="prmntPinCode" formControlName="prmntPinCode">
+                                            <input type="text" class="form-control"  maxlength="6" minlength="6" name="prmntPinCode" formControlName="prmntPinCode">
 
                                             <span class="help-block text-danger" *ngIf="basicProfileForm.get('prmntPinCode').status != 'VALID' && basicProfileForm.get('prmntPinCode').status != 'DISABLED'">
                                                 Enter a valid pincode!</span>
@@ -373,7 +375,7 @@
                                             </div>
                                             <div *ngIf="spouseNone" class="col-md-6 mb-3">
                                                 <h4 class="titleSet mt-2"> Serving Spouse Name<span class="required-asterisk">*</span> </h4>
-                                                <input type="text" class="form-control " style="text-transform:uppercase" name="spouseName" id="spouseName" formControlName="spouseName">
+                                                <input type="text" class="form-control "  (keypress)="omit_special_char($event)" style="text-transform:uppercase" name="spouseName" id="spouseName" formControlName="spouseName">
                                             </div>
                                             <div *ngIf="spouseNone && spouseKVSStation" class="col-md-6 mb-3">
                                                 <h4 class="titleSet mt-2"> Position Held<span class="required-asterisk">*</span> </h4>

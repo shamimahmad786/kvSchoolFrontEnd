@@ -55,6 +55,10 @@ import { KvsTicketComponent } from './kvs/kvs-ticket/kvs-ticket.component';
 import { ExcelTransferModuleComponent } from './components/excel-transfer-module/excel-transfer-module.component';
 import { TransferReportComponent } from './teacher/transfer-report/transfer-report.component';
 import { TransferReportChildComponent } from './teacher/transfer-report-child/transfer-report-child.component';
+import { KvsTeacherTransferDetailsComponent } from './kvs/kvs-teacher-transfer-details/kvs-teacher-transfer-details.component';
+import { KvsTransferMiscellaneusComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-miscellaneus/kvs-transfer-miscellaneus.component';
+import { KvsTransferStationChoiceComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-station-choice/kvs-transfer-station-choice.component';
+import { KvsTransferPreviewUndertakingComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-preview-undertaking/kvs-transfer-preview-undertaking.component';
 const routes: Routes = [
   {path:'', component: MainPageComponent},
   {path:'mainPage', component: MainPageComponent},
@@ -85,7 +89,10 @@ const routes: Routes = [
       {path: 'updateEmailMobile', component:UpdateMobileEmailComponent},
       {path: 'surveyMaster', component:SurveyMasterComponent},
       {path: 'kvsTchProfile', component:KvsTeacherProfileComponent},
-      {path: 'kvsTchTransfer', component:KvsTeacherTransferComponent},
+      {path: 'kvsTchTransfer', component:KvsTeacherTransferComponent},   
+      {path: 'kvsTchMiscellaneous', component:KvsTransferMiscellaneusComponent},   
+      {path: 'kvsTchStationChoice', component:KvsTransferStationChoiceComponent},   
+      {path: 'kvsTchPreviewUndertaking', component:KvsTransferPreviewUndertakingComponent},  
       {path: 'employeeJoining', component:KvsJoiningComponent},  
       {path: 'kvsTicket', component:KvsTicketComponent}, 
       {path: 'excel-transfer', component:ExcelTransferModuleComponent},
@@ -106,7 +113,8 @@ const routes: Routes = [
       {path:'changePassword', component:ChangePasswordComponent},
       {path:'freezeMaster', component:FreezeMastersComponent},
       {path:'userMaster', component:UserMasterComponent},
-      {path:'reportGrid', component:ReportGridComponent},
+      {path:'reportGrid', component:ReportGridComponent},    
+      {path:'teacher-transfer-dashboard', component:KvsTeacherTransferDetailsComponent},
       {path:'kvSanctionedPost', component:KvTchSanctionedPostComponent},
       {path:'addInstituteHead', component:AddInstituteHeadComponent},
       {path:'user-mapping', component:UserMappingComponent},
