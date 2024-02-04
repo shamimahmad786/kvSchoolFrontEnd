@@ -57,9 +57,9 @@ export class AuthInterceptorService implements HttpInterceptor {
                                 })
                             ))   
      }else{
-        if(req.url.indexOf('sign-in') !== -1 || req.url.indexOf('getkvsDashboardReport') !== -1 ||  req.url.indexOf('assets') !== -1 ||  req.url.indexOf('restPassword') !== -1 ||  req.url.indexOf('changePassword') !== -1  || req.url.indexOf('getTeacherBasicDetailPdf') !== -1){
-    
-            return next.handle(req);
+        if(req.url.indexOf('sign-in') !== -1 || req.url.indexOf('getkvsDashboardReport') !== -1 ||  req.url.indexOf('assets') !== -1 ||  req.url.indexOf('restPassword') !== -1 ||  req.url.indexOf('changePassword') !== -1  || req.url.indexOf('generatePassword') !== -1 || req.url.indexOf('forgetPasswordMail') !== -1 || req.url.indexOf('getOtpForAuthentication') !== -1 || req.url.indexOf('otpSignin') !== -1 || req.url.indexOf('getTeacherBasicDetailPdf') !== -1 ){
+                    return next.handle(req);
+       
         }else{
                 sessionStorage.removeItem('authTeacherDetails')
                 sessionStorage.removeItem('mappingData')
