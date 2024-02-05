@@ -274,6 +274,7 @@ export class KvsTicketComponent implements OnInit {
       }
   openPreviewmodal(ticketid:any) {
   
+  
     var data = {
       "ticketId":ticketid
     }

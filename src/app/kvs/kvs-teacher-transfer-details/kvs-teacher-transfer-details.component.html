@@ -67,6 +67,7 @@
                     <td mat-cell *matCellDef="let element">
                         <span [ngClass]="{'make-yellow': element.transferFinalStatus=='TS'}" *ngIf="element.transferFinalStatus=='TS'">  Transfer Submited By Teacher</span>
                         <span [ngClass]="{'make-green': element.transferFinalStatus=='TA'}" *ngIf="element.transferFinalStatus=='TA'">  Transfer Approved By School</span>
+                        <span [ngClass]="{'make-blue': element.transferFinalStatus=='TE'}" *ngIf="element.transferFinalStatus=='TE'">  Transfer Edited by School</span>
                         <span [ngClass]="{'make-gray': element.transferFinalStatus==null}" *ngIf="element.transferFinalStatus=='' || element.transferFinalStatus==null">  Pending</span>
                     
                     </td>

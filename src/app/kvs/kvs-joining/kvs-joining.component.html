@@ -45,54 +45,54 @@
                                 </div>
                             </div>
                             <div class="example-container mat-elevation-z8 " id="style-2">
-                         <div class="table-responsive">
-                                <table mat-table [dataSource]="sBSource" matSort #sBSort="matSort" class="w-100">
+                                <div class="table-responsive">
+                                <mat-table [dataSource]="sBSource" matSort #sBSort="matSort">
                                     <ng-container matColumnDef="sno">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> S.No.</th>
-                                        <td mat-cell *matCellDef="let row"> {{row.sno}} </td>
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.sno}} </mat-cell>
                                     </ng-container>
 
 
                                     <ng-container matColumnDef="name">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
-                                        <td mat-cell *matCellDef="let row"> {{row.name | uppercase }} ({{row.empcode}})
-                                        </td>
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.name | uppercase }} ({{row.empcode}})
+                                        </mat-cell>
                                     </ng-container>
 
                                     <ng-container matColumnDef="postName">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Post Name </th>
-                                        <td *matCellDef="let row">{{row.postName }}
-                                        </td>
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Post Name </mat-header-cell>
+                                        <mat-cell *matCellDef="let row">{{row.postName }}
+                                        </mat-cell>
                                     </ng-container>
 
                                     <ng-container matColumnDef="subjectName">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Subject Name</th>
-                                        <td mat-cell *matCellDef="let row" [style.color]="row.color">{{row.subjectName}} </td>
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Subject Name</mat-header-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.subjectName}} </mat-cell>
                                     </ng-container>
 
                                     <ng-container matColumnDef="To">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Transfer To </th>
-                                        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.To}} ({{row.allot_kv_code}}) </td>
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Transfer To </mat-header-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.To}} ({{row.allot_kv_code}}) </mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="transferGround">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Ground </th>
-                                        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.transferred_under_cat}} </td>
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Ground </mat-header-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.transferred_under_cat}} </mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="relivingdate">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Relieving Date </th>
-                                        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{changeDateFormat(row.relivingdate)}} </td>
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Relieving Date </mat-header-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color"> {{changeDateFormat(row.relivingdate)}} </mat-cell>
                                     </ng-container>
 
                                     <ng-container matColumnDef="action">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Action </th>
-                                        <td mat-cell *matCellDef="let row" [style.color]="row.color"> <button type="button" *ngIf="row.join_relieve_flag != '1'  &&  row.join_relieve_flag != '2'" class="btn btn-success btn-sm" (click)="openRelivingmodal(row.teacher_id,row.empcode,row.name,row.allot_kv_code)">Relieve</button> </td>
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color"> <button type="button" *ngIf="row.join_relieve_flag != '1'  &&  row.join_relieve_flag != '2'" class="btn btn-success btn-sm" (click)="openRelivingmodal(row.teacher_id,row.empcode,row.name,row.allot_kv_code)">Relieve</button> </mat-cell>
                                     </ng-container>
-                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsOut; "></tr>
-                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsOut;">
-                                    </tr>
-                                </table>
+                                    <mat-header-row *matHeaderRowDef="displayedColumnsOut; sticky:true; "></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumnsOut;">
+                                    </mat-row>
+                                </mat-table>
                                 </div>
-                                <mat-paginator #paginatorOut [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons></mat-paginator>
+                                <mat-paginator #paginatorOut [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
                             </div>
                         </div>
                     </div>
@@ -127,61 +127,57 @@
                         </div>
                         <div class="example-container mat-elevation-z8 " id="style-2">
                             <div class="table-responsive">
-                            <table mat-table [dataSource]="hBSource" matSort #hBSort="matSort" class="w-100">
+                            <mat-table [dataSource]="hBSource" matSort #hBSort="matSort">
                                 <ng-container matColumnDef="sno">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </th>
-                                  <td mat-cell *matCellDef="let row"> {{row.sno}} </td>
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.sno}} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="name">
-                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.name | uppercase }} ({{row.empcode}})
-                                  </td>
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.name | uppercase }} ({{row.empcode}})
+                                    </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="postName">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Post Name </th>
-                                   <td mat-cell *matCellDef="let row"> {{row.postName }}
-                            </td>
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Post Name </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.postName }}
+                                    </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="subjectName">
-                                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Subject Name</th>
-                                    <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.subjectName}} </td>
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Subject Name</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.subjectName}} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="From">
-                                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Transfer From </th>
-                                   <td mat-cell *matCellDef="let row" [style.color]="row.color">{{row.From}} ({{row.from_kv}}) </td>
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Transfer From </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.From}} ({{row.from_kv}}) </mat-cell>
                                 </ng-container>
                             
                                 <ng-container matColumnDef="transferGround">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Ground </th>
-                                   <td mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Ground </td>
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Transfer Ground </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.transferred_under_cat}} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="relivingdate">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Relieving Date </th>
-                                    <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.relivingdate | date:"dd-MM-yyyy"}} </td>
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Relieving Date </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.relivingdate | date:"dd-MM-yyyy"}} </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="joiningdate">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Joining Date </th>
-                                  <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.joiningdate | date:"dd-MM-yyyy"}} </td>
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Joining Date </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.joiningdate | date:"dd-MM-yyyy"}} </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="action">
-                                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
-                                   <td mat-cell *matCellDef="let row" [style.color]="row.color"><button *ngIf="row.join_relieve_flag != '1'" type="button" class="btn btn-success  btn-sm" (click)="openJoiningmodal(row.teacher_id,row.empcode,row.from_kv,row.name,row.transfer_type,row.allot_kv_code,row.relivingdate)">Join </button> </td>
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color"><button *ngIf="row.join_relieve_flag != '1'" type="button" class="btn btn-success  btn-sm" (click)="openJoiningmodal(row.teacher_id,row.empcode,row.from_kv,row.name,row.transfer_type,row.allot_kv_code,row.relivingdate)">Join </button>                                        </mat-cell>
                                 </ng-container>
-                                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></tr>
-                               <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-                                </tr>
-                                <tr class="mat-row" *matNoDataRow>
-                                    <td class="mat-cell" colspan="6">No data Found</td>
-                                </tr>
-                            </table>
-                        </div>
-                            <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons></mat-paginator>
-                        
+                                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                </mat-row>
+                            </mat-table>
+                            </div>
+                            <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
                         </div>
                     </div>
 

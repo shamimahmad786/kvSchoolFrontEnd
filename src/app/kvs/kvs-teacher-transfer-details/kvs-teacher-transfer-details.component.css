@@ -15,6 +15,11 @@
     color: #747474;
     font-family: 'PoppinsBold';
 }
+
+.make-blue{
+  color: blue;
+    font-family: 'PoppinsBold';
+}
 .back-button{
     color: #fff;
     border-radius: 4px;

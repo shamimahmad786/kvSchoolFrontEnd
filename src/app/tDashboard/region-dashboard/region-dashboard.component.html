@@ -10,7 +10,7 @@
     </nav>
 
 
-    <div class="row mt-3">
+    <div class="row mt-3" *ngIf="businessUnitTypeId!='3'">
         <div class="col-md-12 d-flex justify-content-center">
             <ul class="SchoolStatus w-100 text-center">
                 <li>
@@ -230,9 +230,9 @@
                 </tr>
             </thead> 
                 <tr>
-                    <td><span  style="background: #f9e5bf; color:#b9831d">20</span></td>
-                    <td><span  style="background: #afebbd; color:#2f9948">30</span></td>
-                    <td><span  style="background: #f9bfbf; color:#b94848">15</span></td>
+                    <td><span  style="background: #f9e5bf; color:#b9831d">{{dashboardDetails?.inprogresTicket}}</span></td>
+                    <td><span  style="background: #afebbd; color:#2f9948">{{dashboardDetails?.resolveTicket}}</span></td>
+                    <td><span  style="background: #f9bfbf; color:#b94848">{{dashboardDetails?.rejectTicket}}</span></td>
                 </tr>
             </table>
         </div>
@@ -242,18 +242,6 @@
         
         
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
         <ul class="display-inline mt-3">
 
