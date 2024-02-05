@@ -384,13 +384,27 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
   }
 
   onSubmitConfermation(){
-    if(this.teacherPreviewUndertakingForm.value.undertaking1==false || this.teacherPreviewUndertakingForm.value.undertaking2==false ){
-      Swal.fire({
-        'icon':'error',
-        'text':'Please check all fields!'
-      })
-      return false;
+    if(this.teacherPreviewUndertakingForm.value.dcCountStatus==='0'){
+      this.teacherPreviewUndertakingForm.patchValue({
+        dcCountStatus: true,
+           });
      }
+     if(this.teacherPreviewUndertakingForm.value.tcCountStatus==='0'){
+      this.teacherPreviewUndertakingForm.patchValue({
+        tcCountStatus: true,
+           });
+     }
+    if(this.teacherPreviewUndertakingForm.value.stationOne==false || this.teacherPreviewUndertakingForm.value.stationTwo==false 
+      || this.teacherPreviewUndertakingForm.value.stationThree==false || this.teacherPreviewUndertakingForm.value.stationFour==false
+      || this.teacherPreviewUndertakingForm.value.stationFive==false || this.teacherPreviewUndertakingForm.value.dcCountStatus==false
+      || this.teacherPreviewUndertakingForm.value.tcCountStatus==false || this.teacherPreviewUndertakingForm.value.undertaking1==false 
+      || this.teacherPreviewUndertakingForm.value.undertaking2==false ){
+       Swal.fire({
+         'icon':'error',
+         'text':'Please check all fields!'
+       })
+       return false;
+      }
     if(this.schoolProfileFinalStatus=='SP'){
       Swal.fire({
         icon: 'info',
