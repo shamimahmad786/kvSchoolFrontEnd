@@ -121,7 +121,7 @@
             <div class="pb-2 mt-2  row border-bottom m-0">
               <label  class="col-sm-3 col-form-label ps-0">Mobile No</label>
               <div class="col-sm-9">
-                <input type="text" [readonly]="userMobile" autocomplete="new-password" onKeyPress="if(this.value.length==10) return false;" [(ngModel)]="loginUserMobile" id="staticUserMobile" class="{{userMobile ? 'form-control-plaintext w-50 float-start' : 'form-control w-50 float-start'}}"  >
+                <input type="text" [readonly]="userMobile"  (keypress)="omit_special_char_mobile($event)" autocomplete="new-password" onKeyPress="if(this.value.length==10) return false;" [(ngModel)]="loginUserMobile" id="staticUserMobile" class="{{userMobile ? 'form-control-plaintext w-50 float-start' : 'form-control w-50 float-start'}}"  >
                 <div *ngIf="staticUserMobile"><button class="btn-save"  (click)="saveProfileData(loginUserMobile,loginUserNameForChild,'mobile')">Save</button></div>
                 <i class="{{staticUserMobile ? 'bi bi-pencil-fill active' : 'bi bi-pencil-fill '}}" (click)="enableInputField('staticUserMobile')"></i>
               </div>

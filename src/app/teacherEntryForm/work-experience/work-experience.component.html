@@ -92,8 +92,8 @@
                                     {{groundForTransfer}}
                                     <!-- <mat-form-field appearance="fill"> -->
                                     <select class="form-select form-select-sm" formControlName="groundForTransfer" name="groundForTransfer">
-                                            <option *ngFor="let ground of transferGroundList" [value]="ground?.transferGroundId">
-                                                {{ground?.transferGroundType}}</option>
+                                        <option></option>
+                                            <option *ngFor="let ground of transferGroundList" [value]="ground?.transferGroundId"> {{ground?.transferGroundType}}</option>
                                         </select>
                                     <!-- <span class="help-block text-danger" *ngIf="quantity.controls.groundForTransfer.errors?.required">
                                     Select transfer ground!</span> -->

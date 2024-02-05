@@ -88,6 +88,7 @@ export class KvsTransferMiscellaneusComponent implements OnInit {
   deleteDocUpdate2: boolean = true;
   deleteDocUpdate3: boolean = true;
   deleteDocUpdate4: boolean = true;
+  isDisabled: boolean = false;
   nJCMRJCMDocName:any;
   medicalDocName:any;
   medicalDocURLName:any;
@@ -118,6 +119,7 @@ export class KvsTransferMiscellaneusComponent implements OnInit {
       'id': new FormControl(''),
       'transferStatus': new FormControl(''),
       'absenceDaysOne': new FormControl('', Validators.required),
+      'applyTransferYn': new FormControl(''),
       'disciplinaryYn': new FormControl(''),
       'teacherId': new FormControl('', Validators.required),
       'spouseKvsYnD': new FormControl(),
@@ -188,7 +190,7 @@ export class KvsTransferMiscellaneusComponent implements OnInit {
        "inityear":"2024" 
       };
       debugger
-    this.outSideService.getTransferData(data).subscribe((res) => {
+    this.outSideService.getTransferDataMiscelenius(data).subscribe((res) => {
    
       console.log(res.response.spouseKvsYnD)
       if (res.response != null || res.response == '') {
@@ -335,6 +337,7 @@ export class KvsTransferMiscellaneusComponent implements OnInit {
 
       if (res.response['spouse_name'] == '' || res.response['spouse_name'] ==null ) {
         this.gkFilebenefit = false;
+        this.isDisabled = false;
         this.miscellaneousForm.patchValue({
           spouseKvsYnD: '0'
           })
@@ -714,6 +717,7 @@ export class KvsTransferMiscellaneusComponent implements OnInit {
     this.router.navigate(['/teacher/kvsTchStationChoice']);
   }
   submit(){
+    debugger
     this.miscellaneousForm.patchValue({
       inityear: '2024'
       })

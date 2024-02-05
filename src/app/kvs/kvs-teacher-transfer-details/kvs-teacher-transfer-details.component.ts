@@ -95,6 +95,8 @@ export class KvsTeacherTransferDetailsComponent implements OnInit {
       "stationFive": new FormControl('', Validators.required),
       "dcCountStatus": new FormControl('', Validators.required),
       "tcCountStatus": new FormControl('', Validators.required),
+      "undertaking1": new FormControl('', Validators.required),
+      "undertaking2": new FormControl('', Validators.required),
     
     });
     this.user_name = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.user_name;
@@ -216,7 +218,7 @@ export class KvsTeacherTransferDetailsComponent implements OnInit {
        "teacherId": this.tempTeacherId,
        "inityear":"2024" 
       };
-    this.outSideService.getTransferData(data).subscribe((res) => {
+    this.outSideService.getTransferData1(data).subscribe((res) => {
       console.log("------transfer data-----------------")
       console.log(res.response) 
       this.teacherrofileData=res.response
@@ -242,6 +244,14 @@ export class KvsTeacherTransferDetailsComponent implements OnInit {
     })
   }
   onSubmitConfermation(){
+    if(this.teacherPreviewUndertakingForm.value.undertaking1==false || this.teacherPreviewUndertakingForm.value.undertaking2==false ){
+       Swal.fire({
+         'icon':'error',
+         'text':'Please check all fields!'
+       })
+       return false;
+      }
+
     if(this.schoolProfileFinalStatus=='SP'){
       Swal.fire({
         icon: 'info',

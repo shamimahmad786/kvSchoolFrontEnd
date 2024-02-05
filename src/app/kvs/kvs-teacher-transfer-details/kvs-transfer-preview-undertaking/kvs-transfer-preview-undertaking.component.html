@@ -611,7 +611,7 @@
   </div>
   <div class="d-flex justify-content-start mt-4">
     <div class="px-5 px-padding"><label>Station (V)</label> &nbsp;{{teacherrofileData?.choiceKv5StationName}} ({{teacherrofileData?.choiceKv5StationCode}}) <input class="form-check-input" type="checkbox" value="" disabled  formControlName="stationFive" id="stationFive" > </div>
-    <div class="px-5"><label>Total DC Counte</label>  <input class="form-check-input" type="checkbox" value="" disabled  formControlName="dcCountStatus" id="dcCountStatus" >&nbsp;&nbsp;{{displacementCountForm.get('dcTotalPoint').value}} </div>
+    <div class="px-5"><label>Total DC Count</label>  <input class="form-check-input" type="checkbox" value="" disabled  formControlName="dcCountStatus" id="dcCountStatus" >&nbsp;&nbsp;{{displacementCountForm.get('dcTotalPoint').value}} </div>
     <div class="px-5" *ngIf="!showTcField"><label>Total TC Count</label>  <input class="form-check-input" disabled type="checkbox" value=""  formControlName="tcCountStatus" id="tcCountStatus" >&nbsp;&nbsp;{{transferCountForm.get('tcTotalPoint').value}}</div>
   </div>
 </div> 
@@ -643,7 +643,7 @@
         </div>
     </div>
 </div>
-<div class="mt-4 button-save  " style="text-align: center; " >
+<div class="mt-4 button-save  " style="text-align: center; " *ngIf="!profileFinalStatus" >
     <input  [disabled]="(!teacherPreviewUndertakingForm.get('stationOne').valid &&  !teacherPreviewUndertakingForm.get('stationTwo').valid  &&  !teacherPreviewUndertakingForm.get('stationThree').valid  &&  !teacherPreviewUndertakingForm.get('stationFour').valid  &&  !teacherPreviewUndertakingForm.get('stationFive').valid  &&  !teacherPreviewUndertakingForm.get('dcCountStatus').valid  &&  !teacherPreviewUndertakingForm.get('tcCountStatus').valid )"  type="submit" name="Next"  class="me-2 add-teacher" value="Confirm" /> 
   </div>
   <div class="button-back mt-2"><input type="button" name="previous" class="action-save me-2 back-button" (click)="previousPage()"  value="Back" /><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></div>  

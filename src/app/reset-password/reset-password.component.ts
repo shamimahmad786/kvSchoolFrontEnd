@@ -109,12 +109,13 @@ export class ResetPasswordComponent implements OnInit {
      {
       this.auth.generatePassword(data,this.paramSessionId).subscribe((res) => {
         this.generate()
+        console.log(JSON.stringify(res));
       if(res['success']){
         Swal.fire({
           'icon':'success',
           'text':'Password Created Successfully.'
         })
-          this.router.navigate(['/login']); 
+          this.router.navigate(['/mainPage']); 
       }
       if(!res['success']){
         Swal.fire({
@@ -135,14 +136,14 @@ export class ResetPasswordComponent implements OnInit {
       this.auth.resetPassword(data,this.paramSessionId).subscribe((res) => {
         this.generate()
 
-        if(res['success']){
+        if(res['status']=="1"){
           Swal.fire({
             'icon':'success',
             'text':'Password Changed Successfully.'
           })
             this.router.navigate(['/login']); 
         }
-        if(!res['success']){
+        if(res['status']=="0"){
           Swal.fire({
             'icon':'error',
             'text':res['message']

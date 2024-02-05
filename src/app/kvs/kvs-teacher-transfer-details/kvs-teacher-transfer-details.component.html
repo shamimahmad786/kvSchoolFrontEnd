@@ -44,7 +44,7 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
                         Employee Name</th>
                     <td mat-cell *matCellDef="let element">
-                        {{element.teacherName}} ({{element.teacherId}})</td>
+                        {{element.teacherName}} ({{element.teacherEmployeeCode}})</td>
                 </ng-container>
 
                 <ng-container matColumnDef="dcPoint">
@@ -67,6 +67,7 @@
                     <td mat-cell *matCellDef="let element">
                         <span [ngClass]="{'make-yellow': element.transferFinalStatus=='TS'}" *ngIf="element.transferFinalStatus=='TS'">  Transfer Submited By Teacher</span>
                         <span [ngClass]="{'make-green': element.transferFinalStatus=='TA'}" *ngIf="element.transferFinalStatus=='TA'">  Transfer Approved By School</span>
+                        <span [ngClass]="{'make-blue': element.transferFinalStatus=='TE'}" *ngIf="element.transferFinalStatus=='TE'">  Transfer Edited by School</span>
                         <span [ngClass]="{'make-gray': element.transferFinalStatus==null}" *ngIf="element.transferFinalStatus=='' || element.transferFinalStatus==null">  Pending</span>
                     
                     </td>
@@ -78,7 +79,7 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
                         Action </th>
             <td mat-cell *matCellDef="let element">       
-            <i *ngIf="element.transferFinalStatus=='TS'" class="fa fa-edit edite_buttun" matTooltip="Edit" (click)="viewTeacherTransferProfile(element.teacherId,element.teacherName)"  ></i>
+            <i *ngIf="element.transferFinalStatus=='TS' || element.transferFinalStatus=='TE'" class="fa fa-edit edite_buttun" matTooltip="Edit" (click)="viewTeacherTransferProfile(element.teacherId,element.teacherName)"  ></i>
             <i *ngIf="element.transferFinalStatus=='TS'" class="fa fa-eye edite_buttun" matTooltip="View / Confirm" (click)="confirmTransferProfile(element.teacherId,element.teacherName)"  ></i></td>
                 </ng-container>
                
@@ -99,6 +100,8 @@
 <div mat-dialog-content>
     <ng-template #ConfirmBox let-modal style="min-width: 100%;">
         <div class="dashboard-main-content" style="min-height: 600px;">
+            <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;  float: right;
+            margin: 1%;" (click)="modal.dismiss('Cross click')">X</button>
               <div class="dashboard-main-content-info p-4 ">
                      <table class="table table-bordered w-100">
                         <thead>
@@ -704,7 +707,7 @@
           </div>
           <div class="d-flex justify-content-start mt-4">
             <div class="px-5 px-padding"><label>Station (V)</label> &nbsp;{{teacherrofileData?.choiceKv5StationName}} ({{teacherrofileData?.choiceKv5StationCode}}) <input class="form-check-input" type="checkbox" value="" disabled  formControlName="stationFive" id="stationFive" > </div>
-            <div class="px-5"><label>Total DC Counte</label>  <input class="form-check-input" type="checkbox" value="" disabled  formControlName="dcCountStatus" id="dcCountStatus" >&nbsp;&nbsp;{{displacementCountForm.get('dcTotalPoint').value}} </div>
+            <div class="px-5"><label>Total DC Count</label>  <input class="form-check-input" type="checkbox" value="" disabled  formControlName="dcCountStatus" id="dcCountStatus" >&nbsp;&nbsp;{{displacementCountForm.get('dcTotalPoint').value}} </div>
             <div class="px-5" *ngIf="!showTcField"><label>Total TC Count</label>  <input class="form-check-input" disabled type="checkbox" value=""  formControlName="tcCountStatus" id="tcCountStatus" >&nbsp;&nbsp;{{transferCountForm.get('tcTotalPoint').value}}</div>
           </div>
         </div> 
@@ -739,7 +742,7 @@
         <div class="mt-4 button-save  " style="text-align: center; " >
             <input  [disabled]="(!teacherPreviewUndertakingForm.get('stationOne').valid &&  !teacherPreviewUndertakingForm.get('stationTwo').valid  &&  !teacherPreviewUndertakingForm.get('stationThree').valid  &&  !teacherPreviewUndertakingForm.get('stationFour').valid  &&  !teacherPreviewUndertakingForm.get('stationFive').valid  &&  !teacherPreviewUndertakingForm.get('dcCountStatus').valid  &&  !teacherPreviewUndertakingForm.get('tcCountStatus').valid )"  type="submit" name="Next"  class="me-2 add-teacher" value="Confirm" /> 
           </div>
-          <div class="button-back mt-2"><input type="button" name="previous" class="action-save me-2 back-button" (click)="previousPage()"  value="Back" /><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></div>  
+         
         </form>
         </div>
         </div>

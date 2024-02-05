@@ -10,7 +10,9 @@
                     <div class="pe-3">
                         <h2 class="steps text-end pro-name">{{ profileTeacherName | uppercase}} </h2>
                     </div>
-                    <div><button class="btn btn-primary btn-sm"><a href="http://10.25.26.251:8080/api/getTeacherBasicDetailPdf?token={{token}}&username={{loginUserNameForChild}}&teacherId={{tempTeacherId}}"  style="text-decoration: none !important; color:white !important">Export To PDF</a></button></div>
+                    <div><button class="btn btn-primary btn-sm">
+                        <a href="{{exportProfileUrl}}getTeacherBasicDetailPdf?token={{token}}&username={{loginUserNameForChild}}&teacherId={{tempTeacherId}}"  style="text-decoration: none !important; color:white !important">Export To PDF</a>
+                    </button></div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered w-100">
@@ -165,15 +167,7 @@
                     <div class="mt-2 d-flex align-items-center justify-content-between ">
                         <div class="button-back mt-2"><input type="button" name="previous" class="action-save me-2 back-button" (click)="previousPage()" value="Back" /><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></div>
                         <div class="button-save mt-2">
-                            <input  *ngIf="profileFinalStatus" [disabled]="!teacherPreviewConfirmForm.get('teacherName').valid ||
-   !teacherPreviewConfirmForm.get('teacherGender').valid || !teacherPreviewConfirmForm.get('teacherDob').valid ||
-   !teacherPreviewConfirmForm.get('teacherEmplCode').valid ||
-   !teacherPreviewConfirmForm.get('teacherDisability').valid ||
-   !teacherPreviewConfirmForm.get('ExperienceStartDatePresentKv').valid ||
-   !teacherPreviewConfirmForm.get('workExperienceAppointedForSubject').valid||
-   !teacherPreviewConfirmForm.get('lastPromotionPositionType').valid ||
-   !teacherPreviewConfirmForm.get('undertaking1').valid ||
-   !teacherPreviewConfirmForm.get('undertaking2').valid" type="submit" id="submit33" value="Confirm" class="me-2 add-user" /><i class="fa fa-floppy-o" aria-hidden="true"></i> </div>
+                            <input  *ngIf="profileFinalStatus"  type="submit" id="submit33" value="Confirm" class="me-2 add-user" /><i class="fa fa-floppy-o" aria-hidden="true"></i> </div>
                     </div>
                 </form>
 

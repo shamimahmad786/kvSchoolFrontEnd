@@ -383,7 +383,7 @@ export class ExcelTransferModuleComponent implements OnInit {
       let blob = new Blob([data], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
-      saveAs(blob, 'StationMaster.xlsx');
+      saveAs(blob, 'DemoTransferExcel.xlsx');
     });
   } 
   
@@ -406,7 +406,6 @@ export class ExcelTransferModuleComponent implements OnInit {
         this.outSideService.confirmTransferData().subscribe((res)=>{
           // alert(res);
           if(res.status==1){
-            alert(3)
             Swal.fire(
               res.message,
               '',
@@ -416,7 +415,6 @@ export class ExcelTransferModuleComponent implements OnInit {
           this.getTempTransferData();
     },
     error => {
-      alert(2)
       Swal.fire({
         'icon':'error',
         'text':error.error

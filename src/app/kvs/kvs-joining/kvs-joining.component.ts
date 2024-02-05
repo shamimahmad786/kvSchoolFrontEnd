@@ -197,6 +197,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
    setToJoingMatTable(data) {
     this.joiningDataArray = [];
     this.kvTeacher = data;
+    debugger
     for (let i = 0; i < data.length; i++) {
       this.joiningData.sno = '' + (i + 1) + '';
       this.joiningData.empcode = data[i].teacher_employee_code;

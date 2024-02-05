@@ -49,6 +49,14 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
   schoolProfileFinalStatus:any;
   tempTeachername:any;
   profileFinalStatus: boolean = false;
+  schoolTransferFinalStatus: any;
+  medicalDocURLName: any;
+  disabilityCertiDocURLName: any;
+  spouseDeclarationDocUrlName: any;
+  singleParentDocURLName: any;
+  dFPDocURLName: any;
+  nJCMRJCMDocURLName: any;
+  transferIds: any;
   constructor(private outSideService: OutsideServicesService,private fb: FormBuilder,private modalService: NgbModal,private router: Router) { }
   ngOnInit(): void {
     this.displacementCountForm = new FormGroup({
@@ -69,7 +77,7 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
       'dcTotalPoint': new FormControl(),
     });
     this.transferCountForm = new FormGroup({
-      'id': new FormControl(),
+       'id': new FormControl(),
         'kvCode': new FormControl(),
         'teacherId': new FormControl(),
         'transferId': new FormControl(),
@@ -93,6 +101,8 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
       "stationFive": new FormControl('', Validators.required),
       "dcCountStatus": new FormControl('', Validators.required),
       "tcCountStatus": new FormControl('', Validators.required),
+      "undertaking1": new FormControl('', Validators.required),
+      "undertaking2": new FormControl('', Validators.required),
     });
     this.user_name = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.user_name;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
@@ -102,6 +112,7 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
     this.tempTeacherId = localStorage.getItem('transferteacherId');     
     this.tempTeachername = localStorage.getItem('transferteacherName');
     this.getFormStatusV2();
+    this.getDocumentByTeacherId();
    
   }
   getFormStatusV2(){
@@ -110,18 +121,31 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
     }
     this.outSideService.getFormStatusV2(data).subscribe((res) => {
      this.schoolProfileFinalStatus = res.response['profileFinalStatus']
+     this.schoolTransferFinalStatus = res.response['transferFinalStatus']
      console.log(res.response);
-     if(res.response['form4Status']==1 || res.response['form4Status']=='1')
+     if(this.schoolTransferFinalStatus=="TA" || this.schoolTransferFinalStatus=="TS" )
      {
       this.profileFinalStatus=true;
       this.getTcDcPointByTeacherIdAndInityearV2();
      }
      else{
+      this.getTransferId();
       this.setTcDcReceivedData();
      }
     })
   }
-
+  getTransferId(){
+    const data = {
+      "teacherId": this.tempTeacherId,
+      "inityear":"2024" 
+     };
+   this.outSideService.getTransferId(data).subscribe((res) => {
+     console.log("------transfer id----------------")
+     console.log(res.response) 
+     this.transferIds=res.response.id;
+  
+   })
+  }
   downloadDocument(documentName) {
     for (let i = 0; i < this.documentUploadArray.length; i++) {
       if (this.documentUploadArray[i].docName == documentName) {
@@ -191,7 +215,7 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
        "teacherId": this.tempTeacherId,
        "inityear":"2024" 
       };
-    this.outSideService.getTransferData(data).subscribe((res) => {
+    this.outSideService.getTransferData1(data).subscribe((res) => {
       console.log("------transfer data-----------------")
       console.log(res.response) 
       this.teacherrofileData=res.response
@@ -291,6 +315,44 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
     }
   }
 
+
+  getDocumentByTeacherId() {
+    debugger
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    this.outSideService.fetchUploadedDoc( this.tempTeacherId).subscribe((res) => {
+      this.documentUploadArray = res;
+      for (let i = 0; i < res.length; i++) {
+
+        if (res[i].docName == 'Medical_Certificate.pdf') {
+         
+          this.medicalDocURLName = res[i].url+"&docId="+token+"&username="+JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+        }
+        if (res[i].docName == 'Disability_Certificate.pdf') {
+   
+          this.disabilityCertiDocURLName = res[i].url+"&docId="+token+"&username="+JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+        }
+        if (res[i].docName == 'Spouse_Declaration.pdf') {
+
+          this.spouseDeclarationDocUrlName = res[i].url+"&docId="+token+"&username="+JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+        }
+        if (res[i].docName == 'Single_Parent_Declaration.pdf') {
+   
+          this.singleParentDocURLName = res[i].url+"&docId="+token+"&username="+JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+        }
+
+        if (res[i].docName == 'DFP_Declaration.pdf') {
+      
+          this.dFPDocURLName = res[i].url+"&docId="+token+"&username="+JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+        }
+        if (res[i].docName == 'NJCM_RJCM_Declaration.pdf') {
+   
+          this.nJCMRJCMDocURLName = res[i].url+"&docId="+token+"&username="+JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+        }
+      }
+    })
+  }
+
+
   previousPage(){
     this.router.navigate(['/teacher/kvsTchStationChoice']);
   }
@@ -320,7 +382,15 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
       }
     }
   }
+
   onSubmitConfermation(){
+    if(this.teacherPreviewUndertakingForm.value.undertaking1==false || this.teacherPreviewUndertakingForm.value.undertaking2==false ){
+      Swal.fire({
+        'icon':'error',
+        'text':'Please check all fields!'
+      })
+      return false;
+     }
     if(this.schoolProfileFinalStatus=='SP'){
       Swal.fire({
         icon: 'info',
@@ -328,7 +398,72 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
       })
       return false;
     }
-    else {
+   else{
+      if( this.empTransferradioButton==1){
+        this.tcSaveYn=1;
+      }else{
+        this.tcSaveYn=0;
+      }
+      const data = {
+        id: this.transferIds,
+        kvCode:  this.kvCode,
+        teacherId: this.responseTcDcData.teacherId,
+        dcStayStationPoint: this.responseTcDcData.dcStayStationPoint,
+        dcTenureHardPoint: this.responseTcDcData.dcTenureHardPoint,
+        dcPhysicalChallengedPoint: this.responseTcDcData.dcPhysicalChallengedPoint,
+        dcMdDfGroungPoint: this.responseTcDcData.dcMdDfGroungPoint,
+        dcLtrPoint: this.responseTcDcData.dcLtrPoint,
+        dcRjcmNjcmPoint: this.responseTcDcData.dcRjcmNjcmPoint,
+        dcTotalPoint: this.responseTcDcData.dcTotalPoint,
+        tcStayStationPoint: this.responseTcDcData.tcStayStationPoint,
+        tcTenureHardPoint: this.responseTcDcData.tcTenureHardPoint,
+        tcPhysicalChallengedPoint: this.responseTcDcData.tcPhysicalChallengedPoint,
+        tcMdDfGroungPoint: this.responseTcDcData.tcMdDfGroungPoint,
+        tcLtrPoint: this.responseTcDcData.tcLtrPoint,
+        tcRjcmNjcmPoint: this.responseTcDcData.tcRjcmNjcmPoint,
+        tcTotalPoint: this.responseTcDcData.tcTotalPoint,
+        dcSpousePoint: this.responseTcDcData.dcSpousePoint,
+        tcSpousePoint: this.responseTcDcData.tcSpousePoint,
+        tcSinglePoint: this.responseTcDcData.tcSinglePoint,
+        dcSinglePoint: this.responseTcDcData.dcSinglePoint,
+        dcStayAtStation: this.dcStayAtStation,
+        dcPeriodAbsence: this.dcPeriodAbsence,
+        dcReturnStation: this.dcReturnStation,
+        tcStayAtStation: this.tcStayAtStation,
+        tcPeriodAbsence: this.tcPeriodAbsence,
+        dcSaveYn:1,
+        inityear:"2024",
+        tcSaveYn:this.tcSaveYn,
+        tcReturnStation: this.tcReturnStation
+      };
+console.log(data)
+      Swal.fire({
+        'icon':'warning',
+        'text': "Do you want to proceed ?",
+        'allowEscapeKey': false,
+        'allowOutsideClick': false,
+        'showCancelButton': true,
+        'confirmButtonColor': "#DD6B55",
+        'confirmButtonText': "Yes",
+        'cancelButtonText': "No",
+        'showLoaderOnConfirm': true,
+      }
+      ).then((isConfirm) => {
+        if (isConfirm.value === true) {
+          this.outSideService.saveTransferDCTCPoints(data).subscribe((res) => {
+            this.modalService.dismissAll() 
+            if (res) {
+             // this.transDisable = true;
+             this.saveConfermation();
+            }
+        })
+      }
+      return false;
+      });
+    }
+    }
+
+  saveConfermation(){
     var data =  {
       "teacherId":this.responseTcDcData.teacherId,
       "teacherEmployeeCode":this.user_name,
@@ -346,39 +481,18 @@ export class KvsTransferPreviewUndertakingComponent implements OnInit {
       "stationCodeChoice5":this.teacherrofileData.choiceKv5StationCode
     }
     console.log(data);
-    Swal.fire({
-      'icon':'warning',
-      'text': "Do you want to proceed ?",
-      'allowEscapeKey': false,
-      'allowOutsideClick': false,
-      'showCancelButton': true,
-      'confirmButtonColor': "#DD6B55",
-      'confirmButtonText': "Yes",
-      'cancelButtonText': "No",
-      'showLoaderOnConfirm': true,
-    }
-    ).then((isConfirm) => {
-      if (isConfirm.value === true) {
         this.outSideService.confirmTransferBySchool(data).subscribe((res) => {
         //  this.modalService.dismissAll() 
           if (res) {
+            this.getFormStatusV2();
             Swal.fire(
               'Your transfer has been submitted  successfully.',
               '',
               'success'
             );
           }
-      })
-    }
+      }) 
     return false;
-    },
-    error => {
-      Swal.fire({
-        'icon':'error',
-        'text':error.error
-      }
-      )
-    })
-    }
   }
+  
 }

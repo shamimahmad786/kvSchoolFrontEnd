@@ -73,6 +73,7 @@ export class AdminTransferModuleComponent implements OnInit {
   showSchool:boolean = false;
   showZiet:boolean = false;
   showHq:boolean = false;
+  twoRowsFind:boolean = false;
   verifyTchTeacherWorkExp:any;
   showCategory: boolean;
   modiFYTransferType: string;
@@ -246,17 +247,25 @@ export class AdminTransferModuleComponent implements OnInit {
     debugger
     this.outSideService.getModifiedTransferDetails(req,this.loginUserNameForChild).subscribe((res) => {
       debugger
+      this.twoRowsFind=false;
       this.editeModifyTransferType='';
       this.editeAllotedTransferType='';
       if((res['rowValue'].length)>1){
+        this.twoRowsFind=true;
         if(res['rowValue'][0]['transfer_type']=='S'){
           this.editeModifyTransferType='Transfer Policy (2023)';
           this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         }
         if(res['rowValue'][0]['transfer_type']=='AM'){
-          this.editeAllotedTransferType='Admin';
+          this.editeModifyTransferType='Admin';
           this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         }
+
+        if(res['rowValue'][0]['transfer_type']=='A'){
+          this.editeModifyTransferType='Admin';
+          this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
+        }
+
         this.editModifyEmpName=res['rowValue'][0]['teacher_name'];
         this.editModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];
         this.ModifyEmail=res['rowValue'][0]['teacher_email'];
@@ -266,14 +275,14 @@ export class AdminTransferModuleComponent implements OnInit {
         this.joinDate=res['rowValue'][0]['join_date'];
         this.reliveDate =res['rowValue'][0]['relieve_date'];
         if(res['rowValue'][1]['transfer_type']=='AM'){
-          this.editeAllotedTransferType='Transfer Policy (2023)';
+          this.editeAllotedTransferType='Admin';
           this.modiFYTransferType =res['rowValue'][1]['transfer_type'];
         }
         if(res['rowValue'][1]['transfer_type']=='A'){
-          this.editeModifyTransferType='Admin';
+          this.editeAllotedTransferType='Admin';
         }
         if(res['rowValue'][1]['transfer_type']=='S'){
-          this.editeModifyTransferType='Transfer Policy (2023)';
+          this.editeAllotedTransferType='Transfer Policy (2023)';
         }
         this.editAllotedModifyEmpName= res['rowValue'][1]['teacher_name'];
         this.editAllotedModifyEmpCode=res['rowValue'][1]['teacher_employee_code'];
@@ -287,16 +296,16 @@ export class AdminTransferModuleComponent implements OnInit {
       else{
         this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
         if(res['rowValue'][0]['transfer_type']=='S'){
-          this.editeModifyTransferType='Transfer Policy (2023)'
+          this.editeAllotedTransferType='Transfer Policy (2023)'
         }
         if(res['rowValue'][0].is_admin_transfer==true){
-          this.editeModifyTransferType = 'Admin';
+          this.editeAllotedTransferType = 'Admin';
          }
          if(res['rowValue'][0].is_automated_transfer==true){
-          this.editeModifyTransferType = 'Transfer Policy (2023)';
+          this.editeAllotedTransferType = 'Transfer Policy (2023)';
          }
          if(res['rowValue'][0].transfer_type=='AM'){
-          this.editeModifyTransferType = 'Admin Modify';
+          this.editeAllotedTransferType = 'Admin Modify';
          }
          this.editAllotedModifyEmpName= res['rowValue'][0]['teacher_name'];
          this.editAllotedModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];
@@ -662,7 +671,7 @@ export class AdminTransferModuleComponent implements OnInit {
             this.testData.transferred_under_cat='Below 40 Transfer' 
           }
           if(res['rowValue'][i].transferred_under_cat=='0'){
-            this.testData.transferred_under_cat='Tenure Complte' 
+            this.testData.transferred_under_cat='Tenure Complete' 
           }
           if(res['rowValue'][i].transferred_under_cat=='35'){
             this.testData.transferred_under_cat='DFP/MGD' 

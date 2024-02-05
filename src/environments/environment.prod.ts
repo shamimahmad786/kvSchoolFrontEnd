@@ -66,7 +66,8 @@ export const environment = {
   BASE_URL_DATA_TRANSFER: 'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/transfer/',
   BASE_URL_DATA_DASHBOARD: 'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/dashboard/',
   BASE_URL_DATA_USER: 'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER/api/user/',
-  BASE_URL_DATA_SURPLUS_TRANSFER:'https://demopgi.udiseplus.gov.in/MOE-RAD-TRANSFER-V1/api/transfer/',
+  // BASE_URL_DATA_SURPLUS_TRANSFER:'https://demopgi.udiseplus.gov.in/MOE-RAD-TRANSFER-V1/api/transfer/',
+  BASE_URL_DATA_SURPLUS_TRANSFER:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/transfer/',
   BASE_URL_DATA_TEACHER_TRANSFER:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/transprofile/',
   LOGOUT_URL:'https://demopgi.udiseplus.gov.in/SpringAuthSecurity/logout?returnTo=https://demopgi.udiseplus.gov.in/school',
   LOGIN_URL_INDIVIDUAL:'https://demopgi.udiseplus.gov.in/SpringAuthSecurity/oauth/authorize?response_type=code&user_oauth_approval=true&client_id=teacher&redirect_uri=https://demopgi.udiseplus.gov.in/school/teacher/profile&scopes=read',
@@ -87,7 +88,7 @@ export const environment = {
    BASE_URL_DATA_TRANSFERPROCESS:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/transferprocess/',
   BASE_URL_DATA_API_FILETRANSFER:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/filetransfer/',
   BASE_URL_DATA_API_TICKET:'https://demopgi.udiseplus.gov.in/MOE-RAD-TICKET/api/ticket/',
-
+  BASE_URL_DATA_TEACHER_TRANSFER_V2: 'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/teacher/transfer/',
 
 
 

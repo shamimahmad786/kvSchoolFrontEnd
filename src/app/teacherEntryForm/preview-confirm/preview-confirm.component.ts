@@ -37,6 +37,7 @@ export class PreviewConfirmComponent implements OnInit {
   stationNameCode:any;
   profileFinalStatus: boolean = false;
   token: any;
+  exportProfileUrl: any;
   constructor(private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
     private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) { }
@@ -54,7 +55,7 @@ export class PreviewConfirmComponent implements OnInit {
       "undertaking1": new FormControl('', Validators.required),
       "undertaking2": new FormControl('', Validators.required),
     });
-
+    this.exportProfileUrl=environment.BASE_URL_DATA_REPORT
     this.applicationId = environment.applicationId;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
@@ -176,22 +177,29 @@ export class PreviewConfirmComponent implements OnInit {
     if (this.teacherPreviewConfirmForm.invalid) {
       Swal.fire({
         'icon':'error',
-        'text':'something went worng!'
+        'text':'Please check all fields!'
       })
       return false;
        }
+      
+       if(this.teacherPreviewConfirmForm.value.teacherDisability==='0'){
+        this.teacherPreviewConfirmForm.patchValue({
+          teacherDisability: true,
+             });
+       }
+      
       if(this.teacherPreviewConfirmForm.value.teacherName==false || this.teacherPreviewConfirmForm.value.teacherGender==false || this.teacherPreviewConfirmForm.value.teacherDob==false || this.teacherPreviewConfirmForm.value.teacherEmplCode==false
-       || (this.teacherPreviewConfirmForm.value.teacherDisability==false  && this.teacherPreviewConfirmForm.value.teacherDisability!='0')|| this.teacherPreviewConfirmForm.value.ExperienceStartDatePresentKv==false
+       || this.teacherPreviewConfirmForm.value.teacherDisability==false || this.teacherPreviewConfirmForm.value.ExperienceStartDatePresentKv==false
        || this.teacherPreviewConfirmForm.value.workExperienceAppointedForSubject==false || this.teacherPreviewConfirmForm.value.lastPromotionPositionType==false
        || this.teacherPreviewConfirmForm.value.undertaking1==false || this.teacherPreviewConfirmForm.value.undertaking2==false ){
         Swal.fire({
           'icon':'error',
-          'text':'Please check all fields'
+          'text':'Please check all fields!'
         })
         return false;
        }
        else{
-        var dt = new Date(this.verifyTchTeacherProfileData['teacherDob'])
+        var dt = new Date(this.verifyTchTeacherProfileData['teacherDob'].split("-")[2]+"-"+this.verifyTchTeacherProfileData['teacherDob'].split("-")[1]+"-"+this.verifyTchTeacherProfileData['teacherDob'].split("-")[0])
         var data = {
             "teacherName": this.verifyTchTeacherProfileData['teacherName'],
             "teacherGender": this.verifyTchTeacherProfileData['teacherGender'],
@@ -242,4 +250,7 @@ export class PreviewConfirmComponent implements OnInit {
       });
        }
   }
+
+ 
+
 }
