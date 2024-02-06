@@ -109,7 +109,27 @@
                                     <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile No is required</div>
                                     <!-- <div *ngIf="f.Mobile.hasError('whitespace')">Mobile number cannot contain only whitespace.</div> -->
                                 </div>
+
+                                
+
+
                             </div>
+
+                            <div class="pb-2 mt-2  row  m-0">
+                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Designation<span class="required-asterisk">*</span></label>
+                                <div class="col-sm-3">
+                                    <select class="form-select" aria-label="Default select example" name="Designation" formControlName="Designation" (change)="teacherTypeSelect($event)" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Designation.errors }">
+                                      
+                                        <option *ngFor="let data of teacherTypeDataNameCode"
+                                        value="{{data.teacherTypeId}}">{{data.nameCode}}</option>
+                                    </select>
+                                                    <div *ngIf="addInstituteFormubmitted && f.Designation.errors" class="invalid-feedback">Designation is required</div>
+                                                </div>
+                                </div>
+
+                              
+
+
                             <div class="text-center my-2 "><button class="insitute-svae-button">Save</button></div>
                         </form>
                     </div>
