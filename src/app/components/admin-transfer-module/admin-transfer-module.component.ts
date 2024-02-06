@@ -15,6 +15,7 @@ import {
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MY_FORMATS } from 'src/app/teacherEntryForm/teacher-entry-form/teacher-entry-form.component';
 declare const srvTime: any;
+declare var $: any;
 @Component({
   selector: 'app-admin-transfer-module',
   templateUrl: './admin-transfer-module.component.html',
@@ -48,6 +49,7 @@ export class AdminTransferModuleComponent implements OnInit {
   selectRegionList: any=[];
   stationList: any=[];
   kvSchoolList: any=[];
+  searchKeyArray: any[] = [];
   formDataList:any;
   transferGroundList: any;
   transferGroundValue: any;
@@ -121,9 +123,22 @@ export class AdminTransferModuleComponent implements OnInit {
   teacherEmailViewModal: any;
   editModifyEmpCodeViewModal: any;
   editModifyEmpNameViewModal: any;
+  adminTransType: any;
+  tagInput: string = '';
+  tags: string[] = [];
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
   ngOnInit(): void {
+
+
+
+
+
+
+
+    
+ 
+    console.log(this)
     this.returnTypeSrvTime = srvTime();
     var date = new Date(this.returnTypeSrvTime),
     mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -184,10 +199,34 @@ export class AdminTransferModuleComponent implements OnInit {
   disableDate() { 
     return false; 
 } 
-
+addKey(txt:any){
+  this.searchKeyArray.push(txt)
+  console.log(this.searchKeyArray)
+}
+removeKey(txt:any){
+  alert("ddfdfffdfd")
+}
+onKeyDown(event: KeyboardEvent) {
+  if (event.key === ',' && this.tagInput.trim() !== '') { 
+    var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    var format1 = /[0-9]/;
+    if( this.tagInput.match(format1) ){
+      event.preventDefault(); // Prevent adding comma to the input
+      const newTags = this.tagInput.split(',').map(tag => tag.trim());
+      this.tags = [...this.tags, ...newTags];
+      console.log(this.tags)
+      this.tagInput = ''; // Clear the input field after adding tags
+    }
+  }
+ 
+}
+removeTag(tagToRemove: string) {
+  this.tags = this.tags.filter(tag => tag !== tagToRemove);
+  console.log(this.tags)
+}
   //********************** Function Use for Admin Transfer Modal*****************************
   openTransfermodal(empName:any,empCode:any,email:any,kvCode:any,dob:any,presentKvName:any,presentKvCode:any,PresentStationName:any,PresentRegionName:any) {
- debugger
+
     this.showTransferEditForm=false;
      this.kvRegionSchoolZietHqName='';
      this.editEmpName=empName;
@@ -203,7 +242,7 @@ export class AdminTransferModuleComponent implements OnInit {
      this.modalService.open(this.AdminTransferBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
    }
    openCancelmodal(empName:any,empCode:any,email:any,kvName:any,kvCode:any,dob:any){
-    debugger
+   
      this.editCancelEmpName=empName;
      this.editCancelEmpCode=empCode;
      this.cancelEmail=email;
@@ -244,83 +283,23 @@ export class AdminTransferModuleComponent implements OnInit {
     this.editModifyEmpCode=empCode;
     this.editModifyEmpName=empName;
     let req={"empCode":this.editModifyEmpCode};
-    debugger
+ 
     this.outSideService.getModifiedTransferDetails(req,this.loginUserNameForChild).subscribe((res) => {
-      debugger
-      this.twoRowsFind=false;
-      this.editeModifyTransferType='';
-      this.editeAllotedTransferType='';
-      if((res['rowValue'].length)>1){
-        this.twoRowsFind=true;
-        if(res['rowValue'][0]['transfer_type']=='S'){
-          this.editeModifyTransferType='Transfer Policy (2023)';
-          this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
+      this.adminTransType = res['rowValue'].map(function(el) {
+        var o = Object.assign({}, el);
+        if(o.is_admin_transfer==true){
+          o.addTransType = 'Admin';
         }
-        if(res['rowValue'][0]['transfer_type']=='AM'){
-          this.editeModifyTransferType='Admin';
-          this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
+        if(o.is_automated_transfer==true){
+          o.addTransType = 'Transfer Policy (2023)';
         }
-
-        if(res['rowValue'][0]['transfer_type']=='A'){
-          this.editeModifyTransferType='Admin';
-          this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
-        }
-
-        this.editModifyEmpName=res['rowValue'][0]['teacher_name'];
-        this.editModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];
-        this.ModifyEmail=res['rowValue'][0]['teacher_email'];
-        this.ModifykvCode=res['rowValue'][0]['allot_kv_code'];
-        this.ModifykvName=res['rowValue'][0]['kv_name_alloted'];
-        this.Modifydob=res['rowValue'][0]['teacher_dob'];
-        this.joinDate=res['rowValue'][0]['join_date'];
-        this.reliveDate =res['rowValue'][0]['relieve_date'];
-        if(res['rowValue'][1]['transfer_type']=='AM'){
-          this.editeAllotedTransferType='Admin';
-          this.modiFYTransferType =res['rowValue'][1]['transfer_type'];
-        }
-        if(res['rowValue'][1]['transfer_type']=='A'){
-          this.editeAllotedTransferType='Admin';
-        }
-        if(res['rowValue'][1]['transfer_type']=='S'){
-          this.editeAllotedTransferType='Transfer Policy (2023)';
-        }
-        this.editAllotedModifyEmpName= res['rowValue'][1]['teacher_name'];
-        this.editAllotedModifyEmpCode=res['rowValue'][1]['teacher_employee_code'];
-        this.editAllotedModifyEmail=res['rowValue'][1]['teacher_email'];
-        this.editAllotedModifykvCode=res['rowValue'][1]['allot_kv_code'];
-        this.editAllotedModifykvName=res['rowValue'][1]['kv_name_alloted'];
-        this.editAllotedModifydob=res['rowValue'][1]['teacher_dob'];
-        this.editAllotedModifyJoindate=res['rowValue'][1]['join_date'];
-        this.editAllotedModifyrelivedate=res['rowValue'][1]['relieve_date'];
-      }
-      else{
-        this.modiFYTransferType =res['rowValue'][0]['transfer_type'];
-        if(res['rowValue'][0]['transfer_type']=='S'){
-          this.editeAllotedTransferType='Transfer Policy (2023)'
-        }
-        if(res['rowValue'][0].is_admin_transfer==true){
-          this.editeAllotedTransferType = 'Admin';
-         }
-         if(res['rowValue'][0].is_automated_transfer==true){
-          this.editeAllotedTransferType = 'Transfer Policy (2023)';
-         }
-         if(res['rowValue'][0].transfer_type=='AM'){
-          this.editeAllotedTransferType = 'Admin Modify';
-         }
-         this.editAllotedModifyEmpName= res['rowValue'][0]['teacher_name'];
-         this.editAllotedModifyEmpCode=res['rowValue'][0]['teacher_employee_code'];
-         this.editAllotedModifyEmail=res['rowValue'][0]['teacher_email'];
-         this.editAllotedModifykvCode=res['rowValue'][0]['allot_kv_code'];
-         this.editAllotedModifykvName=res['rowValue'][0]['kv_name_alloted'];
-         this.editAllotedModifydob=res['rowValue'][0]['teacher_dob'];
-         this.editAllotedModifyJoindate=res['rowValue'][0]['join_date'];
-         this.editAllotedModifyrelivedate=res['rowValue'][0]['relieve_date'];
-      }
+        return o;
+      })
     })
     this.modalService.open(this.AdminMdificationBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
   openViewModal(teacherId:any,empName:any,empCode:any,email:any,kvName:any,kvCode:any,dob:any){
-    debugger
+  
       this.presentKvNameViewModal='';
       this.presentKvCodeViewModal='';
       this.allotedKvCodeViewModal='';
@@ -504,7 +483,7 @@ export class AdminTransferModuleComponent implements OnInit {
 }
   //***************Function user for search  data*******************************************/
   submit(){
-    debugger
+ 
     console.log(this.adminTransferForm.value) 
     var data={
       "teacherEmployeeCode":this.adminTransferForm.value.employeeCode.trim(),
@@ -513,7 +492,7 @@ export class AdminTransferModuleComponent implements OnInit {
       "teacherEmail":this.adminTransferForm.value.email.trim().toUpperCase(),
       "teacherMobile":this.adminTransferForm.value.mobileNo.trim(),
     }
-    debugger
+ 
     if((this.adminTransferForm.value.employeeCode=='' || this.adminTransferForm.value.employeeCode==null )
     && (this.adminTransferForm.value.name=='' || this.adminTransferForm.value.name==null ) && 
     (this.adminTransferForm.value.dob=='' ||  this.adminTransferForm.value.dob ==null ) &&
@@ -721,7 +700,7 @@ export class AdminTransferModuleComponent implements OnInit {
      } )
      return false;
  }
-debugger
+
  if(this.selectSchoolType=='3'){
   if(this.adminTransferEditForm.value.transferRegion=='' || this.adminTransferEditForm.value.transferRegion==null){
     Swal.fire({
@@ -850,7 +829,7 @@ console.log(data)
   ).then((isConfirm) => {
     if (isConfirm.value === true) {
         this.outSideService.adminTransfer(data,this.loginUserNameForChild).subscribe((res)=>{
-          debugger
+    
           console.log(res)
           if(res){
             Swal.fire(
@@ -1017,7 +996,7 @@ Swal.fire({
 ).then((isConfirm) => {
   if (isConfirm.value === true) {
       this.outSideService.transferModification(data,this.loginUserNameForChild).subscribe((res)=>{
-        debugger
+   
         console.log(res)
         if(res['status']==0){
           Swal.fire({
@@ -1089,7 +1068,7 @@ submitcancelForm(){
     ).then((isConfirm) => {
       if (isConfirm.value === true) {
           this.outSideService.transferCancelation(data,this.loginUserNameForChild).subscribe((res)=>{
-            debugger
+      
             console.log(res)
             if(res){
               Swal.fire(
@@ -1135,7 +1114,7 @@ submitcancelForm(){
       } 
     }
     applyFilter(filterValue: string) {
-      debugger
+
       filterValue = filterValue.trim();
       filterValue = filterValue.toLowerCase(); 
       this.dataSource.filter = filterValue;

@@ -17,9 +17,11 @@
                             <div class=" prof-fields  p-4 ">
                                 <div class="row">
                                     <div class="col-md-4 form-group my-2">
-                                        <label class="titleSet">Employee Code</label>
-                                        <input type="text" formControlName="employeeCode" class="form-control"
-                                            maxlength="50">
+                                        <label class="titleSet">Employee Code</label>                                     
+                                          <div class="tags">
+                                            <span *ngFor="let tag of tags">{{ tag }}<span class="remove" (click)="removeTag(tag)"> x</span></span>
+                                            <input type="text" [(ngModel)]="tagInput" (keydown)="onKeyDown($event)" class="form-control" formControlName="employeeCode" placeholder="Add employee code separated by commas">
+                                          </div>
                                     </div>
                                     <div class="col-md-4 form-group my-2">
                                         <label class="titleSet">Name</label>
@@ -40,7 +42,6 @@
                                         <label class="titleSet">Mobile No.</label>
                                         <input type="text" formControlName="mobileNo" class="form-control"
                                             maxlength="10">
-
                                     </div>
                                     <div class="col-md-4 form-group my-2">
                                         <label class="titleSet">Email Id</label>
@@ -374,57 +375,37 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table-bordered text-start">
+                        <table class="table table-bordered text-start" *ngFor="let data of adminTransType let i=index"> 
                             <thead>
                                 <tr>
-                                    <th colspan="4" class="text-start">
-                                      Transfer Cycle - I Details
-                                    </th>
+                                <th colspan="4" class="text-start" *ngIf="i+1=='1'">
+                                   Transfer Type  - I
+                                </th>
+                                <th colspan="4" class="text-start" *ngIf="i+1=='2'">
+                                    Transfer Type  - II
+                                </th>
                                 </tr>
                             </thead>
+        
                             <tbody>
                                 <tr>
-                                    <th class="text-start" style="width:269px">Allotted Institute Name (Code)</th>
-                                    <td class="text-start"  style="width: 426px;"> {{editAllotedModifykvName}} ({{editAllotedModifykvCode}})</td>
-                                    <th class="text-start">Joining Date (dd-mm-yyyy) </th>
-                                    <td class="text-start"> {{editAllotedModifyJoindate | date:"dd-MM-yyyy"}}</td>
+                                    <th class="text-start " style="width:269px"> Institute Name (Code) </th>
+                                    <td class="text-start"> {{data.kv_name_alloted}} ({{data.allot_kv_code}})</td>
+                                    <th class="text-start">Joining Date (dd-mm-yyyy)</th>
+                                    <td class="text-start"> {{data.join_date | date:"dd-MM-yyyy"}}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-start">Relieving Date From Previous Institute (dd-mm-yyyy) </th>
-                                    <td class="text-start"> {{editAllotedModifyrelivedate | date:"dd-MM-yyyy"}} </td>
+                                    <td class="text-start"> {{data.relieve_date | date:"dd-MM-yyyy"}} </td>
                                     <th class="text-start">Transfer Type </th>
-                                    <td class="text-start"> {{editeAllotedTransferType}} </td>
-                                    
-                                </tr> 
+                                    <td class="text-start"> {{data.addTransType}} </td> 
+                                </tr>
                             </tbody>
                         </table>
                        
-                        <!-- <table class="table table-bordered text-start" *ngIf="modiFYTransferType=='S' || modiFYTransferType=='AM'"> -->
-                            <table class="table table-bordered text-start"  *ngIf="twoRowsFind">
-                            <thead>
-                                <tr>
-                                    <th colspan="4" class="text-start">
-                                     Transfer By Admin Transfer
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th class="text-start " style="width:269px">Designated Institute Name (Code) </th>
-                                    <td class="text-start"> {{ModifykvName}} ({{ModifykvCode}})</td>
-                                    <th class="text-start">Joining Date (dd-mm-yyyy)</th>
-                                    <td class="text-start"> {{joinDate | date:"dd-MM-yyyy"}}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-start">Relieving Date From Previous Institute (dd-mm-yyyy) </th>
-                                    <td class="text-start"> {{reliveDate | date:"dd-MM-yyyy"}} </td>
-                                    <th class="text-start">Transfer Type </th>
-                                    <td class="text-start"> {{editeModifyTransferType}} </td>
-                                </tr>
-                            </tbody>
-                        </table>
-        
-                        <table class="table table-bordered text-start" *ngIf="modiFYTransferType=='' || modiFYTransferType==null || modiFYTransferType==undefined || modiFYTransferType=='A'  && !twoRowsFind">
+                   
+                       
+                        <table class="table table-bordered text-start"*ngIf="adminTransType.length<2">
                             <thead>
                                 <tr>
                                     <th colspan="4" class="text-start">
@@ -440,7 +421,7 @@
                             </tbody>
                         </table>
                     </div>
-                <div *ngIf="modiFYTransferType=='' || modiFYTransferType==null || modiFYTransferType==undefined || modiFYTransferType=='A' ||  modiFYTransferType=='S'">
+                <div *ngIf="adminTransType.length<2">
                     <div class="pb-2 mt-2  row  m-0">
                         <label for="staticEmail" class="col-sm-6 col-form-label ps-0">Select Institute Type<span class="required-asterisk">*</span></label>
                         <div class="col-sm-6">

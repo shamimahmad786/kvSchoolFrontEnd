@@ -91,3 +91,11 @@
       background-color: #4A1C4B !important;;
       color: white !important;;
     }
+    
+  .remove{
+    position: absolute;
+    padding: 0px 5px;
+    margin-left: 3px;
+    font-size: 11px;
+  }
+    
