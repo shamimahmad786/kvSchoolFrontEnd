@@ -85,12 +85,12 @@
                             <div class="pb-2 mt-2  row  m-0">
                                 <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Employee Code <span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" autocomplete="off" id="userName" formControlName="userName" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
+                                    <input type="text" class="form-control" autocomplete="off" (keypress)="omit_special_char_empCode($event)" onKeyPress="if(this.value.length==8) return false;" id="userName" formControlName="userName" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Employee Code is required</div>
                                 </div>
                                 <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Employee Name <span class="required-asterisk">*</span></label>
                                 <div class="col-sm-3">
-                                    <input type="text" autocomplete="off" autocomplete="off" (keypress)="omit_special_char($event)" class="form-control" id="userName" formControlName="firstname" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
+                                    <input type="text" autocomplete="off"  class="form-control" (keypress)="omit_special_char($event)" id="firstname" formControlName="firstname" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.firstname.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.firstname.errors" class="invalid-feedback">Employee Name is required</div>
                                 </div>
 
