@@ -97,34 +97,60 @@
                         <div class="table-responsive">
                             <table class="table w-100">
                                 <tr>
-                                    <td>
+                                    <td *ngIf="!profileFinalStatus">
+                                        <label>Employee Name: </label>&nbsp;{{verifyTchTeacherProfileData?.teacherName | titlecase}} <input class="form-check-input" type="checkbox" disabled value="" formControlName="teacherName" id="teacherName" id="teacherName">
+                                    </td>
+                                    <td *ngIf="profileFinalStatus">
                                         <label>Employee Name: </label>&nbsp;{{verifyTchTeacherProfileData?.teacherName | titlecase}} <input class="form-check-input" type="checkbox" value="" formControlName="teacherName" id="teacherName" id="teacherName">
                                     </td>
-                                    <td>
+                                    <td *ngIf="!profileFinalStatus">
+                                        <label>Employee Gender:</label>&nbsp;{{ verifyTchTeacherProfileData?.teacherGender | genderPipe }} <input class="form-check-input" type="checkbox" disabled value="" formControlName="teacherGender" id="teacherGender">
+                                    </td>
+                                    <td *ngIf="profileFinalStatus">
                                         <label>Employee Gender:</label>&nbsp;{{ verifyTchTeacherProfileData?.teacherGender | genderPipe }} <input class="form-check-input" type="checkbox" value="" formControlName="teacherGender" id="teacherGender">
                                     </td>
-                                    <td>
+                                    <td *ngIf="!profileFinalStatus">
+                                        <label>Employee Dob: </label> &nbsp;{{verifyTchTeacherProfileData?.teacherDob }} <input class="form-check-input" type="checkbox" value="" disabled formControlName="teacherDob" id="teacherDob">
+                                    </td>
+                                    <td *ngIf="profileFinalStatus">
                                         <label>Employee Dob: </label> &nbsp;{{verifyTchTeacherProfileData?.teacherDob }} <input class="form-check-input" type="checkbox" value="" formControlName="teacherDob" id="teacherDob">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td *ngIf="!profileFinalStatus">
+                                        <label>Employee Code:</label> &nbsp; {{verifyTchTeacherProfileData?.teacherEmployeeCode}} <input class="form-check-input" type="checkbox" disabled value="" formControlName="teacherEmplCode" id="teacherEmplCode">
+                                    </td>
+                                    <td *ngIf="profileFinalStatus">
                                         <label>Employee Code:</label> &nbsp; {{verifyTchTeacherProfileData?.teacherEmployeeCode}} <input class="form-check-input" type="checkbox" value="" formControlName="teacherEmplCode" id="teacherEmplCode">
                                     </td>
-                                    <td>
+                                    <td *ngIf="!profileFinalStatus">
+                                        <label>Employee Disability:</label> &nbsp;{{verifyTchTeacherProfileData?.teacherDisabilityYn == '1' ? 'Yes':'No'}} <input class="form-check-input" disabled type="checkbox" value="" formControlName="teacherDisability" id="teacherDisability">
+                                    </td>
+                                    <td *ngIf="profileFinalStatus">
                                         <label>Employee Disability:</label> &nbsp;{{verifyTchTeacherProfileData?.teacherDisabilityYn == '1' ? 'Yes':'No'}} <input class="form-check-input" type="checkbox" value="" formControlName="teacherDisability" id="teacherDisability">
                                     </td>
-                                    <td>
+                                    <td *ngIf="!profileFinalStatus">
+                                        <label>Experience Start Date Present KV:</label>&nbsp; {{verifyTchTeacherProfileData?.workExperienceWorkStartDatePresentKv}} <input class="form-check-input" disabled type="checkbox" value="" formControlName="ExperienceStartDatePresentKv"
+                                            id="ExperienceStartDatePresentKv">
+                                    </td>
+                                    <td *ngIf="profileFinalStatus">
                                         <label>Experience Start Date Present KV:</label>&nbsp; {{verifyTchTeacherProfileData?.workExperienceWorkStartDatePresentKv}} <input class="form-check-input" type="checkbox" value="" formControlName="ExperienceStartDatePresentKv"
                                             id="ExperienceStartDatePresentKv">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td *ngIf="!profileFinalStatus">
+                                        <label>Appointed For Subject:</label> &nbsp; {{verifyTchTeacherProfileData?.workExperienceAppointedForSubject}} <input class="form-check-input" type="checkbox" disabled value="" formControlName="workExperienceAppointedForSubject"
+                                            id="workExperienceAppointedForSubject">
+                                    </td>
+                                    <td *ngIf="profileFinalStatus">
                                         <label>Appointed For Subject:</label> &nbsp; {{verifyTchTeacherProfileData?.workExperienceAppointedForSubject}} <input class="form-check-input" type="checkbox" value="" formControlName="workExperienceAppointedForSubject"
                                             id="workExperienceAppointedForSubject">
                                     </td>
-                                    <td>
+                                    <td *ngIf="!profileFinalStatus">
+                                        <label>Position Held:</label> &nbsp;{{verifyTchTeacherProfileData?.lastPromotionPositionType}} <input class="form-check-input" type="checkbox" value="" disabled  formControlName="lastPromotionPositionType" id="lastPromotionPositionType">
+                                    </td>
+                                    <td *ngIf="profileFinalStatus">
                                         <label>Position Held:</label> &nbsp;{{verifyTchTeacherProfileData?.lastPromotionPositionType}} <input class="form-check-input" type="checkbox" value=""  formControlName="lastPromotionPositionType" id="lastPromotionPositionType">
                                     </td>
                                     <td></td>
