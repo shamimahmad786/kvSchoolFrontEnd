@@ -123,7 +123,7 @@ export class TransferRelatedDocComponent implements OnInit {
     this.fileNameWithoutExt=splitted[0];
     if (splitted[1].toUpperCase() == 'PDF' || splitted[1].toUpperCase() == 'pdf' ) {
       if (files.item(0).size <= 512000) {
-        alert("set file");
+        //alert("set file");
         this.fileToUpload = files.item(0);
          if (index == '4') {
           this.enableUploadButton4 = true;
