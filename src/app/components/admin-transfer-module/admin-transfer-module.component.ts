@@ -126,6 +126,7 @@ export class AdminTransferModuleComponent implements OnInit {
   adminTransType: any;
   tagInput: string = '';
   tags: string[] = [];
+  transferOrderNumber:any;
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
   ngOnInit(): void {
@@ -180,7 +181,24 @@ export class AdminTransferModuleComponent implements OnInit {
       'cancelTransferOrderdate':  new FormControl(''),
     });
     this.getTransferGround();
+    this.gettransferOrderNumber();
   }
+  gettransferOrderNumber(){
+    this.outSideService.getUploadedDocument().subscribe((res)=>{
+     console.log("transfer Order number")
+     console.log(res)
+      if(res.length>0){
+          this.transferOrderNumber=res;
+      }
+    },
+    error => {
+      Swal.fire({
+        'icon':'error',
+        'text':error.error
+      }
+      )
+    })
+}
   applyFilterHBSource(filterValue: string) {
     filterValue = filterValue.trim(); 
     filterValue = filterValue.toLowerCase(); 

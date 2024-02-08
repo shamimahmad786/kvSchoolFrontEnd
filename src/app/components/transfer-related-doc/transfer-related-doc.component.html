@@ -146,7 +146,7 @@
             <ng-container matColumnDef="Action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element">
-                    <button (click)="downloadDocumnet(element.transferOrderNumber)"> <img src="assets/images/download.png"></button>
+                  <a href="{{element.docURLName}}"  target="_blank"> <img src="assets/images/download.png" ></a>
                    </td>
             </ng-container>
 
