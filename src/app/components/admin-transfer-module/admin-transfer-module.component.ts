@@ -129,15 +129,6 @@ export class AdminTransferModuleComponent implements OnInit {
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
   ngOnInit(): void {
-
-
-
-
-
-
-
-    
- 
     console.log(this)
     this.returnTypeSrvTime = srvTime();
     var date = new Date(this.returnTypeSrvTime),
@@ -468,6 +459,7 @@ removeTag(tagToRemove: string) {
   }
 }
   clear(){
+    this.tags=[];
     this.adminTransferMangement=[];
     this.totalLength ='';
     this.dataSource = new MatTableDataSource(this.adminTransferMangement);
@@ -484,15 +476,18 @@ removeTag(tagToRemove: string) {
   //***************Function user for search  data*******************************************/
   submit(){
  
-    console.log(this.adminTransferForm.value) 
+    console.log(this.adminTransferForm.value)   
     var data={
-      "teacherEmployeeCode":this.adminTransferForm.value.employeeCode.trim(),
+      //"teacherEmployeeCode":this.adminTransferForm.value.employeeCode.trim(),
+      "teacherEmployeeCode":this.tags,
       "teacherName":this.adminTransferForm.value.name.trim().toUpperCase(),
       "teacherDob":this.adminTransferForm.value.dob,
       "teacherEmail":this.adminTransferForm.value.email.trim().toUpperCase(),
       "teacherMobile":this.adminTransferForm.value.mobileNo.trim(),
     }
- 
+    this.adminTransferForm.patchValue({
+      employeeCode: this.tags[0],
+  });
     if((this.adminTransferForm.value.employeeCode=='' || this.adminTransferForm.value.employeeCode==null )
     && (this.adminTransferForm.value.name=='' || this.adminTransferForm.value.name==null ) && 
     (this.adminTransferForm.value.dob=='' ||  this.adminTransferForm.value.dob ==null ) &&

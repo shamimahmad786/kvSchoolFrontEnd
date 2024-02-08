@@ -752,6 +752,20 @@ body {
         color: #fff;
         text-decoration: none;
     }
+
+
+    .dashboard-top-card {
+      background-color: #564880;
+      border-radius: 14px;
+  }
+
+  .dashboard-top-card .card-title {
+    font-size: 16px;
+    font-family: "semiBold", sans-serif;
+    line-height: 20px;
+    font-weight: 600;
+    color: #ffff;
+}
              
     
     

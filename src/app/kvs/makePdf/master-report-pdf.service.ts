@@ -1523,7 +1523,7 @@ if(schoolStationMappingList[i]?.shift==0){
     relevingDatalistTemp.push(relevingDataArray[i]?.name)
     relevingDatalistTemp.push(relevingDataArray[i]?.postName)
     relevingDatalistTemp.push(relevingDataArray[i]?.subjectName)
-    relevingDatalistTemp.push(relevingDataArray[i]?.transferGround)
+    relevingDatalistTemp.push(relevingDataArray[i]?.transferred_under_cat)
     relevingDatalistTemp.push(relevingDataArray[i]?.relivingdate)
     relevingDatalistTemp.push(relevingDataArray[i]?.To + ' (' +relevingDataArray[i]?.allot_kv_code+')')
   
@@ -1609,7 +1609,7 @@ if(schoolStationMappingList[i]?.shift==0){
     joiningDataListTemp.push(joiningDataArray[i]?.name)
     joiningDataListTemp.push(joiningDataArray[i]?.postName)
     joiningDataListTemp.push(joiningDataArray[i]?.subjectName)
-    joiningDataListTemp.push(joiningDataArray[i]?.transferGround)
+    joiningDataListTemp.push(joiningDataArray[i]?.transferred_under_cat)
     joiningDataListTemp.push(joiningDataArray[i]?.relivingdate)
     joiningDataListTemp.push(joiningDataArray[i]?.joiningdate)
     joiningDataListTemp.push(joiningDataArray[i]?.From + ' (' +joiningDataArray[i]?.from_kv+')')
