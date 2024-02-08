@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-institute-head',
@@ -19,9 +20,20 @@ export class AddInstituteHeadComponent implements OnInit {
   businessUnitTypeCode:any;
   childBussinessUnitTypeId:any;
   childBussinessUnitTypeCode:any;
+  employeeCode: any;
+  emplyeeData: any;
+  profileTeacherName: any;
+  getDistrictByStateId: any;
+  applicationId: any
+  subjectListNameCode: any[] = [];
+  subjectList: any;
+  teacherTypeData: any;
+  teacherTypeDataNameCode: any = [];
   constructor(private outSideService: OutsideServicesService,private router: Router) { }
 
   ngOnInit(): void {
+
+    this.applicationId = environment.applicationId;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       console.log(JSON.parse(sessionStorage.getItem("authTeacherDetails")));
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
@@ -38,9 +50,11 @@ export class AddInstituteHeadComponent implements OnInit {
     if(this.businessUnitTypeId=="5"){
       this.addInstituteForm = new FormGroup({
         'userName': new FormControl('', Validators.required),
-        'firstname': new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]),
+        'firstname': new FormControl('', [Validators.required]),
         'Email': new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
         'Mobile': new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("[8976][0-9]{9}")]),
+        'Designation': new FormControl('', Validators.required),
+        'staffType' : new FormControl('', Validators.required),
       });
     }
     else{
@@ -73,6 +87,7 @@ export class AddInstituteHeadComponent implements OnInit {
   "value": "5"
   },{"name":"RO Office","value":"31"}]
 }
+this.getAllMaster();
 }
   get f() { return this.addInstituteForm.controls; }
   //***************** Get Region*******************************************/
@@ -129,6 +144,130 @@ export class AddInstituteHeadComponent implements OnInit {
   }
 
 
+  teacherTypeSelect(event) {
+    console.log('Staff type test', event.target.value)
+    debugger;
+    if (event.target.value != 22 && event.target.value != 23 && event.target.value != 10 && event.target.value != 12 && event.target.value != 24 && event.target.value != 11 && event.target.value != '22' && event.target.value != '23' && event.target.value != '11' && event.target.value != '24') {
+      this.addInstituteForm.patchValue({
+          staffType: '2'
+      });
+    } else {
+      this.addInstituteForm.patchValue({
+          staffType: '1'
+      });
+    }
+
+  }
+
+  getAllMaster() {
+    debugger;
+
+    this.outSideService.fetchAllMaster(6).subscribe((res) => {
+      this.teacherTypeData = res.response.postionType;
+      this.teacherTypeDataNameCode = [];
+      for (let i = 0; i < this.teacherTypeData.length; i++) {
+
+        var concatElement;
+        concatElement = this.teacherTypeData[i].organizationTeacherTypeName;
+        concatElement = concatElement + "(" + this.teacherTypeData[i].orgTeacherTypeCode + ")";
+        var data = {
+          'nameCode': concatElement,
+          'teacherTypeId': this.teacherTypeData[i].teacherTypeId
+        }
+        this.teacherTypeDataNameCode.push(data)
+      }
+    },
+    error => {
+    Swal.fire({
+      'icon':'error',
+      'text':error.error
+    }
+    )
+  })
+  }
+
+
+
+  getSubjectByTchType(data) {
+    this.outSideService.fetchKvSubjectListByTchType(data).subscribe((res) => {
+      this.subjectList = res.response.rowValue;
+      console.log(this.subjectList);
+      this.subjectListNameCode = [];
+      for (let i = 0; i < this.subjectList.length; i++) {
+        var conElement;
+        conElement = this.subjectList[i].subject_name;
+        conElement = conElement + "(" + this.subjectList[i].subject_code + ")";
+        var data = {
+          'subNameCode': conElement,
+          'subjectCode': this.subjectList[i].subject_id
+        }
+        this.subjectListNameCode.push(data);
+      }
+    })
+  }
+
+
+
+
+  getEmployeeData(){
+    var data={
+     "teacherEmployeeCode":this.employeeCode
+    }
+      this.outSideService.getEmployeeDetailV2(data).subscribe((res)=>{
+      this.emplyeeData=res.response;
+      if(res){
+        this.addInstituteForm.patchValue({
+          fullName:  this.emplyeeData['teacherName'],
+          gender: this.emplyeeData['teacherGender'],
+          dob: this.emplyeeData['teacherDob'],
+          empCode:this.emplyeeData['teacherEmployeeCode'],
+          mobile: this.emplyeeData['teacherMobile'],
+          email: this.emplyeeData['teacherEmail'],
+          prmntAddress: this.emplyeeData['teacherPermanentAddress'],
+          prmntState: this.emplyeeData['teacherParmanentState'],
+          prmntDistrict: this.emplyeeData['teacherPermanentDistrict'] ,
+          prmntPinCode: this.emplyeeData['teacherPermanentPin'],
+          crspndncAddress: this.emplyeeData['teacherCorrespondenceAddress'],
+          crspndncState: this.emplyeeData['teacherCorrespondenceState'],
+          crspndncDistrict: this.emplyeeData['teacherCorrespondenceDistrict'],
+          crspndncPinCode: this.emplyeeData['teacherCorrespondencePin'],
+          disabilityYN: this.emplyeeData['teacherDisabilityYn'],
+          disabilityType: this.emplyeeData['teacherDisabilityType'],
+          presentPostName:this.emplyeeData['lastPromotionPositionType'],
+          lastPromotionPositionDate: this.emplyeeData['lastPromotionPositionDate'],
+          presentSubjectName: this.emplyeeData['workExperienceAppointedForSubject'],
+          staffType: this.emplyeeData['teachingNonteaching'],
+          spouseStatusF:this.emplyeeData['spouseStatus'],
+          spouseEmpCode:this.emplyeeData['spouseEmpCode'],
+          spouseName:this.emplyeeData['spouseName'],
+          spousePost:this.emplyeeData['spousePost'],
+          spouseStationName:this.emplyeeData['spouseStationName'],
+          spouseStationCode:this.emplyeeData['spouseStationCode'],
+          maritalStatusF:this.emplyeeData['maritalStatus'],
+          specialRecruitmentYn: this.emplyeeData['specialRecruitmentYn'],
+      });
+      sessionStorage.setItem('kvTeacherId',this.emplyeeData['teacherId'])
+      this.profileTeacherName= this.emplyeeData['teacherName']
+      this.getDistrictByStateId(this.emplyeeData['teacherParmanentState'],'P');
+      this.getDistrictByStateId(this.emplyeeData['teacherCorrespondenceState'],'C');
+
+
+      
+      var data = {
+        "applicationId": this.applicationId,
+        "teacherTypeId": this.emplyeeData['lastPromotionPositionType']
+      }
+     
+    
+      }
+      // this.getDocumentByTeacherId();
+      // this.getFormStatusV2();
+  },
+)
+  }
+
+
+
 
   //***************** make User Name On Basis Of Station name*******************************************/
   getUserNameForInstitute(event:any){
@@ -171,6 +310,13 @@ export class AddInstituteHeadComponent implements OnInit {
      return((k > 47 && k < 58)); 
   }
 
+  omit_special_char_empCode(event)
+  {   
+     var k;  
+     k = event.charCode;
+     return((k > 47 && k < 58)); 
+  }
+
   onSubmit(){
     debugger
     if (this.addInstituteForm.invalid) {
@@ -184,9 +330,12 @@ export class AddInstituteHeadComponent implements OnInit {
         "email":this.addInstituteForm.controls['Email'].value,
         "mobile":this.addInstituteForm.controls['Mobile'].value,
         "firstname":this.addInstituteForm.controls['firstname'].value,
+        "designation":this.addInstituteForm.controls['Designation'].value,
         "parentuser": this.loginUserNameForChild,
         "businessUnitTypeId":this.childBussinessUnitTypeId,
         "businessUnitTypeCode":this.businessUnitTypeCode,
+        "staffType":this.addInstituteForm.value.staffType,
+        
        }
 
 

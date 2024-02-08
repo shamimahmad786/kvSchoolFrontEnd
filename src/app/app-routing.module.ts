@@ -59,6 +59,7 @@ import { KvsTeacherTransferDetailsComponent } from './kvs/kvs-teacher-transfer-d
 import { KvsTransferMiscellaneusComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-miscellaneus/kvs-transfer-miscellaneus.component';
 import { KvsTransferStationChoiceComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-station-choice/kvs-transfer-station-choice.component';
 import { KvsTransferPreviewUndertakingComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-preview-undertaking/kvs-transfer-preview-undertaking.component';
+import { TransferRelatedDocComponent } from './components/transfer-related-doc/transfer-related-doc.component';
 const routes: Routes = [
   {path:'', component: MainPageComponent},
   {path:'mainPage', component: MainPageComponent},
@@ -96,7 +97,8 @@ const routes: Routes = [
       {path: 'employeeJoining', component:KvsJoiningComponent},  
       {path: 'kvsTicket', component:KvsTicketComponent}, 
       {path: 'excel-transfer', component:ExcelTransferModuleComponent},
-      {path: 'transfer-report', component:TransferReportComponent},
+      {path: 'transfer-report', component:TransferReportComponent},    
+      {path: 'transfer-related-doc', component:TransferRelatedDocComponent},  
       {path: 'sub-transfer-report', component:TransferReportChildComponent},
       {path: 'kvsTchDetails', component:KvsTeachersDeatilComponent},
       {path: 'schoolReview', component:SchoolReviewComponent},

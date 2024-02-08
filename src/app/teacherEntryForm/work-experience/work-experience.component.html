@@ -30,7 +30,24 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let quantity of detailsOfPosting().controls; let i=index" formGroupName="{{i}}">
-                                <td>
+                                <td *ngIf="!profileFinalStatus">
+                                    <div class="input-group mb-3" style="width: 231px;margin-top: 22px;">
+                                        <input type="text" class="input-group-text input" disabled name="udiseSchCode" formControlName="udiseSchCode" disabled style="width:70px; height:33px;">
+                                        <input type="text" class="form-control form-control-sm " disabled name="udiseSchoolName" formControlName="udiseSchoolName" disabled>
+
+                                        <div *ngIf="i==0">
+                                            <button class="btn btn-sm btn-outline-secondary btn-sm" disabled type="button" id="button-addon2" (click)="selectExperianceSchool(i)"> <i
+                                    class="fa fa-search"></i></button>
+                                        </div>
+                                        <div *ngIf="i!=0">
+                                            <button class="btn btn-sm btn-outline-secondary btn-sm" disabled type="button" id="button-addon2" (click)="selectExperianceSchool(i)"> <i
+                                        class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                    <span class="help-block text-danger" *ngIf="quantity.controls.udiseSchoolName.errors?.required">
+                                Enter KV/RO/ZIET/HQ !</span>
+                                </td>
+                                <td *ngIf="profileFinalStatus">
                                     <div class="input-group mb-3" style="width: 231px;margin-top: 22px;">
                                         <input type="text" class="input-group-text input" name="udiseSchCode" formControlName="udiseSchCode" disabled style="width:70px; height:33px;">
                                         <input type="text" class="form-control form-control-sm " name="udiseSchoolName" formControlName="udiseSchoolName" disabled>
@@ -47,7 +64,16 @@
                                     <span class="help-block text-danger" *ngIf="quantity.controls.udiseSchoolName.errors?.required">
                                 Enter KV/RO/ZIET/HQ !</span>
                                 </td>
-                                <td>
+                                <td *ngIf="!profileFinalStatus">
+                                    <mat-form-field style="width: 100%;">
+                                        <input matInput [matDatepicker]="si" disabled id="wordStartDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="workStartDate" (dateChange)="experienceDataManagement($event,i,1)" formControlName="workStartDate" style="text-transform: none">
+                                        <mat-datepicker-toggle matSuffix [for]="si"></mat-datepicker-toggle>
+                                        <mat-datepicker #si></mat-datepicker>
+                                    </mat-form-field>
+                                    <span class="help-block text-danger" *ngIf="quantity.controls.workStartDate.errors?.required">
+                                Select Work Start Date!</span>
+                                </td>
+                                <td *ngIf="profileFinalStatus">
                                     <mat-form-field style="width: 100%;">
                                         <input matInput [matDatepicker]="si" id="wordStartDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="workStartDate" (dateChange)="experienceDataManagement($event,i,1)" formControlName="workStartDate" style="text-transform: none">
                                         <mat-datepicker-toggle matSuffix [for]="si"></mat-datepicker-toggle>
@@ -56,7 +82,16 @@
                                     <span class="help-block text-danger" *ngIf="quantity.controls.workStartDate.errors?.required">
                                 Select Work Start Date!</span>
                                 </td>
-                                <td>
+                                <td *ngIf="!profileFinalStatus">
+                                    <mat-form-field style="width: 100%;">
+                                        <input matInput [matDatepicker]="ei" disabled id="wordEndDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="workStartDate" (dateChange)="experienceDataManagement($event,i,2)" formControlName="workEndDate" style="text-transform: none">
+                                        <mat-datepicker-toggle matSuffix [for]="ei"></mat-datepicker-toggle>
+                                        <mat-datepicker #ei></mat-datepicker>
+                                    </mat-form-field>
+                                    <span class="help-block text-danger" *ngIf="quantity.controls.workEndDate.errors?.required">
+                                Enter Work End Date!</span>
+                                </td>
+                                <td *ngIf="profileFinalStatus">
                                     <mat-form-field style="width: 100%;">
                                         <input matInput [matDatepicker]="ei" id="wordEndDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="workStartDate" (dateChange)="experienceDataManagement($event,i,2)" formControlName="workEndDate" style="text-transform: none">
                                         <mat-datepicker-toggle matSuffix [for]="ei"></mat-datepicker-toggle>
@@ -65,7 +100,18 @@
                                     <span class="help-block text-danger" *ngIf="quantity.controls.workEndDate.errors?.required">
                                 Enter Work End Date!</span>
                                 </td>
-                                <td>
+                                <td *ngIf="!profileFinalStatus">
+                                    <select class="form-select form-select-sm" aria-label="Default select example" disabled name="positionType" formControlName="positionType" value="positionHeld" (blur)="teacherTypeSelectExp($event,i)">
+                                <option selected disabled>Select</option>
+                                <option
+                                    *ngFor="let data of teacherTypeDataNameCode; let i=index;"
+                                    value="{{data.teacherTypeId}}">{{data.nameCode}}
+                                </option>
+                            </select>
+                                    <span class="help-block text-danger" *ngIf="quantity.controls.positionType.errors?.required">
+                                Select Position Held!</span>
+                                </td>
+                                <td *ngIf="profileFinalStatus">
                                     <select class="form-select form-select-sm" aria-label="Default select example" name="positionType" formControlName="positionType" value="positionHeld" (blur)="teacherTypeSelectExp($event,i)">
                                 <option selected disabled>Select</option>
                                 <option
@@ -76,7 +122,19 @@
                                     <span class="help-block text-danger" *ngIf="quantity.controls.positionType.errors?.required">
                                 Select Position Held!</span>
                                 </td>
-                                <td>
+                                <td *ngIf="!profileFinalStatus">
+                                    <select class="form-select form-select-sm" aria-label="Default select example" disabled name="appointedForSubject" id="appointedSubject-{{i}}" formControlName="appointedForSubject">
+                                <option  >Select</option>
+                                <option
+                                    *ngFor="let data of subjectListNameCode2[i]; let j=index;"
+                                    value="{{data.subjectCode}}">
+                                    {{data.subNameCode}}
+                                </option>
+                            </select>
+                                    <span class="help-block text-danger" *ngIf="quantity.controls.appointedForSubject.errors?.required">
+                                Select appointed for subject!</span>
+                                </td>
+                                <td *ngIf="profileFinalStatus">
                                     <select class="form-select form-select-sm" aria-label="Default select example" name="appointedForSubject" id="appointedSubject-{{i}}" formControlName="appointedForSubject">
                                 <option  >Select</option>
                                 <option
@@ -88,7 +146,18 @@
                                     <span class="help-block text-danger" *ngIf="quantity.controls.appointedForSubject.errors?.required">
                                 Select appointed for subject!</span>
                                 </td>
-                                <td>
+                                <td *ngIf="!profileFinalStatus">
+                                    {{groundForTransfer}}
+                                    <!-- <mat-form-field appearance="fill"> -->
+                                    <select class="form-select form-select-sm" disabled formControlName="groundForTransfer" name="groundForTransfer">
+                                        <option></option>
+                                            <option *ngFor="let ground of transferGroundList" [value]="ground?.transferGroundId"> {{ground?.transferGroundType}}</option>
+                                        </select>
+                                    <!-- <span class="help-block text-danger" *ngIf="quantity.controls.groundForTransfer.errors?.required">
+                                    Select transfer ground!</span> -->
+                                    <!-- </mat-form-field> -->
+                                </td>
+                                <td *ngIf="profileFinalStatus">
                                     {{groundForTransfer}}
                                     <!-- <mat-form-field appearance="fill"> -->
                                     <select class="form-select form-select-sm" formControlName="groundForTransfer" name="groundForTransfer">

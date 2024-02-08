@@ -447,6 +447,7 @@ export class BasicProfileComponent implements OnInit {
     }, 200);
   }
     getAllMaster() {
+      debugger;
 
     this.outSideService.fetchAllMaster(6).subscribe((res) => {
       this.teacherTypeData = res.response.postionType;
@@ -515,7 +516,8 @@ export class BasicProfileComponent implements OnInit {
   }
 
   teacherTypeSelect(event) {
-    console.log(event.target.value)
+    debugger;
+    console.log('Staff type test', event.target.value)
     if (event.target.value != 22 && event.target.value != 23 && event.target.value != 10 && event.target.value != 12 && event.target.value != 24 && event.target.value != 11 && event.target.value != '22' && event.target.value != '23' && event.target.value != '11' && event.target.value != '24') {
       this.basicProfileForm.patchValue({
           staffType: '2'
