@@ -10,16 +10,17 @@
             <li class="breadcrumb-item"><a >User Details</a></li>
         </ol>
     </nav>
-    <div class="dashboard-main-content-info p-5">
+    <div class="row justify-content-center  d-flex" >
+        <div class="col-lg-7 col-md-9 col-sm-12">
+    <div class="dashboard-main-content-info p-3">
         <div class="tab-content" id="myTabContent">
-            <div class="row justify-content-center d-flex">
-                <div class="col-lg-10">
-                    <div class="card p-3" *ngIf="businessUnitTypeId!='5'">
+        
+                    <div class="" *ngIf="businessUnitTypeId!='5'">
                         <form id="msform" [formGroup]="addInstituteForm" (ngSubmit)="onSubmit()">
                             <div class="pb-2 mt-2  row  m-0">
-                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Institution type<span class="required-asterisk">*</span></label>
-                                <div class="col-sm-3">
-
+                              
+                                <div class="col-sm-6">
+                                    <label for="staticEmail" class="d-block col-form-label text-start">Institution type<span class="required-asterisk">*</span></label>
                                     <select class="form-select" aria-label="Default select example" name="instituteType" formControlName="instituteType" (change)="getStationByRegionId($event)" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.instituteType.errors }">
                         <!-- <option selected >Select Institute Type</option> -->
                         <option *ngFor="let data of instituteType"
@@ -28,8 +29,9 @@
                                     <div *ngIf="addInstituteFormubmitted && f.instituteType.errors" class="invalid-feedback">Institute type is required</div>
                                 </div>
 
-                                <label for="staticEmail" class="col-sm-2 col-form-label text-end ">Institution List<span class="required-asterisk">*</span> </label>
-                                <div class="col-sm-3" *ngIf="(businessUnitTypeId =='2' || businessUnitTypeId =='5')   && schoolType !='4'">
+                                <div class="col-sm-6" *ngIf="(businessUnitTypeId =='2' || businessUnitTypeId =='5')   && schoolType !='4'">
+                                    
+                                <label for="staticEmail" class="d-block col-form-label text-start ">Institution List<span class="required-asterisk">*</span> </label>
                                     <select class="form-select " aria-label="Default select example" #institutelist (change)="getUserNameForInstitute(institutelist.value)" formControlName="instituteCode" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.instituteCode.errors }">
                         <option selected >Select Institute Lists </option>
                         <option *ngFor="let data of regionList; let i=index;" value="{{data.regionCode}}/{{data.regionName}}/{{data.kvCode}}">
@@ -39,7 +41,7 @@
                                     <div *ngIf="addInstituteFormubmitted && f.instituteCode.errors" class="invalid-feedback">Institute list is required</div>
                                 </div>
 
-                                <div class="col-sm-3" *ngIf="businessUnitTypeId=='3'  || (businessUnitTypeId=='2' && schoolType =='4') ">
+                                <div class="col-sm-6" *ngIf="businessUnitTypeId=='3'  || (businessUnitTypeId=='2' && schoolType =='4') ">
                                     <select class="form-select " aria-label="Default select example" #institutelist (change)="getUserNameForSchool(institutelist.value)" formControlName="instituteCode" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.instituteCode.errors }">
                       <option selected >Select Institute List </option>
                       <option *ngFor="let data of regionList; let i=index;" value="{{data.kvCode}}/{{data.kvName}}">
@@ -51,16 +53,16 @@
                             </div>
 
                             <div class="pb-2 mt-2  row  m-0">
-                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">User Name<span class="required-asterisk">*</span></label>
-                                <div class="col-sm-3">
-
+                               
+                                <div class="col-sm-6">
+                                    <label for="staticEmail" class="d-block col-form-label  text-start">User Name<span class="required-asterisk">*</span></label>
                                     <input type="text" class="form-control" id="userName" [readonly]="true" formControlName="userName" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">User name is required</div>
                                 </div>
 
-                                <label for="staticEmail" class="col-sm-2 col-form-label text-end">Email Id<span class="required-asterisk">*</span></label>
-                                <div class="col-sm-3">
-
+                              
+                                <div class="col-sm-6">
+                                    <label for="staticEmail" class="d-block col-form-label text-start ">Email Id<span class="required-asterisk">*</span></label>
                                     <input type="text" class="form-control" id="Email" formControlName="Email" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Email.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.Email.errors" class="invalid-feedback">Email is required</div>
                                 </div>
@@ -68,8 +70,9 @@
 
 
                             <div class="pb-2 mt-2  row  ">
-                                <label for="staticEmail" class="col-sm-2 col-form-label text text-end ">Mobile No<span class="required-asterisk">*</span></label>
-                                <div class="col-sm-3">
+                               
+                                <div class="col-sm-6">
+                                    <label for="staticEmail" class="d-block col-form-label text text-start ">Mobile No<span class="required-asterisk">*</span></label>
 
                                     <input type="text" class="form-control" onKeyPress="if(this.value.length==10 ) return false;" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile no  is required</div>
@@ -80,31 +83,34 @@
                         </form>
                     </div>
                     <!---------------------------Form Open For school businessUnitTypeId ==5 ---------------------------->
-                    <div class="card p-3" *ngIf="businessUnitTypeId=='5'">
+                    <div class="" *ngIf="businessUnitTypeId=='5'">
                         <form id="msform" [formGroup]="addInstituteForm" (ngSubmit)="onSubmit()"  autocomplete="off">
                             <div class="pb-2 mt-2  row  m-0">
-                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Employee Code <span class="required-asterisk">*</span></label>
-                                <div class="col-sm-3">
+                               
+                                <div class="col-sm-6">
+                                    <label for="staticEmail" class="col-form-label d-block  text-start">Employee Code <span class="required-asterisk">*</span></label>
                                     <input type="text" class="form-control" autocomplete="off" (keypress)="omit_special_char_empCode($event)" onKeyPress="if(this.value.length==8) return false;" id="userName" formControlName="userName" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Employee Code is required</div>
                                 </div>
-                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Employee Name <span class="required-asterisk">*</span></label>
-                                <div class="col-sm-3">
+                           
+                                <div class="col-sm-6">
+                                    <label for="staticEmail" class="d-block col-form-label  text-start">Employee Name <span class="required-asterisk">*</span></label>
                                     <input type="text" autocomplete="off"  class="form-control" (keypress)="omit_special_char($event)" id="firstname" formControlName="firstname" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.firstname.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.firstname.errors" class="invalid-feedback">Employee Name is required</div>
                                 </div>
 
                             </div>
                             <div class="pb-2 mt-2  row  m-0">
-                                <label for="staticEmail" class="col-sm-2 col-form-label text-end">Email Id <span class="required-asterisk">*</span></label>
-                                <div class="col-sm-3">
+                              
+                                <div class="col-sm-6">
+                                    <label for="staticEmail" class="d-block col-form-label text-start">Email Id <span class="required-asterisk">*</span></label>
 
                                     <input type="text" class="form-control" id="Email"  autocomplete="off" formControlName="Email" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Email.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.Email.errors" class="invalid-feedback">Email is required</div>
                                 </div>
-                                <label for="staticEmail" class="col-sm-2 col-form-label text-end">Mobile No. <span class="required-asterisk">*</span></label>
-                                <div class="col-sm-3">
-
+                                
+                                <div class="col-sm-6">
+                                    <label for="staticEmail" class="d-block col-form-label text-start ">Mobile No. <span class="required-asterisk">*</span></label>
                                     <input type="text" class="form-control" autocomplete="off" (keypress)="omit_special_char_mobile($event)" onKeyPress="if(this.value.length==10) return false;" id="Mobile" formControlName="Mobile" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Mobile.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.Mobile.errors" class="invalid-feedback">Mobile No is required</div>
                                     <!-- <div *ngIf="f.Mobile.hasError('whitespace')">Mobile number cannot contain only whitespace.</div> -->
@@ -116,8 +122,9 @@
                             </div>
 
                             <div class="pb-2 mt-2  row  m-0">
-                                <label for="staticEmail" class="col-sm-2 col-form-label ps-0 text-end">Designation<span class="required-asterisk">*</span></label>
-                                <div class="col-sm-3">
+                               
+                                <div class="col-sm-6">
+                                    <label for="staticEmail" class="d-block col-form-label text-start">Designation<span class="required-asterisk">*</span></label>
                                     <select class="form-select" aria-label="Default select example" name="Designation" formControlName="Designation" (change)="teacherTypeSelect($event)" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.Designation.errors }">
                                       
                                         <option *ngFor="let data of teacherTypeDataNameCode"
