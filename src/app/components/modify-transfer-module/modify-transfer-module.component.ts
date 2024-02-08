@@ -150,7 +150,7 @@ export class ModifyTransferModuleComponent implements OnInit {
       "TransferRegionZietHq": new FormControl(''),
       "transferOrderNumber": new FormControl(''),
       "transferOrderdate": new FormControl(''),
-
+      "transferYear": new FormControl(''),
     });
     this.modificationEditForm = new FormGroup({
       'modifyTransferRegion':  new FormControl(''),
@@ -162,6 +162,7 @@ export class ModifyTransferModuleComponent implements OnInit {
       "ModifyTransferRegionZietHq": new FormControl(''),
       "transferOrderNumber": new FormControl(''),
       "transferOrderdate": new FormControl(''),
+      "transferYear": new FormControl(''),
     });  
     this.cancelEditForm = new FormGroup({
       'cancelTransferOrderNumber':  new FormControl(''),
@@ -698,6 +699,13 @@ disableDate() {
      } )
      return false;
   }
+  if(this.adminTransferEditForm.value.transferYear=='' || this.adminTransferEditForm.value.transferYear==null){
+    Swal.fire({
+      'icon':'error',
+      'text':'Please fill transfer year.'
+     } )
+     return false;
+  }
    var data =  {
       "empName":this.editEmpName,
       "empCode":this.editEmpCode,
@@ -710,6 +718,7 @@ disableDate() {
       "stationNameAlloted": this.selectStationName,
       "allotShift": this.selectedShiftYN,
       "inityear": this.selectYear,
+      "transferYear":this.adminTransferEditForm.value.transferYear,
       "allotKvCode":this.selectedKvCode,
       "kvNameAlloted": this.selectedKvname,
       "trasndferOrderDate":this.adminTransferEditForm.value.transferOrderdate,
@@ -849,6 +858,13 @@ if(this.modificationEditForm.value.transferOrderdate=='' || this.modificationEdi
    } )
    return false;
 }
+if(this.modificationEditForm.value.transferYear=='' || this.modificationEditForm.value.transferYear==null){
+  Swal.fire({
+    'icon':'error',
+    'text':'Please fill transfer year.'
+   } )
+   return false;
+}
  var data =  {
   "empName":this.editModifyEmpName,
   "empCode":this.editModifyEmpCode,
@@ -862,7 +878,7 @@ if(this.modificationEditForm.value.transferOrderdate=='' || this.modificationEdi
   "allotShift": this.selectedShiftYN,
   "allotKvCode":this.selectedKvCode,
   "isAdminTransfer":true,
-  "transferYear": this.selectYear,
+  "transferYear":this.modificationEditForm.value.transferYear,
   "kvNameAlloted": this.selectedKvname,
   "trasndferOrderDate":this.modificationEditForm.value.transferOrderdate,
   "transferOrderNumber":this.modificationEditForm.value.transferOrderNumber

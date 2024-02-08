@@ -25,15 +25,17 @@ export class TransferRelatedDocComponent implements OnInit {
   enableUploadButton4: boolean = false;
   randonNumber: any;
   image2: any[] = [];
+  docList: any[] = [];
   deleteDocUpdate4: boolean = true;
   imageName: any=[];
   isVisible: boolean = false;
+  formData: FormData;
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal) { }
   dataSource:any;
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
-  displayedColumns:any = ['sno','ticketId','subject','InitiateDate','InitiateTo','Status','resolvedBy','Action'];
+  displayedColumns:any = ['sno','Type','Description','OrderDate','Year','Action'];
 
-  testData ={ "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "", "ticketToId": "","ticketStatus":"","ticketResolvedBy":"" };
+  testData ={ "sno": "", "transferOrderNumber": "","fileType":"", "description": "", "transferOrderDate": "","inityear":""};
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;      
 
@@ -49,52 +51,61 @@ export class TransferRelatedDocComponent implements OnInit {
       'transferType':new FormControl('', Validators.required),
       'transferYear': new FormControl('', Validators.required),
       'transferOrderNumber': new FormControl('', Validators.required),
-      'transferOrderDate': new FormControl(''),
+      'transferOrderDate':  new FormControl('', Validators.required),
+      'description': new FormControl('', Validators.required),
       'fileUpload': new FormControl(''),
     });
  
-    this.getInitiatedTicket();
+    this.getDocument();
   }
-  getInitiatedTicket(){
-    // var data={
-    //  "teacherEmployeeCode":this.loginUserNameForChild
-    //  }
-    //  this.outSideService.getInitiatedTicket(data).subscribe((res)=>{
-    //    this.ticketList=[];
-    //    if(res.length>0){
-    //        for (let i = 0; i < res.length; i++) {
-    //          this.testData.sno = '' + (i + 1) + '';
-    //          this.testData.ticketId = res[i].ticketId;   
-    //          this.testData.ticketSubject = res[i].ticketSubject;
-    //          this.testData.ticketdateTime = res[i].ticketdateTime;
-    //          this.testData.ticketToId = res[i].ticketToId;    
-    //          if(res[i].ticketStatus==0 || res[i].ticketStatus=='0'){
-    //            this.testData.ticketStatus='In Process';
-    //          }else if(res[i].ticketStatus=='1' || res[i].ticketStatus==1){
-    //            this.testData.ticketStatus='Resolved';
-    //          }
-    //          else if(res[i].ticketStatus=='2' || res[i].ticketStatus==2){
-    //            this.testData.ticketStatus='Rejected';
-    //          }
-    //          this.testData.ticketResolvedBy = res[i].ticketResolvedBy;    
-    //          this.ticketList.push(this.testData);
-    //          this.testData = { "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "", "ticketToId": "","ticketStatus":"","ticketResolvedBy":"" };
-    //        }
-    //    }
-    //    setTimeout(() => {
-    //      this.dataSource = new MatTableDataSource(this.ticketList);
-    //      this.dataSource.paginator = this.paginator;
-    //      this.dataSource.sort = this.sort;
-    //    }, 100)
+  getDocument(){
+    var data={
+     "teacherEmployeeCode":this.loginUserNameForChild
+     }
+     this.outSideService.getUploadedDocument().subscribe((res)=>{
+      console.log(res)
+       this.docList=[];
+       if(res.length>0){
+           for (let i = 0; i < res.length; i++) {
+             this.testData.sno = '' + (i + 1) + '';
+             this.testData.transferOrderNumber = res[i].transferOrderNumber;   
+             if( res[i].fileType=='1'){
+              this.testData.fileType ='Promotion Transfer Order';
+             }
+             if( res[i].fileType=='2'){
+              this.testData.fileType ='Admin Transfer Order';
+             }
+             if( res[i].fileType=='3'){
+              this.testData.fileType ='Request Transfer Order';
+             }
+             if( res[i].fileType=='4'){
+              this.testData.fileType ='cancel Transfer Order';
+             }
+            
+             this.testData.description = res[i].description;
+             this.testData.transferOrderDate = res[i].transferOrderDate;    
+
+
+             this.testData.inityear = res[i].inityear;  
+   
+             this.docList.push(this.testData);
+             this.testData = { "sno": "", "transferOrderNumber": "","fileType":"", "description": "", "transferOrderDate": "","inityear":""};
+           }
+       }
+       setTimeout(() => {
+         this.dataSource = new MatTableDataSource(this.docList);
+         this.dataSource.paginator = this.paginator;
+         this.dataSource.sort = this.sort;
+       }, 100)
       
-    //  },
-    //  error => {
-    //    Swal.fire({
-    //      'icon':'error',
-    //      'text':error.error
-    //    }
-    //    )
-    //  })
+     },
+     error => {
+       Swal.fire({
+         'icon':'error',
+         'text':error.error
+       }
+       )
+     })
    }
    applyFilter(filterValue: string) {
      filterValue = filterValue.trim();
@@ -103,17 +114,20 @@ export class TransferRelatedDocComponent implements OnInit {
    }
   fileToUpload: File | null = null;
   handleFileInput(files: FileList, index) {
+    debugger
     this.documentUploadArray[index] = { "Action":'' };
     console.log( this.documentUploadArray)
     this.fileUpload = true;
     this.fileName = files.item(0).name;
     var splitted = this.fileName.split('.', 2)
     this.fileNameWithoutExt=splitted[0];
-    if (splitted[1].toUpperCase() == 'JPG' || splitted[1].toUpperCase() == 'JPEG' ) {
+    if (splitted[1].toUpperCase() == 'PDF' || splitted[1].toUpperCase() == 'pdf' ) {
       if (files.item(0).size <= 512000) {
+        alert("set file");
         this.fileToUpload = files.item(0);
          if (index == '4') {
           this.enableUploadButton4 = true;
+          this.fileUpload = false;
         }
       } else {
         this.fileToUpload = null;
@@ -122,90 +136,83 @@ export class TransferRelatedDocComponent implements OnInit {
           '',
           'error'
         )
-        if (index == '4') {
-          this.enableUploadButton4 = true;
-        }
+       
       }
 
     } else {
       this.fileToUpload = null;
       Swal.fire(
-        'Only JPG file can be uploaded',
+        'Only PDF file can be uploaded',
         '',
         'error'
       )
-      if (index == '4') {
-        this.enableUploadButton4 = true;
-      }
     }
   }
-  documentUpload(index) {
+  documentUpload() {
     debugger
-    if( this.image2.length>4){
+ 
+}
+downloadDocumnet(value:any){
+  console.log(value)
+  var data={"docId":value}
+  
+  this.outSideService.downloadUploadDocumentById(data).subscribe((res)=>{
+    console.log(res)
+    if(res){
       Swal.fire(
-        'You  can upload Only 5 Images !',
+        'Document upload successfully!',
         '',
-        'error'
+        'success'
       )
-      return false;
     }
-    this.fileUpload = true;
-    if(this.fileNameWithoutExt==''){
-      Swal.fire(
-        'Select JPG to be uploaded !',
-        '',
-        'error'
+   },
+    error => {
+      Swal.fire({
+        'icon':'error',
+        'text':error.error
+      }
       )
-      return false;
-    }
+    })
+}
+downloadDocument(){}
+  // getDocumentByFolderId(){
+  //   var data={"folderId": this.randonNumber}
+  //   this.image2=[];
+  //   this.imageName=[];
+  //   this.outSideService.getDocumentByFolderId(data).subscribe((res) => {
+  //    this.image2=res;
+  //    if(res.length>0){
+  //     this.fileUpload = false;
+  //     this.isVisible = true;
+  //    }
+  //   })
+  // }
+  submit(){
     const formData = new FormData();
-    if (this.fileToUpload != null) {
-      formData.append('teacherId', this.tempTeacherId);
+      alert( this.fileToUpload.size);
       formData.append('file', this.fileToUpload);
-      if(this.randonNumber=='' || this.randonNumber==null || this.randonNumber=='undefined' || this.randonNumber==undefined)  {
-        this.randonNumber= Math.floor(100000 + Math.random() * 900000)
-      } 
-      formData.append('folderId', this.randonNumber); 
-      formData.append('filename', this.fileNameWithoutExt);
-      console.log(formData)
-      this.outSideService.uploadTicketDocument(formData).subscribe((res) => {
-        this.fileUpload = false;
-        
+      formData.append('inityear', this.transferRelatedDocForm.value.transferYear);
+      formData.append('type', this.transferRelatedDocForm.value.transferType);
+      formData.append('orderName',  this.transferRelatedDocForm.value.transferOrderNumber); 
+      formData.append('orderDate',  this.transferRelatedDocForm.value.transferOrderDate); 
+      formData.append('description', this.transferRelatedDocForm.value.description);
+
+    this.outSideService.fileUpload(formData).subscribe((res)=>{
+      console.log(res)
+      if(res){
         Swal.fire(
-          'Document Upload Sucessfully',
+          'Document upload successfully!',
           '',
           'success'
         )
-        this.documentUploadArray[index] = { "Action":'upload' };
-
-       if (index == 4) {
-          this.deleteDocUpdate4 = false
+      }
+     },
+      error => {
+        Swal.fire({
+          'icon':'error',
+          'text':error.error
         }
-      this.getDocumentByFolderId()
+        )
       })
-    } else {
-      Swal.fire(
-        'Select JPG to be uploaded !',
-        '',
-        'error'
-      )
     }
-  }
-  getDocumentByFolderId(){
-    var data={"folderId": this.randonNumber}
-    this.image2=[];
-    this.imageName=[];
-    this.outSideService.getDocumentByFolderId(data).subscribe((res) => {
-     this.image2=res;
-     if(res.length>0){
-      this.fileUpload = false;
-      this.isVisible = true;
-     }
-    })
-  }
-  submit(){
-
-  }
-
- 
 }
