@@ -89,7 +89,7 @@ export const environment = {
   BASE_URL_DATA_API_FILETRANSFER:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/filetransfer/',
   BASE_URL_DATA_API_TICKET:'https://demopgi.udiseplus.gov.in/MOE-RAD-TICKET/api/ticket/',
   BASE_URL_DATA_TEACHER_TRANSFER_V2: 'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/teacher/transfer/',
-
+  BASE_URL_DATA_REPORT: 'https://demopgi.udiseplus.gov.in/kv-report/api/',
 
 
 

@@ -178,6 +178,13 @@ export class BasicProfileComponent implements OnInit {
      k = event.charCode;
      return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32);
   }
+
+  omit_special_char_sEmpId(event)
+  {   
+     var k;  
+     k = event.charCode;
+     return((k >= 48 && k <= 57)); 
+  }  
   copyCurrentAdd() {
     
     let copyAddress = this.basicProfileForm.get('copyAddress')?.value;
@@ -909,6 +916,8 @@ export class BasicProfileComponent implements OnInit {
         return false;
         });
 }
+
+
 
 
 // downloadDocument(url) {

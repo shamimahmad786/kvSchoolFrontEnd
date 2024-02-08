@@ -60,25 +60,30 @@
 
                     <div class="left d-flex align-items-center w-100 border-bottom pb-1 mb-3">
                         <img src="assets/img/card-logo.svg" class="img-fluid" style="top: -10px; position: relative;">
-                        <h2 class="text-white ms-2 card-title mb-1"><strong>{{dashboardDetails?.kvName}}</strong> <span class="d-block card-desc">{{dashboardDetails?.stationName}}</span></h2>
+                        <h2 class="text-white ms-2 card-title mb-1"><strong>{{dashboardDetails?.kvName}}</strong> ({{dashboardDetails?.kvCode}}) <span class="d-block card-desc">{{dashboardDetails?.stationName}} ({{dashboardDetails?.stationCode}}) </span>  </h2>
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-3">
+                        <!-- <div class="col-sm-3">
                             <h2 class="text-white card-title">KV/RO/ZIET/HQ - Code<span class="d-block card-desc">{{dashboardDetails?.kvCode}}</span></h2>
-                        </div>
+                        </div> -->
 
-                        <div class="col-sm-3">
+                        <!-- <div class="col-sm-3">
+                            <h2 class="text-white card-title">Region Name (Code) <span class="d-block card-desc">{{dashboardDetails?.regionName}}({{dashboardDetails?.regionCode}})</span></h2>
+                        </div> -->
+
+                        <div class="col-sm-2">
                             <h2 class="text-white card-title">Region Name (Code) <span class="d-block card-desc">{{dashboardDetails?.regionName}}({{dashboardDetails?.regionCode}})</span></h2>
                         </div>
 
-                        <div class="col-sm-3">
-                            <h2 class="text-white card-title">Region Name (Code) <span class="d-block card-desc">{{dashboardDetails?.regionName}}({{dashboardDetails?.regionCode}})</span></h2>
+                        <div class="col-sm-2">
+                            <h2 class="text-white card-title ">Address<span class="d-block card-desc">{{dashboardDetails?.schoolAddress}}</span></h2>
+                         
                         </div>
 
-                        <div class="col-sm-3">
+                        <!-- <div class="col-sm-3">
                             <h2 class="text-white card-title">Station Name (Code) <span class="d-block card-desc">{{dashboardDetails?.stationName}}({{dashboardDetails?.stationCode}})</span></h2>
-                        </div>
+                        </div> -->
 
                         <div class="col-sm-3">
                             <h2 class="text-white ms-0 me-2 card-title">Controlling Officer <span class="d-block card-desc">{{dashboardDetails?.employeeName}}</span></h2>
@@ -89,15 +94,12 @@
                          
                         </div>
 
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <h2 class="text-white card-title me-2">Mobile  <span class="d-block card-desc">{{dashboardDetails?.teacherMobile}}</span></h2>
                          
                         </div>
 
-                        <div class="col-sm-3">
-                            <h2 class="text-white card-title ">Address<span class="d-block card-desc">{{dashboardDetails?.schoolAddress}}</span></h2>
-                         
-                        </div>
+                      
 
                     </div>
 
@@ -115,7 +117,7 @@
             <li class="card p-3 rounded-3 mb-3">
         
                     <div class="row ">
-                        <div class="col-sm-6 ">
+                        <div class="col-sm-6 mb-3">
                             <div class="table-responsive">
                             <table class="table1 table-bordered">
                                 <thead>
@@ -224,21 +226,21 @@
             </li>
             <li >
                 <div>
-                    <img src="assets/assets/img/pending-school.png" class="mb-2" />
+                    <img src="assets/assets/img/not-verified-staff.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Not Verified Staff </h4>
                     <h2 class="font64989985 mb-0">{{dashboardDetails?.noOfTeacherPending}}</h2>
                 </div>
             </li>
             <li >
                 <div>
-                    <img src="assets/assets/img/pending-staff.png" class="mb-2" />
+                    <img src="assets/assets/img/employee-relieving-pending.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Employee Relieving Pending</h4>
                     <h2 class="font64989985 mb-0">{{dashboardDetails?.noOfTransferReleavingPending}}</h2>
                 </div>
             </li>
             <li >
                 <div>
-                    <img src="assets/assets/img/initiated-school.png" class="mb-2" />
+                    <img src="assets/assets/img/employee-joining-staff.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Employee Joining Pending </h4>
                     <h2 class="font64989985 mb-0">{{dashboardDetails?.noOfTransferJoiningPending}}</h2>
                 </div>

@@ -10,7 +10,7 @@
                     <div class="pe-3">
                         <h2 class="steps text-end pro-name">{{ profileTeacherName | uppercase}} </h2>
                     </div>
-                    <div><button class="btn btn-primary btn-sm">
+                    <div><button class="btn btn-primary btn-sm" [disabled]="profileFinalStatus">
                         <a href="{{exportProfileUrl}}getTeacherBasicDetailPdf?token={{token}}&username={{loginUserNameForChild}}&teacherId={{tempTeacherId}}"  style="text-decoration: none !important; color:white !important">Export To PDF</a>
                     </button></div>
                 </div>
