@@ -52,7 +52,7 @@
                 <mat-progress-spinner 
                   color="primary" 
                   mode="indeterminate">
-                </mat-progress-spinner><h3>Loading...</h3>
+                </mat-progress-spinner><h3><strong>Please wait, it can take up to few minutes.</strong></h3>
               </mat-card>
             <div class="col-lg-12" *ngIf="!isLoading">
                 <div class="row">
@@ -160,6 +160,16 @@
                     <ng-container matColumnDef="category">
                         <mat-header-cell *matHeaderCellDef>Category </mat-header-cell>
                         <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferred_under_cat}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="transferOrderNumber">
+                        <mat-header-cell *matHeaderCellDef>OrderNumber </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferOrderNumber}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="trasndferOrderDate">
+                        <mat-header-cell *matHeaderCellDef>OrderDate </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.trasndferOrderDate | date: 'dd-MM-yyyy'}}
                         </mat-cell>
                     </ng-container>
 

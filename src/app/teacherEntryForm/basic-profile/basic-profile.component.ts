@@ -236,6 +236,8 @@ export class BasicProfileComponent implements OnInit {
       this.outSideService.getEmployeeDetailV2(data).subscribe((res)=>{
       this.emplyeeData=res.response;
       if(res){
+        console.log("all profile data")
+        console.log(res);
         this.basicProfileForm.patchValue({
           fullName:  this.emplyeeData['teacherName'],
           gender: this.emplyeeData['teacherGender'],

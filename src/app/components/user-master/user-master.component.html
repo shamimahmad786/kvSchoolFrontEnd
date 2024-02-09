@@ -63,15 +63,15 @@
               </ng-container>
   
               <ng-container matColumnDef="Parent User">
-                  <th mat-header-cell *matHeaderCellDef >Parent User </th>
-                  <td mat-cell *matCellDef="let element">
+                  <th mat-header-cell *matHeaderCellDef style="text-align: center;">Parent User </th>
+                  <td mat-cell *matCellDef="let element" style="text-align: center;">
                       <span> {{element.parentuser}}</span> </td>
               </ng-container>
   
               <ng-container matColumnDef="Action" >
                   <th mat-header-cell *matHeaderCellDef style="text-align: center;" >
                       Action </th>
-                  <td mat-cell *matCellDef="let element"> <button  *ngIf="element.enabled == '1'" class="t-status-btn approved" (click)="childActiveDeactive(0,element.username)">Active</button> <button   *ngIf="element.enabled != '1'" (click)="childActiveDeactive(1,element.username)" class="t-status-btn not-initiated">Deactivate</button>&nbsp;&nbsp;<i  (click)="editChildUser(element.username,'edite')"class="bi bi-eye" style="font-size: 1.5rem; color: #7e4880;"></i></td>
+                  <td mat-cell *matCellDef="let element" style="text-align: center;"> <button  *ngIf="element.enabled == '1'" class="t-status-btn approved" (click)="childActiveDeactive(0,element.username)">Active</button> <button   *ngIf="element.enabled != '1'" (click)="childActiveDeactive(1,element.username)" class="t-status-btn not-initiated">Deactivate</button>&nbsp;&nbsp;<i  (click)="editChildUser(element.username,'edite')"class="bi bi-eye" style="font-size: 1.5rem; color: #7e4880;"></i></td>
               </ng-container>
             
               <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

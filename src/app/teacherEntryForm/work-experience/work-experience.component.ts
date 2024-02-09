@@ -429,10 +429,11 @@ export class WorkExperienceComponent implements OnInit {
     debugger
     ((this.teacherForm.get('workExperienceForm') as FormArray).at(0) as FormGroup).get('workStartDate');
     for (let i = 0; i < this.teacherForm.value.workExperienceForm.length ; i++) {
+      if(i !=index){
       var dateFrom = this.teacherForm.value.workExperienceForm[i].workStartDate;
       var dateTo = this.teacherForm.value.workExperienceForm[i].workEndDate;
       var dateCheck;
-      if(event.target.value =='undefined'){
+      if(event.target.value =='undefined' && event.target.value =='NaN'){
         dateCheck =event.target.value;
         
       }else{
@@ -446,6 +447,7 @@ export class WorkExperienceComponent implements OnInit {
       }
       if (returnType == 0) {
         debugger
+        alert(returnType)
         Swal.fire(
           'Date lies between previous experience !',
           '',
@@ -457,6 +459,7 @@ export class WorkExperienceComponent implements OnInit {
         }, 200);
       }
     }
+    }
     ((this.teacherForm.get('workExperienceForm') as FormArray).at(0) as FormGroup).get('workStartDate');
     return false;
   }
@@ -467,13 +470,13 @@ export class WorkExperienceComponent implements OnInit {
     if (check >= from) {
       return 0
     } else {
-      return 1;
+      return 1
     }
 }else if(type==2){
   if (check > from) {
     return 0
   } else {
-    return 1;
+    return 1
   }
 }
 }
@@ -482,13 +485,19 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
   var from = Math.round((new Date(dateFrom).getTime())/(3600000*24));
   var to = Math.round((new Date(dateTo).getTime())/(3600000*24));
   var check = Math.round((new Date(dateCheck).getTime())/(3600000*24));
+
+   alert(from)
+   alert(to)
+   alert(check)
   if(type==1){
     if (check >= from && check < to) {
-      return 0
-    } else {
+      return 0;
+    }
+     else {
       return 1;
     }
-  }else if(type==2){
+   }
+   else if(type==2){
     if (check > from && check < to) {
       return 0
     } else {
@@ -496,6 +505,9 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
     }
   }
 }
+
+
+
   getAllMaster() {
     this.outSideService.fetchAllMaster(6).subscribe((res) => {
       this.teacherTypeData = res.response.postionType;
