@@ -35,7 +35,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
  @ViewChild(MatSort) sort: MatSort;
   
-  testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus":"","approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileFinalStatus":"" }
+  testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus":"","approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileFinalStatus":"","transferFinalStatus":"" }
   users: any = [];
   kvTeacher: any;
   teacherList: any;
@@ -301,6 +301,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       this.testData.systchcode = data[i].teacherSystemGeneratedCode;   
       this.testData.approved = data[i].finalStatus;   
       this.testData.profileFinalStatus = data[i].profileFinalStatus;
+      this.testData.transferFinalStatus = data[i].transferFinalStatus;
       if( data[i].finalStatus=='SI')
       {
         this.testData.approvedStatus = "School Initiated"
@@ -345,7 +346,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       this.testData.postName = data[i].postName;
       this.users.push(this.testData);
     
-      this.testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus": "", "approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileFinalStatus":"" }
+      this.testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus": "", "approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileFinalStatus":"","transferFinalStatus":"" }
     }
 
     console.log("---------------user detail----------")

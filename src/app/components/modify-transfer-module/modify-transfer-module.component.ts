@@ -119,7 +119,7 @@ export class ModifyTransferModuleComponent implements OnInit {
   cancelAllotedKvCode: any;
   cancelAllotedKvTransferType: any;
   modifyTransType: any;
- 
+  transferOrderNumber:any;
   constructor(private outSideService: OutsideServicesService,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>,private router: Router,private formData: FormDataService,private modalService: NgbModal) {
     this.dateAdapter.setLocale('en-GB');
    }
@@ -169,8 +169,24 @@ export class ModifyTransferModuleComponent implements OnInit {
       'cancelTransferOrderdate':  new FormControl(''),
     });
     this.getTransferedList();
+    this.gettransferOrderNumber();
   }
-
+gettransferOrderNumber(){
+     this.outSideService.getUploadedDocument().subscribe((res)=>{
+      console.log("transfer Order number")
+      console.log(res)
+       if(res.length>0){
+           this.transferOrderNumber=res;
+       }
+     },
+     error => {
+       Swal.fire({
+         'icon':'error',
+         'text':error.error
+       }
+       )
+     })
+}
   getTransferedList(){
     let req={"type":this.selectTransferType,"transferYear":this.selectYear};
      this.adminTransferMangement=[];
@@ -413,7 +429,6 @@ export class ModifyTransferModuleComponent implements OnInit {
     this.editModifyEmpCode=empCode;
     this.editModifyEmpName=empName;
     let req={"empCode":this.editModifyEmpCode,"inityear":this.selectYear,"presentKvCode":this.presentKvCode,"allotedKvCode":this.allotedKvCode};
-    debugger
     this.outSideService.getModifiedTransferDetails(req,this.loginUserNameForChild).subscribe((res) => {
       this.modifyTransType = res['rowValue'].map(function(el) {
         var o = Object.assign({}, el);

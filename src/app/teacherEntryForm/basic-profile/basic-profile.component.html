@@ -702,7 +702,7 @@
                                         <div class="row">
                                             <div *ngIf="spouseNone && spouseKVSStation" class="col-md-6 mb-3">
                                                 <h4 class="titleSet mt-2"> Serving Spouse Employee Code<span class="required-asterisk">*</span> </h4>
-                                                <input type="text" class="form-control" name="spouseEmpCode" (blur)="getSpouseDetails($event)" id="spouseEmpCode" formControlName="spouseEmpCode">
+                                                <input type="text" class="form-control" (keypress)="omit_special_char_sEmpId($event)" onKeyPress="if(this.value.length==10) return false;" name="spouseEmpCode" (blur)="getSpouseDetails($event)" id="spouseEmpCode" formControlName="spouseEmpCode">
                                             </div>
                                             <div *ngIf="spouseNone" class="col-md-6 mb-3">
                                                 <h4 class="titleSet mt-2"> Serving Spouse Name<span class="required-asterisk">*</span> </h4>

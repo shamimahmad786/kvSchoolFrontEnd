@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-transfer-related-doc',
   templateUrl: './transfer-related-doc.component.html',
@@ -30,22 +31,26 @@ export class TransferRelatedDocComponent implements OnInit {
   imageName: any=[];
   isVisible: boolean = false;
   formData: FormData;
+  downloadDocUrl: any;
+  token: any;
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal) { }
   dataSource:any;
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
   displayedColumns:any = ['sno','Type','Description','OrderDate','Year','Action'];
 
-  testData ={ "sno": "", "transferOrderNumber": "","fileType":"", "description": "", "transferOrderDate": "","inityear":""};
+  testData ={ "sno": "", "transferOrderNumber": "","docURLName":"","fileType":"", "description": "", "transferOrderDate": "","inityear":""};
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;      
 
   ngOnInit(): void {
+    this.downloadDocUrl=environment.BASE_URL_FILE_MANAGEMENT;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
       this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
       this.teacherName=JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].firstname+' '+JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].lastname;
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
     }
+    this.token =JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token;
     this.tempTeacherId = sessionStorage.getItem('kvTeacherId');
     this.transferRelatedDocForm = this.fb.group({
       'transferType':new FormControl('', Validators.required),
@@ -59,9 +64,6 @@ export class TransferRelatedDocComponent implements OnInit {
     this.getDocument();
   }
   getDocument(){
-    var data={
-     "teacherEmployeeCode":this.loginUserNameForChild
-     }
      this.outSideService.getUploadedDocument().subscribe((res)=>{
       console.log(res)
        this.docList=[];
@@ -69,6 +71,7 @@ export class TransferRelatedDocComponent implements OnInit {
            for (let i = 0; i < res.length; i++) {
              this.testData.sno = '' + (i + 1) + '';
              this.testData.transferOrderNumber = res[i].transferOrderNumber;   
+             this.testData.docURLName = this.downloadDocUrl+"downloadUploadDocumentById?fileId="+res[i].transferOrderNumber+"&docId="+this.token+"&username="+JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
              if( res[i].fileType=='1'){
               this.testData.fileType ='Promotion Transfer Order';
              }
@@ -89,7 +92,7 @@ export class TransferRelatedDocComponent implements OnInit {
              this.testData.inityear = res[i].inityear;  
    
              this.docList.push(this.testData);
-             this.testData = { "sno": "", "transferOrderNumber": "","fileType":"", "description": "", "transferOrderDate": "","inityear":""};
+             this.testData = { "sno": "", "transferOrderNumber": "","docURLName":"","fileType":"", "description": "", "transferOrderDate": "","inityear":""};
            }
        }
        setTimeout(() => {
@@ -135,10 +138,8 @@ export class TransferRelatedDocComponent implements OnInit {
           'File size allowed upto 5MB only !',
           '',
           'error'
-        )
-       
+        ) 
       }
-
     } else {
       this.fileToUpload = null;
       Swal.fire(
@@ -155,7 +156,6 @@ export class TransferRelatedDocComponent implements OnInit {
 downloadDocumnet(value:any){
   console.log(value)
   var data={"docId":value}
-  
   this.outSideService.downloadUploadDocumentById(data).subscribe((res)=>{
     console.log(res)
     if(res){

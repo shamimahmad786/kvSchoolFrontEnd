@@ -303,11 +303,7 @@
                                             <label class="mb-1"> Transfer Order Number<span class="required-asterisk">*</span></label>
                                             <input list="browsers"  class="form-control form-control-sm" id="orderno" formControlName="transferOrderNumber" >
                                             <datalist id="browsers">
-                                                <option value="Edge">
-                                                <option value="Firefox">
-                                                <option value="Chrome">
-                                                <option value="Opera">
-                                                <option value="Safari">
+                                                <option  *ngFor="let data of transferOrderNumber; let i=index;" value=" {{data.transferOrderNumber}}">
                                               </datalist>
                                         </div>
                                         <div class="col-md-4 mb-2">
@@ -516,11 +512,7 @@
                                                 <label class="mb-1"> Transfer Order Number<span class="required-asterisk">*</span></label>
                                                 <input list="browsers"  class="form-control form-control-sm" id="orderno" formControlName="transferOrderNumber" >
                                                 <datalist id="browsers">
-                                                    <option value="Edge">
-                                                    <option value="Firefox">
-                                                    <option value="Chrome">
-                                                    <option value="Opera">
-                                                    <option value="Safari">
+                                                    <option  *ngFor="let data of transferOrderNumber; let i=index;" value=" {{data.transferOrderNumber}}">
                                                   </datalist>
                                             </div>
                                             <div class="col-md-4 mb-2">

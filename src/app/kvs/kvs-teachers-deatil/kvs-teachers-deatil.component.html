@@ -84,7 +84,7 @@
                                 <mat-cell *matCellDef="let row" [style.color]="row.color" class="IconBx"> <span class="mobile-label">Action : </span>
                                     <i *ngIf="row.profileFinalStatus != 'SA'" class='bx bx-edit-alt bxStyle1 mr-2 edit-btn small-buton' title="Edit" (click)="onViewClick(row.empcode)">{{row.a}}</i>
                                     <i *ngIf="row.profileFinalStatus === 'SA'" class='bx bx-show bxStyle1 mr-2 edit-btn small-buton' title="View" (click)="onViewClick(row.empcode)">{{row.a}}</i>
-                                    <i *ngIf="row.profileFinalStatus == 'SA'" class="fa fa-lock reset-btn small-buton" title="Reset" aria-hidden="true" style="cursor: pointer;" (click)="onResetClick(row.teacherId)"></i>
+                                    <i *ngIf="row.transferFinalStatus != 'TS' && row.transferFinalStatus != 'TE' && row.transferFinalStatus != 'TS'" class="fa fa-lock reset-btn small-buton" title="Reset" aria-hidden="true" style="cursor: pointer;" (click)="onResetClick(row.teacherId)"></i>
                                 </mat-cell>
                             </ng-container>
                             <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
