@@ -153,6 +153,12 @@
                                     <td *ngIf="profileFinalStatus">
                                         <label>Position Held:</label> &nbsp;{{verifyTchTeacherProfileData?.lastPromotionPositionType}} <input class="form-check-input" type="checkbox" value=""  formControlName="lastPromotionPositionType" id="lastPromotionPositionType">
                                     </td>
+                                    <td *ngIf="!profileFinalStatus">
+                                        <label>DOJ in Present Station Irrespective of Cadre:</label> &nbsp;{{verifyTchTeacherProfileData?.workExperiencePositionTypePresentStationStartDate}} <input class="form-check-input" type="checkbox" value="" disabled  formControlName="workExperiencePositionTypePresentStationStartDate" id="workExperiencePositionTypePresentStationStartDate">
+                                    </td>
+                                    <td *ngIf="profileFinalStatus">
+                                        <label>DOJ in Present Station Irrespective of Cadre:</label> &nbsp;{{verifyTchTeacherProfileData?.workExperiencePositionTypePresentStationStartDate}} <input class="form-check-input" type="checkbox" value=""  formControlName="workExperiencePositionTypePresentStationStartDate" id="workExperiencePositionTypePresentStationStartDate">
+                                    </td>
                                     <td></td>
                                 </tr>
                             </table>

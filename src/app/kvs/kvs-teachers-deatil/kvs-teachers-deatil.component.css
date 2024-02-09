@@ -142,7 +142,7 @@ table tr td {
 }
 
 .bx-badge-check-sch {
-    color: #1a73e8 ! important;
+    /* color: #1a73e8 ! important; */
     padding: 3px;
     margin-right: 10px;
     margin-left: 0px;

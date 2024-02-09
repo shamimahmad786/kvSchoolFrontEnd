@@ -75,7 +75,7 @@
                                 <mat-cell *matCellDef="let row" [style.color]="row.color" class="IconBx"><span class="mobile-label">Status : </span>
 
                                     <span *ngIf="row.profileFinalStatus === 'SA'" class='bx-badge-check-verified bxStyle1 mr-2'>VERIFIED</span>
-                                    <span *ngIf="row.profileFinalStatus != 'SA' " class='bx-badge-check-sch bxStyle1 mr-2'>NOT VERIFIED</span>
+                                    <span *ngIf="row.profileFinalStatus != 'SA' " class='bx-badge-check-sch bxStyle1 mr-2' style="color: rgb(104, 9, 9) !important">NOT VERIFIED</span>
                                 </mat-cell>
                             </ng-container>
 
