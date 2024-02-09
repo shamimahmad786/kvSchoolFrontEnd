@@ -23,7 +23,7 @@ export class TransferRelatedDocComponent implements OnInit {
   fileUpload: boolean = true;
   fileName: string;
   fileNameWithoutExt: any;
-  enableUploadButton4: boolean = false;
+  enableUploadButton4: boolean = true;
   randonNumber: any;
   image2: any[] = [];
   docList: any[] = [];
@@ -116,22 +116,20 @@ export class TransferRelatedDocComponent implements OnInit {
      this.dataSource.filter = filterValue;
    }
   fileToUpload: File | null = null;
-  handleFileInput(files: FileList, index) {
+  handleFileInput(files: FileList) {
     debugger
-    this.documentUploadArray[index] = { "Action":'' };
+  
     console.log( this.documentUploadArray)
     this.fileUpload = true;
+    this.enableUploadButton4 = true;
     this.fileName = files.item(0).name;
     var splitted = this.fileName.split('.', 2)
     this.fileNameWithoutExt=splitted[0];
     if (splitted[1].toUpperCase() == 'PDF' || splitted[1].toUpperCase() == 'pdf' ) {
       if (files.item(0).size <= 512000) {
-        //alert("set file");
         this.fileToUpload = files.item(0);
-         if (index == '4') {
-          this.enableUploadButton4 = true;
+          this.enableUploadButton4 = false;
           this.fileUpload = false;
-        }
       } else {
         this.fileToUpload = null;
         Swal.fire(
@@ -174,22 +172,9 @@ downloadDocumnet(value:any){
       )
     })
 }
-downloadDocument(){}
-  // getDocumentByFolderId(){
-  //   var data={"folderId": this.randonNumber}
-  //   this.image2=[];
-  //   this.imageName=[];
-  //   this.outSideService.getDocumentByFolderId(data).subscribe((res) => {
-  //    this.image2=res;
-  //    if(res.length>0){
-  //     this.fileUpload = false;
-  //     this.isVisible = true;
-  //    }
-  //   })
-  // }
+
   submit(){
     const formData = new FormData();
-      alert( this.fileToUpload.size);
       formData.append('file', this.fileToUpload);
       formData.append('inityear', this.transferRelatedDocForm.value.transferYear);
       formData.append('type', this.transferRelatedDocForm.value.transferType);
@@ -200,6 +185,17 @@ downloadDocument(){}
     this.outSideService.fileUpload(formData).subscribe((res)=>{
       console.log(res)
       if(res){
+        this.enableUploadButton4 = true;
+        this.transferRelatedDocForm.patchValue({
+          transferType: '',
+          transferYear: '',
+          transferOrderNumber: '',
+          description: '',
+          transferOrderDate: '',
+          fileUpload:'',
+      })
+        this.getDocument();
+
         Swal.fire(
           'Document upload successfully!',
           '',
