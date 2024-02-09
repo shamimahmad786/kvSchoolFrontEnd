@@ -50,7 +50,7 @@ export class KvsTicketComponent implements OnInit {
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
   displayedColumns:any = ['sno','ticketId','subject','InitiateDate','InitiateFrom','Status','resolvedBy','Action'];
 
-  testData ={ "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFromId":"", "ticketToId": "","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
+  testData ={ "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFrom":"","ticketFromId":"", "ticketToId": "","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;      
   @ViewChild('PreviewBox', { static: true }) PreviewBox: TemplateRef<any>;
@@ -109,7 +109,7 @@ export class KvsTicketComponent implements OnInit {
             this.testData.ticketSubject = res[i].ticketSubject;
             this.testData.ticketdateTime = res[i].ticketdateTime;
             this.testData.ticketToId = res[i].ticketToId;  
-            
+            this.testData.ticketFrom = res[i].ticketFrom; 
             this.testData.ticketFromId = res[i].ticketFromId;   
             this.testData.instituteCode = res[i].instituteCode;
 
@@ -123,7 +123,7 @@ export class KvsTicketComponent implements OnInit {
             }
             this.testData.ticketResolvedBy = res[i].ticketResolvedBy;    
             this.ticketList.push(this.testData);
-            this.testData = { "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFromId":"", "ticketToId": "","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
+            this.testData = { "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFrom":"","ticketFromId":"", "ticketToId": "","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
           }
         console.log(this.ticketList)
       }

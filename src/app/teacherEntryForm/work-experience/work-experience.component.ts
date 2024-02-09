@@ -432,7 +432,7 @@ export class WorkExperienceComponent implements OnInit {
       var dateFrom = this.teacherForm.value.workExperienceForm[i].workStartDate;
       var dateTo = this.teacherForm.value.workExperienceForm[i].workEndDate;
       var dateCheck;
-      if(event.target.value =='undefined'){
+      if(event.target.value =='undefined' && event.target.value =='NaN'){
         dateCheck =event.target.value;
         
       }else{
@@ -482,6 +482,10 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
   var from = Math.round((new Date(dateFrom).getTime())/(3600000*24));
   var to = Math.round((new Date(dateTo).getTime())/(3600000*24));
   var check = Math.round((new Date(dateCheck).getTime())/(3600000*24));
+
+   alert(from)
+   alert(to)
+   alert(check)
   if(type==1){
     if (check >= from && check < to) {
       return 0
@@ -496,6 +500,9 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
     }
   }
 }
+
+
+
   getAllMaster() {
     this.outSideService.fetchAllMaster(6).subscribe((res) => {
       this.teacherTypeData = res.response.postionType;

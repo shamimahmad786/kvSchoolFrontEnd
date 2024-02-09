@@ -493,8 +493,6 @@ removeTag(tagToRemove: string) {
 }
   //***************Function user for search  data*******************************************/
   submit(){
- 
-    console.log(this.adminTransferForm.value)   
     var data={
       //"teacherEmployeeCode":this.adminTransferForm.value.employeeCode.trim(),
       "teacherEmployeeCode":this.tags,
@@ -503,6 +501,7 @@ removeTag(tagToRemove: string) {
       "teacherEmail":this.adminTransferForm.value.email.trim().toUpperCase(),
       "teacherMobile":this.adminTransferForm.value.mobileNo.trim(),
     }
+   // alert(this.adminTransferForm.value.dob)
     this.adminTransferForm.patchValue({
       employeeCode: this.tags[0],
   });
