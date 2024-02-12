@@ -36,7 +36,7 @@ export class ExcelTransferModuleComponent implements OnInit {
   hideConfirmButton: boolean = false;
   errorShowDiv: boolean = false;
   isVisible: boolean = false;
-  displayedColumns = ['Sno','name','kvname','regionname','stationname','kv_name_alloted','region_name_alloted','station_name_alloted','admintransfer','post','category','status','remark'];
+  displayedColumns = ['Sno','name','kvname','regionname','stationname','kv_name_alloted','region_name_alloted','station_name_alloted','admintransfer','post','category','transferOrderNumber','trasndferOrderDate','status','remark'];
   testData =  {  "sno": "", "employeecode": "", "name":"" , "transfer_type":"","presentKvName":"","presentKvCode":"","presentStationName":"","presentStationCode":"","presentRegionName":"","presentRegionCode":"","regionNameAlloted":"","allotStnCode":"","stationNameAlloted":"","is_admin_transfer":"","kv_name_alloted":"","allot_kv_code":"","last_promotion_position_type":"","transferred_under_cat":"","transferOrderNumber":"","status":"","statusFinal":"","remark":"","trasndferOrderDate":"","allottedRegionCode": ""};
   transferGroundList: any;
   totalLength: any;
@@ -163,6 +163,8 @@ export class ExcelTransferModuleComponent implements OnInit {
     this.excelTransferData=[];
     this.excelTransferMangement=[];
     this.outSideService.getTempTransferData().subscribe((res) => {
+      console.log("all excel  data---")
+      console.log(res)
     this.excelTransferData=res;
     if(res.length>0){
       for (let i = 0; i < res.length; i++) {
@@ -342,7 +344,11 @@ export class ExcelTransferModuleComponent implements OnInit {
     const dobCol8 = workSheet.getColumn(9);
     dobCol8.width = 10;
     const dobCol9 = workSheet.getColumn(10);
-    dobCol9.width = 10;
+    dobCol9.width = 25;
+    const dobCol10 = workSheet.getColumn(11);
+    dobCol10.width = 20;
+    const dobCol11 = workSheet.getColumn(12);
+    dobCol11.width = 10;
     workSheet.getRow(1).font = { name: 'Arial', family: 4, size: 13, bold: true };
     for (let i = 1; i < 11; i++) {
       const col = ws1.getCell(i);
@@ -352,7 +358,7 @@ export class ExcelTransferModuleComponent implements OnInit {
         fgColor: { argb:  '9c9b98' },   
       };
     }
-   const ws = workSheet.addRow(['Employee Name', 'PrerentKv', 'Present Region', 'Present Station','Alloted KV','Alloted Region','Alloted Station','Transfer Type','Post','Status']);
+   const ws = workSheet.addRow(['Employee Name', 'PrerentKv', 'Present Region', 'Present Station','Alloted KV','Alloted Region','Alloted Station','Transfer Type','Post','Order Number','Order Date','Status']);
    workSheet.getRow(2).font = { name: 'Arial', family: 4, size: 10, bold: true };
       for (let i = 1; i < 11; i++) {
         const col = ws.getCell(i);
@@ -365,8 +371,8 @@ export class ExcelTransferModuleComponent implements OnInit {
       
     this.excelTransferMangement.forEach((item) => {
       if(item.status==0 || item.status=='0'){
-        const row1 = workSheet.addRow([item.name+' ('+item.presentKvCode+')', item.presentKvName +' ('+item.presentKvCode+')', item.presentRegionName +' ('+item.presentRegionCode+')', item.presentStationName +' ('+item.presentStationCode+')', item.kv_name_alloted +' ('+item.allot_kv_code+')', item.regionNameAlloted +' ('+item.allottedRegionCode+')', item.stationNameAlloted +' ('+item.allotStnCode+')', item.transfer_type ,item.last_promotion_position_type,item.statusFinal]);
-        for (let i = 1; i < 11; i++) {
+        const row1 = workSheet.addRow([item.name+' ('+item.presentKvCode+')', item.presentKvName +' ('+item.presentKvCode+')', item.presentRegionName +' ('+item.presentRegionCode+')', item.presentStationName +' ('+item.presentStationCode+')', item.kv_name_alloted +' ('+item.allot_kv_code+')', item.regionNameAlloted +' ('+item.allottedRegionCode+')', item.stationNameAlloted +' ('+item.allotStnCode+')', item.transfer_type ,item.last_promotion_position_type,item.transferOrderNumber,item.trasndferOrderDate,item.statusFinal]);
+        for (let i = 1; i < 13; i++) {
           const col = row1.getCell(i);
           col.fill = {
             type: 'pattern',

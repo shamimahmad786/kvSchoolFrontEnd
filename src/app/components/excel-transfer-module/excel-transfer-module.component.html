@@ -162,6 +162,16 @@
                         <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferred_under_cat}}
                         </mat-cell>
                     </ng-container>
+                    <ng-container matColumnDef="transferOrderNumber">
+                        <mat-header-cell *matHeaderCellDef>OrderNumber </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.transferOrderNumber}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="trasndferOrderDate">
+                        <mat-header-cell *matHeaderCellDef>OrderDate </mat-header-cell>
+                        <mat-cell *matCellDef="let row"><span class="mobile-label"></span> {{row.trasndferOrderDate | date: 'dd-MM-yyyy'}}
+                        </mat-cell>
+                    </ng-container>
 
                     <ng-container matColumnDef="status">
                         <mat-header-cell *matHeaderCellDef>Status </mat-header-cell>

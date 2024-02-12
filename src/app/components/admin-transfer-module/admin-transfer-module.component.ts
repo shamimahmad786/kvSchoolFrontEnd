@@ -102,6 +102,7 @@ export class AdminTransferModuleComponent implements OnInit {
   editAllotedModifyrelivedate: any;
   headQuaterList: any = [];   
   zoneList: any = [];
+  manualEmpCodeSearch: any = [];
   employeeInstituteType: any;
   selecttedRegionName: any;
   returnTypeSrvTime: any;
@@ -127,6 +128,7 @@ export class AdminTransferModuleComponent implements OnInit {
   tagInput: string = '';
   tags: string[] = [];
   transferOrderNumber:any;
+  searchData: any;
   constructor(private outSideService: OutsideServicesService,private modalService: NgbModal,private formData: FormDataService) { }
 
   ngOnInit(): void {
@@ -492,19 +494,33 @@ removeTag(tagToRemove: string) {
   });
 }
   //***************Function user for search  data*******************************************/
-  submit(){
-    var data={
-      //"teacherEmployeeCode":this.adminTransferForm.value.employeeCode.trim(),
-      "teacherEmployeeCode":this.tags,
-      "teacherName":this.adminTransferForm.value.name.trim().toUpperCase(),
-      "teacherDob":this.adminTransferForm.value.dob,
-      "teacherEmail":this.adminTransferForm.value.email.trim().toUpperCase(),
-      "teacherMobile":this.adminTransferForm.value.mobileNo.trim(),
+  submit(){  
+    if(this.tags.length<1){
+      this.manualEmpCodeSearch=[];
+      this.manualEmpCodeSearch.push(this.adminTransferForm.value.employeeCode.trim())
+      this.searchData={
+        "teacherEmployeeCode": this.manualEmpCodeSearch,
+       // "teacherEmployeeCode":this.tags,
+        "teacherName":this.adminTransferForm.value.name.trim().toUpperCase(),
+        "teacherDob":this.adminTransferForm.value.dob,
+        "teacherEmail":this.adminTransferForm.value.email.trim().toUpperCase(),
+        "teacherMobile":this.adminTransferForm.value.mobileNo.trim(),
+      }
     }
-   // alert(this.adminTransferForm.value.dob)
-    this.adminTransferForm.patchValue({
-      employeeCode: this.tags[0],
-  });
+    else{
+      this.searchData={
+        //"teacherEmployeeCode":this.adminTransferForm.value.employeeCode.trim(),
+        "teacherEmployeeCode":this.tags,
+        "teacherName":this.adminTransferForm.value.name.trim().toUpperCase(),
+        "teacherDob":this.adminTransferForm.value.dob,
+        "teacherEmail":this.adminTransferForm.value.email.trim().toUpperCase(),
+        "teacherMobile":this.adminTransferForm.value.mobileNo.trim(),
+      }
+      this.adminTransferForm.patchValue({
+        employeeCode: this.tags[0],
+    });
+    }
+   
     if((this.adminTransferForm.value.employeeCode=='' || this.adminTransferForm.value.employeeCode==null )
     && (this.adminTransferForm.value.name=='' || this.adminTransferForm.value.name==null ) && 
     (this.adminTransferForm.value.dob=='' ||  this.adminTransferForm.value.dob ==null ) &&
@@ -525,9 +541,9 @@ removeTag(tagToRemove: string) {
         return ;
       }
       else{
-    console.log(data)
+    console.log(this.searchData)
     this.adminTransferMangement=[];
-    this.outSideService.searchEmployeeForTransfer(data,this.loginUserNameForChild).subscribe(res => {
+    this.outSideService.searchEmployeeForTransfer(this.searchData,this.loginUserNameForChild).subscribe(res => {
       console.log("emp transfer  data---------------")
      // this.transferStatusOneComplite=false;
       console.log(res['rowValue'])

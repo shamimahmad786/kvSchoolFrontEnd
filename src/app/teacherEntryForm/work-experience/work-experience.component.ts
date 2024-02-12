@@ -429,6 +429,7 @@ export class WorkExperienceComponent implements OnInit {
     debugger
     ((this.teacherForm.get('workExperienceForm') as FormArray).at(0) as FormGroup).get('workStartDate');
     for (let i = 0; i < this.teacherForm.value.workExperienceForm.length ; i++) {
+      if(i !=index){
       var dateFrom = this.teacherForm.value.workExperienceForm[i].workStartDate;
       var dateTo = this.teacherForm.value.workExperienceForm[i].workEndDate;
       var dateCheck;
@@ -446,6 +447,7 @@ export class WorkExperienceComponent implements OnInit {
       }
       if (returnType == 0) {
         debugger
+        alert(returnType)
         Swal.fire(
           'Date lies between previous experience !',
           '',
@@ -457,6 +459,7 @@ export class WorkExperienceComponent implements OnInit {
         }, 200);
       }
     }
+    }
     ((this.teacherForm.get('workExperienceForm') as FormArray).at(0) as FormGroup).get('workStartDate');
     return false;
   }
@@ -467,13 +470,13 @@ export class WorkExperienceComponent implements OnInit {
     if (check >= from) {
       return 0
     } else {
-      return 1;
+      return 1
     }
 }else if(type==2){
   if (check > from) {
     return 0
   } else {
-    return 1;
+    return 1
   }
 }
 }
@@ -485,11 +488,13 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
 
   if(type==1){
     if (check >= from && check < to) {
-      return 0
-    } else {
+      return 0;
+    }
+     else {
       return 1;
     }
-  }else if(type==2){
+   }
+   else if(type==2){
     if (check > from && check < to) {
       return 0
     } else {
