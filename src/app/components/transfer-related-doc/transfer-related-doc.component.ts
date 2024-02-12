@@ -110,6 +110,10 @@ export class TransferRelatedDocComponent implements OnInit {
        )
      })
    }
+   disableDate() { 
+    return false; 
+} 
+
    applyFilter(filterValue: string) {
      filterValue = filterValue.trim();
      filterValue = filterValue.toLowerCase(); 
