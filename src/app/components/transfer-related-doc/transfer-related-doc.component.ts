@@ -28,6 +28,7 @@ export class TransferRelatedDocComponent implements OnInit {
   image2: any[] = [];
   docList: any[] = [];
   deleteDocUpdate4: boolean = true;
+  noOfEmployee: boolean = false;
   imageName: any=[];
   isVisible: boolean = false;
   formData: FormData;
@@ -36,7 +37,7 @@ export class TransferRelatedDocComponent implements OnInit {
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal) { }
   dataSource:any;
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
-  displayedColumns:any = ['sno','Type','Description','OrderDate','Year','Action'];
+  displayedColumns:any = ['sno','transferOrderNumber','Type','Description','OrderDate','Year','Action'];
 
   testData ={ "sno": "", "transferOrderNumber": "","docURLName":"","fileType":"", "description": "", "transferOrderDate": "","inityear":""};
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -53,7 +54,9 @@ export class TransferRelatedDocComponent implements OnInit {
     this.token =JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token;
     this.tempTeacherId = sessionStorage.getItem('kvTeacherId');
     this.transferRelatedDocForm = this.fb.group({
+      'transferTitle':new FormControl('', Validators.required),
       'transferType':new FormControl('', Validators.required),
+      'noOfEmployee':new FormControl('', Validators.required),
       'transferYear': new FormControl('', Validators.required),
       'transferOrderNumber': new FormControl('', Validators.required),
       'transferOrderDate':  new FormControl('', Validators.required),
@@ -154,6 +157,14 @@ export class TransferRelatedDocComponent implements OnInit {
   documentUpload() {
     debugger
  
+}
+transferType(event:any){
+if(event.target.value==5){
+this.noOfEmployee=true;
+}
+else{
+  this.noOfEmployee=false;
+}
 }
 downloadDocumnet(value:any){
   console.log(value)

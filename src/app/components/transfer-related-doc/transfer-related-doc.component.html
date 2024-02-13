@@ -1,11 +1,11 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
-        <h1>Transfer Documnet Upload</h1>
+        <h1>Transfer Related Documnet </h1>
     </div>
     <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a>Home</a></li>
-          <li class="breadcrumb-item"><a>Transfer Documnet Upload</a></li>
+          <li class="breadcrumb-item"><a>Transfer Related Documnet </a></li>
         </ol>
       </nav>
     <div class="dashboard-main-content-info p-4 ticket">
@@ -13,59 +13,34 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-3 col-form-label">Title <span class="required-asterisk">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control"   name="transferTitle" formControlName="transferTitle" >
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3 row">
                     <label for="inputPassword" class="col-sm-3 col-form-label"> Type <span class="required-asterisk">*</span></label>
                     <div class="col-sm-9">
-                        <select class="form-select" formControlName="transferType" aria-label="Default select example">
-                          <option value="1">Promotion Transfer Order</option>
-                          <option value="2">Admin Transfer Order</option>
-                          <option value="3">Request Transfer Order</option>
-                          <option value="4">cancel Transfer Order</option>
+                        <select class="form-select" formControlName="transferType" (change)="transferType($event);" aria-label="Default select example">
+                          <option value="1">Circular</option>        
+                          <option value="2">Document</option>
+                          <option value="3">Notification</option>
+                          <option value="4">Order-Court Order</option>
+                          <option value="5">Order-Transfer</option>
+                          <option value="6">Order-Others</option>
                         </select>
                     </div>
                 </div>
-                <div class="mb-3 row">
-                    <label for="inputPassword" class="col-sm-3 col-form-label">Year <span class="required-asterisk">*</span></label>
-                    <div class="col-sm-9">
-                        <select class="form-select" formControlName="transferYear" aria-label="Default select example">
-                            <option value="2023">2023</option>
-                            <option value="2023">2024</option>
-                          
-                          </select>
-                    </div>
-                </div>
             </div>
-            <div class="col-md-6">
-                <div class="upload-card">
-                    <div class="mb-3 row" style="border-bottom:1px solid #e7e7e7; padding-bottom:20px;">
-                        <label class="col-sm-3 col-form-label">File Upload</label>
-                        <div class="col-sm-9">
-                            <div class="d-flex justify-content-start">
-                            <div>
-                                <input type="file" formControlName="fileUpload" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"  aria-label="Upload" id="file" (change)="handleFileInput($event.target.files)" >
-                            </div>
-                           
-                            <span class="note">Note: File type PDF File size 5MB</span>
-                        </div>
-
-                        <span class="help-block text-danger" *ngIf="enableUploadButton4">Please upload the file</span>
-                        </div>
-                    </div>
-                    <div *ngIf="isVisible" style="width:250px;"  >
-                    <div  class="d-flex justify-content-between" *ngFor="let data of image2; let i=index;">
-                        <p class="filename">{{data}}</p>
-                        <div>
-                             <i   class="me-2" (click)="downloadDocument(data,randonNumber)" class="fa fa-eye eye-icon" aria-hidden="true"></i>
-                            <i class="fa fa-trash delete-icon" (click)="deleteFile(data)" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    </div> 
-                </div>
-            </div>
+         
         </div>
         <div class=" row">
             <div class="col-md-6">
                 <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-3 col-form-label"> Order number 
+            <label for="inputPassword" class="col-sm-3 col-form-label">Number 
                 <span class="required-asterisk">*</span></label>
             <div class="col-sm-9">
                 <div class="">
@@ -75,37 +50,84 @@
             </div>
        </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="noOfEmployee">
             <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-3 col-form-label"> Order Date 
-                <span class="required-asterisk">*</span></label>
-                <div class="col-sm-9">     
-            <div class="input-group-addon">
-                <mat-datepicker #pickers></mat-datepicker>
-            </div>
-            <input class="form-control" id="wordStartDate" formControlName="transferOrderDate" (keydown)="disableDate()"   placeholder="DD/MM/YYYY" [matDatepicker]="pickers" (click)="pickers.open()" >
-           
-            </div>
-            </div>
+                <label for="inputPassword" class="col-sm-3 col-form-label">No.of employes
+                    <span class="required-asterisk">*</span></label>
+                <div class="col-sm-9">
+                    <div class="">
+                        <input type="text" class="form-control"  placeholder="No.of employes transferd"   name="noOfEmployee" formControlName="noOfEmployee" >
+                    </div>
+                </div>
+                </div>
         </div>
     </div>
     <div class=" row">
-        <div class="col-md-6">
-            <div class="mb-3 row">
-        <label for="inputPassword" class="col-sm-3 col-form-label"> Discription
-            <span class="required-asterisk">*</span></label>
-        <div class="col-sm-9">
-            <div class="">
-                <textarea class="form-control" formControlName="description" placeholder="Leave a Discription  here" id="floatingTextarea"></textarea>
+      
+
+
+   <div class="col-md-6">
+    <div class="mb-3 row">
+    <label for="inputPassword" class="col-sm-3 col-form-label">Date 
+        <span class="required-asterisk">*</span></label>
+        <div class="col-sm-9">     
+    <div class="input-group-addon">
+        <mat-datepicker #pickers></mat-datepicker>
+    </div>
+    <input class="form-control" id="wordStartDate" formControlName="transferOrderDate"   placeholder="DD/MM/YYYY" [matDatepicker]="pickers" (click)="pickers.open()" >
+   
+    </div>
+    </div>
+</div>
+
+   <div class="col-md-6">
+    <div class="upload-card">
+        <div class="mb-3 row" >
+            <label class="col-sm-3 col-form-label">File Upload</label>
+            <div class="col-sm-9">
+                <div class="d-flex justify-content-start">
+                <div>
+                    <input type="file" formControlName="fileUpload" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"  aria-label="Upload" id="file" (change)="handleFileInput($event.target.files)" >
+                </div>
+               
+                <span class="note">Note: File type PDF File size 5MB</span>
+            </div>
+
+            <span class="help-block text-danger" *ngIf="enableUploadButton4">Please upload the file</span>
             </div>
         </div>
+        <div *ngIf="isVisible" style="width:250px;"  >
+        <div  class="d-flex justify-content-between" *ngFor="let data of image2; let i=index;">
+            <p class="filename">{{data}}</p>
+            <div>
+                 <i   class="me-2" (click)="downloadDocument(data,randonNumber)" class="fa fa-eye eye-icon" aria-hidden="true"></i>
+                <i class="fa fa-trash delete-icon" (click)="deleteFile(data)" aria-hidden="true"></i>
+            </div>
         </div>
-   </div>
+        </div> 
+    </div>
+</div>
+</div>
+
+
+<div class=" row">
+    <div class="col-md-6">
+        <div class="mb-3 row">
+    <label for="inputPassword" class="col-sm-3 col-form-label"> Discription
+        <span class="required-asterisk">*</span></label>
+    <div class="col-sm-9">
+        <div class="">
+            <textarea class="form-control" formControlName="description" placeholder="Leave a Discription  here" id="floatingTextarea"></textarea>
+        </div>
+    </div>
+    </div>
+</div>
+
 </div>
 
         <div class="d-flex justify-content-center mt-4">
           
-            <input [disabled]="(!transferRelatedDocForm.get('transferType').valid || !transferRelatedDocForm.get('transferYear').valid || !transferRelatedDocForm.get('fileUpload').valid   || !transferRelatedDocForm.get('transferOrderNumber').valid  || !transferRelatedDocForm.get('transferOrderDate').valid   || !transferRelatedDocForm.get('description').valid || enableUploadButton4)" type="submit"  name="Next"   value="Submit" class="btn btn-success">
+            <input [disabled]="(!transferRelatedDocForm.get('transferTitle').valid || !transferRelatedDocForm.get('transferType').valid || !transferRelatedDocForm.get('transferYear').valid || !transferRelatedDocForm.get('fileUpload').valid   || !transferRelatedDocForm.get('transferOrderNumber').valid  || !transferRelatedDocForm.get('transferOrderDate').valid   || !transferRelatedDocForm.get('description').valid || enableUploadButton4)" type="submit"  name="Next"   value="Submit" class="btn btn-success">
         </div>
     </form>
     </div>
@@ -124,6 +146,11 @@
                 <td mat-cell *matCellDef="let element">
                     {{element.fileType}} </td>
             </ng-container>
+            <ng-container matColumnDef="transferOrderNumber">
+                <th mat-header-cell *matHeaderCellDef>Order Number </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.transferOrderNumber}} </td>
+            </ng-container>
 
             <ng-container matColumnDef="Description">
                 <th mat-header-cell *matHeaderCellDef> Description </th>
@@ -134,7 +161,7 @@
             <ng-container matColumnDef="OrderDate">
                 <th mat-header-cell *matHeaderCellDef> Order date</th>
                 <td mat-cell *matCellDef="let element">
-                    {{element.transferOrderDate | date : 'dd/MM/yyyy'}} </td>
+                    {{element.transferOrderDate | date: 'dd-MM-yyyy'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Year">

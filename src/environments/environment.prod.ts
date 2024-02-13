@@ -86,7 +86,7 @@ export const environment = {
    BASE_URL_DATA_REPORTCONTROLER:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER/api/reportcontroller/',
    BASE_URL_DATA_TRANSFERPROCESS:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER/api/transferprocess/',
   BASE_URL_DATA_API_FILETRANSFER:'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER/api/filetransfer/',
-  BASE_URL_DATA_API_TICKET:'https://demopgi.udiseplus.gov.in/MOE-RAD-TICKET-V1/api/ticket/',
+  BASE_URL_DATA_API_TICKET:'https://demopgi.udiseplus.gov.in/MOE-RAD-TICKET/api/ticket/',
   BASE_URL_DATA_TEACHER_TRANSFER_V2: 'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER/api/teacher/transfer/',
   BASE_URL_DATA_REPORT: 'https://demopgi.udiseplus.gov.in/kv-report/api/',
   BASE_URL_FILE_MANAGEMENT: 'https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER/api/filemanagement/',
