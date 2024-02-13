@@ -83,6 +83,7 @@ export class KvsTicketComponent implements OnInit {
     resolveRemarks: new FormControl('', Validators.required),
  }) 
     this.getInitiatedTicket();
+
   }
 
   getInitiatedTicket(){
@@ -539,4 +540,6 @@ debugger
   return false;
   });
   }
+
+
 }

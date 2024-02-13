@@ -486,9 +486,6 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
   var to = Math.round((new Date(dateTo).getTime())/(3600000*24));
   var check = Math.round((new Date(dateCheck).getTime())/(3600000*24));
 
-   alert(from)
-   alert(to)
-   alert(check)
   if(type==1){
     if (check >= from && check < to) {
       return 0;
