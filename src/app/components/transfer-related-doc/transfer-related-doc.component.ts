@@ -7,10 +7,32 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {
+  MAT_DATE_FORMATS,
+  DateAdapter,
+  MAT_DATE_LOCALE
+} from '@angular/material/core';
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD-MM-YYYY',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
+declare const srvTime: any;
 @Component({
   selector: 'app-transfer-related-doc',
   templateUrl: './transfer-related-doc.component.html',
-  styleUrls: ['./transfer-related-doc.component.css']
+  styleUrls: ['./transfer-related-doc.component.css'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
 })
 export class TransferRelatedDocComponent implements OnInit {
   transferRelatedDocForm: FormGroup;
@@ -29,21 +51,29 @@ export class TransferRelatedDocComponent implements OnInit {
   docList: any[] = [];
   deleteDocUpdate4: boolean = true;
   noOfEmployee: boolean = false;
+  returnTypeSrvTime: any;
   imageName: any=[];
   isVisible: boolean = false;
   formData: FormData;
   downloadDocUrl: any;
   token: any;
+  maxDate:any;
+  noOfAssociatedEmployees:any;
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal) { }
   dataSource:any;
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
-  displayedColumns:any = ['sno','transferOrderNumber','Type','Description','OrderDate','Year','Action'];
+  displayedColumns:any = ['sno','title','transferOrderNumber','Type','Description','noOfAssociatedEmployee','OrderDate','Action'];
 
-  testData ={ "sno": "", "transferOrderNumber": "","docURLName":"","fileType":"", "description": "", "transferOrderDate": "","inityear":""};
+  testData ={ "sno": "","docTitle":"", "transferOrderNumber": "","noOfAssociatedEmployee":"","docURLName":"","fileType":"", "description": "", "transferOrderDate": ""};
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;      
 
   ngOnInit(): void {
+    this.returnTypeSrvTime = srvTime();
+    var date = new Date(this.returnTypeSrvTime),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day1 = ("0" + date.getDate()).slice(-2);
+    this.maxDate =  [date.getFullYear(), mnth, day1].join("-");
     this.downloadDocUrl=environment.BASE_URL_FILE_MANAGEMENT;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
@@ -57,10 +87,9 @@ export class TransferRelatedDocComponent implements OnInit {
       'transferTitle':new FormControl('', Validators.required),
       'transferType':new FormControl('', Validators.required),
       'noOfEmployee':new FormControl('', Validators.required),
-      'transferYear': new FormControl('', Validators.required),
       'transferOrderNumber': new FormControl('', Validators.required),
       'transferOrderDate':  new FormControl('', Validators.required),
-      'description': new FormControl('', Validators.required),
+      'description': new FormControl(''),
       'fileUpload': new FormControl(''),
     });
  
@@ -73,29 +102,37 @@ export class TransferRelatedDocComponent implements OnInit {
        if(res.length>0){
            for (let i = 0; i < res.length; i++) {
              this.testData.sno = '' + (i + 1) + '';
+             this.testData.docTitle = res[i].documentTitle;
+             this.testData.noOfAssociatedEmployee = res[i].noOfAssociatedEmployee;
              this.testData.transferOrderNumber = res[i].transferOrderNumber;   
              this.testData.docURLName = this.downloadDocUrl+"downloadUploadDocumentById?fileId="+res[i].transferOrderNumber+"&docId="+this.token+"&username="+JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
              if( res[i].fileType=='1'){
-              this.testData.fileType ='Promotion Transfer Order';
+              this.testData.fileType ='Circular';
              }
              if( res[i].fileType=='2'){
-              this.testData.fileType ='Admin Transfer Order';
+              this.testData.fileType ='Document';
              }
              if( res[i].fileType=='3'){
-              this.testData.fileType ='Request Transfer Order';
+              this.testData.fileType ='Notification';
              }
              if( res[i].fileType=='4'){
-              this.testData.fileType ='cancel Transfer Order';
+              this.testData.fileType ='Order-Court Order';
+             }
+             if( res[i].fileType=='5'){
+              this.testData.fileType ='Order-Transfer';
+             }
+             if( res[i].fileType=='6'){
+              this.testData.fileType ='Order-Others';
              }
             
              this.testData.description = res[i].description;
              this.testData.transferOrderDate = res[i].transferOrderDate;    
 
 
-             this.testData.inityear = res[i].inityear;  
+        //     this.testData.inityear = res[i].inityear;  
    
              this.docList.push(this.testData);
-             this.testData = { "sno": "", "transferOrderNumber": "","docURLName":"","fileType":"", "description": "", "transferOrderDate": "","inityear":""};
+             this.testData = { "sno": "","docTitle":"", "transferOrderNumber": "","noOfAssociatedEmployee":"","docURLName":"","fileType":"", "description": "", "transferOrderDate": ""};
            }
        }
        setTimeout(() => {
@@ -189,21 +226,30 @@ downloadDocumnet(value:any){
 }
 
   submit(){
+    debugger
     const formData = new FormData();
+    if(this.transferRelatedDocForm.value.transferType!='5'){
+      this.noOfAssociatedEmployees=0;
+    }
+    else{
+      this.noOfAssociatedEmployees = this.transferRelatedDocForm.value.noOfEmployee;
+    }
       formData.append('file', this.fileToUpload);
-      formData.append('inityear', this.transferRelatedDocForm.value.transferYear);
+      //formData.append('inityear', this.transferRelatedDocForm.value.transferYear);
+      formData.append('documentTitle', this.transferRelatedDocForm.value.transferTitle);
       formData.append('type', this.transferRelatedDocForm.value.transferType);
+      formData.append('noOfAssociatedEmployee', this.noOfAssociatedEmployees);
       formData.append('orderName',  this.transferRelatedDocForm.value.transferOrderNumber); 
       formData.append('orderDate',  this.transferRelatedDocForm.value.transferOrderDate); 
       formData.append('description', this.transferRelatedDocForm.value.description);
-
-    this.outSideService.fileUpload(formData).subscribe((res)=>{
+      this.outSideService.fileUpload(formData).subscribe((res)=>{
       console.log(res)
       if(res){
         this.enableUploadButton4 = true;
         this.transferRelatedDocForm.patchValue({
           transferType: '',
-          transferYear: '',
+          transferTitle:'',
+          noOfEmployee: '',
           transferOrderNumber: '',
           description: '',
           transferOrderDate: '',
