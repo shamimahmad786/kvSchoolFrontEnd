@@ -56,7 +56,7 @@
                     <span class="required-asterisk">*</span></label>
                 <div class="col-sm-9">
                     <div class="">
-                        <input type="text" class="form-control"  placeholder="No.of employes transferd"   name="noOfEmployee" formControlName="noOfEmployee" >
+                        <input type="text" class="form-control"  (keypress)="omit_special_char($event)"   placeholder="No.of employes transferd"   name="noOfEmployee" formControlName="noOfEmployee" >
                     </div>
                 </div>
                 </div>
@@ -74,7 +74,7 @@
     <div class="input-group-addon">
         <mat-datepicker #pickers></mat-datepicker>
     </div>
-    <input class="form-control" id="wordStartDate" [max]="maxDate" formControlName="transferOrderDate"   placeholder="DD/MM/YYYY" [matDatepicker]="pickers" (click)="pickers.open()" >
+    <input class="form-control" id="wordStartDate" [max]="maxDate" (keydown)="disableDate()" formControlName="transferOrderDate"   placeholder="DD/MM/YYYY" [matDatepicker]="pickers" (click)="pickers.open()" >
    
     </div>
     </div>

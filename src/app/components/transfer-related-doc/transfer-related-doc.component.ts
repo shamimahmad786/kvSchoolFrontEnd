@@ -153,7 +153,12 @@ export class TransferRelatedDocComponent implements OnInit {
    disableDate() { 
     return false; 
 } 
-
+omit_special_char(event)
+{   
+   var k;  
+   k = event.charCode;
+   return((k > 47 && k < 58)) ; 
+}
    applyFilter(filterValue: string) {
      filterValue = filterValue.trim();
      filterValue = filterValue.toLowerCase(); 
@@ -195,6 +200,7 @@ export class TransferRelatedDocComponent implements OnInit {
     debugger
  
 }
+
 transferType(event:any){
 if(event.target.value==5){
 this.noOfEmployee=true;
