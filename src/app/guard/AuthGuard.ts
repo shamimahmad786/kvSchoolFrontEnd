@@ -39,6 +39,7 @@ export class AuthGuard implements CanActivate {
           this.businessUnitTypeId = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_id;
         }
         // alert(this.businessUnitTypeId);
+        debugger;
         if (this.businessUnitTypeId == '2') {
           this.router.navigate(['/teacher/nationalDashboard']);
         } else if (this.businessUnitTypeId == '3') {
