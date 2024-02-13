@@ -71,7 +71,13 @@ export class ForgetPasswordComponent implements OnInit {
         'Please check mail for reset password',
         '',
         'success'
-      )}
+      )} else if(res.status == '0') {
+        Swal.fire(
+          res.message,
+          '',
+          'error'
+        )
+      }
       this.router.navigate(['/login'])
     },
     error => { 
