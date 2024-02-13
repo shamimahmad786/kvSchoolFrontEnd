@@ -71,7 +71,7 @@
                                             <div class="input-group-addon">
                                                 <mat-datepicker #pickers></mat-datepicker>
                                             </div>
-                                            <input class="form-control" id="wordStartDate" disabled [max]="maxDate" placeholder="DD/MM/YYYY" [matDatepicker]="pickers" (click)="pickers.open()" formControlName="dob">
+                                            <input class="form-control" id="wordStartDate" disabled [max]="maxDate" (keydown)="disableDate()" placeholder="DD/MM/YYYY" [matDatepicker]="pickers" (click)="pickers.open()" formControlName="dob">
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('dob').valid && basicProfileForm.get('dob').touched ">
                                                 <span class="help-block text-danger"
                                                     *ngIf="basicProfileForm.get('dob').errors['invalidDate'] ">
@@ -88,7 +88,7 @@
                                             <div class="input-group-addon">
                                                 <mat-datepicker #pickers></mat-datepicker>
                                             </div>
-                                            <input class="form-control" id="wordStartDate" [max]="maxDate" placeholder="DD/MM/YYYY" [matDatepicker]="pickers" (click)="pickers.open()" formControlName="dob">
+                                            <input class="form-control" id="wordStartDate" [max]="maxDate" (keydown)="disableDate()" placeholder="DD/MM/YYYY" [matDatepicker]="pickers" (click)="pickers.open()" formControlName="dob">
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('dob').valid && basicProfileForm.get('dob').touched ">
                                                 <span class="help-block text-danger"
                                                     *ngIf="basicProfileForm.get('dob').errors['invalidDate'] ">
@@ -306,7 +306,7 @@
                                             <div class="input-group-addon">
                                                 <mat-datepicker #pickers12></mat-datepicker>
                                             </div>
-                                            <input class="form-control" id="wordStartDate" disabled [max]="maxDate" placeholder="DD/MM/YYYY" [matDatepicker]="pickers12" (click)="pickers12.open()" formControlName="lastPromotionPositionDate">
+                                            <input class="form-control" id="wordStartDate" disabled  [max]="maxDate" (keydown)="disableDate()" placeholder="DD/MM/YYYY" [matDatepicker]="pickers12" (click)="pickers12.open()" formControlName="lastPromotionPositionDate">
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('lastPromotionPositionDate').valid && basicProfileForm.get('lastPromotionPositionDate').touched ">
                                             <span class="help-block text-danger" *ngIf="basicProfileForm.get('lastPromotionPositionDate').errors['required'] ">
                                                     Enter last promotion position date!
@@ -319,7 +319,7 @@
                                             <div class="input-group-addon">
                                                 <mat-datepicker #pickers12></mat-datepicker>
                                             </div>
-                                            <input class="form-control" id="wordStartDate" [max]="maxDate" placeholder="DD/MM/YYYY" [matDatepicker]="pickers12" (click)="pickers12.open()" formControlName="lastPromotionPositionDate">
+                                            <input class="form-control" id="wordStartDate" [max]="maxDate" (keydown)="disableDate()" placeholder="DD/MM/YYYY" [matDatepicker]="pickers12" (click)="pickers12.open()" formControlName="lastPromotionPositionDate">
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('lastPromotionPositionDate').valid && basicProfileForm.get('lastPromotionPositionDate').touched ">
                                             <span class="help-block text-danger" *ngIf="basicProfileForm.get('lastPromotionPositionDate').errors['required'] ">
                                                     Enter last promotion position date!

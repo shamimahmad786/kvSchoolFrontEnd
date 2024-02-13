@@ -430,6 +430,7 @@ gettransferOrderNumber(){
     this.editModifyEmpName=empName;
     let req={"empCode":this.editModifyEmpCode,"inityear":this.selectYear,"presentKvCode":this.presentKvCode,"allotedKvCode":this.allotedKvCode};
     this.outSideService.getModifiedTransferDetails(req,this.loginUserNameForChild).subscribe((res) => {
+      console.log(this.transferGroundList)
       this.modifyTransType = res['rowValue'].map(function(el) {
         var o = Object.assign({}, el);
         if(o.is_admin_transfer==true){
