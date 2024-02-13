@@ -185,6 +185,9 @@ export class BasicProfileComponent implements OnInit {
      k = event.charCode;
      return((k >= 48 && k <= 57)); 
   }  
+  disableDate() { 
+    return false; 
+} 
   copyCurrentAdd() {
     
     let copyAddress = this.basicProfileForm.get('copyAddress')?.value;
