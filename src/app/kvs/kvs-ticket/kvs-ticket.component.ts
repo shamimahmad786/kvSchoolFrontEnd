@@ -50,7 +50,7 @@ export class KvsTicketComponent implements OnInit {
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
   displayedColumns:any = ['sno','ticketId','subject','InitiateDate','InitiateFrom','Status','resolvedBy','Action'];
 
-  testData ={ "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFrom":"","ticketFromId":"", "ticketToId": "","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
+  testData ={ "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFrom":"","ticketFromId":"", "ticketToId": "","assignToId":"","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;      
   @ViewChild('PreviewBox', { static: true }) PreviewBox: TemplateRef<any>;
@@ -62,7 +62,6 @@ export class KvsTicketComponent implements OnInit {
     this.ticketType='0';
 
     this.businessTypeId=JSON.parse(sessionStorage.getItem('authTeacherDetails')).applicationDetails[0].business_unit_type_id;
-
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
       this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
@@ -113,6 +112,7 @@ export class KvsTicketComponent implements OnInit {
             this.testData.ticketFrom = res[i].ticketFrom; 
             this.testData.ticketFromId = res[i].ticketFromId;   
             this.testData.instituteCode = res[i].instituteCode;
+            this.testData.assignToId = res[i].assignToId;
 
             if(res[i].ticketStatus==0 || res[i].ticketStatus=='0'){
               this.testData.ticketStatus='In Process';
@@ -124,7 +124,7 @@ export class KvsTicketComponent implements OnInit {
             }
             this.testData.ticketResolvedBy = res[i].ticketResolvedBy;    
             this.ticketList.push(this.testData);
-            this.testData = { "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFrom":"","ticketFromId":"", "ticketToId": "","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
+            this.testData = { "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFrom":"","ticketFromId":"", "ticketToId": "","assignToId":"","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
           }
         console.log(this.ticketList)
       }

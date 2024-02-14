@@ -447,7 +447,6 @@ export class WorkExperienceComponent implements OnInit {
       }
       if (returnType == 0) {
         debugger
-        alert(returnType)
         Swal.fire(
           'Date lies between previous experience !',
           '',
