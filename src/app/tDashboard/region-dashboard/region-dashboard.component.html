@@ -16,7 +16,7 @@
                 <li>
                     <div>
                         <img src="assets/assets/img/regions.png" alt="image" class="mb-2" />
-                        <h4 class="font26589 mb-1">Total Regions : </h4>
+                        <h4 class="font26589 mb-1">Total Regions </h4>
                         <h2 class="font64989985 mb-0">{{dashboardDetails?.totalRegion}}</h2>
                     </div>
                 </li>
@@ -30,21 +30,21 @@
                 <li >
                     <div>
                         <img src="assets/assets/img/sanction-post.png" class="mb-2" />
-                        <h4 class="font26589 mb-1">Sanction Posts : </h4>
+                        <h4 class="font26589 mb-1">Sanction Posts </h4>
                         <h2 class="font64989985 mb-0">{{dashboardDetails?.totalSanctionPost}}</h2>
                     </div>
                 </li>
                 <li >
                     <div>
                         <img src="assets/assets/img/in-positions.png" class="mb-2" />
-                        <h4 class="font26589 mb-1">In Position :</h4>
+                        <h4 class="font26589 mb-1">In Position</h4>
                         <h2 class="font64989985 mb-0">{{inPositionTotal}}</h2>
                     </div>
                 </li>
                 <li >
                     <div>
                         <img src="assets/assets/img/schools.png" class="mb-2" />
-                        <h4 class="font26589 mb-1">Schools : </h4>
+                        <h4 class="font26589 mb-1">Schools </h4>
                         <h2 class="font64989985 mb-0">{{dashboardDetails?.totalSchool}}</h2>
                     </div>
                 </li>
@@ -229,7 +229,7 @@
                                       
                                         <tr>
                                             <td><span class="text-color">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</span></td>
-                                            <td><span class="text-color">{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</span></td>
+                                            <td><span class="text-color">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</span></td>
                                             <td><span class="text-color">{{nonTeachingMaleFemaleTotal}}</span></td>
                                         </tr>
                                         
@@ -263,9 +263,9 @@
                 </tr>
             </thead> 
                 <tr>
-                    <td><span  style="background: #f9e5bf; color:#b9831d">{{dashboardDetails?.inprogresTicket}}</span></td>
-                    <td><span  style="background: #afebbd; color:#2f9948">{{dashboardDetails?.resolveTicket}}</span></td>
-                    <td><span  style="background: #f9bfbf; color:#b94848">{{dashboardDetails?.rejectTicket}}</span></td>
+                    <td><span  style="background: #afebbd; color:#f9e5bf"><a routerLinkActive="active" routerLink="/teacher/kvsTicket">  {{dashboardDetails?.inprogresTicket}}</a></span></td>
+                    <td><span  style="background: #afebbd; color:#afebbd"><a routerLinkActive="active" routerLink="/teacher/kvsTicket"> {{dashboardDetails?.resolveTicket}}</a></span></td>
+                    <td><span  style="background: #afebbd; color:#f9bfbf"><a routerLinkActive="active" routerLink="/teacher/kvsTicket"> {{dashboardDetails?.rejectTicket}}</a></span></td>
                 </tr>
             </table>
         </div>
