@@ -190,7 +190,7 @@ export class RegionWiseSchoolComponent implements OnInit {
     var groubedByEnrolmentDateResult=groupByEnrolementDate(this.listRegionSchool, 'regionname')
     this. mdoDateResultArray = Object.entries(groubedByEnrolmentDateResult)
   // console.log(groubedByEnrolmentDateResult)
-    console.log(this.mdoDateResultArray)
+    console.log('MDO DATAAA',this.mdoDateResultArray)
     this.pdfService.regionSchoolMappingList(this.mdoDateResultArray,this.returnTypeSrvTime);
     // setTimeout(() => {
     //   this.pdfService.regionStationMappingList(this.listRegionStation);

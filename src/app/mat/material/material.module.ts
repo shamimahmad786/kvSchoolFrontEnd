@@ -24,13 +24,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 const moduleMate=[CommonModule,  BrowserAnimationsModule,  MatCheckboxModule,  MatCheckboxModule,  MatButtonModule,  MatInputModule,
   MatAutocompleteModule,  MatDatepickerModule,  MatFormFieldModule,  MatRadioModule,  MatSelectModule, 
   MatSlideToggleModule,  MatMenuModule,  MatSidenavModule,    MatToolbarModule,  MatListModule,  
   MatCardModule,  MatStepperModule,    MatExpansionModule,   MatIconModule,
-  MatProgressSpinnerModule,   MatDialogModule,  MatTooltipModule,   MatTableModule, 
+  MatProgressSpinnerModule,   MatDialogModule,MatBadgeModule,  MatTooltipModule,   MatTableModule, 
   MatSortModule,  MatPaginatorModule];
 
 

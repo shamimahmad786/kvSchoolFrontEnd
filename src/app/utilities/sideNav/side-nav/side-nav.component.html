@@ -46,7 +46,7 @@
                         <li><a routerLinkActive="active" routerLink="/teacher/globalTransferModule"><i class="bi bi-dot"></i>Admin/HQ Transfer</a></li>
                         <li><a routerLinkActive="active" routerLink="/teacher/excel-transfer"><i class="bi bi-dot"></i>Transfer Through Excel</a></li>
                         <li><a routerLinkActive="active" routerLink="/teacher/transfer-report"><i class="bi bi-dot"></i>Transfer Report</a></li>
-                        <li><a routerLinkActive="active" routerLink="/teacher/transfer-related-doc"><i class="bi bi-dot"></i>Transfer Related Document</a></li>
+                        <li><a routerLinkActive="active" routerLink="/teacher/transfer-related-doc"><i class="bi bi-dot"></i>Document Management System</a></li>
                     </ul>
                 </div>
             </div>
@@ -112,7 +112,9 @@
             </div>
         </div>
         <ul class="list" >
-            <li><a routerLinkActive="active" routerLink="/teacher/kvsTicket"> <img src="assets/images/coupon.png" class="me-2">Ticket </a></li>
+            <li><a routerLinkActive="active" routerLink="/teacher/kvsTicket"> <img src="assets/images/coupon.png" class="me-2">Ticket
+                <span style="align-items: end;" [matBadge]="inProgressTicketCount" matBadgeOverlap="false"  class="demo-section"></span> </a>
+                </li>
         </ul>
     </div>
 
@@ -182,6 +184,7 @@
             <div class="accordion-header m-0">
                 <button class="accordion-button aa collapsed" routerLink="/teacher/kvsTicket" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourccccs" aria-expanded="false" aria-controls="collapseFourccccs">
                     <img src="assets/images/coupon.png" class="me-2"> Ticket
+                    <span style="align-items: end;" [matBadge]="inProgressTicketCountForSchool" matBadgeOverlap="false"  class="demo-section"></span>
         </button>
             </div>
             <div id="collapseFourccccs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">  

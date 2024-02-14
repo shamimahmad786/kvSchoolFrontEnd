@@ -15,6 +15,12 @@ export class SideNavComponent implements OnInit {
   kvicons: any;
   kvIfConditions: boolean = false;
   businessUnitTypeId:any;
+  businessUnitTypeCode: any;
+  loginUserNameForChild:any;
+  inProgressTicketCount: any;
+  ticketCount: number = 0;
+  inProgressTicketCountForSchool: any;
+  dashboardDetails: any;
   timeLeft: number = 15;
   interval;
   showNational:boolean = false;
@@ -29,6 +35,8 @@ export class SideNavComponent implements OnInit {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
       this.businessUnitTypeId = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_id;
+      this.businessUnitTypeCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
+      this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
     }
     if (this.kvicons?.includes(this.applicationId)) {
       this.kvIfConditions = true;
@@ -44,8 +52,44 @@ export class SideNavComponent implements OnInit {
     }else if(this.businessUnitTypeId == '5'){
       this.showSchool = true;
     }
+    this.getInProcessTicketCount();
+    this.getdashboarData();
 //this.timeWatch();
   }
+
+  getInProcessTicketCount() {
+   if(this.businessUnitTypeId == '2') {
+    var dashBoardDataNationtion={
+      "regionCode":'',
+      "dashboardType":"N"
+    }
+    this.outSideService.getRoDashboard(dashBoardDataNationtion,this.loginUserNameForChild).subscribe(res => {
+      debugger
+      this.dashboardDetails=res;
+      this.inProgressTicketCount = this.dashboardDetails?.inprogresTicket;
+  })
+   }
+   
+}
+
+
+
+getdashboarData(){
+if(this.businessUnitTypeId === 5) {
+  var dashBoardDataNationtion={
+    "kvCode": this.businessUnitTypeCode,
+    "dashboardType":"S"
+  }
+  this.outSideService.getRoDashboard(dashBoardDataNationtion,this.loginUserNameForChild).subscribe(res => {
+    debugger
+    this.dashboardDetails=res;
+    this.inProgressTicketCountForSchool = this.dashboardDetails?.inprogresTicket;
+    
+  
+})
+}
+  
+}
 
   
 timeWatch()
