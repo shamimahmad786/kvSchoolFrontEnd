@@ -50,7 +50,7 @@
                           <mat-datepicker-toggle mdSuffix [for]="pickers"></mat-datepicker-toggle>
                           <mat-datepicker #pickers></mat-datepicker>
                       </div>
-                      <input class="form-control"  id="wordStartDate" (dateChange)="checkDatelieBeetwenFromTo($event,1)" [matDatepicker]="pickers" placeholder="Date"  (click)="pickers.open()"
+                      <input class="form-control"  id="wordStartDate" (keydown)="disableDate()" (dateChange)="checkDatelieBeetwenFromTo($event,1)" [matDatepicker]="pickers" placeholder="Date"  (click)="pickers.open()"
                           formControlName="startdate" >
                   </div>
                   <span class="help-block text-danger"

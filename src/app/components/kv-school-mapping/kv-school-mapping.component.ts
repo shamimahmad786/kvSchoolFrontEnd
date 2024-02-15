@@ -102,7 +102,9 @@ export class KvSchoolMappingComponent implements OnInit {
   
   //***********************Get Region*************************************/
 
-
+  disableDate() { 
+    return false; 
+}
 
   getStationByRegionId(){
     this.outSideService.fetchKvRegion(1).subscribe((res) => {
