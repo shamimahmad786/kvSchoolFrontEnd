@@ -291,7 +291,10 @@ export class BasicProfileComponent implements OnInit {
       this.getDistrictByStateId(this.emplyeeData['teacherParmanentState'],'P');
       this.getDistrictByStateId(this.emplyeeData['teacherCorrespondenceState'],'C');
 
-
+      if(this.emplyeeData['teacherPermanentAddress']!=null){
+        this.copyAdd=true;
+      
+      }
       if (this.emplyeeData['maritalStatus'] == '1' || this.emplyeeData['maritalStatus'] == 1) {
         this.marriedStatusYN = true;
       }

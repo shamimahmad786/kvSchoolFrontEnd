@@ -5,13 +5,10 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-sm-12">
-                     
-                        <div  class="dashboard-main-content__header mb-2"><h1  class="mb-0 pro-name">Basic Profile: {{ profileTeacherName | uppercase}}</h1></div>
-                  
+                    <div  class="dashboard-main-content__header mb-2"><h1  class="mb-0 pro-name">Basic Profile: {{ profileTeacherName | uppercase}}</h1></div>
                 </div>
                 <form [formGroup]="basicProfileForm" (ngSubmit)="submit()">
                     <div class="form-card">
-
                         <div class="row">
                             <div class="col-md-6 ">
                                 <div class="shadow p-3 card mb-3  min-height-523 ">
@@ -196,11 +193,17 @@
                                         <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
                                             <h4 class="titleSet">
                                                 
-                                                <input type="checkbox" formControlName="copyAddress"  (change)="copyCurrentAdd()">&nbsp; <span>Same As Current Address</span>
+                                              <input type="checkbox" formControlName="copyAddress"  (change)="copyCurrentAdd()">&nbsp; <span>Same As Current Address</span>
                                                 
-                                                (Permanent Address as per Service Record) <span class="required-asterisk">*</span>
+                                              (Permanent Address as per Service Record) <span class="required-asterisk">*</span>
                                             </h4>
-                                            <textarea class="form-control" rows="1" name="prmntAddress" [readonly]="copyAdd" style="text-transform:uppercase"  formControlName="prmntAddress"></textarea>
+                                            <div *ngIf="copyAdd">
+                                                <textarea class="form-control" rows="1" name="prmntAddress" disabled style="text-transform:uppercase"  formControlName="prmntAddress"></textarea>
+                                            </div>
+                                            <div *ngIf="!copyAdd">
+                                                <textarea class="form-control" rows="1" name="prmntAddress"  style="text-transform:uppercase"  formControlName="prmntAddress"></textarea>
+                                            </div>
+                                           
                                         </div>
                                         <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
                                             <h4 class="titleSet">State <span class="required-asterisk">*</span></h4>
@@ -214,7 +217,8 @@
                                         </div>
                                         <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
                                             <h4 class="titleSet">State <span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" [readonly]="copyAdd"  name="prmntState" formControlName="prmntState" (change)="getDistrictListByStateId($event.target.value, 'P')">
+                                        <div *ngIf="copyAdd">
+                                            <select class="form-select" aria-label="Default select example" disabled  name="prmntState" formControlName="prmntState" (change)="getDistrictListByStateId($event.target.value, 'P')">
                                                 <option selected disabled>Select State
                                                 </option>
                                                 <option *ngFor="let data of stateMasterList"  
@@ -222,8 +226,16 @@
                                                 </option>                                            
                                             </select>
                                         </div>
-
-                                        
+                                        <div *ngIf="!copyAdd">
+                                            <select class="form-select" aria-label="Default select example"  name="prmntState" formControlName="prmntState" (change)="getDistrictListByStateId($event.target.value, 'P')">
+                                                <option selected disabled>Select State
+                                                </option>
+                                                <option *ngFor="let data of stateMasterList"  
+                                                    value="{{data.state_id}}">{{data.state_name | uppercase}}
+                                                </option>                                            
+                                            </select>
+                                        </div>                                       
+                                        </div>                                      
                                         <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
                                             <h4 class="titleSet">District <span class="required-asterisk">*</span></h4>
                                             <select class="form-select" disabled aria-label="Default select example" name="prmntDistrict" formControlName="prmntDistrict" >
@@ -235,17 +247,27 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">District <span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" [readonly]="copyAdd" name="prmntDistrict" formControlName="prmntDistrict" >
-                                                <option selected disabled>Select</option>
-                                                <option *ngFor="let data of districListByStateIdP"
-                                                    value="{{data.district_id}}">
-                                                    {{data.district_name}}
-                                                </option>
-                                            </select>
+                                 <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                 <h4 class="titleSet">District <span class="required-asterisk">*</span></h4>    
+                                    <div *ngIf="copyAdd">
+                                        <select class="form-select" aria-label="Default select example" disabled name="prmntDistrict" formControlName="prmntDistrict" >
+                                            <option selected disabled>Select</option>
+                                            <option *ngFor="let data of districListByStateIdP"
+                                                value="{{data.district_id}}">
+                                                {{data.district_name}}
+                                            </option>
+                                        </select>
+                                    </div>            
+                                    <div *ngIf="!copyAdd">
+                                        <select class="form-select" aria-label="Default select example"  name="prmntDistrict" formControlName="prmntDistrict" >
+                                            <option selected disabled>Select</option>
+                                            <option *ngFor="let data of districListByStateIdP"
+                                                value="{{data.district_id}}">
+                                                {{data.district_name}}
+                                            </option>
+                                        </select>
+                                    </div>           
                                         </div>
-
                                         <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
                                             <h4 class="titleSet">Pin Code <span class="required-asterisk">*</span></h4>
                                             <input type="text" class="form-control" disabled  maxlength="6" minlength="6" name="prmntPinCode" formControlName="prmntPinCode">
@@ -255,9 +277,13 @@
                                         </div>
                                         <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
                                             <h4 class="titleSet">Pin Code <span class="required-asterisk">*</span></h4>
-                                            <input type="text" class="form-control" [readonly]="copyAdd"  maxlength="6" minlength="6" name="prmntPinCode" formControlName="prmntPinCode">
-
-                                            <span class="help-block text-danger" *ngIf="basicProfileForm.get('prmntPinCode').status != 'VALID' && basicProfileForm.get('prmntPinCode').status != 'DISABLED'">
+                                        <div *ngIf="copyAdd">
+                                            <input type="text" class="form-control" disabled maxlength="6" minlength="6" name="prmntPinCode" formControlName="prmntPinCode"> 
+                                        </div>
+                                        <div *ngIf="!copyAdd">
+                                            <input type="text" class="form-control"  maxlength="6" minlength="6" name="prmntPinCode" formControlName="prmntPinCode">
+                                        </div>
+                                        <span class="help-block text-danger" *ngIf="basicProfileForm.get('prmntPinCode').status != 'VALID' && basicProfileForm.get('prmntPinCode').status != 'DISABLED'">
                                                 Enter a valid pincode!</span>
                                         </div>
                                     </div>

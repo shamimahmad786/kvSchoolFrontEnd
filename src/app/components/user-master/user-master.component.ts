@@ -201,9 +201,11 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
       this.userMobile=true;
     }
   }
-  editChildUser(userName:any,type:any){
+  editChildUser(userName:any,type:any,firstName:any){
+    debugger
+    console.log(userName)
    var key = userName.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function(key) { return key.toUpperCase()});
-    this.pfofileUser="Profile ("+key+")";
+    this.pfofileUser="Profile "+ firstName + "("+key+")";
     this.clickType='';
     this.showFirstButtonColor=false;
     this.showsecondButtonColor=true;
