@@ -203,6 +203,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   }
   editChildUser(userName:any,type:any){
    var key = userName.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function(key) { return key.toUpperCase()});
+   //alert(key)
     this.pfofileUser="Profile ("+key+")";
     this.clickType='';
     this.showFirstButtonColor=false;
@@ -216,7 +217,6 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
         this.newChildUserListArr.push(this.childUserList[i]);
       }
     }
-    console.log(this.newChildUserListArr)
     this.loginUserNameForChild =this.newChildUserListArr[0]['username']
     this.loginUserMobile=this.newChildUserListArr[0]['mobile']
     this.loginUserEmail=this.newChildUserListArr[0]['email']
