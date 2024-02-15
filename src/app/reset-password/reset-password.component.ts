@@ -109,7 +109,7 @@ export class ResetPasswordComponent implements OnInit {
      {
       this.auth.generatePassword(data,this.paramSessionId).subscribe((res) => {
         this.generate()
-        console.log(JSON.stringify(res));
+        //console.log(JSON.stringify(res));
       if(res['success']){
         Swal.fire({
           'icon':'success',
