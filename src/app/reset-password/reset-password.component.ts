@@ -141,7 +141,7 @@ export class ResetPasswordComponent implements OnInit {
             'icon':'success',
             'text':'Password Changed Successfully.'
           })
-            this.router.navigate(['/login']); 
+            this.router.navigate(['/mainPage']); 
         }
         if(res['status']=="0"){
           Swal.fire({

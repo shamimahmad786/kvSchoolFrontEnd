@@ -93,9 +93,8 @@ export class BasicProfileComponent implements OnInit {
   teacherDisabilityType: any;
   businessUnitTypeCode: any;
   profileFinalStatus: boolean = false;
-  currentAddress:BasicProfile = {corressPondAdd: '', state: '', district: '', zipCode: ''};
-  permanentAddress: BasicProfile = {corressPondAdd: '', state: '', district: '', zipCode: ''};;
   copyAdd: boolean = false;
+  crspndAdd: any;
 
   @ViewChild('Physically_Handicap_Certificate')Physically_Handicap_Certificate: ElementRef;
   @ViewChild('selectSpouseStationModal', { static: true }) selectSpouseStationModal: TemplateRef<any>;
