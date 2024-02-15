@@ -671,7 +671,7 @@ export class MasterReportPdfService {
 
    regionStationMappingList(regionStationMappingList:any,servTime:any){
       this.regionStationMappingListArray = [];
-   console.log("dsdsdsdsd")
+   
       // for(let i=0; i<regionStationMappingList.length; i++){
       //   console.log(regionStationMappingList[i])
       //   var regionStationMappinglistTemp = [];
@@ -807,6 +807,7 @@ console.log(this.regionStationMappingListArray)
           }else{
             regionStationMappinglistsTemp.push('')
           }
+          
           regionStationMappinglistsTemp.push(regionStationMappingList[i][1][j]?.stationname)
            regionStationMappinglistsTemp.push(regionStationMappingList[i][1][j]?.schoolname)
         regionStationMappinglistsTemp.push(regionStationMappingList[i][1][j]?.schooladdress)
@@ -814,7 +815,7 @@ console.log(this.regionStationMappingListArray)
         k++;
         }
       }
-console.log(this.regionSchoolMappingListArray)
+console.log('Master PDF Dataaa',this.regionSchoolMappingListArray)
 
 
       this.currentDate = "(" + servTime + ")"

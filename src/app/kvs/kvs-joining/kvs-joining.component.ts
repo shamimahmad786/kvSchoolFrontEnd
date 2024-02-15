@@ -53,6 +53,7 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
   kvNameCode: any = null;
   udiseSchCode: any;
   kvCode: any;
+  resStatus: any;
   deleteDocUpdate1: boolean = true;
   responseData: any = {};
   businessUnitTypeId: any;
@@ -504,6 +505,9 @@ export class KvsJoiningComponent implements OnInit, AfterViewInit {
         this.outSideService.sendEmplooyeeRelevingDate(data).subscribe((res) => {
           this.modalService.dismissAll() 
           this.flagUpdatedList = res.responseCode;
+
+          
+
         if( this.flagUpdatedList =='200 OK')
         {
           Swal.fire(

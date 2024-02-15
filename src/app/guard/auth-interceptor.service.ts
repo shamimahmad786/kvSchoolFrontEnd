@@ -5,12 +5,12 @@ import { environment } from "src/environments/environment";
 var md5 = require('md5');
 
 export class AuthInterceptorService implements HttpInterceptor {
-    x_headers: any;
-    typeCheck: any;
+ 
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
-
-    // alert(req.url);
+      var  x_headers;
+    var    typeCheck;
+    debugger;
      var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
      console.log(token)
 
@@ -27,11 +27,11 @@ export class AuthInterceptorService implements HttpInterceptor {
                 });
         }    else{
             if(typeof(req.body) =="object"){
-                this.typeCheck='1';
-                this.x_headers=md5(JSON.stringify(req.body));
+                typeCheck='1';
+               x_headers=md5(JSON.stringify(req.body));
             }else{
-                this.typeCheck='0';
-                this.x_headers=md5(req.body);  
+                typeCheck='0';
+               x_headers=md5(req.body);  
 
             }
              
@@ -40,8 +40,8 @@ export class AuthInterceptorService implements HttpInterceptor {
                     setHeaders: {
                         'Content-Type': (req.url.indexOf('unee-api/v1') !==-1)?'application/json; charset=utf-8':'text/plain; charset=utf-8',
                         'loginType':'s',
-                        'X-HEADERS':this.x_headers,
-                        'TYPE-CHECK':this.typeCheck,
+                        'X-HEADERS':x_headers,
+                        'TYPE-CHECK':typeCheck,
                         // 'systemTeacherCode':sessionStorage.systemTeacherCode,
                         'Authorization': token,
                      'username': JSON.parse(sessionStorage.getItem('authTeacherDetails')).user_name

@@ -169,6 +169,10 @@ export class BasicProfileComponent implements OnInit {
     this.getAllMaster();
     this.getSchoolDetailsByKvCode();
     this.getStateMaster();
+    // if(this.profileFinalStatus) {
+    //   this.isCurrentAndPermAddSame()
+    // }
+    
 
   }
 
@@ -188,10 +192,21 @@ export class BasicProfileComponent implements OnInit {
   disableDate() { 
     return false; 
 } 
+
+// isCurrentAndPermAddSame() {
+//   let corpAdd = this.basicProfileForm.get('crspndncAddress')?.value
+//   let permAdd = this.basicProfileForm.get('prmntAddress')?.value
+//   alert(corpAdd)
+//   alert(permAdd)
+// }
+
   copyCurrentAdd() {
     
     let copyAddress = this.basicProfileForm.get('copyAddress')?.value;
-    if(copyAddress) {
+    
+    this.copyAdd = copyAddress
+
+    if(this.copyAdd) {
       let corresPondAdd = this.basicProfileForm.get('crspndncAddress')?.value
       let corresPondState = this.basicProfileForm.get('crspndncState')?.value
       let corresPondDistrict = this.basicProfileForm.get('crspndncDistrict')?.value

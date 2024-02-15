@@ -374,12 +374,13 @@
                         <tr>
                             <th class="text-start " style="width:269px"> Institute Name (Code) </th>
                             <td class="text-start"> {{data.kv_name_alloted}} ({{data.allot_kv_code}})</td>
-                            <th class="text-start">Joining Date (dd-mm-yyyy)</th>
-                            <td class="text-start"> {{data.join_date | date:"dd-MM-yyyy"}}</td>
-                        </tr>
-                        <tr>
                             <th class="text-start">Relieving Date From Previous Institute (dd-mm-yyyy) </th>
                             <td class="text-start"> {{data.relieve_date | date:"dd-MM-yyyy"}} </td>
+
+                        </tr>
+                        <tr>
+                            <th class="text-start">Joining Date (dd-mm-yyyy)</th>
+                            <td class="text-start"> {{data.join_date | date:"dd-MM-yyyy"}}</td>
                             <th class="text-start">Transfer Type </th>
                             <td class="text-start"> {{data.addTransType}} </td> 
                         </tr>
