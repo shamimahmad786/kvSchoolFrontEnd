@@ -93,9 +93,8 @@ export class BasicProfileComponent implements OnInit {
   teacherDisabilityType: any;
   businessUnitTypeCode: any;
   profileFinalStatus: boolean = false;
-  currentAddress:BasicProfile = {corressPondAdd: '', state: '', district: '', zipCode: ''};
-  permanentAddress: BasicProfile = {corressPondAdd: '', state: '', district: '', zipCode: ''};;
   copyAdd: boolean = false;
+  crspndAdd: any;
 
   @ViewChild('Physically_Handicap_Certificate')Physically_Handicap_Certificate: ElementRef;
   @ViewChild('selectSpouseStationModal', { static: true }) selectSpouseStationModal: TemplateRef<any>;
@@ -291,7 +290,10 @@ export class BasicProfileComponent implements OnInit {
       this.getDistrictByStateId(this.emplyeeData['teacherParmanentState'],'P');
       this.getDistrictByStateId(this.emplyeeData['teacherCorrespondenceState'],'C');
 
-
+      if(this.emplyeeData['teacherPermanentAddress']!=null){
+        this.copyAdd=true;
+      
+      }
       if (this.emplyeeData['maritalStatus'] == '1' || this.emplyeeData['maritalStatus'] == 1) {
         this.marriedStatusYN = true;
       }

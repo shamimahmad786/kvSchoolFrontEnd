@@ -111,7 +111,7 @@
                 </div>
             </div>
         </div>
-        <ul class="list" >
+        <ul class="list"*ngIf="businessUnitTypeId == 2">
             <li><a routerLinkActive="active" routerLink="/teacher/kvsTicket"> <img src="assets/images/coupon.png" class="me-2">Ticket
                 <span style="align-items: end;" [matBadge]="inProgressTicketCount" matBadgeOverlap="false"  class="demo-section"></span> </a>
                 </li>
