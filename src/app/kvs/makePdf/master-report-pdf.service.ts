@@ -1440,8 +1440,8 @@ if(schoolStationMappingList[i]?.shift==0){
     dashboardlistTemp.push(dashboardMasterList[i]?.postName)
     dashboardlistTemp.push(dashboardMasterList[i]?.subjectName)
    // dashboardlistTemp.push(dashboardMasterList[i]?.staffType)
-    dashboardlistTemp.push(dashboardMasterList[i]?.approvedStatus)
-
+  //  dashboardlistTemp.push(dashboardMasterList[i]?.approvedStatus)
+    dashboardlistTemp.push(dashboardMasterList[i]?.profileStatus)
    // stationCategorylistTemp.push(stationCategorylist[i]?.schoolname)
  
     this.dashboardMasterListArray.push(dashboardlistTemp)
@@ -1453,8 +1453,6 @@ if(schoolStationMappingList[i]?.shift==0){
   doc.setFontSize(14);
   doc.setFont('Times-Roman', 'bold');
   doc.text('Station Category Master', 130, 45);    
-
-  
   (doc as any).autoTable({
     head: this.dashboardHead,
     body: this.dashboardMasterListArray,
@@ -1509,7 +1507,7 @@ if(schoolStationMappingList[i]?.shift==0){
       bottom: 15,
     },
   })
-  doc.save('kvDetails.pdf')
+  doc.save('kvEmployeeDetails.pdf')
  }
  exportTransferOutDataList(relevingDataArray:any,serTime:any){
   this.relevingDataListArray = [];
