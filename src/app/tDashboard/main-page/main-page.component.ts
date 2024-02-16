@@ -20,7 +20,7 @@ export class MainPageComponent implements OnInit {
   noOfSchool:any;
   noOfStaff:any;
   dashboarData:any;
-
+  employeeLoginUrl: any
   // loginUrlCommon = environment.LOGIN_URL_COMMON;environment.LOGIN_URL_INDIVIDUAL
   loginUrlCommon=environment.LOGIN_URL_INDIVIDUAL;
   // loginUrlCommon2=environment.LOGIN_URL_INDIVIDUAL2;
@@ -52,7 +52,7 @@ export class MainPageComponent implements OnInit {
    }
 
   ngOnInit(): void {
-  
+    this.employeeLoginUrl = environment.LINK_URL;
     // alert("in");
     // debugger;
     // owlScroller();

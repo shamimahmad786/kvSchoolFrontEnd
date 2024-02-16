@@ -68,6 +68,24 @@ export class ResetPasswordComponent implements OnInit {
         this.msg="New Password and Confirm Password are not same....";
         return;
       }
+
+  // Password Policy (minimum length - 8, combination of characters, numbers, and special characters)
+  if (
+    this.changePasswordForm.controls['newPassword'].value.length < 8 ||
+    !/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(this.changePasswordForm.controls['newPassword'].value)
+  ) {
+    this.changePasswordForm.patchValue({
+      newPassword: '',
+      confirmPassword: '',
+      otp: '',
+      otpCaptcha: ''
+    });
+    this.generate();
+    this.msg = "Password must be at least 8 characters long and combination of special character, digit, lowercase letter, and uppercase letter.";
+    return;
+  }
+
+
     }
   //********************************  Change Password and Reset Password Form Submit  ******************************/
   onSubmit() {
