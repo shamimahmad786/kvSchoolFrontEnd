@@ -35,7 +35,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
  @ViewChild(MatSort) sort: MatSort;
   
-  testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus":"","approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileFinalStatus":"","transferFinalStatus":"" }
+  testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus":"","approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileStatus":"","profileFinalStatus":"","transferFinalStatus":"" }
   users: any = [];
   kvTeacher: any;
   teacherList: any;
@@ -244,13 +244,13 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
           };
         }
         this.users.forEach((item) => {
-        const row = workSheet.addRow([item.empcode,item.name,item.postName,item.subjectName,item.approvedStatus]);
+        const row = workSheet.addRow([item.empcode,item.name,item.postName,item.subjectName,item.profileStatus]);
       });
       workBook.xlsx.writeBuffer().then((data) => {
         let blob = new Blob([data], {
           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         });
-        saveAs(blob, 'kvDetails.xlsx');
+        saveAs(blob, 'kvEmployeeDetails.xlsx');
       });
    
     }
@@ -302,6 +302,14 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       this.testData.approved = data[i].finalStatus;   
       this.testData.profileFinalStatus = data[i].profileFinalStatus;
       this.testData.transferFinalStatus = data[i].transferFinalStatus;
+
+      if(data[i].profileFinalStatus=='SA'){
+        this.testData.profileStatus='VERIFIED'
+      }
+      if(data[i].profileFinalStatus!='SA'){
+        this.testData.profileStatus=' NOT VERIFIED'
+      }
+
       if( data[i].finalStatus=='SI')
       {
         this.testData.approvedStatus = "School Initiated"
@@ -346,7 +354,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       this.testData.postName = data[i].postName;
       this.users.push(this.testData);
     
-      this.testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus": "", "approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileFinalStatus":"","transferFinalStatus":"" }
+      this.testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus": "", "approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileStatus":"","profileFinalStatus":"","transferFinalStatus":"" }
     }
 
     console.log("---------------user detail----------")
