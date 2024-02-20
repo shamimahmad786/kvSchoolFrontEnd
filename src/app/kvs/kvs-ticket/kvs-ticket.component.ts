@@ -48,7 +48,7 @@ export class KvsTicketComponent implements OnInit {
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal) { }
   dataSource:any;
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
-  displayedColumns:any = ['sno','ticketId','subject','InitiateDate','InitiateFrom','Status','resolvedBy','Action'];
+  displayedColumns:any = ['sno','ticketId','subject','InitiateDate','InitiateFrom', 'InitiateFromEmployee','Status','resolvedBy','Action'];
 
   testData ={ "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFrom":"","ticketFromId":"", "ticketToId": "","assignToId":"","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
   @ViewChild(MatPaginator) paginator: MatPaginator;
