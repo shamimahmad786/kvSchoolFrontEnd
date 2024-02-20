@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   interval;
   isDisabled: boolean = false;
   showTimer: boolean = false;
+  OtpHitCount : any
   captchaotp: any;
   errorMessage: any;
   constructor(private formBuilder: FormBuilder,private route: ActivatedRoute,private router: Router, private auth :AuthService,private outSideService: OutsideServicesService) { }

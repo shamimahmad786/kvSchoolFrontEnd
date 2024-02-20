@@ -73,6 +73,8 @@
                                 <button type="button" [disabled]="isDisabled" (click)="otpSend()" class="btn btn-success " style="padding: 3px 10px 3px 8px;">Get Otp</button>
                               <div class="timer" *ngIf="showTimer"> Resend OTP in <b>{{timeLeft}}</b></div> 
                               </div>
+
+                              {{OtpHitCount}}
                                
                               <div class="mb-4 position-relative">
                                 <i class="fa fa-unlock-alt fa-color" aria-hidden="true"></i>
