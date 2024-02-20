@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   mobileNo:any;
   captcha:any;
   businessUnitTypeId:any;
-  timeLeft: number = 300;
+  timeLeft: number = 180;
   interval;
   isDisabled: boolean = false;
   showTimer: boolean = false;
@@ -97,7 +97,7 @@ export class LoginComponent implements OnInit {
         return false;
     }
     else{
-     this.timeLeft = 300;
+     this.timeLeft = 180;
      this.isDisabled=true
      this.showTimer=true;
      this.interval = setInterval(() => {

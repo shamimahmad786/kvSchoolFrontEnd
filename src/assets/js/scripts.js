@@ -73,8 +73,8 @@ function getKey() {
         //  url: "https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER/api/login/getKey",
         // url: "http://10.25.26.251:8014/api/login/getKey",
         // url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER/api/login/getKey",
-        // url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/getKey",
-        url: "https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER-PROD/api/login/getKey",
+        url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/getKey",
+        // url: "https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER-PROD/api/login/getKey",
         type: "POST",
         cache: false,
         async: false,
@@ -144,6 +144,15 @@ function encriptedText(userId, password) {
     // alert(encrypt.encrypt("data"));
     // var a = encrypt.encrypt($("#captchaInput").val());
     return { "username": encrypt.encrypt(userId), "password": encrypt.encrypt(password) }
+
+}
+
+
+function customEncript(data) {
+    var pk = getKey();
+    var encrypt = new JSEncrypt();
+    encrypt.setPublicKey(pk);
+    return encrypt.encrypt(data)
 
 }
 
