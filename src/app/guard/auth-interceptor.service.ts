@@ -67,8 +67,8 @@ export class AuthInterceptorService implements HttpInterceptor {
                 sessionStorage.removeItem('shiftAvailable')
                 sessionStorage.removeItem('singleKvTeacher')
                 sessionStorage.removeItem('systemTeacherCode')
-                // window.location.href = environment.LOGOUT_URL;
-                window.location.href = "http://localhost:4200";
+                window.location.href = environment.LOGOUT_URL;
+                //window.location.href = "http://localhost:4200";
         }
      }
     }else{
