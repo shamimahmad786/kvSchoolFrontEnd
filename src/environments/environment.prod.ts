@@ -89,7 +89,7 @@ export const environment = {
     BASE_URL_DATA_TEACHER_TRANSFER_V2: 'https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER-PROD/api/teacher/transfer/',
     BASE_URL_DATA_REPORT: 'https://kvsonlinetransfer.kvs.gov.in/kv-report-prod/api/',
     BASE_URL_FILE_MANAGEMENT: 'https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER-PROD/api/filemanagement/',
-    LINK_URL: 'https://kvsonlinetransfer.kvs.gov.in/teacher-prod/#/login',
+    LINK_URL: 'https://kvsonlinetransfer.kvs.gov.in/teacher/#/login',
 
 
   //Demo 1

@@ -658,7 +658,18 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
     }
     if(i==event){
       debugger
-    this.workExperienceArray.push(this.teacherForm.value.workExperienceForm[i])
+   this.workExperienceArray.push(this.teacherForm.value.workExperienceForm[i])
+   if(Math.round((new Date( this.workExperienceArray['0']['workStartDate']).getTime())/(3600000*24)) > Math.round((new Date(this.workExperienceArray['0']['workEndDate']).getTime())/(3600000*24)))
+    {
+      ((this.teacherForm.get('workExperienceForm') as FormArray).at(i) as FormGroup).get('workStartDate').patchValue('');
+      ((this.teacherForm.get('workExperienceForm') as FormArray).at(i) as FormGroup).get('workEndDate').patchValue('');
+      Swal.fire(
+        'Date lies between previous experience !',
+        '',
+        'error'
+      );
+    return false;
+    }
     if( this.workExperienceArray['0']['appointedForSubject']=='Select' || this.workExperienceArray['0']['appointedForSubject']=='' )
      {
      Swal.fire(
