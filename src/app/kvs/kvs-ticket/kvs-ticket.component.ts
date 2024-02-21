@@ -48,7 +48,7 @@ export class KvsTicketComponent implements OnInit {
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal) { }
   dataSource:any;
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
-  displayedColumns:any = ['sno','ticketId','subject','InitiateDate','InitiateFrom', 'InitiateFromEmployee','Status','resolvedBy','Action'];
+  displayedColumns:any = ['sno','ticketId','subject','InitiateDate','InitiateFrom','Status','resolvedBy','Action'];
 
   testData ={ "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFrom":"","ticketFromId":"", "ticketToId": "","assignToId":"","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -62,6 +62,9 @@ export class KvsTicketComponent implements OnInit {
     this.ticketType='0';
 
     this.businessTypeId=JSON.parse(sessionStorage.getItem('authTeacherDetails')).applicationDetails[0].business_unit_type_id;
+    if(this.businessTypeId==2){
+      this.displayedColumns = ['sno','ticketId','subject','InitiateDate','InitiateFrom', 'InitiateFromEmployee','Status','resolvedBy','Action'];
+    }
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
       this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
