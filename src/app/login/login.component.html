@@ -55,7 +55,7 @@
                             </div>
                             <span class="help-block text-danger" *ngIf="!loginForm.get('passwordForm.passwordCaptcha').valid && submitted">
                               Incorrect Captcha !</span>
-                            <button type="submit" id="submitPasswordForm" class="btn btn-secondary btn-lg btn-block mt-2" style="margin-left: 21%;">Login</button>
+                            <button type="submit" id="submitPasswordForm" class="btn btn-secondary btn-lg btn-block mt-2" style="margin-left: 21%; z-index:9999 !important">Login</button>
                      </div>
                         </div>
         <!-----------------------otp Form---------------------------------------------->  
@@ -73,7 +73,7 @@
                                 <button type="button" [disabled]="isDisabled" (click)="otpSend()" class="btn btn-success " style="padding: 3px 10px 3px 8px;">Get Otp</button>
                               <div class="timer" *ngIf="showTimer"> Resend OTP in <b>{{timeLeft}}</b></div> 
                               </div>
-                               
+
                               <div class="mb-4 position-relative">
                                 <i class="fa fa-unlock-alt fa-color" aria-hidden="true"></i>
                                 <input type="text"  class="form-control" autocomplete="new-password" formControlName="OTP" [ngClass]="{ 'is-invalid': submittedOtp && !loginForm.get('otpForm.OTP').valid }" placeholder="Otp">
@@ -96,7 +96,7 @@
                               </div>
                               <span class="help-block text-danger" *ngIf="!loginForm.get('otpForm.otpCaptcha').valid && submittedOtp">
                                 Incorrect Captcha !</span>
-                              <button type="submit" id="submitOtpForm" class="btn btn-secondary btn-lg btn-block " style="margin-left: 21%;">Login</button>
+                              <button type="submit" id="submitOtpForm" class="btn btn-secondary btn-lg btn-block " style="margin-left: 21%; z-index: 9999 !important">Login</button>
                             </div>
                         </div>
                       </form>

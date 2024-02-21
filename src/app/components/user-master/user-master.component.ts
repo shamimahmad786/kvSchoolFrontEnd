@@ -40,6 +40,8 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   staticUserType: boolean = false;
   staticUserName: boolean = false;
   staticUserEmail: boolean = false;
+  staticFullName: boolean = false;
+  fullName: boolean = false;
   staticUserMobile: boolean = false;
   staticChangePassword: boolean = false;
   activePaneOne: boolean = true;
@@ -48,6 +50,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   userTypeValue: string;
   loginUserMobile:any;
   loginUserEmail:any;
+  loginUserFullname: any;
   loginUserNameForChild: any;
   childUserList:any;
   childuserDataArray: any = [];
@@ -60,6 +63,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   loginUserNameForService: any;
   clickType:any
   pfofileUser:any;
+  
   constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -80,6 +84,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
       this.businessUnitTypeId = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_id;
       this.loginUserEmail=JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].email;
       this.loginUserMobile=JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].mobile;
+      this.loginUserFullname=JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].firstname;
       this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
       this.loginUserNameForService=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
     }
@@ -183,12 +188,27 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
       this.userMobile=true;
       this.staticChangePassword=false;
       this.changePassword=true;
+      this.staticFullName=false;
+      this.fullName=true;
     }else if(event=='staticUserMobile'){
       this.staticUserMobile=true;
       this.userMobile=false;
      
       this.staticUserEmail=false;
       this.userEmail=true;
+      this.staticChangePassword=false;
+      this.changePassword=true;
+      this.staticFullName=false;
+      this.fullName=true;
+    }
+    else if(event=='staticFullName'){
+      this.staticFullName=true;
+      this.fullName=false;
+     
+      this.staticUserEmail=false;
+      this.userEmail=true;
+      this.staticChangePassword=false;
+      this.changePassword=true;
       this.staticChangePassword=false;
       this.changePassword=true;
     }else if(event=='staticChangePassword'){
@@ -199,6 +219,8 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
       this.userEmail=true;
       this.staticUserMobile=false;
       this.userMobile=true;
+      this.staticFullName=false;
+      this.fullName=true;
     }
   }
   editChildUser(userName:any,type:any,firstName:any){
@@ -221,6 +243,8 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     this.loginUserNameForChild =this.newChildUserListArr[0]['username']
     this.loginUserMobile=this.newChildUserListArr[0]['mobile']
     this.loginUserEmail=this.newChildUserListArr[0]['email']
+    this.loginUserFullname=this.newChildUserListArr[0]['firstname']
+    // alert(this.loginUserFullname)
     
   }
   backButtonClick(){
@@ -255,6 +279,25 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     this.userEmail=true;
     var data = {
         "updateType":"E",
+        "username":userName,
+        "value":val
+    }
+    }
+  }
+  if(type=='fullName'){
+    var filter = /^.*$/;
+  if (!filter.test(val)) {
+    Swal.fire({
+      'icon':'error',
+      'text':'Please provide a valid employee name.'
+    })
+    return false;
+    }
+    else{
+    this.staticFullName=false;
+    this.fullName=true;
+    var data = {
+        "updateType":"N",
         "username":userName,
         "value":val
     }

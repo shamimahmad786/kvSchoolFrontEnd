@@ -18,10 +18,11 @@ export class LoginComponent implements OnInit {
   mobileNo:any;
   captcha:any;
   businessUnitTypeId:any;
-  timeLeft: number = 300;
+  timeLeft: number = 180;
   interval;
   isDisabled: boolean = false;
   showTimer: boolean = false;
+  OtpHitCount : any
   captchaotp: any;
   errorMessage: any;
   constructor(private formBuilder: FormBuilder,private route: ActivatedRoute,private router: Router, private auth :AuthService,private outSideService: OutsideServicesService) { }
@@ -97,7 +98,7 @@ export class LoginComponent implements OnInit {
         return false;
     }
     else{
-     this.timeLeft = 300;
+     this.timeLeft = 180;
      this.isDisabled=true
      this.showTimer=true;
      this.interval = setInterval(() => {
@@ -218,18 +219,24 @@ export class LoginComponent implements OnInit {
       if (res.token) {
         sessionStorage.setItem("authTeacherDetails", JSON.stringify(res));
         this.businessUnitTypeId= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id;
-         if(this.businessUnitTypeId=="2"){
-           this.router.navigate(['/teacher/regionMaster']);
-         }else if(this.businessUnitTypeId=="3"){
-           this.router.navigate(['/teacher/regionStationMapping']);  
-         }else if(this.businessUnitTypeId=="4"){
-           this.router.navigate(['/teacher/stationDashboard']);
-         }else if(this.businessUnitTypeId=="5"){
-           this.router.navigate(['/teacher/profile']);
-         }else{
-           this.router.navigate(['/teacher/profile']);
-         }
-       }
+        if(this.businessUnitTypeId=="2"){
+          this.router.navigate(['/teacher/regionDashboard']);
+        }else if(this.businessUnitTypeId=="3"){
+          this.router.navigate(['/teacher/regionDashboard']);  
+        }else if(this.businessUnitTypeId=="4"){
+          this.router.navigate(['/teacher/stationDashboard']);
+        }else if(this.businessUnitTypeId=="5"){
+          this.router.navigate(['/teacher/profile']);
+        }else if(this.businessUnitTypeId=="6"){
+          Swal.fire({
+            'icon':'error',
+            'text':`Please provide correct credential.`
+          })
+          this.router.navigate(['/teacher_1/#/login']);
+        }else{
+          this.router.navigate(['/teacher/profile']);
+        }
+      }
        if(res.errorMessage=='User is not active'){
         Swal.fire({
           'icon':'error',

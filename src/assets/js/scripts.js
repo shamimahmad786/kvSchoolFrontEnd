@@ -146,6 +146,15 @@ function encriptedText(userId, password) {
 }
 
 
+function customEncript(data){
+    var pk = getKey();
+    var encrypt = new JSEncrypt();
+    encrypt.setPublicKey(pk);
+    return encrypt.encrypt(data)
+
+}
+
+
 //old
 "use strict";
 $(document).ready(function() {

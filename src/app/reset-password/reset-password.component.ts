@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
  import * as $ from 'jquery';
 import { OutsideServicesService } from '../service/outside-services.service';
 declare const encriptedText: any;
+declare const customEncript:any;
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -115,7 +116,7 @@ export class ResetPasswordComponent implements OnInit {
     }
     const key = crypto.enc.Utf8.parse(this.secretKey);
     const iv = crypto.enc.Utf8.parse(this.secretKey);
-    var data = {"password":this.changePasswordForm.controls['confirmPassword'].value};
+    var data = {"password":customEncript(this.changePasswordForm.controls['confirmPassword'].value)};
     var  encrypted = crypto.AES.encrypt(data.toString(), key, {
       keySize: 16,
       iv: iv,
