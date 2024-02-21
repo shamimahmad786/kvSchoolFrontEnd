@@ -273,7 +273,26 @@ export class OutsideServicesService {
     });
     return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "getKvTeacherByKvCode", data, {headers})
   }
+  getDroboxMaster(){
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
 
+    });
+    return this._http.post<any>(environment.BASE_URL_DROPED_BOX+ "getDroboxMaster", {headers})
+  }
+
+
+  searchEmployeeForImport(data:any){
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
+
+    });
+    return this._http.post<any>(environment.BASE_URL_DROPED_BOX+ "searchEmployeeForImport",data, {headers})
+  }
 
   getReportByID(data: any): Observable<any> {
     
@@ -324,8 +343,36 @@ export class OutsideServicesService {
 
     });
     return this._http.post<any>(environment.BASE_URL_DATA_TEACHER + "getKvTeacherByUdiseCode", data, {headers})
-  }
+  } 
 
+
+  getDropedEmployeeByKvCode(data){
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
+
+    });
+    return this._http.post<any>(environment.BASE_URL_DROPED_BOX + "getDropedEmployeeByKvCode", data, {headers})
+  }
+  dropEmployeeToDropbox(data){
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
+
+    });
+    return this._http.post<any>(environment.BASE_URL_DROPED_BOX + "dropEmployeeToDropbox", data, {headers})
+  }
+  importEmployeeFromDropbox(data){
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
+
+    });
+    return this._http.post<any>(environment.BASE_URL_DROPED_BOX + "importEmployeeFromDropbox", data, {headers})
+  }
   fetchAllMaster(data){
     
     var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
