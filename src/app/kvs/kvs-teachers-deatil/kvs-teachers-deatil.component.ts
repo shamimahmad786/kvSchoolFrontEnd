@@ -104,6 +104,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   dropEmployeeName: any;
   dropEmployeeId: any;
   dropBoxReasion:any;
+  teacherEmpCode: any;
 
   constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
@@ -850,9 +851,10 @@ debugger;
       }
     })
   }
-  onEmployeeDropBoxClick(name:any,id:any){
+  onEmployeeDropBoxClick(name:any,id:any,empCode:any){
     this.dropEmployeeName=name;
     this.dropEmployeeId=id;
+    this.teacherEmpCode=empCode;
     console.log("---teacher  id---------")
     console.log(id)
     this.modalService.open(this.dropBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
@@ -1049,7 +1051,7 @@ debugger;
       if (isConfirm.value === true) {
           this.outSideService.dropEmployeeToDropbox(data).subscribe((res)=>{
             if(res){
-             
+              this.modalService.dismissAll() 
               Swal.fire(
                 'Employee Dropped successfully!',
                 '',

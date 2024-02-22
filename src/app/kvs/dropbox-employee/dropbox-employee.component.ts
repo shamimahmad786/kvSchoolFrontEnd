@@ -28,11 +28,10 @@ export class DropboxEmployeeComponent implements OnInit {
   tags: string[] = [];
 
   
-dropBoxColumns = ['sno','teacherName','teachingType', 'dropBoxType','dropboxDescription'];
-searchDropBoxColumns = ['sno','teacherName','kvName','teachingType', 'dropBoxType','status','Action'];
-dropBoxData =  { "sno": "","teacherName": "","teacherId":"", "teachingType": "","dropBoxType": "","dropboxDescription":""}
-
-searchDropBoxData = { "sno": "","teacherName": "","teacherId":"","kvCode":"","kvName":"","dropBoxFlag":"", "teachingType": "","dropBoxType": ""}
+dropBoxColumns = ['sno','teacherName','teachingType','Designation', 'dropBoxType','dropboxDescription'];
+searchDropBoxColumns = ['sno','teacherName','kvName','teachingType','Designation', 'dropBoxType','status','Action'];
+dropBoxData =  { "sno": "","teacherName": "","teacherId":"", "teachingType": "","lastPromotionPositionType":"","dropBoxType": "","dropboxDescription":""}
+searchDropBoxData ={ "sno": "","teacherName": "","teacherId":"","kvCode":"","statusMsg":"","kvName":"","dropBoxFlag":"","className":"" ,"teachingType": "","lastPromotionPositionType":"","dropBoxType": ""}
 
  // displayedColumnsOut = ['sno','name','postName', 'subjectName','transferGround','relivingdate','To','action'];
  DropSource : MatTableDataSource<any>;
@@ -42,9 +41,6 @@ searchDropBoxData = { "sno": "","teacherName": "","teacherId":"","kvCode":"","kv
  @ViewChild('dropSort') dropSort: MatSort;
   
  @ViewChild('dropSearchSort') dropSearchSort: MatSort;
-
-
-
 
   constructor(private outSideService: OutsideServicesService) { }
 
@@ -92,9 +88,10 @@ searchDropBoxData = { "sno": "","teacherName": "","teacherId":"","kvCode":"","kv
           this.dropBoxData.dropBoxType=this.dropBoxReasion[j]['dropboxType']
         }
       }
+      this.dropBoxData.lastPromotionPositionType=data[i].lastPromotionPositionType;
       this.dropBoxData.dropboxDescription = data[i].dropboxDescription;
       this.dropBoxArray.push(this.dropBoxData);
-      this.dropBoxData = { "sno": "","teacherName": "","teacherId":"", "teachingType": "","dropBoxType": "","dropboxDescription":""}
+      this.dropBoxData = { "sno": "","teacherName": "","teacherId":"", "teachingType": "","dropBoxType": "","lastPromotionPositionType":"","dropboxDescription":""}
     }
     console.log("trandgdsdsds")
     console.log(this.dropBoxArray)
@@ -148,8 +145,6 @@ searchDropBoxData = { "sno": "","teacherName": "","teacherId":"","kvCode":"","kv
       this.activePaneTwo=true;
       this.clear();
     } 
-   // this.getKvTeacherRelevingJoiningDetails();
-   
   }
 
   applyFilter(filterValue: string) {
@@ -199,8 +194,21 @@ searchDropBoxData = { "sno": "","teacherName": "","teacherId":"","kvCode":"","kv
             this.searchDropBoxData.teacherId = res[i].teacherEmployeeCode;
             this.searchDropBoxData.kvCode = res[i].kvCode;
             this.searchDropBoxData.kvName = res[i].kvName;
-
             this.searchDropBoxData.dropBoxFlag = res[i].dropBoxFlag;
+            if(res[i].dropBoxFlag=='0' && res[i].kvCode==this.kvCode ){
+              this.searchDropBoxData.statusMsg="Employee Imported";
+              this.searchDropBoxData.className='make-green';
+            }
+            if((res[i].dropBoxFlag=='0' ||  res[i].dropBoxFlag==null) && res[i].kvCode!=this.kvCode ){
+              this.searchDropBoxData.statusMsg="Contact to KV to complete relieve process";
+              this.searchDropBoxData.className='make-red';
+            }
+
+            // for (let j = 0; j < this.searchData['empCode'].length; j++) {
+            //   if(res[i].dropBoxFlag== '0' && this.dropBoxReasion[j]['dropboxId']==res[i]['employeedropid']){
+            //     this.searchDropBoxData.dropBoxType=this.dropBoxReasion[j]['dropboxType']
+            //   }
+            // }
 
             if(res[i].teachingNonteaching=="1"){
               this.searchDropBoxData.teachingType= "Teaching";
@@ -213,10 +221,10 @@ searchDropBoxData = { "sno": "","teacherName": "","teacherId":"","kvCode":"","kv
                 this.searchDropBoxData.dropBoxType=this.dropBoxReasion[j]['dropboxType']
               }
             }
-          
+            this.searchDropBoxData.lastPromotionPositionType=res[i].lastPromotionPositionType;
             this.searchDropData.push(this.searchDropBoxData);
             this.totalLength = this.searchDropData.length;
-            this.searchDropBoxData = { "sno": "","teacherName": "","teacherId":"","kvCode":"","kvName":"","dropBoxFlag":"", "teachingType": "","dropBoxType": ""}
+            this.searchDropBoxData = { "sno": "","teacherName": "","teacherId":"","kvCode":"","statusMsg":"","kvName":"","dropBoxFlag":"","className":"" ,"teachingType": "","lastPromotionPositionType":"","dropBoxType": ""}
           }
           console.log("trandgdsdsds")
     console.log(this.searchDropData)
@@ -260,7 +268,7 @@ searchDropBoxData = { "sno": "","teacherName": "","teacherId":"","kvCode":"","kv
                'success'
              )
            }
-        //   this.getKvTeacherByUdiseCode();
+       this.submit();
      },
      error => {
        Swal.fire({

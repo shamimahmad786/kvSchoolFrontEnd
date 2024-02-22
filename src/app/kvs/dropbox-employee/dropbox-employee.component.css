@@ -79,7 +79,16 @@
   
   }
 
-
+  .make-red {
+    color: red;
+    background-color: #ffefef;;
+    font-family: 'PoppinsBold';
+}
+.make-green{
+    color: green;
+    background-color: #ffefef;;
+    font-family: 'PoppinsBold';
+}
   @media screen and (max-width: 575px) {
 
  
