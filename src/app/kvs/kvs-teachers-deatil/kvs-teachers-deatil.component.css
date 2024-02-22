@@ -18,6 +18,33 @@
     flex: 0 0 15% !important;
     width: 15% !important;
 }
+ .action-button {
+  
+    background: #1b4c43;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 6px 8px;
+    margin: 0px 0px 0px 9px;
+    float: right;
+}
+.required-asterisk{
+  color: red;
+}
+ .action-button:disabled {
+ 
+    background: #1b4c43;
+    font-weight: bold;
+    color: grey;
+    border: 0 none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 6px 8px;
+    margin: 1px 0px 0px 9px;
+    float: right
+}
 
 .mat-column-sno {
     word-wrap: break-word !important;

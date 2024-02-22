@@ -34,7 +34,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
  @ViewChild(MatSort) sort: MatSort;
-  
+ @ViewChild('dropBox', { static: true }) dropBox: TemplateRef<any>;   
   testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus":"","approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileStatus":"","profileFinalStatus":"","transferFinalStatus":"" }
   users: any = [];
   kvTeacher: any;
@@ -101,7 +101,9 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   rejectedTeacher: any;
   isNationalLogin:boolean = false;
   user_name:any;
-  
+  dropEmployeeName: any;
+  dropEmployeeId: any;
+  dropBoxReasion:any;
 
   constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
@@ -159,17 +161,28 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
 
 
     this.dropboxForm = new FormGroup({
-      'feedback': new FormControl(''),
-      'udiseCode': new FormControl('')
+      'dropType': new FormControl('', Validators.required),
+      'dropReasion': new FormControl('')
     })
 
     this.remarksForm = new FormGroup({
       'schoolRemarks': new FormControl('', Validators.required)
     })
+    this.getDroboxMaster();
   }
 
   ngAfterViewInit(): void {
   }
+
+  getDroboxMaster(){
+    this.outSideService.getDroboxMaster().subscribe((res) => {
+      this.dropBoxReasion=res;
+      console.log("----------drop reasion list------------")
+      console.log(res)
+    
+    })
+  }
+
 
   abc(val) {
     if (val == null) {
@@ -837,7 +850,13 @@ debugger;
       }
     })
   }
-
+  onEmployeeDropBoxClick(name:any,id:any){
+    this.dropEmployeeName=name;
+    this.dropEmployeeId=id;
+    console.log("---teacher  id---------")
+    console.log(id)
+    this.modalService.open(this.dropBox, { size: 'lg', backdrop: 'static', keyboard: false ,centered: true});
+  }
   formSelection(val) {
     if (val == '1') {
       this.profileFormShow = true;
@@ -1003,7 +1022,53 @@ debugger;
   testRemarksForm() {
   }
 
+  disableDate() { 
+    return false; 
+ } 
 
+
+  dropBoxSubmit(event: Event){
+     const data={
+      "teacherId":this.dropEmployeeId,
+      "employeeDropId":this.dropboxForm.value.dropType,
+      "dropboxDescription":this.dropboxForm.value.dropReasion,
+    };
+     console.log(data)
+     Swal.fire({
+      'icon':'warning',
+      'text': "Do you want to proceed ?",
+      'allowEscapeKey': false,
+      'allowOutsideClick': false,
+      'showCancelButton': true,
+      'confirmButtonColor': "#DD6B55",
+      'confirmButtonText': "Yes",
+      'cancelButtonText': "No",
+      'showLoaderOnConfirm': true,
+    }
+    ).then((isConfirm) => {
+      if (isConfirm.value === true) {
+          this.outSideService.dropEmployeeToDropbox(data).subscribe((res)=>{
+            if(res){
+             
+              Swal.fire(
+                'Employee Dropped successfully!',
+                '',
+                'success'
+              )
+            }
+            this.getKvTeacherByUdiseCode();
+      },
+      error => {
+        Swal.fire({
+          'icon':'error',
+          'text':error.error
+        }
+        )
+      })
+    }
+    return false;
+    });
+  }
 
 
   getConfirmedTchDetails() {

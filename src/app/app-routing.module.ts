@@ -60,6 +60,8 @@ import { KvsTransferMiscellaneusComponent } from './kvs/kvs-teacher-transfer-det
 import { KvsTransferStationChoiceComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-station-choice/kvs-transfer-station-choice.component';
 import { KvsTransferPreviewUndertakingComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-preview-undertaking/kvs-transfer-preview-undertaking.component';
 import { TransferRelatedDocComponent } from './components/transfer-related-doc/transfer-related-doc.component';
+import { DropboxEmployeeComponent } from './kvs/dropbox-employee/dropbox-employee.component';
+
 const routes: Routes = [
   {path:'', component: MainPageComponent},
   {path:'mainPage', component: MainPageComponent},
@@ -76,7 +78,8 @@ const routes: Routes = [
       {path:'regionDashboard', component: RegionDashboardComponent},
       {path:'stationDashboard', component: StationDashboardComponent},
       {path: 'teacherHome', component:TeacherEntryFormComponent} ,
-      {path: 'basicProfile', component:BasicProfileComponent} ,
+      {path: 'basicProfile', component:BasicProfileComponent} ,     
+      {path: 'dropBox', component:DropboxEmployeeComponent} , 
       {path: 'personalInfo', component:PersonalInfoComponent} ,    
       {path: 'workExperience', component:WorkExperienceComponent} ,   
       {path: 'miscellaneous', component:MiscellaneousFormComponent} ,
