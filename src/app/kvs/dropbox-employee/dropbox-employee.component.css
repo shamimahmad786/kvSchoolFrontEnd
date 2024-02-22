@@ -54,8 +54,18 @@
     -webkit-hyphens: auto;
     hyphens: auto;
   }
-
-
+  .mat-column-sno {
+    width: 6% !important;
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    overflow-wrap: break-word;
+    flex: 0 0 6% !important;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+.search-clear{
+  padding-top: 35px !important;
+}
 .myClass{
     border: solid 0.2px #542555 !important;;
     background-color: #4A1C4B !important;;
@@ -79,7 +89,16 @@
   
   }
 
-
+  .make-red {
+    color: red;
+    background-color: #ffefef;;
+    font-family: 'PoppinsBold';
+}
+.make-green{
+    color: green;
+    background-color: #ecfde9;;
+    font-family: 'PoppinsBold';
+}
   @media screen and (max-width: 575px) {
 
  
