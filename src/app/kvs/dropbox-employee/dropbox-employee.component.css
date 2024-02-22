@@ -4,9 +4,9 @@
   color: #7f8fa4 !important;
 }
 .nav-tabs {border-bottom: none;}
-.nav-tabs li {min-width: 200px;}
+.nav-tabs li {min-width: 200px; margin-right: 4px;}
 .nav-tabs li button {width: 100%;}
-.nav-tabs li .nav-link{background-color: #fff; color: #333; border: #ccc;}
+.nav-tabs li .nav-link{background-color: #dfdfdf; color: #000; font-weight: 500; border: #ccc;}
 
 .dashboard-main-content-info{ border-top-left-radius:0 !important}
 
@@ -64,12 +64,18 @@
     word-break: break-word;
 }
 .search-clear{
-  padding-top: 35px !important;
+  padding-top: 42px !important;
 }
 .myClass{
-    border: solid 0.2px #542555 !important;;
-    background-color: #4A1C4B !important;;
-    color: white !important;;
+    /* border: solid 0.2px #542555 !important; */
+    background-color: #4A1C4B !important;
+    color: white !important;
+  }
+
+  .ser-bdr {
+    border-bottom: 1px solid #d6d6d6;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
   }
 
   @media screen and (max-width: 1199px) {

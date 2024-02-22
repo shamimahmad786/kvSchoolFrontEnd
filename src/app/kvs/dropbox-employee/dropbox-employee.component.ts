@@ -147,12 +147,18 @@ searchDropBoxData ={ "sno": "","teacherName": "","teacherId":"","kvCode":"","sta
     } 
   }
 
+  applyFilterSBSource(filterValue: string) {
+    filterValue = filterValue.trim(); 
+    filterValue = filterValue.toLowerCase(); 
+    this.DropSource.filter = filterValue;
+  }
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); 
     filterValue = filterValue.toLowerCase(); 
     this.dataSource.filter = filterValue;
     this.totalLength = this.dataSource.filteredData.length;
   }
+
   submit(){
     if(this.tags.length<1){
       this.manualEmpCodeSearch=[];
@@ -200,6 +206,11 @@ searchDropBoxData ={ "sno": "","teacherName": "","teacherId":"","kvCode":"","sta
               this.searchDropBoxData.className='make-green';
             }
             if((res[i].dropBoxFlag=='0' ||  res[i].dropBoxFlag==null) && res[i].kvCode!=this.kvCode ){
+              this.searchDropBoxData.statusMsg="Contact to KV to complete relieve process";
+              this.searchDropBoxData.className='make-red';
+            }
+            
+            if(res[i].dropBoxFlag==null && res[i].kvCode==this.kvCode ){
               this.searchDropBoxData.statusMsg="Contact to KV to complete relieve process";
               this.searchDropBoxData.className='make-red';
             }
