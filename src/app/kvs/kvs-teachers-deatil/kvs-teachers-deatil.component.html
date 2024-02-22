@@ -85,6 +85,7 @@
                                     <i *ngIf="row.profileFinalStatus != 'SA'" class='bx bx-edit-alt bxStyle1 mr-2 edit-btn small-buton' title="Edit" (click)="onViewClick(row.empcode)">{{row.a}}</i>
                                     <i *ngIf="row.profileFinalStatus === 'SA'" class='bx bx-show bxStyle1 mr-2 edit-btn small-buton' title="View" (click)="onViewClick(row.empcode)">{{row.a}}</i>
                                     <i *ngIf="row.transferFinalStatus != 'TS' && row.transferFinalStatus != 'TE' && row.transferFinalStatus != 'TA'" class="fa fa-lock reset-btn small-buton" title="Reset" aria-hidden="true" style="cursor: pointer;" (click)="onResetClick(row.teacherId)"></i>
+                                    <i class="fa fa-dropbox reset-btn small-buton" title="Drop Employee" aria-hidden="true" style="cursor: pointer;" (click)="onEmployeeDropBoxClick(row.name,row.teacherId)"></i>
                                 </mat-cell>
                             </ng-container>
                             <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true; "></mat-header-row>
@@ -587,4 +588,73 @@
             </div>
         </div>
     </div>
+
+
+    <div mat-dialog-content>
+        <ng-template #dropBox let-modal style="min-width: 100%;">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="clearfix">
+                            <div class="float-left">
+                                <h2 class="mb-0 text-green">Drop Employee </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" style="min-width: 100%; max-height: 1000px;">
+                <div class="container-fluid">
+                    <div class="row shadow-sm p-3 mb-2 bg-body rounded m-3 p-3">
+                        <div class="col-md-6">
+                                <div class="row">
+                                    <ul class="nav nav-pills nav-fill" style="font-weight: bolder; color: #427e72;">
+
+                                        <li style="font-weight: bolder; color: #427e72;">
+                                            Name : {{dropEmployeeName}} ({{dropEmployeeId}})
+                                        </li>
+                                    </ul>
+                                </div>
+                        </div>
+
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="" style="min-width: 100%; max-height: 1000px;">
+                <div class="container-fluid">
+                    <form id="msform" class="msform" [formGroup]="dropboxForm" (ngSubmit)="dropBoxSubmit($event)">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="shadow m-3 p-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4 class="titleSet"> Drop Type <span class="required-asterisk">*</span> :</h4>
+                                            <select class="form-select" formControlName="dropType"  aria-label="Default select example" id="s_id">
+                                    <option selected disabled>Select </option>
+                                    <option *ngFor="let data of dropBoxReasion; let i=index;"
+                                    value="{{data.dropboxId}}">
+                                    {{data.dropboxType}}
+                                </option>
+                                </select>
+                                        </div>
+                                      
+                                        <div class="col-md-6">
+                                            <h4 class="titleSet">Drop Reason :</h4>
+                                            <textarea class="form-control" id="exemptionRemarks" formControlName="dropReasion" name="dropReasion" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="p-3" style="text-align: right;">
+                                        <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
+                                        <input [disabled]="(!dropboxForm.get('dropType').valid)" type="submit" id="submit" value="Submit" class="action-button" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
 </div>

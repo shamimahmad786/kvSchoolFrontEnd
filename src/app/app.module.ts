@@ -114,6 +114,7 @@ import { TransferProgresionBarComponent } from './kvs/kvs-teacher-transfer-detai
 import { KvsTransferStationChoiceComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-station-choice/kvs-transfer-station-choice.component';
 import { KvsTransferPreviewUndertakingComponent } from './kvs/kvs-teacher-transfer-details/kvs-transfer-preview-undertaking/kvs-transfer-preview-undertaking.component';
 import { TransferRelatedDocComponent } from './components/transfer-related-doc/transfer-related-doc.component';
+import { DropboxEmployeeComponent } from './kvs/dropbox-employee/dropbox-employee.component';
 // import { MAT_DATE_FORMATS } from '@angular/material/';
 // import { DatePickerModule } from 'angular-material-datepicker';
 
@@ -219,7 +220,8 @@ import { TransferRelatedDocComponent } from './components/transfer-related-doc/t
     TransferProgresionBarComponent,
     KvsTransferStationChoiceComponent,
     KvsTransferPreviewUndertakingComponent,
-    TransferRelatedDocComponent
+    TransferRelatedDocComponent,
+    DropboxEmployeeComponent
    
     
   ],
