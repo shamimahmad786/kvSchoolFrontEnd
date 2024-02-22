@@ -20,18 +20,11 @@
                                                 Enter a valid employee code!</span>
                                         </div>
                             
-                                         <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">Full Name<span class="required-asterisk">*</span>
-                                            </h4>
-                                            <input type="text" class="form-control"  disabled  (keyup)="onKeyUp($event)" name="fullName" formControlName="fullName" style="text-transform:uppercase" maxlength="50">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('fullName').valid && basicProfileForm.get('fullName').touched">
-                                                Enter your valid name!</span>
-                                         </div>
                       
-                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                        <div class="col-md-6 mb-3">
                                             <h4 class="titleSet">Full Name<span class="required-asterisk">*</span>
                                             </h4>
-                                            <input type="text" class="form-control"   (keyup)="onKeyUp($event)" name="fullName" formControlName="fullName" style="text-transform:uppercase" maxlength="50">
+                                            <input type="text" class="form-control" disabled (keyup)="onKeyUp($event)" name="fullName" formControlName="fullName" style="text-transform:uppercase" maxlength="50">
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('fullName').valid && basicProfileForm.get('fullName').touched">
                                                 Enter your valid name!</span>
                                         </div>

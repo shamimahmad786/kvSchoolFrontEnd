@@ -22,14 +22,14 @@ declare const srvTime: any;
   styleUrls: ['./user-master.component.css']
 })
 export class UserMasterComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['Sno', 'User Name', 'Email','Mobile','Parent User','Action' ];
+  displayedColumns = ['Sno' , 'User Name','EmployeeName', 'Email','Mobile','Parent User','Action' ];
   dataSource : MatTableDataSource<any>;
   remarksForm: FormGroup;
  @ViewChild('paginator') paginator: MatPaginator;
  @ViewChild('hBSort') hBSort: MatSort;
  @ViewChild('JoiningBox', { static: true }) JoiningBox: TemplateRef<any>;   
 
-  childUserData = { "sno": "","username": "", "email": "","enabled": "","firstname": "","mobile":"","parentuser": ""}
+  childUserData = { "sno": "","username": "","firstname": "", "email": "","enabled": "","mobile":"","parentuser": ""}
   applicationId: any;
   loginUsername: any;
   userType: boolean = true;
@@ -41,7 +41,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
   staticUserName: boolean = false;
   staticUserEmail: boolean = false;
   staticFullName: boolean = false;
-  fullName: boolean = false;
+  fullName: boolean = true;
   staticUserMobile: boolean = false;
   staticChangePassword: boolean = false;
   activePaneOne: boolean = true;
@@ -129,13 +129,14 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < data.length; i++) {
       this.childUserData.sno = '' + (i + 1) + '';
       this.childUserData.username =data[i].username;
+      this.childUserData.firstname = data[i].firstname; 
       this.childUserData.email = data[i].email;
       this.childUserData.enabled = data[i].enabled;
-      this.childUserData.firstname = data[i].firstname;  
+       
       this.childUserData.mobile =data[i].mobile;  
       this.childUserData.parentuser = data[i].parentuser;  
       this.childuserDataArray.push(this.childUserData);
-      this.childUserData = { "sno": "","username": "", "email": "","enabled": "","firstname": "","mobile":"","parentuser": ""}
+      this.childUserData = { "sno": "","username": "","firstname": "", "email": "","enabled": "","mobile":"","parentuser": ""}
     }
     setTimeout(() => {
       this.dataSource  = new MatTableDataSource(this.childuserDataArray);
@@ -209,8 +210,8 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
       this.userEmail=true;
       this.staticChangePassword=false;
       this.changePassword=true;
-      this.staticChangePassword=false;
-      this.changePassword=true;
+      this.staticUserMobile=false;
+      this.userMobile=true;
     }else if(event=='staticChangePassword'){
       this.staticChangePassword=true;
       this.changePassword=false;
@@ -284,7 +285,7 @@ export class UserMasterComponent implements OnInit, AfterViewInit {
     }
     }
   }
-  if(type=='fullName'){
+  if(type=='firstname'){
     var filter = /^.*$/;
   if (!filter.test(val)) {
     Swal.fire({
