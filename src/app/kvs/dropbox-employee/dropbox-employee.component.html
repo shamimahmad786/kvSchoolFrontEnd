@@ -10,7 +10,7 @@
     </nav>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="home-tab" (click)="navColor('dropList')" [class.myClass]="showFirstButtonColor"  data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"> Droped Employee List</button>
+            <button class="nav-link active" id="home-tab" (click)="navColor('dropList')" [class.myClass]="showFirstButtonColor"  data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"> Relieved Employee List</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="profile-tab" (click)="navColor('transferout')"  [class.myClass]="showsecondButtonColor" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Search Employee For Import </button>
@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="example-container mat-elevation-z8 " id="style-2">
+                        <div class="example-container mat-elevation-z8 table-responsive" >
                             <div class="table-responsive">
                             <mat-table [dataSource]="DropSource" matSort #dropSort="matSort">
                                 <ng-container matColumnDef="sno">
@@ -61,13 +61,22 @@
                                     <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.teachingType}} </mat-cell>
                                 </ng-container>
 
+                                <ng-container matColumnDef="Designation">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Designation</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.lastPromotionPositionType}} </mat-cell>
+                                </ng-container>
+
                                 <ng-container matColumnDef="dropBoxType">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Drop Type</mat-header-cell>
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Relieve Type</mat-header-cell>
                                     <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.dropBoxType}} </mat-cell>
                                 </ng-container>
 
+
+                              
+
+
                                 <ng-container matColumnDef="dropboxDescription">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Drop Description</mat-header-cell>
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Relieve Description</mat-header-cell>
                                     <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.dropboxDescription}} </mat-cell>
                                 </ng-container>
 
@@ -89,10 +98,8 @@
 
             <!--------------------------Transfer In Start Here-------------------------------------------------->
             <div *ngIf="activePaneTwo"> 
-                <div class="row  profile-info">
-                 
-                    <div class="dashboard-main-content-info">
-                        <div class=" ">
+                <div class="row">
+                    <div class="col-lg-12">
                             <form [formGroup]="dropSearchForm" (ngSubmit)="submit()">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -103,7 +110,7 @@
                                                         <label class="titleSet">Employee Code</label>                                     
                                                           <div class="tags">
                                                             <span *ngFor="let tag of tags">{{ tag }}<span class="remove" (click)="removeTag(tag)"> x</span></span>
-                                                            <input type="text" [(ngModel)]="tagInput" (keydown)="onKeyDown($event)" class="form-control" formControlName="employeeCode" placeholder="Add employee code separated by commas">
+                                                            <input type="text" [(ngModel)]="tagInput" (keydown)="onKeyDown($event)" class="form-control" formControlName="employeeCode" placeholder="Add employee code separated by commas ,">
                                                           </div>
                                                     </div>
                                                   
@@ -119,7 +126,7 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                    
                         <div class="row">
                             <div class="col-md-6">
                             </div>
@@ -157,15 +164,19 @@
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Employee Type</mat-header-cell>
                                         <mat-cell *matCellDef="let row" >{{row.teachingType}} </mat-cell>
                                     </ng-container>
-    
+                                    <ng-container matColumnDef="Designation">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Designation</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.lastPromotionPositionType}} </mat-cell>
+                                    </ng-container>
+
                                     <ng-container matColumnDef="dropBoxType">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Drop Type</mat-header-cell>
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Relieve Type</mat-header-cell>
                                         <mat-cell *matCellDef="let row">{{row.dropBoxType}} </mat-cell>
                                     </ng-container>
     
                                     <ng-container matColumnDef="status">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                                        <mat-cell *matCellDef="let row" [style.color]="row.color"><span *ngIf="row.dropBoxFlag != '1'"> Contact to KV to complete relieve process</span> </mat-cell>
+                                        <mat-cell *matCellDef="let row" [ngClass]="{'row.className': row.dropBoxFlag != '1' }">{{row.statusMsg}}</mat-cell>
                                     </ng-container>
     
                                     <ng-container matColumnDef="Action">
@@ -179,7 +190,7 @@
                                 </div>
                                 <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>                         
                       </div>
-                    </div>
+                 </div>
                 </div>
             </div>
         </div>
