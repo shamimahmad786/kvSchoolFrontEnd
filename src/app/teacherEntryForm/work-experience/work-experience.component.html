@@ -46,11 +46,11 @@
                                     </div>
                                     <span class="help-block text-danger" *ngIf="quantity.controls.udiseSchoolName.errors?.required">
                                 Enter KV/RO/ZIET/HQ !</span>
-                                </td>
+                                </td> 
                                 <td *ngIf="profileFinalStatus">
-                                    <div class="input-group mb-3" style="width: 231px;margin-top: 22px;">
-                                        <input type="text" class="input-group-text input" name="udiseSchCode" formControlName="udiseSchCode" disabled style="width:70px; height:33px;">
-                                        <input type="text" class="form-control form-control-sm " name="udiseSchoolName" formControlName="udiseSchoolName" disabled>
+                                    <div class="input-group mb-3" style="width: 231px;margin-top: 22px;"> 
+                                       <input type="text" class="input-group-text input" name="udiseSchCode" formControlName="udiseSchCode" disabled style="width:70px; height:33px;">
+                                     <input type="text" class="form-control form-control-sm " name="udiseSchoolName" matTooltip="{{quantity.controls.udiseSchoolName.value}}" formControlName="udiseSchoolName" disabled>
 
                                         <div *ngIf="i==0">
                                             <button class="btn btn-sm btn-outline-secondary btn-sm" type="button" id="button-addon2" (click)="selectExperianceSchool(i)"> <i
@@ -75,7 +75,7 @@
                                 </td>
                                 <td *ngIf="profileFinalStatus">
                                     <mat-form-field style="width: 100%;">
-                                        <input matInput [matDatepicker]="si" id="wordStartDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="workStartDate" (dateChange)="experienceDataManagement($event,i,1)" formControlName="workStartDate" style="text-transform: none">
+                                        <input matInput [matDatepicker]="si"  id="wordStartDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="workStartDate" (dateChange)="experienceDataManagement($event,i,1)" formControlName="workStartDate" style="text-transform: none">
                                         <mat-datepicker-toggle matSuffix [for]="si"></mat-datepicker-toggle>
                                         <mat-datepicker #si></mat-datepicker>
                                     </mat-form-field>
@@ -93,7 +93,7 @@
                                 </td>
                                 <td *ngIf="profileFinalStatus">
                                     <mat-form-field style="width: 100%;">
-                                        <input matInput [matDatepicker]="ei" id="wordEndDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="workStartDate" (dateChange)="experienceDataManagement($event,i,2)" formControlName="workEndDate" style="text-transform: none">
+                                        <input matInput [matDatepicker]="ei"   id="wordEndDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="workStartDate" (dateChange)="experienceDataManagement($event,i,2)" formControlName="workEndDate" style="text-transform: none">
                                         <mat-datepicker-toggle matSuffix [for]="ei"></mat-datepicker-toggle>
                                         <mat-datepicker #ei></mat-datepicker>
                                     </mat-form-field>
@@ -112,7 +112,7 @@
                                 Select Position Held!</span>
                                 </td>
                                 <td *ngIf="profileFinalStatus">
-                                    <select class="form-select form-select-sm" aria-label="Default select example" name="positionType" formControlName="positionType" value="positionHeld" (blur)="teacherTypeSelectExp($event,i)">
+                                    <select class="form-select form-select-sm"  aria-label="Default select example" name="positionType" formControlName="positionType" value="positionHeld" (blur)="teacherTypeSelectExp($event,i)">
                                 <option selected disabled>Select</option>
                                 <option
                                     *ngFor="let data of teacherTypeDataNameCode; let i=index;"
@@ -135,7 +135,7 @@
                                 Select appointed for subject!</span>
                                 </td>
                                 <td *ngIf="profileFinalStatus">
-                                    <select class="form-select form-select-sm" aria-label="Default select example" name="appointedForSubject" id="appointedSubject-{{i}}" formControlName="appointedForSubject">
+                                    <select class="form-select form-select-sm"   aria-label="Default select example" name="appointedForSubject" id="appointedSubject-{{i}}" formControlName="appointedForSubject">
                                 <option  >Select</option>
                                 <option
                                     *ngFor="let data of subjectListNameCode2[i]; let j=index;"
@@ -160,7 +160,7 @@
                                 <td *ngIf="profileFinalStatus">
                                     {{groundForTransfer}}
                                     <!-- <mat-form-field appearance="fill"> -->
-                                    <select class="form-select form-select-sm" formControlName="groundForTransfer" name="groundForTransfer">
+                                    <select class="form-select form-select-sm"  formControlName="groundForTransfer" name="groundForTransfer">
                                         <option></option>
                                             <option *ngFor="let ground of transferGroundList" [value]="ground?.transferGroundId"> {{ground?.transferGroundType}}</option>
                                         </select>
@@ -171,7 +171,8 @@
                                 <td class="IconBx ">
                                    <div style="min-width: 120px;"></div>
                                     <input *ngIf="quantity.value.buttonType=='save' && profileFinalStatus"   (click)="onSaveExperience(i)" type="submit" name="Save" class="me-2 btn btn-sm save-user" value="Save" />
-                                    <input *ngIf="quantity.value.buttonType=='update' && profileFinalStatus" (click)="onSaveExperience(i)" type="submit" name="Update" class="me-2 btn btn-sm add-user" value="Update" />
+                                    <input *ngIf="quantity.value.buttonType=='update' && profileFinalStatus" (click)="onEditExperience(i)" type="submit"id="edit_{{i}}" style="display: show;" name="Update" class="me-2 btn btn-sm add-user" value="Edit" />
+                                    <input *ngIf="quantity.value.buttonType=='update' && profileFinalStatus" (click)="onSaveExperience(i)" type="submit" id="update_{{i}}" style="display: none;"  name="Update" class="me-2 btn btn-sm add-user" value="Update" />
                                     <button type="submit" *ngIf=" profileFinalStatus" name="Save" class="btn btn-sm btn-danger"><i (click)="removeQuantity(i)" class="fa fa-minus-circle mr-2" style="color: #fff; font-size: 13px;"></i></button>
 
                                 </td>

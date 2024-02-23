@@ -71,10 +71,6 @@
                                     <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.dropBoxType}} </mat-cell>
                                 </ng-container>
 
-
-                              
-
-
                                 <ng-container matColumnDef="dropboxDescription">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Relieve Description</mat-header-cell>
                                     <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.dropboxDescription}} </mat-cell>
@@ -82,7 +78,7 @@
 
                                 <ng-container matColumnDef="action">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [style.color]="row.color"> </mat-cell>
+                                    <mat-cell *matCellDef="let row" [style.color]="row.color"> <button type="button"  class="btn btn-success btn-sm" (click)="revokeEmployee(row.teacherId)">Revoke</button></mat-cell>
                                 </ng-container>
                                 <mat-header-row *matHeaderRowDef="dropBoxColumns; sticky:true; "></mat-header-row>
                                 <mat-row *matRowDef="let row; columns: dropBoxColumns;">
@@ -110,7 +106,7 @@
                                                         <label class="titleSet mb-2">Employee Code</label>                                     
                                                           <div class="tags">
                                                             <span *ngFor="let tag of tags">{{ tag }}<span class="remove" (click)="removeTag(tag)"> x</span></span>
-                                                            <input type="text"  style="min-height: 50px;"[(ngModel)]="tagInput" (keydown)="onKeyDown($event)" class="form-control" formControlName="employeeCode" placeholder="Add employee code separated by commas ,">
+                                                            <input type="text"  style="min-height: 50px;"[(ngModel)]="tagInput" (keydown)="onKeyDown($event)" class="form-control" formControlName="employeeCode" placeholder="Add employee code separated by commas(,)">
                                                           </div>
                                                     </div>
                                                     <div class="col-md-7 pt-4 search-clear">
