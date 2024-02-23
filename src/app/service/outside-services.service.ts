@@ -373,6 +373,21 @@ export class OutsideServicesService {
     });
     return this._http.post<any>(environment.BASE_URL_DROPED_BOX + "importEmployeeFromDropbox", data, {headers})
   }
+
+
+  revokeEmployeeFromDropbox(data){
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
+
+    });
+    return this._http.post<any>(environment.BASE_URL_DROPED_BOX + "revokeEmployeeFromDropbox", data, {headers})
+  }
+
+
+
+
   fetchAllMaster(data){
     
     var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token

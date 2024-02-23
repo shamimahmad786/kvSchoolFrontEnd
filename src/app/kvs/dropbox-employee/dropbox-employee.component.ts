@@ -29,7 +29,7 @@ export class DropboxEmployeeComponent implements OnInit {
   
 
   
-dropBoxColumns = ['sno','teacherName','teachingType','Designation', 'dropBoxType','dropboxDescription'];
+dropBoxColumns = ['sno','teacherName','teachingType','Designation', 'dropBoxType','dropboxDescription','action'];
 searchDropBoxColumns = ['sno','teacherName','kvName','teachingType','Designation', 'dropBoxType','status','Action'];
 dropBoxData =  { "sno": "","teacherName": "","teacherId":"", "teachingType": "","lastPromotionPositionType":"","dropBoxType": "","dropboxDescription":""}
 searchDropBoxData ={ "sno": "","teacherName": "","teacherId":"","kvCode":"","statusMsg":"","kvName":"","dropBoxFlag":"","className":"" ,"teachingType": "","lastPromotionPositionType":"","dropBoxType": ""}
@@ -159,7 +159,46 @@ searchDropBoxData ={ "sno": "","teacherName": "","teacherId":"","kvCode":"","sta
     this.dataSource.filter = filterValue;
     this.totalLength = this.dataSource.filteredData.length;
   }
-
+  revokeEmployee(empCode:any){
+    {
+      const data={"teacherEmployeeCode":empCode}
+      console.log(data)
+      Swal.fire({
+       'icon':'warning',
+       'text': "Do you want to proceed ?",
+       'allowEscapeKey': false,
+       'allowOutsideClick': false,
+       'showCancelButton': true,
+       'confirmButtonColor': "#DD6B55",
+       'confirmButtonText': "Yes",
+       'cancelButtonText': "No",
+       'showLoaderOnConfirm': true,
+     }
+     ).then((isConfirm) => {
+       if (isConfirm.value === true) {
+           this.outSideService.revokeEmployeeFromDropbox(data).subscribe((res)=>{
+             if(res){
+              this.getDroboxMaster()
+               Swal.fire(
+                 'Employee revoked Successfully!',
+                 '',
+                 'success'
+               )
+             }
+         this.submit();
+       },
+       error => {
+         Swal.fire({
+           'icon':'error',
+           'text':error.error
+         }
+         )
+       })
+     }
+     return false;
+     });
+   }
+  }
   submit(){
     if(this.tags.length<1){
       this.manualEmpCodeSearch=[];
