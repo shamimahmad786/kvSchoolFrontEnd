@@ -29,7 +29,9 @@
                                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search ">
                             </mat-form-field>
                         </div> 
-                    </div>       
+                    </div>     
+                    
+                    
                     <div class="table-responsive">
                         <table mat-table  [dataSource]="dataSource" matSort>
                             <ng-container matColumnDef="sno">
@@ -367,6 +369,23 @@
                             </div>
                         </div>
                     </form>
+<div class="remark-card mb-4">
+    <h2>Query Resolution Notes</h2>
+                    <div class="row m-0">
+                        
+       
+
+                            <div class="form-group mt-2 position-relative">
+                               <label class="label-left">Institute Name: kv_1938</label>
+
+                                 <label class="label-right">Date: 23/02/2024</label>
+                                 <label class="label-desc">Remarks: </label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" disabled rows="3">cdgrthytj6u cdgrthytj6u cdgrthytj6u cdgrthytj6u cdgrthytj6u cdgrthytj6ucdgrthytj6ucdgrthytj6u</textarea>
+                              </div>
+                     
+
+                    </div>
+                </div>
                 </div>
             </div>
         </ng-template>

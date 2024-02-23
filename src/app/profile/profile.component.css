@@ -408,7 +408,7 @@ body {
 .card-title {font-weight: 600;}
 .card-title span {font-weight: normal;}
 .table1 {width: 100%; border-collapse: collapse;}
-.table1 th, .table1 td {border-collapse: collapse; padding: 8px 10px; border-width: 1px; text-align:center;}
+.table1 th, .table1 td {border-collapse: collapse; padding: 8px 10px !important; border-width: 1px; text-align:center;}
 .table1 th{background: #f6e7f7;
   text-align: center;
   color: #000;}

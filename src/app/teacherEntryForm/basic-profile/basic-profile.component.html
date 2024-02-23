@@ -28,8 +28,19 @@
                                             <span class="help-block text-danger" *ngIf="!basicProfileForm.get('fullName').valid && basicProfileForm.get('fullName').touched">
                                                 Enter your valid name!</span>
                                         </div>
-                                   
-
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet">Mobile<span class="required-asterisk">*</span></h4>
+                                            <input type="text" class="form-control" name="mobile" (blur)="checkMobileNumber($event)" disabled formControlName="mobile" maxlength="10" minlength="10">
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('mobile').valid 
+                                            && basicProfileForm.get('mobile').touched
+                                            ">Enter valid mobile number of 10 digit !</span>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h4 class="titleSet">Email <span class="required-asterisk">*</span></h4>
+                                            <input type="email" class="form-control" disabled name="email" formControlName="email" style="text-transform: none">
+                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('email').valid && basicProfileForm.get('email').touched ">
+                                                Enter your email id!</span>
+                                        </div>
                                         <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
                                             <h4 class="titleSet">Gender<span class="required-asterisk">*</span></h4>
                                             <div class="form-check form-check-inline">
@@ -90,20 +101,35 @@
                                             </span>
                                         </div>
 
-                                        <div class="col-md-6 mb-3">
-                                            <h4 class="titleSet">Mobile<span class="required-asterisk">*</span></h4>
-                                            <input type="text" class="form-control" name="mobile" (blur)="checkMobileNumber($event)" disabled formControlName="mobile" maxlength="10" minlength="10">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('mobile').valid 
-                                            && basicProfileForm.get('mobile').touched
-                                            ">Enter valid mobile number of 10 digit !</span>
-                                        </div>
 
-                                        <div class="col-md-6 mb-3">
-                                            <h4 class="titleSet">Email <span class="required-asterisk">*</span></h4>
-                                            <input type="email" class="form-control" disabled name="email" formControlName="email" style="text-transform: none">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('email').valid && basicProfileForm.get('email').touched ">
-                                                Enter your email id!</span>
-                                        </div>
+<!-- 
+                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                            <h4 class="titleSet">Social Catagory <span class="required-asterisk">*</span></h4>
+                                            <select class="form-select" aria-label="Default select example"  name="socialCatagory" formControlName="socialCatagory" (change)="cDistrictChange($event.target.value)">
+                                                <option selected disabled>Select District
+                                                </option>
+                                                <option *ngFor="let data of districListByStateIdC"
+                                                    value="{{data.district_id}}">
+                                                    {{data.district_name | uppercase}}
+                                                </option>
+                                            </select>
+                                        </div> -->
+
+                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                        <h4 class="titleSet"> Social Catagory  <span class="required-asterisk">*</span></h4>
+                                        <select   class="form-select" name="socialCatagory" formControlName="socialCatagory" aria-label="Default select example">
+                                            <option disabled selected>Select Social Catagory</option>
+                                            <option value="1">GENERAL NON EWS</option>
+                                            <option value="2">GENERAL EWS</option>
+                                            <option value="3">OBC</option>
+                                            <option value="4">SC</option>
+                                            <option value="5">ST</option>
+                                          </select>
+                                       </div>
+
+
+
+                                       
                                         <div class="col-md-12">
                                             <hr>
                                         </div>
@@ -762,6 +788,7 @@
                     <div class="mt-4 button-save float-end " >
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>  <input *ngIf="profileFinalStatus" [disabled]="(!basicProfileForm.get('maritalStatusF').valid ||  !basicProfileForm.get('lastPromotionPositionDate').valid || !basicProfileForm.get('dob').valid || 
                        !basicProfileForm.get('fullName').valid || !basicProfileForm.get('specialRecruitmentYn').valid ||
+                       !basicProfileForm.get('socialCatagory').valid ||
                        !basicProfileForm.get('mobile').valid ||
                        !basicProfileForm.get('gender').valid ||
                        !basicProfileForm.get('staffType').valid ||
