@@ -965,12 +965,12 @@ h3.boxheading::after {
     color: #ffff;
 }
 
-td,
+/* td,
 th {
     border-width: 1px;
     border-color: #e0e0e0;
     padding: 0 10px !important;
-}
+} */
 
 @media screen and (max-width: 767px) {
     .dashboard-main-content-info {

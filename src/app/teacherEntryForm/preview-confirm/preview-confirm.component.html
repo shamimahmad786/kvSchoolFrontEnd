@@ -60,6 +60,16 @@
                                 <td>{{verifyTchTeacherProfileData?.workExperienceAppointedForSubject}}
                                 </td>
                             </tr>
+                            <tr>
+                                <th>Social Categories</th>
+                                <td>{{socialCat}} </td>
+                                <th>Social Sub Categories</th>
+                                <td>{{socialSubCat}}
+                                </td>
+                                <th>Recruited under special recruitment for NER ? </th>
+                                <td>{{verifyTchTeacherProfileData?.specialRecruitmentYn == '13' ? 'Yes':'No'}}
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

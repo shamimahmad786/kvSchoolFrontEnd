@@ -38,6 +38,8 @@ export class PreviewConfirmComponent implements OnInit {
   profileFinalStatus: boolean = false;
   token: any;
   exportProfileUrl: any;
+  socialCat: string;
+  socialSubCat: string;
   constructor(private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
     private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) { }
@@ -124,13 +126,36 @@ export class PreviewConfirmComponent implements OnInit {
   })
   }
   onVerifyClick() {
-    debugger
     this.outSideService.getUpdatedFlag(this.tempTeacherId).subscribe((res) => {
       this.flagUpdatedList = res.response
     }, error => {
     })
     this.outSideService.fetchConfirmedTchDetails(this.tempTeacherId).subscribe((res) => {
+      debugger
+   
     this.verifyTchTeacherProfileData = res.response.teacherProfile;
+    console.log(this.verifyTchTeacherProfileData);
+    if(this.verifyTchTeacherProfileData['socialCategories']=='1'){
+      this.socialCat='GENERAL';
+    }
+    if(this.verifyTchTeacherProfileData['socialCategories']=='2'){
+      this.socialCat='OBC';
+    }
+    if(this.verifyTchTeacherProfileData['socialCategories']=='3'){
+      this.socialCat='SC';
+    }
+    if(this.verifyTchTeacherProfileData['socialCategories']=='4'){
+      this.socialCat='ST';
+    }
+    if(this.verifyTchTeacherProfileData['socialSubCategories']=='1'){
+      this.socialSubCat='GENERAL NON EWS';
+    }
+    if(this.verifyTchTeacherProfileData['socialSubCategories']=='2'){
+      this.socialSubCat='GENERAL EWS';
+    }
+    if(this.verifyTchTeacherProfileData['socialSubCategories']=='0' || this.verifyTchTeacherProfileData['socialSubCategories']==null){
+      this.socialSubCat='NA';
+    }
     this.schoolDetails = res.response.schoolDetails;
     this.kvNameCode = this.schoolDetails.kvName+' '+this.schoolDetails.kvCode;
     this.stationNameCode= this.schoolDetails.stationName+' '+this.schoolDetails.stationCode;
