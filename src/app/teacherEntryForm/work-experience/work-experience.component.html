@@ -112,7 +112,7 @@
                                 Select Position Held!</span>
                                 </td>
                                 <td *ngIf="profileFinalStatus">
-                                    <select class="form-select form-select-sm"  aria-label="Default select example" name="positionType" formControlName="positionType" value="positionHeld" (blur)="teacherTypeSelectExp($event,i)">
+                                    <select class="form-select form-select-sm"  aria-label="Default select example" name="positionType"  formControlName="positionType" value="positionHeld" (blur)="teacherTypeSelectExp($event,i)">
                                 <option selected disabled>Select</option>
                                 <option
                                     *ngFor="let data of teacherTypeDataNameCode; let i=index;"
