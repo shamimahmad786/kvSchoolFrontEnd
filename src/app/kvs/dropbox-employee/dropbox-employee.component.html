@@ -104,18 +104,18 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="">
-                                            <div class=" prof-fields  p-4 ">
+                                            <div class="prof-fields ser-bdr">
                                                 <div class="row">
-                                                    <div class="col-md-6 form-group my-2">
+                                                    <div class="col-md-5 form-group my-2">
                                                         <label class="titleSet mb-2">Employee Code</label>                                     
                                                           <div class="tags">
                                                             <span *ngFor="let tag of tags">{{ tag }}<span class="remove" (click)="removeTag(tag)"> x</span></span>
                                                             <input type="text"  style="min-height: 50px;"[(ngModel)]="tagInput" (keydown)="onKeyDown($event)" class="form-control" formControlName="employeeCode" placeholder="Add employee code separated by commas ,">
                                                           </div>
                                                     </div>
-                                                    <div class="col-md-6 pt-4 search-clear">
-                                                        <button type="submit" class="btn btn-success mt-2">Search</button>&nbsp;&nbsp;
-                                                        <button type="button" class="btn btn-primary mt-2" (click)="clear()">Clear</button>&nbsp;&nbsp;
+                                                    <div class="col-md-7 pt-4 search-clear">
+                                                        <button type="submit" class="btn btn-success me-1">Search</button>
+                                                        <button type="button" class="btn btn-primary" (click)="clear()">Clear</button>
                                                     </div>
                                                 </div>
                                             </div>
