@@ -19,6 +19,7 @@ import {
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { BasicProfile } from 'src/app/basic-profile';
 declare const srvTime: any;
+declare const showHide:any;
 interface SubjectData {
   subNameCode: string;
   subjectCode: string;
@@ -95,6 +96,7 @@ export class BasicProfileComponent implements OnInit {
   profileFinalStatus: boolean = false;
   copyAdd: boolean = false;
   crspndAdd: any;
+  visiblitySubSocialCategory:boolean;
 
   @ViewChild('Physically_Handicap_Certificate')Physically_Handicap_Certificate: ElementRef;
   @ViewChild('selectSpouseStationModal', { static: true }) selectSpouseStationModal: TemplateRef<any>;
@@ -133,6 +135,8 @@ export class BasicProfileComponent implements OnInit {
       'gender': new FormControl('', Validators.required),
       'dob': new FormControl('', [Validators.required, this.dateDifferenceFnc.bind(this)]),
       'mobile': new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("[8976][0-9]{9}")]),
+      'socialCategories': new FormControl('', Validators.required),
+      'socialSubCategories': new FormControl(''),
       'email': new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       'presentStationName': new FormControl('', Validators.required),
       'presentKvName': new FormControl('', Validators.required),
@@ -236,6 +240,11 @@ export class BasicProfileComponent implements OnInit {
     this.outSideService.getFormStatusV2(data).subscribe((res)=>{
       if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
         this.profileFinalStatus=true;
+        showHide(false);
+       }else{
+        
+        this.profileFinalStatus=false;
+        showHide(true);
        }
   },
   error => {
@@ -255,12 +264,20 @@ export class BasicProfileComponent implements OnInit {
       if(res){
         console.log("all profile data")
         console.log(res);
+        if(this.emplyeeData['socialSubCategories']=="1" || this.emplyeeData['socialSubCategories']=="2"){
+        this.visiblitySubSocialCategory =true;
+        }else{
+          this.visiblitySubSocialCategory =false;
+        }
+
         this.basicProfileForm.patchValue({
           fullName:  this.emplyeeData['teacherName'],
           gender: this.emplyeeData['teacherGender'],
           dob: this.emplyeeData['teacherDob'],
           empCode:this.emplyeeData['teacherEmployeeCode'],
           mobile: this.emplyeeData['teacherMobile'],
+          socialCategories: this.emplyeeData['socialCategories'],
+          socialSubCategories: this.emplyeeData['socialSubCategories'],
           email: this.emplyeeData['teacherEmail'],
           prmntAddress: this.emplyeeData['teacherPermanentAddress'],
           prmntState: this.emplyeeData['teacherParmanentState'],
@@ -872,6 +889,8 @@ export class BasicProfileComponent implements OnInit {
           "teacherDob": this.basicProfileForm.value.dob,
           "teacherEmployeeCode":this.basicProfileForm.value.empCode,
           "teacherMobile":this.basicProfileForm.value.mobile,
+          "socialCategories": this.basicProfileForm.value.socialCategories,
+          "socialSubCategories": this.basicProfileForm.value.socialSubCategories,          
           "teacherEmail":this.basicProfileForm.value.email,
           "teacherPermanentAddress":this.basicProfileForm.value.prmntAddress,
           "teacherParmanentState":this.basicProfileForm.value.prmntState,
@@ -939,7 +958,16 @@ export class BasicProfileComponent implements OnInit {
         });
 }
 
-
+socialChange(event){
+if(event.target.value=="1"){
+this.visiblitySubSocialCategory=true;
+}else{
+this.visiblitySubSocialCategory=false;
+this.basicProfileForm.patchValue({
+  socialSubCategories: 0,
+});
+}
+}
 
 
 // downloadDocument(url) {

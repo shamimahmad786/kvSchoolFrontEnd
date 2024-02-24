@@ -180,6 +180,17 @@ export class WorkExperienceComponent implements OnInit {
             ((this.teacherForm.get('workExperienceForm') as FormArray).at(i) as FormGroup).get('shiftType');
           }
         }
+
+        // for (let i = 0; i < this.tchExpList.length; i++) {
+        
+        //     ((this.teacherForm.get('workExperienceForm') as FormArray).at(i) as FormGroup).get('workStartDate').disable();
+        //     ((this.teacherForm.get('workExperienceForm') as FormArray).at(i) as FormGroup).get('workEndDate').disable();
+        //     ((this.teacherForm.get('workExperienceForm') as FormArray).at(i) as FormGroup).get('groundForTransfer').disable();
+
+        //     ((this.teacherForm.get('workExperienceForm') as FormArray).at(i) as FormGroup).get('positionType').disable();
+        //     ((this.teacherForm.get('workExperienceForm') as FormArray).at(i) as FormGroup).get('appointedForSubject').disable();
+        // }
+
       })
     } 
   }
@@ -606,6 +617,27 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
       this.router.navigate(['/teacher/previewConfirm']);
     }
   }
+  onEditExperience(id:any){
+    console.log(id)
+    debugger
+    var eiteId="edit_"+id;
+    var updateId="update_"+id;
+    var editdiv = document.getElementById(eiteId);
+    var updatediv = document.getElementById(updateId);
+    editdiv.style.display = "none";  
+    updatediv.style.display = ""; 
+
+    // ((this.teacherForm.get('workExperienceForm') as FormArray).at(id) as FormGroup).get('workStartDate').enable();
+    // ((this.teacherForm.get('workExperienceForm') as FormArray).at(id) as FormGroup).get('workEndDate').enable();
+    // ((this.teacherForm.get('workExperienceForm') as FormArray).at(id) as FormGroup).get('groundForTransfer').enable();
+
+    // ((this.teacherForm.get('workExperienceForm') as FormArray).at(id) as FormGroup).get('positionType').enable();
+    // ((this.teacherForm.get('workExperienceForm') as FormArray).at(id) as FormGroup).get('appointedForSubject').enable();
+
+    // } else {  
+    //   catdiv.style.display = "none";  
+    // }  
+  }
   onSaveExperience(event:any){
  debugger
  console.log(event)
@@ -659,6 +691,7 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
     if(i==event){
       debugger
    this.workExperienceArray.push(this.teacherForm.value.workExperienceForm[i])
+   if(this.workExperienceArray['0']['workEndDate'] !=null){
    if(Math.round((new Date( this.workExperienceArray['0']['workStartDate']).getTime())/(3600000*24)) > Math.round((new Date(this.workExperienceArray['0']['workEndDate']).getTime())/(3600000*24)))
     {
       ((this.teacherForm.get('workExperienceForm') as FormArray).at(i) as FormGroup).get('workStartDate').patchValue('');
@@ -670,6 +703,7 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
       );
     return false;
     }
+  }
     if( this.workExperienceArray['0']['appointedForSubject']=='Select' || this.workExperienceArray['0']['appointedForSubject']=='' )
      {
      Swal.fire(

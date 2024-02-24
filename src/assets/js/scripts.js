@@ -191,6 +191,15 @@ function srvTime() {
 
 }
 
+function showHide(data) {
+    if (data) {
+        $('[input=text]').attr("disabled", "disabled");
+        $("select").attr("disabled", "disabled");
+    } else {
+        $("select,input").removeAttr("disabled");
+    }
+}
+
 
 
 

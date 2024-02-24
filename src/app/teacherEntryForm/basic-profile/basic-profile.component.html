@@ -5,141 +5,109 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-sm-12">
-                    <div  class="dashboard-main-content__header mb-2"><h1  class="mb-0 pro-name">Basic Profile: {{ profileTeacherName | uppercase}}</h1></div>
-                </div>
-                <form [formGroup]="basicProfileForm" (ngSubmit)="submit()">
-                    <div class="form-card">
-                        <div class="row">
-                            <div class="col-md-6 ">
-                                <div class="shadow p-3 card mb-3  min-height-523 ">
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <h4 class="titleSet"> Employee Code<span class="required-asterisk">*</span></h4>
-                                            <input type="text" class="form-control" name="empCode" disabled formControlName="empCode" maxlength="10">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('empCode').valid && basicProfileForm.get('empCode').touched">
+                        <div class="dashboard-main-content__header mb-2">
+                            <h1 class="mb-0 pro-name">Basic Profile: {{ profileTeacherName | uppercase}}</h1>
+                        </div>
+                    </div>
+                    <form [formGroup]="basicProfileForm" (ngSubmit)="submit()">
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-md-6 ">
+                                    <div class="shadow p-3 card mb-3  min-height-523 ">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <h4 class="titleSet"> Employee Code<span class="required-asterisk">*</span></h4>
+                                                <input type="text" class="form-control" name="empCode" disabled formControlName="empCode" maxlength="10">
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('empCode').valid && basicProfileForm.get('empCode').touched">
                                                 Enter a valid employee code!</span>
-                                        </div>
-                            
-                      
-                                        <div class="col-md-6 mb-3">
-                                            <h4 class="titleSet">Full Name<span class="required-asterisk">*</span>
-                                            </h4>
-                                            <input type="text" class="form-control" disabled (keyup)="onKeyUp($event)" name="fullName" formControlName="fullName" style="text-transform:uppercase" maxlength="50">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('fullName').valid && basicProfileForm.get('fullName').touched">
+                                            </div>
+
+
+                                            <div class="col-md-6 mb-3">
+                                                <h4 class="titleSet">Full Name<span class="required-asterisk">*</span>
+                                                </h4>
+                                                <input type="text" class="form-control" disabled (keyup)="onKeyUp($event)" name="fullName" formControlName="fullName" style="text-transform:uppercase" maxlength="50">
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('fullName').valid && basicProfileForm.get('fullName').touched">
                                                 Enter your valid name!</span>
-                                        </div>
-                                   
-
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">Gender<span class="required-asterisk">*</span></h4>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" disabled type="radio" id="gender" value="1" name="gender" formControlName="gender">
-                                                <label class="form-check-label font16 ff">Male</label>
                                             </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" disabled id="gender" value="2" name="gender" formControlName="gender">
-                                                <label class="form-check-label font16 ff">Female</label>
-                                            </div>
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('gender').valid && basicProfileForm.get('gender').touched ">
-                                                Enter your gender!</span>
-                                        </div>
-                                        <div class="col-md-6 mb-3"  *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">Gender<span class="required-asterisk">*</span></h4>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" id="gender" value="1" name="gender" formControlName="gender">
-                                                <label class="form-check-label font16 ff">Male</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" id="gender" value="2" name="gender" formControlName="gender">
-                                                <label class="form-check-label font16 ff">Female</label>
-                                            </div>
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('gender').valid && basicProfileForm.get('gender').touched ">
-                                                Enter your gender!</span>
-                                        </div>
-                                        <div class="col-md-6 mb-3"  *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">Date of birth<span class="required-asterisk">*</span></h4>
-                                            <div class="input-group-addon">
-                                                <mat-datepicker #pickers></mat-datepicker>
-                                            </div>
-                                            <input class="form-control" id="wordStartDate" disabled [max]="maxDate" (keydown)="disableDate()" placeholder="DD/MM/YYYY" [matDatepicker]="pickers" (click)="pickers.open()" formControlName="dob">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('dob').valid && basicProfileForm.get('dob').touched ">
-                                                <span class="help-block text-danger"
-                                                    *ngIf="basicProfileForm.get('dob').errors['invalidDate'] ">
-                                                    Age less than 18 years!
-                                                </span>
-                                            <span class="help-block text-danger" *ngIf="basicProfileForm.get('dob').errors['required'] ">
-                                                    Enter date of birth!
-                                                </span>
-                                            </span>
-                                        </div>
-
-                                        <div class="col-md-6 mb-3"  *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">Date of birth<span class="required-asterisk">*</span></h4>
-                                            <div class="input-group-addon">
-                                                <mat-datepicker #pickers></mat-datepicker>
-                                            </div>
-                                            <input class="form-control" id="wordStartDate" [max]="maxDate" (keydown)="disableDate()" placeholder="DD/MM/YYYY" [matDatepicker]="pickers" (click)="pickers.open()" formControlName="dob">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('dob').valid && basicProfileForm.get('dob').touched ">
-                                                <span class="help-block text-danger"
-                                                    *ngIf="basicProfileForm.get('dob').errors['invalidDate'] ">
-                                                    Age less than 18 years!
-                                                </span>
-                                            <span class="help-block text-danger" *ngIf="basicProfileForm.get('dob').errors['required'] ">
-                                                    Enter date of birth!
-                                                </span>
-                                            </span>
-                                        </div>
-
-                                        <div class="col-md-6 mb-3">
-                                            <h4 class="titleSet">Mobile<span class="required-asterisk">*</span></h4>
-                                            <input type="text" class="form-control" name="mobile" (blur)="checkMobileNumber($event)" disabled formControlName="mobile" maxlength="10" minlength="10">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('mobile').valid 
+                                            <div class="col-md-6 mb-3">
+                                                <h4 class="titleSet">Mobile<span class="required-asterisk">*</span></h4>
+                                                <input type="text" class="form-control" name="mobile" (blur)="checkMobileNumber($event)" disabled formControlName="mobile" maxlength="10" minlength="10">
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('mobile').valid 
                                             && basicProfileForm.get('mobile').touched
                                             ">Enter valid mobile number of 10 digit !</span>
-                                        </div>
-
-                                        <div class="col-md-6 mb-3">
-                                            <h4 class="titleSet">Email <span class="required-asterisk">*</span></h4>
-                                            <input type="email" class="form-control" disabled name="email" formControlName="email" style="text-transform: none">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('email').valid && basicProfileForm.get('email').touched ">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <h4 class="titleSet">Email <span class="required-asterisk">*</span></h4>
+                                                <input type="email" class="form-control" disabled name="email" formControlName="email" style="text-transform: none">
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('email').valid && basicProfileForm.get('email').touched ">
                                                 Enter your email id!</span>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <hr>
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">
-                                                Correspondence Address <span class="required-asterisk">*</span></h4>
-                                            <textarea class="form-control" disabled rows="1" name="crspndncAddress" formControlName="crspndncAddress" style="text-transform:uppercase" (change)="addOrPinChange('A')"></textarea>
-                                        </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">Gender<span class="required-asterisk">*</span></h4>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" disabled type="radio" id="gender" value="1" name="gender" formControlName="gender">
+                                                    <label class="form-check-label font16 ff">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" disabled id="gender" value="2" name="gender" formControlName="gender">
+                                                    <label class="form-check-label font16 ff">Female</label>
+                                                </div>
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('gender').valid && basicProfileForm.get('gender').touched ">
+                                                Enter your gender!</span>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">Gender<span class="required-asterisk">*</span></h4>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="gender" value="1" name="gender" formControlName="gender">
+                                                    <label class="form-check-label font16 ff">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="gender" value="2" name="gender" formControlName="gender">
+                                                    <label class="form-check-label font16 ff">Female</label>
+                                                </div>
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('gender').valid && basicProfileForm.get('gender').touched ">
+                                                Enter your gender!</span>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">Date of birth<span class="required-asterisk">*</span></h4>
+                                                <div class="input-group-addon">
+                                                    <mat-datepicker #pickers></mat-datepicker>
+                                                </div>
+                                                <input class="form-control" id="wordStartDate" disabled [max]="maxDate" (keydown)="disableDate()" placeholder="DD/MM/YYYY" [matDatepicker]="pickers" (click)="pickers.open()" formControlName="dob">
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('dob').valid && basicProfileForm.get('dob').touched ">
+                                                <span class="help-block text-danger"
+                                                    *ngIf="basicProfileForm.get('dob').errors['invalidDate'] ">
+                                                    Age less than 18 years!
+                                                </span>
+                                                <span class="help-block text-danger" *ngIf="basicProfileForm.get('dob').errors['required'] ">
+                                                    Enter date of birth!
+                                                </span>
+                                                </span>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">Date of birth<span class="required-asterisk">*</span></h4>
+                                                <div class="input-group-addon">
+                                                    <mat-datepicker #pickers></mat-datepicker>
+                                                </div>
+                                                <input class="form-control" id="wordStartDate" [max]="maxDate" (keydown)="disableDate()" placeholder="DD/MM/YYYY" [matDatepicker]="pickers" (click)="pickers.open()" formControlName="dob">
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('dob').valid && basicProfileForm.get('dob').touched ">
+                                                <span class="help-block text-danger"
+                                                    *ngIf="basicProfileForm.get('dob').errors['invalidDate'] ">
+                                                    Age less than 18 years!
+                                                </span>
+                                                <span class="help-block text-danger" *ngIf="basicProfileForm.get('dob').errors['required'] ">
+                                                    Enter date of birth!
+                                                </span>
+                                                </span>
+                                            </div>
+
+
+                                            <!-- 
                                         <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">
-                                                Correspondence Address <span class="required-asterisk">*</span></h4>
-                                            <textarea class="form-control" rows="1" name="crspndncAddress" formControlName="crspndncAddress" style="text-transform:uppercase" (change)="addOrPinChange('A')"></textarea>
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">State <span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" disabled name="crspndncState" formControlName="crspndncState" (change)="getDistrictListByStateId($event.target.value, 'C')">
-                                                <option selected disabled>Select State
-                                                </option>
-                                                <option *ngFor="let data of stateMasterList"
-                                                    value="{{data.state_id}}">{{data.state_name | uppercase}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">State <span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" name="crspndncState" formControlName="crspndncState" (change)="getDistrictListByStateId($event.target.value, 'C')">
-                                                <option selected disabled>Select State
-                                                </option>
-                                                <option *ngFor="let data of stateMasterList"
-                                                    value="{{data.state_id}}">{{data.state_name | uppercase}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">District <span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" disabled  name="crspndncDistrict" formControlName="crspndncDistrict" (change)="cDistrictChange($event.target.value)">
+                                            <h4 class="titleSet">Social Catagory <span class="required-asterisk">*</span></h4>
+                                            <select class="form-select" aria-label="Default select example"  name="socialCatagory" formControlName="socialCatagory" (change)="cDistrictChange($event.target.value)">
                                                 <option selected disabled>Select District
                                                 </option>
                                                 <option *ngFor="let data of districListByStateIdC"
@@ -147,10 +115,68 @@
                                                     {{data.district_name | uppercase}}
                                                 </option>
                                             </select>
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">District <span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example"  name="crspndncDistrict" formControlName="crspndncDistrict" (change)="cDistrictChange($event.target.value)">
+                                        </div> -->
+
+                                            <div class="col-md-6 mb-3">
+                                                <h4 class="titleSet"> Social Catagory <span class="required-asterisk">*</span></h4>
+                                                <select class="form-select" name="socialCategories" formControlName="socialCategories" (change)="socialChange($event)" aria-label="Default select example">
+                                            <option disabled selected>Select Social Catagory</option>
+                                            <option value="1">GENERAL</option>                                           
+                                            <option value="3">OBC</option>
+                                            <option value="4">SC</option>
+                                            <option value="5">ST</option>
+                                          </select>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <ng-container *ngIf="visiblitySubSocialCategory">
+                                                    <h4 class="titleSet"> Social Sub Catagory <span class="required-asterisk">*</span></h4>
+                                                    <select class="form-select" name="socialSubCategories" formControlName="socialSubCategories" aria-label="Default select example">
+                                            <option disabled selected>Select Social Sub Catagory</option>
+                                            <option value="1">GENERAL NON EWS</option>
+                                            <option value="2">GENERAL EWS</option>
+                                          </select>
+                                                </ng-container>
+                                            </div>
+
+
+
+                                            <div class="col-md-12">
+                                                <hr>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">
+                                                    Correspondence Address <span class="required-asterisk">*</span></h4>
+                                                <textarea class="form-control" disabled rows="1" name="crspndncAddress" formControlName="crspndncAddress" style="text-transform:uppercase" (change)="addOrPinChange('A')"></textarea>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">
+                                                    Correspondence Address <span class="required-asterisk">*</span></h4>
+                                                <textarea class="form-control" rows="1" name="crspndncAddress" formControlName="crspndncAddress" style="text-transform:uppercase" (change)="addOrPinChange('A')"></textarea>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">State <span class="required-asterisk">*</span></h4>
+                                                <select class="form-select" aria-label="Default select example" disabled name="crspndncState" formControlName="crspndncState" (change)="getDistrictListByStateId($event.target.value, 'C')">
+                                                <option selected disabled>Select State
+                                                </option>
+                                                <option *ngFor="let data of stateMasterList"
+                                                    value="{{data.state_id}}">{{data.state_name | uppercase}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">State <span class="required-asterisk">*</span></h4>
+                                                <select class="form-select" aria-label="Default select example" name="crspndncState" formControlName="crspndncState" (change)="getDistrictListByStateId($event.target.value, 'C')">
+                                                <option selected disabled>Select State
+                                                </option>
+                                                <option *ngFor="let data of stateMasterList"
+                                                    value="{{data.state_id}}">{{data.state_name | uppercase}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">District <span class="required-asterisk">*</span></h4>
+                                                <select class="form-select" aria-label="Default select example" disabled name="crspndncDistrict" formControlName="crspndncDistrict" (change)="cDistrictChange($event.target.value)">
                                                 <option selected disabled>Select District
                                                 </option>
                                                 <option *ngFor="let data of districListByStateIdC"
@@ -158,610 +184,618 @@
                                                     {{data.district_name | uppercase}}
                                                 </option>
                                             </select>
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">Pin Code <span class="required-asterisk">*</span></h4>
-                                            <input class="form-control" name="crspndncPinCode" disabled minlength="6" type="text" formControlName="crspndncPinCode" maxlength="6" (change)="addOrPinChange('p')">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('crspndncPinCode').valid ">
-                                                Enter a valid pincode!</span>
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">Pin Code <span class="required-asterisk">*</span></h4>
-                                            <input class="form-control" name="crspndncPinCode" minlength="6" type="text" formControlName="crspndncPinCode" maxlength="6" (change)="addOrPinChange('p')">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('crspndncPinCode').valid ">
-                                                Enter a valid pincode!</span>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <hr>
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">
-                                             
-                                                <input type="checkbox" formControlName="copyAddress" disabled  (change)="copyCurrentAdd()">&nbsp; <span>Same As Current Address</span>
-                                                
-                                                (Permanent Address as per Service Record) <span class="required-asterisk">*</span>
-                                            </h4>
-                                            <textarea class="form-control" rows="1" disabled name="prmntAddress" style="text-transform:uppercase"  formControlName="prmntAddress"></textarea>
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">
-                                                
-                                              <input type="checkbox" formControlName="copyAddress"  (change)="copyCurrentAdd()">&nbsp; <span>Same As Current Address</span>
-                                                
-                                              (Permanent Address as per Service Record) <span class="required-asterisk">*</span>
-                                            </h4>
-                                            <div *ngIf="copyAdd">
-                                                <textarea class="form-control" rows="1" name="prmntAddress" disabled style="text-transform:uppercase"  formControlName="prmntAddress"></textarea>
                                             </div>
-                                            <div *ngIf="!copyAdd">
-                                                <textarea class="form-control" rows="1" name="prmntAddress"  style="text-transform:uppercase"  formControlName="prmntAddress"></textarea>
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">District <span class="required-asterisk">*</span></h4>
+                                                <select class="form-select" aria-label="Default select example" name="crspndncDistrict" formControlName="crspndncDistrict" (change)="cDistrictChange($event.target.value)">
+                                                <option selected disabled>Select District
+                                                </option>
+                                                <option *ngFor="let data of districListByStateIdC"
+                                                    value="{{data.district_id}}">
+                                                    {{data.district_name | uppercase}}
+                                                </option>
+                                            </select>
                                             </div>
-                                           
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">State <span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" disabled  name="prmntState" formControlName="prmntState" (change)="getDistrictListByStateId($event.target.value, 'P')">
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">Pin Code <span class="required-asterisk">*</span></h4>
+                                                <input class="form-control" name="crspndncPinCode" disabled minlength="6" type="text" formControlName="crspndncPinCode" maxlength="6" (change)="addOrPinChange('p')">
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('crspndncPinCode').valid ">
+                                                Enter a valid pincode!</span>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">Pin Code <span class="required-asterisk">*</span></h4>
+                                                <input class="form-control" name="crspndncPinCode" minlength="6" type="text" formControlName="crspndncPinCode" maxlength="6" (change)="addOrPinChange('p')">
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('crspndncPinCode').valid ">
+                                                Enter a valid pincode!</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <hr>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">
+
+                                                    <input type="checkbox" formControlName="copyAddress" disabled (change)="copyCurrentAdd()">&nbsp; <span>Same As Current Address</span> (Permanent Address as per Service Record) <span class="required-asterisk">*</span>
+                                                </h4>
+                                                <textarea class="form-control" rows="1" disabled name="prmntAddress" style="text-transform:uppercase" formControlName="prmntAddress"></textarea>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">
+
+                                                    <input type="checkbox" formControlName="copyAddress" (change)="copyCurrentAdd()">&nbsp; <span>Same As Current Address</span> (Permanent Address as per Service Record) <span class="required-asterisk">*</span>
+                                                </h4>
+                                                <div *ngIf="copyAdd">
+                                                    <textarea class="form-control" rows="1" name="prmntAddress" disabled style="text-transform:uppercase" formControlName="prmntAddress"></textarea>
+                                                </div>
+                                                <div *ngIf="!copyAdd">
+                                                    <textarea class="form-control" rows="1" name="prmntAddress" style="text-transform:uppercase" formControlName="prmntAddress"></textarea>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">State <span class="required-asterisk">*</span></h4>
+                                                <select class="form-select" aria-label="Default select example" disabled name="prmntState" formControlName="prmntState" (change)="getDistrictListByStateId($event.target.value, 'P')">
                                                 <option selected disabled>Select State
                                                 </option>
                                                 <option *ngFor="let data of stateMasterList"
                                                     value="{{data.state_id}}">{{data.state_name | uppercase}}
                                                 </option>                                            
                                             </select>
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">State <span class="required-asterisk">*</span></h4>
-                                        <div *ngIf="copyAdd">
-                                            <select class="form-select" aria-label="Default select example" disabled  name="prmntState" formControlName="prmntState" (change)="getDistrictListByStateId($event.target.value, 'P')">
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">State <span class="required-asterisk">*</span></h4>
+                                                <div *ngIf="copyAdd">
+                                                    <select class="form-select" aria-label="Default select example" disabled name="prmntState" formControlName="prmntState" (change)="getDistrictListByStateId($event.target.value, 'P')">
                                                 <option selected disabled>Select State
                                                 </option>
                                                 <option *ngFor="let data of stateMasterList"  
                                                     value="{{data.state_id}}">{{data.state_name | uppercase}}
                                                 </option>                                            
                                             </select>
-                                        </div>
-                                        <div *ngIf="!copyAdd">
-                                            <select class="form-select" aria-label="Default select example"  name="prmntState" formControlName="prmntState" (change)="getDistrictListByStateId($event.target.value, 'P')">
+                                                </div>
+                                                <div *ngIf="!copyAdd">
+                                                    <select class="form-select" aria-label="Default select example" name="prmntState" formControlName="prmntState" (change)="getDistrictListByStateId($event.target.value, 'P')">
                                                 <option selected disabled>Select State
                                                 </option>
                                                 <option *ngFor="let data of stateMasterList"  
                                                     value="{{data.state_id}}">{{data.state_name | uppercase}}
                                                 </option>                                            
                                             </select>
-                                        </div>                                       
-                                        </div>                                      
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">District <span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" disabled aria-label="Default select example" name="prmntDistrict" formControlName="prmntDistrict" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">District <span class="required-asterisk">*</span></h4>
+                                                <select class="form-select" disabled aria-label="Default select example" name="prmntDistrict" formControlName="prmntDistrict">
                                                 <option selected disabled>Select</option>
                                                 <option *ngFor="let data of districListByStateIdP"
                                                     value="{{data.district_id}}">
                                                     {{data.district_name}}
                                                 </option>
                                             </select>
-                                        </div>
+                                            </div>
 
-                                 <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                 <h4 class="titleSet">District <span class="required-asterisk">*</span></h4>    
-                                    <div *ngIf="copyAdd">
-                                        <select class="form-select" aria-label="Default select example" disabled name="prmntDistrict" formControlName="prmntDistrict" >
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">District <span class="required-asterisk">*</span></h4>
+                                                <div *ngIf="copyAdd">
+                                                    <select class="form-select" aria-label="Default select example" disabled name="prmntDistrict" formControlName="prmntDistrict">
                                             <option selected disabled>Select</option>
                                             <option *ngFor="let data of districListByStateIdP"
                                                 value="{{data.district_id}}">
                                                 {{data.district_name}}
                                             </option>
                                         </select>
-                                    </div>            
-                                    <div *ngIf="!copyAdd">
-                                        <select class="form-select" aria-label="Default select example"  name="prmntDistrict" formControlName="prmntDistrict" >
+                                                </div>
+                                                <div *ngIf="!copyAdd">
+                                                    <select class="form-select" aria-label="Default select example" name="prmntDistrict" formControlName="prmntDistrict">
                                             <option selected disabled>Select</option>
                                             <option *ngFor="let data of districListByStateIdP"
                                                 value="{{data.district_id}}">
                                                 {{data.district_name}}
                                             </option>
                                         </select>
-                                    </div>           
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">Pin Code <span class="required-asterisk">*</span></h4>
-                                            <input type="text" class="form-control" disabled  maxlength="6" minlength="6" name="prmntPinCode" formControlName="prmntPinCode">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">Pin Code <span class="required-asterisk">*</span></h4>
+                                                <input type="text" class="form-control" disabled maxlength="6" minlength="6" name="prmntPinCode" formControlName="prmntPinCode">
 
-                                            <span class="help-block text-danger" *ngIf="basicProfileForm.get('prmntPinCode').status != 'VALID' && basicProfileForm.get('prmntPinCode').status != 'DISABLED'">
+                                                <span class="help-block text-danger" *ngIf="basicProfileForm.get('prmntPinCode').status != 'VALID' && basicProfileForm.get('prmntPinCode').status != 'DISABLED'">
                                                 Enter a valid pincode!</span>
-                                        </div>
-                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">Pin Code <span class="required-asterisk">*</span></h4>
-                                        <div *ngIf="copyAdd">
-                                            <input type="text" class="form-control" disabled maxlength="6" minlength="6" name="prmntPinCode" formControlName="prmntPinCode"> 
-                                        </div>
-                                        <div *ngIf="!copyAdd">
-                                            <input type="text" class="form-control"  maxlength="6" minlength="6" name="prmntPinCode" formControlName="prmntPinCode">
-                                        </div>
-                                        <span class="help-block text-danger" *ngIf="basicProfileForm.get('prmntPinCode').status != 'VALID' && basicProfileForm.get('prmntPinCode').status != 'DISABLED'">
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">Pin Code <span class="required-asterisk">*</span></h4>
+                                                <div *ngIf="copyAdd">
+                                                    <input type="text" class="form-control" disabled maxlength="6" minlength="6" name="prmntPinCode" formControlName="prmntPinCode">
+                                                </div>
+                                                <div *ngIf="!copyAdd">
+                                                    <input type="text" class="form-control" maxlength="6" minlength="6" name="prmntPinCode" formControlName="prmntPinCode">
+                                                </div>
+                                                <span class="help-block text-danger" *ngIf="basicProfileForm.get('prmntPinCode').status != 'VALID' && basicProfileForm.get('prmntPinCode').status != 'DISABLED'">
                                                 Enter a valid pincode!</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="shadow card p-3  min-height-620" style="min-height: 686px;">
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <h4 class="titleSet"> Present KV/RO/ZIET/HQ Name (Code)</h4>
-                                            <input type="text" class="form-control " name="presentKvName" formControlName="presentKvName" value="kvCode" [(ngModel)]="kvNameCode" disabled>
-                                        </div>
+                                <div class="col-md-6">
+                                    <div class="shadow card p-3  min-height-620" style="min-height: 686px;">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <h4 class="titleSet"> Present KV/RO/ZIET/HQ Name (Code)</h4>
+                                                <input type="text" class="form-control " name="presentKvName" formControlName="presentKvName" value="kvCode" [(ngModel)]="kvNameCode" disabled>
+                                            </div>
 
 
-                                        <div class="col-md-6 mb-3">
-                                            <h4 class="titleSet"> Present Station Name (Code)</h4>
-                                            <input type="text" class="form-control " name="presentStationName" formControlName="presentStationName" value="stationCode" [(ngModel)]="stationNameCode" disabled>
-                                        </div>
+                                            <div class="col-md-6 mb-3">
+                                                <h4 class="titleSet"> Present Station Name (Code)</h4>
+                                                <input type="text" class="form-control " name="presentStationName" formControlName="presentStationName" value="stationCode" [(ngModel)]="stationNameCode" disabled>
+                                            </div>
 
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">Present Post Name (Code)<span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" disabled name="presentPostName" formControlName="presentPostName" (change)="teacherTypeSelect($event)">
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">Present Post Name (Code)<span class="required-asterisk">*</span></h4>
+                                                <select class="form-select" aria-label="Default select example" disabled name="presentPostName" formControlName="presentPostName" (change)="teacherTypeSelect($event)">
                                            <option selected disabled>Select</option>
                                            <option
                                                *ngFor="let data of teacherTypeDataNameCode;"
                                                value="{{data.teacherTypeId}}">{{data.nameCode}}
                                            </option>
                                        </select>
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentPostName').valid && 
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentPostName').valid && 
                                        basicProfileForm.get('presentPostName').touched">
                                            Enter Present Post Name (Code)!</span>
-                                        </div>
+                                            </div>
 
-                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">Present Post Name (Code)<span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" name="presentPostName" formControlName="presentPostName" (change)="teacherTypeSelect($event)">
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">Present Post Name (Code)<span class="required-asterisk">*</span></h4>
+                                                <select class="form-select" aria-label="Default select example" name="presentPostName" formControlName="presentPostName" (change)="teacherTypeSelect($event)">
                                            <option selected disabled>Select</option>
                                            <option
                                                *ngFor="let data of teacherTypeDataNameCode;"
                                                value="{{data.teacherTypeId}}">{{data.nameCode}}
                                            </option>
                                        </select>
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentPostName').valid && 
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentPostName').valid && 
                                        basicProfileForm.get('presentPostName').touched">
                                            Enter Present Post Name (Code)!</span>
-                                        </div>
-                                    
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">Last promotion date<span class="required-asterisk">*</span></h4>
-                                            <div class="input-group-addon">
-                                                <mat-datepicker #pickers12></mat-datepicker>
                                             </div>
-                                            <input class="form-control" id="wordStartDate" disabled  [max]="maxDate" (keydown)="disableDate()" placeholder="DD/MM/YYYY" [matDatepicker]="pickers12" (click)="pickers12.open()" formControlName="lastPromotionPositionDate">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('lastPromotionPositionDate').valid && basicProfileForm.get('lastPromotionPositionDate').touched ">
+
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">Last promotion date<span class="required-asterisk">*</span></h4>
+                                                <div class="input-group-addon">
+                                                    <mat-datepicker #pickers12></mat-datepicker>
+                                                </div>
+                                                <input class="form-control" id="wordStartDate" disabled [max]="maxDate" (keydown)="disableDate()" placeholder="DD/MM/YYYY" [matDatepicker]="pickers12" (click)="pickers12.open()" formControlName="lastPromotionPositionDate">
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('lastPromotionPositionDate').valid && basicProfileForm.get('lastPromotionPositionDate').touched ">
                                             <span class="help-block text-danger" *ngIf="basicProfileForm.get('lastPromotionPositionDate').errors['required'] ">
                                                     Enter last promotion date!
                                                 </span>
-                                            </span>
-                                        </div>
-
-                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">Last promotion date<span class="required-asterisk">*</span></h4>
-                                            <div class="input-group-addon">
-                                                <mat-datepicker #pickers12></mat-datepicker>
+                                                </span>
                                             </div>
-                                            <input class="form-control" id="wordStartDate" [max]="maxDate" (keydown)="disableDate()" placeholder="DD/MM/YYYY" [matDatepicker]="pickers12" (click)="pickers12.open()" formControlName="lastPromotionPositionDate">
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('lastPromotionPositionDate').valid && basicProfileForm.get('lastPromotionPositionDate').touched ">
+
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">Last promotion date<span class="required-asterisk">*</span></h4>
+                                                <div class="input-group-addon">
+                                                    <mat-datepicker #pickers12></mat-datepicker>
+                                                </div>
+                                                <input class="form-control" id="wordStartDate" [max]="maxDate" (keydown)="disableDate()" placeholder="DD/MM/YYYY" [matDatepicker]="pickers12" (click)="pickers12.open()" formControlName="lastPromotionPositionDate">
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('lastPromotionPositionDate').valid && basicProfileForm.get('lastPromotionPositionDate').touched ">
                                             <span class="help-block text-danger" *ngIf="basicProfileForm.get('lastPromotionPositionDate').errors['required'] ">
                                                     Enter last promotion date!
                                                 </span>
-                                            </span>
-                                        </div>
+                                                </span>
+                                            </div>
 
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet"> Subject Name (Code)<span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" disabled name="presentSubjectName" formControlName="presentSubjectName">
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet"> Subject Name (Code)<span class="required-asterisk">*</span></h4>
+                                                <select class="form-select" aria-label="Default select example" disabled name="presentSubjectName" formControlName="presentSubjectName">
                                                 <option selected disabled>Select</option>
                                                 <option
                                                     *ngFor="let data of subjectListNameCode;"
                                                     value="{{data.subjectCode}}">{{data.subNameCode}}
                                                 </option>
                                             </select>
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentSubjectName').valid && 
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentSubjectName').valid && 
                                             basicProfileForm.get('presentSubjectName').touched">
                                                 Enter Subject Name (Code)!</span>
-                                        </div>
+                                            </div>
 
-                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet"> Subject Name (Code)<span class="required-asterisk">*</span></h4>
-                                            <select class="form-select" aria-label="Default select example" name="presentSubjectName" formControlName="presentSubjectName">
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet"> Subject Name (Code)<span class="required-asterisk">*</span></h4>
+                                                <select class="form-select" aria-label="Default select example" name="presentSubjectName" formControlName="presentSubjectName">
                                                 <option selected disabled>Select</option>
                                                 <option
                                                     *ngFor="let data of subjectListNameCode;"
                                                     value="{{data.subjectCode}}">{{data.subNameCode}}
                                                 </option>
                                             </select>
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentSubjectName').valid && 
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('presentSubjectName').valid && 
                                             basicProfileForm.get('presentSubjectName').touched">
                                                 Enter Subject Name (Code)!</span>
-                                        </div>
+                                            </div>
 
-                                        <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
-                                            <h4 class="titleSet">Have you been recruited under special recruitment for NER ?<span class="required-asterisk">*</span></h4>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" disabled value="13" id="singleparentyes" name="specialRecruitmentYn" type="radio" formControlName="specialRecruitmentYn">
-                                                <label class="form-check-label font16 ff" for="inlineRadio1">Yes</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" value="14" disabled id="singleparentno" name="specialRecruitmentYn" type="radio" formControlName="specialRecruitmentYn">
-                                                <label class="form-check-label font16 ff" for="inlineRadio2">No</label>
-                                            </div>
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('specialRecruitmentYn').valid  && basicProfileForm.get('specialRecruitmentYn').touched">
-                                                    Select whichever applicable!</span>
-                                        </div>
-
-                                        <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
-                                            <h4 class="titleSet">Have you been recruited under special recruitment for NER ?<span class="required-asterisk">*</span></h4>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" value="13" id="singleparentyes" name="specialRecruitmentYn" type="radio" formControlName="specialRecruitmentYn">
-                                                <label class="form-check-label font16 ff" for="inlineRadio1">Yes</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" value="14" id="singleparentno" name="specialRecruitmentYn" type="radio" formControlName="specialRecruitmentYn">
-                                                <label class="form-check-label font16 ff" for="inlineRadio2">No</label>
-                                            </div>
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('specialRecruitmentYn').valid  && basicProfileForm.get('specialRecruitmentYn').touched">
-                                                    Select whichever applicable!</span>
-                                        </div>
-
-                                        <div class="col-md-12 mb-3">
-                                            <div class="radio-sec  shadow-sm">
-                                                <h4 class="titleSet">Staff Type<span class="required-asterisk">*</span></h4>
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">Have you been recruited under special recruitment for NER ?<span class="required-asterisk">*</span></h4>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" id="inlineRadio1" value="1" disabled name="staffType" formControlName="staffType">
-                                                    <label class="form-check-label font16 ff" for="inlineRadio1">Teaching</label>
+                                                    <input class="form-check-input" disabled value="13" id="singleparentyes" name="specialRecruitmentYn" type="radio" formControlName="specialRecruitmentYn">
+                                                    <label class="form-check-label font16 ff" for="inlineRadio1">Yes</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" id="inlineRadio2" value="2" disabled name="staffType" formControlName="staffType">
-                                                    <label class="form-check-label font16 ff" for="inlineRadio2">Non-Teaching</label>
+                                                    <input class="form-check-input" value="14" disabled id="singleparentno" name="specialRecruitmentYn" type="radio" formControlName="specialRecruitmentYn">
+                                                    <label class="form-check-label font16 ff" for="inlineRadio2">No</label>
                                                 </div>
-                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('staffType').valid && 
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('specialRecruitmentYn').valid  && basicProfileForm.get('specialRecruitmentYn').touched">
+                                                    Select whichever applicable!</span>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">Have you been recruited under special recruitment for NER ?<span class="required-asterisk">*</span></h4>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" value="13" id="singleparentyes" name="specialRecruitmentYn" type="radio" formControlName="specialRecruitmentYn">
+                                                    <label class="form-check-label font16 ff" for="inlineRadio1">Yes</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" value="14" id="singleparentno" name="specialRecruitmentYn" type="radio" formControlName="specialRecruitmentYn">
+                                                    <label class="form-check-label font16 ff" for="inlineRadio2">No</label>
+                                                </div>
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('specialRecruitmentYn').valid  && basicProfileForm.get('specialRecruitmentYn').touched">
+                                                    Select whichever applicable!</span>
+                                            </div>
+
+                                            <div class="col-md-12 mb-3">
+                                                <div class="radio-sec  shadow-sm">
+                                                    <h4 class="titleSet">Staff Type<span class="required-asterisk">*</span></h4>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" id="inlineRadio1" value="1" disabled name="staffType" formControlName="staffType">
+                                                        <label class="form-check-label font16 ff" for="inlineRadio1">Teaching</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" id="inlineRadio2" value="2" disabled name="staffType" formControlName="staffType">
+                                                        <label class="form-check-label font16 ff" for="inlineRadio2">Non-Teaching</label>
+                                                    </div>
+                                                    <span class="help-block text-danger" *ngIf="!basicProfileForm.get('staffType').valid && 
                                             basicProfileForm.get('staffType').touched">
                                                 Select Staff Type!</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="radio-sec  shadow-sm mb-3" *ngIf="!profileFinalStatus">
-                                        <div class="row">
-                                            <div class="col-md-12">
+                                        <div class="radio-sec  shadow-sm mb-3" *ngIf="!profileFinalStatus">
+                                            <div class="row">
+                                                <div class="col-md-12">
 
-                                                <h4 class="titleSet">Do you have any kind of disability, if any ?<span class="required-asterisk">*</span></h4>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" value="1" disabled name="disabilityYN" type="radio" formControlName="disabilityYN" (click)="clickOnDisability('yes')">
-                                                    <label class="form-check-label font16 ff" for="inlineRadio1">Yes</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" value="0" disabled name="disabilityYN" type="radio" formControlName="disabilityYN" (click)="clickOnDisability('no')">
-                                                    <label class="form-check-label font16 ff" for="inlineRadio2">No</label>
-                                                </div>
-                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('disabilityYN').valid ">
+                                                    <h4 class="titleSet">Do you have any kind of disability, if any ?<span class="required-asterisk">*</span></h4>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" value="1" disabled name="disabilityYN" type="radio" formControlName="disabilityYN" (click)="clickOnDisability('yes')">
+                                                        <label class="form-check-label font16 ff" for="inlineRadio1">Yes</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" value="0" disabled name="disabilityYN" type="radio" formControlName="disabilityYN" (click)="clickOnDisability('no')">
+                                                        <label class="form-check-label font16 ff" for="inlineRadio2">No</label>
+                                                    </div>
+                                                    <span class="help-block text-danger" *ngIf="!basicProfileForm.get('disabilityYN').valid ">
                                                 required!</span>
 
-                                            </div>
+                                                </div>
 
-                                            <div class="col-md-12" *ngIf="isVisible">
-                                                <div class="showDiv">
-                                                    <h4 class="titleSet mt-2">
-                                                        Type of Disability : <span class="required-asterisk">*</span>
-                                                    </h4>
-                                                    <select class="form-select" disabled aria-label="Default select example" name="disabilityType" formControlName="disabilityType">
+                                                <div class="col-md-12" *ngIf="isVisible">
+                                                    <div class="showDiv">
+                                                        <h4 class="titleSet mt-2">
+                                                            Type of Disability : <span class="required-asterisk">*</span>
+                                                        </h4>
+                                                        <select class="form-select" disabled aria-label="Default select example" name="disabilityType" formControlName="disabilityType">
                                                  
                                                     <option selected disabled>Select</option>
                                                     <option *ngFor="let data of formDataList.disability"
                                                         value="{{data.disabilityId}}">
                                                         {{data.disabilityType}}</option>
                                                 </select>
-                                                    <span class="help-block text-danger" *ngIf="!basicProfileForm.get('disabilityType').valid ">
+                                                        <span class="help-block text-danger" *ngIf="!basicProfileForm.get('disabilityType').valid ">
                                                     Select type of disability!</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6 " *ngIf="isVisible">
-                                                <h4 class="titleSet mt-3">Upload PwD Certificate In Pdf (Max 500 KB)<span class="required-asterisk">*</span></h4>
-                                                <div class="input-group">
-                                                    <input type="file" class="form-control form-control-sm" disabled id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" id="file" data-max-size="500" accept=".pdf" (blur)="handleFileInput($event.target.files, '4')" #Physically_Handicap_Certificate>
-                                                    <button class="btn btn-secondary btn-sm" disabled type="button" id="inputGroupFileAddon04" (click)="documentUpload(4)">Upload</button>
-                                                </div>
-                                                <span class="help-block text-danger" *ngIf="fileUpload">Please upload the file</span>
                                             </div>
 
-                                            <div *ngIf="documentUploadArray[4]?.docName == 'Physically_Handicap_Certificate.pdf' && isVisible" class="mt-2 col-md-3">
-                                                <h4 class="titleSet">Action</h4>
-                                                <div>
-                                                    
-                                                   <a href="{{documentUploadArray[4]?.url}}" ><i
-                                                    class='bx bx-show' style="font-size: 25px; "></i></a> 
-                                                    <i *ngIf="profileFinalStatus" disabled  (click)="deleteDocumentUploaded('Physically_Handicap_Certificate.pdf')" class='bx bx-minus-circle' style="font-size: 25px; "></i>
+                                            <div class="row">
+                                                <div class="col-md-6 " *ngIf="isVisible">
+                                                    <h4 class="titleSet mt-3">Upload PwD Certificate In Pdf (Max 500 KB)<span class="required-asterisk">*</span></h4>
+                                                    <div class="input-group">
+                                                        <input type="file" class="form-control form-control-sm" disabled id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" id="file" data-max-size="500" accept=".pdf" (blur)="handleFileInput($event.target.files, '4')" #Physically_Handicap_Certificate>
+                                                        <button class="btn btn-secondary btn-sm" disabled type="button" id="inputGroupFileAddon04" (click)="documentUpload(4)">Upload</button>
+                                                    </div>
+                                                    <span class="help-block text-danger" *ngIf="fileUpload">Please upload the file</span>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-3 mt-2">
-                                                <div class="showDiv" *ngIf="isVisible">
-                                                    <h4 class="titleSet word-break">
-                                                        Declaration Format:</h4>
-                                                    <div *ngIf="isVisible">
-                                                        <a target="_blank" class="btn  btn-sm btn-green word-break" href="assets/assets/declaration/Annexture_I.pdf"> <i class='bx bx-file'></i> Annexure I </a>
+
+                                                <div *ngIf="documentUploadArray[4]?.docName == 'Physically_Handicap_Certificate.pdf' && isVisible" class="mt-2 col-md-3">
+                                                    <h4 class="titleSet">Action</h4>
+                                                    <div>
+
+                                                        <a href="{{documentUploadArray[4]?.url}}"><i
+                                                    class='bx bx-show' style="font-size: 25px; "></i></a>
+                                                        <i *ngIf="profileFinalStatus" disabled (click)="deleteDocumentUploaded('Physically_Handicap_Certificate.pdf')" class='bx bx-minus-circle' style="font-size: 25px; "></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="showDiv" *ngIf="isVisible">
+                                                        <h4 class="titleSet word-break">
+                                                            Declaration Format:</h4>
+                                                        <div *ngIf="isVisible">
+                                                            <a target="_blank" class="btn  btn-sm btn-green word-break" href="assets/assets/declaration/Annexture_I.pdf"> <i class='bx bx-file'></i> Annexure I </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="radio-sec  shadow-sm mb-3" *ngIf="profileFinalStatus">
-                                        <div class="row">
-                                            <div class="col-md-12">
+                                        <div class="radio-sec  shadow-sm mb-3" *ngIf="profileFinalStatus">
+                                            <div class="row">
+                                                <div class="col-md-12">
 
-                                                <h4 class="titleSet">Do you have any kind of disability, if any ?<span class="required-asterisk">*</span></h4>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" value="1" name="disabilityYN" type="radio" formControlName="disabilityYN" (click)="clickOnDisability('yes')">
-                                                    <label class="form-check-label font16 ff" for="inlineRadio1">Yes</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" value="0" name="disabilityYN" type="radio" formControlName="disabilityYN" (click)="clickOnDisability('no')">
-                                                    <label class="form-check-label font16 ff" for="inlineRadio2">No</label>
-                                                </div>
-                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('disabilityYN').valid ">
+                                                    <h4 class="titleSet">Do you have any kind of disability, if any ?<span class="required-asterisk">*</span></h4>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" value="1" name="disabilityYN" type="radio" formControlName="disabilityYN" (click)="clickOnDisability('yes')">
+                                                        <label class="form-check-label font16 ff" for="inlineRadio1">Yes</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" value="0" name="disabilityYN" type="radio" formControlName="disabilityYN" (click)="clickOnDisability('no')">
+                                                        <label class="form-check-label font16 ff" for="inlineRadio2">No</label>
+                                                    </div>
+                                                    <span class="help-block text-danger" *ngIf="!basicProfileForm.get('disabilityYN').valid ">
                                                 required!</span>
 
-                                            </div>
+                                                </div>
 
-                                            <div class="col-md-12" *ngIf="isVisible">
-                                                <div class="showDiv">
-                                                    <h4 class="titleSet mt-2">
-                                                        Type of Disability : <span class="required-asterisk">*</span>
-                                                    </h4>
-                                                    <select class="form-select" aria-label="Default select example" name="disabilityType" formControlName="disabilityType">
+                                                <div class="col-md-12" *ngIf="isVisible">
+                                                    <div class="showDiv">
+                                                        <h4 class="titleSet mt-2">
+                                                            Type of Disability : <span class="required-asterisk">*</span>
+                                                        </h4>
+                                                        <select class="form-select" aria-label="Default select example" name="disabilityType" formControlName="disabilityType">
                                                  
                                                     <option selected disabled>Select</option>
                                                     <option *ngFor="let data of formDataList.disability"
                                                         value="{{data.disabilityId}}">
                                                         {{data.disabilityType}}</option>
                                                 </select>
-                                                    <span class="help-block text-danger" *ngIf="!basicProfileForm.get('disabilityType').valid ">
+                                                        <span class="help-block text-danger" *ngIf="!basicProfileForm.get('disabilityType').valid ">
                                                     Select type of disability!</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6 " *ngIf="isVisible">
-                                                <h4 class="titleSet mt-3">Upload PwD Certificate In Pdf (Max 500 KB)<span class="required-asterisk">*</span></h4>
-                                                <div class="input-group">
-                                                    <input type="file" class="form-control form-control-sm" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" id="file" data-max-size="500" accept=".pdf" (blur)="handleFileInput($event.target.files, '4')" #Physically_Handicap_Certificate>
-                                                    <button class="btn btn-secondary btn-sm" type="button" id="inputGroupFileAddon04" (click)="documentUpload(4)">Upload</button>
-                                                </div>
-                                                <span class="help-block text-danger" *ngIf="fileUpload">Please upload the file</span>
                                             </div>
 
-                                            <div *ngIf="documentUploadArray[4]?.docName == 'Physically_Handicap_Certificate.pdf' && isVisible" class="mt-2 col-md-3">
-                                                <h4 class="titleSet">Action</h4>
-                                                <div>
-                                                    
-                                                   <a href="{{documentUploadArray[4]?.url}}" ><i
-                                                    class='bx bx-show' style="font-size: 25px; "></i></a> 
-                                                    <i *ngIf="profileFinalStatus"   (click)="deleteDocumentUploaded('Physically_Handicap_Certificate.pdf')" class='bx bx-minus-circle' style="font-size: 25px; "></i>
+                                            <div class="row">
+                                                <div class="col-md-6 " *ngIf="isVisible">
+                                                    <h4 class="titleSet mt-3">Upload PwD Certificate In Pdf (Max 500 KB)<span class="required-asterisk">*</span></h4>
+                                                    <div class="input-group">
+                                                        <input type="file" class="form-control form-control-sm" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" id="file" data-max-size="500" accept=".pdf" (blur)="handleFileInput($event.target.files, '4')" #Physically_Handicap_Certificate>
+                                                        <button class="btn btn-secondary btn-sm" type="button" id="inputGroupFileAddon04" (click)="documentUpload(4)">Upload</button>
+                                                    </div>
+                                                    <span class="help-block text-danger" *ngIf="fileUpload">Please upload the file</span>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-3 mt-2">
-                                                <div class="showDiv" *ngIf="isVisible">
-                                                    <h4 class="titleSet word-break">
-                                                        Declaration Format:</h4>
-                                                    <div *ngIf="isVisible">
-                                                        <a target="_blank" class="btn  btn-sm btn-green word-break" href="assets/assets/declaration/Annexture_I.pdf"> <i class='bx bx-file'></i> Annexure I </a>
+
+                                                <div *ngIf="documentUploadArray[4]?.docName == 'Physically_Handicap_Certificate.pdf' && isVisible" class="mt-2 col-md-3">
+                                                    <h4 class="titleSet">Action</h4>
+                                                    <div>
+
+                                                        <a href="{{documentUploadArray[4]?.url}}"><i
+                                                    class='bx bx-show' style="font-size: 25px; "></i></a>
+                                                        <i *ngIf="profileFinalStatus" (click)="deleteDocumentUploaded('Physically_Handicap_Certificate.pdf')" class='bx bx-minus-circle' style="font-size: 25px; "></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="showDiv" *ngIf="isVisible">
+                                                        <h4 class="titleSet word-break">
+                                                            Declaration Format:</h4>
+                                                        <div *ngIf="isVisible">
+                                                            <a target="_blank" class="btn  btn-sm btn-green word-break" href="assets/assets/declaration/Annexture_I.pdf"> <i class='bx bx-file'></i> Annexure I </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
 
-                                    <div class="radio-sec  shadow-sm mb-3" *ngIf="!profileFinalStatus">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <h4 class="titleSet">Marital Status<span class="required-asterisk">*</span></h4>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" disabled id="maritalStatusF" value="1" (click)="maritalStatusCheck($event)" name="maritalStatusF" formControlName="maritalStatusF">
-
-
-                                                    <label class="form-check-label font16 ff">Married</label>
-
+                                        <div class="radio-sec  shadow-sm mb-3" *ngIf="!profileFinalStatus">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <h4 class="titleSet">Marital Status<span class="required-asterisk">*</span></h4>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" disabled value="4" (click)="maritalStatusCheck($event)" id="maritalStatusF" name="maritalStatusF" formControlName="maritalStatusF">
-                                                    <label class="form-check-label font16 ff">Single</label>
-                                                </div>
-                                            </div>
+                                                <div class="col-2">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" disabled id="maritalStatusF" value="1" (click)="maritalStatusCheck($event)" name="maritalStatusF" formControlName="maritalStatusF">
 
 
-                                            <div class="col-sm-1">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" disabled value="7" (click)="maritalStatusCheck($event)" id="maritalStatusF" name="maritalStatusF" formControlName="maritalStatusF">
-                                                    <label class="form-check-label font16 ff">Widow/Widower</label>
+                                                        <label class="form-check-label font16 ff">Married</label>
+
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('maritalStatusF').valid  && basicProfileForm.get('maritalStatusF').touched">
+                                                <div class="col-sm-2">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" disabled value="4" (click)="maritalStatusCheck($event)" id="maritalStatusF" name="maritalStatusF" formControlName="maritalStatusF">
+                                                        <label class="form-check-label font16 ff">Single</label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-sm-1">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" disabled value="7" (click)="maritalStatusCheck($event)" id="maritalStatusF" name="maritalStatusF" formControlName="maritalStatusF">
+                                                        <label class="form-check-label font16 ff">Widow/Widower</label>
+                                                    </div>
+                                                </div>
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('maritalStatusF').valid  && basicProfileForm.get('maritalStatusF').touched">
                                         Select the applicable!</span>
-                                        </div>
-                                        <div class="row" *ngIf="marriedStatusYN">
-                                            <div class="col-md-12">
-
-                                                <h4 class="titleSet">
-                                                    Spouse Serving in <span class="required-asterisk">*</span>
-                                                </h4>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" disabled name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="1" (click)="onSpouseClick($event)">
-                                                    <label class="form-check-label" for="exampleRadios1">
+                                            <div class="row" *ngIf="marriedStatusYN">
+                                                <div class="col-md-12">
+
+                                                    <h4 class="titleSet">
+                                                        Spouse Serving in <span class="required-asterisk">*</span>
+                                                    </h4>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" disabled name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="1" (click)="onSpouseClick($event)">
+                                                        <label class="form-check-label" for="exampleRadios1">
                                                 KVS Employee
                                             </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" disabled name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="2" (click)="onSpouseClick($event)">
-                                                    <label class="form-check-label" for="exampleRadios2">
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" disabled name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="2" (click)="onSpouseClick($event)">
+                                                        <label class="form-check-label" for="exampleRadios2">
                                                 Central Govt. / PSU / Defence Employee and Central Armed
                                                 Police Force Employee
                                             </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" disabled name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="3" (click)="onSpouseClick($event)">
-                                                    <label class="form-check-label" for="exampleRadios3">
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" disabled name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="3" (click)="onSpouseClick($event)">
+                                                        <label class="form-check-label" for="exampleRadios3">
                                                 State Govt. / State Govt. PSU Employee
                                             </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" disabled name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="5" (click)="onSpouseClick($event)">
-                                                    <label class="form-check-label" for="exampleRadios4">
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" disabled name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="5" (click)="onSpouseClick($event)">
+                                                        <label class="form-check-label" for="exampleRadios4">
                                                 None of these
                                             </label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div *ngIf="spouseNone && spouseKVSStation" class="col-md-6 mb-3">
-                                                <h4 class="titleSet mt-2"> Serving Spouse Employee Code<span class="required-asterisk">*</span> </h4>
-                                                <input type="text" class="form-control" disabled name="spouseEmpCode" (blur)="getSpouseDetails($event)" id="spouseEmpCode" formControlName="spouseEmpCode">
-                                            </div>
-                                            <div *ngIf="spouseNone" class="col-md-6 mb-3">
-                                                <h4 class="titleSet mt-2"> Serving Spouse Name<span class="required-asterisk">*</span> </h4>
-                                                <input type="text" class="form-control " disabled  (keypress)="omit_special_char($event)" style="text-transform:uppercase" name="spouseName" id="spouseName" formControlName="spouseName">
-                                            </div>
-                                            <div *ngIf="spouseNone && spouseKVSStation" class="col-md-6 mb-3">
-                                                <h4 class="titleSet mt-2"> Position Held<span class="required-asterisk">*</span> </h4>
+                                            <div class="row">
+                                                <div *ngIf="spouseNone && spouseKVSStation" class="col-md-6 mb-3">
+                                                    <h4 class="titleSet mt-2"> Serving Spouse Employee Code<span class="required-asterisk">*</span> </h4>
+                                                    <input type="text" class="form-control" disabled name="spouseEmpCode" (blur)="getSpouseDetails($event)" id="spouseEmpCode" formControlName="spouseEmpCode">
+                                                </div>
+                                                <div *ngIf="spouseNone" class="col-md-6 mb-3">
+                                                    <h4 class="titleSet mt-2"> Serving Spouse Name<span class="required-asterisk">*</span> </h4>
+                                                    <input type="text" class="form-control " disabled (keypress)="omit_special_char($event)" style="text-transform:uppercase" name="spouseName" id="spouseName" formControlName="spouseName">
+                                                </div>
+                                                <div *ngIf="spouseNone && spouseKVSStation" class="col-md-6 mb-3">
+                                                    <h4 class="titleSet mt-2"> Position Held<span class="required-asterisk">*</span> </h4>
 
-                                                <select class="form-select" disabled aria-label="Default select example" id="spousePost" name="spousePost" formControlName="spousePost">
+                                                    <select class="form-select" disabled aria-label="Default select example" id="spousePost" name="spousePost" formControlName="spousePost">
                                             <option selected disabled>Select</option>
                                             <option
                                                 *ngFor="let data of teacherTypeDataNameCode; let i=index;"
                                                 value="{{data.teacherTypeId}}">{{data.nameCode}}
                                             </option>
                                         </select>
-                                            </div>
-                                            <div *ngIf="spouseNone" class="col-md-6 mb-3">
-                                                <h4 class="titleSet mt-2"> Station Name<span class="required-asterisk">*</span> </h4>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control form-control-sm" disabled id="spouseStationName" formControlName="spouseStationName" name="spouseStationName" placeholder="Station Name" aria-label="Recipient's username" aria-describedby="button-addon2" [readonly]="true">
-                                                    <button class="btn btn-sm btn-secondary btn-bdr-color input-group-text" disabled type="button" id="button-addon2"><i
+                                                </div>
+                                                <div *ngIf="spouseNone" class="col-md-6 mb-3">
+                                                    <h4 class="titleSet mt-2"> Station Name<span class="required-asterisk">*</span> </h4>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control form-control-sm" disabled id="spouseStationName" formControlName="spouseStationName" name="spouseStationName" placeholder="Station Name" aria-label="Recipient's username" aria-describedby="button-addon2" [readonly]="true">
+                                                        <button class="btn btn-sm btn-secondary btn-bdr-color input-group-text" disabled type="button" id="button-addon2"><i
                                                     class="fa fa-search SearchIconSet"
                                                     (click)="selectSpouseStation()"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="radio-sec  shadow-sm mb-3" *ngIf="profileFinalStatus">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <h4 class="titleSet">Marital Status<span class="required-asterisk">*</span></h4>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" id="maritalStatusF" value="1" (click)="maritalStatusCheck($event)" name="maritalStatusF" formControlName="maritalStatusF">
-
-
-                                                    <label class="form-check-label font16 ff">Married</label>
-
+                                        <div class="radio-sec  shadow-sm mb-3" *ngIf="profileFinalStatus">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <h4 class="titleSet">Marital Status<span class="required-asterisk">*</span></h4>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" value="4" (click)="maritalStatusCheck($event)" id="maritalStatusF" name="maritalStatusF" formControlName="maritalStatusF">
-                                                    <label class="form-check-label font16 ff">Single</label>
-                                                </div>
-                                            </div>
+                                                <div class="col-2">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" id="maritalStatusF" value="1" (click)="maritalStatusCheck($event)" name="maritalStatusF" formControlName="maritalStatusF">
 
 
-                                            <div class="col-sm-1">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" value="7" (click)="maritalStatusCheck($event)" id="maritalStatusF" name="maritalStatusF" formControlName="maritalStatusF">
-                                                    <label class="form-check-label font16 ff">Widow/Widower</label>
+                                                        <label class="form-check-label font16 ff">Married</label>
+
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <span class="help-block text-danger" *ngIf="!basicProfileForm.get('maritalStatusF').valid  && basicProfileForm.get('maritalStatusF').touched">
+                                                <div class="col-sm-2">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" value="4" (click)="maritalStatusCheck($event)" id="maritalStatusF" name="maritalStatusF" formControlName="maritalStatusF">
+                                                        <label class="form-check-label font16 ff">Single</label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-sm-1">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" value="7" (click)="maritalStatusCheck($event)" id="maritalStatusF" name="maritalStatusF" formControlName="maritalStatusF">
+                                                        <label class="form-check-label font16 ff">Widow/Widower</label>
+                                                    </div>
+                                                </div>
+                                                <span class="help-block text-danger" *ngIf="!basicProfileForm.get('maritalStatusF').valid  && basicProfileForm.get('maritalStatusF').touched">
                                         Select the applicable!</span>
-                                        </div>
-                                        <div class="row" *ngIf="marriedStatusYN">
-                                            <div class="col-md-12">
-
-                                                <h4 class="titleSet">
-                                                    Spouse Serving in <span class="required-asterisk">*</span>
-                                                </h4>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="1" (click)="onSpouseClick($event)">
-                                                    <label class="form-check-label" for="exampleRadios1">
+                                            <div class="row" *ngIf="marriedStatusYN">
+                                                <div class="col-md-12">
+
+                                                    <h4 class="titleSet">
+                                                        Spouse Serving in <span class="required-asterisk">*</span>
+                                                    </h4>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="1" (click)="onSpouseClick($event)">
+                                                        <label class="form-check-label" for="exampleRadios1">
                                                 KVS Employee
                                             </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="2" (click)="onSpouseClick($event)">
-                                                    <label class="form-check-label" for="exampleRadios2">
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="2" (click)="onSpouseClick($event)">
+                                                        <label class="form-check-label" for="exampleRadios2">
                                                 Central Govt. / PSU / Defence Employee and Central Armed
                                                 Police Force Employee
                                             </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="3" (click)="onSpouseClick($event)">
-                                                    <label class="form-check-label" for="exampleRadios3">
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="3" (click)="onSpouseClick($event)">
+                                                        <label class="form-check-label" for="exampleRadios3">
                                                 State Govt. / State Govt. PSU Employee
                                             </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="5" (click)="onSpouseClick($event)">
-                                                    <label class="form-check-label" for="exampleRadios4">
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="spouseStatusF" id="spouseStatusF" formControlName="spouseStatusF" value="5" (click)="onSpouseClick($event)">
+                                                        <label class="form-check-label" for="exampleRadios4">
                                                 None of these
                                             </label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div *ngIf="spouseNone && spouseKVSStation" class="col-md-6 mb-3">
-                                                <h4 class="titleSet mt-2"> Serving Spouse Employee Code<span class="required-asterisk">*</span> </h4>
-                                                <input type="text" class="form-control" (keypress)="omit_special_char_sEmpId($event)" onKeyPress="if(this.value.length==10) return false;" name="spouseEmpCode" (blur)="getSpouseDetails($event)" id="spouseEmpCode" formControlName="spouseEmpCode">
-                                            </div>
-                                            <div *ngIf="spouseNone" class="col-md-6 mb-3">
-                                                <h4 class="titleSet mt-2"> Serving Spouse Name<span class="required-asterisk">*</span> </h4>
-                                                <input type="text" class="form-control "  (keypress)="omit_special_char($event)" style="text-transform:uppercase" name="spouseName" id="spouseName" formControlName="spouseName">
-                                            </div>
-                                            <div *ngIf="spouseNone && spouseKVSStation" class="col-md-6 mb-3">
-                                                <h4 class="titleSet mt-2"> Position Held<span class="required-asterisk">*</span> </h4>
+                                            <div class="row">
+                                                <div *ngIf="spouseNone && spouseKVSStation" class="col-md-6 mb-3">
+                                                    <h4 class="titleSet mt-2"> Serving Spouse Employee Code<span class="required-asterisk">*</span> </h4>
+                                                    <input type="text" class="form-control" (keypress)="omit_special_char_sEmpId($event)" onKeyPress="if(this.value.length==10) return false;" name="spouseEmpCode" (blur)="getSpouseDetails($event)" id="spouseEmpCode" formControlName="spouseEmpCode">
+                                                </div>
+                                                <div *ngIf="spouseNone" class="col-md-6 mb-3">
+                                                    <h4 class="titleSet mt-2"> Serving Spouse Name<span class="required-asterisk">*</span> </h4>
+                                                    <input type="text" class="form-control " (keypress)="omit_special_char($event)" style="text-transform:uppercase" name="spouseName" id="spouseName" formControlName="spouseName">
+                                                </div>
+                                                <div *ngIf="spouseNone && spouseKVSStation" class="col-md-6 mb-3">
+                                                    <h4 class="titleSet mt-2"> Position Held<span class="required-asterisk">*</span> </h4>
 
-                                                <select class="form-select" aria-label="Default select example" id="spousePost" name="spousePost" formControlName="spousePost">
+                                                    <select class="form-select" aria-label="Default select example" id="spousePost" name="spousePost" formControlName="spousePost">
                                             <option selected disabled>Select</option>
                                             <option
                                                 *ngFor="let data of teacherTypeDataNameCode; let i=index;"
                                                 value="{{data.teacherTypeId}}">{{data.nameCode}}
                                             </option>
                                         </select>
-                                            </div>
-                                            <div *ngIf="spouseNone" class="col-md-6 mb-3">
-                                                <h4 class="titleSet mt-2"> Station Name<span class="required-asterisk">*</span> </h4>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control form-control-sm" id="spouseStationName" formControlName="spouseStationName" name="spouseStationName" placeholder="Station Name" aria-label="Recipient's username" aria-describedby="button-addon2" [readonly]="true">
-                                                    <button class="btn btn-sm btn-secondary btn-bdr-color input-group-text" type="button" id="button-addon2"><i
+                                                </div>
+                                                <div *ngIf="spouseNone" class="col-md-6 mb-3">
+                                                    <h4 class="titleSet mt-2"> Station Name<span class="required-asterisk">*</span> </h4>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control form-control-sm" id="spouseStationName" formControlName="spouseStationName" name="spouseStationName" placeholder="Station Name" aria-label="Recipient's username" aria-describedby="button-addon2" [readonly]="true">
+                                                        <button class="btn btn-sm btn-secondary btn-bdr-color input-group-text" type="button" id="button-addon2"><i
                                                     class="fa fa-search SearchIconSet"
                                                     (click)="selectSpouseStation()"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- </div> -->
                         </div>
-                    <!-- </div> -->
-                 </div>
 
-                    <div class="mt-4 button-save float-end " >
-                        <i class="fa fa-floppy-o" aria-hidden="true"></i>  <input *ngIf="profileFinalStatus" [disabled]="(!basicProfileForm.get('maritalStatusF').valid ||  !basicProfileForm.get('lastPromotionPositionDate').valid || !basicProfileForm.get('dob').valid || 
+                        <div class="mt-4 button-save float-end ">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i> <input *ngIf="profileFinalStatus" [disabled]="(!basicProfileForm.get('maritalStatusF').valid ||  !basicProfileForm.get('lastPromotionPositionDate').valid || !basicProfileForm.get('dob').valid || 
                        !basicProfileForm.get('fullName').valid || !basicProfileForm.get('specialRecruitmentYn').valid ||
+                       !basicProfileForm.get('socialCategories').valid ||
                        !basicProfileForm.get('mobile').valid ||
                        !basicProfileForm.get('gender').valid ||
                        !basicProfileForm.get('staffType').valid ||
@@ -782,38 +816,39 @@
                        basicProfileForm.get('spouseStatusF').value == '3') &&
                        (!basicProfileForm.get('spouseName').valid ||
                        !basicProfileForm.get('spouseStationName').valid)) || (!basicProfileForm.get('crspndncPinCode').valid ||
-                       (basicProfileForm.get('prmntPinCode').status != 'VALID' && basicProfileForm.get('prmntPinCode').status != 'DISABLED') || (documentUploadArray[4]?.docName != 'Physically_Handicap_Certificate.pdf' &&  basicProfileForm.get('disabilityYN').value == '1'))) "  type="submit" name="Save & Next"  class="me-2 add-user" value="Save & Next" /> 
-                       <input *ngIf="!profileFinalStatus" (click)="next()"   type="submit" name="Next"  class="me-2 add-user" value="Next" />
-                    </div>
-            </form>    
-    </div>
-    <div mat-dialog-content>
-        <ng-template #selectSpouseStationModal let-modal style="min-width: 100%;">
-            <div class="modal-header">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="clearfix">
-                            <div class="float-left">
-                                <h2 class="mb-0 text-green">Select Your Region</h2>
+                       (basicProfileForm.get('prmntPinCode').status != 'VALID' && basicProfileForm.get('prmntPinCode').status != 'DISABLED') || (documentUploadArray[4]?.docName != 'Physically_Handicap_Certificate.pdf' &&  basicProfileForm.get('disabilityYN').value == '1'))) "
+                                type="submit" name="Save & Next" class="me-2 add-user" value="Save & Next" />
+                            <input *ngIf="!profileFinalStatus" (click)="next()" type="submit" name="Next" class="me-2 add-user" value="Next" />
+                        </div>
+                    </form>
+                </div>
+                <div mat-dialog-content>
+                    <ng-template #selectSpouseStationModal let-modal style="min-width: 100%;">
+                        <div class="modal-header">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="clearfix">
+                                        <div class="float-left">
+                                            <h2 class="mb-0 text-green">Select Your Region</h2>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="" style="min-width: 100%; max-height: 750px;">
-                <div class="container-fluid">
-                    <div class="row p-4">
-                        <div class="col-md-6 ">
-                            <select class="form-select form-select-sm" aria-label="Default select example" (blur)="getStationByRegionId($event)">
+                        <div class="" style="min-width: 100%; max-height: 750px;">
+                            <div class="container-fluid">
+                                <div class="row p-4">
+                                    <div class="col-md-6 ">
+                                        <select class="form-select form-select-sm" aria-label="Default select example" (blur)="getStationByRegionId($event)">
                             <option selected disabled> Select Region</option>
                             <option *ngFor="let data of regionList; let i=index;" value="{{data.regionCode}}">
                                 {{data.regionName}}
                             </option>
 
                         </select>
-                        </div>
-                        <div class="col-md-6">
-                            <select class="form-select form-select-sm" aria-label="Default select example" [(ngModel)]="selectedSpouseStation">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-select form-select-sm" aria-label="Default select example" [(ngModel)]="selectedSpouseStation">
                             <option selected disabled> Select Station</option>                         
                             <option *ngFor="let data of stationList; let i=index;"
                             value="{{data.station_code}}-{{data.station_name}}">
@@ -821,16 +856,16 @@
                         </option>
 
                         </select>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="" style="margin-bottom: 20px; margin-top: 10px;">
+                                    <button class="btn btn-danger btn-sm " (click)="modal.dismiss('Cross click')">Cancel</button>
+                                    <button class="btn btn-success btn-sm" style="margin-left: 3px;" (click)="selectSpouseStationFn() ; modal.dismiss('Cross click')"> Ok</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="" style="margin-bottom: 20px; margin-top: 10px;">
-                        <button class="btn btn-danger btn-sm " (click)="modal.dismiss('Cross click')">Cancel</button>
-                        <button class="btn btn-success btn-sm" style="margin-left: 3px;" (click)="selectSpouseStationFn() ; modal.dismiss('Cross click')"> Ok</button>
-                    </div>
+
+                    </ng-template>
                 </div>
             </div>
-
-        </ng-template>
-    </div>
-</div>
