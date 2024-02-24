@@ -26,6 +26,7 @@ export class DropboxEmployeeComponent implements OnInit {
   totalLength: any;
   tagInput: string = '';
   tags: string[] = [];
+  
 
   
 dropBoxColumns = ['sno','teacherName','teachingType','Designation', 'dropBoxType','dropboxDescription','action'];

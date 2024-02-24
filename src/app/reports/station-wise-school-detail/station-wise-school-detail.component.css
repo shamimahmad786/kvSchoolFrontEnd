@@ -21,3 +21,5 @@ table {
     font-size: 15px;
     font-family: 'PoppinsRegular';
 }
+
+.table td, .table th{padding: 10px !important;}

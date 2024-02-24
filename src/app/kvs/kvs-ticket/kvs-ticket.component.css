@@ -50,3 +50,21 @@ table {
     margin: 1px 0px 0px 9px;
   
 }
+
+.table th , .table td {padding: 10px !important;}
+
+.remark-card {padding: 20px 15px;  border: solid 1px #ccc; position: relative;  border-radius: 4px;}
+.remark-card h2 {     position: absolute;
+  left: 15px;
+  top: -21px;
+  padding: 5px 12px;
+  background: #fff;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;}
+
+  .remark-card .label-left {position: absolute; left: 25px;  top: 10px; color: #000; font-weight: 600;}
+  .remark-card .label-right {position: absolute; right: 25px;  top: 10px; color: #000; font-weight: 600;}
+ 
+  .remark-card .label-desc {position: absolute; left: 25px;  top: 30px; color: #000; font-weight: 600;}
+  .remark-card textarea  {padding: 54px 15px 15px; font-size: 14px;}
