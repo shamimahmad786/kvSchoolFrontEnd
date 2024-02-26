@@ -129,7 +129,13 @@ export class KvsTicketComponent implements OnInit {
             else if(res[i].ticketStatus=='2' || res[i].ticketStatus==2){
               this.testData.ticketStatus='Rejected';
             }
-            this.testData.ticketResolvedBy = res[i].ticketResolvedBy;    
+            if(res[i].ticketResolvedBy=="kv_9999"){
+              this.testData.ticketResolvedBy ='NIC';    
+            }
+            else{
+              this.testData.ticketResolvedBy = res[i].ticketResolvedBy;    
+            }
+          
             this.ticketList.push(this.testData);
             this.testData = { "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFrom":"","ticketFromId":"", "ticketToId": "","assignToId":"","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
           }
