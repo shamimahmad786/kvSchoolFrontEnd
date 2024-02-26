@@ -185,9 +185,19 @@
             </div>
         </div>
 
-        <div class="accordion-item">
+        <div class="accordion-item" *ngIf="kvCodeForTicket!='9999'">
             <div class="accordion-header m-0">
                 <button class="accordion-button aa collapsed" routerLink="/teacher/kvsTicket" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourccccs" aria-expanded="false" aria-controls="collapseFourccccs">
+                    <img src="assets/images/coupon.png" class="me-2"> Query Management 
+                    <span style="align-items: end;" [matBadge]="inProgressTicketCountForSchool" matBadgeOverlap="false"  class="demo-section"></span>
+        </button>
+            </div>
+            <div id="collapseFourccccs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            </div>
+        </div>
+        <div class="accordion-item" *ngIf="kvCodeForTicket=='9999'">
+            <div class="accordion-header m-0">
+                <button class="accordion-button aa collapsed" routerLink="/teacher/kvsTicketNic" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourccccs" aria-expanded="false" aria-controls="collapseFourccccs">
                     <img src="assets/images/coupon.png" class="me-2"> Query Management 
                     <span style="align-items: end;" [matBadge]="inProgressTicketCountForSchool" matBadgeOverlap="false"  class="demo-section"></span>
         </button>

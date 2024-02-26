@@ -7,11 +7,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
 @Component({
-  selector: 'app-kvs-ticket',
-  templateUrl: './kvs-ticket.component.html',
-  styleUrls: ['./kvs-ticket.component.css']
+  selector: 'app-kvs-ticket-nic',
+  templateUrl: './kvs-ticket-nic.component.html',
+  styleUrls: ['./kvs-ticket-nic.component.css']
 })
-export class KvsTicketComponent implements OnInit {
+export class KvsTicketNicComponent implements OnInit {
   kvsTicketForm: FormGroup;
   assignToForm: FormGroup;
   resolveForm: FormGroup;
@@ -92,25 +92,13 @@ export class KvsTicketComponent implements OnInit {
   }
 
   getInitiatedTicket(){
-    debugger
-    if( this.businessTypeId==2 ||  this.businessTypeId=='2'){
-      this.initiateddatTicket = {
-        "instituteCode":'1',
-        "dataType":this.ticketType
-        }
-    }else if(this.kvCode=='9999'){
+    if(this.kvCode=='9999'){
       this.initiateddatTicket = {
         "instituteCode":'0',
         "dataType":this.ticketType
         }
       }
-        else{
-          this.initiateddatTicket = {
-            "instituteCode":this.kvCode,
-            "dataType":this.ticketType
-            }
-        }
-    
+      
   
     this.outSideService.getTicketByInstitute(this.initiateddatTicket).subscribe((res)=>{
       console.log(res)
@@ -380,30 +368,13 @@ export class KvsTicketComponent implements OnInit {
   this.modalService.open(this.ResolveBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
   assignToFormSubmit(){
-    debugger
-    if( this.businessTypeId=='2' || this.businessTypeId==2){
-      if(this.assignToForm.value.assignTo=='0'){
-        this.assignFrom='3';
-      }
-      else{
-        this.assignFrom='2';
-      }
+      this.assignFrom='4';
       this.assignTo = {
         "ticketId":this.ticketId,
         "assignFrom":this.assignFrom,
         "ticketToId":this.assignToForm.value.assignTo,
         "remarks":this.assignToForm.value.assignToRemarks
         }
-    }
-    else{
-      this.assignFrom='1';
-      this.assignTo = {
-        "ticketId":this.ticketId,
-        "assignFrom":this.assignFrom,
-        "ticketToId":this.assignToForm.value.assignTo,
-        "remarks":this.assignToForm.value.assignToRemarks
-        }
-    }
     debugger
     console.log(this.assignTo )
   Swal.fire({
@@ -442,24 +413,13 @@ export class KvsTicketComponent implements OnInit {
   });
   }
   resolveFormSubmit(){
-    if( this.businessTypeId==2 ||  this.businessTypeId=='2'){
-      this.resolveTicket = {
-      "ticketId": this.ticketId,
-      "resolveType":"2",
-      "resolveBy":this.loginUserNameForChild,
-      "ticketStatus":this.resolveForm.value.ticketType,
-      "description":this.resolveForm.value.resolveRemarks
-        }
-    }
-    else{
       this.resolveTicket = {
         "ticketId": this.ticketId,
-        "resolveType":"1",
+        "resolveType":"3",
         "resolveBy":this.loginUserNameForChild,
         "ticketStatus":this.resolveForm.value.ticketType,
         "description":this.resolveForm.value.resolveRemarks
         }
-    }
 debugger
   Swal.fire({
     'icon':'warning',

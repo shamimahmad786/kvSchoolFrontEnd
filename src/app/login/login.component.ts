@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   OtpHitCount : any
   captchaotp: any;
   errorMessage: any;
+  businessUnitTypeCodeForTicket: any;
   constructor(private formBuilder: FormBuilder,private route: ActivatedRoute,private router: Router, private auth :AuthService,private outSideService: OutsideServicesService) { }
   ngOnInit(): void {
     sessionStorage.clear();
@@ -154,7 +155,10 @@ export class LoginComponent implements OnInit {
        if (res.token) {
        sessionStorage.setItem("authTeacherDetails", JSON.stringify(res));
        this.businessUnitTypeId= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_id;
-        if(this.businessUnitTypeId=="2"){
+      
+       this.businessUnitTypeCodeForTicket= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_code;
+      localStorage.setItem('businessUnitTypeCodeForTicket',this.businessUnitTypeCodeForTicket);
+       if(this.businessUnitTypeId=="2"){
           this.router.navigate(['/teacher/regionDashboard']);
         }else if(this.businessUnitTypeId=="3"){
           this.router.navigate(['/teacher/regionDashboard']);  
