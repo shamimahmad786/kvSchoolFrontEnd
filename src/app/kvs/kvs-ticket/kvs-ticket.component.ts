@@ -45,6 +45,8 @@ export class KvsTicketComponent implements OnInit {
   businessTypeCode: any;
   initiateddatTicket: any;
   assignTo:any;
+  ticketHistory: any;
+  assignFrom: string;
   constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal) { }
   dataSource:any;
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
@@ -62,6 +64,7 @@ export class KvsTicketComponent implements OnInit {
     this.ticketType='0';
 
     this.businessTypeId=JSON.parse(sessionStorage.getItem('authTeacherDetails')).applicationDetails[0].business_unit_type_id;
+   
     if(this.businessTypeId==2){
       this.displayedColumns = ['sno','ticketId','subject','InitiateDate','InitiateFrom', 'InitiateFromEmployee','Status','resolvedBy','Action'];
     }
@@ -95,12 +98,19 @@ export class KvsTicketComponent implements OnInit {
         "instituteCode":'1',
         "dataType":this.ticketType
         }
-    }else{
+    }else if(this.kvCode=='9999'){
       this.initiateddatTicket = {
-        "instituteCode":this.kvCode,
+        "instituteCode":'0',
         "dataType":this.ticketType
         }
-    }
+      }
+        else{
+          this.initiateddatTicket = {
+            "instituteCode":this.kvCode,
+            "dataType":this.ticketType
+            }
+        }
+    
   
     this.outSideService.getTicketByInstitute(this.initiateddatTicket).subscribe((res)=>{
       console.log(res)
@@ -288,6 +298,7 @@ export class KvsTicketComponent implements OnInit {
       console.log(res); 
       this.docList=res['docList'];
       this.ticketDetails=res['ticketDetails'];
+      this.ticketHistory=res['ticketHistory'];
       if(res['ticketDetails'].ticketStatus==0 || res['ticketDetails'].ticketStatus=='0'){
         this.ticketStatusForPreview='In Process';
       }else if(res['ticketDetails'].ticketStatus=='1' || res['ticketDetails'].ticketStatus==1){
@@ -318,6 +329,8 @@ export class KvsTicketComponent implements OnInit {
       console.log(res); 
       this.docList=res['docList'];
       this.ticketDetails=res['ticketDetails'];
+      this.ticketHistory=res['ticketHistory'];
+      console.log(this.ticketHistory)
       if(res['ticketDetails'].ticketStatus==0 || res['ticketDetails'].ticketStatus=='0'){
         this.ticketStatusForAssignTo='In Process';
       }else if(res['ticketDetails'].ticketStatus=='1' || res['ticketDetails'].ticketStatus==1){
@@ -346,6 +359,7 @@ export class KvsTicketComponent implements OnInit {
       if(res){
       this.docList=res['docList'];
       this.ticketDetails=res['ticketDetails'];
+      this.ticketHistory=res['ticketHistory'];
       if(res['ticketDetails'].ticketStatus==0 || res['ticketDetails'].ticketStatus=='0'){
         this.ticketStatusForResolve='In Process';
       }else if(res['ticketDetails'].ticketStatus=='1' || res['ticketDetails'].ticketStatus==1){
@@ -366,21 +380,42 @@ export class KvsTicketComponent implements OnInit {
   this.modalService.open(this.ResolveBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
   assignToFormSubmit(){
-    if( this.businessTypeId==2 ||  this.businessTypeId=='2'){
+    debugger
+    if( this.businessTypeId=='2' && this.kvCode!='9999'){
+      if(this.assignToForm.value.assignTo=='0'){
+        this.assignFrom='3';
+      }
+      else{
+        this.assignFrom='2';
+      }
       this.assignTo = {
         "ticketId":this.ticketId,
-        "assignFrom":"2",
-        "ticketToId":this.assignToForm.value.assignTo,
-        "remarks":this.assignToForm.value.assignToRemarks
-        }
-    }else{
-      this.assignTo = {
-        "ticketId":this.ticketId,
-        "assignFrom":"1",
+        "assignFrom":this.assignFrom,
         "ticketToId":this.assignToForm.value.assignTo,
         "remarks":this.assignToForm.value.assignToRemarks
         }
     }
+    else if( this.businessTypeId!='2' && this.kvCode=='9999'){
+      this.assignFrom='4';
+      this.assignTo = {
+        "ticketId":this.ticketId,
+        "assignFrom":this.assignFrom,
+        "ticketToId":this.assignToForm.value.assignTo,
+        "remarks":this.assignToForm.value.assignToRemarks
+        }
+
+    }
+    else{
+      this.assignFrom='1';
+      this.assignTo = {
+        "ticketId":this.ticketId,
+        "assignFrom":this.assignFrom,
+        "ticketToId":this.assignToForm.value.assignTo,
+        "remarks":this.assignToForm.value.assignToRemarks
+        }
+    }
+    debugger
+    console.log(this.assignTo )
   Swal.fire({
     'icon':'warning',
     'text': "Do you want to proceed ?",
@@ -425,7 +460,18 @@ export class KvsTicketComponent implements OnInit {
       "ticketStatus":this.resolveForm.value.ticketType,
       "description":this.resolveForm.value.resolveRemarks
         }
-    }else{
+    }
+    else if(this.kvCode=='9999'){
+      this.resolveTicket = {
+        "ticketId": this.ticketId,
+        "resolveType":"3",
+        "resolveBy":this.loginUserNameForChild,
+        "ticketStatus":this.resolveForm.value.ticketType,
+        "description":this.resolveForm.value.resolveRemarks
+        }
+
+    }
+    else{
       this.resolveTicket = {
         "ticketId": this.ticketId,
         "resolveType":"1",

@@ -1,11 +1,11 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
-        <h1>Ticket Management System</h1>
+        <h1>Query Management System</h1>
     </div>
     <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a>Home</a></li>
-            <li class="breadcrumb-item"><a>Ticket Management System</a></li>
+            <li class="breadcrumb-item"><a>Query Management System</a></li>
         </ol>
     </nav>
     <div class="dashboard-main-content-info p-4 mt-4">
@@ -13,9 +13,9 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-md-4 form-group  mb-3">
-                        <label class="titleSet">Ticket Type</label>
+                        <label class="titleSet"> Type</label>
                         <mat-select class="form-control" (selectionChange)="getAllModifyTransferAsTypeList($event.value)" [(ngModel)]="selectTransferType">
-                            <mat-option value="">Select Ticket Type</mat-option>
+                            <mat-option value="">Select Type</mat-option>
                             <mat-option value="0">In Process</mat-option>
                             <mat-option value="1">Resolved</mat-option>
                             <mat-option value="2">Rejected</mat-option>
@@ -40,7 +40,7 @@
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="ticketId">
-                            <th mat-header-cell *matHeaderCellDef> Ticket ID </th>
+                            <th mat-header-cell *matHeaderCellDef> Query ID </th>
                             <td mat-cell *matCellDef="let element">
                                 {{element.ticketId}} </td>
                         </ng-container>
@@ -52,13 +52,13 @@
                         </ng-container>
 
                         <ng-container matColumnDef="InitiateDate">
-                            <th mat-header-cell *matHeaderCellDef> Initiate Date </th>
+                            <th mat-header-cell *matHeaderCellDef> Query Date </th>
                             <td mat-cell *matCellDef="let element">
                                 {{element.ticketdateTime}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="InitiateFrom" *ngIf="businessTypeId!='2'">
-                            <th mat-header-cell *matHeaderCellDef> Initiate From </th>
+                            <th mat-header-cell *matHeaderCellDef> Requastor From </th>
                             <td mat-cell *matCellDef="let element">
                                 {{element.ticketFrom}} ({{element.ticketFromId}}) </td>
                         </ng-container>
@@ -70,7 +70,7 @@
                         </ng-container>
 
                         <ng-container matColumnDef="InitiateFromEmployee" *ngIf="businessTypeId=='2'">
-                            <th mat-header-cell *matHeaderCellDef> Initiate From </th>
+                            <th mat-header-cell *matHeaderCellDef> Requestor From </th>
                             <td mat-cell *matCellDef="let element">
                                 {{element.ticketFrom}} ({{element.ticketFromId}}) </td>
                         </ng-container>
@@ -125,7 +125,7 @@
                     <div class="col-md-12">
                         <div class="clearfix">
                             <div class="float-left">
-                                <h2 class="mb-0 text-green">Ticket Preview </h2>
+                                <h2 class="mb-0 text-green"> Preview </h2>
                             </div>
                         </div>
                     </div>
@@ -138,26 +138,26 @@
                             <table class="table table-bordered w-100">
                                 <thead>
                                     <tr style="background-color:#7492cb;">
-                                        <th colspan="8" class="text-center text-white">Ticket ( {{ticketDetails?.ticketId}} )</th>
+                                        <th colspan="8" class="text-center text-white">Query Management System ( {{ticketDetails?.ticketId}} )</th>
                                     </tr>
                                     <tr style="background-color:#E5EEFF;">
-                                        <th>Ticket Subject</th>
-                                        <th>Ticket Description </th>
-                                        <th>School Remarks</th>
+                                        <th> Subject</th>
+                                        <th> Description </th>
+                                        <!-- <th>School Remarks</th>
                                         <th>Teacher Remarks</th>
-                                        <th>Head Quarter Remarks</th>
-                                        <th>Ticket Status</th>
-                                        <th>Ticket Genration Date</th>
-                                        <th>Ticket Resolve Date</th>
+                                        <th>Head Quarter Remarks</th> -->
+                                        <th>Query Status</th>
+                                        <th>Query Genration Date</th>
+                                        <th>Query Resolve Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>{{ticketDetails?.ticketSubject}}</td>
                                         <td>{{ticketDetails?.ticketDescription}}</td>
-                                        <td>{{ticketDetails?.schoolRemarks}}</td>
+                                        <!-- <td>{{ticketDetails?.schoolRemarks}}</td>
                                         <td>{{ticketDetails?.teacherRemarks}}</td>
-                                        <td>{{ticketDetails?.nationalRemarks}}</td>
+                                        <td>{{ticketDetails?.nationalRemarks}}</td> -->
                                         <td>{{ticketStatusForPreview}}</td>
                                         <td>{{ticketDetails?.ticketdateTime}}</td>
                                         <td>{{ticketDetails?.ticketResolveDateTime}}</td>
@@ -200,6 +200,40 @@
                     </div>
                 </div>
             </div>
+            <div class="">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <table class="table table-bordered w-100 ">
+                                <thead>
+                                    <tr style="background-color:#7492cb;">
+                                        <th colspan="8" class="text-center text-white">Query Resolution Notes</th>
+                                    </tr>
+                                    <tr style="background-color:#E5EEFF;">
+                                        <th> S.No.</th>
+                                        <th>Activity</th>
+                                        <th>ActivityDoneBy</th>
+                                        <th>AssignTo</th>
+                                        <th>Remarks</th>
+                                        <th>Date</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of ticketHistory;  let i=index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{data?.activity}}</td>
+                                        <td>{{data?.activityDoneBy}}</td>
+                                        <td>{{data?.assignTo}}</td>
+                                        <td>{{data?.remarks}}</td>
+                                        <td>{{data?.createdDateTime | date : 'dd-MM-yyyy'}}</td>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="p-3" style="text-align: right;">
                 <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
             </div>
@@ -226,29 +260,29 @@
                             <table class="table table-bordered w-100 ">
                                 <thead>
                                     <tr style="background-color:#7492cb;">
-                                        <th colspan="8" class="text-center text-white">Ticket ( {{ticketDetails?.ticketId}} )</th>
+                                        <th colspan="8" class="text-center text-white">Query Management System ( {{ticketDetails?.ticketId}} )</th>
                                     </tr>
                                     <tr style="background-color:#E5EEFF;">
-                                        <th>Ticket Subject</th>
-                                        <th>Ticket Description </th>
-                                        <th>School Remarks</th>
+                                        <th> Subject</th>
+                                        <th> Description </th>
+                                        <!-- <th>School Remarks</th>
                                         <th>Teacher Remarks</th>
-                                        <th>Head Quarter Remarks</th>
-                                        <th>Ticket Status</th>
-                                        <th>Ticket Genration Date</th>
-                                        <th>Ticket Resolve Date</th>
+                                        <th>Head Quarter Remarks</th> -->
+                                        <th>Query Status</th>
+                                        <th>Query Genration Date</th>
+                                        <th>Query Resolve Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>{{ticketDetails?.ticketSubject}}</td>
                                         <td>{{ticketDetails?.ticketDescription}}</td>
-                                        <td>{{ticketDetails?.schoolRemarks}}</td>
+                                        <!-- <td>{{ticketDetails?.schoolRemarks}}</td>
                                         <td>{{ticketDetails?.teacherRemarks}}</td>
-                                        <td>{{ticketDetails?.nationalRemarks}}</td>
+                                        <td>{{ticketDetails?.nationalRemarks}}</td> -->
                                         <td>{{ticketStatusForAssignTo}}</td>
                                         <td>{{ticketDetails?.ticketdateTime}}</td>
-                                        <td>{{ticketDetails?.ticketResolveDateTime}}</td>
+                                        <td>{{ticketDetails?.ticketResolveDateTime }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -266,14 +300,19 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <h4 class="titleSet"> Assign To <span class="required-asterisk">*</span> :</h4>
-                                            <select *ngIf="businessTypeId!='2'" class="form-select" formControlName="assignTo" aria-label="Default select example">
+                                            <select *ngIf="businessTypeId!='2' && kvCode!='9999'" class="form-select" formControlName="assignTo" aria-label="Default select example">
                                                 <option disabled selected>Select</option>
                                                 <option value="1">HeadQuarter</option>
                                               </select>
-                                            <select *ngIf="businessTypeId=='2'" class="form-select" formControlName="assignTo" aria-label="Default select example">
+                                            <select *ngIf="businessTypeId=='2' && kvCode!='9999' " class="form-select" formControlName="assignTo" aria-label="Default select example">
                                                 <option disabled selected>Select</option>
                                                 <option value="{{ticketDetails?.instituteCode}}">School</option>
                                                 <option value="0">NIC</option>
+                                              </select>
+                                            <select *ngIf="businessTypeId!='2' && kvCode=='9999' " class="form-select" formControlName="assignTo" aria-label="Default select example">
+                                                <option disabled selected>Select</option>
+                                                <option value="1">HeadQuarter</option>
+                                                
                                               </select>
                                         </div>
                                         <div class="col-md-6">
@@ -282,7 +321,7 @@
                                         </div>
                                     </div>
                                     <div class="p-3" style="text-align: center;">
-                                        <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
+
                                         <input [disabled]="!assignToForm.get('assignToRemarks').valid || !assignToForm.get('assignTo').valid" type="submit" id="submit1" value="Submit" class="action-button" />
                                     </div>
                                 </div>
@@ -290,6 +329,51 @@
                         </div>
                     </form>
                 </div>
+            </div>
+
+
+
+            <div class="">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <table class="table table-bordered w-100 ">
+                                <thead>
+                                    <tr style="background-color:#7492cb;">
+                                        <th colspan="8" class="text-center text-white">Query Resolution Notes</th>
+                                    </tr>
+                                    <tr style="background-color:#E5EEFF;">
+                                        <th> S.No.</th>
+                                        <th>Activity</th>
+                                        <th>ActivityDoneBy</th>
+                                        <th>AssignTo</th>
+                                        <th>Remarks</th>
+                                        <th>Date</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of ticketHistory;  let i=index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{data?.activity}}</td>
+                                        <td>{{data?.activityDoneBy}}</td>
+                                        <td>{{data?.assignTo}}</td>
+                                        <td>{{data?.remarks}}</td>
+                                        <td>{{data?.createdDateTime | date : 'dd-MM-yyyy'}}</td>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="p-3" style="text-align: right;">
+                <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
             </div>
         </ng-template>
     </div>
@@ -301,7 +385,7 @@
                     <div class="col-md-12">
                         <div class="clearfix">
                             <div class="float-left">
-                                <h2 class="mb-0 text-green">Ticket Resolve </h2>
+                                <h2 class="mb-0 text-green">Resolve </h2>
                             </div>
                         </div>
                     </div>
@@ -314,24 +398,24 @@
                             <table class="table table-bordered w-100 ">
                                 <thead>
                                     <tr style="background-color:#7492cb;">
-                                        <th colspan="7" class="text-center text-white">Ticket ( {{ticketDetails?.ticketId}} )</th>
+                                        <th colspan="7" class="text-center text-white">Query Management System ( {{ticketDetails?.ticketId}} )</th>
                                     </tr>
                                     <tr style="background-color:#E5EEFF;">
-                                        <th>Ticket Subject</th>
-                                        <th>Ticket Description </th>
-                                        <th>School Remarks</th>
-                                        <th>Teacher Remarks</th>
-                                        <th>Ticket Status</th>
-                                        <th>Ticket Genration Date</th>
-                                        <th>Ticket Resolve Date</th>
+                                        <th> Subject</th>
+                                        <th> Description </th>
+                                        <!-- <th>School Remarks</th>
+                                        <th>Teacher Remarks</th> -->
+                                        <th> Status</th>
+                                        <th> Genration Date</th>
+                                        <th> Resolve Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>{{ticketDetails?.ticketSubject}}</td>
                                         <td>{{ticketDetails?.ticketDescription}}</td>
-                                        <td>{{ticketDetails?.schoolRemarks}}</td>
-                                        <td>{{ticketDetails?.teacherRemarks}}</td>
+                                        <!-- <td>{{ticketDetails?.schoolRemarks}}</td>
+                                        <td>{{ticketDetails?.teacherRemarks}}</td> -->
                                         <td>{{ticketStatusForResolve}}</td>
                                         <td>{{ticketDetails?.ticketdateTime}}</td>
                                         <td>{{ticketDetails?.ticketResolveDateTime}}</td>
@@ -355,7 +439,7 @@
                                         </div>
 
                                         <div class="col-md-6">
-                                            <h4 class="titleSet"> Ticket Status <span class="required-asterisk">*</span> :</h4>
+                                            <h4 class="titleSet"> Status <span class="required-asterisk">*</span> :</h4>
                                             <select class="form-select" formControlName="ticketType" aria-label="Default select example">
                                                 <option value="1">Resolved</option>
                                                 <option value="2">Rejected</option>
@@ -363,14 +447,14 @@
                                         </div>
                                     </div>
                                     <div class="p-3" style="text-align: center;">
-                                        <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
+                                        <!-- <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button> -->
                                         <input [disabled]="!resolveForm.get('resolveRemarks').valid || !resolveForm.get('ticketType').valid " type="submit" id="submit1" value="Submit" class="action-button" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-                    <div class="remark-card mb-4">
+                    <!-- <div class="remark-card mb-4">
                         <h2>Query Resolution Notes</h2>
                         <div class="row m-0">
 
@@ -386,8 +470,45 @@
 
 
                         </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <table class="table table-bordered w-100 ">
+                                <thead>
+                                    <tr style="background-color:#7492cb;">
+                                        <th colspan="8" class="text-center text-white">Query Resolution Notes</th>
+                                    </tr>
+                                    <tr style="background-color:#E5EEFF;">
+                                        <th> S.No.</th>
+                                        <th>Activity</th>
+                                        <th>ActivityDoneBy</th>
+                                        <th>AssignTo</th>
+                                        <th>Remarks</th>
+                                        <th>Date</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of ticketHistory;  let i=index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{data?.activity}}</td>
+                                        <td>{{data?.activityDoneBy}}</td>
+                                        <td>{{data?.assignTo}}</td>
+                                        <td>{{data?.remarks}}</td>
+                                        <td>{{data?.createdDateTime | date : 'dd-MM-yyyy'}}</td>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="p-3" style="text-align: right;">
+                <button type="button" class="btn btn-danger btn-sm" style="margin-left: 3px;" (click)="modal.dismiss('Cross click')">Cancel</button>
             </div>
         </ng-template>
     </div>
