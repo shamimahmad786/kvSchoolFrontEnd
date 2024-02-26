@@ -294,7 +294,9 @@ searchDropBoxData ={ "sno": "","teacherName": "","teacherId":"","kvCode":"","sta
 
       }
   }
-  importEmployee(empCode: Event){
+  importEmployee(empCode: any,reliveType:any){
+    if(reliveType=='Transfer')
+    {
     const data={"allotKvCode":this.kvCode ,"username":empCode,"teacherEmployeeCode":empCode}
     console.log(data)
     Swal.fire({
@@ -332,4 +334,13 @@ searchDropBoxData ={ "sno": "","teacherName": "","teacherId":"","kvCode":"","sta
    return false;
    });
  }
+ else{
+  Swal.fire({
+    'icon':'error',
+    'text':'Employee is not applicable to  import.'
+  }
+  )
+ }
+
+}
 }

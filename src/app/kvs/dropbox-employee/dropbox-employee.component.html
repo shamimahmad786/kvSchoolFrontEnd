@@ -174,7 +174,7 @@
     
                                     <ng-container matColumnDef="Action">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" [style.color]="row.color"><button type="button" *ngIf="row.dropBoxFlag == '1'" class="btn btn-success btn-sm" (click)="importEmployee(row.teacherId)">Import</button>  </mat-cell>
+                                        <mat-cell *matCellDef="let row" [style.color]="row.color"><button type="button" *ngIf="row.dropBoxFlag == '1'" class="btn btn-success btn-sm" (click)="importEmployee(row.teacherId,row.dropBoxType)">Import</button>  </mat-cell>
                                     </ng-container>
                                     <mat-header-row *matHeaderRowDef="searchDropBoxColumns; sticky:true; "></mat-header-row>
                                     <mat-row *matRowDef="let row; columns: searchDropBoxColumns;">
