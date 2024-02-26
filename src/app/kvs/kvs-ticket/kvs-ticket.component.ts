@@ -98,20 +98,14 @@ export class KvsTicketComponent implements OnInit {
         "instituteCode":'1',
         "dataType":this.ticketType
         }
-    }else if(this.kvCode=='9999'){
-      this.initiateddatTicket = {
-        "instituteCode":'0',
-        "dataType":this.ticketType
-        }
-      }
-        else{
+    }else{
           this.initiateddatTicket = {
             "instituteCode":this.kvCode,
             "dataType":this.ticketType
             }
         }
     
-  
+     
     this.outSideService.getTicketByInstitute(this.initiateddatTicket).subscribe((res)=>{
       console.log(res)
       this.ticketList=[];

@@ -32,7 +32,7 @@ export class SideNavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.kvCodeForTicket=localStorage.getItem('businessUnitTypeCodeForTicket');
+    this.kvCodeForTicket=sessionStorage.getItem('businessUnitTypeCodeForTicket');
     this.applicationId = environment.applicationId;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
