@@ -22,6 +22,8 @@ export class TeacherComponent implements OnInit {
   showSchool:boolean = false;
   username: any;
   loginUserNameForChild: any;
+  lastname: any;
+  businessUnitTypeCode:any;
   constructor(private router: Router) {
 
   }
@@ -64,9 +66,11 @@ export class TeacherComponent implements OnInit {
       for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
         console.log(JSON.parse(sessionStorage.getItem("authTeacherDetails")));
         this.username=JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].firstname + " "+ JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].lastname;
+        this.lastname= JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].lastname;
         this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
         this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
         this.businessUnitTypeId = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_id;
+        this.businessUnitTypeCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
       }
   
       if (this.kvicons?.includes(this.applicationId)) {
