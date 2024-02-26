@@ -300,16 +300,9 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <h4 class="titleSet"> Assign To <span class="required-asterisk">*</span> :</h4>
-                                            <select *ngIf="businessTypeId!='2' && kvCode!='9999'" class="form-select" formControlName="assignTo" aria-label="Default select example">
-                                                <option disabled selected>Select</option>
-                                                <option value="1">HeadQuarter</option>
-                                              </select>
-                                            <select *ngIf="businessTypeId=='2' && kvCode!='9999' " class="form-select" formControlName="assignTo" aria-label="Default select example">
-                                                <option disabled selected>Select</option>
-                                                <option value="{{ticketDetails?.instituteCode}}">School</option>
-                                                <option value="0">NIC</option>
-                                              </select>
-                                            <select *ngIf="businessTypeId!='2' && kvCode=='9999' " class="form-select" formControlName="assignTo" aria-label="Default select example">
+                                           
+                                            
+                                            <select class="form-select" formControlName="assignTo" aria-label="Default select example">
                                                 <option disabled selected>Select</option>
                                                 <option value="1">HeadQuarter</option>
                                                 

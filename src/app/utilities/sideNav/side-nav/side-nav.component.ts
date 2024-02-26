@@ -27,10 +27,12 @@ export class SideNavComponent implements OnInit {
   showRegion:boolean = false;
   showStation:boolean = false;
   showSchool:boolean = false;
+  kvCodeForTicket: any;
   constructor(private router: Router,private outSideService: OutsideServicesService,) {
   }
 
   ngOnInit(): void {
+    this.kvCodeForTicket=sessionStorage.getItem('businessUnitTypeCodeForTicket');
     this.applicationId = environment.applicationId;
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
