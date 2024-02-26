@@ -197,6 +197,7 @@ function showHide(data) {
         $("select").attr("disabled", "disabled");
     } else {
         $("select,input").removeAttr("disabled");
+        $('[name=empCode],[name=fullName],[name=mobile],[name=email], [name=staffType]').attr("disabled", "disabled");
     }
 }
 
