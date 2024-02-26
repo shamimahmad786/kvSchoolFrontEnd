@@ -131,7 +131,9 @@
                     </div>
                 </div>
             </div>
-            <div class="" style="min-width: 100%; max-height: 1000px;">
+            <div class="card "  style="border-block: revert; " >
+                <div class="card-body card-style">
+               <div class="" style="min-width: 100%; max-height: 1000px; ">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -141,8 +143,8 @@
                                         <th colspan="8" class="text-center text-white">Query Management System ( {{ticketDetails?.ticketId}} )</th>
                                     </tr>
                                     <tr style="background-color:#E5EEFF;">
-                                        <th> Subject</th>
-                                        <th> Description </th>
+                                        <th style="width: 30% !important;"> Subject</th>
+                                        <!-- <th> Description </th> -->
                                         <!-- <th>School Remarks</th>
                                         <th>Teacher Remarks</th>
                                         <th>Head Quarter Remarks</th> -->
@@ -154,7 +156,7 @@
                                 <tbody>
                                     <tr>
                                         <td>{{ticketDetails?.ticketSubject}}</td>
-                                        <td>{{ticketDetails?.ticketDescription}}</td>
+                                        <!-- <td>{{ticketDetails?.ticketDescription}}</td> -->
                                         <!-- <td>{{ticketDetails?.schoolRemarks}}</td>
                                         <td>{{ticketDetails?.teacherRemarks}}</td>
                                         <td>{{ticketDetails?.nationalRemarks}}</td> -->
@@ -168,6 +170,24 @@
                     </div>
                 </div>
             </div>
+
+            <div style="min-width: 100%; max-height: 1000px; ">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-secondary" style="background-color: #f2f5fb !important;">
+                                <div class="dashboard-main-content__header">
+                                    <h1>Query Description</h1>
+                                </div>
+                                {{ticketDetails?.ticketDescription}}
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
             <div class="" style="min-width: 100%; max-height: 1000px;">
                 <div class="container-fluid">
                     <div class="row">
@@ -212,8 +232,8 @@
                                     <tr style="background-color:#E5EEFF;">
                                         <th> S.No.</th>
                                         <th>Activity</th>
-                                        <th>ActivityDoneBy</th>
-                                        <th>AssignTo</th>
+                                        <th>Activity Done By</th>
+                                        <th>Assign To</th>
                                         <th>Remarks</th>
                                         <th>Date</th>
 
@@ -226,7 +246,7 @@
                                         <td>{{data?.activityDoneBy}}</td>
                                         <td>{{data?.assignTo}}</td>
                                         <td>{{data?.remarks}}</td>
-                                        <td>{{data?.createdDateTime | date : 'dd-MM-yyyy'}}</td>
+                                        <td>{{data?.createdDateTime | date : 'dd-MM-yyyy hh:mm:ss'}}</td>
 
                                 </tbody>
                             </table>
@@ -253,18 +273,20 @@
                     </div>
                 </div>
             </div>
-            <div class="">
+            <div class="card "  style="border-block: revert; " >
+                <div class="card-body card-style">
+               <div class="" style="min-width: 100%; max-height: 1000px; ">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12 ">
-                            <table class="table table-bordered w-100 ">
+                        <div class="col-md-12">
+                            <table class="table table-bordered w-100">
                                 <thead>
                                     <tr style="background-color:#7492cb;">
                                         <th colspan="8" class="text-center text-white">Query Management System ( {{ticketDetails?.ticketId}} )</th>
                                     </tr>
                                     <tr style="background-color:#E5EEFF;">
-                                        <th> Subject</th>
-                                        <th> Description </th>
+                                        <th style="width: 30% !important;"> Subject</th>
+                                        <!-- <th> Description </th> -->
                                         <!-- <th>School Remarks</th>
                                         <th>Teacher Remarks</th>
                                         <th>Head Quarter Remarks</th> -->
@@ -276,13 +298,13 @@
                                 <tbody>
                                     <tr>
                                         <td>{{ticketDetails?.ticketSubject}}</td>
-                                        <td>{{ticketDetails?.ticketDescription}}</td>
+                                        <!-- <td>{{ticketDetails?.ticketDescription}}</td> -->
                                         <!-- <td>{{ticketDetails?.schoolRemarks}}</td>
                                         <td>{{ticketDetails?.teacherRemarks}}</td>
                                         <td>{{ticketDetails?.nationalRemarks}}</td> -->
                                         <td>{{ticketStatusForAssignTo}}</td>
                                         <td>{{ticketDetails?.ticketdateTime}}</td>
-                                        <td>{{ticketDetails?.ticketResolveDateTime }}</td>
+                                        <td>{{ticketDetails?.ticketResolveDateTime}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -290,6 +312,24 @@
                     </div>
                 </div>
             </div>
+
+            <div style="min-width: 100%; max-height: 1000px; ">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-secondary" style="background-color: #f2f5fb !important;">
+                                <div class="dashboard-main-content__header">
+                                    <h1>Query Description</h1>
+                                </div>
+                                {{ticketDetails?.ticketDescription}}
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
 
             <div class="" style="min-width: 100%; max-height: 1000px;">
                 <div class="container-fluid">
@@ -315,6 +355,7 @@
                                                 
                                               </select>
                                         </div>
+                                        
                                         <div class="col-md-6">
                                             <h4 class="titleSet"> Remark <span class="required-asterisk">*</span> :</h4>
                                             <textarea class="form-control" formControlName="assignToRemarks" placeholder="Leave a remark here" id="floatingTextarea"></textarea>
@@ -345,8 +386,8 @@
                                     <tr style="background-color:#E5EEFF;">
                                         <th> S.No.</th>
                                         <th>Activity</th>
-                                        <th>ActivityDoneBy</th>
-                                        <th>AssignTo</th>
+                                        <th>Activity Done By</th>
+                                        <th>Assign To</th>
                                         <th>Remarks</th>
                                         <th>Date</th>
 
@@ -359,7 +400,7 @@
                                         <td>{{data?.activityDoneBy}}</td>
                                         <td>{{data?.assignTo}}</td>
                                         <td>{{data?.remarks}}</td>
-                                        <td>{{data?.createdDateTime | date : 'dd-MM-yyyy'}}</td>
+                                        <td>{{data?.createdDateTime | date : 'dd-MM-yyyy hh:mm:ss'}}</td>
 
                                 </tbody>
                             </table>
@@ -391,31 +432,35 @@
                     </div>
                 </div>
             </div>
-            <div class="">
+            <div class="card "  style="border-block: revert; " >
+                <div class="card-body card-style">
+               <div class="" style="min-width: 100%; max-height: 1000px; ">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12 ">
-                            <table class="table table-bordered w-100 ">
+                        <div class="col-md-12">
+                            <table class="table table-bordered w-100">
                                 <thead>
                                     <tr style="background-color:#7492cb;">
-                                        <th colspan="7" class="text-center text-white">Query Management System ( {{ticketDetails?.ticketId}} )</th>
+                                        <th colspan="8" class="text-center text-white">Query Management System ( {{ticketDetails?.ticketId}} )</th>
                                     </tr>
                                     <tr style="background-color:#E5EEFF;">
-                                        <th> Subject</th>
-                                        <th> Description </th>
+                                        <th style="width: 30% !important;"> Subject</th>
+                                        <!-- <th> Description </th> -->
                                         <!-- <th>School Remarks</th>
-                                        <th>Teacher Remarks</th> -->
-                                        <th> Status</th>
-                                        <th> Genration Date</th>
-                                        <th> Resolve Date</th>
+                                        <th>Teacher Remarks</th>
+                                        <th>Head Quarter Remarks</th> -->
+                                        <th>Query Status</th>
+                                        <th>Query Genration Date</th>
+                                        <th>Query Resolve Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>{{ticketDetails?.ticketSubject}}</td>
-                                        <td>{{ticketDetails?.ticketDescription}}</td>
+                                        <!-- <td>{{ticketDetails?.ticketDescription}}</td> -->
                                         <!-- <td>{{ticketDetails?.schoolRemarks}}</td>
-                                        <td>{{ticketDetails?.teacherRemarks}}</td> -->
+                                        <td>{{ticketDetails?.teacherRemarks}}</td>
+                                        <td>{{ticketDetails?.nationalRemarks}}</td> -->
                                         <td>{{ticketStatusForResolve}}</td>
                                         <td>{{ticketDetails?.ticketdateTime}}</td>
                                         <td>{{ticketDetails?.ticketResolveDateTime}}</td>
@@ -426,6 +471,26 @@
                     </div>
                 </div>
             </div>
+
+            <div style="min-width: 100%; max-height: 1000px; ">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-secondary" style="background-color: #f2f5fb !important;">
+                                <div class="dashboard-main-content__header">
+                                    <h1>Query Description</h1>
+                                </div>
+                                {{ticketDetails?.ticketDescription}}
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
             <div class="" style="min-width: 100%; max-height: 1000px;">
                 <div class="container-fluid">
                     <form id="msform" class="msform" [formGroup]="resolveForm" (ngSubmit)="resolveFormSubmit()">
@@ -485,8 +550,8 @@
                                     <tr style="background-color:#E5EEFF;">
                                         <th> S.No.</th>
                                         <th>Activity</th>
-                                        <th>ActivityDoneBy</th>
-                                        <th>AssignTo</th>
+                                        <th>Activity Done By</th>
+                                        <th>Assign To</th>
                                         <th>Remarks</th>
                                         <th>Date</th>
 
@@ -499,7 +564,7 @@
                                         <td>{{data?.activityDoneBy}}</td>
                                         <td>{{data?.assignTo}}</td>
                                         <td>{{data?.remarks}}</td>
-                                        <td>{{data?.createdDateTime | date : 'dd-MM-yyyy'}}</td>
+                                        <td>{{data?.createdDateTime | date : 'dd-MM-yyyy hh:mm:ss'}}</td>
 
                                 </tbody>
                             </table>
