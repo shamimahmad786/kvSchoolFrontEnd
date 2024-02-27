@@ -154,7 +154,7 @@
             </div>
         </div>
 
-        <div class="accordion-item">
+        <!-- <div class="accordion-item">
             <div class="accordion-header m-0">
                 <button class="accordion-button aa collapsed" routerLink="/teacher/teacher-transfer-dashboard" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourc" aria-expanded="false" aria-controls="collapseFourc">
                     <img src="assets/images/transfer.png" class="me-2">Transfer Management
@@ -163,9 +163,9 @@
             <div id="collapseFourc" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
 
             </div>
-        </div>
+        </div> -->
 
-        <div class="accordion-item">
+        <!-- <div class="accordion-item">
             <div class="accordion-header m-0">
                 <button class="accordion-button aa collapsed" routerLink="/teacher/employeeJoining" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourcccs" aria-expanded="false" aria-controls="collapseFourcccs">
                     <img src="assets/images/rel1.png" class="me-2"> Relieving-Joining 
@@ -173,7 +173,7 @@
             </div>
             <div id="collapseFourcccs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             </div>
-        </div>
+        </div> -->
         <div class="accordion-item">
             <div class="accordion-header m-0">
                 <button class="accordion-button aa collapsed" routerLink="/teacher/dropBox" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourccccss" aria-expanded="false" aria-controls="collapseFourccccss">
@@ -194,16 +194,29 @@
             <div id="collapseFourccccs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             </div>
         </div>
-        <div class="accordion-item" *ngIf="kvCodeForTicket=='9999'">
-            <div class="accordion-header m-0">
-                <button class="accordion-button aa collapsed" routerLink="/teacher/kvsTicketNic" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourccccs" aria-expanded="false" aria-controls="collapseFourccccs">
-                    <img src="assets/images/coupon.png" class="me-2"> Query Management 
-                    <span style="align-items: end;" [matBadge]="inProgressTicketCountForSchool" matBadgeOverlap="false"  class="demo-section"></span>
-        </button>
+        <div *ngIf="kvCodeForTicket=='9999'">
+            <div class="accordion-item">
+                <div class="accordion-header m-0">
+                    <button class="accordion-button aa collapsed" routerLink="/teacher/kvsTicketNic" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourccccstt" aria-expanded="false" aria-controls="collapseFourccccstt">
+                        <img src="assets/images/coupon.png" class="me-2"> Query Management Nic 
+                        <span style="align-items: end;" [matBadge]="inProgressTicketCountForSchool" matBadgeOverlap="false"  class="demo-section"></span>
+            </button>
+                </div>
+                <div id="collapseFourccccstt" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                </div>
             </div>
-            <div id="collapseFourccccs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-item">
+                <div class="accordion-header m-0">
+                    <button class="accordion-button aa collapsed" routerLink="/teacher/kvsTicket" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourccccs" aria-expanded="false" aria-controls="collapseFourccccs">
+                        <img src="assets/images/coupon.png" class="me-2"> Query Management 
+                        <span style="align-items: end;" [matBadge]="inProgressTicketCountForSchool" matBadgeOverlap="false"  class="demo-section"></span>
+            </button>
+                </div>
+                <div id="collapseFourccccs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                </div>
             </div>
         </div>
+
     </div>
 
 
