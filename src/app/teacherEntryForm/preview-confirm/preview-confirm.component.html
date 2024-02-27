@@ -61,9 +61,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>Social Category</th>
+                                <th>Social category</th>
                                 <td>{{socialCat}} </td>
-                                <th>Social Sub Category</th>
+                                <th>Social Sub category</th>
                                 <td>{{socialSubCat}}
                                 </td>
                                 <th>Recruited under special recruitment for NER ? </th>
@@ -73,34 +73,34 @@
                         </tbody>
                     </table>
                 </div>
-               <div class="table-responsive">
-                <table class="table table-bordered w-100">
-                    <thead>
-                        <tr style="background-color:#7492cb;">
-                            <th colspan="7" class="text-center text-white">Experience</th>
-                        </tr>
-                        <tr style="background-color:#E5EEFF;">
-                            <th>School Name</th>
-                            <th width="8%">From</th>
-                            <th width="8%">To</th>
-                            <th width="16%">Position Held</th>
-                            <th width="13%">Appointed for Subject</th>
-                            <th width="15%">Transfer Ground</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of verifyTchTeacherWorkExp">
-                            <td>{{data?.udiseSchoolName}}</td>
-                            <td>{{data?.workStartDate}}</td>
-                            <td>{{data?.workEndDate}}</td>
-                            <td>{{data?.positionType}}</td>
-                            <td>{{data?.appointedForSubject}}</td>
-                            <td>{{data?.groundForTransfer == 'null' ? '':data?.groundForTransfer}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-               </div>
-               
+                <div class="table-responsive">
+                    <table class="table table-bordered w-100">
+                        <thead>
+                            <tr style="background-color:#7492cb;">
+                                <th colspan="7" class="text-center text-white">Experience</th>
+                            </tr>
+                            <tr style="background-color:#E5EEFF;">
+                                <th>School Name</th>
+                                <th width="8%">From</th>
+                                <th width="8%">To</th>
+                                <th width="16%">Position Held</th>
+                                <th width="13%">Appointed for Subject</th>
+                                <th width="15%">Transfer Ground</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of verifyTchTeacherWorkExp">
+                                <td>{{data?.udiseSchoolName}}</td>
+                                <td>{{data?.workStartDate}}</td>
+                                <td>{{data?.workEndDate}}</td>
+                                <td>{{data?.positionType}}</td>
+                                <td>{{data?.appointedForSubject}}</td>
+                                <td>{{data?.groundForTransfer == 'null' ? '':data?.groundForTransfer}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
 
                 <form [formGroup]="teacherPreviewConfirmForm" (ngSubmit)="submit()">
                     <div class="chk-box-font border p-3 mt-4">
@@ -134,7 +134,8 @@
                                         <label>Employee Code:</label> &nbsp; {{verifyTchTeacherProfileData?.teacherEmployeeCode}} <input class="form-check-input" type="checkbox" value="" formControlName="teacherEmplCode" id="teacherEmplCode">
                                     </td>
                                     <td *ngIf="!profileFinalStatus">
-                                        <label>Employee Disability:</label> &nbsp;{{verifyTchTeacherProfileData?.teacherDisabilityYn == '1' ? 'Yes':'No'}} <input class="form-check-input" disabled type="checkbox" value="" formControlName="teacherDisability" id="teacherDisability">
+                                        <label>Employee Disability:</label> &nbsp;{{verifyTchTeacherProfileData?.teacherDisabilityYn == '1' ? 'Yes':'No'}} <input class="form-check-input" disabled type="checkbox" value="" formControlName="teacherDisability"
+                                            id="teacherDisability">
                                     </td>
                                     <td *ngIf="profileFinalStatus">
                                         <label>Employee Disability:</label> &nbsp;{{verifyTchTeacherProfileData?.teacherDisabilityYn == '1' ? 'Yes':'No'}} <input class="form-check-input" type="checkbox" value="" formControlName="teacherDisability" id="teacherDisability">
@@ -158,16 +159,18 @@
                                             id="workExperienceAppointedForSubject">
                                     </td>
                                     <td *ngIf="!profileFinalStatus">
-                                        <label>Position Held:</label> &nbsp;{{verifyTchTeacherProfileData?.lastPromotionPositionType}} <input class="form-check-input" type="checkbox" value="" disabled  formControlName="lastPromotionPositionType" id="lastPromotionPositionType">
+                                        <label>Position Held:</label> &nbsp;{{verifyTchTeacherProfileData?.lastPromotionPositionType}} <input class="form-check-input" type="checkbox" value="" disabled formControlName="lastPromotionPositionType" id="lastPromotionPositionType">
                                     </td>
                                     <td *ngIf="profileFinalStatus">
-                                        <label>Position Held:</label> &nbsp;{{verifyTchTeacherProfileData?.lastPromotionPositionType}} <input class="form-check-input" type="checkbox" value=""  formControlName="lastPromotionPositionType" id="lastPromotionPositionType">
+                                        <label>Position Held:</label> &nbsp;{{verifyTchTeacherProfileData?.lastPromotionPositionType}} <input class="form-check-input" type="checkbox" value="" formControlName="lastPromotionPositionType" id="lastPromotionPositionType">
                                     </td>
                                     <td *ngIf="!profileFinalStatus">
-                                        <label>DOJ in Present Station Irrespective of Cadre:</label> &nbsp;{{verifyTchTeacherProfileData?.workExperiencePositionTypePresentStationStartDate}} <input class="form-check-input" type="checkbox" value="" disabled  formControlName="workExperiencePositionTypePresentStationStartDate" id="workExperiencePositionTypePresentStationStartDate">
+                                        <label>DOJ in Present Station Irrespective of Cadre:</label> &nbsp;{{verifyTchTeacherProfileData?.workExperiencePositionTypePresentStationStartDate}} <input class="form-check-input" type="checkbox" value="" disabled
+                                            formControlName="workExperiencePositionTypePresentStationStartDate" id="workExperiencePositionTypePresentStationStartDate">
                                     </td>
                                     <td *ngIf="profileFinalStatus">
-                                        <label>DOJ in Present Station Irrespective of Cadre:</label> &nbsp;{{verifyTchTeacherProfileData?.workExperiencePositionTypePresentStationStartDate}} <input class="form-check-input" type="checkbox" value=""  formControlName="workExperiencePositionTypePresentStationStartDate" id="workExperiencePositionTypePresentStationStartDate">
+                                        <label>DOJ in Present Station Irrespective of Cadre:</label> &nbsp;{{verifyTchTeacherProfileData?.workExperiencePositionTypePresentStationStartDate}} <input class="form-check-input" type="checkbox" value="" formControlName="workExperiencePositionTypePresentStationStartDate"
+                                            id="workExperiencePositionTypePresentStationStartDate">
                                     </td>
                                     <td></td>
                                 </tr>
@@ -209,7 +212,7 @@
                     <div class="mt-2 d-flex align-items-center justify-content-between ">
                         <div class="button-back mt-2"><input type="button" name="previous" class="action-save me-2 back-button" (click)="previousPage()" value="Back" /><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></div>
                         <div class="button-save mt-2">
-                            <input  *ngIf="profileFinalStatus"  type="submit" id="submit33" value="Confirm" class="me-2 add-user" /><i class="fa fa-floppy-o" aria-hidden="true"></i> </div>
+                            <input *ngIf="profileFinalStatus" type="submit" id="submit33" value="Confirm" class="me-2 add-user" /><i class="fa fa-floppy-o" aria-hidden="true"></i> </div>
                     </div>
                 </form>
 
