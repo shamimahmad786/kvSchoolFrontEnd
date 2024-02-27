@@ -118,9 +118,9 @@
                                         </div> -->
 
                                             <div class="col-md-6 mb-3">
-                                                <h4 class="titleSet"> Social Catagory <span class="required-asterisk">*</span></h4>
+                                                <h4 class="titleSet"> Social Category <span class="required-asterisk">*</span></h4>
                                                 <select class="form-select" name="socialCategories" formControlName="socialCategories" (change)="socialChange($event)" aria-label="Default select example">
-                                            <option disabled selected>Select Social Catagory</option>
+                                            <option disabled selected>Select Social Category</option>
                                             <option value="1">GENERAL</option>                                           
                                             <option value="2">OBC</option>
                                             <option value="3">SC</option>
@@ -130,9 +130,9 @@
 
                                             <div class="col-md-6 mb-3">
                                                 <ng-container *ngIf="visiblitySubSocialCategory">
-                                                    <h4 class="titleSet"> Social Sub Catagory <span class="required-asterisk">*</span></h4>
+                                                    <h4 class="titleSet"> Social Sub Category <span class="required-asterisk">*</span></h4>
                                                     <select class="form-select" name="socialSubCategories" formControlName="socialSubCategories" aria-label="Default select example">
-                                            <option disabled selected>Select Social Sub Catagory</option>
+                                            <option disabled selected>Select Social Sub Category</option>
                                             <option value="1">GENERAL NON EWS</option>
                                             <option value="2">GENERAL EWS</option>
                                           </select>
@@ -791,11 +791,11 @@
                             </div>
                             <!-- </div> -->
                         </div>
-
                         <div class="mt-4 button-save float-end ">
                             <i class="fa fa-floppy-o" aria-hidden="true"></i> <input *ngIf="profileFinalStatus" [disabled]="(!basicProfileForm.get('maritalStatusF').valid ||  !basicProfileForm.get('lastPromotionPositionDate').valid || !basicProfileForm.get('dob').valid || 
                        !basicProfileForm.get('fullName').valid || !basicProfileForm.get('specialRecruitmentYn').valid ||
-                       !basicProfileForm.get('socialCategories').valid ||
+                       !basicProfileForm.get('socialCategories').valid || (!basicProfileForm.get('socialSubCategories').valid &&
+                       basicProfileForm.get('socialCategories').value == '1') ||
                        !basicProfileForm.get('mobile').valid ||
                        !basicProfileForm.get('gender').valid ||
                        !basicProfileForm.get('staffType').valid ||

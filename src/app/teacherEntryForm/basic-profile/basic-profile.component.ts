@@ -136,7 +136,7 @@ export class BasicProfileComponent implements OnInit {
       'dob': new FormControl('', [Validators.required, this.dateDifferenceFnc.bind(this)]),
       'mobile': new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("[8976][0-9]{9}")]),
       'socialCategories': new FormControl('', Validators.required),
-      'socialSubCategories': new FormControl(''),
+      'socialSubCategories': new FormControl('', Validators.required),
       'email': new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       'presentStationName': new FormControl('', Validators.required),
       'presentKvName': new FormControl('', Validators.required),
@@ -921,6 +921,7 @@ export class BasicProfileComponent implements OnInit {
           "specialRecruitmentYn":this.basicProfileForm.value.specialRecruitmentYn,
           "kvCode":this.kvCode
         }
+        console.log(data);
         Swal.fire({
           'icon':'warning',
           'text': "Do you want to proceed ?",
@@ -961,6 +962,9 @@ export class BasicProfileComponent implements OnInit {
 socialChange(event){
 if(event.target.value=="1"){
 this.visiblitySubSocialCategory=true;
+this.basicProfileForm.patchValue({
+  socialSubCategories: '',
+});
 }else{
 this.visiblitySubSocialCategory=false;
 this.basicProfileForm.patchValue({
