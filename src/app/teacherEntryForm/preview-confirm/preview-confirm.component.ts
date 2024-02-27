@@ -198,7 +198,7 @@ export class PreviewConfirmComponent implements OnInit {
   }
 
   previousPage(){
-    this.router.navigate(['/teacher/workExperience']);
+    this.router.navigate(['/teacher/leaveMangement']);
   }
   submit(){
     console.log('Testtttttt Ashish     ',this.teacherPreviewConfirmForm.value)
