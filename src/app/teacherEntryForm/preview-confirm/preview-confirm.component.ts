@@ -29,6 +29,7 @@ export class PreviewConfirmComponent implements OnInit {
   kvSchoolDetails: any;
   flagUpdatedList: any;
   verifyTchTeacherWorkExp: any;
+  teschrLeaveDetails:any;
   teacherStationChioce: any;
   schoolDetails:any;
   verifyTchTeacherTraining: any;
@@ -167,7 +168,9 @@ export class PreviewConfirmComponent implements OnInit {
         }
         res.response.experience[i].workStartDate = res.response.experience[i].workStartDate;
       }
-      this.verifyTchTeacherWorkExp = res.response.experience
+      this.verifyTchTeacherWorkExp = res.response.experience;
+      this.teschrLeaveDetails=res.response.teacherLeave;
+
     })
   }
   getTeacherConfirmationV2(){

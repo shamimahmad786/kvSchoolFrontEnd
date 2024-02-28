@@ -102,6 +102,35 @@
                 </div>
 
 
+                <div class="table-responsive">
+                    <table class="table table-bordered w-100">
+                        <thead>
+                            <tr style="background-color:#7492cb;">
+                                <th colspan="7" class="text-center text-white">Leave Details</th>
+                            </tr>
+                            <tr style="background-color:#E5EEFF;">
+                                <th>S.No.</th>
+                                <th>Start date</th>
+                                <th >End Date</th>
+                                <th >Continuous Leave</th>
+                                <th >Number Of Leave</th>
+                               
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of teschrLeaveDetails; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{data?.startDate}}</td>
+                                <td>{{data?.endDate}}</td>
+                                <td>{{data?.isContiniousLeave == '1' ? 'Yes':'No'}}</td>
+                                <td>{{data?.noOfLeave}}</td>
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <form [formGroup]="teacherPreviewConfirmForm" (ngSubmit)="submit()">
                     <div class="chk-box-font border p-3 mt-4">
                         <div class="table-responsive">
