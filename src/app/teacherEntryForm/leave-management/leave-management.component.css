@@ -63,7 +63,27 @@
     content: "\f055";
     margin-right: 5px;
 }
-
+.add-user-next{
+    color: #fff;
+    border-radius: 4px;
+    font-size: 13px;
+    background: #632765;
+    height: 35px !important;
+    width: 89px;
+    line-height: normal;
+    border: none;
+}
+.add-user-clear{
+    color: #fff;
+    border-radius: 4px;
+    font-size: 13px;
+    background: #276991;
+    height: 35px !important;
+    width: 131px;
+    line-height: normal;
+    border: none;
+    padding: 0;
+}
 .back-button {
     color: #fff;
     border-radius: 4px;
@@ -75,9 +95,16 @@
     padding: 0 15px 0 33px;
 }
 
-.work-exp td,
-.work-exp th {
+.work-exp td{
     padding: 0 15px!important;
+}
+.work-exp th {
+    padding: 15px!important;
+}
+
+.mat-datepicker-toggle-default-icon {
+    width: 50px!important;
+    height: 50px!important;
 }
 
 

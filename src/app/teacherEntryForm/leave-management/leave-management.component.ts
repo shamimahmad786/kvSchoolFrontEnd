@@ -28,7 +28,7 @@ export const MY_FORMATS = {
   },
 };
 declare const srvTime: any;
-declare const showHide:any;
+//declare const showHide:any;
 @Component({
   selector: 'app-leave-management',
   templateUrl: './leave-management.component.html',
@@ -92,11 +92,11 @@ export class LeaveManagementComponent implements OnInit {
     this.outSideService.getFormStatusV2(data).subscribe((res)=>{
       if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
         this.profileFinalStatus=true;
-        showHide(false)
+      //  showHide(false)
       }else{
         
         this.profileFinalStatus=false;
-        showHide(true);
+       // showHide(true);
        }
   },
   error => {
