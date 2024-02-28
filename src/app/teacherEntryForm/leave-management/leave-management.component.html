@@ -54,8 +54,8 @@
                                     <td *ngIf="profileFinalStatus">
                                         <select class="form-select form-select-sm"  aria-label="Default select example" name="isContiniousLeave" formControlName="isContiniousLeave"  >
                                        <option selected disabled>Select</option>
-                                       <option value="1">MORE THAN 30</option>
-                                       <option value="0">NOT MORE THAN 30</option>
+                                       <option value="1">MORE THAN & EQUAL TO 30 DAYS</option>
+                                       <option value="0">LESS THAN 30 DAYS</option>
                                     </select>
                                         <span class="help-block text-danger" *ngIf="quantity.controls.isContiniousLeave.errors?.required">
                                    Select continuous leave!</span>
