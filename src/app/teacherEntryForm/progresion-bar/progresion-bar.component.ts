@@ -11,6 +11,7 @@ export class ProgresionBarComponent implements OnInit {
   profilePage: boolean = false;
   experiencePage: boolean = false;
   uploadPage: boolean = false;
+  leaveManagmentPage: boolean = false;
   constructor(private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
@@ -20,20 +21,31 @@ export class ProgresionBarComponent implements OnInit {
     {
     this.profilePage=true;
     this.experiencePage=false;
+    this.leaveManagmentPage=false;
     this.uploadPage=false;
     }
     if(url[0].path=='workExperience')
     {
     this.profilePage=true;
     this.experiencePage=true;
+    this.leaveManagmentPage=false;
+    this.uploadPage=false;
+    }
+    if(url[0].path=='leaveMangement')
+    {
+    this.profilePage=true;
+    this.experiencePage=true;
+    this.leaveManagmentPage=true;
     this.uploadPage=false;
     }
     if(url[0].path=='previewConfirm')
     {
     this.profilePage=true;
     this.experiencePage=true;
+    this.leaveManagmentPage=true;
     this.uploadPage=true;
     }
+   
     });
   }
 

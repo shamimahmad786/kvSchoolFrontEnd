@@ -1,0 +1,90 @@
+<div class="dashboard-main-content" style="min-height: 600px;">
+    <app-progresion-bar></app-progresion-bar>
+    <div class="dashboard-main-content-info  p-4 mt-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-4">
+                        <h2 class="mb-0">leave Management:</h2>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="steps text-end pro-name">{{profileTeacherName | uppercase}}
+                        </h2>
+                    </div>
+                </div>
+                <form id="msform" [formGroup]="teacherLeaveForm" class="form-card  shadow p-3">
+                    <div class="table-responsive">
+                        <table class="table work-exp mt-1" formArrayName="leaveManagmentForm">
+                            <thead>
+                                <tr>
+                                    <th>S.No.</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th> Continuous Leave</th>
+                                    <th>Total  Leave</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let quantity of detailsOfPosting().controls; let i=index" formGroupName="{{i}}">
+                                    
+                                    <td >
+                                        {{i+1}} 
+                                    </td>
+                                  
+                                    <td>
+                                        <mat-form-field style="width: 100%;" >
+                                            <input matInput [matDatepicker]="si" disabled id="startDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="startDate"  formControlName="startDate" style="text-transform: none">
+                                            <mat-datepicker-toggle matSuffix [for]="si"></mat-datepicker-toggle>
+                                            <mat-datepicker #si></mat-datepicker>
+                                        </mat-form-field>
+                                        <span class="help-block text-danger" *ngIf="quantity.controls.startDate.errors?.required">
+                                       Select Work Start Date!</span>
+                                    </td>
+                                
+                                    <td>
+                                        <mat-form-field style="width: 100%;" >
+                                            <input matInput [matDatepicker]="ei"  disabled id="endDate-{{i}}" class="form-control" class="form-control form-control-sm " [max]="maxDate" name="endDate" formControlName="endDate" style="text-transform: none">
+                                            <mat-datepicker-toggle matSuffix [for]="ei"></mat-datepicker-toggle>
+                                            <mat-datepicker #ei></mat-datepicker>
+                                        </mat-form-field>
+                                        <span class="help-block text-danger" *ngIf="quantity.controls.endDate.errors?.required">
+                                    Enter Work End Date!</span>
+                                    </td>
+                                  
+                                    <td >
+                                        <select class="form-select form-select-sm" aria-label="Default select example" name="isContiniousLeave" formControlName="isContiniousLeave"  >
+                                       <option selected disabled>Select</option>
+                                       <option value="1">Yes</option>
+                                       <option value="0">No</option>
+                                    </select>
+                                        <span class="help-block text-danger" *ngIf="quantity.controls.isContiniousLeave.errors?.required">
+                                   Select continuous leave!</span>
+                                    </td>
+                                 
+                                <td>
+                                    <input type="text"  class="form-control" formControlName="noOfLeave">
+                              
+                                        <span class="help-block text-danger" *ngIf="quantity.controls.noOfLeave.errors?.required">
+                               Please Fill leave!</span>
+                                    </td> 
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </form>
+                <div class="mt-2 d-flex align-items-center justify-content-between ">
+                    <div class="button-back mt-2">
+                        <input type="button" name="previous" class=" me-2 back-button" (click)="previousPage()" value="Back" /><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></div>
+                   
+                   
+                        <div class="button-save mt-2">
+                            <div></div>
+                            <input type="button"  name="submit" class=" add-user"  (click)="onClearLeaveManagement()" value="Clear" /><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;
+                        <input type="submit" [disabled]="(!teacherLeaveForm.get('leaveManagmentForm').valid )" name="submit" class=" add-user"  (click)="onSaveLeaveManagement()" value="Save & Next" /><i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

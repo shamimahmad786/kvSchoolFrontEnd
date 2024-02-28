@@ -210,6 +210,7 @@ export class WorkExperienceComponent implements OnInit {
       experienceType = "Head Quarter";
     }
     if (data != undefined) {
+      debugger
       return this.fb.group({
         teacherId: data.teacherId,
         workExperienceId: data.workExperienceId,
@@ -614,7 +615,7 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
       return false;
     }
     else{
-      this.router.navigate(['/teacher/previewConfirm']);
+      this.router.navigate(['/teacher/leaveMangement']);
     }
   }
   onEditExperience(id:any){

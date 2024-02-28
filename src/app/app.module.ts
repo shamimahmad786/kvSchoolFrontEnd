@@ -116,6 +116,7 @@ import { KvsTransferPreviewUndertakingComponent } from './kvs/kvs-teacher-transf
 import { TransferRelatedDocComponent } from './components/transfer-related-doc/transfer-related-doc.component';
 import { DropboxEmployeeComponent } from './kvs/dropbox-employee/dropbox-employee.component';
 import { KvsTicketNicComponent } from './kvs/kvs-ticket-nic/kvs-ticket-nic.component';
+import { LeaveManagementComponent } from './teacherEntryForm/leave-management/leave-management.component';
 
 // import { MAT_DATE_FORMATS } from '@angular/material/';
 // import { DatePickerModule } from 'angular-material-datepicker';
@@ -224,7 +225,8 @@ import { KvsTicketNicComponent } from './kvs/kvs-ticket-nic/kvs-ticket-nic.compo
     KvsTransferPreviewUndertakingComponent,
     TransferRelatedDocComponent,
     DropboxEmployeeComponent,
-    KvsTicketNicComponent
+    KvsTicketNicComponent,
+    LeaveManagementComponent
   
    
     

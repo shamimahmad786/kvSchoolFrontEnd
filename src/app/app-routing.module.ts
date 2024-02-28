@@ -62,6 +62,7 @@ import { KvsTransferPreviewUndertakingComponent } from './kvs/kvs-teacher-transf
 import { TransferRelatedDocComponent } from './components/transfer-related-doc/transfer-related-doc.component';
 import { DropboxEmployeeComponent } from './kvs/dropbox-employee/dropbox-employee.component';
 import { KvsTicketNicComponent } from './kvs/kvs-ticket-nic/kvs-ticket-nic.component';
+import { LeaveManagementComponent } from './teacherEntryForm/leave-management/leave-management.component';
 
 const routes: Routes = [
   {path:'', component: MainPageComponent},
@@ -82,7 +83,8 @@ const routes: Routes = [
       {path: 'basicProfile', component:BasicProfileComponent} ,     
       {path: 'dropBox', component:DropboxEmployeeComponent} , 
       {path: 'personalInfo', component:PersonalInfoComponent} ,    
-      {path: 'workExperience', component:WorkExperienceComponent} ,   
+      {path: 'workExperience', component:WorkExperienceComponent} ,  
+      {path: 'leaveMangement', component:LeaveManagementComponent} , 
       {path: 'miscellaneous', component:MiscellaneousFormComponent} ,
       {path: 'previewConfirm', component:PreviewConfirmComponent} ,
       {path: 'customForm', component:CustomFormSelectionComponent},

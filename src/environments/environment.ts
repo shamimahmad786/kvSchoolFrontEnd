@@ -42,6 +42,7 @@ BASE_URL_DATA_TEACHER: 'http://10.25.26.251:8014/api/teacher/',
   BASE_URL_DROPED_BOX: 'http://10.25.26.251:8014/api/dropbox/',
   BASE_URL_FILE_MANAGEMENT: 'http://10.25.26.251:8014/api/filemanagement/',
   LINK_URL: 'https://kvsonlinetransfer.kvs.gov.in/teacher-prod/#/login',
+  BASE_URL_LEAVE_MANAGEMENT: 'http://10.25.26.251:8014/api/leavemanagement/',
   
 
 
