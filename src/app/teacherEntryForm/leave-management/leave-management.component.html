@@ -5,7 +5,7 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-4">
-                        <h2 class="mb-0">LEAVE MANAGEMENT</h2>
+                               <h2 class="mb-0">Leave Management:</h2>
                     </div>
                     <div class="col-8">
                         <h2 class="steps text-end pro-name">{{profileTeacherName | uppercase}}
@@ -96,12 +96,6 @@
                    
                         <div class="button-save mt-2">
                             
-                            <input type="button" *ngIf="profileFinalStatus"  name="submit" class=" add-user"  (click)="onClearLeaveManagement()" value="Clear" /><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;
+                            <input type="button" *ngIf="profileFinalStatus"  name="submit" class="add-user-clear"  (click)="onClearLeaveManagement()" value="Clear" /><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;
                         <input type="submit" *ngIf="profileFinalStatus" [disabled]="(!teacherLeaveForm.get('leaveManagmentForm').valid )" name="submit" class=" add-user"  (click)="onSaveLeaveManagement()" value="Save & Next" /><i class="fa fa-floppy-o" aria-hidden="true"></i>
-                        <input *ngIf="!profileFinalStatus" (click)="onNextClick()" type="submit" name="Next" class="me-2 add-user" value="Next" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                        <input *ngIf="!profileFinalStatus" (click)="onNextClick()" type="submit" name="Next" class="me-2 add-user-next" value="Next" />
