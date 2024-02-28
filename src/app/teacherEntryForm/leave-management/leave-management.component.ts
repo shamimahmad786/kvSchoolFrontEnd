@@ -28,6 +28,7 @@ export const MY_FORMATS = {
   },
 };
 declare const srvTime: any;
+declare const showHide:any;
 @Component({
   selector: 'app-leave-management',
   templateUrl: './leave-management.component.html',
@@ -54,6 +55,8 @@ export class LeaveManagementComponent implements OnInit {
   profileFinalStatus: boolean = false;
   transferGroundList: any;
   profileTeacherName: any;
+ 
+ 
   constructor(private pdfServive: TeacherAppPdfService,private router: Router,  private datePipe:DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
     private route: ActivatedRoute, private fb: FormBuilder,private _adapter: DateAdapter<any>) {
@@ -89,6 +92,11 @@ export class LeaveManagementComponent implements OnInit {
     this.outSideService.getFormStatusV2(data).subscribe((res)=>{
       if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
         this.profileFinalStatus=true;
+        showHide(false)
+      }else{
+        
+        this.profileFinalStatus=false;
+        showHide(true);
        }
   },
   error => {
@@ -112,6 +120,13 @@ export class LeaveManagementComponent implements OnInit {
         }
       })
 
+  }
+
+  omit_special_char(event)
+  {   
+     var k;  
+     k = event.charCode;
+     return((k >= 48 && k <= 57)); 
   }
   addQuantity(data) {
     this.detailsOfPosting().push(this.newQuantity(data));
@@ -175,7 +190,7 @@ onClearLeaveManagement(){
             this.getLeaveManagementByTchId();
           } else if (responsePosting == '0') {
             Swal.fire(
-              'Some thing wen wrong!',
+              'Something Went Wrong!',
               '',
               'error'
             )

@@ -5,7 +5,7 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-4">
-                        <h2 class="mb-0">leave Management:</h2>
+                        <h2 class="mb-0">LEAVE MANAGEMENT</h2>
                     </div>
                     <div class="col-8">
                         <h2 class="steps text-end pro-name">{{profileTeacherName | uppercase}}
@@ -51,22 +51,38 @@
                                     Enter Work End Date!</span>
                                     </td>
                                   
-                                    <td >
-                                        <select class="form-select form-select-sm" aria-label="Default select example" name="isContiniousLeave" formControlName="isContiniousLeave"  >
+                                    <td *ngIf="profileFinalStatus">
+                                        <select class="form-select form-select-sm"  aria-label="Default select example" name="isContiniousLeave" formControlName="isContiniousLeave"  >
                                        <option selected disabled>Select</option>
-                                       <option value="1">Yes</option>
-                                       <option value="0">No</option>
+                                       <option value="1">MORE THAN 30</option>
+                                       <option value="0">NOT MORE THAN 30</option>
+                                    </select>
+                                        <span class="help-block text-danger" *ngIf="quantity.controls.isContiniousLeave.errors?.required">
+                                   Select continuous leave!</span>
+                                    </td>
+                                    <td *ngIf="!profileFinalStatus">
+                                        <select class="form-select form-select-sm" disabled  aria-label="Default select example" name="isContiniousLeave" formControlName="isContiniousLeave"  >
+                                       <option selected disabled>Select</option>
+                                       <option value="1">MORE THAN 30</option>
+                                       <option value="0">NOT MORE THAN 30</option>
                                     </select>
                                         <span class="help-block text-danger" *ngIf="quantity.controls.isContiniousLeave.errors?.required">
                                    Select continuous leave!</span>
                                     </td>
                                  
-                                <td>
-                                    <input type="text"  class="form-control" formControlName="noOfLeave">
+                                 
+                                <td *ngIf="profileFinalStatus">
+                                    <input type="text"  class="form-control" name="noOfLeave"  formControlName="noOfLeave" (keypress)="omit_special_char($event)" onKeyPress="if(this.value.length==3) return false;">
                               
                                         <span class="help-block text-danger" *ngIf="quantity.controls.noOfLeave.errors?.required">
                                Please Fill leave!</span>
                                     </td> 
+                                    <td *ngIf="!profileFinalStatus">
+                                        <input type="text"  class="form-control" name="noOfLeave" disabled formControlName="noOfLeave" (keypress)="omit_special_char($event)" onKeyPress="if(this.value.length==3) return false;">
+                                  
+                                            <span class="help-block text-danger" *ngIf="quantity.controls.noOfLeave.errors?.required">
+                                   Please Fill leave!</span>
+                                        </td> 
                                 </tr>
                             </tbody>
                         </table>
@@ -79,9 +95,10 @@
                    
                    
                         <div class="button-save mt-2">
-                            <div></div>
-                            <input type="button"  name="submit" class=" add-user"  (click)="onClearLeaveManagement()" value="Clear" /><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;
-                        <input type="submit" [disabled]="(!teacherLeaveForm.get('leaveManagmentForm').valid )" name="submit" class=" add-user"  (click)="onSaveLeaveManagement()" value="Save & Next" /><i class="fa fa-floppy-o" aria-hidden="true"></i>
+                            
+                            <input type="button" *ngIf="profileFinalStatus"  name="submit" class=" add-user"  (click)="onClearLeaveManagement()" value="Clear" /><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;
+                        <input type="submit" *ngIf="profileFinalStatus" [disabled]="(!teacherLeaveForm.get('leaveManagmentForm').valid )" name="submit" class=" add-user"  (click)="onSaveLeaveManagement()" value="Save & Next" /><i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        <input *ngIf="!profileFinalStatus" (click)="onNextClick()" type="submit" name="Next" class="me-2 add-user" value="Next" />
                     </div>
                 </div>
             </div>
