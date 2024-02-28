@@ -240,12 +240,12 @@ export class BasicProfileComponent implements OnInit {
     this.outSideService.getFormStatusV2(data).subscribe((res)=>{
       if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
         this.profileFinalStatus=true;
-        showHide(false);
-       }else{
-        
-        this.profileFinalStatus=false;
-        showHide(true);
-       }
+        // showHide(false);
+      //  }else{
+      }
+      //   this.profileFinalStatus=false;
+      //   showHide(true);
+      //  }
   },
   error => {
     Swal.fire({
