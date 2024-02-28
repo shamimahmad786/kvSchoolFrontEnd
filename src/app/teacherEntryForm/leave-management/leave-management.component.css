@@ -1,13 +1,13 @@
 .add-user {
     color: #fff;
+    top: 7px;
+    padding: 0 15px 0 33px;
     border-radius: 4px;
-    font-size: 13px;
+    font-size: 14px;
     background: #632765;
-    height: 35px !important;
-    width: 131px;
+    height: 34px;
     line-height: normal;
     border: none;
-    padding: 0;
 }
 
 
@@ -79,7 +79,7 @@
     font-size: 13px;
     background: #276991;
     height: 35px !important;
-    width: 131px;
+    width: 99px;
     line-height: normal;
     border: none;
     padding: 0;

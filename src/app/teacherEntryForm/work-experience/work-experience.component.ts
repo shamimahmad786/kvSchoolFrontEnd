@@ -627,17 +627,33 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
     var updatediv = document.getElementById(updateId);
     editdiv.style.display = "none";  
     updatediv.style.display = ""; 
-
-    // ((this.teacherForm.get('workExperienceForm') as FormArray).at(id) as FormGroup).get('workStartDate').enable();
-    // ((this.teacherForm.get('workExperienceForm') as FormArray).at(id) as FormGroup).get('workEndDate').enable();
-    // ((this.teacherForm.get('workExperienceForm') as FormArray).at(id) as FormGroup).get('groundForTransfer').enable();
-
-    // ((this.teacherForm.get('workExperienceForm') as FormArray).at(id) as FormGroup).get('positionType').enable();
-    // ((this.teacherForm.get('workExperienceForm') as FormArray).at(id) as FormGroup).get('appointedForSubject').enable();
-
-    // } else {  
-    //   catdiv.style.display = "none";  
-    // }  
+  }
+  onClearLeaveManagement(){
+    var data = {"teacherId":this.tempTeacherId}
+    this.outSideService.deleteTeacherLeave(data).subscribe((res)=>{
+          var responsePosting = res.status;
+          if (responsePosting == '1') {
+            this.getTchExpByTchId();
+            Swal.fire(
+              'Your Data has been saved Successfully!',
+              '',
+              'success'
+            )
+          } else if (responsePosting == '0') {
+            Swal.fire(
+              'Something Went Wrong!',
+              '',
+              'error'
+            )
+          }
+      },
+      error => {
+        Swal.fire({
+          'icon':'error',
+          'text':error.error
+        }
+        )
+      })
   }
   onSaveExperience(event:any){
  debugger
@@ -737,7 +753,7 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
       if (this.teacherForm.controls.workExperienceForm.status == 'VALID') {
         Swal.fire({
           'icon':'warning',
-          'text': "Do you want to proceed ?",
+          'text': "Are you sure you want to proceed ? Updating this will reset your leave data!",
           'allowEscapeKey': false,
           'allowOutsideClick': false,
           'showCancelButton': true,
@@ -752,12 +768,9 @@ dateCheck(dateFrom, dateTo, dateCheck,type) {
               var responsePosting = res.status;
    
               if (responsePosting == '1') {
-                Swal.fire(
-                  'Your Data has been saved Successfully!',
-                  '',
-                  'success'
-                )
-                this.getTchExpByTchId();
+               
+              //  this.getTchExpByTchId();
+              this.onClearLeaveManagement();
               } else if (responsePosting == '0') {
                 Swal.fire(
                   'Some thing wen wrong!',

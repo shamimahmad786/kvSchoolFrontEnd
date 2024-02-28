@@ -97,9 +97,11 @@
     padding: 0 15px 0 33px;
 }
 
-.work-exp td,
-.work-exp th {
+.work-exp td{
     padding: 0 15px!important;
+}
+.work-exp th {
+    padding: 15px!important;
 }
 
 
