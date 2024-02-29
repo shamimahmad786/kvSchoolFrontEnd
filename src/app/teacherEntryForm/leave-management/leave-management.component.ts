@@ -113,10 +113,14 @@ export class LeaveManagementComponent implements OnInit {
       var data={"teacherId": this.tempTeacherId}
       this.outSideService.getTeacherLeaveMaster(data).subscribe((res) => {
         this.leaveDataList = res.response;
-        console.log("leave manaagement")
-       console.log( this.leaveDataList)
         for (let i = 0; i < this.leaveDataList.length; i++) {
-          this.addQuantity(this.leaveDataList[i])
+          debugger
+          if(i==0){
+            this.addFirstLeaveQuantity(this.leaveDataList[i])
+          }else{
+            this.addQuantity(this.leaveDataList[i])
+          }
+          
         }
       })
 
@@ -128,12 +132,35 @@ export class LeaveManagementComponent implements OnInit {
      k = event.charCode;
      return((k >= 48 && k <= 57)); 
   }
+  notGreate365(input:any, id:any) {
+   console.log(input.target.value)
+    if (input.target.value > 365) {
+      ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
+    }
+
+  }
+  addFirstLeaveQuantity(data){
+    this.detailsOfPosting().push(this.newLeaveQuantity(data));
+  }
   addQuantity(data) {
     this.detailsOfPosting().push(this.newQuantity(data));
-    console.log( this.detailsOfPosting())
+  }
+  newLeaveQuantity(data): FormGroup {
+    console.log(data)
+    if (data != undefined) {
+      return this.fb.group({
+        teacherId: this.tempTeacherId,
+        id :data.id,
+        startDate: [data.startDate, [Validators.required]],
+        endDate:data.endDate,
+        isContiniousLeave:'9',
+        noOfLeave:  [data.noOfLeave,[Validators.required]],
+      
+      })
+    } 
   }
   newQuantity(data): FormGroup {
-    debugger
+    console.log(data)
     if (data != undefined) {
       return this.fb.group({
         teacherId: this.tempTeacherId,

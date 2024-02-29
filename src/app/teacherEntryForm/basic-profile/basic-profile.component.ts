@@ -716,7 +716,7 @@ export class BasicProfileComponent implements OnInit {
     })
   }
   getSpouseDetails(event) {
-
+debugger
     this.basicProfileForm.patchValue({
         spouseStationName: '',
         spousePost: '',
@@ -726,20 +726,6 @@ export class BasicProfileComponent implements OnInit {
 
     this.outSideService.fetchSpouseByEmpCode(event.target.value).subscribe((res) => {
       if (res.status == '0') {
-        // Swal.fire(
-        //   'Record not found with the given employee code !',
-        //   'Please enter correct employee code',
-        //   'error'
-        // )
-        // this.teacherForm.patchValue({
-        //   personalInfoForm: {
-        //     spouseStationName: '',
-        //     spousePost: '',
-        //     spouseStationCode: '',
-        //     spouseName: '',
-        //     spouseEmpCode: ''
-        //   }
-        // })
       }
       this.basicProfileForm.patchValue({
           spouseStationName: res.response?.stationName,
