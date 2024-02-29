@@ -73,11 +73,7 @@ function getKey() {
         //  url: "https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER/api/login/getKey",
             url: "http://10.25.26.251:8014/api/login/getKey",
         // url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER/api/login/getKey",
-<<<<<<< HEAD
        // url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/getKey",
-=======
-        // url: "https://demopgi.udiseplus.gov.in/MOE-RAD-TEACHER-V1/api/login/getKey",
->>>>>>> 415a17aa896e455516900f91e2e13096a8e6b3d0
       //  url: "https://kvsonlinetransfer.kvs.gov.in/MOE-RAD-TEACHER-PROD/api/login/getKey",
         type: "POST",
         cache: false,
