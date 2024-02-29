@@ -123,7 +123,7 @@
                                 <td>{{i+1}}</td>
                                 <td>{{data?.startDate}}</td>
                                 <td>{{data?.endDate}}</td>
-                                <td>{{data?.isContiniousLeave == '1' ? 'Yes':'No'}}</td>
+                                <td>{{data?.isContiniousLeave == '1' ? 'Yes':data?.isContiniousLeave =='9'? 'NA' :'No'}}</td>
                                 <td>{{data?.noOfLeave}}</td>
                                
                             </tr>
