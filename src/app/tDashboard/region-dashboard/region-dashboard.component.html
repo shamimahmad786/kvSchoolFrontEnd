@@ -362,16 +362,15 @@
             </li> -->
         </ul>
 
-        <div class="row mt-3">
-            <div class=" dashboard-main-content__header mb-2">
-                <h1 class="TolTeacherValue  ">Station</h1>
-            </div>
+        <div class="row mt-3">            
 
             <div class="col-md-9">
 
-                <ul class="">
-                    <li class="card p-3 rounded-3 mb-3">
-
+                <div class="dashboard-main-content__header mb-2">
+                    <h1 class="TolTeacherValue">Station</h1>
+                </div>
+                    <div class="card p-3 rounded-3 mb-3">
+                        
                         <div class="row ">
                             <div class="col-sm-12 ">
                                 <div class="table-responsive">
@@ -411,36 +410,31 @@
                         </div>
 
 
-                    </li>
+                    </div>
 
-                </ul>
             </div>
-            <div class="col-md-3">
 
-                <div class="card p-3">
+            
+            <div class="col-md-3">
+                <div class=" dashboard-main-content__header mb-2">
+                    <h1 class="TolTeacherValue">Today's Logins</h1>
+                </div>
+                    <div class="card px-2 py-3">
                     <div class="table-responsive">
                         <table class="table1 table-bordered">
-                            <thead>
-                                <tr>
-                                    <th colspan="6">Note</th>
-
-                                </tr>
-                            </thead>
                             <tr>
-                                Normal -
+                                <td style="text-align: left; width:50%"><strong class="fw-bold">Region</strong>&nbsp; <span class="loginSpan">{{dashboardDetails?.roLoginCount === null ?'0':dashboardDetails?.roLoginCount}}</span></td>
+                                <td style="text-align: left;"><strong>ZIET</strong>&nbsp; <span class="loginSpan">{{dashboardDetails?.zietLoginCount === null ?'0':dashboardDetails?.zietLoginCount}}</span></td>                             
                             </tr>
                             <tr>
-                                Priority -
+                                <td style="text-align: left; width:50%"><strong>School</strong>&nbsp; <span class="loginSpan"> {{dashboardDetails?.schoolLoginCount === null ?'0':dashboardDetails?.schoolLoginCount}}</span></td>
+                                <td style="text-align: left;"><strong>Employee</strong>&nbsp; <span class="loginSpan">{{dashboardDetails?.employeeLoginCount === null ?'0':dashboardDetails?.employeeLoginCount}}</span></td>
+                                
                             </tr>
                             <tr>
-                                Hard -
+                               
                             </tr>
-                            <tr>
-                                Very Hard -
-                            </tr>
-                            <tr>
-                                NER -
-                            </tr>
+                       
 
                         </table>
                     </div>

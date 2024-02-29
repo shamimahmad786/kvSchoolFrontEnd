@@ -132,9 +132,12 @@ export class KvsTicketComponent implements OnInit {
             if(res[i].ticketResolvedBy=="kv_9999"){
               this.testData.ticketResolvedBy ='NIC';    
             }
-            else{
-              this.testData.ticketResolvedBy = res[i].ticketResolvedBy;    
+            else if(res[i].ticketResolvedBy == "national_kv") {
+              this.testData.ticketResolvedBy = 'HEADQUARTER'
             }
+            else if(res[i].ticketResolvedBy != "kv_9999" && res[i].ticketResolvedBy != "national_kv" && res[i].ticketStatus != 0) {
+              this.testData.ticketResolvedBy = 'SCHOOL'
+            } 
           
             this.ticketList.push(this.testData);
             this.testData = { "sno": "", "ticketId": "","ticketSubject":"", "ticketdateTime": "","ticketFrom":"","ticketFromId":"", "ticketToId": "","assignToId":"","instituteCode":"","ticketStatus":"","ticketResolvedBy":"" };
@@ -368,6 +371,8 @@ export class KvsTicketComponent implements OnInit {
       else if(res['ticketDetails'].ticketStatus=='2' || res['ticketDetails'].ticketStatus==2){
         this.ticketStatusForResolve='Rejected';
       }
+
+      
       }
    },
     error => {
