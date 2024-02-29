@@ -1041,3 +1041,5 @@ label {
   .line-space{
       line-height: 22px;
   }
+
+  span.loginSpan {float: right; background-color: #fbe6ec!important; color:#97516a!important; }
