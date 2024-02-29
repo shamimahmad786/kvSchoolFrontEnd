@@ -869,6 +869,19 @@ debugger
     this.router.navigate(['/teacher/workExperience']);
   }
   submit(){
+    debugger
+        if(this.basicProfileForm.value.spouseStatusF=='1' || this.basicProfileForm.value.spouseStatusF==1){
+          if(this.basicProfileForm.value.spouseStationCode=='' || this.basicProfileForm.value.spouseStationCode==null || this.basicProfileForm.value.spouseStationCode=='undefined')
+          {
+            Swal.fire(
+              'Spouse Employee code is  missing!',
+              '',
+              'success'
+            )
+            return ;
+          }
+      
+        }
         var data={
           "teacherName":this.basicProfileForm.value.fullName,
           "teacherGender":this.basicProfileForm.value.gender,
