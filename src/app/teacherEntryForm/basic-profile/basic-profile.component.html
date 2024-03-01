@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="dashboard-main-content__header mb-2">
-                            <h1 class="mb-0 pro-name">Basic Profile: {{ profileTeacherName | uppercase}}</h1>
+                            <h1 class="mb-0 pro-name">Basic Profile: {{ profileTeacherName | uppercase}} <span [ngClass]="{'make-orange': profileFinalStatus==true,'make-green': profileFinalStatus==false}"> ({{profileFinalStatusName}})</span></h1> 
                         </div>
                     </div>
                     <form [formGroup]="basicProfileForm" (ngSubmit)="submit()">

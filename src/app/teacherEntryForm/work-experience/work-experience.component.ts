@@ -87,7 +87,7 @@ export class WorkExperienceComponent implements OnInit {
   profileTeacherName: any;
   checkWorkEndDateBlank: any;      
   startDateForBlankToDate: any;
-
+  profileFinalStatusName:any;
   constructor(private pdfServive: TeacherAppPdfService,private router: Router,  private datePipe:DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
     private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) {
@@ -127,6 +127,11 @@ export class WorkExperienceComponent implements OnInit {
     this.outSideService.getFormStatusV2(data).subscribe((res)=>{
       if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
         this.profileFinalStatus=true;
+        this.profileFinalStatusName='Not Verified';
+       }
+       else{
+        this.profileFinalStatus=false;
+        this.profileFinalStatusName='Verified';
        }
   },
   error => {

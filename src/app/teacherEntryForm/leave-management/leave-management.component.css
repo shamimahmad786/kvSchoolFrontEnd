@@ -693,3 +693,11 @@ th {white-space: nowrap;}
 .notice-sec{
     background: #f7f3d9;
 }
+.make-orange{
+    color: #e17212;
+    text-transform:initial !important;
+}
+.make-green{
+    color: #24695c;
+    text-transform:initial !important;
+}

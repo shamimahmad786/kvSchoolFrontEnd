@@ -8,7 +8,7 @@
                         <h2 class="mb-0 tbl-heading">Preview & Confirm</h2>
                     </div>
                     <div class="pe-3">
-                        <h2 class="steps text-end pro-name">{{ profileTeacherName | uppercase}} </h2>
+                        <h2 class="steps text-end pro-name">{{ profileTeacherName | uppercase}}<span [ngClass]="{'make-orange': profileFinalStatus==true,'make-green': profileFinalStatus==false}"> ({{profileFinalStatusName}})</span> </h2>
                     </div>
                     <div><button class="btn btn-primary btn-sm" [disabled]="profileFinalStatus">
                         <a href="{{exportProfileUrl}}getTeacherBasicDetailPdf?token={{token}}&username={{loginUserNameForChild}}&teacherId={{tempTeacherId}}"  style="text-decoration: none !important; color:white !important">Export To PDF</a>
@@ -132,6 +132,7 @@
                 </div>
 
                 <form [formGroup]="teacherPreviewConfirmForm" (ngSubmit)="submit()">
+                    <h2  class="mb-0 tbl-heading">Profile Details</h2>
                     <div class="chk-box-font border p-3 mt-4">
                         <div class="table-responsive">
                             <table class="table w-100">

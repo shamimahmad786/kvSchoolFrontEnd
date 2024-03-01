@@ -8,7 +8,7 @@
                         <h2 class="mb-0">Work Experience:</h2>
                     </div>
                     <div class="col-8">
-                        <h2 class="steps text-end pro-name">{{profileTeacherName | uppercase}}
+                        <h2 class="steps text-end pro-name">{{profileTeacherName | uppercase}} <span [ngClass]="{'make-orange': profileFinalStatus==true,'make-green': profileFinalStatus==false}"> ({{profileFinalStatusName}})</span>
                         </h2>
                     </div>
                 </div>

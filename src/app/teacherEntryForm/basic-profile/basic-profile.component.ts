@@ -96,6 +96,7 @@ export class BasicProfileComponent implements OnInit {
   profileFinalStatus: boolean = false;
   copyAdd: boolean = false;
   crspndAdd: any;
+  profileFinalStatusName:any;
   visiblitySubSocialCategory:boolean;
 
   @ViewChild('Physically_Handicap_Certificate')Physically_Handicap_Certificate: ElementRef;
@@ -105,6 +106,7 @@ export class BasicProfileComponent implements OnInit {
   private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) {
   }
   ngOnInit(): void {
+    this.profileFinalStatusName='Verified';
     this.formDataList = this.formData.formData();
     this.transferGroundList = this.formDataList.transferGround
     this.applicationId = environment.applicationId;
@@ -240,8 +242,13 @@ export class BasicProfileComponent implements OnInit {
     this.outSideService.getFormStatusV2(data).subscribe((res)=>{
       if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
         this.profileFinalStatus=true;
+        this.profileFinalStatusName='Not Verified';
         // showHide(false);
       //  }else{
+      }
+      else{
+        this.profileFinalStatus=false;
+        this.profileFinalStatusName='Verified';
       }
       //   this.profileFinalStatus=false;
       //   showHide(true);

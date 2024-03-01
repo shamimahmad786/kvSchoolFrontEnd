@@ -508,6 +508,7 @@ debugger
 console.log(folderId)
 console.log(fileName)
     this.outSideService.downloadDocument(folderId, fileName).subscribe((blob: Blob) => {
+      debugger
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;

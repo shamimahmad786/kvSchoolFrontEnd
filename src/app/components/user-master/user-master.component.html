@@ -51,7 +51,7 @@
               </ng-container>
 
               <ng-container matColumnDef="EmployeeName">
-                <th mat-header-cell *matHeaderCellDef > Employee Name </th>
+                <th mat-header-cell *matHeaderCellDef > Employee Name/Institute Name </th>
                 <td mat-cell *matCellDef="let element" style="text-transform:uppercase">
                   {{element.firstname}} </td>
             </ng-container>
@@ -80,7 +80,7 @@
                   <td mat-cell *matCellDef="let element" style="text-align: center;">
                     <button  *ngIf="element.enabled == '1'" class="t-status-btn approved" (click)="childActiveDeactive(0,element.username)">Active</button> 
                     <button *ngIf="element.enabled != '1'" (click)="childActiveDeactive(1,element.username)" class="t-status-btn not-initiated">Deactivate</button>&nbsp;&nbsp;
-                    <i  (click)="editChildUser(element.username,'edite',element.firstname)"class="bi bi-eye" style="font-size: 1.5rem; color: #7e4880;"></i></td>
+                    <i  (click)="editChildUser(element.username,'edite',element.firstname)"class="bi bi-eye" matTooltip="View / Edit" style="font-size: 1.5rem; color: #7e4880;"></i></td>
               </ng-container>
             
               <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

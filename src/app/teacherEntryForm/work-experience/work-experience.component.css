@@ -687,3 +687,12 @@ tr {
 }
 
 th {white-space: nowrap;}
+
+.make-orange{
+    color: #e17212;
+    text-transform:initial !important;
+}
+.make-green{
+    color: #24695c;
+    text-transform:initial !important;
+}

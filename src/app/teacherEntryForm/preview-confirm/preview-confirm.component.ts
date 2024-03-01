@@ -41,6 +41,7 @@ export class PreviewConfirmComponent implements OnInit {
   exportProfileUrl: any;
   socialCat: string;
   socialSubCat: string;
+  profileFinalStatusName:any;
   constructor(private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
     private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) { }
@@ -116,6 +117,11 @@ export class PreviewConfirmComponent implements OnInit {
     this.outSideService.getFormStatusV2(data).subscribe((res)=>{
       if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
         this.profileFinalStatus=true;
+        this.profileFinalStatusName='Not Verified';
+       }
+       else{
+        this.profileFinalStatus=false;
+        this.profileFinalStatusName='Verified';
        }
   },
   error => {
@@ -262,6 +268,7 @@ export class PreviewConfirmComponent implements OnInit {
             this.outSideService.saveTeacherConfirmationV2(data).subscribe((res)=>{
               if(res){
                 this.profileFinalStatus=false;
+                this.profileFinalStatusName='Verified';
                 Swal.fire(
                   'Confirmation save successfully!',
                   '',

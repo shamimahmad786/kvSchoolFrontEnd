@@ -55,7 +55,7 @@ export class LeaveManagementComponent implements OnInit {
   profileFinalStatus: boolean = false;
   transferGroundList: any;
   profileTeacherName: any;
- 
+  profileFinalStatusName:any;
  
   constructor(private pdfServive: TeacherAppPdfService,private router: Router,  private datePipe:DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
@@ -92,10 +92,12 @@ export class LeaveManagementComponent implements OnInit {
     this.outSideService.getFormStatusV2(data).subscribe((res)=>{
       if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
         this.profileFinalStatus=true;
+        this.profileFinalStatusName='Not Verified';
       //  showHide(false)
       }else{
         
         this.profileFinalStatus=false;
+        this.profileFinalStatusName='Verified';
        // showHide(true);
        }
   },
