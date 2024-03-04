@@ -163,7 +163,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
 
     this.dropboxForm = new FormGroup({
       'dropType': new FormControl('', Validators.required),
-      'dropReasion': new FormControl('', Validators.required),
+      'dropReasion': new FormControl('',  Validators.required),
     })
 
     this.remarksForm = new FormGroup({
@@ -178,8 +178,8 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   getDroboxMaster(){
     this.outSideService.getDroboxMaster().subscribe((res) => {
       this.dropBoxReasion=res;
-      console.log("----------drop reasion list------------")
-      console.log(res)
+      // console.log("----------drop reasion list------------")
+      // console.log(res)
     
     })
   }
