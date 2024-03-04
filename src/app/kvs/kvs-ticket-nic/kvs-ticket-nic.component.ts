@@ -373,6 +373,8 @@ export class KvsTicketNicComponent implements OnInit {
   this.modalService.open(this.ResolveBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   }
   assignToFormSubmit(){
+
+    if( this.assignToForm.value.assignTo=='1' || this.assignToForm.value.assignTo==2){
       this.assignFrom='4';
       this.assignTo = {
         "ticketId":this.ticketId,
@@ -380,6 +382,16 @@ export class KvsTicketNicComponent implements OnInit {
         "ticketToId":this.assignToForm.value.assignTo,
         "remarks":this.assignToForm.value.assignToRemarks
         }
+    }
+    else{
+      this.assignFrom='2';
+      this.assignTo = {
+        "ticketId":this.ticketId,
+        "assignFrom":this.assignFrom,
+        "ticketToId":this.assignToForm.value.assignTo,
+        "remarks":this.assignToForm.value.assignToRemarks
+        }
+    }
     debugger
     console.log(this.assignTo )
   Swal.fire({

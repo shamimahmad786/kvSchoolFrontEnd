@@ -392,12 +392,7 @@ export class KvsTicketComponent implements OnInit {
   assignToFormSubmit(){
     debugger
     if( this.businessTypeId=='2' || this.businessTypeId==2){
-      if(this.assignToForm.value.assignTo=='0'){
-        this.assignFrom='3';
-      }
-      else{
-        this.assignFrom='2';
-      }
+      this.assignFrom='3';
       this.assignTo = {
         "ticketId":this.ticketId,
         "assignFrom":this.assignFrom,

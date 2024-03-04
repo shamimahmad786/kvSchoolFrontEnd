@@ -243,16 +243,11 @@ export class BasicProfileComponent implements OnInit {
       if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
         this.profileFinalStatus=true;
         this.profileFinalStatusName='Not Verified';
-        // showHide(false);
-      //  }else{
       }
       else{
         this.profileFinalStatus=false;
         this.profileFinalStatusName='Verified';
       }
-      //   this.profileFinalStatus=false;
-      //   showHide(true);
-      //  }
   },
   error => {
     Swal.fire({
