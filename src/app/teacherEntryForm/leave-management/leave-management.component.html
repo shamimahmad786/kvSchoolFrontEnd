@@ -58,13 +58,13 @@
                                   
                                     <td *ngIf="profileFinalStatus">
                                         <div *ngIf="i==0">
-                                            <select class="form-select form-select-sm" disabled  aria-label="Default select example" name="isContiniousLeave" formControlName="isContiniousLeave"  >
+                                            <select class="form-select form-select-sm" disabled  aria-label="Default select example"   name="isContiniousLeave" formControlName="isContiniousLeave"  >
                                             <option selected disabled>Select</option>
                                             <option value="9">TOTAL LEAVES IN CURRENT ACADEMIC YEAR</option>
                                          </select>
                                         </div>
                                         <div *ngIf="i!=0">
-                                            <select class="form-select form-select-sm"  aria-label="Default select example" name="isContiniousLeave" formControlName="isContiniousLeave"  >
+                                            <select class="form-select form-select-sm"  aria-label="Default select example" id="ctl{{i}}" name="isContiniousLeave" formControlName="isContiniousLeave"  >
                                                 <option selected disabled>Select</option>
                                                 <option value="1">MORE THAN & EQUAL TO 30 DAYS</option>
                                                 <option value="0">LESS THAN 30 DAYS</option>

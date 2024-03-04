@@ -101,6 +101,10 @@
                                     <button type="button" *ngIf="element.ticketStatus=='In Process'" class="btn btn-success btn-sm mb-2 me-1" (click)="assignTomodal(element.ticketId)">Assign To</button>
                                     <button type="button"  class="btn btn-success btn-sm mb-2" (click)="openPreviewmodal(element.ticketId)">Preview</button>
                                    </span>
+                                   <span *ngIf="businessTypeId=='3'">
+                                   
+                                    <button type="button"  class="btn btn-success btn-sm mb-2" (click)="openPreviewmodal(element.ticketId)">Preview</button>
+                                   </span>
                             </td>
                         </ng-container>
 

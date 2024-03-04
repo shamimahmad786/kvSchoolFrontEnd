@@ -100,7 +100,7 @@ export class KvsTicketComponent implements OnInit {
         }
     } else if(this.businessTypeId==3 ||  this.businessTypeId=='3') {
       this.initiateddatTicket = {
-        "instituteCode": this.kvCode,
+        "instituteCode": "RO-"+this.kvCode,
         "dataType":this.ticketType
         }
     }

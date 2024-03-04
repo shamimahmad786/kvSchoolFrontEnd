@@ -85,7 +85,7 @@
                                 <th width="8%">To</th>
                                 <th width="16%">Position Held</th>
                                 <th width="13%">Appointed for Subject</th>
-                                <th width="15%">Transfer Ground</th>
+                                <th width="15%">Transfer Ground (Transfer Out)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -123,7 +123,7 @@
                                 <td>{{i+1}}</td>
                                 <td>{{data?.startDate}}</td>
                                 <td>{{data?.endDate}}</td>
-                                <td>{{data?.isContiniousLeave == '1' ? 'Yes':data?.isContiniousLeave =='9'? 'NA' :'No'}}</td>
+                                <td>{{data?.isContiniousLeave == '1' ? 'MORE THAN & EQUAL TO 30 DAYS':data?.isContiniousLeave =='9'? 'TOTAL LEAVES IN CURRENT ACADEMIC YEAR' :'LESS THAN 30 DAYS'}}</td>
                                 <td>{{data?.noOfLeave}}</td>
                                
                             </tr>
