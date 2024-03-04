@@ -163,7 +163,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
 
     this.dropboxForm = new FormGroup({
       'dropType': new FormControl('', Validators.required),
-      'dropReasion': new FormControl('')
+      'dropReasion': new FormControl('', Validators.required),
     })
 
     this.remarksForm = new FormGroup({

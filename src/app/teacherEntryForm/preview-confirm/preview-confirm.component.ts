@@ -155,10 +155,10 @@ export class PreviewConfirmComponent implements OnInit {
       this.socialCat='ST';
     }
     if(this.verifyTchTeacherProfileData['socialSubCategories']=='1'){
-      this.socialSubCat='GENERAL NON EWS';
+      this.socialSubCat='NON EWS';
     }
     if(this.verifyTchTeacherProfileData['socialSubCategories']=='2'){
-      this.socialSubCat='GENERAL EWS';
+      this.socialSubCat='EWS';
     }
     if(this.verifyTchTeacherProfileData['socialSubCategories']=='0' || this.verifyTchTeacherProfileData['socialSubCategories']==null){
       this.socialSubCat='NA';
