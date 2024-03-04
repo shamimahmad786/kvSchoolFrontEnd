@@ -79,7 +79,7 @@ export class LeaveManagementComponent implements OnInit {
       'leaveManagmentForm': new FormArray([]),
     });
     this.getLeaveManagementByTchId();
-    this. getFormStatusV2();
+    this.getFormStatusV2();
   }
   detailsOfPosting(): FormArray {
     return this.teacherLeaveForm.get("leaveManagmentForm") as FormArray

@@ -114,7 +114,7 @@ export class WorkExperienceComponent implements OnInit {
     this.getTchExpByTchId();
     this.getAllMaster();
     this.getKvRegion();
-    this. getFormStatusV2();
+    this.getFormStatusV2();
   }
   detailsOfPosting(): FormArray {
     return this.teacherForm.get("workExperienceForm") as FormArray

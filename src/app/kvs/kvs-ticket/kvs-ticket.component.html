@@ -92,8 +92,8 @@
                             <th mat-header-cell *matHeaderCellDef> Action </th>
                             <td mat-cell *matCellDef="let element">
                                 <span *ngIf="businessTypeId=='5'">
-                                    <button type="button" *ngIf="element.ticketStatus=='In Process' && element?.assignToId!='1'" class="btn btn-success btn-sm mb-2 me-1" (click)="openResolvemodal(element.ticketId)">Resolve</button>
-                                    <button type="button" *ngIf="element.ticketStatus=='In Process' && element?.assignToId!='1'" class="btn btn-success btn-sm mb-2 me-1" (click)="assignTomodal(element.ticketId)">Assign To</button>
+                                    <button type="button" *ngIf="element.ticketStatus=='In Process' && element?.assignToId!='0' && element?.assignToId!='1'" class="btn btn-success btn-sm mb-2 me-1" (click)="openResolvemodal(element.ticketId)">Resolve</button>
+                                    <button type="button" *ngIf="element.ticketStatus=='In Process' && element?.assignToId!='0' && element?.assignToId!='1'" class="btn btn-success btn-sm mb-2 me-1" (click)="assignTomodal(element.ticketId)">Assign To</button>
                                     <button type="button"  class="btn btn-success btn-sm mb-2" (click)="openPreviewmodal(element.ticketId)">Preview</button>
                                    </span>
                                 <span *ngIf="businessTypeId=='2'">
@@ -291,11 +291,11 @@
                                             <h4 class="titleSet"> Assign To <span class="required-asterisk">*</span> :</h4>
                                             <select *ngIf="businessTypeId!='2' && kvCode!='9999'" class="form-select" formControlName="assignTo" aria-label="Default select example">
                                                 <option disabled selected>Select</option>
-                                                <option value="1">HeadQuarter</option>
+                                                <option value="0">NIC</option>
                                               </select>
                                             <select *ngIf="businessTypeId=='2' && kvCode!='9999' " class="form-select" formControlName="assignTo" aria-label="Default select example">
                                                 <option disabled selected>Select</option>
-                                                <option value="{{ticketDetails?.instituteCode}}">School</option>
+                                                <!-- <option value="{{ticketDetails?.instituteCode}}">School</option> -->
                                                 <option value="0">NIC</option>
                                               </select>
                                             <select *ngIf="businessTypeId!='2' && kvCode=='9999' " class="form-select" formControlName="assignTo" aria-label="Default select example">
