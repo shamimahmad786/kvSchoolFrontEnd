@@ -20,6 +20,7 @@ export class SideNavComponent implements OnInit {
   inProgressTicketCount: any;
   ticketCount: number = 0;
   inProgressTicketCountForSchool: any;
+  inProgressTicketCountForRegion: any;
   dashboardDetails: any;
   timeLeft: number = 15;
   interval;
@@ -70,7 +71,7 @@ export class SideNavComponent implements OnInit {
       this.dashboardDetails=res;
       this.inProgressTicketCount = this.dashboardDetails?.inprogresTicket;
   })
-   }
+   } 
    
 }
 
@@ -89,8 +90,24 @@ if(this.businessUnitTypeId === 5) {
     
   
 })
-}
+} else if(this.businessUnitTypeId === 3) {
+  var dashBoardDataRegion={
+    "regionCode":this.businessUnitTypeCode,
+    "dashboardType":"R",
+    
+    
+  }
+
+  this.outSideService.getRoDashboard(dashBoardDataRegion,this.loginUserNameForChild).subscribe(res => {
+    debugger
+    this.dashboardDetails=res;
+    this.inProgressTicketCountForRegion = this.dashboardDetails?.inprogresTicket;
+    
+
   
+ })
+  
+}
 }
 
   
