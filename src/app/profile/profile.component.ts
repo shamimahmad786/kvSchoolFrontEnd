@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit {
   businessUnitTypeCode: any;
   teachingMaleFemaleTotal: any;
   nonTeachingMaleFemaleTotal: any;
+  nonteachingNoGender: any;
+  teachingNoGender: any;
   constructor(private dataService: DataService, private outSideService: OutsideServicesService,  private modalService: NgbModal) { }
   schoolProfile: any;
   teacherList:any;
@@ -56,6 +58,8 @@ export class ProfileComponent implements OnInit {
   shiftAvailable: any;
   loginUserNameForChild:any;
   dashboardDetails:any;
+  nonteachingNoGenderYN: boolean = false;
+  teachingNoGenderYN: boolean = false;
   ngOnInit(): void {
     this.user_name = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.user_name;
     setTimeout(() => {
@@ -119,8 +123,18 @@ getdashboarData(){
     debugger
     this.dashboardDetails=res;
     console.log(res)
-    this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
-    this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
+    this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale']+res['teachingNoGender'];
+    this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale']+res['nonteachingNoGender'];
+    this.nonteachingNoGender=res['nonteachingNoGender'];
+    this.teachingNoGender= res['teachingNoGender'];
+
+    if(this.nonteachingNoGender != null ){
+      this.nonteachingNoGenderYN=true
+    }
+
+    if( this.teachingNoGender != null ){
+      this.teachingNoGenderYN=true
+    }
     //this.stationTotal= res['totalNormalStation']+res['totalPriorityStation']+res['totalHardStation']+res['totalVeryHardStation']+res['totalNerStation'];
     // this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
     // this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];

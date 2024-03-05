@@ -133,7 +133,7 @@ export class BasicProfileComponent implements OnInit {
     this.maxDate =  [date.getFullYear(), mnth, day1].join("-");
     this.basicProfileForm = this.fb.group({
       'empCode': new FormControl('', [Validators.required, Validators.pattern("[0-9]*$")]),
-      'fullName': new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z ]*$")]),
+      'fullName': new FormControl('', Validators.required),
       'gender': new FormControl('', Validators.required),
       'dob': new FormControl('', [Validators.required, this.dateDifferenceFnc.bind(this)]),
       'mobile': new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("[8976][0-9]{9}")]),

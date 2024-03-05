@@ -122,12 +122,14 @@
                             <table class="table1 table-bordered">
                                 <thead>
                                     <tr>
-                                        <th colspan="3" style="background:#945197; color: #fff;   ">Teaching</th>
                                         
+                                        <th *ngIf="teachingNoGenderYN" colspan="4" style="background:#945197; color: #fff;   ">Teaching</th>
+                                        <th *ngIf="!teachingNoGenderYN" colspan="3" style="background:#945197; color: #fff;   ">Teaching</th>
                                     </tr>
                                     <tr rowspan="2">
                                         <th>Male</th>
                                         <th>Female</th>
+                                        <th  *ngIf="teachingNoGenderYN">Unspecified</th>
                                         <th>Total</th>
                                     </tr>
                                 </thead>
@@ -135,6 +137,7 @@
                                 <tr>
                                     <td><span>{{dashboardDetails?.teachingMale === null ?'0':dashboardDetails?.teachingMale}}</span></td>
                                     <td><span>{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</span></td>
+                                    <td  *ngIf="teachingNoGenderYN"><span>{{teachingNoGender}}</span></td>
                                     <td><span>{{teachingMaleFemaleTotal}}</span></td>
                                 </tr>
                                 
@@ -146,14 +149,15 @@
                         <div class="col-sm-6">
                             <div class="table-responsive">
                             <table class="table1 table-bordered">
-                                <thead>
+                                <thead> 
                                     <tr>
-                                        <th colspan="3" style="background:#97516a; color: #fff;   " >Non-Teaching</th>
-                                        
+                                        <th  *ngIf="nonteachingNoGenderYN" colspan="4" style="background:#97516a; color: #fff;   " >Non-Teaching</th>
+                                        <th  *ngIf="!nonteachingNoGenderYN" colspan="3" style="background:#97516a; color: #fff;   " >Non-Teaching</th>
                                     </tr>
                                     <tr rowspan="2">
                                         <th class="td-bg">Male</th>
                                         <th class="td-bg">Female</th>
+                                        <th  *ngIf="nonteachingNoGenderYN"class="td-bg">Unspecified</th>
                                         <th class="td-bg">Total</th>
                                     </tr>
                                 </thead>
@@ -161,6 +165,7 @@
                                 <tr>
                                     <td><span class="text-color">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</span></td>
                                     <td><span class="text-color">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</span></td>
+                                    <td *ngIf="nonteachingNoGenderYN" ><span>{{nonteachingNoGender}}</span></td>
                                     <td><span class="text-color">{{nonTeachingMaleFemaleTotal}}</span></td>
                                 </tr>
                                 
@@ -231,7 +236,7 @@
                     <h2 class="font64989985 mb-0">{{dashboardDetails?.noOfTeacherPending}}</h2>
                 </div>
             </li>
-            <li >
+            <!-- <li >
                 <div>
                     <img src="assets/assets/img/employee-relieving-pending.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Employee Relieving Pending</h4>
@@ -244,7 +249,7 @@
                     <h4 class="font26589 mb-1">Employee Joining Pending </h4>
                     <h2 class="font64989985 mb-0">{{dashboardDetails?.noOfTransferJoiningPending}}</h2>
                 </div>
-            </li>
+            </li> -->
             <!-- <li>
                 <div>
                     <img src="assets/assets/img/not-initiated.png" class="mb-2" />
