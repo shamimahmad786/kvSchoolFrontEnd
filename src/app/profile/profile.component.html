@@ -135,9 +135,9 @@
                                 </thead>
                               
                                 <tr>
-                                    <td><span>{{dashboardDetails?.teachingMale === null ?'0':dashboardDetails?.teachingMale}}</span></td>
-                                    <td><span>{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</span></td>
-                                    <td  *ngIf="teachingNoGenderYN"><span>{{teachingNoGender}}</span></td>
+                                    <td><span (click)="teachingMalee(1)" style="cursor: pointer;">{{dashboardDetails?.teachingMale === null ?'0':dashboardDetails?.teachingMale}}</span></td>
+                                    <td><span (click)="teachingMalee(2)"  style="cursor: pointer;">{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</span></td>
+                                    <td  *ngIf="teachingNoGenderYN"><span (click)="teachingMalee(5)" style="cursor: pointer;">{{teachingNoGender}}</span></td>
                                     <td><span>{{teachingMaleFemaleTotal}}</span></td>
                                 </tr>
                                 
@@ -163,9 +163,9 @@
                                 </thead>
                               
                                 <tr>
-                                    <td><span class="text-color">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</span></td>
-                                    <td><span class="text-color">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</span></td>
-                                    <td *ngIf="nonteachingNoGenderYN" ><span>{{nonteachingNoGender}}</span></td>
+                                    <td><span class="text-color" (click)="teachingMalee(3)" style="cursor: pointer;">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</span></td>
+                                    <td><span class="text-color" (click)="teachingMalee(4)" style="cursor: pointer;">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</span></td>
+                                    <td *ngIf="nonteachingNoGenderYN" ><span (click)="teachingMalee(6)" style="cursor: pointer;">{{nonteachingNoGender}}</span></td>
                                     <td><span class="text-color">{{nonTeachingMaleFemaleTotal}}</span></td>
                                 </tr>
                                 
@@ -216,25 +216,35 @@
     <div class="col-md-12 d-flex justify-content-center">
         <ul class="SchoolStatus w-100 text-center">
             <li>
-                <div>
+              
+                <div (click)="teachingMalee(0)">
                     <img src="assets/assets/img/total-staff.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Total Staff</h4>
-                    <h2 class="font64989985 mb-0">{{dashboardDetails?.totalNoOfEmployee}}</h2>
+                    <h2 class="font64989985 mb-0" style="color: black; cursor:pointer;" >{{dashboardDetails?.totalNoOfEmployee}}</h2>
                 </div>
+            
             </li>
             <li >
-                <div>
+             
+                <div (click)="teachingMalee('SA')">
                     <img src="assets/assets/img/verified-staff.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Verified Staff </h4>
-                    <h2 class="font64989985 mb-0">{{dashboardDetails?.noOfTeacherApprove}}</h2>
+                    <h2 class="font64989985 mb-0" style="color: black; cursor:pointer;">{{dashboardDetails?.noOfTeacherApprove}}</h2>
                 </div>
+                
             </li>
             <li >
-                <div>
+                <!-- <a routerLinkActive="active" routerLink="/teacher/kvsTchDetails" value='SP'> -->
+                    
+                <div (click)="teachingMalee('SP')">
+                   
                     <img src="assets/assets/img/not-verified-staff.png" class="mb-2" />
                     <h4 class="font26589 mb-1">Not Verified Staff </h4>
-                    <h2 class="font64989985 mb-0">{{dashboardDetails?.noOfTeacherPending}}</h2>
+                    <h2 class="font64989985 mb-0" style="color: black; cursor:pointer;">{{dashboardDetails?.noOfTeacherPending}}</h2>
+                
                 </div>
+         
+                <!-- </a> -->
             </li>
             <!-- <li >
                 <div>
