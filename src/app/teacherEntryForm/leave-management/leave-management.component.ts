@@ -141,19 +141,32 @@ export class LeaveManagementComponent implements OnInit {
       ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
     }
    }
-   else if(((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value==0){
-
-    if(input.target.value>=30){
-      ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
-    }
-   }
-    else if (input.target.value > 365) {
+  
+    if (input.target.value > 365) {
       ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
     }
 
 
 
   }
+
+  notGreate366(input:any, id:any) {
+    debugger;
+    console.log(input.target.value)
+    if(((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value==1){
+     if(input.target.value<30){
+       ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
+     }
+    }
+
+
+    if (input.target.value > 365) {
+      ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
+    }
+   
+   }
+
+
   addFirstLeaveQuantity(data){
     this.detailsOfPosting().push(this.newLeaveQuantity(data));
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from 'src/app/service/data.service'
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
@@ -20,7 +21,9 @@ export class ProfileComponent implements OnInit {
   businessUnitTypeCode: any;
   teachingMaleFemaleTotal: any;
   nonTeachingMaleFemaleTotal: any;
-  constructor(private dataService: DataService, private outSideService: OutsideServicesService,  private modalService: NgbModal) { }
+  nonteachingNoGender: any;
+  teachingNoGender: any;
+  constructor(private dataService: DataService, private outSideService: OutsideServicesService,  private modalService: NgbModal,private route: ActivatedRoute, private router: Router) { }
   schoolProfile: any;
   teacherList:any;
   changePaswordForm: FormGroup;
@@ -56,6 +59,9 @@ export class ProfileComponent implements OnInit {
   shiftAvailable: any;
   loginUserNameForChild:any;
   dashboardDetails:any;
+  nonteachingNoGenderYN: boolean = false;
+  teachingNoGenderYN: boolean = false;
+  profileFinalStatus:any;
   ngOnInit(): void {
     this.user_name = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.user_name;
     setTimeout(() => {
@@ -109,6 +115,7 @@ this.getdashboarData();
 
 
 
+
 getdashboarData(){
   console.log()
   var dashBoardDataNationtion={
@@ -119,8 +126,18 @@ getdashboarData(){
     debugger
     this.dashboardDetails=res;
     console.log(res)
-    this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
-    this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
+    this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale']+res['teachingNoGender'];
+    this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale']+res['nonteachingNoGender'];
+    this.nonteachingNoGender=res['nonteachingNoGender'];
+    this.teachingNoGender= res['teachingNoGender'];
+
+    if(this.nonteachingNoGender != null ){
+      this.nonteachingNoGenderYN=true
+    }
+
+    if( this.teachingNoGender != null ){
+      this.teachingNoGenderYN=true
+    }
     //this.stationTotal= res['totalNormalStation']+res['totalPriorityStation']+res['totalHardStation']+res['totalVeryHardStation']+res['totalNerStation'];
     // this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
     // this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
@@ -135,6 +152,14 @@ getdashboarData(){
   });
 }
 
+teachingMalee(value) {
+  // alert('WIP')
+
+    this.router.navigate(['/teacher/kvsTchDetails'], { queryParams: { action: value} });  
+  
+  
+  
+}
 
 
 

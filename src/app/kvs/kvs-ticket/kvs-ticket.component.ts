@@ -307,6 +307,7 @@ export class KvsTicketComponent implements OnInit {
       this.docList=res['docList'];
       this.ticketDetails=res['ticketDetails'];
       this.ticketHistory=res['ticketHistory'];
+      console.log('Ticket History ---------------->>>>', this.ticketHistory)
       if(res['ticketDetails'].ticketStatus==0 || res['ticketDetails'].ticketStatus=='0'){
         this.ticketStatusForPreview='In Process';
       }else if(res['ticketDetails'].ticketStatus=='1' || res['ticketDetails'].ticketStatus==1){

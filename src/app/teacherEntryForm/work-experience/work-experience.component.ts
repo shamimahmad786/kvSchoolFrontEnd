@@ -496,6 +496,10 @@ export class WorkExperienceComponent implements OnInit {
   }
 }
 }
+disableDate() { 
+  return false; 
+} 
+
 
 dateCheck(dateFrom, dateTo, dateCheck,type) {
   var from = Math.round((new Date(dateFrom).getTime())/(3600000*24));

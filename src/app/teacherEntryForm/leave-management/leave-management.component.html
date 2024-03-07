@@ -9,7 +9,7 @@
                 <div class="row">
 
                     <div class="col-4">
-                               <h2 class="mb-0">Leave Management: </h2>
+                               <h2 class="mb-0">Leave Details of Current Posting Station</h2>
                     </div>
                     <div class="col-8">
                         <h2 class="steps text-end pro-name">{{profileTeacherName | uppercase}}<span [ngClass]="{'make-orange': profileFinalStatus==true,'make-green': profileFinalStatus==false}"> ({{profileFinalStatusName}})</span>
@@ -23,8 +23,8 @@
                             <thead>
                                 <tr>
                                     <th>S.No.</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
                                     <th> Continuous Leave</th>
                                     <th>Total  Leave</th>
                                 </tr>
@@ -58,13 +58,13 @@
                                   
                                     <td *ngIf="profileFinalStatus">
                                         <div *ngIf="i==0">
-                                            <select class="form-select form-select-sm" disabled  aria-label="Default select example"   name="isContiniousLeave" formControlName="isContiniousLeave"  >
+                                            <select class="form-select form-select-sm" disabled  aria-label="Default select example" name="isContiniousLeave" formControlName="isContiniousLeave"  >
                                             <option selected disabled>Select</option>
                                             <option value="9">TOTAL LEAVES IN CURRENT ACADEMIC YEAR</option>
                                          </select>
                                         </div>
                                         <div *ngIf="i!=0">
-                                            <select class="form-select form-select-sm"  aria-label="Default select example" id="ctl{{i}}" name="isContiniousLeave" formControlName="isContiniousLeave"  >
+                                            <select class="form-select form-select-sm"  aria-label="Default select example" id="ctl{{i}}" (change)="notGreate366($event,i);" name="isContiniousLeave" formControlName="isContiniousLeave"  >
                                                 <option selected disabled>Select</option>
                                                 <option value="1">MORE THAN & EQUAL TO 30 DAYS</option>
                                                 <option value="0">LESS THAN 30 DAYS</option>

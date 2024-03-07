@@ -327,50 +327,50 @@ button.btn.btn12.btn-outline-primary {
     word-break: break-word;
 }
 
-.mat-column-empcode {
+/* .mat-column-empcode {
     width: 5% !important;
     word-wrap: break-word !important;
     white-space: unset !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
-}
+} */
 
-.mat-column-name {
+/* .mat-column-name {
     width: 10% !important;
     word-wrap: break-word !important;
     white-space: unset !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
-}
+} */
 
-.mat-column-postName {
+/* .mat-column-postName {
     width: 12% !important;
     word-wrap: break-word !important;
     white-space: unset !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
-}
+} */
 
-.mat-column-subjectName {
+/* .mat-column-subjectName {
     width: 12% !important;
     word-wrap: break-word !important;
     white-space: unset !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
-}
+} */
 
-.mat-column-status {
-    width: 12% !important;
+/* .mat-column-status {
+    width: 10% !important;
     word-wrap: break-word !important;
     white-space: unset !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
-}
+} */
 
 .mat-column-systchcode {
     width: 10% !important;
@@ -382,10 +382,10 @@ button.btn.btn12.btn-outline-primary {
 }
 
 .mat-column-action {
-    width: 22% !important;
+    width: 10% !important;
     word-wrap: break-word !important;
     white-space: unset !important;
-    flex: 0 0 17% !important;
+    flex: 0 0 10% !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;

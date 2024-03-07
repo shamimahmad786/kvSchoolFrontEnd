@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from 'src/app/teacherEntryForm/service/internalService/data-service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -26,7 +26,7 @@ declare var $: any;
 })
 export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['sno', 'empcode', 'name','postName', 'subjectName',   "status",  'action'];
+  displayedColumns = ['sno', 'empcode', 'name','postName', 'subjectName','gender' , 'status',  'action'];
   
   dataSource: MatTableDataSource<any>;
   dropboxForm: FormGroup;
@@ -35,7 +35,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
  @ViewChild(MatSort) sort: MatSort;
  @ViewChild('dropBox', { static: true }) dropBox: TemplateRef<any>;   
-  testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus":"","approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileStatus":"","profileFinalStatus":"","transferFinalStatus":"" }
+  testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus":"","approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileStatus":"","profileFinalStatus":"","transferFinalStatus":"","teacherGender":""  }
   users: any = [];
   kvTeacher: any;
   teacherList: any;
@@ -55,6 +55,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   dropboxIndex: any;
   employeedeatails: any = [];
   selectTransferType:any
+  selectTransferStatus:any = [];
   profileFormShow: boolean = false;
   disabilityFormShow: boolean = false;
   informationFormShow: boolean = false;
@@ -69,6 +70,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   kvNameCode: any = null;
   udiseSchCode: any;
   schName: any;
+  selectedTransfrerTypeParams:any
   stationName: any;
   kvCode: any;
   verifyEnable: boolean = false;
@@ -106,7 +108,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   dropBoxReasion:any;
   teacherEmpCode: any;
 
-  constructor(private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
+  constructor(private route: ActivatedRoute,private pdfService: MasterReportPdfService,private date: DatePipe,private outSideService: OutsideServicesService, private router: Router, private modalService: NgbModal, private setDataService: DataService,private toastr: ToastrService) { }
 
   @ViewChild('test', { static: true }) test: TemplateRef<any>;
   @ViewChild('DropBox', { static: true }) DropBox: TemplateRef<any>;
@@ -170,6 +172,18 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       'schoolRemarks': new FormControl('', Validators.required)
     })
     this.getDroboxMaster();
+
+
+    this.route.queryParams.subscribe((queryParams: Params)=>{
+      this.selectTransferType = queryParams['action'];
+     
+     
+    })
+
+
+
+
+
   }
 
   ngAfterViewInit(): void {
@@ -205,6 +219,12 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   this.selectTransferType=filterValueSelect;
   this.getKvTeacherByUdiseCode();
   }
+  // applyFilterForStatus(filterValueForStatus: string) {
+  //   console.log(filterValueForStatus)
+  //   this.selectTransferStatus=filterValueForStatus;
+  //   this.getKvTeacherByUdiseCode();
+  //   }
+  
 
   getKvTeacherByKvCode() {
     this.outSideService.fetchKvTeacherByKvCode("456").subscribe((res) => {
@@ -275,21 +295,95 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       // this.udiseSchoolCode = JSON.parse(sessionStorage.getItem("mappingData")).mappingData[0].udise_sch_code;
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[0].business_unit_type_code;
     }
+    debugger
     this.outSideService.getKvTeacherByUdiseCode(this.kvCode).subscribe((res) => {
       console.log("--------------teacher detail----------------------")
       console.log(res.response)
       this.teacherList = [];
       this.teacherList = res.response;
       debugger
-      if( this.selectTransferType=='1' || this.selectTransferType=='2'){
+      // teaching male
+      if( this.selectTransferType=='1'){
         for(var i=0;i<this.teacherList.length;i++){
-          if(this.teacherList[i]['teachingNonteaching']==this.selectTransferType)
+          if(this.teacherList[i]['teachingNonteaching']=='1' && this.teacherList[i]['teacherGender'] == '1')
           {
             this.employeedeatails.push(this.teacherList[i]);
           }
       }
       this.setToMatTable( this.employeedeatails);
-      }else{
+      }
+      // teaching female
+      else if(this.selectTransferType == '2') {
+        for(var i=0;i<this.teacherList.length;i++){
+          if(this.teacherList[i]['teachingNonteaching']=='1' && this.teacherList[i]['teacherGender'] == '2')
+          {
+            this.employeedeatails.push(this.teacherList[i]);
+          }
+      }
+      this.setToMatTable( this.employeedeatails);
+      }
+      // Non Teaching Male
+      else if(this.selectTransferType == '3') {
+        for(var i=0;i<this.teacherList.length;i++){
+          if(this.teacherList[i]['teachingNonteaching']=='2' && this.teacherList[i]['teacherGender'] == '1')
+          {
+            this.employeedeatails.push(this.teacherList[i]);
+          }
+      }
+      this.setToMatTable( this.employeedeatails);
+      }
+     // Non Teaching Female
+      else if(this.selectTransferType == '4') {
+        for(var i=0;i<this.teacherList.length;i++){
+          if(this.teacherList[i]['teachingNonteaching']=='2' && this.teacherList[i]['teacherGender'] == '2')
+          {
+            this.employeedeatails.push(this.teacherList[i]);
+          }
+      }
+      this.setToMatTable( this.employeedeatails);
+      }
+   // Teaching  Unspecified
+      else if(this.selectTransferType == '5') {
+        for(var i=0;i<this.teacherList.length;i++){
+          if(this.teacherList[i]['teachingNonteaching']=='1' && this.teacherList[i]['teacherGender'] == '')
+          {
+            this.employeedeatails.push(this.teacherList[i]);
+          }
+      }
+      this.setToMatTable( this.employeedeatails);
+      }
+// NonTeaching  Unspecified
+      else if(this.selectTransferType == '6') {
+        for(var i=0;i<this.teacherList.length;i++){
+          if(this.teacherList[i]['teachingNonteaching']=='2' && this.teacherList[i]['teacherGender'] == '')
+          {
+            this.employeedeatails.push(this.teacherList[i]);
+          }
+      }
+      this.setToMatTable( this.employeedeatails);
+      }
+
+      // verified
+       else if(this.selectTransferType == 'SA') {
+        for(var i=0;i<this.teacherList.length;i++){
+          if(this.teacherList[i]['profileFinalStatus']==this.selectTransferType)
+          {
+            this.employeedeatails.push(this.teacherList[i]);
+          }
+      }
+      this.setToMatTable( this.employeedeatails);
+      }
+      // not verified
+      else if(this.selectTransferType == 'SP') {
+        for(var i=0;i<this.teacherList.length;i++){
+          if(this.teacherList[i]['profileFinalStatus']!='SA')
+          {
+            this.employeedeatails.push(this.teacherList[i]);
+          }
+      }
+      this.setToMatTable( this.employeedeatails);
+      }
+      else{
         this.setToMatTable(res.response);
       }
      
@@ -316,7 +410,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       this.testData.approved = data[i].finalStatus;   
       this.testData.profileFinalStatus = data[i].profileFinalStatus;
       this.testData.transferFinalStatus = data[i].transferFinalStatus;
-
+      this.testData.teacherGender =  data[i].teacherGender;
       if(data[i].profileFinalStatus=='SA'){
         this.testData.profileStatus='VERIFIED'
       }
@@ -368,7 +462,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
       this.testData.postName = data[i].postName;
       this.users.push(this.testData);
     
-      this.testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus": "", "approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileStatus":"","profileFinalStatus":"","transferFinalStatus":"" }
+      this.testData = { "sno": "", "name": "", "postName": "", "email": "", "mobile": "", "subjectName": "","approvedStatus": "", "approved": "", "reInitiate": "", "rejected": "", "systchcode": "", "a": "", "b": "", "c": "", "d": "","e":"", "teacherId": "", "empcode": "", "staffType": "","profileStatus":"","profileFinalStatus":"","transferFinalStatus":"","teacherGender":"" }
     }
 
     console.log("---------------user detail----------")

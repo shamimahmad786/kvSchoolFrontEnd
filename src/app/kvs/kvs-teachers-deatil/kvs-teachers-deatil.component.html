@@ -13,25 +13,33 @@
             <div class="col-lg-12">
                 <div *ngIf="nationalLogin">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <mat-form-field appearance="outline" class="searchInput me-4">
                                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
                                 <mat-icon matSuffix></mat-icon>
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
-                        <mat-select    class="form-control" (selectionChange)="applyFilterOnSelect($event.value)" [(ngModel)]="selectTransferType" >
-                            <mat-option value="">Select Staff Type</mat-option>
-                            <mat-option value="1">Teaching</mat-option>
-                            <mat-option value="2">Non-Teaching</mat-option>
+                        <mat-select placeholder="Select Staff Type"   class="form-control" (selectionChange)="applyFilterOnSelect($event.value)" [(ngModel)]="selectTransferType" >
+                            <mat-option value="" selected disabled>Select Staff Type</mat-option>
+                            <mat-option value="0">All Employee</mat-option>
+                            <mat-option value="1">Teaching Male</mat-option>
+                            <mat-option value="2">Teaching Female</mat-option>
+                            <mat-option value="3">Non-Teaching Male</mat-option>
+                            <mat-option value="4">Non-Teaching Female</mat-option>
+                            <mat-option value="5">Teaching Unspecified</mat-option>
+                            <mat-option value="6">Non-Teaching Unspecified</mat-option>
+                            <mat-option value="SA">Verified</mat-option>
+                                <mat-option value="SP">Not Verified</mat-option>
                         </mat-select>
                         </div>
-                        <div class="col-md-6">
+                       
+                        <div class="col-md-7">
                             <div class="d-flex flex-row-reverse bd-highlight  ">
-                                <div class="p-1">
+                                <div >
                                     <button mat-raised-button class="float-end mt-2 btn-primary red" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>
                                 </div>
-                                <div class="p-1">
+                                <div class="pe-2"  >
                                     <button mat-raised-button class="float-end mt-2 btn-secondary green" (click)="dashboardMasterpdf()"><i class="bi bi-file-pdf me-1"></i> Download PDF</button>
                                 </div>
                             </div>
@@ -68,6 +76,13 @@
                                 <!-- <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.subjectName | genderPipe }} </mat-cell> -->
                                 <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Subject Name :
                            </span> {{row.subjectName}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="gender">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Gender</mat-header-cell>
+                                <!-- <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.subjectName | genderPipe }} </mat-cell> -->
+                                <mat-cell *matCellDef="let row" [style.color]="row.color"><span class="mobile-label">Gender :
+                           </span>   {{row.teacherGender == '1' ? 'Male':row.teacherGender =='' ? '':'Female' }} </mat-cell>
                             </ng-container>
 
                             <ng-container matColumnDef="status">
