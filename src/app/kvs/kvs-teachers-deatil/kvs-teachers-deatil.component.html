@@ -20,8 +20,8 @@
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
-                        <mat-select    class="form-control" (selectionChange)="applyFilterOnSelect($event.value)" [(ngModel)]="selectTransferType" >
-                            <mat-option value="" selected >Select Staff Type</mat-option>
+                        <mat-select placeholder="Select Staff Type"   class="form-control" (selectionChange)="applyFilterOnSelect($event.value)" [(ngModel)]="selectTransferType" >
+                            <mat-option value="" selected disabled>Select Staff Type</mat-option>
                             <mat-option value="0">All Employee</mat-option>
                             <mat-option value="1">Teaching Male</mat-option>
                             <mat-option value="2">Teaching Female</mat-option>
@@ -34,7 +34,7 @@
                         </mat-select>
                         </div>
                        
-                        <div class="col-md-4">
+                        <div class="col-md-7">
                             <div class="d-flex flex-row-reverse bd-highlight  ">
                                 <div >
                                     <button mat-raised-button class="float-end mt-2 btn-primary red" (click)="exportexcel()"><i class="bi bi-file-earmark-excel me-1"></i> Download Excel</button>
