@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } f
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Params } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import Swal from 'sweetalert2';
@@ -47,7 +48,7 @@ export class KvsTicketComponent implements OnInit {
   assignTo:any;
   ticketHistory: any;
   assignFrom: string;
-  constructor(private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal) { }
+  constructor(private  route: ActivatedRoute, private fb: FormBuilder,private outSideService: OutsideServicesService,private modalService: NgbModal) { }
   dataSource:any;
   // displayedColumns:any = ['sno','regionname','stationname','fromdate','todate','status'];
   displayedColumns:any = ['sno','ticketId','subject','InitiateDate','InitiateFrom','Status','resolvedBy','Action'];
@@ -89,6 +90,15 @@ export class KvsTicketComponent implements OnInit {
  }) 
     this.getInitiatedTicket();
 
+
+
+    
+    // this.route.queryParams.subscribe((queryParams: Params)=>{
+    //   this.selectTransferType = queryParams['ticketStatus'];
+     
+     
+    // })
+
   }
 
   getInitiatedTicket(){
@@ -115,6 +125,7 @@ export class KvsTicketComponent implements OnInit {
       console.log('GET TICKET BY INSTITUTE------------------->>>',res)
       this.ticketList=[];
       if(res.length>0){
+        
           for (let i = 0; i < res.length; i++) {
             this.testData.sno = '' + (i + 1) + '';
             this.testData.ticketId = res[i].ticketId;   
@@ -291,6 +302,7 @@ export class KvsTicketComponent implements OnInit {
   });
   }
   getAllModifyTransferAsTypeList(event:any){
+    debugger;
     this.ticketType=event;
     this.getInitiatedTicket()
       }

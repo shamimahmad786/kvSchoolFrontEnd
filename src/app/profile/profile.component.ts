@@ -162,6 +162,11 @@ teachingMalee(value) {
 }
 
 
+routeTicket(value) {
+  this.router.navigate(['/teacher/kvsTicket'], { queryParams: { ticketStatus: value} });  
+}
+
+
 
   // userIdCheck(event) {
   //   var userIdTemp = event.target.value;

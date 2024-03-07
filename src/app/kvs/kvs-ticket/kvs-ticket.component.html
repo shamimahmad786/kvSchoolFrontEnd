@@ -13,10 +13,10 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-md-4 form-group  mb-3">
-                        <label class="titleSet"> Type</label>
-                        <mat-select class="form-control" (selectionChange)="getAllModifyTransferAsTypeList($event.value)" [(ngModel)]="selectTransferType">
-                            <mat-option value="">Select Type</mat-option>
-                            <mat-option value="0">In Process</mat-option>
+                        <label class="titleSet">Ticket Type</label>
+                        <mat-select class="form-control" placeholder="Select Ticket Type" (selectionChange)="getAllModifyTransferAsTypeList($event.value)" [(ngModel)]="selectTransferType">
+                            <mat-option value="" disabled>Select Ticket Type</mat-option>
+                            <mat-option value="0" selected>In Process</mat-option>
                             <mat-option value="1">Resolved</mat-option>
                             <!-- <mat-option value="2">Rejected</mat-option> -->
                         </mat-select>

@@ -378,7 +378,7 @@
                                            Enter Present Post Name (Code)!</span>
                                             </div>
 
-                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                            <!-- <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
                                                 <h4 class="titleSet">Last promotion date<span class="required-asterisk">*</span></h4>
                                                 <div class="input-group-addon">
                                                     <mat-datepicker #pickers12></mat-datepicker>
@@ -402,7 +402,7 @@
                                                     Enter last promotion date!
                                                 </span>
                                                 </span>
-                                            </div>
+                                            </div> -->
 
                                             <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
                                                 <h4 class="titleSet"> Subject Name (Code)<span class="required-asterisk">*</span></h4>
@@ -431,6 +431,18 @@
                                             basicProfileForm.get('presentSubjectName').touched">
                                                 Enter Subject Name (Code)!</span>
                                             </div>
+
+                                            <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
+                                                <h4 class="titleSet">
+                                                    Home Town <span class="required-asterisk">*</span></h4>
+                                                <textarea class="form-control" disabled rows="1" name="crspndncAddress" formControlName="homeTown" style="text-transform:uppercase"></textarea>
+                                            </div>
+                                            <div class="col-md-6 mb-3" *ngIf="profileFinalStatus">
+                                                <h4 class="titleSet">
+                                                    Home Town <span class="required-asterisk">*</span></h4>
+                                                <textarea class="form-control" rows="1" name="crspndncAddress" formControlName="homeTown" style="text-transform:uppercase" ></textarea>
+                                            </div>
+
 
                                             <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
                                                 <h4 class="titleSet">Have you been recruited under special recruitment for NER ?<span class="required-asterisk">*</span></h4>
@@ -813,7 +825,7 @@
                             <!-- </div> -->
                         </div>
                         <div class="mt-4 button-save float-end ">
-                            <i class="fa fa-floppy-o" aria-hidden="true"></i> <input *ngIf="profileFinalStatus" [disabled]="(!basicProfileForm.get('maritalStatusF').valid ||  !basicProfileForm.get('lastPromotionPositionDate').valid || !basicProfileForm.get('dob').valid || 
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i> <input *ngIf="profileFinalStatus" [disabled]="(!basicProfileForm.get('maritalStatusF').valid ||  !basicProfileForm.get('homeTown').valid || !basicProfileForm.get('dob').valid || 
                        !basicProfileForm.get('fullName').valid || !basicProfileForm.get('specialRecruitmentYn').valid ||
                        !basicProfileForm.get('socialCategories').valid || (!basicProfileForm.get('socialSubCategories').valid &&
                        basicProfileForm.get('socialCategories').value == '1') ||
