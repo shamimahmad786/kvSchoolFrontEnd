@@ -1050,12 +1050,21 @@ debugger;
     ).then((isConfirm) => {
       if (isConfirm.value === true) {
           this.outSideService.dropEmployeeToDropbox(data).subscribe((res)=>{
-            if(res){
+            debugger
+            if(res.success==true){
               this.modalService.dismissAll() 
               Swal.fire(
                 'Employee Dropped successfully!',
                 '',
                 'success'
+              )
+            }
+            if(res.success==false){
+              this.modalService.dismissAll() 
+              Swal.fire(
+                'Employee failed to drop!',
+                '',
+                'error'
               )
             }
             this.getKvTeacherByUdiseCode();
