@@ -177,6 +177,9 @@ export class BasicProfileComponent implements OnInit {
     // if(this.profileFinalStatus) {
     //   this.isCurrentAndPermAddSame()
     // }
+
+
+    // if(this.basicProfileForm.)
     
 
   }
