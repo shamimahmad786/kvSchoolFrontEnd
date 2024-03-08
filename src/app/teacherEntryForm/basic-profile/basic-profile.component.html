@@ -172,17 +172,16 @@
                                                     Home Town <span class="required-asterisk">*</span></h4>
                                                 <textarea class="form-control" disabled rows="2" name="crspndncAddress" formControlName="homeTown" style="text-transform:uppercase"></textarea>
                                             </div>
-                                             <div class="col-md-12">
-                                                <hr>
-                                            </div>
+                                            
                                             
                                             <div class="col-md-12" *ngIf="profileFinalStatus">
                                                 <h4 class="titleSet">
                                                     Home Town <span class="required-asterisk">*</span></h4>
                                                 <textarea class="form-control"  rows="2" name="crspndncAddress" formControlName="homeTown" style="text-transform:uppercase" ></textarea>
                                             </div>
-
-
+                                            <div class="col-md-12">
+                                                <hr>
+                                            </div>
                                             <div class="col-md-6 mb-3" *ngIf="!profileFinalStatus">
                                                 <h4 class="titleSet">
                                                     Correspondence Address <span class="required-asterisk">*</span></h4>
@@ -247,6 +246,9 @@
                                                 <span class="help-block text-danger" *ngIf="!basicProfileForm.get('crspndncPinCode').valid ">
                                                 Enter a valid pincode!</span>
                                             </div>
+
+
+                                    
                                             <div class="col-md-12">
                                                 <hr>
                                             </div>

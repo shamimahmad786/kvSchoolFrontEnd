@@ -94,7 +94,8 @@ export class KvsTicketComponent implements OnInit {
 
     
     // this.route.queryParams.subscribe((queryParams: Params)=>{
-    //   this.selectTransferType = queryParams['ticketStatus'];
+    //   this.ticketType = queryParams['ticketStatus'];
+      
      
      
     // })
@@ -138,8 +139,10 @@ export class KvsTicketComponent implements OnInit {
             this.testData.assignToId = res[i].assignToId;
 
             if(res[i].ticketStatus==0 || res[i].ticketStatus=='0'){
+            
               this.testData.ticketStatus='In Process';
             }else if(res[i].ticketStatus=='1' || res[i].ticketStatus==1){
+          //  this.selectTransferType = 1
               this.testData.ticketStatus='Resolved';
             }
             else if(res[i].ticketStatus=='2' || res[i].ticketStatus==2){
