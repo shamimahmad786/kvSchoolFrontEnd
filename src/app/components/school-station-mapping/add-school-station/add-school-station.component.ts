@@ -121,6 +121,24 @@ export class AddSchoolStationComponent implements OnInit {
       }
     })
   }
+  getStationList1(){
+    let req={}
+    this.outSideService.fetchStationList(req,this.loginUserNameForService).subscribe((res)=>{
+      if(res){
+        res.forEach(element => {
+          if(element.isActive){
+            this.stationList.push({ stationCode: element.stationCode, stationName: element.stationName})
+            this.dropdownStationList=this.stationList;
+            console.log('DROPDOWN STATIONLIST -------------',this.dropdownStationList)
+          }
+        });
+        
+      }
+    })
+  }
+
+  
+
   getStationList(){
     let request={};
     this.getSchoolMappingListData=[];
@@ -128,10 +146,11 @@ export class AddSchoolStationComponent implements OnInit {
       debugger
       this.getSchoolMappingListData=res.rowValue
       if(res.rowValue.length>0){
-        res.rowValue.forEach(element => { 
-       this.stationList.push({ stationCode: element.station_code, stationName: element.station_name})
-        });
-        this.dropdownStationList=this.stationList;
+      //   res.rowValue.forEach(element => { 
+      //  this.stationList.push({ stationCode: element.station_code, stationName: element.station_name})
+      //   });
+        
+        this.getStationList1()
       }
       if(this.userMappingAction=='update'){
         this.updateSchoolMapping();

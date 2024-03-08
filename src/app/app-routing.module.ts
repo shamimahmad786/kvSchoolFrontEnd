@@ -63,6 +63,7 @@ import { TransferRelatedDocComponent } from './components/transfer-related-doc/t
 import { DropboxEmployeeComponent } from './kvs/dropbox-employee/dropbox-employee.component';
 import { KvsTicketNicComponent } from './kvs/kvs-ticket-nic/kvs-ticket-nic.component';
 import { LeaveManagementComponent } from './teacherEntryForm/leave-management/leave-management.component';
+import { SearchemployeeComponent } from './searchemployee/searchemployee.component';
 
 const routes: Routes = [
   {path:'', component: MainPageComponent},
@@ -101,6 +102,7 @@ const routes: Routes = [
       {path: 'kvsTchStationChoice', component:KvsTransferStationChoiceComponent},   
       {path: 'kvsTchPreviewUndertaking', component:KvsTransferPreviewUndertakingComponent},  
       {path: 'employeeJoining', component:KvsJoiningComponent},  
+      {path: 'searchEmployee', component:SearchemployeeComponent},  
       {path: 'kvsTicket', component:KvsTicketComponent}, 
       {path: 'kvsTicketNic', component:KvsTicketNicComponent},
       {path: 'excel-transfer', component:ExcelTransferModuleComponent},
