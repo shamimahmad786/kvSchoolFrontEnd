@@ -1429,7 +1429,7 @@ if(schoolStationMappingList[i]?.shift==0){
  }
  /////////////////  Dashboard master /////////////////////////////////////////////////////
 
- dashboardMasterList(dashboardMasterList:any,kvNameCode:any){
+ dashboardMasterList(dashboardMasterList:any,kvNameCode:any, selectTransferType:any){
   this.dashboardMasterListArray = [];
   for(let i=0; i<dashboardMasterList.length; i++){
     var dashboardlistTemp = [];
@@ -1472,8 +1472,8 @@ if(schoolStationMappingList[i]?.shift==0){
       doc.setTextColor(138, 24, 34);
       doc.setFontSize(14);
       doc.setFont('Times-Roman', 'bold');
-      doc.text('REPORT : EMPLOYEE DETAILS OF '+kvNameCode, 15, 28);
-
+      doc.text('REPORT: EMPLOYEE DETAILS OF '+kvNameCode, 15, 28);
+      doc.text('EMPLOYEE TYPE: '+selectTransferType, 25, 35);
       // Footer
       var str = "Page " + data.doc.internal.getNumberOfPages();
 

@@ -236,7 +236,7 @@ export class KvsTeachersDeatilComponent implements OnInit, AfterViewInit {
   {
     console.log(this.users)
    setTimeout(() => {
-     this.pdfService.dashboardMasterList(this.users,this.kvNameCode);
+     this.pdfService.dashboardMasterList(this.users,this.kvNameCode, this.selectTransferType);
    }, 1000);
   }
   exportexcel()
