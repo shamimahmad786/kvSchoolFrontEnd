@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
-
+@import '~ag-grid-community/dist/styles/ag-grid.css';
+@import '~ag-grid-community/dist/styles/ag-theme-balham.css';
 /*====Reset css=========*/
 
 img {

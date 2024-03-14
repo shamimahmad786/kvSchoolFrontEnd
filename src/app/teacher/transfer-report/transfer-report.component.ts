@@ -58,7 +58,8 @@ export class TransferReportComponent implements OnInit {
       if(res.length>0){
         for (let i = 0; i < res.length; i++) {
           this.testData.sno = '' + (i + 1) + '';
-          this.testData.sno = res[i].sno;
+          //alert( this.testData.sno)
+          //this.testData.sno = res[i].sno;
           this.testData.reportId = res[i].reportId;
           this.testData.reportName = res[i].reportName;
           this.testData.reportType = res[i].reportType;
