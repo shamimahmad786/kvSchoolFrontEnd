@@ -424,12 +424,12 @@
                     <div class="table-responsive">
                         <table class="table1 table-bordered">
                             <tr>
-                                <td style="text-align: left; width:50%"><strong class="fw-bold">Region</strong>&nbsp; <span class="loginSpan">{{dashboardDetails?.roLoginCount === null ?'0':dashboardDetails?.roLoginCount}}</span></td>
-                                <td style="text-align: left;"><strong>ZIET</strong>&nbsp; <span class="loginSpan">{{dashboardDetails?.zietLoginCount === null ?'0':dashboardDetails?.zietLoginCount}}</span></td>                             
+                                <td style="text-align: left; width:50%; padding-top:5px!important; padding-bottom:5px!important;"><strong class="fw-bold">Region</strong> <span class="loginSpan">{{dashboardDetails?.roLoginCount === null ?'0':dashboardDetails?.roLoginCount}}</span></td>
+                                <td style="text-align: left; padding-top:0!important; padding-bottom:0!important;"><strong>ZIET</strong> <span class="loginSpan">{{dashboardDetails?.zietLoginCount === null ?'0':dashboardDetails?.zietLoginCount}}</span></td>                             
                             </tr>
                             <tr>
-                                <td style="text-align: left; width:50%"><strong>School</strong>&nbsp; <span class="loginSpan"> {{dashboardDetails?.schoolLoginCount === null ?'0':dashboardDetails?.schoolLoginCount}}</span></td>
-                                <td style="text-align: left;"><strong>Employee</strong>&nbsp; <span class="loginSpan">{{dashboardDetails?.employeeLoginCount === null ?'0':dashboardDetails?.employeeLoginCount}}</span></td>
+                                <td style="text-align: left; width:50%; padding-top:5px!important; padding-bottom:5px!important;"><strong>School</strong> <span class="loginSpan"> {{dashboardDetails?.schoolLoginCount === null ?'0':dashboardDetails?.schoolLoginCount}}</span></td>
+                                <td style="text-align: left; padding-top:5px!important; padding-bottom:5px!important;"><strong>Employee</strong> <span class="loginSpan">{{dashboardDetails?.employeeLoginCount === null ?'0':dashboardDetails?.employeeLoginCount}}</span></td>
                                 
                             </tr>
                             <tr>
@@ -440,86 +440,23 @@
                         </table>
                     </div>
                 </div>
-            </div>
-
-
-
+            </div>        
         </div>
-        <!-- <ul class="display-inline mt-3 card p-4 rounded-3" style="width: 100%;">
-            <li> <h3 style="color: red;">Note :-</h3>
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <h3 style="line-height: 20px;" >Normal :   <span style="color: #8e8e8e;">dsdddsdsdsssssssssssss</span></h3>
-                        <h3 style="line-height: 20px;">Priority : <span style="color: #8e8e8e;">dsdddsdsdsssssssssssss</span></h3>
-                        <h3 style="line-height: 20px;" > Hard :  <span style="color: #8e8e8e;">dsdddsdsdsssssssssssss</span></h3>
-                        <h3 style="line-height: 20px;" >Very Hard :  <span style="color: #8e8e8e;">dsdddsdsdsssssssssssss</span></h3>
-                        <h3 style="line-height: 20px;"> NER :  <span style="color: #8e8e8e;"> dsdddsdsdsssssssssssdfsdss</span></h3>
-                    </div>
-                </div> 
-            </li>
-        </ul> -->
 
-        <ul class="display-inline mt-3">
-            <!-- <li class="card p-4 rounded-3 ">
-            <h2 class="TolTeacherValue mb-2  card-text-color text-center">Station Type</h2>
-            <div class="row ">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <th>Station Type</th>
-                            <th>Teaching</th>
-                            <th>Non Teaching</th>
-                            <th>Total</th>
-                        </tr>
-                        <tr>
-                            <th>Normal</th>
-                            <td>priority</td>
-                            <td>Peter</td>
-                            <td>John</td>
-                        </tr>
-                        <tr>
-                            <th>priority</th>
-                            <td>Hard Station</td>
-                            <td>Parker</td>
-                            <td>Rambo</td>
-                        </tr>
-                        <tr>
-                            <th>Hard Station</th>
-                            <td>Very Hard</td>
-                            <td>peterparker@mail.com</td>
-                            <td>johnrambo@mail.com</td>
-                        </tr>
-                        <tr>
-                            <th>Very Hard </th>
-                            <td>Very Hard</td>
-                            <td>peterparker@mail.com</td>
-                            <td>johnrambo@mail.com</td>
-                        </tr>
-                       
-                    </tbody>
-                </table>
-
-            </div>
-            <div class="pattern">
-                <i class='bx bx-user-circle imgRotate'></i>
-            </div>
-        </li> -->
-            <!-- <li class="card p-4  rounded-3">
-            <div>
-                <div class=" d-flex align-items-center justify-content-center">
-                    <div class="flex-grow-1">
-                        <h3 class="mb-0 blue-text TotalTeachingStaff">Transfer Details: </h3>
-                        <h3 class="TolTeacherValue  line-space mt-4">(1). No of Employees Eligible for Transfer :</h3>
-                        <h3 class="TolTeacherValue  line-space ">(2). No. of Employees participation in the Transfer Cycle:</h3>
-                        <h3 class="TolTeacherValue  line-space ">(3). No. of Employees submitted Transfer Application:</h3>
-                        <h3 class="TolTeacherValue  line-space">(4). No. of Employees Transferred :</h3>
-                        <h3 class="TolTeacherValue  line-space ">(5). No. of Employees Transfer order Halted:</h3>
-                        <h3 class="TolTeacherValue  line-space">(6). No. of Employees Transferred on Administrative ground:
-                        </h3>
-                    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card p-4">
+                    <div echarts [options]="options" class="demo-chart"></div>
                 </div>
             </div>
-        </li> -->
+            <!-- <div class="col-md-6">
+                <div class="card p-4">
+                    <div echarts [options]="options" class="demo-chart"></div>
+                </div>
+            </div> -->
+        </div>
+
+        <ul class="display-inline mt-3">
         </ul>
     </div>
 </div>

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-
+import * as echarts from 'echarts';
 @Component({
   selector: 'app-region-dashboard',
   templateUrl: './region-dashboard.component.html',
@@ -26,12 +26,16 @@ export class RegionDashboardComponent implements OnInit {
   regionList:any;
   stationList:any;
   loginUserNameForChild:any;
+  options: any;
   dashboardDetails:any;
   stationTotal:any;
   teachingMaleFemaleTotal: any;
   nonTeachingMaleFemaleTotal: any;
   inPositionTotal: any;
-  constructor(public outSideService: OutsideServicesService,private router: Router) { }
+  dropBoxDetail:any;
+  dropBoxType: any = new Array();
+  dropBoxValue: any = new Array();
+  constructor(public outSideService: OutsideServicesService,private router: Router) {    }
   ngOnInit(): void {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
@@ -153,8 +157,111 @@ export class RegionDashboardComponent implements OnInit {
     } else if (this.businessUnitTypeId == '5') {
       // this.showSchool = true;
     }
-
+this.getdropBoxDetail();
   }
+
+getdropBoxDetail(){
+  var data ={
+     region: "All",
+     reportId: "1005",
+     school: "",
+     station: ""
+  }
+  this.outSideService.getReportByID(data).subscribe((res) => {
+  console.log(res);
+  this.dropBoxDetail=res.rowValue;
+  for (let i = 0; i < this.dropBoxDetail.length; i++) {
+if(this.dropBoxDetail[i]['employeedropid'] == 1){
+  var data ={
+    value: this.dropBoxDetail[i]['count'],
+    name: "Retirement",
+ }
+
+
+  this.dropBoxValue.push(data)
+}
+if(this.dropBoxDetail[i]['employeedropid'] == 2){
+  this.dropBoxType.push('Transfer');
+
+
+  var data ={
+    value: this.dropBoxDetail[i]['count'],
+    name: "Transfer",
+ }
+ this.dropBoxValue.push(data)
+}
+if(this.dropBoxDetail[i]['employeedropid'] == 3){
+ 
+  var data ={
+    value: this.dropBoxDetail[i]['count'],
+    name: "Death",
+ }
+  this.dropBoxValue.push(data)
+}
+if(this.dropBoxDetail[i]['employeedropid'] == 4){
+
+  var data ={
+    value: this.dropBoxDetail[i]['count'],
+    name: "Others",
+ }
+  this.dropBoxValue.push(data)
+}
+if(this.dropBoxDetail[i]['employeedropid'] == 5){
+
+  var data ={
+    value: this.dropBoxDetail[i]['count'],
+    name: "Promotion",
+ }
+  this.dropBoxValue.push(data)
+}
+if(this.dropBoxDetail[i]['employeedropid'] == 6){
+
+  var data ={
+    value: this.dropBoxDetail[i]['count'],
+    name: "Resignation",
+ }
+  this.dropBoxValue.push(data)
+}
+this.dropBoxDetailinPieChart();
+}
+  })
+ 
+}
+
+dropBoxDetailinPieChart(){
+console.log("drop box type---------")
+  console.log( this.dropBoxValue)
+  this.options = {
+    title: {
+      text: 'Total number of employees available in dropbox',
+      // subtext: 'Fake Data',
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left'
+    },
+    series: [
+      {
+        name: 'Type',
+        type: 'pie',
+        radius: '60%',
+        data:this.dropBoxValue,
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  };
+}
+
 
   getMaster(data, business_unit_type_id) {
       this.outSideService.getMasterData(data).subscribe((res) => {

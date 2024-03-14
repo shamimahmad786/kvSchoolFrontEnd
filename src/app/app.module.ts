@@ -18,7 +18,8 @@ import { FormDataService } from './teacherEntryForm/service/internalService/form
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TDashboardComponent } from './tDashboard/t-dashboard/t-dashboard.component';
 //import { LoginComponent } from './tDashboard/t-dashboard/login/login/login.component';
-
+import * as echarts from 'echarts';
+import { NgxEchartsModule } from 'ngx-echarts';
 import { TeacherComponent } from './teacherEntryForm/teacher.component';
 import { TeacherEntryFormComponent } from './teacherEntryForm/teacher-entry-form/teacher-entry-form.component';
 import { TModuleModule } from './teacherModule/t-module/t-module.module';
@@ -91,7 +92,8 @@ import { ControlerManagementComponent } from './components/controler-management/
 import { UserMappingComponent } from './components/user-mapping/user-mapping.component';
 import { KvSchoolMappingComponent } from './components/kv-school-mapping/kv-school-mapping.component';
 import { RegionWiseSchoolComponent } from './reports/region-wise-school/region-wise-school.component';
-// import { ChartModule } from 'ng2-charts';
+ //import { ChartModule } from 'ng2-charts';
+
 import { RegionWiseStationDetailComponent } from './reports/region-wise-station-detail/region-wise-station-detail.component';
 import { StationWiseSchoolDetailComponent } from './reports/station-wise-school-detail/station-wise-school-detail.component';
 import { SchoolDetailComponent } from './reports/school-detail/school-detail.component';
@@ -252,6 +254,9 @@ import { SearchemployeeComponent } from './searchemployee/searchemployee.compone
      HttpClientModule,
     // HttpClient,
     // ChartModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
     TModuleModule,
     NgbModule,
     MatSelectModule,
