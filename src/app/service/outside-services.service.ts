@@ -475,7 +475,15 @@ export class OutsideServicesService {
     return this._http.post<any>(environment.BASE_URL_LEAVE_MANAGEMENT+ "getTeacherLeaveMaster", data, {headers})
   }
 
+  checkStationType(data){
+    var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
 
+    });
+    return this._http.post<any>(environment.BASE_URL_LEAVE_MANAGEMENT+ "checkStationType", data, {headers})
+  }
 
   saveTeacherLeave(data){
     var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
@@ -2076,6 +2084,9 @@ createInstitutionUser(data:any,userName:any){
   }); 
   return this._http.post(environment.LOGIN_URL_JWT+ "createUsers",data,{headers})
 }
+
+
+
 
 getregionSchool(data:any,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token

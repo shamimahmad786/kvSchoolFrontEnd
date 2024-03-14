@@ -6,7 +6,7 @@ import { DataService } from '../service/internalService/data-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+declare var $: any;
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
@@ -56,7 +56,18 @@ export class LeaveManagementComponent implements OnInit {
   transferGroundList: any;
   profileTeacherName: any;
   profileFinalStatusName:any;
- 
+  stationTypeCheckValue: any;
+  startDate: any;
+  endDate: any;
+  stationCode: any;
+  kvSchoolDetails: any;
+  stationType1: any;
+  stationTypeResponse: any;
+  stationTypeNormal: any;
+  disableNoOfLeaves: boolean = false;
+  tl1: boolean = false;
+  stationCatagory : number = 0;
+ showHide: boolean = true;
   constructor(private pdfServive: TeacherAppPdfService,private router: Router,  private datePipe:DatePipe, private dataService: DataService,
     private modalService: NgbModal, private outSideService: OutsideServicesService,
     private route: ActivatedRoute, private fb: FormBuilder,private _adapter: DateAdapter<any>) {
@@ -80,6 +91,8 @@ export class LeaveManagementComponent implements OnInit {
     });
     this.getLeaveManagementByTchId();
     this.getFormStatusV2();
+    this.getSchoolDetailsByKvCode();
+  
   }
   detailsOfPosting(): FormArray {
     return this.teacherLeaveForm.get("leaveManagmentForm") as FormArray
@@ -125,14 +138,21 @@ export class LeaveManagementComponent implements OnInit {
           
         }
       })
-
+  }
+  getSchoolDetailsByKvCode() {
+    this.outSideService.fetchKvSchoolDetails(this.kvCode).subscribe((res) => {
+      this.kvSchoolDetails = res.response;
+      for (let i = 0; i < this.kvSchoolDetails.rowValue.length; i++) {
+        this.stationCode = this.kvSchoolDetails.rowValue[i].station_code    
+      }
+    })
   }
 
   omit_special_char(event)
   {   
      var k;  
      k = event.charCode;
-     return((k >= 48 && k <= 57)); 
+     return((k >= 48 && k <= 57));
   }
   notGreate365(input:any, id:any) {
    console.log(input.target.value)
@@ -145,24 +165,106 @@ export class LeaveManagementComponent implements OnInit {
     if (input.target.value > 365) {
       ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
     }
+    if(id != 0) {
+      if(((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('stationType').value==1){
+        if(input.target.value<45){
+          //alert(input.target.value)
+          ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
+        }
+       }
+    }
+
+    
 
 
 
   }
 
+  stationTypeCheck(input:any, id:any) {
+
+    var startDate = ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('startDate').value
+    var endDate = ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('endDate').value
+    this.stationCatagory =  ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('stationType').value
+    
+    if(this.stationCatagory == 0 && (((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value == 2 || ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value == 3) ) {
+      ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').patchValue('');
+    
+    }
+    if(this.stationCatagory == 1 && (((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value == 0 || ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value == 1) ) {
+      ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').patchValue('');
+    }
+
+    if(this.stationCatagory == 1){
+   $(".ctln"+id).hide();
+   $(".ctlh"+id).show();
+    }else{
+      $(".ctlh"+id).hide();
+      $(".ctln"+id).show();
+    }
+
+
+    var data={
+      "startDate": startDate,
+      "endDate":endDate,
+      "stationCode": this.stationCode,
+      "category": this.stationCatagory
+    }
+    this.outSideService.checkStationType(data).subscribe((res) => {
+      this.stationTypeResponse = res;
+      this.stationTypeNormal = res.status
+      console.log('STATION TYPEEEE', this.stationTypeResponse)
+     //hard
+      if(this.stationTypeNormal == 1) {
+      //  this.disableNoOfLeaves = false
+      ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').enable();
+       
+    if(((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('stationType').value==1){
+      if(input.target.value<45){
+        ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
+      }
+     }
+     $("#"+id).removeAttr("readonly");
+     //normal
+      } else if(this.stationTypeNormal == 0){
+      
+        $("#"+id).attr("readonly","true");
+        ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
+       // ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').disable();
+        Swal.fire(
+          res.message,
+          '',
+          'error'
+        )
+      }
+   }
+    )
+  }
+
+
+
   notGreate366(input:any, id:any) {
     debugger;
+
+
+    if(this.stationCatagory == 0 && (((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value == 2 || ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value == 3) ) {
+      ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').patchValue('');
+    }
+    if(this.stationCatagory == 1 && (((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value == 0 || ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value == 1) ) {
+      ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').patchValue('');
+    }
     console.log(input.target.value)
     if(((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value==1){
      if(input.target.value<30){
        ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
      }
     }
-
+    
 
     if (input.target.value > 365) {
       ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
     }
+
+    
    
    }
 
@@ -174,13 +276,14 @@ export class LeaveManagementComponent implements OnInit {
     this.detailsOfPosting().push(this.newQuantity(data));
   }
   newLeaveQuantity(data): FormGroup {
-    console.log(data)
+    console.log('NEW LEAVE QUANTITYYY',data)
     if (data != undefined) {
       return this.fb.group({
         teacherId: this.tempTeacherId,
         id :data.id,
         startDate: [data.startDate, [Validators.required]],
         endDate:data.endDate,
+        stationType: [data.stationType,[Validators.required]],
         isContiniousLeave:'9',
         noOfLeave:  [data.noOfLeave,[Validators.required]],
       
@@ -188,13 +291,14 @@ export class LeaveManagementComponent implements OnInit {
     } 
   }
   newQuantity(data): FormGroup {
-    console.log(data)
+    console.log('NEW QUANTITY DATAAAAAA',data)
     if (data != undefined) {
       return this.fb.group({
         teacherId: this.tempTeacherId,
         id :data.id,
         startDate: [data.startDate, [Validators.required]],
         endDate:data.endDate,
+        stationType: [data.stationType,[Validators.required]],
         isContiniousLeave:[data.isContiniousLeave,[Validators.required]],
         noOfLeave:  [data.noOfLeave,[Validators.required]],
       

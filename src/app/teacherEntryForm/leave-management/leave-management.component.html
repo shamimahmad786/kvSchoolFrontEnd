@@ -25,6 +25,7 @@
                                     <th>S.No.</th>
                                     <th>From Date</th>
                                     <th>To Date</th>
+                                    <th>Station Type</th>
                                     <th> Continuous Leave</th>
                                     <th>Total  Leave</th>
                                 </tr>
@@ -55,7 +56,40 @@
                                         <span class="help-block text-danger" *ngIf="quantity.controls.endDate.errors?.required">
                                     Enter Work End Date!</span>
                                     </td>
-                                  
+
+                                    <td *ngIf="profileFinalStatus">
+                                       
+                                        <div > 
+                                            <select class="form-select form-select-sm" pleaceholder="SELECT STATION TYPE"  aria-label="Default select example" id="ctl{{i}}" (change)="stationTypeCheck($event,i);"   name="stationType" formControlName="stationType"  >
+                                                <option selected disabled>SELECT STATION TYPE</option>
+                                                <option value="0">NORMAL</option>
+                                                <option value="1">HARD/VERY-HARD/NER</option>
+                                             </select>
+                                        </div>
+                                      
+                                        <span class="help-block text-danger" *ngIf="quantity.controls.stationType.errors?.required">
+                                   Select Station Type!</span>
+                                    </td>
+                                    <td *ngIf="!profileFinalStatus">
+                                       
+                                        <div >
+                                            <select class="form-select form-select-sm" disabled pleaceholder="SELECT STATION TYPE"  aria-label="Default select example" id="ctl{{i}}" (change)="stationTypeCheck($event,i);"  name="stationType" formControlName="stationType"  >
+                                                <option selected disabled>SELECT STATION TYPE</option>
+                                                <option value="0">NORMAL</option>
+                                                <option value="1">HARD/VERY-HARD/NER</option>
+                                    
+                                                
+                                             </select>
+                                        </div>
+                                      
+                                       
+                                    </td>
+
+
+
+
+
+                            
                                     <td *ngIf="profileFinalStatus">
                                         <div *ngIf="i==0">
                                             <select class="form-select form-select-sm" disabled  aria-label="Default select example" name="isContiniousLeave" formControlName="isContiniousLeave"  >
@@ -65,15 +99,25 @@
                                         </div>
                                         <div *ngIf="i!=0">
                                             <select class="form-select form-select-sm"  aria-label="Default select example" id="ctl{{i}}" (change)="notGreate366($event,i);" name="isContiniousLeave" formControlName="isContiniousLeave"  >
+                                               
                                                 <option selected disabled>Select</option>
-                                                <option value="1">MORE THAN & EQUAL TO 30 DAYS</option>
-                                                <option value="0">LESS THAN 30 DAYS</option>
+                                               <ng-container  >
+                                                <option class="ctln{{i}}" value="0">LESS THAN 30 DAYS</option>
+                                                <option class="ctln{{i}}"  value="1">MORE THAN & EQUAL TO 30 DAYS</option>
+                                                
+                                               </ng-container>
+                                                <ng-container>
+                                                    <option class="ctlh{{i}}" value="2">LESS THAN 45 DAYS</option>
+                                                    <option class="ctlh{{i}}" value="3">MORE THAN & EQUAL TO 45 DAYS</option>
+                                                    
+                                                </ng-container>
                                              </select>
                                         </div>
                                       
                                         <span class="help-block text-danger" *ngIf="quantity.controls.isContiniousLeave.errors?.required">
                                    Select continuous leave!</span>
                                     </td>
+
                                     <td *ngIf="!profileFinalStatus">
                                         <div *ngIf="i==0">
                                             <select class="form-select form-select-sm" disabled  aria-label="Default select example" name="isContiniousLeave" formControlName="isContiniousLeave"  >
@@ -84,21 +128,29 @@
                                         <div *ngIf="i!=0">
                                             <select class="form-select form-select-sm" disabled aria-label="Default select example" name="isContiniousLeave" formControlName="isContiniousLeave"  >
                                                 <option selected disabled>Select</option>
-                                                <option value="1">MORE THAN & EQUAL TO 30 DAYS</option>
-                                                <option value="0">LESS THAN 30 DAYS</option>
+                                                <option value="0">MORE THAN & EQUAL TO 30 DAYS</option>
+                                                <option value="1">LESS THAN 30 DAYS</option>
+                                                <option value="2">MORE THAN & EQUAL TO 45 DAYS</option>
+                                                <option value="3">LESS THAN 45 DAYS</option>
                                              </select>
                                         </div>
                                         <span class="help-block text-danger" *ngIf="quantity.controls.isContiniousLeave.errors?.required">
                                    Select continuous leave!</span>
                                     </td>
-                                 
-                                 
+
+                               
+
+
+                            
                                 <td *ngIf="profileFinalStatus">
-                                    <input type="text"  class="form-control" name="noOfLeave"  formControlName="noOfLeave" (change)="notGreate365($event,i);" (keypress)="omit_special_char($event)" onKeyPress="if(this.value.length==3) return false;">
+                                 
+                                    <input type="text"  class="form-control"   name="noOfLeave" id="{{i}}" *ngIf="!disableNoOfLeaves" formControlName="noOfLeave" (change)="notGreate365($event,i);" (keypress)="omit_special_char($event)" onKeyPress="if(this.value.length==3) return false;">
                               
                                         <span class="help-block text-danger" *ngIf="quantity.controls.noOfLeave.errors?.required">
                                Please Fill leave!</span>
+                               <!-- <input type="text"  class="form-control" *ngIf="disableNoOfLeaves" name="noOfLeave" disabled="disableNoOfLeaves"  formControlName="noOfLeave" (change)="notGreate365($event,i);" (keypress)="omit_special_char($event)" onKeyPress="if(this.value.length==3) return false;"> -->
                                     </td> 
+                                    
                                     <td *ngIf="!profileFinalStatus">
                                         <input type="text"  class="form-control" name="noOfLeave" disabled formControlName="noOfLeave" (keypress)="omit_special_char($event)" onKeyPress="if(this.value.length==3) return false;">
                                   
