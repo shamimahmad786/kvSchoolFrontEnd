@@ -91,6 +91,7 @@ import { ControlerManagementComponent } from './components/controler-management/
 import { UserMappingComponent } from './components/user-mapping/user-mapping.component';
 import { KvSchoolMappingComponent } from './components/kv-school-mapping/kv-school-mapping.component';
 import { RegionWiseSchoolComponent } from './reports/region-wise-school/region-wise-school.component';
+// import { ChartModule } from 'ng2-charts';
 import { RegionWiseStationDetailComponent } from './reports/region-wise-station-detail/region-wise-station-detail.component';
 import { StationWiseSchoolDetailComponent } from './reports/station-wise-school-detail/station-wise-school-detail.component';
 import { SchoolDetailComponent } from './reports/school-detail/school-detail.component';
@@ -250,6 +251,7 @@ import { SearchemployeeComponent } from './searchemployee/searchemployee.compone
     RxReactiveFormsModule,
      HttpClientModule,
     // HttpClient,
+    // ChartModule,
     TModuleModule,
     NgbModule,
     MatSelectModule,

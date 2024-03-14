@@ -64,18 +64,7 @@ constructor(private outSideService: OutsideServicesService){ }
 
       console.log(this.empList)
 
-      if(res){
-        this.getDropBxEmployee();
-      }
-    })
-  }
-  getDropBxEmployee(){
-    var data={"kvCode": this.kvCode}
-    this.outSideService.getDropedEmployeeByKvCode(data).subscribe((res) => {
       
-    console.log("get dropbox employee details")
-    console.log(res)
-    this.setToJoingMatTable(res);
     })
   }
 
@@ -236,7 +225,7 @@ constructor(private outSideService: OutsideServicesService){ }
       }
       else{
         alert(JSON.stringify(this.searchData))
-        console.log(this.searchData)
+     
         this.searchDropData=[];
         this.outSideService.searchEmployee(this.searchData).subscribe(res => {
           console.log("emp transfer  data---------------")
@@ -249,19 +238,19 @@ constructor(private outSideService: OutsideServicesService){ }
             this.searchDropBoxData.kvCode = res[i].kvCode;
             this.searchDropBoxData.kvName = res[i].kvName;
             this.searchDropBoxData.dropBoxFlag = res[i].dropBoxFlag;
-            if(res[i].dropBoxFlag=='0' && res[i].kvCode==this.kvCode ){
-              this.searchDropBoxData.statusMsg="Employee Imported";
-              this.searchDropBoxData.className='make-green';
-            }
-            if((res[i].dropBoxFlag=='0' ||  res[i].dropBoxFlag==null) && res[i].kvCode!=this.kvCode ){
-              this.searchDropBoxData.statusMsg="Contact to KV to complete relieve process";
-              this.searchDropBoxData.className='make-red';
-            }
+            // if(res[i].dropBoxFlag=='0' && res[i].kvCode==this.kvCode ){
+            //   this.searchDropBoxData.statusMsg="Employee Imported";
+            //   this.searchDropBoxData.className='make-green';
+            // }
+            // if((res[i].dropBoxFlag=='0' ||  res[i].dropBoxFlag==null) && res[i].kvCode!=this.kvCode ){
+            //   this.searchDropBoxData.statusMsg="Contact to KV to complete relieve process";
+            //   this.searchDropBoxData.className='make-red';
+            // }
             
-            if(res[i].dropBoxFlag==null && res[i].kvCode==this.kvCode ){
-              this.searchDropBoxData.statusMsg="Contact to KV to complete relieve process";
-              this.searchDropBoxData.className='make-red';
-            }
+            // if(res[i].dropBoxFlag==null && res[i].kvCode==this.kvCode ){
+            //   this.searchDropBoxData.statusMsg="Contact to KV to complete relieve process";
+            //   this.searchDropBoxData.className='make-red';
+            // }
 
             // for (let j = 0; j < this.searchData['empCode'].length; j++) {
             //   if(res[i].dropBoxFlag== '0' && this.dropBoxReasion[j]['dropboxId']==res[i]['employeedropid']){
@@ -269,17 +258,17 @@ constructor(private outSideService: OutsideServicesService){ }
             //   }
             // }
 
-            if(res[i].teachingNonteaching=="1"){
-              this.searchDropBoxData.teachingType= "Teaching";
-            }
-            if(res[i].teachingNonteaching=="2"){
-              this.searchDropBoxData.teachingType= "Non-Teaching";
-            }
-            for (let j = 0; j < this.empList.length; j++) {
-              if(this.empList[j]['dropboxId']==res[i]['employeedropid']){
-                this.searchDropBoxData.dropBoxType=this.empList[j]['dropboxType']
-              }
-            }
+            // if(res[i].teachingNonteaching=="1"){
+            //   this.searchDropBoxData.teachingType= "Teaching";
+            // }
+            // if(res[i].teachingNonteaching=="2"){
+            //   this.searchDropBoxData.teachingType= "Non-Teaching";
+            // }
+            // for (let j = 0; j < this.empList.length; j++) {
+            //   if(this.empList[j]['dropboxId']==res[i]['employeedropid']){
+            //     this.searchDropBoxData.dropBoxType=this.empList[j]['dropboxType']
+            //   }
+            // }
             this.searchDropBoxData.lastPromotionPositionType=res[i].lastPromotionPositionType;
             this.searchDropData.push(this.searchDropBoxData);
             this.totalLength = this.searchDropData.length;
