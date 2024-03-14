@@ -186,15 +186,15 @@ export class TransferReportChildComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.reportIdAction = params['reportId'];
     });
-    this.reportId = JSON.parse(
-      JSON.stringify(this.reportService.pullReportBasicData())
-    ).reportId;
-    this.reportType = JSON.parse(
-      JSON.stringify(this.reportService.pullReportBasicData())
-    ).reportType;
-    this.reportValue = JSON.parse(
-      JSON.stringify(this.reportService.pullReportBasicData())
-    ).reportValue;
+    // this.reportId = JSON.parse(
+    //   JSON.stringify(this.reportService.pullReportBasicData())
+    // ).reportId;
+    // this.reportType = JSON.parse(
+    //   JSON.stringify(this.reportService.pullReportBasicData())
+    // ).reportType;
+    // this.reportValue = JSON.parse(
+    //   JSON.stringify(this.reportService.pullReportBasicData())
+    // ).reportValue;
 
     this.regionFilterCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
@@ -423,6 +423,7 @@ export class TransferReportChildComponent implements OnInit {
   schoolGroupOptions: Observable<StateGroup[]>;
 
   getReportData(data: any) {
+    debugger
     this.allResultDaata=[]; 
     this.rowData = [];
     this.outSideService.getReportByID(data).subscribe((res) => {
