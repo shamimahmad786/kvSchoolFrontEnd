@@ -166,13 +166,15 @@ export class LeaveManagementComponent implements OnInit {
       ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
     }
     if(id != 0) {
-      if(((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('stationType').value==1){
+      if(((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value==3){
         if(input.target.value<45){
           //alert(input.target.value)
           ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
         }
        }
+     
     }
+    
 
     
 
