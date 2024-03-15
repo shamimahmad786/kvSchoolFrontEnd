@@ -120,12 +120,14 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                           
                             <tr *ngFor="let data of teschrLeaveDetails; let i=index">
                                 <td>{{i+1}}</td>
                                 <td>{{data?.startDate}}</td>
                                 <td>{{data?.endDate}}</td>
                                 <td>{{data?.stationType == '0' ? 'Normal': 'Hard/Very-Hard/NER'}}</td>
-                                <td>{{data?.isContiniousLeave == '1' ? 'MORE THAN & EQUAL TO 30 DAYS': data?.isContiniousLeave == '2' ? 'LESS THAN 45 DAYS': data?.isContiniousLeave == '3' ? 'MORE THAN & EQUAL TO 45 DAYS': data?.isContiniousLeave =='9'? 'TOTAL LEAVES IN CURRENT ACADEMIC YEAR' :'LESS THAN 30 DAYS'}}</td>
+                                <td>{{data?.isContiniousLeave == '0' ? ' LESS THAN 30 DAYS': data?.isContiniousLeave == '1' ? 'MORE THAN & EQUAL TO 30 DAYS' :data?.isContiniousLeave =='2'? 'LESS THAN 45 DAYS' :data?.isContiniousLeave =='3'?' MORE THAN & EQUAL TO 45 DAYS':data?.isContiniousLeave =='9'?' TOTAL LEAVES IN CURRENT ACADEMIC YEAR':''}}</td>
                                 <td>{{data?.noOfLeave}}</td>
                                
                             </tr>

@@ -4,8 +4,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card p-2 mb-2 notice-sec">
-                    <h3 class="mb-0 fw-bold "><span style="color: #632765 ;">NOTE: </span>Kindly ensure the correct submision of work experience details and then proceed with Leave Management details.</h3>
-                  </div>
+                    <h3 class="mb-0 fw-bold "><span style="color: #632765 ;">NOTE: </span>1. Kindly ensure the correct submission of work experience details and then proceed with Leave Management details.</h3>
+                    <h3 class="mb-0 fw-bold" ><span class="p-5"> 2. Also ensure correct station type, Continuous Leave and Total Leaves as per the latest transfer policy & FAQs.</span></h3>
+                
+                </div>
                 <div class="row">
 
                     <div class="col-4">
@@ -98,8 +100,7 @@
                                          </select>
                                         </div>
                                         <div *ngIf="i!=0">
-                                            <select class="form-select form-select-sm"  aria-label="Default select example" id="ctl{{i}}" (change)="notGreate366($event,i);" name="isContiniousLeave" formControlName="
-                                            "  >
+                                            <select class="form-select form-select-sm"  aria-label="Default select example" id="ctl{{i}}" (change)="notGreate366($event,i);" name="isContiniousLeave" formControlName="isContiniousLeave">
                                                
                                                 <option selected disabled>Select</option>
                                                <ng-container  >
@@ -114,7 +115,7 @@
                                                 </ng-container>
                                              </select>
                                         </div>
-                                      
+
                                         <span class="help-block text-danger" *ngIf="quantity.controls.isContiniousLeave.errors?.required">
                                    Select continuous leave!</span>
                                     </td>
@@ -129,10 +130,10 @@
                                         <div *ngIf="i!=0">
                                             <select class="form-select form-select-sm" disabled aria-label="Default select example" name="isContiniousLeave" formControlName="isContiniousLeave"  >
                                                 <option selected disabled>Select</option>
-                                                <option value="0">MORE THAN & EQUAL TO 30 DAYS</option>
-                                                <option value="1">LESS THAN 30 DAYS</option>
-                                                <option value="2">MORE THAN & EQUAL TO 45 DAYS</option>
-                                                <option value="3">LESS THAN 45 DAYS</option>
+                                                <option value="1">MORE THAN & EQUAL TO 30 DAYS</option>
+                                                <option value="0">LESS THAN 30 DAYS</option>
+                                                <option value="3">MORE THAN & EQUAL TO 45 DAYS</option>
+                                                <option value="2">LESS THAN 45 DAYS</option>
                                              </select>
                                         </div>
                                         <span class="help-block text-danger" *ngIf="quantity.controls.isContiniousLeave.errors?.required">
