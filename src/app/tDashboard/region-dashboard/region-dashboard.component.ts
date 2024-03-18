@@ -35,6 +35,10 @@ export class RegionDashboardComponent implements OnInit {
   dropBoxDetail:any;
   dropBoxType: any = new Array();
   dropBoxValue: any = new Array();
+  showFirstButtonColor: boolean = true;
+  showsecondButtonColor: boolean = false;
+  activePaneOne: boolean = true;
+  activePaneTwo: boolean = false;
   constructor(public outSideService: OutsideServicesService,private router: Router) {    }
   ngOnInit(): void {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
@@ -159,7 +163,21 @@ export class RegionDashboardComponent implements OnInit {
     }
 this.getdropBoxDetail();
   }
-
+  navColor(nav:any){
+    if(nav=='transferin')
+    {
+      this.showFirstButtonColor=true;
+      this.showsecondButtonColor=false;
+      this.activePaneOne=true;
+      this.activePaneTwo=false;
+    }else{
+      this.showFirstButtonColor=false;
+      this.showsecondButtonColor=true;
+      this.activePaneOne=false;
+      this.activePaneTwo=true;
+    } 
+    
+  }
 getdropBoxDetail(){
   var data ={
      region: "All",

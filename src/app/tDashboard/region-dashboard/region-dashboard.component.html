@@ -1,463 +1,497 @@
 <div class="dashboard-main-content" style="min-height: 600px;">
     <div class="dashboard-main-content__header">
-        <h1 class="mb-1">Dashboard</h1>
+      <h1 clas="mb-1">User Management</h1>
     </div>
-    <nav aria-label="breadcrumb" class="mt-0">
+      <nav aria-label="breadcrumb" class="mt-0">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a>Home</a></li>
-            <li class="breadcrumb-item"><a>dashboard</a></li>
+          <li class="breadcrumb-item"><a>Home</a></li>
+          <li class="breadcrumb-item"><a>Institute Admin Management</a></li>
         </ol>
-    </nav>
-
-
-    <div class="row mt-3" *ngIf="businessUnitTypeId!='3'">
-        <div class="col-md-12 d-flex justify-content-center">
-            <ul class="SchoolStatus w-100 text-center">
+      </nav>
+      <ul class="nav nav-tabs " id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"  (click)="navColor('transferin')" id="home-tab" [class.myClass]="showFirstButtonColor" type="button" role="tab" aria-controls="profile" aria-selected="false">Tabular </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active"  (click)="navColor('transferout');" [class.myClass]="showsecondButtonColor"   data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Graphical </button>
+        </li>
+      </ul>
+      <div class="dashboard-main-content-info">
+      <div class="tab-content" id="myTabContent">
+  <!------------------------------------------------- first tab start  here------------------------------->
+  <div *ngIf="activePaneOne">
+    <div class="row  profile-info">
+        <div class="row mt-3" *ngIf="businessUnitTypeId!='3'">
+            <div class="col-md-12 d-flex justify-content-center">
+                <ul class="SchoolStatus w-100 text-center">
+                    <li>
+                        <div>
+                            <img src="assets/assets/img/regions.png" alt="image" class="mb-2" />
+                            <h4 class="font26589 mb-1">Total Regions </h4>
+                            <h2 class="font64989985 mb-0">{{dashboardDetails?.totalRegion}}</h2>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="assets/assets/img/ziets.png" class="mb-2" />
+                            <h4 class="font26589 mb-1">Total ZIETS </h4>
+                            <h2 class="font64989985 mb-0">{{dashboardDetails?.totalZiet}}</h2>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="assets/assets/img/sanction-post.png" class="mb-2" />
+                            <h4 class="font26589 mb-1">Sanction Posts </h4>
+                            <h2 class="font64989985 mb-0">{{dashboardDetails?.totalSanctionPost}}</h2>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="assets/assets/img/in-positions.png" class="mb-2" />
+                            <h4 class="font26589 mb-1">In Position</h4>
+                            <h2 class="font64989985 mb-0">{{inPositionTotal}}</h2>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="assets/assets/img/schools.png" class="mb-2" />
+                            <h4 class="font26589 mb-1">Schools </h4>
+                            <h2 class="font64989985 mb-0">{{dashboardDetails?.totalSchool}}</h2>
+                        </div>
+                    </li>
+                    
+                    <!-- <li>
+                        <div>
+                            <img src="assets/assets/img/not-initiated.png" class="mb-2" />
+                            <h4 class="font26589 mb-1">Not Initiated</h4>
+                            <h2 class="font64989985 mb-0">{{notInitiatedCount}}</h2>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+    
+        </div>
+    
+    
+    
+        <div class="card dashboard-top-card p-3 mb-3" *ngIf="businessUnitTypeId=='3'">
+    
+    
+            <div class="left d-flex align-items-center w-100 border-bottom pb-1 mb-3">
+                <img src="assets/img/card-logo.svg" class="img-fluid" style="top: -10px; position: relative;">
+                <h2 class="text-white ms-2 card-title mb-1"><strong>{{dashboardDetails?.regionName}} ({{dashboardDetails?.regionCode}})</strong> <span class="d-block card-desc"></span></h2>
+            </div>
+    
+            <div class="row">
+    
+    
+                <div class="col-sm-2">
+                    <h2 class="text-white card-title">Region Name <span class="StationValue d-block card-desc">{{dashboardDetails?.regionName}} ({{dashboardDetails?.regionCode}}) </span></h2>
+                </div>
+    
+                <div class="col-sm-2">
+                    <h2 class="text-white card-title">Address <span class="StationValue d-block card-desc">{{dashboardDetails?.regionAddress}}</span></h2>
+                </div>
+    
+                <div class="col-sm-3">
+                    <h2 class="text-white card-title">Controlling Officer :<span class="StationValue d-block card-desc">{{dashboardDetails?.employeeName}}</span></h2>
+                </div>
+                <div class="col-sm-3">
+                    <h2 class="text-white card-title">Email <span class="StationValue d-block card-desc">{{dashboardDetails?.teacherEmail}}</span></h2>
+                </div>
+    
+                <div class="col-sm-2">
+                    <h2 class="text-white card-title">Mobile <span class="StationValue d-block card-desc">{{dashboardDetails?.teacherMobile}}</span></h2>
+                </div>
+    
+    
+    
+            </div>
+    
+            <!-- <ul class="stationUL">
                 <li>
-                    <div>
-                        <img src="assets/assets/img/regions.png" alt="image" class="mb-2" />
-                        <h4 class="font26589 mb-1">Total Regions </h4>
-                        <h2 class="font64989985 mb-0">{{dashboardDetails?.totalRegion}}</h2>
-                    </div>
+                    <h3>Region Name :
+                        <span class="StationValue">{{dashboardDetails?.regionName}} ({{dashboardDetails?.regionCode}}) </span>
+                    </h3>
                 </li>
                 <li>
-                    <div>
-                        <img src="assets/assets/img/ziets.png" class="mb-2" />
-                        <h4 class="font26589 mb-1">Total ZIETS </h4>
-                        <h2 class="font64989985 mb-0">{{dashboardDetails?.totalZiet}}</h2>
-                    </div>
+                    <h3>Address :
+                        <span class="StationValue">{{dashboardDetails?.regionAddress}}</span>
+                    </h3>
                 </li>
                 <li>
-                    <div>
-                        <img src="assets/assets/img/sanction-post.png" class="mb-2" />
-                        <h4 class="font26589 mb-1">Sanction Posts </h4>
-                        <h2 class="font64989985 mb-0">{{dashboardDetails?.totalSanctionPost}}</h2>
-                    </div>
+                    <h3>Controlling Officer :
+                        <span class="StationValue">{{dashboardDetails?.employeeName}}</span>
+                    </h3>
                 </li>
                 <li>
-                    <div>
-                        <img src="assets/assets/img/in-positions.png" class="mb-2" />
-                        <h4 class="font26589 mb-1">In Position</h4>
-                        <h2 class="font64989985 mb-0">{{inPositionTotal}}</h2>
-                    </div>
+                    <h3>Email :
+                        <span class="StationValue">{{dashboardDetails?.teacherEmail}}</span>
+                    </h3>
                 </li>
                 <li>
-                    <div>
-                        <img src="assets/assets/img/schools.png" class="mb-2" />
-                        <h4 class="font26589 mb-1">Schools </h4>
-                        <h2 class="font64989985 mb-0">{{dashboardDetails?.totalSchool}}</h2>
+                    <h3>Mobile :
+                        <span class="StationValue">{{dashboardDetails?.teacherMobile}}</span>
+                    </h3>
+                </li>
+            </ul> -->
+        </div>
+        <!-- <div class="shadow-sm bg-white border-3" style="margin-bottom: 9px; border-radius: 7px;" *ngIf="businessUnitTypeId=='2'">
+            <ul class="stationUL">
+                <li>
+                    <h3>Total Regions :
+                        <span class="StationValue">{{dashboardDetails?.totalRegion}}</span>
+                    </h3>
+                </li>
+                <li>
+                    <h3>Total Ziets :
+                        <span class="StationValue">{{dashboardDetails?.totalZiet}}</span>
+                    </h3>
+                </li>
+            </ul>
+        </div> -->
+        <div class="dashboard-main-content-info p-4 pt-2">
+            <!-- <ul class="display-inline-one ">
+                <li class="card p-4  rounded-3 mb-3">
+                    <div class="row ">
+                        <div class="col-7">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <h3 class="mb-0 blue-text TotalTeachingStaff">Sanction Posts :  {{dashboardDetails?.totalSanctionPost}}
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-5">
+                            <div class="d-flex align-items-right">
+                                <div class="flex-grow-1">
+                                    <h3 class="mb-0 blue-text TotalTeachingStaff">In Position :  {{inPositionTotal}}
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </li>
-                
-                <!-- <li>
+    
+                <li class="card p-4  rounded-3 mb-3">
                     <div>
-                        <img src="assets/assets/img/not-initiated.png" class="mb-2" />
-                        <h4 class="font26589 mb-1">Not Initiated</h4>
-                        <h2 class="font64989985 mb-0">{{notInitiatedCount}}</h2>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+    
+                                <h3 class="mb-0 blue-text TotalTeachingStaff">Schools :  {{dashboardDetails?.totalSchool}}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul> -->
+    
+    
+    
+            <div class="row ">
+                <div class=" dashboard-main-content__header mb-2">
+                    <h1 class="TolTeacherValue  ">Staff</h1>
+                </div>
+    
+                <div class="col-md-9">
+    
+                    <ul class="">
+                        <li class="card p-3 rounded-3 mb-3">
+    
+                            <div class="row ">
+                                <div class="col-sm-6 ">
+                                    <div class="table-responsive">
+                                        <table class="table1 table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="3" style="background:#945197; color: #fff;   ">Teaching</th>
+    
+                                                </tr>
+                                                <tr rowspan="2">
+                                                    <th>Male</th>
+                                                    <th>Female</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+    
+                                            <tr>
+                                                <td><span>{{dashboardDetails?.teachingMale === null ?'0':dashboardDetails?.teachingMale}}</span></td>
+                                                <td><span>{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</span></td>
+                                                <td><span>{{teachingMaleFemaleTotal}}</span></td>
+                                            </tr>
+    
+                                        </table>
+                                    </div>
+    
+                                </div>
+    
+                                <div class="col-sm-6">
+                                    <div class="table-responsive">
+                                        <table class="table1 table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="3" style="background:#97516a; color: #fff;   ">Non-Teaching</th>
+    
+                                                </tr>
+                                                <tr rowspan="2">
+                                                    <th class="td-bg">Male</th>
+                                                    <th class="td-bg">Female</th>
+                                                    <th class="td-bg">Total</th>
+                                                </tr>
+                                            </thead>
+    
+                                            <tr>
+                                                <td><span class="text-color">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</span></td>
+                                                <td><span class="text-color">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</span></td>
+                                                <td><span class="text-color">{{nonTeachingMaleFemaleTotal}}</span></td>
+                                            </tr>
+    
+                                        </table>
+                                    </div>
+                                </div>
+    
+    
+                            </div>
+    
+    
+                        </li>
+    
+                    </ul>
+                </div>
+                <div class="col-md-3">
+    
+                    <div class="card p-3">
+                        <div class="table-responsive">
+                            <table class="table1 table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" style="background:#f7f3d9; color: #000;   ">Ticket Notification</th>
+    
+                                    </tr>
+                                    <tr rowspan="2">
+    
+                                        <th style="background: #f9e5bf;">In Process</th>
+                                        <th style="background:#afebbd;">Resolved</th>
+                                        <!-- <th style="background:#f9bfbf;">Rejected</th> -->
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td><span style="background: #afebbd; color:#f9e5bf"><a routerLinkActive="active" routerLink="/teacher/kvsTicket">  {{dashboardDetails?.inprogresTicket}}</a></span></td>
+                                    <td><span style="background: #afebbd; color:#afebbd"><a routerLinkActive="active" routerLink="/teacher/kvsTicket"> {{dashboardDetails?.resolveTicket}}</a></span></td>
+                                    <!-- <td><span style="background: #afebbd; color:#f9bfbf"><a routerLinkActive="active" routerLink="/teacher/kvsTicket"> {{dashboardDetails?.rejectTicket}}</a></span></td> -->
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+    
+    
+    
+            </div>
+    
+            <ul class="display-inline mt-3">
+    
+    
+                <!--   <li class="card p-4 rounded-3 mb-3">
+                    <h2 class="TolTeacherValue mb-2 card-text-color text-center "> Staff</h2>
+                    <div class="row mt-2">
+                        <div class="row ">
+                            <div class="col-md-6 col-sm-12 ">
+                                <div class="row ">
+                                    <h2 class="TolTeacherValue mb-2 card-text-color text-center border-end border-top border-bottom ">Teaching</h2>
+                                    <div class="col-4 text-center border-end">
+                                        <h4 class="Verified mb-0 card-text-color">Male </h4>
+                                        <h2 class="mt-4">{{dashboardDetails?.teachingMale === null ?'0':dashboardDetails?.teachingMale}}</h2>
+                                    </div>
+                                    <div class="col-4 text-center border-end">
+                                        <h4 class="Verified mb-0 card-text-color">Female </h4>
+                                        <h2 class="mt-4">{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</h2>
+                                    </div>
+                                    <div class="col-4 text-center border-end">
+                                        <h4 class="Verified mb-0 card-text-color">Total</h4>
+                                        <h2 class="mt-4">{{teachingMaleFemaleTotal}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="row ">
+                                    <h2 class="TolTeacherValue mb-2 card-text-color text-center  border-top border-bottom  ">Non-Teaching</h2>
+                                    <div class="col-4 text-center border-end">
+                                        <h4 class="Verified mb-0 card-text-color">Male </h4>
+                                        <h2 class="mt-4">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</h2>
+                                    </div>
+                                    <div class="col-4 text-center border-end">
+                                        <h4 class="Verified mb-0 card-text-color">Female </h4>
+                                        <h2 class="mt-4">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</h2>
+                                    </div>
+                                    <div class="col-4 text-center ">
+                                        <h4 class="Verified mb-0 card-text-color">Total </h4>
+                                        <h2 class="mt-4">{{nonTeachingMaleFemaleTotal}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                    <div class="pattern">
+                        <i class='bx bx-user-circle imgRotate'></i>
+                    </div>
+                </li> -->
+    
+                <!-- <li class="card p-4 rounded-3 ">
+                    <h2 class="TolTeacherValue mb-2  card-text-color text-center">Station </h2>
+                    <div class="row " >
+                        <div class="col-md-2 col-4 text-center border-end">
+                            <h4 class="Verified mb-0 card-text-color">Normal </h4>
+                            <h2 class="mt-4">{{dashboardDetails?.totalNormalStation === null ?'0':dashboardDetails?.totalNormalStation}}</h2>
+                        </div>
+                        <div class="col-md-2 col-4 text-center border-end">
+                            <h4 class="Verified mb-0 card-text-color">Priority </h4>
+                            <h2 class="mt-4"> {{dashboardDetails?.totalPriorityStation === null ?'0':dashboardDetails?.totalPriorityStation}}</h2>
+                        </div>
+                        <div class="col-md-2 col-4 text-center border-end">
+                            <h4 class="Verified mb-0 card-text-color">Hard </h4>
+                            <h2 class="mt-4">{{dashboardDetails?.totalHardStation === null ?'0':dashboardDetails?.totalHardStation}}</h2>
+                        </div>
+                        <div class="col-md-2 col-4 text-center border-end">
+                            <h4 class="Verified mb-0 card-text-color" style="width: 73px;">Very Hard </h4>
+                            <h2 class="mt-4">{{dashboardDetails?.totalVeryHardStation === null ?'0':dashboardDetails?.totalVeryHardStation}}</h2>
+                        </div>
+                        <div class="col-md-2 col-4 text-center border-end ">
+                            <h4 class="Verified mb-0 card-text-color">NER</h4>
+                            <h2 class="mt-4">{{dashboardDetails?.totalNerStation === null ?'0':dashboardDetails?.totalNerStation}}</h2>
+                        </div>
+                        <div class="col-md-2 col-4 text-center ">
+                            <h4 class="Verified mb-0 card-text-color">Total</h4>
+                            <h2 class="mt-4">{{stationTotal}}</h2>
+                        </div>
+    
+                    </div>
+                    <div class="pattern">
+                        <i class='bx bx-user-circle imgRotate'></i>
                     </div>
                 </li> -->
             </ul>
-        </div>
-
-    </div>
-
-
-
-    <div class="card dashboard-top-card p-3 mb-3" *ngIf="businessUnitTypeId=='3'">
-
-
-        <div class="left d-flex align-items-center w-100 border-bottom pb-1 mb-3">
-            <img src="assets/img/card-logo.svg" class="img-fluid" style="top: -10px; position: relative;">
-            <h2 class="text-white ms-2 card-title mb-1"><strong>{{dashboardDetails?.regionName}} ({{dashboardDetails?.regionCode}})</strong> <span class="d-block card-desc"></span></h2>
-        </div>
-
-        <div class="row">
-
-
-            <div class="col-sm-2">
-                <h2 class="text-white card-title">Region Name <span class="StationValue d-block card-desc">{{dashboardDetails?.regionName}} ({{dashboardDetails?.regionCode}}) </span></h2>
-            </div>
-
-            <div class="col-sm-2">
-                <h2 class="text-white card-title">Address <span class="StationValue d-block card-desc">{{dashboardDetails?.regionAddress}}</span></h2>
-            </div>
-
-            <div class="col-sm-3">
-                <h2 class="text-white card-title">Controlling Officer :<span class="StationValue d-block card-desc">{{dashboardDetails?.employeeName}}</span></h2>
-            </div>
-            <div class="col-sm-3">
-                <h2 class="text-white card-title">Email <span class="StationValue d-block card-desc">{{dashboardDetails?.teacherEmail}}</span></h2>
-            </div>
-
-            <div class="col-sm-2">
-                <h2 class="text-white card-title">Mobile <span class="StationValue d-block card-desc">{{dashboardDetails?.teacherMobile}}</span></h2>
-            </div>
-
-
-
-        </div>
-
-        <!-- <ul class="stationUL">
-            <li>
-                <h3>Region Name :
-                    <span class="StationValue">{{dashboardDetails?.regionName}} ({{dashboardDetails?.regionCode}}) </span>
-                </h3>
-            </li>
-            <li>
-                <h3>Address :
-                    <span class="StationValue">{{dashboardDetails?.regionAddress}}</span>
-                </h3>
-            </li>
-            <li>
-                <h3>Controlling Officer :
-                    <span class="StationValue">{{dashboardDetails?.employeeName}}</span>
-                </h3>
-            </li>
-            <li>
-                <h3>Email :
-                    <span class="StationValue">{{dashboardDetails?.teacherEmail}}</span>
-                </h3>
-            </li>
-            <li>
-                <h3>Mobile :
-                    <span class="StationValue">{{dashboardDetails?.teacherMobile}}</span>
-                </h3>
-            </li>
-        </ul> -->
-    </div>
-    <!-- <div class="shadow-sm bg-white border-3" style="margin-bottom: 9px; border-radius: 7px;" *ngIf="businessUnitTypeId=='2'">
-        <ul class="stationUL">
-            <li>
-                <h3>Total Regions :
-                    <span class="StationValue">{{dashboardDetails?.totalRegion}}</span>
-                </h3>
-            </li>
-            <li>
-                <h3>Total Ziets :
-                    <span class="StationValue">{{dashboardDetails?.totalZiet}}</span>
-                </h3>
-            </li>
-        </ul>
-    </div> -->
-    <div class="dashboard-main-content-info p-4 pt-2">
-        <!-- <ul class="display-inline-one ">
-            <li class="card p-4  rounded-3 mb-3">
-                <div class="row ">
-                    <div class="col-7">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
-                                <h3 class="mb-0 blue-text TotalTeachingStaff">Sanction Posts :  {{dashboardDetails?.totalSanctionPost}}
-                                </h3>
-                            </div>
-                        </div>
+    
+            <div class="row mt-3">            
+    
+                <div class="col-md-9">
+    
+                    <div class="dashboard-main-content__header mb-2">
+                        <h1 class="TolTeacherValue">Station</h1>
                     </div>
-
-                    <div class="col-5">
-                        <div class="d-flex align-items-right">
-                            <div class="flex-grow-1">
-                                <h3 class="mb-0 blue-text TotalTeachingStaff">In Position :  {{inPositionTotal}}
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-            <li class="card p-4  rounded-3 mb-3">
-                <div>
-                    <div class="d-flex align-items-center">
-                        <div class="flex-grow-1">
-
-                            <h3 class="mb-0 blue-text TotalTeachingStaff">Schools :  {{dashboardDetails?.totalSchool}}
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul> -->
-
-
-
-        <div class="row ">
-            <div class=" dashboard-main-content__header mb-2">
-                <h1 class="TolTeacherValue  ">Staff</h1>
-            </div>
-
-            <div class="col-md-9">
-
-                <ul class="">
-                    <li class="card p-3 rounded-3 mb-3">
-
-                        <div class="row ">
-                            <div class="col-sm-6 ">
-                                <div class="table-responsive">
-                                    <table class="table1 table-bordered">
-                                        <thead>
+                        <div class="card p-3 rounded-3 mb-3">
+                            
+                            <div class="row ">
+                                <div class="col-sm-12 ">
+                                    <div class="table-responsive">
+                                        <table class="table1 table-bordered">
+                                            <thead>
+                                                <!-- <tr>
+                                                    <th colspan="6" style="background:#945197; color: #fff;   ">Teaching</th>
+                                                    
+                                                </tr> -->
+                                                <tr rowspan="2">
+                                                    <th>Normal</th>
+                                                    <th>Priority</th>
+                                                    <th>Hard</th>
+                                                    <th>Very Hard</th>
+                                                    <th>NER</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+    
                                             <tr>
-                                                <th colspan="3" style="background:#945197; color: #fff;   ">Teaching</th>
-
+                                                <td><span>{{dashboardDetails?.totalNormalStation === null ?'0':dashboardDetails?.totalNormalStation}}</span></td>
+                                                <td><span>{{dashboardDetails?.totalPriorityStation === null ?'0':dashboardDetails?.totalPriorityStation}}</span></td>
+                                                <td><span>{{dashboardDetails?.totalHardStation === null ?'0':dashboardDetails?.totalHardStation}}</span></td>
+                                                <td><span>{{dashboardDetails?.totalVeryHardStation === null ?'0':dashboardDetails?.totalVeryHardStation}}</span></td>
+                                                <td><span>{{dashboardDetails?.totalNerStation === null ?'0':dashboardDetails?.totalNerStation}}</span></td>
+                                                <td><span>{{stationTotal}}</span></td>
                                             </tr>
-                                            <tr rowspan="2">
-                                                <th>Male</th>
-                                                <th>Female</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tr>
-                                            <td><span>{{dashboardDetails?.teachingMale === null ?'0':dashboardDetails?.teachingMale}}</span></td>
-                                            <td><span>{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</span></td>
-                                            <td><span>{{teachingMaleFemaleTotal}}</span></td>
-                                        </tr>
-
-                                    </table>
+    
+                                        </table>
+                                    </div>
+    
                                 </div>
-
+    
+    
+    
+    
                             </div>
-
-                            <div class="col-sm-6">
-                                <div class="table-responsive">
-                                    <table class="table1 table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="3" style="background:#97516a; color: #fff;   ">Non-Teaching</th>
-
-                                            </tr>
-                                            <tr rowspan="2">
-                                                <th class="td-bg">Male</th>
-                                                <th class="td-bg">Female</th>
-                                                <th class="td-bg">Total</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tr>
-                                            <td><span class="text-color">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</span></td>
-                                            <td><span class="text-color">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</span></td>
-                                            <td><span class="text-color">{{nonTeachingMaleFemaleTotal}}</span></td>
-                                        </tr>
-
-                                    </table>
-                                </div>
-                            </div>
-
-
+    
+    
                         </div>
-
-
-                    </li>
-
-                </ul>
-            </div>
-            <div class="col-md-3">
-
-                <div class="card p-3">
-                    <div class="table-responsive">
-                        <table class="table1 table-bordered">
-                            <thead>
+    
+                </div>
+    
+                
+                <div class="col-md-3">
+                    <div class=" dashboard-main-content__header mb-2">
+                        <h1 class="TolTeacherValue">Today's Logins</h1>
+                    </div>
+                        <div class="card px-2 py-3">
+                        <div class="table-responsive">
+                            <table class="table1 table-bordered">
                                 <tr>
-                                    <th colspan="3" style="background:#f7f3d9; color: #000;   ">Ticket Notification</th>
-
+                                    <td style="text-align: left; width:50%; padding-top:5px!important; padding-bottom:5px!important;"><strong class="fw-bold">Region</strong> <span class="loginSpan">{{dashboardDetails?.roLoginCount === null ?'0':dashboardDetails?.roLoginCount}}</span></td>
+                                    <td style="text-align: left; padding-top:0!important; padding-bottom:0!important;"><strong>ZIET</strong> <span class="loginSpan">{{dashboardDetails?.zietLoginCount === null ?'0':dashboardDetails?.zietLoginCount}}</span></td>                             
                                 </tr>
-                                <tr rowspan="2">
-
-                                    <th style="background: #f9e5bf;">In Process</th>
-                                    <th style="background:#afebbd;">Resolved</th>
-                                    <!-- <th style="background:#f9bfbf;">Rejected</th> -->
+                                <tr>
+                                    <td style="text-align: left; width:50%; padding-top:5px!important; padding-bottom:5px!important;"><strong>School</strong> <span class="loginSpan"> {{dashboardDetails?.schoolLoginCount === null ?'0':dashboardDetails?.schoolLoginCount}}</span></td>
+                                    <td style="text-align: left; padding-top:5px!important; padding-bottom:5px!important;"><strong>Employee</strong> <span class="loginSpan">{{dashboardDetails?.employeeLoginCount === null ?'0':dashboardDetails?.employeeLoginCount}}</span></td>
+                                    
                                 </tr>
-                            </thead>
-                            <tr>
-                                <td><span style="background: #afebbd; color:#f9e5bf"><a routerLinkActive="active" routerLink="/teacher/kvsTicket">  {{dashboardDetails?.inprogresTicket}}</a></span></td>
-                                <td><span style="background: #afebbd; color:#afebbd"><a routerLinkActive="active" routerLink="/teacher/kvsTicket"> {{dashboardDetails?.resolveTicket}}</a></span></td>
-                                <!-- <td><span style="background: #afebbd; color:#f9bfbf"><a routerLinkActive="active" routerLink="/teacher/kvsTicket"> {{dashboardDetails?.rejectTicket}}</a></span></td> -->
-                            </tr>
-                        </table>
+                                <tr>
+                                   
+                                </tr>
+                           
+    
+                            </table>
+                        </div>
+                    </div>
+                </div>        
+            </div>
+    
+            <!-- <div class="row">
+                <div class="col-md-12">
+                    <div class="card p-4">
+                        <div echarts [options]="options" class="demo-chart"></div>
                     </div>
                 </div>
-            </div>
-
-
-
+                <div class="col-md-6">
+                    <div class="card p-4">
+                        <div echarts [options]="options" class="demo-chart"></div>
+                    </div>
+                </div>
+            </div> -->
+    
+            <!-- <ul class="display-inline mt-3">
+            </ul> -->
         </div>
+    </div><!--close row-->
+    </div> 
+        <div *ngIf="activePaneTwo ">
+        <div class="row justify-content-center d-flex  profile-info">
+          <div class="col-lg-12">
+        
+        
 
-        <ul class="display-inline mt-3">
-
-
-            <!--   <li class="card p-4 rounded-3 mb-3">
-                <h2 class="TolTeacherValue mb-2 card-text-color text-center "> Staff</h2>
-                <div class="row mt-2">
-                    <div class="row ">
-                        <div class="col-md-6 col-sm-12 ">
-                            <div class="row ">
-                                <h2 class="TolTeacherValue mb-2 card-text-color text-center border-end border-top border-bottom ">Teaching</h2>
-                                <div class="col-4 text-center border-end">
-                                    <h4 class="Verified mb-0 card-text-color">Male </h4>
-                                    <h2 class="mt-4">{{dashboardDetails?.teachingMale === null ?'0':dashboardDetails?.teachingMale}}</h2>
-                                </div>
-                                <div class="col-4 text-center border-end">
-                                    <h4 class="Verified mb-0 card-text-color">Female </h4>
-                                    <h2 class="mt-4">{{dashboardDetails?.teachingFemale === null ?'0':dashboardDetails?.teachingFemale}}</h2>
-                                </div>
-                                <div class="col-4 text-center border-end">
-                                    <h4 class="Verified mb-0 card-text-color">Total</h4>
-                                    <h2 class="mt-4">{{teachingMaleFemaleTotal}}</h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="row ">
-                                <h2 class="TolTeacherValue mb-2 card-text-color text-center  border-top border-bottom  ">Non-Teaching</h2>
-                                <div class="col-4 text-center border-end">
-                                    <h4 class="Verified mb-0 card-text-color">Male </h4>
-                                    <h2 class="mt-4">{{dashboardDetails?.nonTeachingMale === null ?'0':dashboardDetails?.nonTeachingMale}}</h2>
-                                </div>
-                                <div class="col-4 text-center border-end">
-                                    <h4 class="Verified mb-0 card-text-color">Female </h4>
-                                    <h2 class="mt-4">{{dashboardDetails?.nonTeachingFeMale === null ?'0':dashboardDetails?.nonTeachingFeMale}}</h2>
-                                </div>
-                                <div class="col-4 text-center ">
-                                    <h4 class="Verified mb-0 card-text-color">Total </h4>
-                                    <h2 class="mt-4">{{nonTeachingMaleFemaleTotal}}</h2>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="pattern">
-                    <i class='bx bx-user-circle imgRotate'></i>
-                </div>
-            </li> -->
-
-            <!-- <li class="card p-4 rounded-3 ">
-                <h2 class="TolTeacherValue mb-2  card-text-color text-center">Station </h2>
-                <div class="row " >
-                    <div class="col-md-2 col-4 text-center border-end">
-                        <h4 class="Verified mb-0 card-text-color">Normal </h4>
-                        <h2 class="mt-4">{{dashboardDetails?.totalNormalStation === null ?'0':dashboardDetails?.totalNormalStation}}</h2>
-                    </div>
-                    <div class="col-md-2 col-4 text-center border-end">
-                        <h4 class="Verified mb-0 card-text-color">Priority </h4>
-                        <h2 class="mt-4"> {{dashboardDetails?.totalPriorityStation === null ?'0':dashboardDetails?.totalPriorityStation}}</h2>
-                    </div>
-                    <div class="col-md-2 col-4 text-center border-end">
-                        <h4 class="Verified mb-0 card-text-color">Hard </h4>
-                        <h2 class="mt-4">{{dashboardDetails?.totalHardStation === null ?'0':dashboardDetails?.totalHardStation}}</h2>
-                    </div>
-                    <div class="col-md-2 col-4 text-center border-end">
-                        <h4 class="Verified mb-0 card-text-color" style="width: 73px;">Very Hard </h4>
-                        <h2 class="mt-4">{{dashboardDetails?.totalVeryHardStation === null ?'0':dashboardDetails?.totalVeryHardStation}}</h2>
-                    </div>
-                    <div class="col-md-2 col-4 text-center border-end ">
-                        <h4 class="Verified mb-0 card-text-color">NER</h4>
-                        <h2 class="mt-4">{{dashboardDetails?.totalNerStation === null ?'0':dashboardDetails?.totalNerStation}}</h2>
-                    </div>
-                    <div class="col-md-2 col-4 text-center ">
-                        <h4 class="Verified mb-0 card-text-color">Total</h4>
-                        <h2 class="mt-4">{{stationTotal}}</h2>
-                    </div>
-
-                </div>
-                <div class="pattern">
-                    <i class='bx bx-user-circle imgRotate'></i>
-                </div>
-            </li> -->
-        </ul>
-
-        <div class="row mt-3">            
-
-            <div class="col-md-9">
-
-                <div class="dashboard-main-content__header mb-2">
-                    <h1 class="TolTeacherValue">Station</h1>
-                </div>
-                    <div class="card p-3 rounded-3 mb-3">
-                        
-                        <div class="row ">
-                            <div class="col-sm-12 ">
-                                <div class="table-responsive">
-                                    <table class="table1 table-bordered">
-                                        <thead>
-                                            <!-- <tr>
-                                                <th colspan="6" style="background:#945197; color: #fff;   ">Teaching</th>
-                                                
-                                            </tr> -->
-                                            <tr rowspan="2">
-                                                <th>Normal</th>
-                                                <th>Priority</th>
-                                                <th>Hard</th>
-                                                <th>Very Hard</th>
-                                                <th>NER</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tr>
-                                            <td><span>{{dashboardDetails?.totalNormalStation === null ?'0':dashboardDetails?.totalNormalStation}}</span></td>
-                                            <td><span>{{dashboardDetails?.totalPriorityStation === null ?'0':dashboardDetails?.totalPriorityStation}}</span></td>
-                                            <td><span>{{dashboardDetails?.totalHardStation === null ?'0':dashboardDetails?.totalHardStation}}</span></td>
-                                            <td><span>{{dashboardDetails?.totalVeryHardStation === null ?'0':dashboardDetails?.totalVeryHardStation}}</span></td>
-                                            <td><span>{{dashboardDetails?.totalNerStation === null ?'0':dashboardDetails?.totalNerStation}}</span></td>
-                                            <td><span>{{stationTotal}}</span></td>
-                                        </tr>
-
-                                    </table>
-                                </div>
-
-                            </div>
+<!---card two------------------------>
 
 
-
-
-                        </div>
-
-
-                    </div>
-
-            </div>
-
+                
             
-            <div class="col-md-3">
-                <div class=" dashboard-main-content__header mb-2">
-                    <h1 class="TolTeacherValue">Today's Logins</h1>
-                </div>
-                    <div class="card px-2 py-3">
-                    <div class="table-responsive">
-                        <table class="table1 table-bordered">
-                            <tr>
-                                <td style="text-align: left; width:50%; padding-top:5px!important; padding-bottom:5px!important;"><strong class="fw-bold">Region</strong> <span class="loginSpan">{{dashboardDetails?.roLoginCount === null ?'0':dashboardDetails?.roLoginCount}}</span></td>
-                                <td style="text-align: left; padding-top:0!important; padding-bottom:0!important;"><strong>ZIET</strong> <span class="loginSpan">{{dashboardDetails?.zietLoginCount === null ?'0':dashboardDetails?.zietLoginCount}}</span></td>                             
-                            </tr>
-                            <tr>
-                                <td style="text-align: left; width:50%; padding-top:5px!important; padding-bottom:5px!important;"><strong>School</strong> <span class="loginSpan"> {{dashboardDetails?.schoolLoginCount === null ?'0':dashboardDetails?.schoolLoginCount}}</span></td>
-                                <td style="text-align: left; padding-top:5px!important; padding-bottom:5px!important;"><strong>Employee</strong> <span class="loginSpan">{{dashboardDetails?.employeeLoginCount === null ?'0':dashboardDetails?.employeeLoginCount}}</span></td>
-                                
-                            </tr>
-                            <tr>
-                               
-                            </tr>
-                       
-
-                        </table>
-                    </div>
-                </div>
-            </div>        
-        </div>
-
-        <!-- <div class="row">
-            <div class="col-md-12">
-                <div class="card p-4">
-                    <div echarts [options]="options" class="demo-chart"></div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card p-4">
-                    <div echarts [options]="options" class="demo-chart"></div>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- <ul class="display-inline mt-3">
-        </ul> -->
-    </div>
-</div>
-<!--close dashboard-main-content-->
+          </div>
+        </div><!--close row-->
+     </div>  <!--close first  tab-->
+  <!------------------------------------------------- first tab end  here---------------------------------->
+  
+  <!------------------------------------------------- secand tab start  here------------------------------->
+       
+  <!------------------------------close secand  tab-------------------------------------------------------->
+          </div>  
+      </div><!--close main-content-info-->
+  </div><!--close dashboard-main-content-->
+  

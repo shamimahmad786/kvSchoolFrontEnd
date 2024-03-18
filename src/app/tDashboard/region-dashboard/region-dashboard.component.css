@@ -671,7 +671,15 @@ body {
 .SchoolStatus li:nth-child(0) {
   margin-right: 0px !important;
 }
-
+.myClass{
+  border: solid 0.2px #542555 !important;;
+  background-color: #4A1C4B !important;;
+  color: white !important;;
+}
+.nav-tabs {border-bottom: none;}
+    .nav-tabs li {min-width: 200px;}
+    .nav-tabs li button {width: 100%;}
+    .nav-tabs li .nav-link{background-color: #fff; color: #333; border: #ccc;}
 .SchoolStatus li:hover {
   transform: scale(1.02);
   z-index: 1;
