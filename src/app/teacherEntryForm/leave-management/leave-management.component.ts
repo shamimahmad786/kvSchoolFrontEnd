@@ -248,14 +248,14 @@ export class LeaveManagementComponent implements OnInit {
     debugger;
 
 
-    if(this.stationCatagory == 0 && (((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value == 2 || ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value == 3) ) {
+    if(this.stationCatagory === 0 && (((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value === 2 || ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value === 3) ) {
       ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').patchValue('');
     }
-    if(this.stationCatagory == 1 && (((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value == 0 || ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value == 1) ) {
+    if(this.stationCatagory === 1 && (((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value === 0 || ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value === 1) ) {
       ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').patchValue('');
     }
     console.log(input.target.value)
-    if(((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value==1){
+    if(((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('isContiniousLeave').value===1){
      if(input.target.value<30){
        ((this.teacherLeaveForm.get('leaveManagmentForm') as FormArray).at(id) as FormGroup).get('noOfLeave').patchValue('');
      }

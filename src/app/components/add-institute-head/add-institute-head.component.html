@@ -89,7 +89,7 @@
                                
                                 <div class="col-sm-6">
                                     <label for="staticEmail" class="col-form-label d-block  text-start">Employee Code <span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control" autocomplete="off" (keypress)="omit_special_char_empCode($event)" onKeyPress="if(this.value.length==8) return false;" id="userName" formControlName="userName" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
+                                    <input type="text" class="form-control" autocomplete="off" onKeyPress="if(this.value.length==8) return false;" id="userName" formControlName="userName" [ngClass]="{ 'is-invalid': addInstituteFormubmitted && f.userName.errors }">
                                     <div *ngIf="addInstituteFormubmitted && f.userName.errors" class="invalid-feedback">Employee Code is required</div>
                                 </div>
                            

@@ -277,7 +277,7 @@ export class BasicProfileComponent implements OnInit {
           fullName:  this.emplyeeData['teacherName'],
           gender: this.emplyeeData['teacherGender'],
           dob: this.emplyeeData['teacherDob'],
-          empCode:this.emplyeeData['teacherEmployeeCode'],
+          empCode:this.emplyeeData['teacherEmployeeCode'].trim(),
           mobile: this.emplyeeData['teacherMobile'],
           socialCategories: this.emplyeeData['socialCategories'],
           socialSubCategories: this.emplyeeData['socialSubCategories'],
