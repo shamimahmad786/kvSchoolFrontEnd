@@ -27,6 +27,8 @@ export class RegionDashboardComponent implements OnInit {
   stationList:any;
   loginUserNameForChild:any;
   options: any;
+  regionWiseEmployeeDetail:any;
+  regionWiseEmployeeDetailGenderData: any;
   dashboardDetails:any;
   stationTotal:any;
   teachingMaleFemaleTotal: any;
@@ -39,6 +41,32 @@ export class RegionDashboardComponent implements OnInit {
   showsecondButtonColor: boolean = false;
   activePaneOne: boolean = true;
   activePaneTwo: boolean = false;
+  regionWiseEmplCount: number = 0;
+  teachingFeMaleCount: number = 0;
+  teachingMaleCount:number = 0;
+  nonTeachingMaleCount: number = 0;
+  nonTeachingFeMaleCount: number = 0;
+  teachingUnspecifiedCount: number = 0;
+  nonTeachingUnspecifiedCount: number = 0;
+  allResultDaata: any = new Array();
+  allRegioWiseData: any = new Array();
+  rowData: any = new Array();
+  allResData: any;
+  rows: any;
+  reportIdAction: any;
+
+  regionWiseArray: any = new Array();
+  newRegionArray: any;
+
+  regionNameinArray: any;
+  regionNameGenderinArray: any;
+  rowanyData: any = new Array();
+  teachingMaleCountArray: any = new Array();
+  teachingFemaleCountArray: any = new Array();
+  teachingUnspecifiedCountArray: any = new Array();
+  nonTeachingMaleCountArray: any = new Array();
+  nonTeachingFemaleCountArray: any = new Array();
+  nonTeachingUnspecifiedCountArray: any = new Array();
   constructor(public outSideService: OutsideServicesService,private router: Router) {    }
   ngOnInit(): void {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
@@ -85,35 +113,8 @@ export class RegionDashboardComponent implements OnInit {
         })
       });
 
-      // var data = {
-      //   "businessUnitTypeId": this.businessUnitTypeId,
-      //   "businessUnitTypeCode": this.businessUnitTypeCode
-      // }
-      
-      // this.outSideService.fetchDashboardData(data).subscribe((res) => {
-        
-      //   this.dashboardData = res.response;
-
-      //   this.totalTeachingStaff = this.dashboardData.teachingRegular * 1 + this.dashboardData.teachingContractual * 1
-      //   this.nontotalTeachingStaff = this.dashboardData.nonteachingContractual * 1 + this.dashboardData.nonteachingRegular * 1
-
-      //   this.teachingNotVerified = this.dashboardData.teachingTi * 1 +
-      //     this.dashboardData.teachingTa * 1 +
-      //     this.dashboardData.teachingSi * 1 +
-      //     this.dashboardData.teachingNi * 1
-
-      //   this.nonteachingNotVerified = this.dashboardData.nonteachingNi * 1 +
-      //     this.dashboardData.nonteachingSi * 1 +
-      //     this.dashboardData.nonteachingTa * 1 +
-      //     this.dashboardData.nonteachingTi * 1
-
-
-
-
-      // })
-      // this.showNational = true;
+   
     } else if (this.businessUnitTypeId == '3') {
-
       var dashBoardDataRo={
         "regionCode":this.businessUnitTypeCode,
         "dashboardType":"R"
@@ -133,10 +134,6 @@ export class RegionDashboardComponent implements OnInit {
           'text':'You are not Authorized.'
         })
       });
-
-
-
-
 
       // this.showRegion = true;
       var data = {
@@ -162,6 +159,10 @@ export class RegionDashboardComponent implements OnInit {
       // this.showSchool = true;
     }
 this.getdropBoxDetail();
+this.getTotalRegionEmployee();
+//this.regionWiseEmployeeDetailinBarChart()
+this.getTotalRegionEmployeeByGender()
+
   }
   navColor(nav:any){
     if(nav=='transferin')
@@ -240,10 +241,10 @@ if(this.dropBoxDetail[i]['employeedropid'] == 6){
  }
   this.dropBoxValue.push(data)
 }
-this.dropBoxDetailinPieChart();
+
 }
   })
- 
+  this.dropBoxDetailinPieChart();
 }
 
 dropBoxDetailinPieChart(){
@@ -278,6 +279,7 @@ console.log("drop box type---------")
       }
     ]
   };
+
 }
 
 
@@ -400,6 +402,294 @@ console.log("drop box type---------")
       // this.getKvTeacherByUdiseCode();
     }
 
+
+    getTotalRegionEmployee() {
+      this.allResultDaata=[]; 
+      this.rowData = [];
+      var data = {
+        reportId: '1004',
+        region: '99',
+        station: 'All',
+        school: '',
+      };
+      this.outSideService.getReportByID(data).subscribe((res) => {
+        this.allResData = res;
+        this.rows = res.rowValue;
+        this.allResultDaata = res.rowValue;
+        if (this.allResultDaata.length > 0) {
+          this.regionWiseEmplCount = 0;
+          this.rowData = [];
+            var groupByEnrolementDate = function (xs: any, key: any) {
+              return xs.reduce(function (rv: any, x: any) {
+                (rv[x[key]] = rv[x[key]] || []).push(x);
+                return rv;
+              }, {});
+            };
+            var groubedByEnrolmentDateResult = groupByEnrolementDate(
+              this.allResultDaata,
+              'region_name'
+            );
+            this.regionWiseArray = Object.entries(groubedByEnrolmentDateResult);
+            console.log(this.regionWiseArray);
+            for (let i = 0; i < this.regionWiseArray.length; i++) {
+              this.newRegionArray = this.regionWiseArray[i];
+              this.regionNameinArray = this.regionWiseArray[i][0];
+              this.regionWiseEmplCount = 0;
+      
+              for (let j = 0; j < this.newRegionArray[1].length; j++) {
+                  this.regionWiseEmplCount = this.regionWiseEmplCount + this.newRegionArray[1][j]['count'];
+                  var data ={
+                    value: this.regionWiseEmplCount,
+                    name: this.regionNameinArray,
+                 }
+                }
+                this.rowData.push(data);
+              } 
+            }
+            this.regionWiseEmployeeDetailinPieChart();
+      });
+     
+    }
+
+  regionWiseEmployeeDetailinPieChart(){
+      console.log("drop box type---------")
+        console.log( this.rowData)
+        this.regionWiseEmployeeDetail = {
+          title: {
+            text: 'Total number of employees region Wise',
+            // subtext: 'Fake Data',
+            left: 'center'
+          },
+          tooltip: {
+            trigger: 'item'
+          },
+          // legend: {
+          //   orient: 'vertical',
+          // //  left: 'left'
+          // },
+          series: [
+            {
+              name: 'Type',
+              type: 'pie',
+              radius: '60%',
+              data:this.rowData,
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              }
+            }
+          ]
+        };
+      
+      }
+      
+      getTotalRegionEmployeeByGender(){
+        this.allResultDaata=[]; 
+        this.rowData = [];
+        var data = {
+          reportId: '1004',
+          region: '1',
+          station: 'All',
+          school: '',
+        };
+ 
+        this.outSideService.getReportByID(data).subscribe((res) => {
+          this.allRegioWiseData = res.rowValue;
+          if (this.allRegioWiseData.length > 0) {
+            this.teachingMaleCount = 0;
+            this.teachingFeMaleCount = 0;
+            this.nonTeachingMaleCount = 0;
+            this.nonTeachingFeMaleCount = 0;
+            this.teachingUnspecifiedCount = 0;
+            this.nonTeachingUnspecifiedCount = 0;
+            this.rowData = [];
+         
+            for (let i = 0; i < this.allRegioWiseData.length; i++) {
+              if (
+                this.allRegioWiseData[i]['teaching_nonteaching'] == 1 &&
+                this.allRegioWiseData[i]['teacher_gender'] == 1
+              ) {
+                var data ={
+                  value: this.allRegioWiseData[i]['count'],
+               }
+               this.teachingMaleCountArray.push(data)
+              }
+              if (
+                this.allRegioWiseData[i]['teaching_nonteaching'] == 1 &&
+                this.allRegioWiseData[i]['teacher_gender'] == 2
+              ) {
+              
+                  var data ={
+                    value: this.allRegioWiseData[i]['count'],
+                 }
+                 this.teachingFemaleCountArray.push(data)
+
+              }
+              if (
+                this.allRegioWiseData[i]['teaching_nonteaching'] == 1 &&
+                this.allRegioWiseData[i]['teacher_gender'] == null
+              ) {
+
+                  var data ={
+                    value: this.allRegioWiseData[i]['count'],
+                 }
+                 this.teachingUnspecifiedCountArray.push(data)
+              }
+  
+              if (
+                this.allRegioWiseData[i]['teaching_nonteaching'] == 2 &&
+                this.allRegioWiseData[i]['teacher_gender'] == 1
+              ) {
+       
+                  var data ={
+                    value: this.allRegioWiseData[i]['count'],
+                 }
+                 this.nonTeachingMaleCountArray.push(data)
+              }
+              if (
+                this.allRegioWiseData[i]['teaching_nonteaching'] == 2 &&
+                this.allRegioWiseData[i]['teacher_gender'] == 2
+              ) {
+           
+
+                  var data ={
+                    value: this.allRegioWiseData[i]['count'],
+                 }
+                 this.nonTeachingFemaleCountArray.push(data)
+              }
+              if (
+                this.allRegioWiseData[i]['teaching_nonteaching'] == 2 &&
+                this.allRegioWiseData[i]['teacher_gender'] == null
+              ) {
+                var data ={
+                  value: this.allRegioWiseData[i]['count'],
+               }
+               this.nonTeachingUnspecifiedCountArray.push(data)
+              }
+            }
+
+
+
+
+
+
+
+              console.log('row data----------');
+            
+          } 
+          this.regionWiseEmployeeDetailinBarChart()
+        });
+      }
+
+
+
+      
+
+
+      regionWiseEmployeeDetailinBarChart(){
+        console.log("drop box type---------")
+          console.log( this.rowData)
+          this.regionWiseEmployeeDetailGenderData = {
+              tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                  type: 'shadow'
+                }
+              },
+              legend: {
+                data: ['Teaching male', 'Teaching Female', 'NonTeaching male', 'NonTeaching Female','Teaching Unspecified', 'Non-Teaching Unspecified']
+              },
+              toolbox: {
+                show: true,
+                orient: 'vertical',
+                left: 'right',
+                top: 'center',
+                feature: {
+                  mark: { show: true },
+                  dataView: { show: true, readOnly: false },
+                  magicType: { show: true, type: ['line', 'bar', 'stack'] },
+                  restore: { show: true },
+                  saveAsImage: { show: true }
+                }
+              },
+              xAxis: [
+                {
+                  type: 'category',
+                  axisTick: { show: false },
+                  data: ['Ahmdabd']
+                }
+              ],
+              yAxis: [
+                {
+                  type: 'value'
+                }
+              ],
+              series: [
+                {
+                  name: 'Forest',
+                  type: 'bar',
+                  barGap: 0,
+                 
+                  emphasis: {
+                    focus: 'series'
+                  },
+                  data: this.teachingMaleCountArray
+                },
+                {
+                  name: 'Steppe',
+                  type: 'bar',
+               
+                  emphasis: {
+                    focus: 'series'
+                  },
+                  data:  this.teachingFemaleCountArray
+                },
+                {
+                  name: 'Desert',
+                  type: 'bar',
+               
+                  emphasis: {
+                    focus: 'series'
+                  },
+                  data:  this.nonTeachingMaleCountArray
+                },
+                {
+                  name: 'Wetland',
+                  type: 'bar',
+                
+                  emphasis: {
+                    focus: 'series'
+                  },
+                  data: this.nonTeachingFemaleCountArray
+                },
+                {
+                  name: 'Wetland',
+                  type: 'bar',
+                
+                  emphasis: {
+                    focus: 'series'
+                  },
+                  data: this.teachingUnspecifiedCountArray
+                },
+                {
+                  name: 'Wetland',
+                  type: 'bar',
+                
+                  emphasis: {
+                    focus: 'series'
+                  },
+                  data: this.nonTeachingUnspecifiedCountArray
+                },
+            
+              ]
+            };
+            
+        
+        
+        }
   }
 
 
