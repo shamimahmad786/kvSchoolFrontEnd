@@ -317,7 +317,7 @@
                 <div class="row justify-content-center d-flex  profile-info mt-3">
                     <div class="col-lg-12">
                         <div class="card p-4">
-                            <h1 class="my-0 TolTeacherValue">Region wise</h1>
+                            <!-- <h1 class="my-0 TolTeacherValue">Region wise</h1> -->
                             <div class="row">
 
                                 <div class="col-md-6">
@@ -337,6 +337,30 @@
                         </div>
 
                         <div class="card p-4 my-4">
+                            <!-- <h1 class="my-0 TolTeacherValue">School Detail</h1> -->
+                            <div class="row mt-2 ">
+
+                                <div class="col-md-6">
+                                    <div class="card p-4">
+                                        <div echarts [options]="regionWiseSchoolDetail"
+                                                class="demo-chart">
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card p-4">
+                                        <div id="main">
+                                            <div echarts [options]="stationWiseCategory"
+                                                class="demo-chart">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 my-4">
                             <h1 class="my-0 TolTeacherValue">Dropbox Detail</h1>
                             <div class="row mt-2 ">
 
@@ -348,26 +372,18 @@
                                 <div class="col-md-6">
                                     <div class="card p-4">
                                         <div id="main">
-                                            <div echarts [options]="regionWiseEmployeeDetailGenderData"
+                                            <!-- <div echarts [options]="regionWiseEmployeeDetailGenderData"
                                                 class="demo-chart">
-                                            </div>
+                                            </div> -->
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-
-                        <!---card two------------------------>
                     </div>
                 </div><!--close row-->
             </div> <!--close first  tab-->
-            <!------------------------------------------------- first tab end  here---------------------------------->
-
-            <!------------------------------------------------- secand tab start  here------------------------------->
-
-            <!------------------------------close secand  tab-------------------------------------------------------->
         </div>
     </div><!--close main-content-info-->
 </div><!--close dashboard-main-content-->

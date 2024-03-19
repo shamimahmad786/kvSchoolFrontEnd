@@ -67,7 +67,12 @@ export class RegionDashboardComponent implements OnInit {
   nonTeachingMaleCountArray: any = new Array();
   nonTeachingFemaleCountArray: any = new Array();
   nonTeachingUnspecifiedCountArray: any = new Array();
+  totalSchoolsInRegion: any = new Array();
+  stationWiseCatArray: any = new Array();
   regionName: any;
+  regionWiseSchoolDetails: any;
+  regionWiseSchoolDetail:any;
+  stationWiseCategory:any;
   constructor(public outSideService: OutsideServicesService,private router: Router) {    }
   ngOnInit(): void {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
@@ -85,12 +90,6 @@ export class RegionDashboardComponent implements OnInit {
       }
     }
     this.getKvRegion();
-
-    // if (this.kvicons?.includes(this.applicationId)) {
-    //   this.kvIfConditions = true;
-    // }else{
-    //   this.kvIfConditions = false;
-    // }
     if (this.businessUnitTypeId == '2') {
 
       var dashBoardDataNationtion={
@@ -105,6 +104,7 @@ export class RegionDashboardComponent implements OnInit {
         this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
         this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
         this.inPositionTotal=this.teachingMaleFemaleTotal+this.nonTeachingMaleFemaleTotal
+        this.getStationCategory();
         //  this.router.navigate(['/teacher/controler-management'])
       },
       error => { 
@@ -128,6 +128,7 @@ export class RegionDashboardComponent implements OnInit {
         this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
         this.inPositionTotal=this.teachingMaleFemaleTotal+this.nonTeachingMaleFemaleTotal;
         //  this.router.navigate(['/teacher/controler-management'])
+        
       },
       error => { 
         Swal.fire({
@@ -161,7 +162,6 @@ export class RegionDashboardComponent implements OnInit {
     }
 this.getdropBoxDetail();
 this.getTotalRegionEmployee();
-//this.regionWiseEmployeeDetailinBarChart()
 var data1 = {
   reportId: '1004',
   region: '1',
@@ -170,6 +170,7 @@ var data1 = {
 };
 this.regionName='AHMEDABAD';
 this.getTotalRegionEmployeeByGender(data1)
+this.getTotalRegionSchoolDetail();
 
   }
   navColor(nav:any){
@@ -260,7 +261,7 @@ console.log("drop box type---------")
   console.log( this.dropBoxValue)
   this.options = {
     title: {
-      text: 'Total number of employees available in dropbox',
+      text: 'Total Number of Employees Available in Dropbox',
       // subtext: 'Fake Data',
       left: 'center'
     },
@@ -278,7 +279,7 @@ console.log("drop box type---------")
     series: [
       {
         radius: ['40%', '70%'],
-        name: 'Type',
+        name: 'Dropbox',
         type: 'pie',
         //radius: '60%',
         data:this.dropBoxValue,
@@ -293,10 +294,7 @@ console.log("drop box type---------")
       }
     ]
   };
-
 }
-
-
   getMaster(data, business_unit_type_id) {
       this.outSideService.getMasterData(data).subscribe((res) => {
         
@@ -304,8 +302,6 @@ console.log("drop box type---------")
         sessionStorage.setItem("mappingData", JSON.stringify(data1));
         
         this.kvSchoolDetails = JSON.parse(JSON.stringify(res.response)).rowValue[0];
-        // this.getKvTeacherByUdiseCode();
-        
       })
     }
 
@@ -371,12 +367,9 @@ console.log("drop box type---------")
       this.outSideService.fetchKvSchoolByStationCode(val).subscribe((res)=>{
         this.kvSchoolList = res.response;
         this.stationCode1 = res.response[0].stationCode;
-        this.regionCode = res.response[0].regionCode;
-        // this.getStationByRegionId(res.response[0].regionCode);
-        
+        this.regionCode = res.response[0].regionCode;        
       })
     }
-  
   
     onSchoolSelect(val){
   
@@ -406,14 +399,8 @@ console.log("drop box type---------")
       
       var str = val;
       var splitted = str.split("-", 2);
-      
-      // this.udiseSchoolCode = splitted[0];
-      // this.businessUnitTypeCode = splitted[1];
       this.kvCode = splitted[1];
       sessionStorage.setItem('kvCode',this.kvCode)
-      // this.nationalLogin = true;
-      // this.getSchoolDetailsByKvCode();
-      // this.getKvTeacherByUdiseCode();
     }
 
 
@@ -470,17 +457,19 @@ console.log("drop box type---------")
         console.log( this.rowData)
         this.regionWiseEmployeeDetail = {
           title: {
-            text: 'Total number of employees region Wise',
+            text: 'Total Number of Employees (Region Wise)',
             // subtext: 'Fake Data',
             left: 'center'
           },
           tooltip: {
-            trigger: 'item'
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)'
           },
           // legend: {
           //   orient: 'vertical',
           // //  left: 'left'
           // },
+          
           series: [
             {
               
@@ -499,6 +488,10 @@ console.log("drop box type---------")
               }
             }
           ],
+          label: {
+            show: true,
+            formatter: '{b} ({d}%)'
+          },
           emphasis: {
             itemStyle: {
               shadowBlur: 10,
@@ -538,9 +531,6 @@ console.log("drop box type---------")
             this.nonTeachingFeMaleCount = 0;
             this.teachingUnspecifiedCount = 0;
             this.nonTeachingUnspecifiedCount = 0;
-           
-            console.log("all  data")
-         console.log(this.allRegioWiseData)
             for (let i = 0; i < this.allRegioWiseData.length; i++) {
               if (
                 this.allRegioWiseData[i]['teaching_nonteaching'] == 1 &&
@@ -560,8 +550,6 @@ console.log("drop box type---------")
                     value: this.allRegioWiseData[i]['count'],
                  }
                  this.teachingMaleCountArray.push(data)
-               //  this.teachingFemaleCountArray.push(data)
-
               }
               if (
                 this.allRegioWiseData[i]['teaching_nonteaching'] == 1 &&
@@ -612,12 +600,6 @@ console.log("drop box type---------")
       }
     
       regionWiseEmployeeDetailinBarChart(){
-        console.log("drop box type---------")
-
-
-        console.log(this.teachingMaleCountArray)
-        console.log(this.teachingFemaleCountArray)
-     
           this.regionWiseEmployeeDetailGenderData =  {
             title: {
               text: 'Region wise employees (Staff Type)',
@@ -635,13 +617,6 @@ console.log("drop box type---------")
                 }
               }
             },
-             
-              // toolbox: {
-              //   show: true,
-              //   orient: 'vertical',
-              //   left: 'right',
-              //   top: 'center',
-              // },
               xAxis: [
                 {
                   type: 'category',
@@ -690,6 +665,131 @@ console.log("drop box type---------")
             };
         
         }
-  }
+        getTotalRegionSchoolDetail(){
+          let request={};
+          this.totalSchoolsInRegion=[];
+         this.outSideService.getStationSchoolCountByRegion(request,this.loginUserNameForChild).subscribe((res)=>{
+
+         this.regionWiseSchoolDetails=res.rowValue
+
+
+          for (let i = 0; i < this.regionWiseSchoolDetails.length; i++) {
+            var data ={
+            value: this.regionWiseSchoolDetails[i]['school_count'],
+            name: this.regionWiseSchoolDetails[i]['region_name'],
+            }
+           this.totalSchoolsInRegion.push(data);
+      }
+   
+  })
+  this.regionWiseSchoolDetailInPieChart()
+}
+regionWiseSchoolDetailInPieChart()
+{
+  this.regionWiseSchoolDetail={
+    title: {
+      text: 'Region wise schools',
+      // subtext: 'Fake Data',
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    // legend: {
+    //   orient: 'vertical',
+    // //  left: 'left'
+    // },
+    series: [
+      {
+        
+        name: 'Total School',
+        type: 'pie',
+        radius: '70%',
+       
+        data:this.totalSchoolsInRegion,
+        selectedMode: 'single',
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ],
+    emphasis: {
+      itemStyle: {
+        shadowBlur: 10,
+        shadowOffsetX: 0,
+        shadowColor: 'rgba(0, 0, 0, 0.5)'
+      }
+    }
+  };
+}
+getStationCategory(){
+  debugger
+  console.log("--------get category-----------")
+  console.log(this.dashboardDetails)
+  this.stationWiseCatArray=[];      
+ this.stationWiseCatArray.push(this.dashboardDetails['totalNormalStation']);
+ this.stationWiseCatArray.push(this.dashboardDetails['totalPriorityStation']);
+ this.stationWiseCatArray.push( this.dashboardDetails['totalHardStation']);
+ this.stationWiseCatArray.push(this.dashboardDetails['totalVeryHardStation']);
+ this.stationWiseCatArray.push(this.dashboardDetails['totalNerStation']);
+console.log(this.stationWiseCatArray)
+this.stationWiseCategoryBarChart();
+}
+
+stationWiseCategoryBarChart(){
+
+  this.stationWiseCategory = {
+    title: {
+      text: 'Category wise station',
+      // subtext: 'Fake Data',
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: [
+      {
+        type: 'category',
+        data: ['Normal', 'Priority', 'Hard', 'Very Hard', 'NER'],
+        axisTick: {
+          alignWithLabel: true
+        }
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
+    label: {
+      show: true,
+      position: 'top',
+      color: "black",
+      fontSize:12,
+  },
+    series: [
+      {
+        name: 'Total',
+        type: 'bar',
+        barWidth: '60%',
+        data:this.stationWiseCatArray
+      }
+    ]
+  };
+}
+}
 
 
