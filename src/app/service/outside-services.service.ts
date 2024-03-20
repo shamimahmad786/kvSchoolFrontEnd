@@ -906,6 +906,50 @@ fetchDashboardData(data){
     return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getDashboard", data, {headers})
 
 }
+
+
+getDashboardEmployeeDetails(){  
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
+    });  
+    return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getDashboardEmployeeDetails",{headers})
+
+}
+
+getNoOfEmployeeRegionSchoolWiseExcludeDropbox(){  
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+    var headers = new HttpHeaders({
+      'Authorization':token,
+      'Content-Type': 'text/plain; charset=utf-8',
+    });  
+    return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfEmployeeRegionSchoolWiseExcludeDropbox",{headers})
+
+}
+
+getNoOfEmployeeRegionSchoolWiseIncludeDropbox(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfEmployeeRegionSchoolWiseIncludeDropbox",{headers})
+}
+
+
+
+
+getNoOfEmployeeRegionSchoolWiseDropbox(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfEmployeeRegionSchoolWiseDropbox",{headers})
+}
+
+
 getRoDashboard(data,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({

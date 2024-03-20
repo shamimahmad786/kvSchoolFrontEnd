@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { OutsideServicesService } from 'src/app/service/outside-services.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import * as echarts from 'echarts';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ColDef, RowGroupingDisplayType } from 'ag-grid-community';
 @Component({
   selector: 'app-region-dashboard',
   templateUrl: './region-dashboard.component.html',
   styleUrls: ['./region-dashboard.component.css']
 })
 export class RegionDashboardComponent implements OnInit {
+  @ViewChild('AllDropBox', { static: true }) AllDropBox: TemplateRef<any>;
   kvicons: any;
   businessUnitTypeId: any;
   businessUnitTypeCode: any;
@@ -51,6 +54,7 @@ export class RegionDashboardComponent implements OnInit {
   allResultDaata: any = new Array();
   allRegioWiseData: any = new Array();
   rowData: any = new Array();
+  dropBoxRowData: any = new Array();
   allResData: any;
   rows: any;
   reportIdAction: any;
@@ -69,11 +73,23 @@ export class RegionDashboardComponent implements OnInit {
   nonTeachingUnspecifiedCountArray: any = new Array();
   totalSchoolsInRegion: any = new Array();
   stationWiseCatArray: any = new Array();
+  allDropoxDta: any = new Array();
+  rowanyDataForWithOutDropBox: any = new Array();
   regionName: any;
   regionWiseSchoolDetails: any;
   regionWiseSchoolDetail:any;
   stationWiseCategory:any;
-  constructor(public outSideService: OutsideServicesService,private router: Router) {    }
+  allEmplDetails: any;
+  getRegionWiseEmployeeAge:any;
+  regionWiseEmployeeAge:any;
+  empoyeeUnderAge:any;
+  dropBoxSrNo:any;
+  dropBoxRegionName:any;
+  dropBoxKvName:any;
+  dropBoxNOOfEmplAddUpdatedthis:any;
+  columnDefs: any = [];
+  dropboxName: string;
+  constructor(public outSideService: OutsideServicesService,private router: Router,private modalService: NgbModal) {    }
   ngOnInit(): void {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
@@ -169,8 +185,12 @@ var data1 = {
   school: '',
 };
 this.regionName='AHMEDABAD';
+this.empoyeeUnderAge='Under 30';
 this.getTotalRegionEmployeeByGender(data1)
 this.getTotalRegionSchoolDetail();
+this.getDashboardEmployeeDetails();
+this.getRegionWiseEmployeeAgeData();
+
 
   }
   navColor(nav:any){
@@ -294,6 +314,160 @@ console.log("drop box type---------")
       }
     ]
   };
+}
+
+getDashboardEmployeeDetails(){
+  this.outSideService.getDashboardEmployeeDetails().subscribe((res)=>{
+    this.allEmplDetails = res;
+  })
+}
+withOUtDroBoxClick(event:any){
+  this.allDropoxDta=[];
+  this.dropBoxRowData=[];
+
+
+  if(event=='IndropBox')
+  {
+    this.dropboxName='In Dropbox';
+  this.outSideService.getNoOfEmployeeRegionSchoolWiseDropbox().subscribe((res)=>{
+    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+  //  this.allEmplDetails = res;
+    console.log("----in drop box----")
+    console.log(res)
+    this.allDropoxDta=res;
+    this.dropBoxSrNo=[];
+    this.dropBoxRegionName=[];
+    this.dropBoxKvName=[];
+    this.dropBoxNOOfEmplAddUpdatedthis=[];
+    this.rowanyDataForWithOutDropBox=[];
+  for (let i = 0; i < this.allDropoxDta.length; i++) {
+    this.dropBoxSrNo=i+1;
+    this.dropBoxRegionName =this.allDropoxDta[i]['region_name'];
+    this.dropBoxKvName =this.allDropoxDta[i]['kv_name'];
+    this.dropBoxNOOfEmplAddUpdatedthis=this.allDropoxDta[i]['noofempprofileaddedupdated'];
+    this.rowanyDataForWithOutDropBox = [
+      {
+        SrNo: this.dropBoxSrNo,
+        RegionName: this.dropBoxRegionName,
+        KvName: this.dropBoxKvName,
+        EmpAddUpDated: this.dropBoxNOOfEmplAddUpdatedthis,
+      },
+    ];
+
+    this.dropBoxRowData.push(this.rowanyDataForWithOutDropBox[0]);
+  }
+  this.columnDefs = [
+    {headerName: 'S.No', field: 'SrNo' },
+    {headerName: "Region Name", field: "RegionName",},
+    {headerName: "KV/RO/HQ Name", field: "KvName",},
+    {headerName: "No.of Profiles Updated", field: "EmpAddUpDated",},
+  ];
+  })
+  }
+
+  if(event=='with')
+  {
+    this.dropboxName='Total Employees';
+  this.outSideService.getNoOfEmployeeRegionSchoolWiseIncludeDropbox().subscribe((res)=>{
+    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+  //  this.allEmplDetails = res;
+    this.allDropoxDta=res;
+    this.dropBoxSrNo=[];
+    this.dropBoxRegionName=[];
+    this.dropBoxKvName=[];
+    this.dropBoxNOOfEmplAddUpdatedthis=[];
+    this.rowanyDataForWithOutDropBox=[];
+  for (let i = 0; i < this.allDropoxDta.length; i++) {
+    this.dropBoxSrNo=i+1;
+    this.dropBoxRegionName =this.allDropoxDta[i]['region_name'];
+    this.dropBoxKvName =this.allDropoxDta[i]['kv_name'];
+    this.dropBoxNOOfEmplAddUpdatedthis=this.allDropoxDta[i]['noofempprofileaddedupdated'];
+    this.rowanyDataForWithOutDropBox = [
+      {
+        SrNo: this.dropBoxSrNo,
+        RegionName: this.dropBoxRegionName,
+        KvName: this.dropBoxKvName,
+        EmpAddUpDated: this.dropBoxNOOfEmplAddUpdatedthis,
+      },
+    ];
+
+    this.dropBoxRowData.push(this.rowanyDataForWithOutDropBox[0]);
+  }
+  this.columnDefs = [
+    {headerName: 'S.No', field: 'SrNo' },
+    {headerName: "Region Name", field: "RegionName",},
+    {headerName: "KV/RO/HQ Name", field: "KvName",},
+    {headerName: "No.of Profiles Updated", field: "EmpAddUpDated",},
+  ];
+  })
+}
+
+if(event=='without')
+  {
+    this.dropboxName='In Institute';
+  this.outSideService.getNoOfEmployeeRegionSchoolWiseExcludeDropbox().subscribe((res)=>{
+    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+    console.log(res);
+  //  this.allEmplDetails = res;
+    this.allDropoxDta=res;
+    this.dropBoxSrNo=[];
+    this.dropBoxRegionName=[];
+    this.dropBoxKvName=[];
+    this.dropBoxNOOfEmplAddUpdatedthis=[];
+    this.rowanyDataForWithOutDropBox=[];
+  for (let i = 0; i < this.allDropoxDta.length; i++) {
+    this.dropBoxSrNo=i+1;
+    this.dropBoxRegionName =this.allDropoxDta[i]['region_name'];
+    this.dropBoxKvName =this.allDropoxDta[i]['kv_name'];
+    this.dropBoxNOOfEmplAddUpdatedthis=this.allDropoxDta[i]['noofempprofileaddedupdated'];
+    this.rowanyDataForWithOutDropBox = [
+      {
+        SrNo: this.dropBoxSrNo,
+        RegionName: this.dropBoxRegionName,
+        KvName: this.dropBoxKvName,
+        EmpAddUpDated: this.dropBoxNOOfEmplAddUpdatedthis,
+      },
+    ];
+
+    this.dropBoxRowData.push(this.rowanyDataForWithOutDropBox[0]);
+  }
+  this.columnDefs = [
+    {headerName: 'S.No', field: 'SrNo' },
+    {headerName: "Region Name", field: "RegionName",},
+    {headerName: "KV/RO/HQ Name", field: "KvName",},
+    {headerName: "No.of Profiles Updated", field: "EmpAddUpDated",},
+  ];
+  })
+}
+
+
+}
+public defaultColDef: ColDef = {
+  flex: 1,
+  minWidth: 150,
+  filter: true,
+  sortable: true,
+  floatingFilter: true,
+  resizable: true,
+};
+public groupDisplayType: RowGroupingDisplayType = 'multipleColumns';
+  gridOptions = {
+    defaultColDef: {
+      sortable: true,
+      resizable: true,
+      filter: true,
+    },
+    // debug: true,
+    columnDefs: this.columnDefs,
+    suppressAggFuncInHeader: true,
+    rowData: null,
+  };
+
+  public autoGroupColumnDef: ColDef = {
+    minWidth: 220,
+  };
+cancelModal() {
+  this.modalService.dismissAll();
 }
   getMaster(data, business_unit_type_id) {
       this.outSideService.getMasterData(data).subscribe((res) => {
@@ -472,11 +646,9 @@ console.log("drop box type---------")
           
           series: [
             {
-              
               name: 'Total Employee',
               type: 'pie',
               radius: '70%',
-             
               data:this.rowData,
               selectedMode: 'single',
               emphasis: {
@@ -503,7 +675,7 @@ console.log("drop box type---------")
       
       }
       onChartEvent(event: any, type: string) {
-        console.log('chart event:', type, event.name);
+        console.log('chart event:', type, event);
        this.regionName=event.name
         for (let i = 0; i < this.regionList.rowValue.length; i++) {
           if( this.regionList.rowValue[i]['regionName']==event.name){
@@ -617,6 +789,16 @@ console.log("drop box type---------")
                 }
               }
             },
+            legend: {
+             
+              type: 'scroll',
+              orient: 'horizontal',
+              right: 280,
+              top: 370,
+              bottom: 20,
+              data: ['Male', 'Female', ]
+              // ...
+            },
               xAxis: [
                 {
                   type: 'category',
@@ -642,19 +824,15 @@ console.log("drop box type---------")
             },
               series: [
                 {
-                  
                   name: 'Male',
                   type: 'bar',
                   barGap: 0,
-                 
-                
                   data: this.teachingMaleCountArray
                 },
                
                 {
                   name: 'Female',
                   type: 'bar',
-                 
                   data:  this.nonTeachingMaleCountArray
                 },
               
@@ -790,6 +968,107 @@ stationWiseCategoryBarChart(){
     ]
   };
 }
+
+getRegionWiseEmployeeAgeData(){
+  this.getRegionWiseEmployeeAge = {
+    title: {
+      text: 'Employee Detail Age Wise',
+      // subtext: 'Fake Data',
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left'
+    },
+    series: [
+      {
+        name: 'Employee Count',
+        type: 'pie',
+        radius: '50%',
+        data: [
+          { value: 1048, name: 'Under 30' },
+          { value: 735, name: 'Under 40' },
+          { value: 580, name: 'Under 50' },
+          { value: 484, name: 'under 60' }
+        ],
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  };
+  this.getEmployeeAgeRegionWise()
+
+}
+
+onChartEventEmployeeAgeRegionWise(event: any, type: string) {
+  console.log('chart event:', type, event);
+ this.empoyeeUnderAge=event.name
+  // for (let i = 0; i < this.regionList.rowValue.length; i++) {
+  //   if( this.regionList.rowValue[i]['regionName']==event.name){
+  //     var data = {
+  //       reportId: '1004',
+  //       region: this.regionList.rowValue[i]['regionCode'],
+  //       station: 'All',
+  //       school: '',
+  //     };
+  //   }
+  // }   
+  this.getEmployeeAgeRegionWise()
+}
+
+
+
+
+getEmployeeAgeRegionWise() {
+// console.log(event)
+
+this.regionWiseEmployeeAge = {
+  title: {
+    text: 'Employee Detail Age Wise (In Regions)',
+     subtext: this.empoyeeUnderAge,
+    left: 'center'
+  },
+   tooltip: {
+      trigger: 'item'
+    },
+  xAxis: {
+    data: ['DELHI', 'ARGA', 'BHOPAL', 'JAIPUR', 'PATNA','AHMEDABAD','BENGALURU','BHUBNESWAR','CHANDIHARH','CHENAI','DEHRADUN','EARNAKULAM','GURUGRAM','GUWAHATI','HYDERABAD','JABALPUR','JAMMU','KOLKATA','LUCKNOW','MUMBAI','RANCHI','SILCHAR','TISUKIA','VARANASI'],
+    axisLabel: {
+      show: true,
+      interval: 0,
+      rotate: 45,
+    },
+    axisTick: {
+      show: true,
+      interval: 0
+    }
+  
+  
+  },
+  yAxis: {},
+  series: [
+    {
+      data: [10, 22, 28, 43, 49,10, 22, 28, 43, 49,10, 22, 28, 43, 49,10, 22, 28, 43, 49,10, 22, 28, 43, 49],
+      type: 'bar',
+      stack: 'x'
+    },
+    {
+      data: [5, 4, 3, 5, 10,10, 22, 28, 43, 49,10, 22, 28, 43, 49,10, 22, 28, 43, 49,10, 22, 28, 43, 49],
+      type: 'bar',
+      stack: 'x'
+    }
+  ]
+};
+}
+
 }
 
 
