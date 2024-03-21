@@ -87,8 +87,13 @@ export class RegionDashboardComponent implements OnInit {
   dropBoxRegionName:any;
   dropBoxKvName:any;
   dropBoxNOOfEmplAddUpdatedthis:any;
+  stationWiseSchoolArray: any = new Array()
+  totalStationInRegion: any = new Array()
+  totalStationInRegionCount: any = new Array()
+  stationWiseSchoolInBarChart:any;
   columnDefs: any = [];
   dropboxName: string;
+  regionStationName: string;
   constructor(public outSideService: OutsideServicesService,private router: Router,private modalService: NgbModal) {    }
   ngOnInit(): void {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
@@ -190,8 +195,8 @@ this.getTotalRegionEmployeeByGender(data1)
 this.getTotalRegionSchoolDetail();
 this.getDashboardEmployeeDetails();
 this.getRegionWiseEmployeeAgeData();
-
-
+this.regionStationName='AHMEDABAD';
+this.onChartEventRegionWiseSchool(this.regionStationName);
   }
   navColor(nav:any){
     if(nav=='transferin')
@@ -849,8 +854,6 @@ cancelModal() {
          this.outSideService.getStationSchoolCountByRegion(request,this.loginUserNameForChild).subscribe((res)=>{
 
          this.regionWiseSchoolDetails=res.rowValue
-
-
           for (let i = 0; i < this.regionWiseSchoolDetails.length; i++) {
             var data ={
             value: this.regionWiseSchoolDetails[i]['school_count'],
@@ -904,6 +907,107 @@ regionWiseSchoolDetailInPieChart()
     }
   };
 }
+onChartEventRegionWiseSchool(event:any){
+console.log(event)
+this.regionStationName=event
+let request={};
+this. stationWiseSchoolArray=[];
+this.totalStationInRegion=[];
+this.totalStationInRegionCount=[];
+    this.outSideService.getStationWiseSchoolCount(request,this.loginUserNameForChild).subscribe((res)=>{
+      console.log("--------region wise station detadfddggf---------")
+   
+     var groupByEnrolementDate = function(xs:any, key:any) {
+      return xs.reduce(function(rv:any, x:any) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+        return rv;
+      }, {});
+    };
+    var groubedByEnrolmentDateResult=groupByEnrolementDate(res.rowValue, 'region_name')
+    this. stationWiseSchoolArray = Object.entries(groubedByEnrolmentDateResult)
+    console.log(this.stationWiseSchoolArray)
+
+    for (let i = 0; i < this.stationWiseSchoolArray.length; i++) {
+      if(this.stationWiseSchoolArray[i][0]==this.regionStationName){
+        this.stationWiseSchoolArray[i][1];
+        for (let j = 0; i < this.stationWiseSchoolArray[i][1].length; j++) {
+          this.totalStationInRegion.push(this.stationWiseSchoolArray[i][1][j]['station_name']);
+          this.totalStationInRegionCount.push(this.stationWiseSchoolArray[i][1][j]['count']);
+        }
+       
+      }
+    
+      this.showStationWiseSchoolInBarChart();
+}
+      },
+      error => {
+        console.log(error);
+      })
+     
+}
+showStationWiseSchoolInBarChart(){
+  console.log("===========station school=================")
+  console.log( this.totalStationInRegion)
+  console.log( this.totalStationInRegionCount)
+
+  this.stationWiseSchoolInBarChart = {
+    title: {
+      text: 'Station Wise School',
+      subtext: this.regionStationName,
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: [
+      {
+        type: 'category',
+        data:this.totalStationInRegion,
+        axisTick: {
+          alignWithLabel: true
+        },
+        axisLabel: {
+          show: true,
+          interval: 0,
+          rotate: 80,
+        },
+        // axisTick: {
+        //   show: true,
+        //   interval: 0
+        // }
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
+    label: {
+      show: true,
+      position: 'top',
+      color: "black",
+      fontSize:12,
+  },
+    series: [
+      {
+        name: 'Total',
+        type: 'bar',
+        barWidth: '60%',
+        data:this.totalStationInRegionCount
+      }
+    ]
+  };
+}
+
 getStationCategory(){
   debugger
   console.log("--------get category-----------")
