@@ -937,8 +937,41 @@ getNoOfEmployeeRegionSchoolWiseIncludeDropbox(){
   return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfEmployeeRegionSchoolWiseIncludeDropbox",{headers})
 }
 
+getEmployeeDetailsRegionSchoolWiseDropbox(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getEmployeeDetailsRegionSchoolWiseDropbox",{headers})
+}
 
 
+getEmployeeDetailsProfileUpdatedAddedToday(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getEmployeeDetailsProfileUpdatedAddedToday",{headers})
+}
+
+getEmployeeDetailsProfileUpdatedAdded(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getEmployeeDetailsProfileUpdatedAdded",{headers})
+}
+getEmployeeDetailsProfileNotUpdatedCurrentYear(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getEmployeeDetailsProfileNotUpdatedCurrentYear",{headers})
+}
 
 getNoOfEmployeeRegionSchoolWiseDropbox(){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
@@ -949,6 +982,30 @@ getNoOfEmployeeRegionSchoolWiseDropbox(){
   return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfEmployeeRegionSchoolWiseDropbox",{headers})
 }
 
+getRegionSchoolWiseProfileUpdatedAddedToday(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getRegionSchoolWiseProfileUpdatedAddedToday",{headers})
+}
+getRegionSchoolWiseProfileUpdatedAdded(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getRegionSchoolWiseProfileUpdatedAdded",{headers})
+}
+getRegionSchoolWiseProfileNotUpdatedCurrentYear(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getRegionSchoolWiseProfileNotUpdatedCurrentYear",{headers})
+}
 
 getRoDashboard(data,userName:any){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token

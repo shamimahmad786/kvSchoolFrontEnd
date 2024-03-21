@@ -697,7 +697,7 @@ body {
   text-align: center;
   color: #000;}
   .table1 td {padding: 18px 10px;}
-.table1 td span{padding:3px 12px; font-weight: 600; background-color: #f6e7f7;     color: #945197; font-size: 16px; border-radius: 4px;}
+.table1 td span{padding:3px 12px; font-weight: 600; background-color: #f6e7f7;   color: #945197; font-size: 16px; border-radius: 4px;}
 th.td-bg{ background-color:#fbe6ec !important;}
 .table1 span.text-color {color: #97516a; background-color: #fbe6ec !important}
 

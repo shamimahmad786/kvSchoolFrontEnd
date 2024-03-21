@@ -25,7 +25,7 @@
         <div class="tab-content" id="myTabContent">
             <!------------------------------------------------- first tab start  here------------------------------->
             <div *ngIf="activePaneOne">
-                
+
                 <div class="row  profile-info">
                     <div class="row mt-3" *ngIf="businessUnitTypeId!='3'">
                         <div class="col-md-12 d-flex justify-content-center">
@@ -307,64 +307,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
-                    <!-- <div class="dashboard-main-content-info p-4 pt-2 mt-2">
-                        <div class="row ">
-                            <div class=" dashboard-main-content__header mb-2">
-                                <h1 class="TolTeacherValue  ">Employee Details</h1>
-                            </div>
-                            <div class="col-md-12">
-                                <ul class="">
-                                    <li class="card p-3 rounded-3 mb-3">
 
-                                        <div class="row ">
-                                            <div class="col-sm-12 ">
-                                                <div class="table-responsive">
-                                                    <table class="table1 table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th 
-                                                                    style="background:#945197; color: #fff;">With Dropbox
-                                                                </th>
-                                                                <th 
-                                                                    style="background:#945197; color: #fff;">Without Dropbox
-                                                                </th>
-                                                                <th 
-                                                                    style="background:#945197; color: #fff;">Dropbox Only
-                                                                </th>
-                                                                <th 
-                                                                style="background:#945197; color: #fff;">Profile Updated Today
-                                                            </th>
-                                                            <th 
-                                                            style="background:#945197; color: #fff;">Profile Updated In Current Year
-                                                        </th>
-                                                        <th 
-                                                        style="background:#945197; color: #fff;">Profile Not Udated In Curent Year
-                                                    </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr >
-                                                             <td (click)="withOUtDroBoxClick('with')" ><span>{{allEmplDetails?.totalEmplyIncludeDropbox }}</span></td>
-                                                             <td (click)="withOUtDroBoxClick('without')"><span>{{allEmplDetails?.totalEmployeeWithoutDropbox}}</span></td>
-                                                            <td ><span>{{allEmplDetails?.totalDropboxEmployee}}</span></td>
-                                                            <td ><span>{{allEmplDetails?.profileUpdatedToday}}</span></td>
-                                                            <td><span>{{allEmplDetails?.profileUpdatedThisYear}}</span></td>
-                                                            <td ><span>{{allEmplDetails?.profileNotUdatedThisyear}}</span></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="dashboard-main-content-info p-4 pt-2 mt-2">
                         <div class="row ">
                             <div class=" dashboard-main-content__header mb-2">
@@ -381,24 +327,33 @@
                                                         <thead>
                                                             <tr>
                                                                 <th colspan="2"
-                                                                    style="background:#945197; color: #fff;   ">Total Employees
+                                                                    style="background:#945197; color: #fff;   ">Total
+                                                                    Employees
                                                                 </th>
                                                                 <th colspan="2"
-                                                                    style="background:#945197; color: #fff;   ">Mapped to School/RO/HQ/ZIET
+                                                                    style="background:#945197; color: #fff;   ">Mapped
+                                                                    to School/RO/HQ/ZIET
                                                                 </th>
                                                                 <th colspan="2"
-                                                                    style="background:#945197; color: #fff;   ">In Dropbox
+                                                                    style="background:#945197; color: #fff;   ">In
+                                                                    Dropbox
                                                                 </th>
 
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr >
-                                                                <td colspan="2"><span (click)="withOUtDroBoxClick('with')">{{allEmplDetails?.totalEmplyIncludeDropbox }}</span></td>
-                                                                <td colspan="2"><span (click)="withOUtDroBoxClick('without')">{{allEmplDetails?.totalEmployeeWithoutDropbox}}</span></td>
-                                                                 <td colspan="2"><span (click)="withOUtDroBoxClick('IndropBox')">{{allEmplDetails?.totalDropboxEmployee}}</span></td>
-                                                            </tr>                                                      
-                                                        </tbody>                                           
+                                                            <tr>
+                                                                <td colspan="2"><span
+                                                                        (click)="withOUtDroBoxClick('with')">{{allEmplDetails?.totalEmplyIncludeDropbox
+                                                                        }}</span></td>
+                                                                <td colspan="2"><span
+                                                                        (click)="withOUtDroBoxClick('without')">{{allEmplDetails?.totalEmployeeWithoutDropbox}}</span>
+                                                                </td>
+                                                                <td colspan="2"><span
+                                                                        (click)="withOUtDroBoxClick('IndropBox')">{{allEmplDetails?.totalDropboxEmployee}}</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
                                                     </table>
                                                 </div>
                                             </div>
@@ -408,33 +363,42 @@
                                                         <thead>
                                                             <tr>
                                                                 <th colspan="2"
-                                                                    style="background:#945197; color: #fff;   ">Profile Updated Today
+                                                                    style="background:#945197; color: #fff;   ">Profile
+                                                                    Updated Today
                                                                 </th>
                                                                 <th colspan="2"
-                                                                    style="background:#945197; color: #fff;   ">Profile Updated 
+                                                                    style="background:#945197; color: #fff;   ">Profile
+                                                                    Updated
                                                                 </th>
                                                                 <th colspan="2"
-                                                                    style="background:#945197; color: #fff;   ">Profile Not Updated 
+                                                                    style="background:#945197; color: #fff;   ">Profile
+                                                                    Not Updated
                                                                 </th>
 
                                                             </tr>
-                                                       
+
                                                         </thead>
                                                         <tbody>
-                                                            <tr >
-                                                                <td colspan="2"><span>{{allEmplDetails?.profileUpdatedToday}}</span></td>
-                                                                <td colspan="2"><span>{{allEmplDetails?.profileUpdatedThisYear}}</span></td>
-                                                                <td colspan="2"><span>{{allEmplDetails?.profileNotUdatedThisyear}}</span></td>
-                                                            </tr>                                                   
-                                                        </tbody>                                                    
+                                                            <tr>
+                                                                <td colspan="2"><span
+                                                                        (click)="withOUtDroBoxClick('profileUpdatedToday')">{{allEmplDetails?.profileUpdatedToday}}</span>
+                                                                </td>
+                                                                <td colspan="2"><span
+                                                                        (click)="withOUtDroBoxClick('profileUpdate')">{{allEmplDetails?.profileUpdatedThisYear}}</span>
+                                                                </td>
+                                                                <td colspan="2"><span
+                                                                        (click)="withOUtDroBoxClick('profilenotupdate')">{{allEmplDetails?.profileNotUdatedThisyear}}</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
                                                     </table>
                                                 </div>
-                                            </div>                                          
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>
-                            </div>                         
-                        </div>                    
+                            </div>
+                        </div>
                     </div>
                 </div><!--close row-->
             </div>
@@ -449,14 +413,13 @@
                                 <div class="col-md-6">
                                     <div class="card p-4">
                                         <div echarts [options]="regionWiseEmployeeDetail"
-                                        (chartClick)="onChartEvent($event, 'chartClick')" class="demo-chart"></div>
+                                            (chartClick)="onChartEvent($event, 'chartClick')" class="demo-chart"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class=" p-4">
-                                        <div echarts [options]="regionWiseEmployeeDetailGenderData"
-                                        class="demo-chart ">
-                                    </div>
+                                        <div echarts [options]="regionWiseEmployeeDetailGenderData" class="demo-chart ">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -468,16 +431,16 @@
 
                                 <div class="col-md-6">
                                     <div class="card p-4">
-                                        <div echarts [options]="regionWiseSchoolDetail"  (chartClick)="onChartEventRegionWiseSchool($event.name, 'chartClick')"
-                                                class="demo-chart">
-                                            </div>
+                                        <div echarts [options]="regionWiseSchoolDetail"
+                                            (chartClick)="onChartEventRegionWiseSchool($event.name, 'chartClick')"
+                                            class="demo-chart">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="card p-4">
                                         <div id="main">
-                                            <div echarts [options]="stationWiseSchoolInBarChart"
-                                                class="demo-chart">
+                                            <div echarts [options]="stationWiseSchoolInBarChart" class="demo-chart">
                                             </div>
                                         </div>
 
@@ -487,21 +450,21 @@
                         </div>
 
                         <div class="card p-4 my-4">
-                            <h1 class="my-0 TolTeacherValue">Age Wise Data</h1> 
+                            <h1 class="my-0 TolTeacherValue">Age Wise Data</h1>
                             <div class="row mt-2 ">
 
                                 <div class="col-md-6">
                                     <div class="card p-4">
-                                        <div echarts [options]="getRegionWiseEmployeeAge"  (chartClick)="onChartEventEmployeeAgeRegionWise($event, 'chartClick')"
-                                                class="demo-chart">
-                                            </div>
+                                        <div echarts [options]="getRegionWiseEmployeeAge"
+                                            (chartClick)="onChartEventEmployeeAgeRegionWise($event, 'chartClick')"
+                                            class="demo-chart">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="card p-4">
                                         <div id="main">
-                                            <div echarts [options]="regionWiseEmployeeAge"
-                                                class="demo-chart">
+                                            <div echarts [options]="regionWiseEmployeeAge" class="demo-chart">
                                             </div>
                                         </div>
 
@@ -536,11 +499,28 @@
             </div> <!--close first  tab-->
 
 
-            <div mat-dialog-content>
-                <ng-template #AllDropBox let-modal style="min-width: 100%;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div><!--close main-content-info-->
+</div><!--close dashboard-main-content-->
+<!-- <div mat-dialog-content>
+                <ng-template #AllDetailBox let-modal style="min-width: 100%;">
                     <div class="modal-header">
                         <div class="d-flex justify-content-between w-100">
-                            <h1 class="mb-0 " >Employee Details ({{dropboxName}}) </h1>
+                           
                             <i class="fa fa-times" (click)="cancelModal()"
                                 style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
                         </div>
@@ -551,7 +531,7 @@
                                 <ag-grid-angular
                                     style="width: 100%; height: 100%;"
                                     class="ag-theme-balham"
-                                    [rowData]="dropBoxRowData"
+                                    [rowData]="dropBoxDetailRowData"
                                     rowHeight="40"
                                     [columnDefs]="columnDefs"
                                     [defaultColDef]="defaultColDef"
@@ -564,8 +544,32 @@
                         
                 </div>
                 </ng-template>
+            </div> -->
+<div mat-dialog-content class="p-3">
+    <ng-template #AllDropBox let-modal style="min-width: 100%;">
+        <div class="p-2">
+            <div class="clearfix">
+                <div class="float-start">
+                    <h1 class="mb-0 mx-auto">Employee Details ({{dropboxName}}) </h1>
+                </div>
+                <div class="float-end">
+                    <button type="button" (click)="getEmployeeStaticsDetailsReport()" class="btn btn-primary btn-sm">Click Here for More Info</button>
+                    <i class="fa fa-times" (click)="cancelModal()"
+                        style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <div class="example-container mat-elevation-z8">
+                <div style="width: 100%; height: 500px;">
+                    <ag-grid-angular style="width: 100%; height: 100%;" class="ag-theme-balham"
+                        [rowData]="dropBoxRowData" rowHeight="40" [columnDefs]="columnDefs"
+                        [defaultColDef]="defaultColDef" [pagination]="true" [paginationPageSize]="10"></ag-grid-angular>
+                </div>
             </div>
 
+
         </div>
-    </div><!--close main-content-info-->
-</div><!--close dashboard-main-content-->
+    </ng-template>
+</div>

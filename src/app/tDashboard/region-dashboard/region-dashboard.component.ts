@@ -11,8 +11,13 @@ import { ColDef, RowGroupingDisplayType } from 'ag-grid-community';
   templateUrl: './region-dashboard.component.html',
   styleUrls: ['./region-dashboard.component.css']
 })
-export class RegionDashboardComponent implements OnInit {
+export class RegionDashboardComponent implements OnInit {   
   @ViewChild('AllDropBox', { static: true }) AllDropBox: TemplateRef<any>;
+
+  @ViewChild('AllDetailBox', { static: true }) AllDetailBox: TemplateRef<any>;
+
+
+
   kvicons: any;
   businessUnitTypeId: any;
   businessUnitTypeCode: any;
@@ -94,6 +99,16 @@ export class RegionDashboardComponent implements OnInit {
   columnDefs: any = [];
   dropboxName: string;
   regionStationName: string;
+  allDetailsData: any = new Array();
+  DetailsSrNo: any = new Array()
+  DetailsRegionName: any = new Array()
+  DetailsKvName: any = new Array()
+  DetailsEmpName: any = new Array()
+  DetailsTeacherMobile: any = new Array()
+  DetailsTeacherDob: any = new Array()
+  DetailsDropBoxResion: any = new Array()
+  rowanyDetailDataForWithOutDropBox: any = new Array()
+  dropBoxDetailRowData: any = new Array()
   constructor(public outSideService: OutsideServicesService,private router: Router,private modalService: NgbModal) {    }
   ngOnInit(): void {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
@@ -326,10 +341,350 @@ getDashboardEmployeeDetails(){
     this.allEmplDetails = res;
   })
 }
+
+getEmployeeStaticsDetailsReport(){
+  this.modalService.dismissAll();
+  //this.modalService.open(this.AllDetailBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+  this.allDetailsData=[];
+  this.rowanyDetailDataForWithOutDropBox=[];
+  this.dropBoxRowData=[];
+  this.dropBoxDetailRowData=[];
+ if(this.dropboxName=='In Dropbox')
+ {
+  this.outSideService.getEmployeeDetailsRegionSchoolWiseDropbox().subscribe((res)=>{
+    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+   console.log(res)
+     console.log("----in drop box----")
+     console.log(res)
+     this.allDetailsData=res;
+     this.DetailsSrNo=[];
+     this.DetailsRegionName=[];
+     this.DetailsKvName=[];
+     this.DetailsEmpName=[];
+     this.DetailsTeacherMobile=[];
+     this.DetailsTeacherDob=[];
+     this.DetailsDropBoxResion=[];
+   for (let i = 0; i < this.allDetailsData.length; i++) {
+     this.DetailsSrNo=i+1;
+     this.DetailsRegionName =this.allDetailsData[i]['region_name'];
+     this.DetailsKvName =this.allDetailsData[i]['kvschool'];
+     this.DetailsEmpName=this.allDetailsData[i]['empnameandcode']; 
+     this.DetailsTeacherMobile=this.allDetailsData[i]['teacher_mobile']; 
+    // this.DetailsTeacherDob=this.allDetailsData[i]['empnameandcode']; 
+     this.DetailsDropBoxResion=this.allDetailsData[i]['reasontomovetodropbox']; 
+
+     this.rowanyDetailDataForWithOutDropBox = [
+       {
+         SrNo: this.DetailsSrNo,
+         RegionName: this.DetailsRegionName,
+         KVName: this.DetailsKvName,
+         emplName: this.DetailsEmpName,
+         mobileNo: this.DetailsTeacherMobile,
+       //  dob: this.DetailsTeacherDob,
+         dropResion:this.DetailsDropBoxResion
+       },
+     ];
+     this.dropBoxRowData.push(this.rowanyDetailDataForWithOutDropBox[0]);
+   
+   }
+  // this.dropBoxRowData.push(this.rowanyDetailDataForWithOutDropBox[0]);
+   console.log(this.dropBoxRowData)
+   this.columnDefs = [
+     {headerName: 'S.No', field: 'SrNo' },
+     {headerName: "Region Name", field: "RegionName"},
+     {headerName: "KV/RO/HQ Name", field: "KVName"},
+     {headerName: "Mobile", field: "mobileNo"},
+   //  {headerName: "D.O.B", field: "dob"},
+     {headerName: "Drop Reason", field: "dropResion"},
+   ];
+  })
+}
+
+
+// if(this.dropboxName=='without')
+//  {
+
+//  }
+
+// if(this.dropboxName=='with')
+//  {
+  
+//  }
+
+ if(this.dropboxName=='Profile Updated Today')
+ {
+  debugger
+  this.outSideService.getEmployeeDetailsProfileUpdatedAddedToday().subscribe((res)=>{
+    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+   console.log(res)
+     console.log("----in drop box----")
+     console.log(res)
+     this.allDetailsData=res.rowValue;
+     this.DetailsSrNo=[];
+     this.DetailsRegionName=[];
+     this.DetailsKvName=[];
+     this.DetailsEmpName=[];
+     this.DetailsTeacherMobile=[];
+     this.DetailsTeacherDob=[];
+     this.DetailsDropBoxResion=[];
+   for (let i = 0; i < this.allDetailsData.length; i++) {
+     this.DetailsSrNo=i+1;
+     this.DetailsRegionName =this.allDetailsData[i]['region_name'];
+     this.DetailsKvName =this.allDetailsData[i]['kvschool'];
+     this.DetailsEmpName=this.allDetailsData[i]['empnameandcode']; 
+     this.DetailsTeacherMobile=this.allDetailsData[i]['teacher_mobile']; 
+    // this.DetailsTeacherDob=this.allDetailsData[i]['empnameandcode']; 
+     this.DetailsDropBoxResion=this.allDetailsData[i]['reasontomovetodropbox']; 
+
+     this.rowanyDetailDataForWithOutDropBox = [
+       {
+         SrNo: this.DetailsSrNo,
+         RegionName: this.DetailsRegionName,
+         KVName: this.DetailsKvName,
+         emplName: this.DetailsEmpName,
+         mobileNo: this.DetailsTeacherMobile,
+       //  dob: this.DetailsTeacherDob,
+         dropResion:this.DetailsDropBoxResion
+       },
+     ];
+     this.dropBoxRowData.push(this.rowanyDetailDataForWithOutDropBox[0]);
+   
+   }
+  // this.dropBoxRowData.push(this.rowanyDetailDataForWithOutDropBox[0]);
+   console.log(this.dropBoxRowData)
+   this.columnDefs = [
+     {headerName: 'S.No', field: 'SrNo' },
+     {headerName: "Region Name", field: "RegionName"},
+     {headerName: "KV/RO/HQ Name", field: "KVName"},
+     {headerName: "Mobile", field: "mobileNo"},
+   //  {headerName: "D.O.B", field: "dob"},
+     {headerName: "Drop Reason", field: "dropResion"},
+   ];
+  })
+ }
+
+ if(this.dropboxName=='Profile Updated')
+ {
+  this.outSideService.getEmployeeDetailsProfileUpdatedAdded().subscribe((res)=>{
+    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+   console.log(res)
+     console.log("----in drop box----")
+     console.log(res)
+     this.allDetailsData=res.rowValue;
+     this.DetailsSrNo=[];
+     this.DetailsRegionName=[];
+     this.DetailsKvName=[];
+     this.DetailsEmpName=[];
+     this.DetailsTeacherMobile=[];
+     this.DetailsTeacherDob=[];
+     this.DetailsDropBoxResion=[];
+   for (let i = 0; i < this.allDetailsData.length; i++) {
+     this.DetailsSrNo=i+1;
+     this.DetailsRegionName =this.allDetailsData[i]['region_name'];
+     this.DetailsKvName =this.allDetailsData[i]['kvschool'];
+     this.DetailsEmpName=this.allDetailsData[i]['empnameandcode']; 
+     this.DetailsTeacherMobile=this.allDetailsData[i]['teacher_mobile']; 
+    // this.DetailsTeacherDob=this.allDetailsData[i]['empnameandcode']; 
+     this.DetailsDropBoxResion=this.allDetailsData[i]['reasontomovetodropbox']; 
+
+     this.rowanyDetailDataForWithOutDropBox = [
+       {
+         SrNo: this.DetailsSrNo,
+         RegionName: this.DetailsRegionName,
+         KVName: this.DetailsKvName,
+         emplName: this.DetailsEmpName,
+         mobileNo: this.DetailsTeacherMobile,
+       //  dob: this.DetailsTeacherDob,
+         dropResion:this.DetailsDropBoxResion
+       },
+     ];
+     this.dropBoxRowData.push(this.rowanyDetailDataForWithOutDropBox[0]);
+   
+   }
+  // this.dropBoxRowData.push(this.rowanyDetailDataForWithOutDropBox[0]);
+   console.log(this.dropBoxRowData)
+   this.columnDefs = [
+     {headerName: 'S.No', field: 'SrNo' },
+     {headerName: "Region Name", field: "RegionName"},
+     {headerName: "KV/RO/HQ Name", field: "KVName"},
+     {headerName: "Mobile", field: "mobileNo"},
+   //  {headerName: "D.O.B", field: "dob"},
+     {headerName: "Drop Reason", field: "dropResion"},
+   ];
+  })
+ }
+  if(this.dropboxName=='Profile Not Updated')
+ {
+  this.outSideService.getEmployeeDetailsProfileNotUpdatedCurrentYear().subscribe((res)=>{
+    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+   console.log(res)
+     console.log("----in drop box----")
+     console.log(res)
+     this.allDetailsData=res;
+     this.DetailsSrNo=[];
+     this.DetailsRegionName=[];
+     this.DetailsKvName=[];
+     this.DetailsEmpName=[];
+     this.DetailsTeacherMobile=[];
+     this.DetailsTeacherDob=[];
+     this.DetailsDropBoxResion=[];
+   for (let i = 0; i < this.allDetailsData.length; i++) {
+     this.DetailsSrNo=i+1;
+     this.DetailsRegionName =this.allDetailsData[i]['region_name'];
+     this.DetailsKvName =this.allDetailsData[i]['kvschool'];
+     this.DetailsEmpName=this.allDetailsData[i]['empnameandcode']; 
+     this.DetailsTeacherMobile=this.allDetailsData[i]['teacher_mobile']; 
+    // this.DetailsTeacherDob=this.allDetailsData[i]['empnameandcode']; 
+  //   this.DetailsDropBoxResion=this.allDetailsData[i]['reasontomovetodropbox']; 
+
+     this.rowanyDetailDataForWithOutDropBox = [
+       {
+         SrNo: this.DetailsSrNo,
+         RegionName: this.DetailsRegionName,
+         KVName: this.DetailsKvName,
+         emplName: this.DetailsEmpName,
+         mobileNo: this.DetailsTeacherMobile,
+       //  dob: this.DetailsTeacherDob,
+       //  dropResion:this.DetailsDropBoxResion
+       },
+     ];
+     this.dropBoxRowData.push(this.rowanyDetailDataForWithOutDropBox[0]);
+   
+   }
+  // this.dropBoxRowData.push(this.rowanyDetailDataForWithOutDropBox[0]);
+   console.log(this.dropBoxRowData)
+   this.columnDefs = [
+     {headerName: 'S.No', field: 'SrNo' },
+     {headerName: "Region Name", field: "RegionName"},
+     {headerName: "KV/RO/HQ Name", field: "KVName"},
+     {headerName: "Mobile", field: "mobileNo"},
+   //  {headerName: "D.O.B", field: "dob"},
+   //  {headerName: "Drop Reason", field: "dropResion"},
+   ];
+  })
+  }
+
+}
+
+
 withOUtDroBoxClick(event:any){
   this.allDropoxDta=[];
   this.dropBoxRowData=[];
+  if(event=='profilenotupdate')
+  {
+    this.dropboxName='Profile Not Updated';
+  this.outSideService.getRegionSchoolWiseProfileNotUpdatedCurrentYear().subscribe((res)=>{
+    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+  //  this.allEmplDetails = res;
+    console.log("----in drop box----")
+    console.log(res)
+    this.allDropoxDta=res;
+    this.dropBoxSrNo=[];
+    this.dropBoxRegionName=[];
+    this.dropBoxKvName=[];
+    this.dropBoxNOOfEmplAddUpdatedthis=[];
+    this.rowanyDataForWithOutDropBox=[];
+  for (let i = 0; i < this.allDropoxDta.length; i++) {
+    this.dropBoxSrNo=i+1;
+    this.dropBoxRegionName =this.allDropoxDta[i]['region_name'];
+    this.dropBoxKvName =this.allDropoxDta[i]['kv_name'];
+    this.dropBoxNOOfEmplAddUpdatedthis=this.allDropoxDta[i]['noofempprofileaddedupdated']; 
+    this.rowanyDataForWithOutDropBox = [
+      {
+        SrNo: this.dropBoxSrNo,
+        RegionName: this.dropBoxRegionName,
+        KvName: this.dropBoxKvName,
+        EmpAddUpDated: this.dropBoxNOOfEmplAddUpdatedthis,
+      },
+    ];
 
+    this.dropBoxRowData.push(this.rowanyDataForWithOutDropBox[0]);
+  }
+  this.columnDefs = [
+    {headerName: 'S.No', field: 'SrNo' },
+    {headerName: "Region Name", field: "RegionName",},
+    {headerName: "KV/RO/HQ Name", field: "KvName",},
+    {headerName: "No.of Profiles Updated", field: "EmpAddUpDated",},
+  ];
+  })
+  }
+  if(event=='profileUpdate')
+  {
+    this.dropboxName='Profile Updated';
+  this.outSideService.getRegionSchoolWiseProfileUpdatedAdded().subscribe((res)=>{
+    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+  //  this.allEmplDetails = res;
+    console.log("----in drop box----")
+    console.log(res)
+    this.allDropoxDta=res;
+    this.dropBoxSrNo=[];
+    this.dropBoxRegionName=[];
+    this.dropBoxKvName=[];
+    this.dropBoxNOOfEmplAddUpdatedthis=[];
+    this.rowanyDataForWithOutDropBox=[];
+  for (let i = 0; i < this.allDropoxDta.length; i++) {
+    this.dropBoxSrNo=i+1;
+    this.dropBoxRegionName =this.allDropoxDta[i]['region_name'];
+    this.dropBoxKvName =this.allDropoxDta[i]['kv_name'];
+    this.dropBoxNOOfEmplAddUpdatedthis=this.allDropoxDta[i]['noofempprofileaddedupdated']; 
+    this.rowanyDataForWithOutDropBox = [
+      {
+        SrNo: this.dropBoxSrNo,
+        RegionName: this.dropBoxRegionName,
+        KvName: this.dropBoxKvName,
+        EmpAddUpDated: this.dropBoxNOOfEmplAddUpdatedthis,
+      },
+    ];
+
+    this.dropBoxRowData.push(this.rowanyDataForWithOutDropBox[0]);
+  }
+  this.columnDefs = [
+    {headerName: 'S.No', field: 'SrNo' },
+    {headerName: "Region Name", field: "RegionName",},
+    {headerName: "KV/RO/HQ Name", field: "KvName",},
+    {headerName: "No.of Profiles Updated", field: "EmpAddUpDated",},
+  ];
+  })
+  }
+
+  if(event=='profileUpdatedToday')
+  {
+    this.dropboxName='Profile Updated Today';
+  this.outSideService.getRegionSchoolWiseProfileUpdatedAddedToday().subscribe((res)=>{
+    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+  //  this.allEmplDetails = res;
+    console.log("----in drop box----")
+    console.log(res)
+    this.allDropoxDta=res.rowValue;
+    this.dropBoxSrNo=[];
+    this.dropBoxRegionName=[];
+    this.dropBoxKvName=[];
+    this.dropBoxNOOfEmplAddUpdatedthis=[];
+    this.rowanyDataForWithOutDropBox=[];
+  for (let i = 0; i < this.allDropoxDta.length; i++) {
+    this.dropBoxSrNo=i+1;
+    this.dropBoxRegionName =this.allDropoxDta[i]['region_name'];
+    this.dropBoxKvName =this.allDropoxDta[i]['kv_name'];
+    this.dropBoxNOOfEmplAddUpdatedthis=this.allDropoxDta[i]['noofempprofileaddedupdated'];
+    this.rowanyDataForWithOutDropBox = [
+      {
+        SrNo: this.dropBoxSrNo,
+        RegionName: this.dropBoxRegionName,
+        KvName: this.dropBoxKvName,
+        EmpAddUpDated: this.dropBoxNOOfEmplAddUpdatedthis,
+      },
+    ];
+
+    this.dropBoxRowData.push(this.rowanyDataForWithOutDropBox[0]);
+  }
+  this.columnDefs = [
+    {headerName: 'S.No', field: 'SrNo' },
+    {headerName: "Region Name", field: "RegionName",},
+    {headerName: "KV/RO/HQ Name", field: "KvName",},
+    {headerName: "No.of Profiles Updated", field: "EmpAddUpDated",},
+  ];
+  })
+  }
 
   if(event=='IndropBox')
   {
@@ -934,9 +1289,7 @@ this.totalStationInRegionCount=[];
           this.totalStationInRegion.push(this.stationWiseSchoolArray[i][1][j]['station_name']);
           this.totalStationInRegionCount.push(this.stationWiseSchoolArray[i][1][j]['count']);
         }
-       
       }
-    
       this.showStationWiseSchoolInBarChart();
 }
       },
