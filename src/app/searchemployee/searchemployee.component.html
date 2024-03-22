@@ -12,20 +12,19 @@
             <div > 
                 <div class="row">
                     <div class="col-lg-12">
-                            <form [formGroup]="dropSearchForm" (ngSubmit)="submit()">
+                            <form [formGroup]="searchEmployeeForm" (ngSubmit)="submit()">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="">
                                             <div class="prof-fields ser-bdr">
                                                 <div class="row">
-                                                    <div class="col-md-5 form-group my-2">
-                                                        <label class="titleSet mb-2">Employee Code</label>                                     
-                                                          <div class="tags">
-                                                            <span *ngFor="let tag of tags">{{ tag }}<span class="remove" (click)="removeTag(tag)"> x</span></span>
-                                                            <input type="text"  style="min-height: 50px;"[(ngModel)]="tagInput" (keydown)="onKeyDown($event)" class="form-control" formControlName="employeeCode" placeholder="Add employee code separated by commas(,)">
+                                                    <div class="col-md-3 form-group my-2">
+                                                        <label class="titleSet mb-2 fw-bold">Employee Code</label>                                     
+                                                          <div class="tags">                                                     
+                                                            <input type="text"  style="min-height: 38px;" (keydown)="onKeyDown($event)" class="form-control" formControlName="employeeCode" placeholder="Enter Employee Code">
                                                           </div>
                                                     </div>
-                                                    <div class="col-md-7 pt-4 search-clear">
+                                                    <div class="col-md-9 search-clear" style="padding-left: 0;">
                                                         <button type="submit" class="btn btn-success me-1">Search</button>
                                                         <button type="button" class="btn btn-primary" (click)="clear()">Clear</button>
                                                     </div>
@@ -36,74 +35,194 @@
                                 </div>
                             </form>
                     
-                        <div class="row">
-                            <div class="col-md-6">
-                            </div>
-                            <div class="col-md-6" style="text-align: end;">
-                                <div class="example-header">
-                                     <span class="me-2">Show Results : <strong>  {{totalLength}}</strong></span>
-                                    <mat-form-field appearance="outline" class=" searchInput ">
-                                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-                
-                                    </mat-form-field>
+                     
+                        <div class="example-container mat-elevation-z8 table-responsive p-3 card" *ngIf="showEmployeeData">
+                           
+                                <div class="d-flex justify-content-end">
+                                    <h2 class="steps text-end pro-name">{{ profileTeacherName | uppercase}}<span [ngClass]="{'make-orange': profileFinalStatus==true,'make-green': profileFinalStatus==false}"> Employee Status - {{profileFinalStatusName}}</span> </h2>
+                                        <a href="{{exportProfileUrl}}getTeacherBasicDetailPdf?token={{token}}&username={{loginUserNameForChild}}&teacherId={{tempTeacherId}}"  class="btn btn-primary btn-sm exp-pdf ms-3" >Export To PDF</a>
                                 </div>
+                                
+                                <div class="table-responsive"  style="border-radius: 12px;">
+                                <table class="table table-bordered w-100">
+                                    <thead>
+                                        <tr style="background-color:#57aca5;">
+                                            <th colspan="6" class="text-center text-white">Profile Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>KV/RO/ZIET/HQ Name</th>
+                                            <td>{{schoolDetails?.kvName}} ({{schoolDetails?.kvCode}})</td>
+                                            <th>Employee Code</th>
+                                            <td>{{verifyTchTeacherProfileData?.teacherEmployeeCode}}</td>
+                                            <th>Staff Type</th>
+                                            <td>{{verifyTchTeacherProfileData?.teachingNonteaching | staffType}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{verifyTchTeacherProfileData?.teacherName | titlecase}}
+                                            </td>
+                                            <th>Gender</th>
+                                            <td>{{verifyTchTeacherProfileData?.teacherGender | genderPipe}}
+                                            </td>
+                                            <th>Date of Birth</th>
+                                            <td>{{verifyTchTeacherProfileData?.teacherDob }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{verifyTchTeacherProfileData?.teacherEmail}}</td>
+                                            <th>Mobile Number</th>
+                                            <td>{{verifyTchTeacherProfileData?.teacherMobile}}</td>
+                                            <th>Disability</th>
+                                            <td>{{verifyTchTeacherProfileData?.teacherDisabilityYn == '1' ? 'Yes':'No'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Present Station Name</th>
+                                            <td>{{schoolDetails?.stationName}} ({{schoolDetails?.stationCode}})</td>
+                                            <th>Present post name</th>
+                                            <td>{{verifyTchTeacherProfileData?.lastPromotionPositionType}}
+                                            </td>
+                                            <th>Subject Name</th>
+                                            <td>{{verifyTchTeacherProfileData?.workExperienceAppointedForSubject}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Social category</th>
+                                            <td>{{socialCat}} </td>
+                                            <th>Social Sub category</th>
+                                            <td>{{socialSubCat}}
+                                            </td>
+                                            <th>Recruited under special recruitment for NER ? </th>
+                                            <td>{{verifyTchTeacherProfileData?.specialRecruitmentYn == '13' ? 'Yes':'No'}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                        <div class="example-container mat-elevation-z8 table-responsive" >
-                            <div class="table-responsive">
-                                <mat-table [dataSource]="dataSource" matSort #dropSearchSort="matSort">
-                                    <ng-container matColumnDef="sno">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> S.No. </mat-header-cell>
-                                        <mat-cell *matCellDef="let row"> {{row.sno}} </mat-cell>
-                                    </ng-container>
-    
-                                    <ng-container matColumnDef="teacherName">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </mat-header-cell>
-                                        <mat-cell *matCellDef="let row"> {{row.teacherName | uppercase }} ({{row.teacherId}})
-                                        </mat-cell>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="kvName">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Kv Name </mat-header-cell>
-                                        <mat-cell *matCellDef="let row"> {{row.kvName | uppercase }} ({{row.kvCode}})
-                                        </mat-cell>
-                                    </ng-container>
-    
-                                    <ng-container matColumnDef="teachingType">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Employee Type</mat-header-cell>
-                                        <mat-cell *matCellDef="let row" >{{row.teachingType}} </mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="Designation">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Designation</mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.lastPromotionPositionType}} </mat-cell>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="dropBoxType">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Relieve Type</mat-header-cell>
-                                        <mat-cell *matCellDef="let row">{{row.dropBoxType}} </mat-cell>
-                                    </ng-container>
-    
-                                    <ng-container matColumnDef="status">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                                        <mat-cell *matCellDef="let row"><span  [ngClass]="row.className" >{{row.statusMsg}}</span></mat-cell>
-                                    </ng-container>
-    
-                                    <ng-container matColumnDef="Action">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
-                                        <mat-cell *matCellDef="let row" [style.color]="row.color"><button type="button" *ngIf="row.dropBoxFlag == '1'" class="btn btn-success btn-sm" (click)="importEmployee(row.teacherId,row.dropBoxType)">Import</button>  </mat-cell>
-                                    </ng-container>
-                                    <mat-header-row *matHeaderRowDef="searchDropBoxColumns; sticky:true; "></mat-header-row>
-                                    <mat-row *matRowDef="let row; columns: searchDropBoxColumns;">
-                                    </mat-row>
-                                </mat-table>
+                            <div class="table-responsive"  style="border-radius: 12px;">
+                                <table class="table table-bordered w-100">
+                                    <thead>
+                                        <tr style="background-color:#57aca5;">
+                                            <th colspan="7" class="text-center text-white">Experience</th>
+                                        </tr>
+                                        <tr style="background-color:#f8fffe;">
+                                            <th>School Name</th>
+                                            <th width="8%">From</th>
+                                            <th width="8%">To</th>
+                                            <th width="16%">Position Held</th>
+                                            <th width="13%">Appointed for Subject</th>
+                                            <th width="17%">Transfer Ground (Transfer Out)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of verifyTchTeacherWorkExp">
+                                            <td>{{data?.udiseSchoolName}}</td>
+                                            <td>{{data?.workStartDate}}</td>
+                                            <td>{{data?.workEndDate}}</td>
+                                            <td>{{data?.positionType}}</td>
+                                            <td>{{data?.appointedForSubject}}</td>
+                                            <td>{{data?.groundForTransfer == 'null' ? '':data?.groundForTransfer}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+            
+            
+                            <div class="table-responsive" style="border-radius: 12px;">
+                                <table class="table table-bordered table-striped w-100">
+                                    <thead>
+                                        <tr style="background-color:#57aca5;">
+                                            <th colspan="7" class="text-center text-white">Leave Details</th>
+                                        </tr>
+                                        <tr style="background-color:#f8fffe !important;">
+                                            <th>S.No.</th>
+                                            <th>Start date</th>
+                                            <th >End Date</th>
+                                            <th >Station Type</th>
+                                            <th >Continuous Leaves</th>
+                                            <th >Number Of Leaves</th>                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+            
+                                       
+                                        <tr *ngFor="let data of teschrLeaveDetails; let i=index">
+                                            <td>{{i+1}}</td>
+                                            <td>{{data?.startDate}}</td>
+                                            <td>{{data?.endDate}}</td>
+                                            <td>{{data?.stationType == '0' ? 'Normal': 'Hard/Very-Hard/NER'}}</td>
+                                            <td>{{data?.isContiniousLeave == '0' ? ' LESS THAN 30 DAYS': data?.isContiniousLeave == '1' ? 'MORE THAN & EQUAL TO 30 DAYS' :data?.isContiniousLeave =='2'? 'LESS THAN 45 DAYS' :data?.isContiniousLeave =='3'?' MORE THAN & EQUAL TO 45 DAYS':data?.isContiniousLeave =='9'?' TOTAL LEAVES IN CURRENT ACADEMIC YEAR':''}}</td>
+                                            <td>{{data?.noOfLeave}}</td>
+                                           
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+            
+                            <form [formGroup]="teacherPreviewConfirmForm" (ngSubmit)="submit()">
+                                <h2  class="mb-0 tbl-heading">Profile Details</h2>
+                                <div class="chk-box-font border p-3 mt-2">
+                                    <div class="table-responsive">
+                                        <table class="table w-100">
+                                            <tr>
+                                               
+                                                <td >
+                                                    <label>Employee Name: </label>&nbsp;{{verifyTchTeacherProfileData?.teacherName | titlecase}} 
+                                                </td>
+                                               
+                                                <td >
+                                                    <label>Employee Gender:</label>&nbsp;{{ verifyTchTeacherProfileData?.teacherGender | genderPipe }} 
+                                                </td>
+                                              
+                                                <td >
+                                                    <label>Employee Dob: </label> &nbsp;{{verifyTchTeacherProfileData?.teacherDob }} 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                               
+                                                <td>
+                                                    <label>Employee Code:</label> &nbsp; {{verifyTchTeacherProfileData?.teacherEmployeeCode}}
+                                                </td>
+                                                
+                                                <td >
+                                                    <label>Employee Disability:</label> &nbsp;{{verifyTchTeacherProfileData?.teacherDisabilityYn == '1' ? 'Yes':'No'}} 
+                                                </td>
+                                              
+                                                <td >
+                                                    <label>Experience Start Date Present KV:</label>&nbsp; {{verifyTchTeacherProfileData?.workExperienceWorkStartDatePresentKv}} 
+                                                     
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                               
+                                                <td>
+                                                    <label>Appointed For Subject:</label> &nbsp; {{verifyTchTeacherProfileData?.workExperienceAppointedForSubject}}
+                                             
+                                                </td>
+                                                
+                                                <td >
+                                                    <label>Position Held:</label> &nbsp;{{verifyTchTeacherProfileData?.lastPromotionPositionType}} 
+                                                </td>
+                                             
+                                                <td >
+                                                    <label>DOJ in Present Station Irrespective of Cadre:</label> &nbsp;{{verifyTchTeacherProfileData?.workExperiencePositionTypePresentStationStartDate}} 
+                                                     
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+            
                                 </div>
-                                <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>                         
+                       
+                               
+                            </form>
+                                    
                       </div>
                  </div>
                 </div>
             </div>
         </div>
-
-    
-       
-      

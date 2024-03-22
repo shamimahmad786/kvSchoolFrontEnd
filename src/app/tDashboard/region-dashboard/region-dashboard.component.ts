@@ -49,6 +49,7 @@ export class RegionDashboardComponent implements OnInit {
   showsecondButtonColor: boolean = false;
   activePaneOne: boolean = true;
   activePaneTwo: boolean = false;
+  moreInfo: boolean = true;
   regionWiseEmplCount: number = 0;
   teachingFeMaleCount: number = 0;
   teachingMaleCount:number = 0;
@@ -63,10 +64,11 @@ export class RegionDashboardComponent implements OnInit {
   allResData: any;
   rows: any;
   reportIdAction: any;
-
+  regionWiseEmployeeRetirment:any;
   regionWiseArray: any = new Array();
   newRegionArray: any;
-
+  getRetirementWiseEmployee:any;
+  empoyeeUnderRetirement:any;
   regionNameinArray: any;
   regionNameGenderinArray: any;
   rowanyData: any = new Array();
@@ -79,6 +81,7 @@ export class RegionDashboardComponent implements OnInit {
   totalSchoolsInRegion: any = new Array();
   stationWiseCatArray: any = new Array();
   allDropoxDta: any = new Array();
+  getTotalEmployeeGenderAgeWiseArray: any = new Array();
   rowanyDataForWithOutDropBox: any = new Array();
   regionName: any;
   regionWiseSchoolDetails: any;
@@ -91,6 +94,7 @@ export class RegionDashboardComponent implements OnInit {
   dropBoxSrNo:any;
   dropBoxRegionName:any;
   dropBoxKvName:any;
+  totalEmployeeGenderWise:any;
   dropBoxNOOfEmplAddUpdatedthis:any;
   stationWiseSchoolArray: any = new Array()
   totalStationInRegion: any = new Array()
@@ -109,6 +113,10 @@ export class RegionDashboardComponent implements OnInit {
   DetailsDropBoxResion: any = new Array()
   rowanyDetailDataForWithOutDropBox: any = new Array()
   dropBoxDetailRowData: any = new Array()
+  ageYearsArray: any = new Array()
+  regionWiseMale:any;
+  regionWiseFeMale:any;
+  regionAgeWiseName:any;
   constructor(public outSideService: OutsideServicesService,private router: Router,private modalService: NgbModal) {    }
   ngOnInit(): void {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
@@ -137,8 +145,8 @@ export class RegionDashboardComponent implements OnInit {
         this.dashboardDetails=res;
         console.log(res)
         this.stationTotal= res['totalNormalStation']+res['totalPriorityStation']+res['totalHardStation']+res['totalVeryHardStation']+res['totalNerStation'];
-        this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
-        this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
+        this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale']+res['teachingNoGender'];
+        this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale']+res['nonteachingNoGender'];
         this.inPositionTotal=this.teachingMaleFemaleTotal+this.nonTeachingMaleFemaleTotal
         this.getStationCategory();
         //  this.router.navigate(['/teacher/controler-management'])
@@ -204,14 +212,20 @@ var data1 = {
   station: 'All',
   school: '',
 };
-this.regionName='AHMEDABAD';
+this.regionName='PATNA';
 this.empoyeeUnderAge='Under 30';
+this.empoyeeUnderRetirement='Under 60';
 this.getTotalRegionEmployeeByGender(data1)
 this.getTotalRegionSchoolDetail();
 this.getDashboardEmployeeDetails();
-this.getRegionWiseEmployeeAgeData();
+//this.getRegionWiseEmployeeAgeData();
 this.regionStationName='AHMEDABAD';
 this.onChartEventRegionWiseSchool(this.regionStationName);
+this.getRetirementWiseEmployeeData();
+this.getAllAgeWiseData();
+
+this.onChartEventEmployeeAgeRegionWise('Between(18-30)')
+
   }
   navColor(nav:any){
     if(nav=='transferin')
@@ -344,6 +358,7 @@ getDashboardEmployeeDetails(){
 
 getEmployeeStaticsDetailsReport(){
   this.modalService.dismissAll();
+  this.moreInfo=false;
   //this.modalService.open(this.AllDetailBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   this.allDetailsData=[];
   this.rowanyDetailDataForWithOutDropBox=[];
@@ -568,6 +583,7 @@ getEmployeeStaticsDetailsReport(){
 
 
 withOUtDroBoxClick(event:any){
+  this.moreInfo=true;
   this.allDropoxDta=[];
   this.dropBoxRowData=[];
   if(event=='profilenotupdate')
@@ -1134,8 +1150,12 @@ cancelModal() {
       regionWiseEmployeeDetailinBarChart(){
           this.regionWiseEmployeeDetailGenderData =  {
             title: {
-              text: 'Region wise employees (Staff Type)',
-               subtext: this.regionName,
+              text: 'Region Wise Employees (Staff Type)',
+               subtext: "Region ( "+this.regionName+' )',
+               subtextStyle: {
+                color: '#CC5500',
+                fontWeight: "bold",
+                },
               left: 'center'
             },
           
@@ -1228,13 +1248,19 @@ regionWiseSchoolDetailInPieChart()
       // subtext: 'Fake Data',
       left: 'center'
     },
-    tooltip: {
-      trigger: 'item'
+    label: {
+      show: true,
+      formatter: '{b} ({d}%)'
     },
     // legend: {
     //   orient: 'vertical',
     // //  left: 'left'
     // },
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b}: {c} ({d}%)'
+    },
+
     series: [
       {
         
@@ -1284,8 +1310,8 @@ this.totalStationInRegionCount=[];
 
     for (let i = 0; i < this.stationWiseSchoolArray.length; i++) {
       if(this.stationWiseSchoolArray[i][0]==this.regionStationName){
-        this.stationWiseSchoolArray[i][1];
-        for (let j = 0; i < this.stationWiseSchoolArray[i][1].length; j++) {
+        // this.stationWiseSchoolArray[i][1];
+        for (let j = 0; j < this.stationWiseSchoolArray[i][1].length; j++) {
           this.totalStationInRegion.push(this.stationWiseSchoolArray[i][1][j]['station_name']);
           this.totalStationInRegionCount.push(this.stationWiseSchoolArray[i][1][j]['count']);
         }
@@ -1306,7 +1332,11 @@ showStationWiseSchoolInBarChart(){
   this.stationWiseSchoolInBarChart = {
     title: {
       text: 'Station Wise School',
-      subtext: this.regionStationName,
+      subtext: "Region ( "+this.regionStationName+' )',
+      subtextStyle: {
+        color: '#CC5500',
+        fontWeight: "bold",
+        },
       left: 'center'
     },
     tooltip: {
@@ -1362,10 +1392,7 @@ showStationWiseSchoolInBarChart(){
 }
 
 getStationCategory(){
-  debugger
-  console.log("--------get category-----------")
-  console.log(this.dashboardDetails)
-  this.stationWiseCatArray=[];      
+ this.stationWiseCatArray=[];      
  this.stationWiseCatArray.push(this.dashboardDetails['totalNormalStation']);
  this.stationWiseCatArray.push(this.dashboardDetails['totalPriorityStation']);
  this.stationWiseCatArray.push( this.dashboardDetails['totalHardStation']);
@@ -1426,6 +1453,41 @@ stationWiseCategoryBarChart(){
   };
 }
 
+
+
+getAllAgeWiseData(){
+
+//   this.outSideService.getNoOfEmployeeGenderAgeWise().subscribe((res)=>{
+//     console.log("--------Age wise employeeeeeeeeeeee---------")
+// console.log(res);
+//   });
+
+
+//   this.outSideService.getNoOfEmployeeRegionGenderAgeWise().subscribe((res)=>{
+//     console.log("--------Age wise employeeeeeeeeeeee---------")
+// console.log(res);
+//   });
+
+  this.outSideService.getNoOfEmployeeAgeWise().subscribe((res)=>{
+    console.log("--------Age wise employeeeeeeeeeeee---------")
+console.log(res);
+var data ={ value: res.rowValue[0]['employeesof18_30years'], name: 'Between(18-30)' }
+var data1 ={ value: res.rowValue[0]['employeesof31_40years'], name: 'Between(31-40)' }
+var data2 ={ value: res.rowValue[0]['employeesof41_50years'], name: 'Between(41-50)' }
+var data3 ={ value: res.rowValue[0]['employeesof51_60years'], name: 'Between(51-60)' }
+  this.ageYearsArray.push(data);
+  this.ageYearsArray.push(data1);
+  this.ageYearsArray.push(data2);
+  this.ageYearsArray.push(data3);
+
+    this.getRegionWiseEmployeeAgeData();
+    },
+    error => {
+      console.log(error);
+    })
+}
+
+
 getRegionWiseEmployeeAgeData(){
   this.getRegionWiseEmployeeAge = {
     title: {
@@ -1437,8 +1499,226 @@ getRegionWiseEmployeeAgeData(){
       trigger: 'item'
     },
     legend: {
+      top: '8%',
+      left: 'center'
+    },
+    series: [
+      {
+        name: 'Employee Count',
+        type: 'pie',
+        radius: '50%',
+        data: this.ageYearsArray,
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  };
+  this.getEmployeeAgeRegionWise();
+}
+
+onChartEventEmployeeAgeRegionWise(event: any) {
+  console.log('chart event:', event);
+ this.empoyeeUnderAge=event;  
+ this.regionWiseMale=[];
+ this.regionWiseFeMale=[];
+ this.regionAgeWiseName=[];
+ this.getTotalEmployeeGenderAgeWiseArray=[];
+
+    this.outSideService.getNoOfEmployeeGenderAgeWise().subscribe((res)=>{
+  console.log("--------Age wise employeeeeeeeeeeee---------")
+  if(this.empoyeeUnderAge=='Between(18-30)')
+   {
+    var data ={ value: res.rowValue[0]['maleemployeesof18_30years'], name: 'Male' }
+    var data1 ={ value: res.rowValue[0]['femaleemployeesof18_30years'], name: 'Female' }
+      this.getTotalEmployeeGenderAgeWiseArray.push(data);
+      this.getTotalEmployeeGenderAgeWiseArray.push(data1);
+   }
+      if(this.empoyeeUnderAge=='Between(51-60)')
+     {
+
+      var data ={ value: res.rowValue[0]['maleemployeesof51_60years'], name: 'Male' }
+      var data1 ={ value: res.rowValue[0]['femaleemployeesof51_60years'], name: 'Female' }
+        this.getTotalEmployeeGenderAgeWiseArray.push(data);
+        this.getTotalEmployeeGenderAgeWiseArray.push(data1);
+
+
+      // this.regionWiseMale.push(res.rowValue[0]['maleemployeesof51_60years']);
+      // this.regionWiseFeMale.push(res.rowValue[0]['femaleemployeesof51_60years']);
+      // this.regionAgeWiseName.push('Total');
+     }
+    if(this.empoyeeUnderAge=='Between(41-50)')
+     {
+
+      var data ={ value: res.rowValue[0]['maleemployeesof41_50years'], name: 'Male' }
+      var data1 ={ value: res.rowValue[0]['femaleemployeesof41_50years'], name: 'Female' }
+        this.getTotalEmployeeGenderAgeWiseArray.push(data);
+        this.getTotalEmployeeGenderAgeWiseArray.push(data1);
+
+      // this.regionWiseMale.push(res.rowValue[0]['maleemployeesof41_50years']);
+      //  this.regionWiseFeMale.push(res.rowValue[0]['femaleemployeesof41_50years']);
+      //  this.regionAgeWiseName.push('Total');
+     }
+     if(this.empoyeeUnderAge=='Between(31-40)')
+     {
+
+      var data ={ value: res.rowValue[0]['maleemployeesof31_40years'], name: 'Male' }
+      var data1 ={ value: res.rowValue[0]['femaleemployeesof31_40years'], name: 'Female' }
+        this.getTotalEmployeeGenderAgeWiseArray.push(data);
+        this.getTotalEmployeeGenderAgeWiseArray.push(data1);
+
+      // this.regionWiseMale.push(res.rowValue[0]['maleemployeesof31_40years']);
+      // this.regionWiseFeMale.push(res.rowValue[0]['femaleemployeesof31_40years']);
+      // this.regionAgeWiseName.push('Total');
+     }
+      this.getTotalEmployeeGenderAgeWise()
+    });
+
+
+
+
+
+  this.outSideService.getNoOfEmployeeRegionGenderAgeWise().subscribe((res)=>{
+    console.log("--------Age wise employeeeeeeeeeeee---------")
+if(this.empoyeeUnderAge=='Between(18-30)')
+{
+  for (let i = 0; i < res.rowValue.length; i++) {
+  
+   this.regionWiseMale.push(res.rowValue[i]['maleemployeesof18_30years']);
+   this.regionWiseFeMale.push(res.rowValue[i]['femaleemployeesof18_30years']);
+   this.regionAgeWiseName.push(res.rowValue[i]['region_name']);
+    }
+  }
+  else if (this.empoyeeUnderAge=='Between(51-60)'){
+    for (let i = 0; i < res.rowValue.length; i++) {
+     this.regionWiseMale.push(res.rowValue[i]['maleemployeesof51_60years']);
+     this.regionWiseFeMale.push(res.rowValue[i]['femaleemployeesof51_60years']);
+     this.regionAgeWiseName.push(res.rowValue[i]['region_name']);
+      }
+    }
+    else if (this.empoyeeUnderAge=='Between(41-50)'){
+      for (let i = 0; i < res.rowValue.length; i++) {
+       this.regionWiseMale.push(res.rowValue[i]['maleemployeesof41_50years']);
+       this.regionWiseFeMale.push(res.rowValue[i]['femaleemployeesof41_50years']);
+       this.regionAgeWiseName.push(res.rowValue[i]['region_name']);
+        }
+      }
+      else if (this.empoyeeUnderAge=='Between(31-40)'){
+        for (let i = 0; i < res.rowValue.length; i++) {
+         this.regionWiseMale.push(res.rowValue[i]['maleemployeesof31_40years']);
+         this.regionWiseFeMale.push(res.rowValue[i]['femaleemployeesof31_40years']);
+         this.regionAgeWiseName.push(res.rowValue[i]['region_name']);
+          }
+        }
+    this.getEmployeeAgeRegionWise()
+  });
+}
+getTotalEmployeeGenderAgeWise(){
+  this.totalEmployeeGenderWise = {
+    title: {
+      text: 'Age Wise Total Employee',
+       subtext: this.empoyeeUnderAge,
+       subtextStyle: {
+        color: '#CC5500',
+        fontWeight: "bold",
+        },
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      top: '20%',
+      left: 'center'
+    },
+    series: [
+      {
+        name: 'Total Employee',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        center: ['50%', '70%'],
+        startAngle: 180,
+        endAngle: 360,
+        data: this.getTotalEmployeeGenderAgeWiseArray
+      }
+    ]
+  };
+}
+getEmployeeAgeRegionWise() {
+this.regionWiseEmployeeAge = {
+  title: {
+    text: 'Employee Detail Age Wise (In Regions)',
+     subtext: this.empoyeeUnderAge,
+     subtextStyle: {
+      color: '#CC5500',
+      fontWeight: "bold",
+      },
+    left: 'center'
+  },
+   tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      type: 'scroll',
+      orient: 'horizontal',
+      right: 20,
+   
+      bottom: 370,
+      data: ['Male', 'Female', ]
+  },
+  xAxis: {
+    data: this.regionAgeWiseName,
+    axisLabel: {
+      show: true,
+      interval: 0,
+      rotate: 45,
+    },
+    axisTick: {
+      show: true,
+      interval: 0
+    }
+  },
+  yAxis: {
+  
+   // interval: 3000
+    
+  },
+  series: [
+    {
+      name: 'Male',
+      data:this.regionWiseMale,
+      type: 'bar',
+      stack: 'x'
+    },
+    {
+      name: 'Female',
+      data:  this.regionWiseFeMale,
+      type: 'bar',
+      stack: 'x'
+    }
+  ]
+};
+}
+
+
+getRetirementWiseEmployeeData(){
+  this.getRetirementWiseEmployee = {
+    title: {
+      text: 'Employee Detail Retirement Wise', 
+      
+      // subtext: 'Fake Data',
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
       orient: 'vertical',
-      left: 'left'
+      left: 'left',
     },
     series: [
       {
@@ -1449,7 +1729,7 @@ getRegionWiseEmployeeAgeData(){
           { value: 1048, name: 'Under 30' },
           { value: 735, name: 'Under 40' },
           { value: 580, name: 'Under 50' },
-          { value: 484, name: 'under 60' }
+          { value: 484, name: 'Under 60' }
         ],
         emphasis: {
           itemStyle: {
@@ -1461,69 +1741,63 @@ getRegionWiseEmployeeAgeData(){
       }
     ]
   };
-  this.getEmployeeAgeRegionWise()
-
+  this.getEmployeeRetirementRegionWise();
 }
-
-onChartEventEmployeeAgeRegionWise(event: any, type: string) {
+onChartEventEmployeeRetirementRegionWise(event: any, type: string) {
   console.log('chart event:', type, event);
- this.empoyeeUnderAge=event.name
-  // for (let i = 0; i < this.regionList.rowValue.length; i++) {
-  //   if( this.regionList.rowValue[i]['regionName']==event.name){
-  //     var data = {
-  //       reportId: '1004',
-  //       region: this.regionList.rowValue[i]['regionCode'],
-  //       station: 'All',
-  //       school: '',
-  //     };
-  //   }
-  // }   
-  this.getEmployeeAgeRegionWise()
+ this.empoyeeUnderRetirement=event.name  
+  this.getEmployeeRetirementRegionWise();
 }
-
-
-
-
-getEmployeeAgeRegionWise() {
-// console.log(event)
-
-this.regionWiseEmployeeAge = {
-  title: {
-    text: 'Employee Detail Age Wise (In Regions)',
-     subtext: this.empoyeeUnderAge,
-    left: 'center'
-  },
-   tooltip: {
-      trigger: 'item'
+getEmployeeRetirementRegionWise(){
+  this.regionWiseEmployeeRetirment = {
+    title: {
+      text: 'Employee Detail Retirement Wise (In Regions)',
+       subtext: this.empoyeeUnderRetirement,
+       subtextStyle: {
+        color: '#CC5500',
+        fontWeight: "bold",
+        },
+      left: 'center'
     },
-  xAxis: {
-    data: ['DELHI', 'ARGA', 'BHOPAL', 'JAIPUR', 'PATNA','AHMEDABAD','BENGALURU','BHUBNESWAR','CHANDIHARH','CHENAI','DEHRADUN','EARNAKULAM','GURUGRAM','GUWAHATI','HYDERABAD','JABALPUR','JAMMU','KOLKATA','LUCKNOW','MUMBAI','RANCHI','SILCHAR','TISUKIA','VARANASI'],
-    axisLabel: {
-      show: true,
-      interval: 0,
-      rotate: 45,
+     tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        type: 'scroll',
+        orient: 'horizontal',
+        right: 12,
+     
+        bottom: 372,
+        data: ['Male', 'Female', ]
     },
-    axisTick: {
-      show: true,
-      interval: 0
-    }
-  
-  
-  },
-  yAxis: {},
-  series: [
-    {
-      data: [10, 22, 28, 43, 49,10, 22, 28, 43, 49,10, 22, 28, 43, 49,10, 22, 28, 43, 49,10, 22, 28, 43, 49],
-      type: 'bar',
-      stack: 'x'
+    xAxis: {
+      data: ['DELHI', 'ARGA'],
+      axisLabel: {
+        show: true,
+        interval: 0,
+        rotate: 45,
+      },
+      axisTick: {
+        show: true,
+        interval: 0
+      }
     },
-    {
-      data: [5, 4, 3, 5, 10,10, 22, 28, 43, 49,10, 22, 28, 43, 49,10, 22, 28, 43, 49,10, 22, 28, 43, 49],
-      type: 'bar',
-      stack: 'x'
-    }
-  ]
-};
+    yAxis: {},
+    series: [
+      {
+        name: 'Male',
+        data: [10, 22],
+        type: 'bar',
+        stack: 'x'
+      },
+      {
+        name: 'Female',
+        data: [5, 4],
+        type: 'bar',
+        stack: 'x'
+      }
+    ]
+  };
 }
 
 }

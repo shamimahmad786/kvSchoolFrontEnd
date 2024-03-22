@@ -3,100 +3,178 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { OutsideServicesService } from '../service/outside-services.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TeacherAppPdfService } from '../kvs/makePdf/teacher-app-pdf.service';
+import { DatePipe } from '@angular/common';
+import { FormDataService } from '../teacherEntryForm/service/internalService/form-data.service';
+import { DateAdapter } from '@angular/material/core';
+import { DataService } from '../service/data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-searchemployee',
   templateUrl: './searchemployee.component.html',
   styleUrls: ['./searchemployee.component.css']
 })
-export class SearchemployeeComponent implements OnInit {
 
-  dropSearchForm: FormGroup;
+
+export class SearchemployeeComponent implements OnInit {
+  teacherPreviewConfirmForm: FormGroup;
+  searchEmployeeForm: FormGroup;
   showFirstButtonColor: boolean = true;
   showsecondButtonColor: boolean = false;
   activePaneOne: boolean = true;
   activePaneTwo: boolean = false;
   dropBoxArray: any = [];
   searchDropData: any = [];
-  kvCode: any;
-  empList:any;
+  dropBoxReasion:any;
   searchData: any;
   manualEmpCodeSearch: any = [];
   totalLength: any;
   tagInput: string = '';
   tags: string[] = [];
+  
+  verifyTchTeacherProfileData: any;
+  applicationId: any;
+  loginUserNameForChild: any;
+  kvicons: any;
+  kvCode: any;
+  responseData: any;
+  tempTeacherId: any;
+  kvSchoolDetails: any;
+  flagUpdatedList: any;
+  verifyTchTeacherWorkExp: any;
+  teschrLeaveDetails:any;
+  teacherStationChioce: any;
+  schoolDetails:any;
+  verifyTchTeacherTraining: any;
+  profileTeacherName: any;
+  kvNameCode:any;
+  stationNameCode:any;
+  profileFinalStatus: boolean = false;
+  token: any;
+  exportProfileUrl: any;
+  socialCat: string;
+  socialSubCat: string;
+  profileFinalStatusName:any;
+  showEmployeeData: boolean = false
+  emplyeeData: any;
+  employeeCode: any;
+ // displayedColumnsOut = ['sno','name','postName', 'subjectName','transferGround','relivingdate','To','action'];
+ DropSource : MatTableDataSource<any>;
+ dataSource : MatTableDataSource<any>;
+ @ViewChild('dropPaginator') dropPaginator: MatPaginator;
+ @ViewChild('paginator') paginator: MatPaginator;
+ @ViewChild('dropSort') dropSort: MatSort;
+  
+ @ViewChild('dropSearchSort') dropSearchSort: MatSort;
 
 
-  dropBoxColumns = ['sno','teacherName','teachingType','Designation', 'dropBoxType','dropboxDescription','action'];
-searchDropBoxColumns = ['sno','teacherName','kvName','teachingType','Designation', 'dropBoxType','status','Action'];
-dropBoxData =  { "sno": "","teacherName": "","teacherId":"", "teachingType": "","lastPromotionPositionType":"","dropBoxType": "","dropboxDescription":""}
-searchDropBoxData ={ "sno": "","teacherName": "","teacherId":"","kvCode":"","statusMsg":"","kvName":"","dropBoxFlag":"","className":"" ,"teachingType": "","lastPromotionPositionType":"","dropBoxType": ""}
-
-
-DropSource : MatTableDataSource<any>;
-dataSource : MatTableDataSource<any>;
-@ViewChild('dropPaginator') dropPaginator: MatPaginator;
-@ViewChild('paginator') paginator: MatPaginator;
-@ViewChild('dropSort') dropSort: MatSort;
- 
-@ViewChild('dropSearchSort') dropSearchSort: MatSort;
-
-constructor(private outSideService: OutsideServicesService){ }
+  constructor(private outSideService: OutsideServicesService,
+    private pdfServive: TeacherAppPdfService,private router: Router, private date: DatePipe, private dataService: DataService,
+    private modalService: NgbModal, 
+    private route: ActivatedRoute, private fb: FormBuilder, private formData: FormDataService, private _adapter: DateAdapter<any>) { }
 
   ngOnInit(): void {
-    this.dropSearchForm = new FormGroup({
+    this.searchEmployeeForm = new FormGroup({
       'employeeCode': new FormControl(''),
     });
-    // this.getEmployeeData();
+
+    this.teacherPreviewConfirmForm = this.fb.group({
+      "teacherName": new FormControl('', Validators.required),
+      "teacherGender": new FormControl('', Validators.required),
+      "teacherDob": new FormControl('', Validators.required),
+      "teacherEmplCode": new FormControl('', Validators.required),
+      "teacherDisability": new FormControl('', Validators.required),
+      "ExperienceStartDatePresentKv": new FormControl('', Validators.required),
+      "workExperienceAppointedForSubject": new FormControl('', Validators.required),
+      "lastPromotionPositionType": new FormControl('', Validators.required),
+      "workExperiencePositionTypePresentStationStartDate": new FormControl('', Validators.required),
+      "undertaking1": new FormControl('', Validators.required),
+      "undertaking2": new FormControl('', Validators.required),
+    });
+
+  
+    this.exportProfileUrl=environment.BASE_URL_DATA_REPORT
+    this.applicationId = environment.applicationId;
+    for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
+      this.loginUserNameForChild=JSON.parse(sessionStorage.getItem("authTeacherDetails")).user_name;
+      this.kvicons += JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].application_id + ",";
+      this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
+    }
+ 
+    this.profileTeacherName=sessionStorage.getItem('profileTeacherName');
+   
+
+    this.token =JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token;
+
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
       this.kvCode = JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails[i].business_unit_type_code;
     } 
+        
+    
   }
 
-
-
-
-  getEmployeeData(data){
-    this.outSideService.searchEmployee(data).subscribe((res) => {
-      this.empList=res;
-
-      console.log(this.empList)
-
-      
-    })
-  }
-
-  setToJoingMatTable(data) {
-    this.dropBoxArray = [];
-    for (let i = 0; i < data.length; i++) {
-      this.dropBoxData.sno = '' + (i + 1) + '';
-      this.dropBoxData.teacherName = data[i].teacherName;
-      this.dropBoxData.teacherId = data[i].teacherEmployeeCode;
-      if(data[i].teachingNonteaching=="1"){
-        this.dropBoxData.teachingType= "Teaching";
-      }
-      if(data[i].teachingNonteaching=="2"){
-        this.dropBoxData.teachingType= "Non-Teaching";
-      }
-      for (let j = 0; j < this.empList.length; j++) {
-        if(this.empList[j]['dropboxId']==data[i]['employeeDropId']){
-          this.dropBoxData.dropBoxType=this.empList[j]['dropboxType']
-        }
-      }
-      this.dropBoxData.lastPromotionPositionType=data[i].lastPromotionPositionType;
-      this.dropBoxData.dropboxDescription = data[i].dropboxDescription;
-      this.dropBoxArray.push(this.dropBoxData);
-      this.dropBoxData = { "sno": "","teacherName": "","teacherId":"", "teachingType": "","dropBoxType": "","lastPromotionPositionType":"","dropboxDescription":""}
+  getFormStatusV2(){
+    var data ={
+      "teacherId": this.tempTeacherId
     }
-  
-    console.log(this.dropBoxArray)
-    setTimeout(() => {
-      this.DropSource  = new MatTableDataSource(this.dropBoxArray);
-      this.DropSource .paginator = this.dropPaginator;
-      this.DropSource .sort = this.dropSort;  
-    }, 100)
+   
+    this.outSideService.getFormStatusV2(data).subscribe((res)=>{
+      if(res.response['profileFinalStatus']=='SP' || res.response['profileFinalStatus']=='' ||res.response['profileFinalStatus']==null){
+        this.profileFinalStatus=true;
+        this.profileFinalStatusName='Not Verified';
+       }
+       else{
+        this.profileFinalStatus=false;
+        this.profileFinalStatusName='Verified';
+       }
+  },
+  error => {
+    Swal.fire({
+      'icon':'error',
+      'text':error.error
+    }
+    )
+  })
+  }
+
+
+  getTeacherConfirmationV2(){
+    var data={
+      "teacherId":this.tempTeacherId}
+    this.outSideService.getTeacherConfirmationV2(data).subscribe((res)=>{
+      if(res){
+        this.teacherPreviewConfirmForm.patchValue({
+          teacherName:  res.response['teacherName'],
+          teacherGender:  res.response['teacherGender'],
+          teacherDob:  res.response['teacherDob'],
+          teacherEmplCode:  res.response['teacherEmployeeCode'],
+          teacherDisability:  res.response['teacherDisabilityYn'],
+          ExperienceStartDatePresentKv:  res.response['workExperienceWorkStartDatePresentKv'],
+          workExperienceAppointedForSubject:  res.response['workExperienceAppointedForSubject'],
+          lastPromotionPositionType:  res.response['lastPromotionPositionType'],
+          workExperiencePositionTypePresentStationStartDate:  res.response['workExperiencePositionTypePresentStationStartDate']
+      });
+      }
+  },
+  error => {
+    Swal.fire({
+      'icon':'error',
+      'text':error.error
+    }
+    )
+  })
+  }
+
+  previousPage(){
+    this.router.navigate(['/teacher/searchEmployee']);
   }
   onKeyDown(event: KeyboardEvent) {
     if (event.key === ',' && this.tagInput.trim() !== '') { 
@@ -112,233 +190,91 @@ constructor(private outSideService: OutsideServicesService){ }
     }
    
   }
-  removeTag(tagToRemove: string) {
-    this.tags = this.tags.filter(tag => tag !== tagToRemove);
-    console.log(this.tags)
-  }
+ 
   clear(){
+    this.showEmployeeData = false;
     this.tags=[];
     this.searchDropData=[];
     this.totalLength ='';
     this.dataSource = new MatTableDataSource(this.searchDropData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.dropSearchSort;
-    this.dropSearchForm.patchValue({
+    this.searchEmployeeForm.patchValue({
       employeeCode: '',
+      
   });
 }
-  // navColor(nav:any){
-  //   if(nav=='dropList')
-  //   {
-  //     this.showFirstButtonColor=true;
-  //     this.showsecondButtonColor=false;
-  //     this.activePaneOne=true;
-  //     this.activePaneTwo=false;
-  //     this.getDroboxMaster();
-  //   }else{
-  //     this.showFirstButtonColor=false;
-  //     this.showsecondButtonColor=true;
-  //     this.activePaneOne=false;
-  //     this.activePaneTwo=true;
-  //     this.clear();
-  //   } 
-  // }
+submit(){
+  console.log('Testtttttt Ashish     ',this.teacherPreviewConfirmForm.value)
 
-  applyFilterSBSource(filterValue: string) {
-    filterValue = filterValue.trim(); 
-    filterValue = filterValue.toLowerCase(); 
-    this.DropSource.filter = filterValue;
-  }
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); 
-    filterValue = filterValue.toLowerCase(); 
-    this.dataSource.filter = filterValue;
-    this.totalLength = this.dataSource.filteredData.length;
-  }
-  // revokeEmployee(empCode:any){
-  //   {
-  //     const data={"teacherEmployeeCode":empCode}
-  //     console.log(data)
-  //     Swal.fire({
-  //      'icon':'warning',
-  //      'text': "Do you want to proceed ?",
-  //      'allowEscapeKey': false,
-  //      'allowOutsideClick': false,
-  //      'showCancelButton': true,
-  //      'confirmButtonColor': "#DD6B55",
-  //      'confirmButtonText': "Yes",
-  //      'cancelButtonText': "No",
-  //      'showLoaderOnConfirm': true,
-  //    }
-  //    ).then((isConfirm) => {
-  //      if (isConfirm.value === true) {
-  //          this.outSideService.revokeEmployeeFromDropbox(data).subscribe((res)=>{
-  //            if(res){
-  //             this.getDroboxMaster()
-  //              Swal.fire(
-  //                'Employee revoked Successfully!',
-  //                '',
-  //                'success'
-  //              )
-  //            }
-  //        this.submit();
-  //      },
-  //      error => {
-  //        Swal.fire({
-  //          'icon':'error',
-  //          'text':error.error
-  //        }
-  //        )
-  //      })
-  //    }
-  //    return false;
-  //    });
-  //  }
-  // }
-  submit(){
-    if(this.tags.length<1){
-      this.manualEmpCodeSearch=[];
-      this.manualEmpCodeSearch.push(this.dropSearchForm.value.employeeCode.trim())
-      this.searchData={
-        "empCode": this.manualEmpCodeSearch,
-      }
-    }
-    else{
-      this.searchData={
-        "empCode":this.tags,
-      }
-      this.dropSearchForm.patchValue({
-        employeeCode: this.tags[0],
-    });
-    }
-   
-    if(this.dropSearchForm.value.employeeCode=='' || this.dropSearchForm.value.employeeCode==null ){
-      this.searchDropData=[];
-        this.totalLength ='';
-        this.dataSource = new MatTableDataSource(this.searchDropData);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.dropSearchSort;
-        this.dropSearchForm.patchValue({
-          employeeCode: '',
-      });
-        return ;
-      }
-      else{
-        alert(JSON.stringify(this.searchData))
-     
-        this.searchDropData=[];
-        this.outSideService.searchEmployee(this.searchData).subscribe(res => {
-          console.log("emp transfer  data---------------")
-         // this.transferStatusOneComplite=false;
-          console.log(res)
-          for (let i = 0; i < res.length; i++) {
-            this.searchDropBoxData.sno = '' + (i + 1) + '';
-            this.searchDropBoxData.teacherName = res[i].teacherName;
-            this.searchDropBoxData.teacherId = res[i].teacherEmployeeCode;
-            this.searchDropBoxData.kvCode = res[i].kvCode;
-            this.searchDropBoxData.kvName = res[i].kvName;
-            this.searchDropBoxData.dropBoxFlag = res[i].dropBoxFlag;
-            // if(res[i].dropBoxFlag=='0' && res[i].kvCode==this.kvCode ){
-            //   this.searchDropBoxData.statusMsg="Employee Imported";
-            //   this.searchDropBoxData.className='make-green';
-            // }
-            // if((res[i].dropBoxFlag=='0' ||  res[i].dropBoxFlag==null) && res[i].kvCode!=this.kvCode ){
-            //   this.searchDropBoxData.statusMsg="Contact to KV to complete relieve process";
-            //   this.searchDropBoxData.className='make-red';
-            // }
-            
-            // if(res[i].dropBoxFlag==null && res[i].kvCode==this.kvCode ){
-            //   this.searchDropBoxData.statusMsg="Contact to KV to complete relieve process";
-            //   this.searchDropBoxData.className='make-red';
-            // }
-
-            // for (let j = 0; j < this.searchData['empCode'].length; j++) {
-            //   if(res[i].dropBoxFlag== '0' && this.dropBoxReasion[j]['dropboxId']==res[i]['employeedropid']){
-            //     this.searchDropBoxData.dropBoxType=this.dropBoxReasion[j]['dropboxType']
-            //   }
-            // }
-
-            // if(res[i].teachingNonteaching=="1"){
-            //   this.searchDropBoxData.teachingType= "Teaching";
-            // }
-            // if(res[i].teachingNonteaching=="2"){
-            //   this.searchDropBoxData.teachingType= "Non-Teaching";
-            // }
-            // for (let j = 0; j < this.empList.length; j++) {
-            //   if(this.empList[j]['dropboxId']==res[i]['employeedropid']){
-            //     this.searchDropBoxData.dropBoxType=this.empList[j]['dropboxType']
-            //   }
-            // }
-            this.searchDropBoxData.lastPromotionPositionType=res[i].lastPromotionPositionType;
-            this.searchDropData.push(this.searchDropBoxData);
-            this.totalLength = this.searchDropData.length;
-            this.searchDropBoxData = { "sno": "","teacherName": "","teacherId":"","kvCode":"","statusMsg":"","kvName":"","dropBoxFlag":"","className":"" ,"teachingType": "","lastPromotionPositionType":"","dropBoxType": ""}
-          }
-          console.log("trandgdsdsds")
-    console.log(this.searchDropData)
-          setTimeout(() => {
-            this.dataSource = new MatTableDataSource(this.searchDropData);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.dropSearchSort;
-          }, 100)
-         },
-        error => { 
-          Swal.fire({
-            'icon':'error',
-            'text':'You are not Authorized.'
-          })
-        })
-
-      }
-  }
-  importEmployee(empCode: any,reliveType:any){
-    if(reliveType=='Transfer')
-    {
-    const data={"allotKvCode":this.kvCode ,"username":empCode,"teacherEmployeeCode":empCode}
-    console.log(data)
+  if (this.searchEmployeeForm.invalid) {
     Swal.fire({
-     'icon':'warning',
-     'text': "Do you want to proceed ?",
-     'allowEscapeKey': false,
-     'allowOutsideClick': false,
-     'showCancelButton': true,
-     'confirmButtonColor': "#DD6B55",
-     'confirmButtonText': "Yes",
-     'cancelButtonText': "No",
-     'showLoaderOnConfirm': true,
-   }
-   ).then((isConfirm) => {
-     if (isConfirm.value === true) {
-         this.outSideService.importEmployeeFromDropbox(data).subscribe((res)=>{
-           if(res){
-            
-             Swal.fire(
-               'Employee Imported successfully!',
-               '',
-               'success'
-             )
-           }
-       this.submit();
-     },
-     error => {
-       Swal.fire({
-         'icon':'error',
-         'text':error.error
+      'icon':'error',
+      'text':'Invalid employee code!'
+    })
+    return false;
+     }
+     else{
+      var data={
+        "teacherEmployeeCode":this.searchEmployeeForm.value.employeeCode
        }
-       )
-     })
-   }
-   return false;
-   });
- }
- else{
-  Swal.fire({
-    'icon':'error',
-    'text':'Employee is not applicable to  import.'
-  }
-  )
- }
+         this.outSideService.getEmployeeDetailV2(data).subscribe((res)=>{
+           debugger
+         this.emplyeeData=res.response
+         
+         this.tempTeacherId = this.emplyeeData['teacherId']
+         console.log('TEACHER IDDDD ----->>>.', this.tempTeacherId)
 
+         this.outSideService.fetchConfirmedTchDetails(this.tempTeacherId).subscribe((res) => {
+          debugger
+       
+        this.verifyTchTeacherProfileData = res.response.teacherProfile;
+        //alert(JSON.stringify(this.verifyTchTeacherProfileData))
+        console.log(this.verifyTchTeacherProfileData);
+        if(this.verifyTchTeacherProfileData['socialCategories']=='1'){
+          this.socialCat='GENERAL';
+        }
+        if(this.verifyTchTeacherProfileData['socialCategories']=='2'){
+          this.socialCat='OBC';
+        }
+        if(this.verifyTchTeacherProfileData['socialCategories']=='3'){
+          this.socialCat='SC';
+        }
+        if(this.verifyTchTeacherProfileData['socialCategories']=='4'){
+          this.socialCat='ST';
+        }
+        if(this.verifyTchTeacherProfileData['socialSubCategories']=='1'){
+          this.socialSubCat='NON EWS';
+        }
+        if(this.verifyTchTeacherProfileData['socialSubCategories']=='2'){
+          this.socialSubCat='EWS';
+        }
+        if(this.verifyTchTeacherProfileData['socialSubCategories']=='0' || this.verifyTchTeacherProfileData['socialSubCategories']==null){
+          this.socialSubCat='NA';
+        }
+        this.schoolDetails = res.response.schoolDetails;
+       // alert(JSON.stringify(this.schoolDetails))
+        this.kvNameCode = this.schoolDetails.kvName+' '+this.schoolDetails.kvCode;
+        this.stationNameCode= this.schoolDetails.stationName+' '+this.schoolDetails.stationCode;
+        this.verifyTchTeacherTraining = res.response.training;
+       // alert(JSON.stringify(this.verifyTchTeacherTraining))
+      
+          for (let i = 0; i < res.response.experience.length; i++) {
+            if (res.response.experience[i].workEndDate != null || res.response.experience[i].workEndDate != null) {
+              res.response.experience[i].workEndDate = res.response.experience[i].workEndDate;
+            }
+            res.response.experience[i].workStartDate = res.response.experience[i].workStartDate;
+          }
+          this.verifyTchTeacherWorkExp = res.response.experience;
+          this.teschrLeaveDetails=res.response.teacherLeave;
+    
+        })
+          this.showEmployeeData = true;
+         
+            this.getFormStatusV2();
+          
+     })
+     }
 }
 
 }

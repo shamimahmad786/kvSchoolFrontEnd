@@ -1017,9 +1017,36 @@ getRoDashboard(data,userName:any){
   return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getRoDashboard", data, {headers})
 }
 
-checkEmployeeCodeByEmpCode(data){
-  
+getNoOfEmployeeAgeWise(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfEmployeeAgeWise",{headers})
 
+}
+getNoOfEmployeeGenderAgeWise(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfEmployeeGenderAgeWise",{headers})
+}
+
+getNoOfEmployeeRegionGenderAgeWise(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfEmployeeRegionGenderAgeWise",{headers})
+}
+
+
+
+checkEmployeeCodeByEmpCode(data){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
     var headers = new HttpHeaders({
       'Authorization':token,

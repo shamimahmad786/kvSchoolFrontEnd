@@ -1050,7 +1050,7 @@ label {
       line-height: 22px;
   }
 .border-right{
-  border-right: 1px solid #ccc;
+  border-right: 1px dashed #ccc;
 
 }
   span.loginSpan {float: right; background-color: #fbe6ec!important; color:#97516a!important; }
