@@ -406,6 +406,107 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="dashboard-main-content-info p-4 pt-2 mt-2">
+                        <div class="row ">
+                            <div class="col-md-6">
+                                <div class=" dashboard-main-content__header mb-2">
+                                    <h1 class="TolTeacherValue  ">Retirement Statistics</h1>
+                                </div>
+                                <ul class="">
+                                    <li class="card p-3 rounded-3 mb-3">
+
+                                        <div class="row ">
+                                            <div class="col-sm-12 ">
+                                                <div class="table-responsive">
+                                                    <table class="table1 table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="2"
+                                                                    style="background:#945197; color: #fff;   ">Total Employees Retire In A/Y
+                                                                </th>
+                                                                <th colspan="2"
+                                                                    style="background:#945197; color: #fff;   ">Retired But Profile Active In A/Y
+                                                                </th>
+                                                                <th colspan="2"
+                                                                    style="background:#945197; color: #fff;   "> Retired Today Onwords In A/Y
+                                                                </th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="2"><span
+                                                                        (click)="retirementBoxClick('totalRetireEmployee')">{{allRetireEmplDetails?.noofemployeeretireincurrentay
+                                                                        }}</span></td>
+                                                                <td colspan="2"><span
+                                                                        (click)="retirementBoxClick('retireProfileActive')">{{allRetireEmplDetails?.noofemployeeretiredandprofileactive}}</span>
+                                                                </td>
+                                                                <td colspan="2"><span
+                                                                        (click)="retirementBoxClick('onwords')">{{allRetireEmplDetails?.noofemployeeretiredtodayonward}}</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class=" dashboard-main-content__header mb-2">
+                                    <h1 class="TolTeacherValue  ">Employee Profile Statistics</h1>
+                                </div>
+                                <ul class="">
+                                    <li class="card p-3 rounded-3 mb-3">
+
+                                        <div class="row ">
+                                            <div class="col-sm-12 ">
+                                                <div class="table-responsive">
+                                                    <table class="table1 table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="2"
+                                                                    style="background:#945197; color: #fff;   ">Verified Employee In A/Y
+                                                                </th>
+                                                                <th colspan="2"
+                                                                    style="background:#945197; color: #fff;   ">Verified Employee Today
+                                                                </th>
+                                                                <!-- <th colspan="2"
+                                                                    style="background:#945197; color: #fff;   "> Retired Today Onwords In A/Y
+                                                                </th> -->
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="2"><span
+                                                                        (click)="retirementBoxClick('totalRetireEmployee')">{{getVerifiedUnverifiedEmployee?.verifiedcurrentyear
+                                                                        }}</span></td>
+                                                                <td colspan="2"><span
+                                                                        (click)="retirementBoxClick('retireProfileActive')">{{getVerifiedUnverifiedEmployee?.verifiedtoday}}</span>
+                                                                </td>
+                                                                <!-- <td colspan="2"><span
+                                                                        (click)="retirementBoxClick('onwords')">{{allRetireEmplDetails?.noofemployeeretiredtodayonward}}</span>
+                                                                </td> -->
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div><!--close row-->
             </div>
 
@@ -561,7 +662,7 @@
             </div> -->
 <div mat-dialog-content class="p-3">
     <ng-template #AllDropBox let-modal style="min-width: 100%;">
-        <div class="p-2">
+        <div class="p-2 ">
             <div class="clearfix">
                 <div class="float-start">
                     <h1 class="mb-0 mx-auto">Employee Details ({{dropboxName}}) </h1>
@@ -575,14 +676,49 @@
             </div>
         </div>
         <div>
-            <div class="example-container mat-elevation-z8">
+            <div class="example-container mat-elevation-z8 ">
                 <div style="width: 100%; height: 500px;">
                     <ag-grid-angular style="width: 100%; height: 100%;" class="ag-theme-balham"
                         [rowData]="dropBoxRowData" rowHeight="40" [columnDefs]="columnDefs"
                         [defaultColDef]="defaultColDef" [pagination]="true" [paginationPageSize]="10"></ag-grid-angular>
                 </div>
             </div>
+            <!-- <div id="main" class="card mt-1">
+                <div echarts [options]="stationWiseSchoolInBarChart" class="demo-chart">
+                </div>
+        </div> -->
 
+        </div>
+    </ng-template>
+</div>
+
+<div mat-dialog-content class="p-3">
+    <ng-template #AllRetirementBox let-modal style="min-width: 100%;">
+        <div class="p-2 ">
+            <div class="clearfix">
+                <div class="float-start">
+                    <h1 class="mb-0 mx-auto">Retirement Statistics ({{retireboxName}}) </h1>
+                </div>
+                <div class="float-end">
+                    <!-- <button type="button" *ngIf="moreInfo" (click)="getEmployeeStaticsDetailsReport()" class="btn btn-primary btn-sm">Click Here for More Info</button> -->
+                    <i class="fa fa-times" (click)="cancelModal()"
+                        style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <div class="example-container mat-elevation-z8 ">
+                <div style="width: 100%; height: 500px;">
+                    <ag-grid-angular style="width: 100%; height: 100%;" class="ag-theme-balham"
+                        [rowData]="retireTeacherRowData" rowHeight="40" [columnDefs]="columnDefs"
+                        [defaultColDef]="defaultColDef" [pagination]="true" [paginationPageSize]="10"></ag-grid-angular>
+                </div>
+            </div>
+            <!-- <div id="main" class="card mt-1">
+                <div echarts [options]="stationWiseSchoolInBarChart" class="demo-chart">
+                </div>
+        </div> -->
 
         </div>
     </ng-template>

@@ -918,6 +918,26 @@ getDashboardEmployeeDetails(){
 
 }
 
+getVerifiedEmployeedCount(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getVerifiedEmployeedCount",{headers})
+}
+
+
+
+getRetaimentDetailsCount(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getRetaimentDetailsCount",{headers})
+}
+
 getNoOfEmployeeRegionSchoolWiseExcludeDropbox(){  
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
     var headers = new HttpHeaders({
@@ -1044,8 +1064,31 @@ getNoOfEmployeeRegionGenderAgeWise(){
   return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfEmployeeRegionGenderAgeWise",{headers})
 }
 
+getEmployeeRetireInCurrentAY(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getEmployeeRetireInCurrentAY",{headers})
+}
 
-
+getEmployeeRetiredAndProfileActive(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getEmployeeRetiredAndProfileActive",{headers})
+}
+getEmployeeRetairedTodayOnwards(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getEmployeeRetairedTodayOnwards",{headers})
+}
 checkEmployeeCodeByEmpCode(data){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
     var headers = new HttpHeaders({
