@@ -1753,7 +1753,7 @@ getNoOfEmployeeRetireInCurrentAY(){
   })
 }
 retirementBoxClick(event:any){
-  this.moreInfo=true;
+ // this.moreInfo=true;
   this.allRetireTeacherData=[];
   this.retireTeacherRowData=[];
   if(event=='totalRetireEmployee')
@@ -1893,10 +1893,143 @@ getVerifiedEmployeedCount(){
     this.getVerifiedUnverifiedEmployee=res.rowValue[0];
     console.log("---------get verified employe-------")
     console.log(res);
-    this.allEmplDetails = res;
+  //  this.allEmplDetails = res;
   })
 }
+verifiedUnverifiedBoxClick(event:any){
+ // this.moreInfo=true;
+ this.allRetireTeacherData=[];
+ this.retireTeacherRowData=[];
+ if(event=='totalRetireEmployee')
+ {
+   this.retireboxName='Total Employees Retire In Academic Year';
+ this.outSideService.getEmployeeRetireInCurrentAY().subscribe((res)=>{
+   this.modalService.open(this.AllRetirementBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+   this.allRetireTeacherData=res.rowValue;
+   console.log("------retirement data----------------")
+   console.log(res)
+   this.retireBoxSrNo=[];
+   this.retireTeacherName=[];
+   this.retireTeacherDob=[];
+   this.retireTeacherAge=[];
+ for (let i = 0; i < this.allRetireTeacherData.length; i++) {
+   this.retireBoxSrNo=i+1;
+  
+   this.retireTeacherName =this.allRetireTeacherData[i]['teacher_name'];
+   var teacherDob =this.allRetireTeacherData[i]['teacher_dob'].split("-"); 
+   this.retireTeacherDob = teacherDob[2]+"-"+teacherDob[1]+"-"+teacherDob[0];
+   this.retireTeacherAge=this.allRetireTeacherData[i]['age']['years'];
+   this.rowanyDataForWithOutDropBox = [
+     {
+       SrNo: this.retireBoxSrNo,
+       TeacherName: this.retireTeacherName,
+       Dob: this.retireTeacherDob,
+       Age: this.retireTeacherAge,
+     },
+   ];
 
+   this.retireTeacherRowData.push(this.rowanyDataForWithOutDropBox[0]);
+ }
+ this.columnDefs = [
+   {headerName: 'S.No', field: 'SrNo' },
+   {headerName: "Teacher Name", field: "TeacherName",},
+   {headerName: "D.O.B", field: "Dob",},
+   {headerName: "Age", field: "Age",},
+ ];
+ })
+ }
+ if(event=='retireProfileActive')
+ {
+   this.retireboxName='Retired But Profile Active In Academic Year';
+   this.outSideService.getEmployeeRetiredAndProfileActive().subscribe((res)=>{
+     this.modalService.open(this.AllRetirementBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+     this.allRetireTeacherData=res.rowValue;
+     console.log("------retirement data----------------")
+     console.log(res)
+     this.retireBoxSrNo=[];
+     this.retireTeacherName=[];
+     this.retireTeacherDob=[];
+     this.retireTeacherAge=[];
+     this.teacheRegionName=[];
+     this.teacherKv=[];
+   for (let i = 0; i < this.allRetireTeacherData.length; i++) {
+     this.retireBoxSrNo=i+1;
+     this.teacheRegionName=this.allRetireTeacherData[i]['region_name'];
+     this.teacherKv=this.allRetireTeacherData[i]['kvschool'];
+     this.retireTeacherName =this.allRetireTeacherData[i]['empnameandcode'];
+     var teacherDob =this.allRetireTeacherData[i]['teacher_dob'].split("-"); 
+     this.retireTeacherDob = teacherDob[2]+"-"+teacherDob[1]+"-"+teacherDob[0];
+     this.retireTeacherAge=this.allRetireTeacherData[i]['age']['years'];
+     this.rowanyDataForWithOutDropBox = [
+       {
+         SrNo: this.retireBoxSrNo,
+         RegionName:this.teacheRegionName,
+         KvName:this.teacherKv,
+         TeacherName: this.retireTeacherName,
+         Dob: this.retireTeacherDob,
+         Age: this.retireTeacherAge,
+       },
+     ];
+ 
+     this.retireTeacherRowData.push(this.rowanyDataForWithOutDropBox[0]);
+   }
+   this.columnDefs = [
+     {headerName: 'S.No', field: 'SrNo' },
+     {headerName: 'Region', field: 'RegionName' },
+     {headerName: 'KV Name', field: 'KvName' },
+     {headerName: "Teacher Name", field: "TeacherName",},
+     {headerName: "D.O.B", field: "Dob",},
+     {headerName: "Age", field: "Age",},
+   ];
+ })
+ }
+
+ if(event=='onwords')
+ {
+   this.retireboxName='Retire Today Onwords In Academic Year';
+ this.outSideService.getEmployeeRetairedTodayOnwards().subscribe((res)=>{
+   this.modalService.open(this.AllRetirementBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+     this.allRetireTeacherData=res.rowValue;
+     console.log("------onward data----------------")
+     console.log(res)
+     this.retireBoxSrNo=[];
+     this.retireTeacherName=[];
+     this.retireTeacherDob=[];
+     this.retireTeacherAge=[];
+     this.teacheRegionName=[];
+     this.teacherKv=[];
+   for (let i = 0; i < this.allRetireTeacherData.length; i++) {
+     this.retireBoxSrNo=i+1;
+     this.teacheRegionName=this.allRetireTeacherData[i]['region_name'];
+     this.teacherKv=this.allRetireTeacherData[i]['kvschool'];
+     this.retireTeacherName =this.allRetireTeacherData[i]['empnameandcode'];
+     var teacherDob =this.allRetireTeacherData[i]['teacher_dob'].split("-"); 
+     this.retireTeacherDob = teacherDob[2]+"-"+teacherDob[1]+"-"+teacherDob[0];
+     this.retireTeacherAge=this.allRetireTeacherData[i]['age']['years'];
+     this.rowanyDataForWithOutDropBox = [
+       {
+         SrNo: this.retireBoxSrNo,
+         RegionName:this.teacheRegionName,
+         KvName:this.teacherKv,
+         TeacherName: this.retireTeacherName,
+         Dob: this.retireTeacherDob,
+         Age: this.retireTeacherAge,
+       },
+     ];
+ 
+     this.retireTeacherRowData.push(this.rowanyDataForWithOutDropBox[0]);
+   }
+   this.columnDefs = [
+     {headerName: 'S.No', field: 'SrNo' },
+     {headerName: 'Region', field: 'RegionName' },
+     {headerName: 'KV Name', field: 'KvName' },
+     {headerName: "Teacher Name", field: "TeacherName",},
+     {headerName: "D.O.B", field: "Dob",},
+     {headerName: "Age", field: "Age",},
+   ];
+ })
+ }
+}
 }
 
 
