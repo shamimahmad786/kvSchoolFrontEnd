@@ -13,11 +13,7 @@ import { ColDef, RowGroupingDisplayType } from 'ag-grid-community';
 })
 export class RegionDashboardComponent implements OnInit {   
   @ViewChild('AllDropBox', { static: true }) AllDropBox: TemplateRef<any>;
-
   @ViewChild('AllDetailBox', { static: true }) AllDetailBox: TemplateRef<any>;
-
-
-
   kvicons: any;
   businessUnitTypeId: any;
   businessUnitTypeCode: any;
@@ -171,8 +167,6 @@ export class RegionDashboardComponent implements OnInit {
         this.teachingMaleFemaleTotal= res['teachingMale']+res['teachingFemale'];
         this.nonTeachingMaleFemaleTotal= res['nonTeachingMale']+res['nonTeachingFeMale'];
         this.inPositionTotal=this.teachingMaleFemaleTotal+this.nonTeachingMaleFemaleTotal;
-        //  this.router.navigate(['/teacher/controler-management'])
-        
       },
       error => { 
         Swal.fire({
@@ -180,8 +174,6 @@ export class RegionDashboardComponent implements OnInit {
           'text':'You are not Authorized.'
         })
       });
-
-      // this.showRegion = true;
       var data = {
         "businessUnitTypeId": this.businessUnitTypeId,
         "businessUnitTypeCode": this.businessUnitTypeCode
@@ -218,14 +210,11 @@ this.empoyeeUnderRetirement='Under 60';
 this.getTotalRegionEmployeeByGender(data1)
 this.getTotalRegionSchoolDetail();
 this.getDashboardEmployeeDetails();
-//this.getRegionWiseEmployeeAgeData();
 this.regionStationName='AHMEDABAD';
 this.onChartEventRegionWiseSchool(this.regionStationName);
 this.getRetirementWiseEmployeeData();
 this.getAllAgeWiseData();
-
 this.onChartEventEmployeeAgeRegionWise('Between(18-30)')
-
   }
   navColor(nav:any){
     if(nav=='transferin')
@@ -252,14 +241,12 @@ getdropBoxDetail(){
   this.outSideService.getReportByID(data).subscribe((res) => {
   console.log(res);
   this.dropBoxDetail=res.rowValue;
-  for (let i = 0; i < this.dropBoxDetail.length; i++) {
+for (let i = 0; i < this.dropBoxDetail.length; i++) {
 if(this.dropBoxDetail[i]['employeedropid'] == 1){
   var data ={
     value: this.dropBoxDetail[i]['count'],
     name: "Retirement",
  }
-
-
   this.dropBoxValue.push(data)
 }
 if(this.dropBoxDetail[i]['employeedropid'] == 2){
@@ -304,7 +291,6 @@ if(this.dropBoxDetail[i]['employeedropid'] == 6){
  }
   this.dropBoxValue.push(data)
 }
-
 }
   })
   this.dropBoxDetailinPieChart();
@@ -357,9 +343,9 @@ getDashboardEmployeeDetails(){
 }
 
 getEmployeeStaticsDetailsReport(){
+  debugger
   this.modalService.dismissAll();
   this.moreInfo=false;
-  //this.modalService.open(this.AllDetailBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   this.allDetailsData=[];
   this.rowanyDetailDataForWithOutDropBox=[];
   this.dropBoxRowData=[];
@@ -368,9 +354,6 @@ getEmployeeStaticsDetailsReport(){
  {
   this.outSideService.getEmployeeDetailsRegionSchoolWiseDropbox().subscribe((res)=>{
     this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-   console.log(res)
-     console.log("----in drop box----")
-     console.log(res)
      this.allDetailsData=res;
      this.DetailsSrNo=[];
      this.DetailsRegionName=[];
@@ -408,6 +391,7 @@ getEmployeeStaticsDetailsReport(){
      {headerName: 'S.No', field: 'SrNo' },
      {headerName: "Region Name", field: "RegionName"},
      {headerName: "KV/RO/HQ Name", field: "KVName"},
+     {headerName: "Employee Name", field: "emplName"},
      {headerName: "Mobile", field: "mobileNo"},
    //  {headerName: "D.O.B", field: "dob"},
      {headerName: "Drop Reason", field: "dropResion"},
@@ -431,9 +415,6 @@ getEmployeeStaticsDetailsReport(){
   debugger
   this.outSideService.getEmployeeDetailsProfileUpdatedAddedToday().subscribe((res)=>{
     this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-   console.log(res)
-     console.log("----in drop box----")
-     console.log(res)
      this.allDetailsData=res.rowValue;
      this.DetailsSrNo=[];
      this.DetailsRegionName=[];
@@ -471,6 +452,7 @@ getEmployeeStaticsDetailsReport(){
      {headerName: 'S.No', field: 'SrNo' },
      {headerName: "Region Name", field: "RegionName"},
      {headerName: "KV/RO/HQ Name", field: "KVName"},
+     {headerName: "Employee Name", field: "emplName"},
      {headerName: "Mobile", field: "mobileNo"},
    //  {headerName: "D.O.B", field: "dob"},
      {headerName: "Drop Reason", field: "dropResion"},
@@ -482,10 +464,7 @@ getEmployeeStaticsDetailsReport(){
  {
   this.outSideService.getEmployeeDetailsProfileUpdatedAdded().subscribe((res)=>{
     this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-   console.log(res)
-     console.log("----in drop box----")
-     console.log(res)
-     this.allDetailsData=res.rowValue;
+     this.allDetailsData=res;
      this.DetailsSrNo=[];
      this.DetailsRegionName=[];
      this.DetailsKvName=[];
@@ -522,6 +501,7 @@ getEmployeeStaticsDetailsReport(){
      {headerName: 'S.No', field: 'SrNo' },
      {headerName: "Region Name", field: "RegionName"},
      {headerName: "KV/RO/HQ Name", field: "KVName"},
+     {headerName: "Employee Name", field: "emplName"},
      {headerName: "Mobile", field: "mobileNo"},
    //  {headerName: "D.O.B", field: "dob"},
      {headerName: "Drop Reason", field: "dropResion"},
@@ -532,9 +512,6 @@ getEmployeeStaticsDetailsReport(){
  {
   this.outSideService.getEmployeeDetailsProfileNotUpdatedCurrentYear().subscribe((res)=>{
     this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-   console.log(res)
-     console.log("----in drop box----")
-     console.log(res)
      this.allDetailsData=res;
      this.DetailsSrNo=[];
      this.DetailsRegionName=[];
@@ -572,16 +549,14 @@ getEmployeeStaticsDetailsReport(){
      {headerName: 'S.No', field: 'SrNo' },
      {headerName: "Region Name", field: "RegionName"},
      {headerName: "KV/RO/HQ Name", field: "KVName"},
+     {headerName: "Employee Name", field: "emplName"},
      {headerName: "Mobile", field: "mobileNo"},
    //  {headerName: "D.O.B", field: "dob"},
    //  {headerName: "Drop Reason", field: "dropResion"},
    ];
   })
   }
-
 }
-
-
 withOUtDroBoxClick(event:any){
   this.moreInfo=true;
   this.allDropoxDta=[];
@@ -591,9 +566,6 @@ withOUtDroBoxClick(event:any){
     this.dropboxName='Profile Not Updated';
   this.outSideService.getRegionSchoolWiseProfileNotUpdatedCurrentYear().subscribe((res)=>{
     this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-  //  this.allEmplDetails = res;
-    console.log("----in drop box----")
-    console.log(res)
     this.allDropoxDta=res;
     this.dropBoxSrNo=[];
     this.dropBoxRegionName=[];
@@ -629,9 +601,6 @@ withOUtDroBoxClick(event:any){
     this.dropboxName='Profile Updated';
   this.outSideService.getRegionSchoolWiseProfileUpdatedAdded().subscribe((res)=>{
     this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-  //  this.allEmplDetails = res;
-    console.log("----in drop box----")
-    console.log(res)
     this.allDropoxDta=res;
     this.dropBoxSrNo=[];
     this.dropBoxRegionName=[];
@@ -668,9 +637,6 @@ withOUtDroBoxClick(event:any){
     this.dropboxName='Profile Updated Today';
   this.outSideService.getRegionSchoolWiseProfileUpdatedAddedToday().subscribe((res)=>{
     this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-  //  this.allEmplDetails = res;
-    console.log("----in drop box----")
-    console.log(res)
     this.allDropoxDta=res.rowValue;
     this.dropBoxSrNo=[];
     this.dropBoxRegionName=[];
@@ -707,9 +673,6 @@ withOUtDroBoxClick(event:any){
     this.dropboxName='In Dropbox';
   this.outSideService.getNoOfEmployeeRegionSchoolWiseDropbox().subscribe((res)=>{
     this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-  //  this.allEmplDetails = res;
-    console.log("----in drop box----")
-    console.log(res)
     this.allDropoxDta=res;
     this.dropBoxSrNo=[];
     this.dropBoxRegionName=[];
@@ -746,7 +709,6 @@ withOUtDroBoxClick(event:any){
     this.dropboxName='Total Employees';
   this.outSideService.getNoOfEmployeeRegionSchoolWiseIncludeDropbox().subscribe((res)=>{
     this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-  //  this.allEmplDetails = res;
     this.allDropoxDta=res;
     this.dropBoxSrNo=[];
     this.dropBoxRegionName=[];
@@ -783,8 +745,7 @@ if(event=='without')
     this.dropboxName='In Institute';
   this.outSideService.getNoOfEmployeeRegionSchoolWiseExcludeDropbox().subscribe((res)=>{
     this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-    console.log(res);
-  //  this.allEmplDetails = res;
+
     this.allDropoxDta=res;
     this.dropBoxSrNo=[];
     this.dropBoxRegionName=[];
@@ -1325,10 +1286,6 @@ this.totalStationInRegionCount=[];
      
 }
 showStationWiseSchoolInBarChart(){
-  console.log("===========station school=================")
-  console.log( this.totalStationInRegion)
-  console.log( this.totalStationInRegionCount)
-
   this.stationWiseSchoolInBarChart = {
     title: {
       text: 'Station Wise School',
@@ -1456,21 +1413,7 @@ stationWiseCategoryBarChart(){
 
 
 getAllAgeWiseData(){
-
-//   this.outSideService.getNoOfEmployeeGenderAgeWise().subscribe((res)=>{
-//     console.log("--------Age wise employeeeeeeeeeeee---------")
-// console.log(res);
-//   });
-
-
-//   this.outSideService.getNoOfEmployeeRegionGenderAgeWise().subscribe((res)=>{
-//     console.log("--------Age wise employeeeeeeeeeeee---------")
-// console.log(res);
-//   });
-
-  this.outSideService.getNoOfEmployeeAgeWise().subscribe((res)=>{
-    console.log("--------Age wise employeeeeeeeeeeee---------")
-console.log(res);
+this.outSideService.getNoOfEmployeeAgeWise().subscribe((res)=>{
 var data ={ value: res.rowValue[0]['employeesof18_30years'], name: 'Between(18-30)' }
 var data1 ={ value: res.rowValue[0]['employeesof31_40years'], name: 'Between(31-40)' }
 var data2 ={ value: res.rowValue[0]['employeesof41_50years'], name: 'Between(41-50)' }
@@ -1545,47 +1488,27 @@ onChartEventEmployeeAgeRegionWise(event: any) {
       var data1 ={ value: res.rowValue[0]['femaleemployeesof51_60years'], name: 'Female' }
         this.getTotalEmployeeGenderAgeWiseArray.push(data);
         this.getTotalEmployeeGenderAgeWiseArray.push(data1);
-
-
-      // this.regionWiseMale.push(res.rowValue[0]['maleemployeesof51_60years']);
-      // this.regionWiseFeMale.push(res.rowValue[0]['femaleemployeesof51_60years']);
-      // this.regionAgeWiseName.push('Total');
      }
     if(this.empoyeeUnderAge=='Between(41-50)')
      {
-
       var data ={ value: res.rowValue[0]['maleemployeesof41_50years'], name: 'Male' }
       var data1 ={ value: res.rowValue[0]['femaleemployeesof41_50years'], name: 'Female' }
-        this.getTotalEmployeeGenderAgeWiseArray.push(data);
-        this.getTotalEmployeeGenderAgeWiseArray.push(data1);
-
-      // this.regionWiseMale.push(res.rowValue[0]['maleemployeesof41_50years']);
-      //  this.regionWiseFeMale.push(res.rowValue[0]['femaleemployeesof41_50years']);
-      //  this.regionAgeWiseName.push('Total');
+      this.getTotalEmployeeGenderAgeWiseArray.push(data);
+      this.getTotalEmployeeGenderAgeWiseArray.push(data1);
      }
      if(this.empoyeeUnderAge=='Between(31-40)')
      {
 
       var data ={ value: res.rowValue[0]['maleemployeesof31_40years'], name: 'Male' }
       var data1 ={ value: res.rowValue[0]['femaleemployeesof31_40years'], name: 'Female' }
-        this.getTotalEmployeeGenderAgeWiseArray.push(data);
-        this.getTotalEmployeeGenderAgeWiseArray.push(data1);
-
-      // this.regionWiseMale.push(res.rowValue[0]['maleemployeesof31_40years']);
-      // this.regionWiseFeMale.push(res.rowValue[0]['femaleemployeesof31_40years']);
-      // this.regionAgeWiseName.push('Total');
+      this.getTotalEmployeeGenderAgeWiseArray.push(data);
+      this.getTotalEmployeeGenderAgeWiseArray.push(data1);
      }
       this.getTotalEmployeeGenderAgeWise()
     });
-
-
-
-
-
   this.outSideService.getNoOfEmployeeRegionGenderAgeWise().subscribe((res)=>{
-    console.log("--------Age wise employeeeeeeeeeeee---------")
-if(this.empoyeeUnderAge=='Between(18-30)')
-{
+  if(this.empoyeeUnderAge=='Between(18-30)')
+  {
   for (let i = 0; i < res.rowValue.length; i++) {
   
    this.regionWiseMale.push(res.rowValue[i]['maleemployeesof18_30years']);
