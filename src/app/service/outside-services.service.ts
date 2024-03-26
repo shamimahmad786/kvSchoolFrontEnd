@@ -1073,6 +1073,27 @@ getEmployeeRetireInCurrentAY(){
   return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getEmployeeRetireInCurrentAY",{headers})
 }
 
+
+getNoOfVerifiedEmployeedRegionWiseCurrentYear(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfVerifiedEmployeedRegionWiseCurrentYear",{headers})
+
+}
+
+getVerifiedEmployeedDetailsToday(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfVerifiedEmployeedRegionWiseCurrentYear",{headers})
+}
+
+
 getEmployeeRetiredAndProfileActive(){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({

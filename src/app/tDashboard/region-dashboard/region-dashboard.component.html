@@ -430,7 +430,7 @@
                                                                     style="background:#945197; color: #fff;   ">Retired But Profile Active In A/Y
                                                                 </th>
                                                                 <th colspan="2"
-                                                                    style="background:#945197; color: #fff;   "> Retired Today Onwords In A/Y
+                                                                    style="background:#945197; color: #fff;   "> Retire Today Onwords In A/Y
                                                                 </th>
 
                                                             </tr>
@@ -485,10 +485,10 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td colspan="2"><span
-                                                                        (click)="retirementBoxClick('totalRetireEmployee')">{{getVerifiedUnverifiedEmployee?.verifiedcurrentyear
+                                                                        (click)="verifiedUnverifiedBoxClick('verifiedEmployee')">{{getVerifiedUnverifiedEmployee?.verifiedcurrentyear
                                                                         }}</span></td>
                                                                 <td colspan="2"><span
-                                                                        (click)="retirementBoxClick('retireProfileActive')">{{getVerifiedUnverifiedEmployee?.verifiedtoday}}</span>
+                                                                        (click)="verifiedUnverifiedBoxClick('todayVerifiedEmployee')">{{getVerifiedUnverifiedEmployee?.verifiedtoday}}</span>
                                                                 </td>
                                                                 <!-- <td colspan="2"><span
                                                                         (click)="retirementBoxClick('onwords')">{{allRetireEmplDetails?.noofemployeeretiredtodayonward}}</span>
@@ -712,6 +712,40 @@
                 <div style="width: 100%; height: 500px;">
                     <ag-grid-angular style="width: 100%; height: 100%;" class="ag-theme-balham"
                         [rowData]="retireTeacherRowData" rowHeight="40" [columnDefs]="columnDefs"
+                        [defaultColDef]="defaultColDef" [pagination]="true" [paginationPageSize]="10"></ag-grid-angular>
+                </div>
+            </div>
+            <!-- <div id="main" class="card mt-1">
+                <div echarts [options]="stationWiseSchoolInBarChart" class="demo-chart">
+                </div>
+        </div> -->
+
+        </div>
+    </ng-template>
+</div>
+
+
+
+<div mat-dialog-content class="p-3">
+    <ng-template #AllVerifiedUnverifiedtBox let-modal style="min-width: 100%;">
+        <div class="p-2 ">
+            <div class="clearfix">
+                <div class="float-start">
+                    <h1 class="mb-0 mx-auto">Employee Profile Statistics ({{verifiedUnverifiedBox}}) </h1>
+                </div>
+                <div class="float-end">
+                    <!-- <button type="button" *ngIf="moreInfo" (click)="getEmployeeStaticsDetailsReport()" class="btn btn-primary btn-sm">Click Here for More Info</button> -->
+                    <i class="fa fa-times" (click)="cancelModal()"
+                        style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <div class="example-container mat-elevation-z8 ">
+                <div style="width: 100%; height: 500px;">
+                    <ag-grid-angular style="width: 100%; height: 100%;" class="ag-theme-balham"
+                        [rowData]="verifiedUnverifiedRowData" rowHeight="40" [columnDefs]="columnDefs"
                         [defaultColDef]="defaultColDef" [pagination]="true" [paginationPageSize]="10"></ag-grid-angular>
                 </div>
             </div>

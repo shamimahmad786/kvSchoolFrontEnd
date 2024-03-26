@@ -14,6 +14,7 @@ import { ColDef, RowGroupingDisplayType } from 'ag-grid-community';
 export class RegionDashboardComponent implements OnInit {   
   @ViewChild('AllDropBox', { static: true }) AllDropBox: TemplateRef<any>;
   @ViewChild('AllRetirementBox', { static: true }) AllRetirementBox: TemplateRef<any>;
+  @ViewChild('AllVerifiedUnverifiedtBox', { static: true }) AllVerifiedUnverifiedtBox: TemplateRef<any>;
   kvicons: any;
   businessUnitTypeId: any;
   businessUnitTypeCode: any;
@@ -79,6 +80,9 @@ export class RegionDashboardComponent implements OnInit {
   allDropoxDta: any = new Array();
   getTotalEmployeeGenderAgeWiseArray: any = new Array();
   rowanyDataForWithOutDropBox: any = new Array();
+  allVerifiedUnverifiedData: any = new Array();
+  verifiedUnverifiedRowData: any = new Array();
+  verifiedUnverifiedRowDataArray: any = new Array();
   regionName: any;
   regionWiseSchoolDetails: any;
   regionWiseSchoolDetail:any;
@@ -124,6 +128,11 @@ export class RegionDashboardComponent implements OnInit {
   retireboxName: string;
   teacheRegionName: any[];
   teacherKv: any[];
+  verifiedUnverifiedBox: any;
+  verifiedUnverifiedSrNo:any;
+  verifiedUnVerifiedKvName:any;
+  verifiedUnVerifiedRegionName:any;
+  verifiedUnVerifiedNoofempprofileaddedupdated:any;
   constructor(public outSideService: OutsideServicesService,private router: Router,private modalService: NgbModal) {    }
   ngOnInit(): void {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
@@ -1898,136 +1907,85 @@ getVerifiedEmployeedCount(){
 }
 verifiedUnverifiedBoxClick(event:any){
  // this.moreInfo=true;
- this.allRetireTeacherData=[];
- this.retireTeacherRowData=[];
- if(event=='totalRetireEmployee')
+ this.allVerifiedUnverifiedData=[];
+ this.verifiedUnverifiedRowData=[];
+ if(event=='verifiedEmployee')
  {
-   this.retireboxName='Total Employees Retire In Academic Year';
- this.outSideService.getEmployeeRetireInCurrentAY().subscribe((res)=>{
-   this.modalService.open(this.AllRetirementBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-   this.allRetireTeacherData=res.rowValue;
-   console.log("------retirement data----------------")
+   this.verifiedUnverifiedBox='Verified Employee In A/Y';
+   this.outSideService.getNoOfVerifiedEmployeedRegionWiseCurrentYear().subscribe((res)=>{
+   this.modalService.open(this.AllVerifiedUnverifiedtBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+   this.allVerifiedUnverifiedData=res.rowValue;
+   console.log("------verified unverified data----------------")
    console.log(res)
-   this.retireBoxSrNo=[];
-   this.retireTeacherName=[];
-   this.retireTeacherDob=[];
-   this.retireTeacherAge=[];
- for (let i = 0; i < this.allRetireTeacherData.length; i++) {
-   this.retireBoxSrNo=i+1;
-  
-   this.retireTeacherName =this.allRetireTeacherData[i]['teacher_name'];
-   var teacherDob =this.allRetireTeacherData[i]['teacher_dob'].split("-"); 
-   this.retireTeacherDob = teacherDob[2]+"-"+teacherDob[1]+"-"+teacherDob[0];
-   this.retireTeacherAge=this.allRetireTeacherData[i]['age']['years'];
-   this.rowanyDataForWithOutDropBox = [
+   this.verifiedUnverifiedSrNo=[];
+   this.verifiedUnVerifiedKvName=[];
+   this.verifiedUnVerifiedRegionName=[];
+   this.verifiedUnVerifiedNoofempprofileaddedupdated=[];
+   debugger
+ for (let i = 0; i < this.allVerifiedUnverifiedData.length; i++) {
+   this.verifiedUnverifiedSrNo=i+1;
+   this.verifiedUnVerifiedKvName =this.allVerifiedUnverifiedData[i]['kv_name'];
+   this.verifiedUnVerifiedRegionName = this.allVerifiedUnverifiedData[i]['region_name'];
+   this.verifiedUnVerifiedNoofempprofileaddedupdated=this.allVerifiedUnverifiedData[i]['noofempprofileaddedupdated'];
+
+   this.verifiedUnverifiedRowDataArray = [
      {
-       SrNo: this.retireBoxSrNo,
-       TeacherName: this.retireTeacherName,
-       Dob: this.retireTeacherDob,
-       Age: this.retireTeacherAge,
+       SrNo: this.verifiedUnverifiedSrNo,
+       KvName: this.verifiedUnVerifiedKvName,
+       RegionName: this.verifiedUnVerifiedRegionName,
+       EmpAddUpdate: this.verifiedUnVerifiedNoofempprofileaddedupdated,
      },
    ];
-
-   this.retireTeacherRowData.push(this.rowanyDataForWithOutDropBox[0]);
+   this.verifiedUnverifiedRowData.push(this.verifiedUnverifiedRowDataArray[0]);
+   console.log("---------------#################----------------")
+   console.log(this.verifiedUnverifiedRowData)
  }
  this.columnDefs = [
    {headerName: 'S.No', field: 'SrNo' },
-   {headerName: "Teacher Name", field: "TeacherName",},
-   {headerName: "D.O.B", field: "Dob",},
-   {headerName: "Age", field: "Age",},
+   {headerName: "Region Name", field: "RegionName",},
+   {headerName: "KV Name", field: "KvName",},
+   {headerName: "Verified Employee", field: "EmpAddUpdate",},
  ];
  })
  }
- if(event=='retireProfileActive')
+ if(event=='todayVerifiedEmployee')
  {
-   this.retireboxName='Retired But Profile Active In Academic Year';
-   this.outSideService.getEmployeeRetiredAndProfileActive().subscribe((res)=>{
-     this.modalService.open(this.AllRetirementBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-     this.allRetireTeacherData=res.rowValue;
-     console.log("------retirement data----------------")
-     console.log(res)
-     this.retireBoxSrNo=[];
-     this.retireTeacherName=[];
-     this.retireTeacherDob=[];
-     this.retireTeacherAge=[];
-     this.teacheRegionName=[];
-     this.teacherKv=[];
-   for (let i = 0; i < this.allRetireTeacherData.length; i++) {
-     this.retireBoxSrNo=i+1;
-     this.teacheRegionName=this.allRetireTeacherData[i]['region_name'];
-     this.teacherKv=this.allRetireTeacherData[i]['kvschool'];
-     this.retireTeacherName =this.allRetireTeacherData[i]['empnameandcode'];
-     var teacherDob =this.allRetireTeacherData[i]['teacher_dob'].split("-"); 
-     this.retireTeacherDob = teacherDob[2]+"-"+teacherDob[1]+"-"+teacherDob[0];
-     this.retireTeacherAge=this.allRetireTeacherData[i]['age']['years'];
-     this.rowanyDataForWithOutDropBox = [
-       {
-         SrNo: this.retireBoxSrNo,
-         RegionName:this.teacheRegionName,
-         KvName:this.teacherKv,
-         TeacherName: this.retireTeacherName,
-         Dob: this.retireTeacherDob,
-         Age: this.retireTeacherAge,
-       },
-     ];
- 
-     this.retireTeacherRowData.push(this.rowanyDataForWithOutDropBox[0]);
-   }
-   this.columnDefs = [
-     {headerName: 'S.No', field: 'SrNo' },
-     {headerName: 'Region', field: 'RegionName' },
-     {headerName: 'KV Name', field: 'KvName' },
-     {headerName: "Teacher Name", field: "TeacherName",},
-     {headerName: "D.O.B", field: "Dob",},
-     {headerName: "Age", field: "Age",},
-   ];
- })
- }
+  this.verifiedUnverifiedBox='Today Verified Employee In A/Y';
+  this.outSideService.getVerifiedEmployeedDetailsToday().subscribe((res)=>{
+  this.modalService.open(this.AllVerifiedUnverifiedtBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+  this.allVerifiedUnverifiedData=res.rowValue;
+  console.log("------Today verified unverified data----------------")
+  console.log(res)
+  this.verifiedUnverifiedSrNo=[];
+  this.verifiedUnVerifiedKvName=[];
+  this.verifiedUnVerifiedRegionName=[];
+  this.verifiedUnVerifiedNoofempprofileaddedupdated=[];
+  debugger
+for (let i = 0; i < this.allVerifiedUnverifiedData.length; i++) {
+  this.verifiedUnverifiedSrNo=i+1;
+  this.verifiedUnVerifiedKvName =this.allVerifiedUnverifiedData[i]['kv_name'];
+  this.verifiedUnVerifiedRegionName = this.allVerifiedUnverifiedData[i]['region_name'];
+  this.verifiedUnVerifiedNoofempprofileaddedupdated=this.allVerifiedUnverifiedData[i]['noofempprofileaddedupdated'];
 
- if(event=='onwords')
- {
-   this.retireboxName='Retire Today Onwords In Academic Year';
- this.outSideService.getEmployeeRetairedTodayOnwards().subscribe((res)=>{
-   this.modalService.open(this.AllRetirementBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
-     this.allRetireTeacherData=res.rowValue;
-     console.log("------onward data----------------")
-     console.log(res)
-     this.retireBoxSrNo=[];
-     this.retireTeacherName=[];
-     this.retireTeacherDob=[];
-     this.retireTeacherAge=[];
-     this.teacheRegionName=[];
-     this.teacherKv=[];
-   for (let i = 0; i < this.allRetireTeacherData.length; i++) {
-     this.retireBoxSrNo=i+1;
-     this.teacheRegionName=this.allRetireTeacherData[i]['region_name'];
-     this.teacherKv=this.allRetireTeacherData[i]['kvschool'];
-     this.retireTeacherName =this.allRetireTeacherData[i]['empnameandcode'];
-     var teacherDob =this.allRetireTeacherData[i]['teacher_dob'].split("-"); 
-     this.retireTeacherDob = teacherDob[2]+"-"+teacherDob[1]+"-"+teacherDob[0];
-     this.retireTeacherAge=this.allRetireTeacherData[i]['age']['years'];
-     this.rowanyDataForWithOutDropBox = [
-       {
-         SrNo: this.retireBoxSrNo,
-         RegionName:this.teacheRegionName,
-         KvName:this.teacherKv,
-         TeacherName: this.retireTeacherName,
-         Dob: this.retireTeacherDob,
-         Age: this.retireTeacherAge,
-       },
-     ];
- 
-     this.retireTeacherRowData.push(this.rowanyDataForWithOutDropBox[0]);
-   }
-   this.columnDefs = [
-     {headerName: 'S.No', field: 'SrNo' },
-     {headerName: 'Region', field: 'RegionName' },
-     {headerName: 'KV Name', field: 'KvName' },
-     {headerName: "Teacher Name", field: "TeacherName",},
-     {headerName: "D.O.B", field: "Dob",},
-     {headerName: "Age", field: "Age",},
-   ];
- })
+  this.verifiedUnverifiedRowDataArray = [
+    {
+      SrNo: this.verifiedUnverifiedSrNo,
+      KvName: this.verifiedUnVerifiedKvName,
+      RegionName: this.verifiedUnVerifiedRegionName,
+      EmpAddUpdate: this.verifiedUnVerifiedNoofempprofileaddedupdated,
+    },
+  ];
+  this.verifiedUnverifiedRowData.push(this.verifiedUnverifiedRowDataArray[0]);
+  console.log("---------------#################----------------")
+  console.log(this.verifiedUnverifiedRowData)
+}
+this.columnDefs = [
+  {headerName: 'S.No', field: 'SrNo' },
+  {headerName: "Region Name", field: "RegionName",},
+  {headerName: "KV Name", field: "KvName",},
+  {headerName: "Verified Employee", field: "EmpAddUpdate",},
+];
+})
  }
 }
 }
