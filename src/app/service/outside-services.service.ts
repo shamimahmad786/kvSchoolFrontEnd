@@ -1084,15 +1084,36 @@ getNoOfVerifiedEmployeedRegionWiseCurrentYear(){
 
 }
 
+getVerifiedEmployeedDetailsCurrentYear(){
+
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getVerifiedEmployeedDetailsCurrentYear",{headers})
+}
+
+
+
+
+
 getVerifiedEmployeedDetailsToday(){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
   var headers = new HttpHeaders({
     'Authorization':token,
     'Content-Type': 'text/plain; charset=utf-8',
   });  
-  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfVerifiedEmployeedRegionWiseCurrentYear",{headers})
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getVerifiedEmployeedDetailsToday",{headers})
 }
-
+getNoOfVerifiedEmployeedRegionWiseToday(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfVerifiedEmployeedRegionWiseToday",{headers})
+}
 
 getEmployeeRetiredAndProfileActive(){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
@@ -1110,6 +1131,19 @@ getEmployeeRetairedTodayOnwards(){
   });  
   return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getEmployeeRetairedTodayOnwards",{headers})
 }
+
+
+getNoOfDropboxByDropTypeRegionWise(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfDropboxByDropTypeRegionWise",{headers})
+}
+
+
+
 checkEmployeeCodeByEmpCode(data){
   var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
     var headers = new HttpHeaders({

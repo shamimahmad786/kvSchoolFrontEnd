@@ -583,44 +583,33 @@
                         </div>
 
 
-                        <div class="card p-4 my-4">
-                            <!-- <h1 class="my-0 TolTeacherValue">Age Wise Data</h1> -->
+                        <!-- <div class="card p-4 my-4">
+                          
                             <div class="row mt-2 ">
-
                                 <div class="col-md-6 border-right">
-                                 
                                         <div echarts [options]="getRetirementWiseEmployee"
                                             (chartClick)="onChartEventEmployeeRetirementRegionWise($event, 'chartClick')"
                                             class="demo-chart">
                                         </div>
                                 </div>
                                 <div class="col-md-6">
-                                   
                                         <div id="main">
                                             <div echarts [options]="regionWiseEmployeeRetirment" class="demo-chart">
                                             </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="card p-4 my-4">
-                            <h1 class="my-0 TolTeacherValue">Dropbox Detail</h1>
+                            <!-- <h1 class="my-0 TolTeacherValue">Dropbox Detail</h1> -->
                             <div class="row mt-2 ">
-
-                                <div class="col-md-6">
-                                    <div class="card p-4">
-                                        <div echarts [options]="options" class="demo-chart"></div>
-                                    </div>
+                                <div class="col-md-6 border-right"> 
+                                    <div echarts [options]="options"  (chartClick)="onDropBoxPieChartClick($event.name)" class="demo-chart"></div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="card p-4">
-                                        <div id="main">
-                                            <div echarts [options]="stationWiseCategory"
-                                            class="demo-chart">
-                                        </div>
-                                        </div>
-
+                                    <!-- <div echarts [options]="stationWiseCategory" class="demo-chart"> -->
+                                        <div echarts [options]="dropBoxTypeDetailInBarChart" class="demo-chart">
                                     </div>
                                 </div>
                             </div>
@@ -734,11 +723,10 @@
                     <h1 class="mb-0 mx-auto">Employee Profile Statistics ({{verifiedUnverifiedBox}}) </h1>
                 </div>
                 <div class="float-end">
-                    <!-- <button type="button" *ngIf="moreInfo" (click)="getEmployeeStaticsDetailsReport()" class="btn btn-primary btn-sm">Click Here for More Info</button> -->
+                    <button type="button" *ngIf="verifiedMoreInfo" (click)="getEmployeeVerifiedUnverifiedReport()" class="btn btn-primary btn-sm">Click Here for More Info</button>
                     <i class="fa fa-times" (click)="cancelModal()"
                         style="font-size: 1.8rem; color: #7e4880; margin-left: 10px;" aria-hidden="true"></i>
                 </div>
-
             </div>
         </div>
         <div>
@@ -749,11 +737,6 @@
                         [defaultColDef]="defaultColDef" [pagination]="true" [paginationPageSize]="10"></ag-grid-angular>
                 </div>
             </div>
-            <!-- <div id="main" class="card mt-1">
-                <div echarts [options]="stationWiseSchoolInBarChart" class="demo-chart">
-                </div>
-        </div> -->
-
         </div>
     </ng-template>
 </div>

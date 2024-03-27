@@ -47,6 +47,7 @@ export class RegionDashboardComponent implements OnInit {
   activePaneOne: boolean = true;
   activePaneTwo: boolean = false;
   moreInfo: boolean = true;
+  verifiedMoreInfo:boolean = true;
   regionWiseEmplCount: number = 0;
   teachingFeMaleCount: number = 0;
   teachingMaleCount:number = 0;
@@ -118,6 +119,10 @@ export class RegionDashboardComponent implements OnInit {
   allRetireTeacherData: any = new Array()
   retireTeacherRowData: any = new Array()
   getVerifiedUnverifiedEmployee: any = new Array()
+  dropRegionTypeArray: any = new Array()
+  totalDropBoxTypeInRegion: any = new Array()
+  totalDropBoxInRegionCount: any = new Array()
+  dropTypeArray: any = new Array()
   regionWiseMale:any;
   regionWiseFeMale:any;
   regionAgeWiseName:any;
@@ -133,6 +138,12 @@ export class RegionDashboardComponent implements OnInit {
   verifiedUnVerifiedKvName:any;
   verifiedUnVerifiedRegionName:any;
   verifiedUnVerifiedNoofempprofileaddedupdated:any;
+  verifiedEmpNameCode:any;
+  verifiedRetireTeacherDob:any;
+  dropBoxTypeDataArray:any;
+  dropBoxTypeDetailInBarChart:any;
+  dropBoxTypeName: any;
+  
   constructor(public outSideService: OutsideServicesService,private router: Router,private modalService: NgbModal) {    }
   ngOnInit(): void {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
@@ -237,6 +248,7 @@ this.getAllAgeWiseData();
 this.onChartEventEmployeeAgeRegionWise('Between(18-30)');
 this.getNoOfEmployeeRetireInCurrentAY();
 this.getVerifiedEmployeedCount();
+this.onDropBoxPieChartClick('Transfer');
   }
   navColor(nav:any){
     if(nav=='transferin')
@@ -260,6 +272,13 @@ getdropBoxDetail(){
      school: "",
      station: ""
   }
+
+
+
+
+
+
+
   this.outSideService.getReportByID(data).subscribe((res) => {
   console.log(res);
   this.dropBoxDetail=res.rowValue;
@@ -358,8 +377,113 @@ console.log("drop box type---------")
   };
 }
 
+onDropBoxPieChartClick(event:any){
+  console.log(event)
+  this.dropBoxTypeName=event;
+  this.dropTypeArray=[];
+  this.dropRegionTypeArray=[];
+  this.totalDropBoxTypeInRegion=[];
+  this.totalDropBoxInRegionCount=[];
+  this.outSideService.getNoOfDropboxByDropTypeRegionWise().subscribe((res) => {
+    console.log("------drop--drop---drop----drop------")
+console.log(res.rowValue)
+    var groupByEnrolementDate = function (xs: any, key: any) {
+      return xs.reduce(function (rv: any, x: any) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+        return rv;
+      }, {});
+    };
+    var groubedByDropBoxTypeResult = groupByEnrolementDate(res.rowValue,'dropbox_type');
+    this.dropTypeArray = Object.entries(groubedByDropBoxTypeResult);
+    for (let i = 0; i < this.dropTypeArray.length; i++) {
+    if(this.dropTypeArray[i][0]==event){
+      this.dropBoxTypeDataArray=this.dropTypeArray[i][1];
+    }
+    }
+    for (let j = 0; j < this.dropBoxTypeDataArray.length; j++) {
+      this.totalDropBoxTypeInRegion.push(this.dropBoxTypeDataArray[j]['region_name']);
+      this.totalDropBoxInRegionCount.push(this.dropBoxTypeDataArray[j]['count']);
+      }
+console.log(this.dropBoxTypeDataArray)
+    // var groupByEnrolementDate1 = function (xs: any, key: any) {
+    //   return xs.reduce(function (rv: any, x: any) {
+    //     (rv[x[key]] = rv[x[key]] || []).push(x);
+    //     return rv;
+    //   }, {});
+    // };
+    // var groubedByDropBoxTypeDataResult = groupByEnrolementDate1(this.dropBoxTypeDataArray,'region_name');
+    // this.dropRegionTypeArray = Object.entries(groubedByDropBoxTypeDataResult);
+    // console.log(this.dropRegionTypeArray)
 
+this.dropBoxDetailInBarChart();
 
+    })
+}
+dropBoxDetailInBarChart(){
+    this.dropBoxTypeDetailInBarChart = {
+      title: {
+        text: this.dropBoxTypeName+' Type Droped Employee (In Regions) ',
+        subtext: "DropBox Type ( "+this.dropBoxTypeName+' )',
+        subtextStyle: {
+          color: '#CC5500',
+          fontWeight: "bold",
+          },
+          
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data:this.totalDropBoxTypeInRegion,
+          axisTick: {
+            alignWithLabel: true
+          },
+          axisLabel: {
+            show: true,
+            interval: 0,
+            rotate: 80,
+          },
+          // axisTick: {
+          //   show: true,
+          //   interval: 0
+          // }
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value'
+        }
+      ],
+      label: {
+        show: true,
+        position: 'top',
+        color: "black",
+        fontSize:12,
+    },
+      series: [
+        {
+          name: 'Total',
+          type: 'bar',
+          barWidth: '60%',
+          data:this.totalDropBoxInRegionCount
+        }
+      ]
+    };
+  
+  
+}
 getEmployeeStaticsDetailsReport(){
   debugger
   this.modalService.dismissAll();
@@ -1910,7 +2034,7 @@ getVerifiedEmployeedCount(){
   })
 }
 verifiedUnverifiedBoxClick(event:any){
- // this.moreInfo=true;
+ this.verifiedMoreInfo=true;
  this.allVerifiedUnverifiedData=[];
  this.verifiedUnverifiedRowData=[];
  if(event=='verifiedEmployee')
@@ -1955,7 +2079,7 @@ verifiedUnverifiedBoxClick(event:any){
  if(event=='todayVerifiedEmployee')
  {
   this.verifiedUnverifiedBox='Today Verified Employee In A/Y';
-  this.outSideService.getVerifiedEmployeedDetailsToday().subscribe((res)=>{
+  this.outSideService.getNoOfVerifiedEmployeedRegionWiseToday().subscribe((res)=>{
   this.modalService.open(this.AllVerifiedUnverifiedtBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
   this.allVerifiedUnverifiedData=res.rowValue;
   console.log("------Today verified unverified data----------------")
@@ -1991,6 +2115,96 @@ this.columnDefs = [
 ];
 })
  }
+}
+getEmployeeVerifiedUnverifiedReport(){
+  this.allVerifiedUnverifiedData=[];
+  this.verifiedUnverifiedRowData=[];
+  this.verifiedUnverifiedRowDataArray=[];
+  this.modalService.dismissAll();
+  this.verifiedMoreInfo=false;
+
+
+if(this.verifiedUnverifiedBox=='Verified Employee In A/Y'){
+  this.outSideService.getVerifiedEmployeedDetailsCurrentYear().subscribe((res)=>{
+  this.modalService.open(this.AllVerifiedUnverifiedtBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+  this.allVerifiedUnverifiedData=res.rowValue;
+  console.log("------verified unverified details data----------------")
+  console.log(res)
+  this.verifiedUnverifiedSrNo=[];
+  this.verifiedUnVerifiedKvName=[];
+  this.verifiedEmpNameCode=[];
+  this.verifiedUnVerifiedRegionName=[];
+  this.verifiedRetireTeacherDob=[];
+for (let i = 0; i < this.allVerifiedUnverifiedData.length; i++) {
+  this.verifiedUnverifiedSrNo=i+1;
+  this.verifiedEmpNameCode=this.allVerifiedUnverifiedData[i]['empnameandcode'];
+  this.verifiedUnVerifiedKvName =this.allVerifiedUnverifiedData[i]['kvschool'];
+  this.verifiedUnVerifiedRegionName = this.allVerifiedUnverifiedData[i]['region_name'];
+  var teacherDob =this.allVerifiedUnverifiedData[i]['teacher_dob'].split("-"); 
+  this.verifiedRetireTeacherDob = teacherDob[2]+"-"+teacherDob[1]+"-"+teacherDob[0];
+  this.verifiedUnverifiedRowDataArray = [
+    {
+      SrNo: this.verifiedUnverifiedSrNo,
+      RegionName: this.verifiedUnVerifiedRegionName,
+      KvName:this.verifiedUnVerifiedKvName,
+      EmplName: this.verifiedEmpNameCode,
+      Dob: this.verifiedRetireTeacherDob,
+    },
+  ];
+  this.verifiedUnverifiedRowData.push(this.verifiedUnverifiedRowDataArray[0]);
+  console.log("---------------#################----------------")
+  console.log(this.verifiedUnverifiedRowData)
+}
+this.columnDefs = [
+  {headerName: 'S.No', field: 'SrNo' },
+  {headerName: "Region Name", field: "RegionName",},
+  {headerName: "KV Name", field: "KvName",},
+  {headerName: "Employee Name", field: "EmplName",},
+  {headerName: "D.O.B", field: "Dob",},
+];
+})
+}
+
+if(this.verifiedUnverifiedBox=='Today Verified Employee In A/Y'){
+  this.outSideService.getVerifiedEmployeedDetailsToday().subscribe((res)=>{
+  this.modalService.open(this.AllVerifiedUnverifiedtBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+  this.allVerifiedUnverifiedData=res.rowValue;
+  console.log("------verified unverified details data----------------")
+  console.log(res)
+  this.verifiedUnverifiedSrNo=[];
+  this.verifiedUnVerifiedKvName=[];
+  this.verifiedEmpNameCode=[];
+  this.verifiedUnVerifiedRegionName=[];
+  this.verifiedRetireTeacherDob=[];
+for (let i = 0; i < this.allVerifiedUnverifiedData.length; i++) {
+  this.verifiedUnverifiedSrNo=i+1;
+  this.verifiedEmpNameCode=this.allVerifiedUnverifiedData[i]['empnameandcode'];
+  this.verifiedUnVerifiedKvName =this.allVerifiedUnverifiedData[i]['kvschool'];
+  this.verifiedUnVerifiedRegionName = this.allVerifiedUnverifiedData[i]['region_name'];
+  var teacherDob =this.allVerifiedUnverifiedData[i]['teacher_dob'].split("-"); 
+  this.verifiedRetireTeacherDob = teacherDob[2]+"-"+teacherDob[1]+"-"+teacherDob[0];
+  this.verifiedUnverifiedRowDataArray = [
+    {
+      SrNo: this.verifiedUnverifiedSrNo,
+      RegionName: this.verifiedUnVerifiedRegionName,
+      KvName:this.verifiedUnVerifiedKvName,
+      EmplName: this.verifiedEmpNameCode,
+      Dob: this.verifiedRetireTeacherDob,
+    },
+  ];
+  this.verifiedUnverifiedRowData.push(this.verifiedUnverifiedRowDataArray[0]);
+  console.log("---------------#################----------------")
+  console.log(this.verifiedUnverifiedRowData)
+}
+this.columnDefs = [
+  {headerName: 'S.No', field: 'SrNo' },
+  {headerName: "Region Name", field: "RegionName",},
+  {headerName: "KV Name", field: "KvName",},
+  {headerName: "Employee Name", field: "EmplName",},
+  {headerName: "D.O.B", field: "Dob",},
+];
+})
+}
 }
 }
 
