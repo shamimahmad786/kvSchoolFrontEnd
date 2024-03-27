@@ -272,13 +272,6 @@ getdropBoxDetail(){
      school: "",
      station: ""
   }
-
-
-
-
-
-
-
   this.outSideService.getReportByID(data).subscribe((res) => {
   console.log(res);
   this.dropBoxDetail=res.rowValue;
@@ -350,8 +343,8 @@ console.log("drop box type---------")
       trigger: 'item'
     },
     label: {
-      show: false,
-      position: 'center'
+      show: true,
+      formatter: '{b} ({c})'
     },
     legend: {
       orient: 'vertical',
