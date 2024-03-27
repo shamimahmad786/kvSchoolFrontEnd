@@ -1024,7 +1024,7 @@ cancelModal() {
           ],
           label: {
             show: true,
-            formatter: '{b} ({d}%)'
+            formatter: '({b}) ({c})'
           },
           emphasis: {
             itemStyle: {
@@ -1582,7 +1582,11 @@ getTotalEmployeeGenderAgeWise(){
     },
     legend: {
       top: '20%',
-      left: 'center'
+      left: 'center',
+    },
+    label: {
+      show: true,
+      formatter: '({c})'
     },
     series: [
       {
