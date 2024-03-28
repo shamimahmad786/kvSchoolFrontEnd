@@ -8,13 +8,13 @@
             <li class="breadcrumb-item"><a>Institute Admin Management</a></li>
         </ol>
     </nav>
-    <ul class="nav nav-tabs " id="myTab" role="tablist">
+    <ul class="nav nav-tabs " id="myTab" role="tablist" *ngIf="businessUnitTypeId=='2'">
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
                 (click)="navColor('transferin')" id="home-tab" [class.myClass]="showFirstButtonColor" type="button"
                 role="tab" aria-controls="profile" aria-selected="false">Tabular </button>
         </li>
-        <li class="nav-item" role="presentation">
+        <li class="nav-item" role="presentation" >
             <button class="nav-link active" (click)="navColor('transferout');" [class.myClass]="showsecondButtonColor"
                 data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home"
                 aria-selected="true">Graphical </button>
@@ -34,35 +34,35 @@
                                     <div>
                                         <img src="assets/assets/img/regions.png" alt="image" class="mb-2" />
                                         <h4 class="font26589 mb-1">Total Regions </h4>
-                                        <h2 class="font64989985 mb-0">{{dashboardDetails?.totalRegion}}</h2>
+                                        <h2 class="font64989985 mb-0">{{dashboardDetails?.totalRegion | number}}</h2>
                                     </div>
                                 </li>
                                 <li>
                                     <div>
                                         <img src="assets/assets/img/ziets.png" class="mb-2" />
                                         <h4 class="font26589 mb-1">Total ZIETS </h4>
-                                        <h2 class="font64989985 mb-0">{{dashboardDetails?.totalZiet}}</h2>
+                                        <h2 class="font64989985 mb-0">{{dashboardDetails?.totalZiet | number}}</h2>
                                     </div>
                                 </li>
                                 <li>
                                     <div>
                                         <img src="assets/assets/img/sanction-post.png" class="mb-2" />
                                         <h4 class="font26589 mb-1">Sanction Posts </h4>
-                                        <h2 class="font64989985 mb-0">{{dashboardDetails?.totalSanctionPost}}</h2>
+                                        <h2 class="font64989985 mb-0">{{dashboardDetails?.totalSanctionPost | number}}</h2>
                                     </div>
                                 </li>
                                 <li>
                                     <div>
                                         <img src="assets/assets/img/in-positions.png" class="mb-2" />
                                         <h4 class="font26589 mb-1">In Position</h4>
-                                        <h2 class="font64989985 mb-0">{{inPositionTotal}}</h2>
+                                        <h2 class="font64989985 mb-0">{{inPositionTotal | number}}</h2>
                                     </div>
                                 </li>
                                 <li>
                                     <div>
                                         <img src="assets/assets/img/schools.png" class="mb-2" />
                                         <h4 class="font26589 mb-1">Schools </h4>
-                                        <h2 class="font64989985 mb-0">{{dashboardDetails?.totalSchool}}</h2>
+                                        <h2 class="font64989985 mb-0">{{dashboardDetails?.totalSchool | number}}</h2>
                                     </div>
                                 </li>
                             </ul>
@@ -141,12 +141,12 @@
 
                                                         <tr>
                                                             <td><span>{{dashboardDetails?.teachingMale === null
-                                                                    ?'0':dashboardDetails?.teachingMale}}</span></td>
+                                                                    ?'0':dashboardDetails?.teachingMale | number}}</span></td>
                                                             <td><span>{{dashboardDetails?.teachingFemale === null
-                                                                    ?'0':dashboardDetails?.teachingFemale}}</span></td>
+                                                                    ?'0':dashboardDetails?.teachingFemale | number}}</span></td>
                                                             <td><span>{{dashboardDetails?.teachingNoGender === null
-                                                                        ?'0':dashboardDetails?.teachingNoGender}}</span></td>
-                                                            <td><span>{{teachingMaleFemaleTotal}}</span></td>
+                                                                        ?'0':dashboardDetails?.teachingNoGender | number}}</span></td>
+                                                            <td><span>{{teachingMaleFemaleTotal | number}}</span></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -174,19 +174,19 @@
                                                             <td><span
                                                                     class="text-color">{{dashboardDetails?.nonTeachingMale
                                                                     === null
-                                                                    ?'0':dashboardDetails?.nonTeachingMale}}</span></td>
+                                                                    ?'0':dashboardDetails?.nonTeachingMale | number}}</span></td>
                                                             <td><span
                                                                     class="text-color">{{dashboardDetails?.nonTeachingFeMale
                                                                     === null
-                                                                    ?'0':dashboardDetails?.nonTeachingFeMale}}</span>
+                                                                    ?'0':dashboardDetails?.nonTeachingFeMale | number}}</span>
                                                             </td>
                                                             <td><span
                                                                 class="text-color">{{dashboardDetails?.nonteachingNoGender
                                                                 === null
-                                                                ?'0':dashboardDetails?.nonteachingNoGender}}</span>
+                                                                ?'0':dashboardDetails?.nonteachingNoGender | number}}</span>
                                                         </td>
                                                             <td><span
-                                                                    class="text-color">{{nonTeachingMaleFemaleTotal}}</span>
+                                                                    class="text-color">{{nonTeachingMaleFemaleTotal | number}}</span>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -252,18 +252,18 @@
 
                                                     <tr>
                                                         <td><span>{{dashboardDetails?.totalNormalStation === null
-                                                                ?'0':dashboardDetails?.totalNormalStation}}</span></td>
+                                                                ?'0':dashboardDetails?.totalNormalStation | number}}</span></td>
                                                         <td><span>{{dashboardDetails?.totalPriorityStation === null
-                                                                ?'0':dashboardDetails?.totalPriorityStation}}</span>
+                                                                ?'0':dashboardDetails?.totalPriorityStation | number}}</span>
                                                         </td>
                                                         <td><span>{{dashboardDetails?.totalHardStation === null
-                                                                ?'0':dashboardDetails?.totalHardStation}}</span></td>
+                                                                ?'0':dashboardDetails?.totalHardStation | number}}</span></td>
                                                         <td><span>{{dashboardDetails?.totalVeryHardStation === null
-                                                                ?'0':dashboardDetails?.totalVeryHardStation}}</span>
+                                                                ?'0':dashboardDetails?.totalVeryHardStation | number}}</span>
                                                         </td>
                                                         <td><span>{{dashboardDetails?.totalNerStation === null
-                                                                ?'0':dashboardDetails?.totalNerStation}}</span></td>
-                                                        <td><span>{{stationTotal}}</span></td>
+                                                                ?'0':dashboardDetails?.totalNerStation | number}}</span></td>
+                                                        <td><span>{{stationTotal | number}}</span></td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -283,13 +283,13 @@
                                                     style="text-align: left; width:50%; padding-top:5px!important; padding-bottom:5px!important;">
                                                     <strong class="fw-bold">Region</strong> <span
                                                         class="loginSpan">{{dashboardDetails?.roLoginCount === null
-                                                        ?'0':dashboardDetails?.roLoginCount}}</span>
+                                                        ?'0':dashboardDetails?.roLoginCount | number}}</span>
                                                 </td>
                                                 <td
                                                     style="text-align: left; padding-top:0!important; padding-bottom:0!important;">
                                                     <strong>ZIET</strong> <span
                                                         class="loginSpan">{{dashboardDetails?.zietLoginCount === null
-                                                        ?'0':dashboardDetails?.zietLoginCount}}</span>
+                                                        ?'0':dashboardDetails?.zietLoginCount | number}}</span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -297,13 +297,13 @@
                                                     style="text-align: left; width:50%; padding-top:5px!important; padding-bottom:5px!important;">
                                                     <strong>School</strong> <span class="loginSpan">
                                                         {{dashboardDetails?.schoolLoginCount === null
-                                                        ?'0':dashboardDetails?.schoolLoginCount}}</span>
+                                                        ?'0':dashboardDetails?.schoolLoginCount | number}}</span>
                                                 </td>
                                                 <td
                                                     style="text-align: left; padding-top:5px!important; padding-bottom:5px!important;">
                                                     <strong>Employee</strong> <span
                                                         class="loginSpan">{{dashboardDetails?.employeeLoginCount ===
-                                                        null ?'0':dashboardDetails?.employeeLoginCount}}</span>
+                                                        null ?'0':dashboardDetails?.employeeLoginCount | number}}</span>
                                                 </td>
 
                                             </tr>
@@ -317,7 +317,7 @@
                         </div>
                     </div>
 
-                    <div class="dashboard-main-content-info p-4 pt-2 mt-2">
+                    <div class="dashboard-main-content-info p-4 pt-2 mt-2" *ngIf="businessUnitTypeId=='2'">
                         <div class="row ">
                             <div class=" dashboard-main-content__header mb-2">
                                 <h1 class="TolTeacherValue  ">Employees Statistics</h1>
@@ -351,12 +351,12 @@
                                                             <tr>
                                                                 <td colspan="2"><span
                                                                         (click)="withOUtDroBoxClick('with')">{{allEmplDetails?.totalEmplyIncludeDropbox
-                                                                        }}</span></td>
+                                                                            | number}}</span></td>
                                                                 <td colspan="2"><span
-                                                                        (click)="withOUtDroBoxClick('without')">{{allEmplDetails?.totalEmployeeWithoutDropbox}}</span>
+                                                                        (click)="withOUtDroBoxClick('without')">{{allEmplDetails?.totalEmployeeWithoutDropbox | number}}</span>
                                                                 </td>
                                                                 <td colspan="2"><span
-                                                                        (click)="withOUtDroBoxClick('IndropBox')">{{allEmplDetails?.totalDropboxEmployee}}</span>
+                                                                        (click)="withOUtDroBoxClick('IndropBox')">{{allEmplDetails?.totalDropboxEmployee | number}}</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -387,13 +387,13 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td colspan="2"><span
-                                                                        (click)="withOUtDroBoxClick('profileUpdatedToday')">{{allEmplDetails?.profileUpdatedToday}}</span>
+                                                                        (click)="withOUtDroBoxClick('profileUpdatedToday')">{{allEmplDetails?.profileUpdatedToday | number}}</span>
                                                                 </td>
                                                                 <td colspan="2"><span
-                                                                        (click)="withOUtDroBoxClick('profileUpdate')">{{allEmplDetails?.profileUpdatedThisYear}}</span>
+                                                                        (click)="withOUtDroBoxClick('profileUpdate')">{{allEmplDetails?.profileUpdatedThisYear | number}}</span>
                                                                 </td>
                                                                 <td colspan="2"><span
-                                                                        (click)="withOUtDroBoxClick('profilenotupdate')">{{allEmplDetails?.profileNotUdatedThisyear}}</span>
+                                                                        (click)="withOUtDroBoxClick('profilenotupdate')">{{allEmplDetails?.profileNotUdatedThisyear | number}}</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -408,7 +408,7 @@
                     </div>
 
 
-                    <div class="dashboard-main-content-info p-4 pt-2 mt-2">
+                    <div class="dashboard-main-content-info p-4 pt-2 mt-2" *ngIf="businessUnitTypeId=='2'">
                         <div class="row ">
                             <div class="col-md-6">
                                 <div class=" dashboard-main-content__header mb-2">
@@ -439,12 +439,12 @@
                                                             <tr>
                                                                 <td colspan="2"><span
                                                                         (click)="retirementBoxClick('totalRetireEmployee')">{{allRetireEmplDetails?.noofemployeeretireincurrentay
-                                                                        }}</span></td>
+                                                                            | number }}</span></td>
                                                                 <td colspan="2"><span
-                                                                        (click)="retirementBoxClick('retireProfileActive')">{{allRetireEmplDetails?.noofemployeeretiredandprofileactive}}</span>
+                                                                        (click)="retirementBoxClick('retireProfileActive')">{{allRetireEmplDetails?.noofemployeeretiredandprofileactive | number}}</span>
                                                                 </td>
                                                                 <td colspan="2"><span
-                                                                        (click)="retirementBoxClick('onwords')">{{allRetireEmplDetails?.noofemployeeretiredtodayonward}}</span>
+                                                                        (click)="retirementBoxClick('onwords')">{{allRetireEmplDetails?.noofemployeeretiredtodayonward | number}}</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -457,7 +457,7 @@
                                 </ul>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" >
                                 <div class=" dashboard-main-content__header mb-2">
                                     <h1 class="TolTeacherValue  ">Employee Profile Statistics</h1>
                                 </div>
@@ -486,9 +486,9 @@
                                                             <tr>
                                                                 <td colspan="2"><span
                                                                         (click)="verifiedUnverifiedBoxClick('verifiedEmployee')">{{getVerifiedUnverifiedEmployee?.verifiedcurrentyear
-                                                                        }}</span></td>
+                                                                            | number}}</span></td>
                                                                 <td colspan="2"><span
-                                                                        (click)="verifiedUnverifiedBoxClick('todayVerifiedEmployee')">{{getVerifiedUnverifiedEmployee?.verifiedtoday}}</span>
+                                                                        (click)="verifiedUnverifiedBoxClick('todayVerifiedEmployee')">{{getVerifiedUnverifiedEmployee?.verifiedtoday | number}}</span>
                                                                 </td>
                                                                 <!-- <td colspan="2"><span
                                                                         (click)="retirementBoxClick('onwords')">{{allRetireEmplDetails?.noofemployeeretiredtodayonward}}</span>
@@ -583,15 +583,22 @@
                         </div>
 
 
-                        <!-- <div class="card p-4 my-4">
+                        <div class="card p-4 my-4">
                           
                             <div class="row mt-2 ">
-                                <div class="col-md-6 border-right">
+                                <div class="col-md-3 border-right">
                                         <div echarts [options]="getRetirementWiseEmployee"
-                                            (chartClick)="onChartEventEmployeeRetirementRegionWise($event, 'chartClick')"
+                                            (chartClick)="onChartEventEmployeeRetirementRegionWise($event.name)"
                                             class="demo-chart">
                                         </div>
                                 </div>
+                                <div class="col-md-3 border-right">
+                                 
+                                    <div echarts [options]="totalRetirementEmployeeGenderWise"
+                                      
+                                        class="demo-chart">
+                                    </div>
+                            </div>
                                 <div class="col-md-6">
                                         <div id="main">
                                             <div echarts [options]="regionWiseEmployeeRetirment" class="demo-chart">
@@ -599,7 +606,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div> 
+
 
                         <div class="card p-4 my-4">
                             <!-- <h1 class="my-0 TolTeacherValue">Dropbox Detail</h1> -->
@@ -614,6 +622,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div><!--close row-->
             </div> <!--close first  tab-->

@@ -1094,8 +1094,24 @@ getVerifiedEmployeedDetailsCurrentYear(){
   return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getVerifiedEmployeedDetailsCurrentYear",{headers})
 }
 
+getNoOfRetireEmployeePeriodWise(){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getNoOfRetireEmployeePeriodWise",{headers})
+}
 
 
+getRetireEmployeeDataByPeriodWise(data){
+  var token = JSON.parse(sessionStorage.getItem('authTeacherDetails'))?.token
+  var headers = new HttpHeaders({
+    'Authorization':token,
+    'Content-Type': 'text/plain; charset=utf-8',
+  });  
+  return this._http.post<any>(environment.BASE_URL_DATA_DASHBOARD+ "getRetireEmployeeDataByPeriodWise", data, {headers})
+}
 
 
 getVerifiedEmployeedDetailsToday(){

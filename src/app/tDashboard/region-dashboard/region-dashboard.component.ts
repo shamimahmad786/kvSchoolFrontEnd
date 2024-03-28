@@ -84,6 +84,8 @@ export class RegionDashboardComponent implements OnInit {
   allVerifiedUnverifiedData: any = new Array();
   verifiedUnverifiedRowData: any = new Array();
   verifiedUnverifiedRowDataArray: any = new Array();
+  retirementWiseCount: any = new Array();
+  retirementWiseRegion: any = new Array();
   regionName: any;
   regionWiseSchoolDetails: any;
   regionWiseSchoolDetail:any;
@@ -114,6 +116,7 @@ export class RegionDashboardComponent implements OnInit {
   DetailsTeacherDob: any = new Array()
   DetailsDropBoxResion: any = new Array()
   rowanyDetailDataForWithOutDropBox: any = new Array()
+  retirementTypeGenderArray: any = new Array()
   dropBoxDetailRowData: any = new Array()
   ageYearsArray: any = new Array()
   allRetireTeacherData: any = new Array()
@@ -123,6 +126,9 @@ export class RegionDashboardComponent implements OnInit {
   totalDropBoxTypeInRegion: any = new Array()
   totalDropBoxInRegionCount: any = new Array()
   dropTypeArray: any = new Array()
+  retirementWiseArray: any = new Array()
+  retirementTypeArray: any = new Array()
+  getTotalRetirementEmployeeGenderAgeWiseArray: any = new Array()
   regionWiseMale:any;
   regionWiseFeMale:any;
   regionAgeWiseName:any;
@@ -143,7 +149,7 @@ export class RegionDashboardComponent implements OnInit {
   dropBoxTypeDataArray:any;
   dropBoxTypeDetailInBarChart:any;
   dropBoxTypeName: any;
-  
+  totalRetirementEmployeeGenderWise:any;
   constructor(public outSideService: OutsideServicesService,private router: Router,private modalService: NgbModal) {    }
   ngOnInit(): void {
     for (let i = 0; i < JSON.parse(sessionStorage.getItem("authTeacherDetails"))?.applicationDetails.length; i++) {
@@ -243,12 +249,13 @@ this.getTotalRegionSchoolDetail();
 this.getDashboardEmployeeDetails();
 this.regionStationName='AHMEDABAD';
 this.onChartEventRegionWiseSchool(this.regionStationName);
-this.getRetirementWiseEmployeeData();
+this.getAllDetailRetirmentWiseDetail();
 this.getAllAgeWiseData();
 this.onChartEventEmployeeAgeRegionWise('Between(18-30)');
 this.getNoOfEmployeeRetireInCurrentAY();
 this.getVerifiedEmployeedCount();
 this.onDropBoxPieChartClick('Transfer');
+this.onChartEventEmployeeRetirementRegionWise('3 Months')
   }
   navColor(nav:any){
     if(nav=='transferin')
@@ -356,6 +363,7 @@ console.log("drop box type---------")
         name: 'Dropbox',
         type: 'pie',
         //radius: '60%',
+        selectedMode: 'single',
         data:this.dropBoxValue,
         
         emphasis: {
@@ -470,7 +478,7 @@ dropBoxDetailInBarChart(){
           name: 'Total',
           type: 'bar',
           barWidth: '60%',
-          data:this.totalDropBoxInRegionCount
+          data:this.totalDropBoxInRegionCount,
         }
       ]
     };
@@ -488,7 +496,7 @@ getEmployeeStaticsDetailsReport(){
  if(this.dropboxName=='In Dropbox')
  {
   this.outSideService.getEmployeeDetailsRegionSchoolWiseDropbox().subscribe((res)=>{
-    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static',windowClass: 'modal-xl', keyboard: false ,centered: true});
      this.allDetailsData=res;
      this.DetailsSrNo=[];
      this.DetailsRegionName=[];
@@ -700,7 +708,7 @@ withOUtDroBoxClick(event:any){
   {
     this.dropboxName='Profile Not Updated';
   this.outSideService.getRegionSchoolWiseProfileNotUpdatedCurrentYear().subscribe((res)=>{
-    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static', keyboard: false ,centered: true});
+    this.modalService.open(this.AllDropBox, { size: 'xl', backdrop: 'static',windowClass: 'modal-xl', keyboard: false ,centered: true});
     this.allDropoxDta=res;
     this.dropBoxSrNo=[];
     this.dropBoxRegionName=[];
@@ -1576,7 +1584,7 @@ var data3 ={ value: res.rowValue[0]['employeesof51_60years'], name: 'Between(51-
 getRegionWiseEmployeeAgeData(){
   this.getRegionWiseEmployeeAge = {
     title: {
-      text: 'Employee Detail Age Wise',
+      text: 'Employees Detail Age Wise',
       // subtext: 'Fake Data',
       left: 'center'
     },
@@ -1686,7 +1694,7 @@ onChartEventEmployeeAgeRegionWise(event: any) {
 getTotalEmployeeGenderAgeWise(){
   this.totalEmployeeGenderWise = {
     title: {
-      text: 'Age Wise Total Employee',
+      text: 'Age Wise Total Employees',
        subtext: this.empoyeeUnderAge,
        subtextStyle: {
         color: '#CC5500',
@@ -1721,7 +1729,7 @@ getTotalEmployeeGenderAgeWise(){
 getEmployeeAgeRegionWise() {
 this.regionWiseEmployeeAge = {
   title: {
-    text: 'Employee Detail Age Wise (In Regions)',
+    text: 'Employees Detail Age Wise (In Regions)',
      subtext: this.empoyeeUnderAge,
      subtextStyle: {
       color: '#CC5500',
@@ -1736,7 +1744,6 @@ this.regionWiseEmployeeAge = {
       type: 'scroll',
       orient: 'horizontal',
       right: 20,
-   
       bottom: 370,
       data: ['Male', 'Female', ]
   },
@@ -1773,12 +1780,35 @@ this.regionWiseEmployeeAge = {
   ]
 };
 }
-
+getAllDetailRetirmentWiseDetail(){
+  this.retirementWiseArray=[];
+  this.outSideService.getNoOfRetireEmployeePeriodWise().subscribe(res => {
+    console.log("---------retirement wise detail----------")
+   console.log(res);
+   var data ={ value: res.rowValue[0]['retirewithin3'], name: '3 Months' }
+   var data1 ={ value: res.rowValue[0]['retirewithin6'], name: '6 Months' }
+   var data2 ={ value: res.rowValue[0]['retirewithin12'], name: '12 Months' }
+   var data3 ={ value: res.rowValue[0]['retirewithin24'], name: '24 Months' }
+   var data4 ={ value: res.rowValue[0]['retirewithin36'], name: '36 Months (LTR)' }
+     this.retirementWiseArray.push(data);
+     this.retirementWiseArray.push(data1);
+     this.retirementWiseArray.push(data2);
+     this.retirementWiseArray.push(data3);
+     this.retirementWiseArray.push(data4);
+     this.getRetirementWiseEmployeeData();
+  },
+  error => { 
+    Swal.fire({
+      'icon':'error',
+      'text':'You are not Authorized.'
+    })
+  });
+}
 
 getRetirementWiseEmployeeData(){
   this.getRetirementWiseEmployee = {
     title: {
-      text: 'Employee Detail Retirement Wise', 
+      text: 'Employees Detail Retirement Wise', 
       
       // subtext: 'Fake Data',
       left: 'center'
@@ -1786,21 +1816,21 @@ getRetirementWiseEmployeeData(){
     tooltip: {
       trigger: 'item'
     },
+    label: {
+      show: true,
+      formatter: '{b} ({c})'
+    },
     legend: {
-      orient: 'vertical',
-      left: 'left',
+      top: '8%',
+      left: 'center'
     },
     series: [
       {
         name: 'Employee Count',
         type: 'pie',
         radius: '50%',
-        data: [
-          { value: 1048, name: 'Under 30' },
-          { value: 735, name: 'Under 40' },
-          { value: 580, name: 'Under 50' },
-          { value: 484, name: 'Under 60' }
-        ],
+        data: this.retirementWiseArray,
+        selectedMode: 'single',
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
@@ -1813,58 +1843,160 @@ getRetirementWiseEmployeeData(){
   };
   this.getEmployeeRetirementRegionWise();
 }
-onChartEventEmployeeRetirementRegionWise(event: any, type: string) {
-  console.log('chart event:', type, event);
- this.empoyeeUnderRetirement=event.name  
-  this.getEmployeeRetirementRegionWise();
+onChartEventEmployeeRetirementRegionWise(event: any) {
+  console.log('chart event:', event);
+  this.retirementTypeArray=[];
+  this.retirementWiseCount=[];
+  this.retirementWiseRegion=[];
+  this.retirementTypeGenderArray=[];
+  this.getTotalRetirementEmployeeGenderAgeWiseArray=[];
+  this.empoyeeUnderRetirement=event;
+  var eventData=event.split(' ');
+  console.log(eventData)
+ var data={"period":eventData[0]}
+ this.outSideService.getRetireEmployeeDataByPeriodWise(data).subscribe((res)=>{
+  console.log("--------retirement wise employeeeeeeeeeeee---------")
+  console.log(res)
+  var groupByRetirementDetail = function (xs: any, key: any) {
+    return xs.reduce(function (rv: any, x: any) {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
+    }, {});
+  };
+  var groubedByRetirementResult = groupByRetirementDetail(res.rowValue,'region_name');
+  this.retirementTypeArray = Object.entries(groubedByRetirementResult);
+  for (let i = 0; i < this.retirementTypeArray.length; i++) {
+       this.retirementWiseCount.push(this.retirementTypeArray[i][0]);
+       this.retirementWiseRegion.push(this.retirementTypeArray[i][1].length);
+      }
+      var groupByRetirementDetailGenderWise = function (xs: any, key: any) {
+        return xs.reduce(function (rv: any, x: any) {
+          (rv[x[key]] = rv[x[key]] || []).push(x);
+          return rv;
+        }, {});
+      };
+      var groubedByRetirementResultGender = groupByRetirementDetailGenderWise(res.rowValue,'gender');
+      this.retirementTypeGenderArray = Object.entries(groubedByRetirementResultGender);
+
+      for (let i = 0; i < this.retirementTypeGenderArray.length; i++) {
+        var data ={ value: this.retirementTypeGenderArray[i][1].length, name: this.retirementTypeGenderArray[i][0] } 
+        this.getTotalRetirementEmployeeGenderAgeWiseArray.push(data);
+       }
+
+      console.log( this.retirementTypeGenderArray)
+      console.log( this.retirementTypeArray )
+      console.log(this.retirementWiseCount)
+      console.log(this.retirementWiseRegion)
+      this.getTotalRetirmentGenderWise();
+      this.getEmployeeRetirementRegionWise();
+    });
 }
-getEmployeeRetirementRegionWise(){
-  this.regionWiseEmployeeRetirment = {
+
+
+
+getTotalRetirmentGenderWise(){
+  console.log("-------gen---gen---gen-------")
+  console.log( this.getTotalRetirementEmployeeGenderAgeWiseArray)
+  this.totalRetirementEmployeeGenderWise = {
     title: {
-      text: 'Employee Detail Retirement Wise (In Regions)',
-       subtext: this.empoyeeUnderRetirement,
+      text: 'Retirement Wise Total Employees',
+       subtext: " ( "+this.empoyeeUnderRetirement+' )',
        subtextStyle: {
         color: '#CC5500',
         fontWeight: "bold",
         },
       left: 'center'
     },
-     tooltip: {
-        trigger: 'item'
-      },
-      legend: {
-        type: 'scroll',
-        orient: 'horizontal',
-        right: 12,
-     
-        bottom: 372,
-        data: ['Male', 'Female', ]
+    tooltip: {
+      trigger: 'item'
     },
-    xAxis: {
-      data: ['DELHI', 'ARGA'],
-      axisLabel: {
-        show: true,
-        interval: 0,
-        rotate: 45,
-      },
-      axisTick: {
-        show: true,
-        interval: 0
-      }
+    legend: {
+      top: '20%',
+      left: 'center',
     },
-    yAxis: {},
+    label: {
+      show: true,
+      formatter: '({c})'
+    },
     series: [
       {
-        name: 'Male',
-        data: [10, 22],
-        type: 'bar',
-        stack: 'x'
-      },
+        name: 'Total Employee',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        center: ['50%', '70%'],
+        startAngle: 180,
+        endAngle: 360,
+        data: this.getTotalRetirementEmployeeGenderAgeWiseArray
+      }
+    ]
+  };
+}
+
+
+
+
+
+
+
+
+getEmployeeRetirementRegionWise(){
+  this.regionWiseEmployeeRetirment = {
+    title: {
+      text: 'Employees Detail Retirement Wise (In Regions)',
+      subtext: " ( "+this.empoyeeUnderRetirement+' )',
+      subtextStyle: {
+        color: '#CC5500',
+        fontWeight: "bold",
+        },
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: [
       {
-        name: 'Female',
-        data: [5, 4],
+        type: 'category',
+        data:this.retirementWiseCount,
+        axisTick: {
+          alignWithLabel: true
+        },
+        axisLabel: {
+          show: true,
+          interval: 0,
+          rotate: 80,
+        },
+        // axisTick: {
+        //   show: true,
+        //   interval: 0
+        // }
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
+    label: {
+      show: true,
+      position: 'top',
+      color: "black",
+      fontSize:12,
+  },
+    series: [
+      {
+        name: 'Total',
         type: 'bar',
-        stack: 'x'
+        barWidth: '60%',
+        data:this.retirementWiseRegion                       
       }
     ]
   };
